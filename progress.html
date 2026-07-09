@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>McStasBench — Progress</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body { font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+         margin: 0; background: #f6f8fa; color: #1f2328; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #0d1117; color: #e6edf3; }
+    .card, .gates, .decisions { background: #161b22 !important; border-color: #30363d !important; }
+    .accept { background: #1c2128 !important; }
+    th { background: #21262d !important; }
+    code { background: #21262d !important; }
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 32px 20px 60px; }
+  h1 { margin: 0 0 4px; font-size: 26px; }
+  .meta { color: #656d76; font-size: 13px; margin-bottom: 18px; }
+  .overall { background: #d0d7de55; border-radius: 8px; height: 14px; overflow: hidden; margin: 10px 0 6px; }
+  .overall > div { height: 100%; background: #2da44e; width: 14%; transition: width .3s; }
+  .chips { margin: 10px 0 26px; }
+  .chip { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px;
+           font-weight: 600; margin-right: 6px; color: #fff; }
+  .chip.done { background: #2da44e; } .chip.active { background: #bf8700; }
+  .chip.pending { background: #8b949e; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+  .card { background: #fff; border: 1px solid #d0d7de; border-radius: 10px; padding: 16px 18px; }
+  .card.done { border-left: 4px solid #2da44e; }
+  .card.active { border-left: 4px solid #bf8700; }
+  .card.pending { border-left: 4px solid #d0d7de; }
+  .card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .mid { font-weight: 700; font-size: 13px; color: #656d76; }
+  .badge { color: #fff; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; }
+  .count { margin-left: auto; font-size: 12px; color: #656d76; }
+  h3 { margin: 0 0 10px; font-size: 15px; }
+  .checklist { list-style: none; margin: 0; padding: 0; font-size: 13.5px; }
+  .checklist li { padding: 3px 0 3px 24px; position: relative; }
+  .checklist li.ok { color: #656d76; }
+  .tick { position: absolute; left: 2px; font-weight: 700; }
+  li.ok .tick { color: #2da44e; }
+  .accept { margin-top: 10px; padding: 8px 10px; background: #f6f8fa; border-radius: 6px;
+             font-size: 12.5px; }
+  .note { margin-top: 8px; font-size: 12.5px; color: #656d76; }
+  .gates, .decisions { background: #fff; border: 1px solid #d0d7de; border-radius: 10px;
+                        padding: 16px 18px; margin-top: 26px; }
+  h2 { font-size: 18px; margin: 26px 0 12px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid #d0d7de55; vertical-align: top; }
+  th { background: #f6f8fa; font-size: 12px; }
+  code { background: #f0f1f3; padding: 1px 5px; border-radius: 4px; font-size: 12.5px; }
+  a { color: #0969da; }
+  footer { margin-top: 34px; font-size: 12.5px; color: #656d76; }
+</style></head><body><div class="wrap">
+  <h1>McStasBench — Progress</h1>
+  <div class="meta">Generated 2026-07-09 14:33 · commit ab87a66 (2026-07-09) · source of truth: <code>PLAN.md</code></div>
+  <div class="overall"><div></div></div>
+  <div class="meta"><strong>4/28</strong> checklist items complete (14%)</div>
+  <div class="chips"><span class="chip done" title="Environment + repo bootstrap — done 2026-07-09">M0</span><span class="chip pending" title="MVP MCP server (3–4 days, week of Jul 13)">M1</span><span class="chip pending" title="Robustness (week of Jul 20)">M2</span><span class="chip pending" title="Skill (week of Jul 27, parallel with M2 tail)">M3</span><span class="chip pending" title="Optimization layer (weeks of Aug 3–10)">M4</span><span class="chip pending" title="Benchmark curation (weeks of Aug 10 – Sep 4) ← headline contribution">M5</span><span class="chip pending" title="Evaluation runs (weeks of Sep 7–18)">M6</span><span class="chip pending" title="Analysis + writing (weeks of Sep 21 – Oct 9)">M7</span></div>
+  <div class="grid">
+      <div class="card done">
+        <div class="card-head">
+          <span class="mid">M0</span>
+          <span class="badge" style="background:#2da44e">done</span>
+          <span class="count">4/4</span>
+        </div>
+        <h3>Environment + repo bootstrap — done 2026-07-09</h3>
+        <ul class="checklist"><li class="ok"><span class="tick">✓</span><code>git init</code>; add <code>.gitignore</code> (conda, <code>__pycache__</code>, McStas output dirs, <code>.DS_Store</code>)</li><li class="ok"><span class="tick">✓</span><code>conda create -n mcstas -c conda-forge mcstas-core mcstas-data python=3.11 -y</code> → <strong>McStas 3.7.12</strong>, osx-arm64, works</li><li class="ok"><span class="tick">✓</span><code>conda run -n mcstas pip install mcstasscript fastmcp pytest</code> → <strong>McStasScript 0.0.84</strong></li><li class="ok"><span class="tick">✓</span>Smoke test (<code>scripts/m0_smoke_test.py</code>): templateSANS at 1e6 rays via <code>mcrun</code> + McStasScript data load + programmatic source→PSD build via the API; PSD PNG shows correct SANS ring pattern</li></ul>
+        <div class="accept"><strong>Accepted:</strong> all monitors nonzero-intensity; full run seconds-scale; PNG renders. <strong>De-risk gate 1 passed</strong> — no Docker fallback needed.</div><div class="note">Gotchas found (encode in M1 server): (1) running an <code>.instr</code> with zero CLI parameters makes the binary prompt interactively (<code>mcreadparams</code>) and hang — always pass at least one parameter or <code>-N</code>-style defaults; (2) <code>mcrun</code> compiles into the CWD — always run in a scratch/build dir, never the repo root.</div>
+      </div>
+      <div class="card pending">
+        <div class="card-head">
+          <span class="mid">M1</span>
+          <span class="badge" style="background:#8b949e">pending</span>
+          <span class="count">0/2</span>
+        </div>
+        <h3>MVP MCP server (3–4 days, week of Jul 13)</h3>
+        <ul class="checklist"><li class=""><span class="tick">○</span>The 8 MVP tools (SPEC §6 Phase 1) with validation-at-tool-call-time (SPEC §4.2 rules)</li><li class=""><span class="tick">○</span>Register in <code>.mcp.json</code>; drive manually from Claude Code</li></ul>
+        <div class="accept"><strong>Accept:</strong> from the single prompt &quot;build a source → guide → PSD instrument and tell me the flux at the detector,&quot; the agent completes end-to-end with no human help. *Kill-list item 2.*</div>
+      </div>
+      <div class="card pending">
+        <div class="card-head">
+          <span class="mid">M2</span>
+          <span class="badge" style="background:#8b949e">pending</span>
+          <span class="count">0/6</span>
+        </div>
+        <h3>Robustness (week of Jul 20)</h3>
+        <ul class="checklist"><li class=""><span class="tick">○</span>Async job manager (<code>run_simulation</code> → <code>job_id</code>; <code>job_status</code>; <code>get_results</code>) — subprocess + state file, no queue framework</li><li class=""><span class="tick">○</span><code>validate_instrument</code> (translate + cc, no run) with full diagnostics passthrough</li><li class=""><span class="tick">○</span><code>load_instr_file</code> / <code>export_instr_file</code> escape hatches</li><li class=""><span class="tick">○</span><code>list_examples</code> / <code>get_example</code> over the shipped 297-instrument corpus</li><li class=""><span class="tick">○</span>Persistence in <code>~/.mcstas-mcp/projects/&lt;name&gt;/</code> (instr versions, seeds, ncount per run)</li><li class=""><span class="tick">○</span>Error-quality pass: every failure message names the next action</li></ul>
+        <div class="accept"><strong>Accept:</strong> kill and restart the server mid-session; instrument registry and job results survive.</div>
+      </div>
+      <div class="card pending">
+        <div class="card-head">
+          <span class="mid">M3</span>
+          <span class="badge" style="background:#8b949e">pending</span>
+          <span class="count">0/2</span>
+        </div>
+        <h3>Skill (week of Jul 27, parallel with M2 tail)</h3>
+        <ul class="checklist"><li class=""><span class="tick">○</span><code>mcstas-instrument-design</code> skill per SPEC §5: SKILL.md (&lt;200 lines) + 5 reference files + <code>resolution_calcs.py</code></li><li class=""><span class="tick">○</span>Refine from failure transcripts: every recurring agent mistake becomes a skill line</li></ul>
+        <div class="accept"><strong>Accept:</strong> on 3 informal dev tasks, agent-with-skill avoids the unit/statistics/phasing errors that agent-without-skill makes (eyeball comparison; the rigorous version is the M5 ablation).</div>
+      </div>
+      <div class="card pending">
+        <div class="card-head">
+          <span class="mid">M4</span>
+          <span class="badge" style="background:#8b949e">pending</span>
+          <span class="count">0/1</span>
+        </div>
+        <h3>Optimization layer (weeks of Aug 3–10)</h3>
+        <ul class="checklist"><li class=""><span class="tick">○</span><code>scan_parameter</code> (wraps <code>mcrun -N</code>), <code>optimize</code> (scipy Nelder-Mead loop), FWHM/CoM in <code>get_results</code></li></ul>
+        <div class="accept"><strong>Accept:</strong> reproduce a guide_bot-style task — maximize brilliance transfer into 2×2 cm², ±0.5°, given λ-band — and match the classical optimizer&#x27;s FOM within noise.</div>
+      </div>
+      <div class="card pending">
+        <div class="card-head">
+          <span class="mid">M5</span>
+          <span class="badge" style="background:#8b949e">pending</span>
+          <span class="count">0/5</span>
+        </div>
+        <h3>Benchmark curation (weeks of Aug 10 – Sep 4) ← headline contribution</h3>
+        <ul class="checklist"><li class=""><span class="tick">○</span><strong>Pilot first (kill-list item 4):</strong> 3 reproduction tasks — one memorization probe, one underspecified paper — to validate the grading rubric *before* curating at scale</li><li class=""><span class="tick">○</span>Task inventory: mine the ~80 shipped examples modeling real instruments (ILL/PSI/SNS/ISIS/ESS/FRM-II/HZB/NIST) + 19 with in-file literature citations; select 20–30 (paper, reference <code>.instr</code>, reference monitor outputs) triples</li><li class=""><span class="tick">○</span>Tier structure: T1 reproduce (from NL description), T2 optimize (fixed topology vs known optima), T3 open design (expert rubric + FOM)</li><li class=""><span class="tick">○</span>Contamination controls: seen/held-out split (held-out = 2024–26 instruments with no public <code>.instr</code>); memorization probe per task; perturbed variants</li><li class=""><span class="tick">○</span>Grading harness: observable-based (flux spectrum at sample, beam profile, resolution function) with tolerance tiers; fully headless, no LLM judge for T1/T2</li></ul>
+        <div class="accept"><strong>Accept:</strong> every task graded automatically from a transcript directory; a deliberately-wrong <code>.instr</code> fails and the reference passes.</div>
+      </div>
+      <div class="card pending">
+        <div class="card-head">
+          <span class="mid">M6</span>
+          <span class="badge" style="background:#8b949e">pending</span>
+          <span class="count">0/4</span>
+        </div>
+        <h3>Evaluation runs (weeks of Sep 7–18)</h3>
+        <ul class="checklist"><li class=""><span class="tick">○</span><strong>OpenRouter spike early</strong> (kill-list item 3, actually run it in week of Jul 20): same MVP task via <code>ANTHROPIC_BASE_URL</code> with 2 non-Claude models — verifies tool-calling fidelity through the alternate backend</li><li class=""><span class="tick">○</span>Scaffold: headless <code>claude -p</code> + <code>.mcp.json</code> + skill installed; JSON transcripts; pin model IDs + Claude Code version; log tokens/tool-calls/wall-clock per episode</li><li class=""><span class="tick">○</span>Protocol: pass@1, fixed seeds, 50-turn cap, 5-task dev split for all debugging, held-out set touched once</li><li class=""><span class="tick">○</span>Model tiers: Claude via subscription ($0, spread over days under weekly caps); mid/small via OpenRouter (~$50–200); open-weights via vLLM+LiteLLM optional</li></ul>
+        <div class="accept"><strong>Accept:</strong> full run matrix complete within the $100–300 budget; transcripts reproducible from pinned config.</div>
+      </div>
+      <div class="card pending">
+        <div class="card-head">
+          <span class="mid">M7</span>
+          <span class="badge" style="background:#8b949e">pending</span>
+          <span class="count">0/4</span>
+        </div>
+        <h3>Analysis + writing (weeks of Sep 21 – Oct 9)</h3>
+        <ul class="checklist"><li class=""><span class="tick">○</span>Failure taxonomy: format failures (tool-calling mechanics) vs physics failures</li><li class=""><span class="tick">○</span>Ablations (SPEC §7 Study C): structured vs raw <code>.instr</code>, ±introspection, ±skill, ±vision; cost/scaling curves vs token budget and ncount</li><li class=""><span class="tick">○</span>Study B case study if time permits (autonomous design improvement) — <strong>cut first if behind schedule</strong>; it&#x27;s a follow-up paper on its own</li><li class=""><span class="tick">○</span>Paper draft: lead with benchmark + failure-mode analysis; system description as means, not claim</li></ul>
+        <div class="note"><strong>Target venue:</strong> NeurIPS 2027 Datasets &amp; Benchmarks (deadline ~May 2027 — comfortable). ICLR 2027 (~late Sep 2026) is too tight for a part-time schedule ending mid-October; verify actual deadlines when M5 starts and re-decide.</div>
+      </div>
+  </div>
+  <h2>De-risk gates</h2>
+  <div class="gates"><table>
+    <tr><th></th><th>#</th><th>Gate</th><th>When</th><th>Kills the plan if</th></tr>
+    <tr><td>✅</td><td>1</td><td>conda McStas + example runs on this Mac</td><td>M0</td><td>osx-arm64 binaries broken AND Docker unusable</td></tr><tr><td>⏳</td><td>2</td><td>Agent builds/runs instrument from one prompt</td><td>M1</td><td>validation-at-call-time can&#x27;t be made reliable</td></tr><tr><td>⏳</td><td>3</td><td>OpenRouter backend spike, 2 non-Claude models</td><td>week of Jul 20</td><td>tool-calling fidelity too poor → single-model paper only</td></tr><tr><td>⏳</td><td>4</td><td>3 pilot tasks incl. memorization probe</td><td>M5 start</td><td>grading rubric can&#x27;t separate memorization from capability</td></tr>
+  </table></div>
+  <h2>Standing decisions</h2>
+  <div class="decisions"><ul><li>Laptop-scale compute; SLURM path deferred (async API already accommodates it)</li><li>McStas only; McXtrace kept in the design, out of scope for MVP</li><li>Union components / NCrystal deferred past MVP (introspection exposes them anyway)</li><li>Single agent + skill + validating tools; no multi-agent split unless evals show persistent unforced physics errors</li></ul></div>
+  <footer>Regenerate after editing PLAN.md: <code>python scripts/progress_report.py</code>
+  &nbsp;·&nbsp; view: <code>open progress.html</code></footer>
+</div></body></html>

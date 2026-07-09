@@ -9,6 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `note/mcstas-mcp-feasibility-and-spec.md` (2026-07-08) — feasibility analysis, full SPEC, research plan.
 - `note/scope-decision-2026-07-09.md` — scope/framing decision; supersedes §7 framing in the spec where they differ.
 - `PLAN.md` — the concrete implementation plan: milestones M0–M7 with acceptance criteria, de-risk gates, and standing decisions. This is the living document; check items off there.
+- `progress.html` — human-friendly dashboard generated from PLAN.md. **After editing PLAN.md, regenerate it**: `python3 scripts/progress_report.py` (stdlib only, any python). Never edit progress.html by hand.
 
 Read these before doing any design or implementation work here; keep them updated when decisions change.
 
