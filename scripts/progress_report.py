@@ -226,7 +226,8 @@ def render(milestones, gates, decisions):
   footer {{ margin-top: 34px; font-size: 12.5px; color: #656d76; }}
 </style></head><body><div class="wrap">
   <h1>McStasBench — Progress</h1>
-  <div class="meta">Generated {now} · commit {git_info()} · source of truth: <code>PLAN.md</code></div>
+  <div class="meta">Generated {now} · commit {git_info()} · source of truth: <code>PLAN.md</code>
+   · <a href="guide.html">how the agent drives McStas &rarr;</a></div>
   <div class="overall"><div></div></div>
   <div class="meta"><strong>{checked}/{total}</strong> checklist items complete ({pct}%)</div>
   <div class="chips">{chips}</div>
