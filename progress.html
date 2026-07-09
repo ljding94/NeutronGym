@@ -18,7 +18,7 @@
   h1 { margin: 0 0 4px; font-size: 26px; }
   .meta { color: #656d76; font-size: 13px; margin-bottom: 18px; }
   .overall { background: #d0d7de55; border-radius: 8px; height: 14px; overflow: hidden; margin: 10px 0 6px; }
-  .overall > div { height: 100%; background: #2da44e; width: 14%; transition: width .3s; }
+  .overall > div { height: 100%; background: #2da44e; width: 16%; transition: width .3s; }
   .chips { margin: 10px 0 26px; }
   .chip { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px;
            font-weight: 600; margin-right: 6px; color: #fff; }
@@ -53,10 +53,10 @@
   footer { margin-top: 34px; font-size: 12.5px; color: #656d76; }
 </style></head><body><div class="wrap">
   <h1>McStasBench — Progress</h1>
-  <div class="meta">Generated 2026-07-09 14:33 · commit ab87a66 (2026-07-09) · source of truth: <code>PLAN.md</code></div>
+  <div class="meta">Generated 2026-07-09 15:30 · commit 6d15542 (2026-07-09) · source of truth: <code>PLAN.md</code></div>
   <div class="overall"><div></div></div>
-  <div class="meta"><strong>4/28</strong> checklist items complete (14%)</div>
-  <div class="chips"><span class="chip done" title="Environment + repo bootstrap — done 2026-07-09">M0</span><span class="chip pending" title="MVP MCP server (3–4 days, week of Jul 13)">M1</span><span class="chip pending" title="Robustness (week of Jul 20)">M2</span><span class="chip pending" title="Skill (week of Jul 27, parallel with M2 tail)">M3</span><span class="chip pending" title="Optimization layer (weeks of Aug 3–10)">M4</span><span class="chip pending" title="Benchmark curation (weeks of Aug 10 – Sep 4) ← headline contribution">M5</span><span class="chip pending" title="Evaluation runs (weeks of Sep 7–18)">M6</span><span class="chip pending" title="Analysis + writing (weeks of Sep 21 – Oct 9)">M7</span></div>
+  <div class="meta"><strong>6/38</strong> checklist items complete (16%)</div>
+  <div class="chips"><span class="chip done" title="Environment + repo bootstrap — done 2026-07-09">M0</span><span class="chip active" title="MVP MCP server (week of Jul 13)">M1</span><span class="chip pending" title="Robustness (week of Jul 20)">M2</span><span class="chip pending" title="Skill (week of Jul 27, parallel with M2 tail)">M3</span><span class="chip pending" title="Optimization layer (weeks of Aug 3–10)">M4</span><span class="chip pending" title="Benchmark curation (weeks of Aug 10 – Sep 4) ← headline contribution">M5</span><span class="chip pending" title="Evaluation runs (weeks of Sep 7–18)">M6</span><span class="chip pending" title="Analysis + writing (weeks of Sep 21 – Oct 9)">M7</span></div>
   <div class="grid">
       <div class="card done">
         <div class="card-head">
@@ -68,14 +68,14 @@
         <ul class="checklist"><li class="ok"><span class="tick">✓</span><code>git init</code>; add <code>.gitignore</code> (conda, <code>__pycache__</code>, McStas output dirs, <code>.DS_Store</code>)</li><li class="ok"><span class="tick">✓</span><code>conda create -n mcstas -c conda-forge mcstas-core mcstas-data python=3.11 -y</code> → <strong>McStas 3.7.12</strong>, osx-arm64, works</li><li class="ok"><span class="tick">✓</span><code>conda run -n mcstas pip install mcstasscript fastmcp pytest</code> → <strong>McStasScript 0.0.84</strong></li><li class="ok"><span class="tick">✓</span>Smoke test (<code>scripts/m0_smoke_test.py</code>): templateSANS at 1e6 rays via <code>mcrun</code> + McStasScript data load + programmatic source→PSD build via the API; PSD PNG shows correct SANS ring pattern</li></ul>
         <div class="accept"><strong>Accepted:</strong> all monitors nonzero-intensity; full run seconds-scale; PNG renders. <strong>De-risk gate 1 passed</strong> — no Docker fallback needed.</div><div class="note">Gotchas found (encode in M1 server): (1) running an <code>.instr</code> with zero CLI parameters makes the binary prompt interactively (<code>mcreadparams</code>) and hang — always pass at least one parameter or <code>-N</code>-style defaults; (2) <code>mcrun</code> compiles into the CWD — always run in a scratch/build dir, never the repo root.</div>
       </div>
-      <div class="card pending">
+      <div class="card active">
         <div class="card-head">
           <span class="mid">M1</span>
-          <span class="badge" style="background:#8b949e">pending</span>
-          <span class="count">0/2</span>
+          <span class="badge" style="background:#bf8700">in progress</span>
+          <span class="count">2/9</span>
         </div>
-        <h3>MVP MCP server (3–4 days, week of Jul 13)</h3>
-        <ul class="checklist"><li class=""><span class="tick">○</span>The 8 MVP tools (SPEC §6 Phase 1) with validation-at-tool-call-time (SPEC §4.2 rules)</li><li class=""><span class="tick">○</span>Register in <code>.mcp.json</code>; drive manually from Claude Code</li></ul>
+        <h3>MVP MCP server (week of Jul 13)</h3>
+        <ul class="checklist"><li class="ok"><span class="tick">✓</span>Pre-M1 systematic study: McStas toolchain, McStasScript API (verified error behaviors), instrument papers + .instr pairs → <code>note/study-*-2026-07-09.md</code></li><li class="ok"><span class="tick">✓</span>Env fix: <code>ncrystal</code> installed (PowderN/NCrystal instruments compile; PSI_DMC verified running)</li><li class=""><span class="tick">○</span>Package skeleton: <code>src/mcstas_mcp/{server,components,instruments,execution,results}.py</code>, pyproject, <code>.mcp.json</code></li><li class=""><span class="tick">○</span>Component catalog: cached JSON from <code>ComponentReader.load_all_components()</code> (374 comps); <code>list_components</code>, <code>describe_component</code> (required = default None)</li><li class=""><span class="tick">○</span>Registry: declarative JSON spec per instrument (NOT dill, NOT .instr re-parsing); <code>create_instrument</code>, <code>add_component</code>, <code>set_parameters</code> with call-time validation (nearest-match errors, required-param checks, RELATIVE checks, isalpha-loophole closed)</li><li class=""><span class="tick">○</span>Execution: <code>run_simulation</code> via own subprocess (ANSI-stripped diagnostics, timeout, deterministic <code>-d</code>, all params explicit on CLI, <code>-c</code> on MPI toggle, seed≠0) — the 10 server-side rules in the design note</li><li class=""><span class="tick">○</span>Results: <code>get_results</code> summary stats parsed from mccode.sim <code>values:/statistics:/signal:</code> lines; <code>get_monitor_data</code> PNG via <code>make_sub_plot</code></li><li class=""><span class="tick">○</span>Tests: pytest vs real install; 3–5 shipped examples graded against their <code>%Example:</code> expected values (mctest-style)</li><li class=""><span class="tick">○</span>Register in <code>.mcp.json</code>; drive manually from Claude Code</li></ul>
         <div class="accept"><strong>Accept:</strong> from the single prompt &quot;build a source → guide → PSD instrument and tell me the flux at the detector,&quot; the agent completes end-to-end with no human help. *Kill-list item 2.*</div>
       </div>
       <div class="card pending">
@@ -102,20 +102,20 @@
         <div class="card-head">
           <span class="mid">M4</span>
           <span class="badge" style="background:#8b949e">pending</span>
-          <span class="count">0/1</span>
+          <span class="count">0/3</span>
         </div>
         <h3>Optimization layer (weeks of Aug 3–10)</h3>
-        <ul class="checklist"><li class=""><span class="tick">○</span><code>scan_parameter</code> (wraps <code>mcrun -N</code>), <code>optimize</code> (scipy Nelder-Mead loop), FWHM/CoM in <code>get_results</code></li></ul>
+        <ul class="checklist"><li class=""><span class="tick">○</span><code>scan_parameter</code> wraps <code>mcrun -N</code> (parse <code>mccode.dat</code>; key yvars columns by position — component names can repeat)</li><li class=""><span class="tick">○</span><code>optimize</code> wraps <code>mcrun --optimize</code> — mcrun has a built-in scipy optimizer (14 methods, <code>--optimize-eval</code> FOM expressions, <code>--optimize-monitor</code>); no hand-rolled loop needed</li><li class=""><span class="tick">○</span>FWHM/CoM in <code>get_results</code></li></ul>
         <div class="accept"><strong>Accept:</strong> reproduce a guide_bot-style task — maximize brilliance transfer into 2×2 cm², ±0.5°, given λ-band — and match the classical optimizer&#x27;s FOM within noise.</div>
       </div>
       <div class="card pending">
         <div class="card-head">
           <span class="mid">M5</span>
           <span class="badge" style="background:#8b949e">pending</span>
-          <span class="count">0/5</span>
+          <span class="count">0/6</span>
         </div>
         <h3>Benchmark curation (weeks of Aug 10 – Sep 4) ← headline contribution</h3>
-        <ul class="checklist"><li class=""><span class="tick">○</span><strong>Pilot first (kill-list item 4):</strong> 3 reproduction tasks — one memorization probe, one underspecified paper — to validate the grading rubric *before* curating at scale</li><li class=""><span class="tick">○</span>Task inventory: mine the ~80 shipped examples modeling real instruments (ILL/PSI/SNS/ISIS/ESS/FRM-II/HZB/NIST) + 19 with in-file literature citations; select 20–30 (paper, reference <code>.instr</code>, reference monitor outputs) triples</li><li class=""><span class="tick">○</span>Tier structure: T1 reproduce (from NL description), T2 optimize (fixed topology vs known optima), T3 open design (expert rubric + FOM)</li><li class=""><span class="tick">○</span>Contamination controls: seen/held-out split (held-out = 2024–26 instruments with no public <code>.instr</code>); memorization probe per task; perturbed variants</li><li class=""><span class="tick">○</span>Grading harness: observable-based (flux spectrum at sample, beam profile, resolution function) with tolerance tiers; fully headless, no LLM judge for T1/T2</li></ul>
+        <ul class="checklist"><li class=""><span class="tick">○</span><strong>Pilot first (kill-list item 4):</strong> 3 reproduction tasks — one memorization probe, one underspecified paper — to validate the grading rubric *before* curating at scale</li><li class=""><span class="tick">○</span>Task inventory — head start from the 2026-07-09 studies (<code>note/m1-server-design-2026-07-09.md</code> §Benchmark spillover): 15-instrument seen-tier shortlist with verified DOIs, 9 held-out candidates (2024–26, no public .instr, per-instrument contamination evidence), 5 paper-but-no-model instruments for T3; select 20–30 (paper, reference <code>.instr</code>, reference monitor outputs) triples</li><li class=""><span class="tick">○</span>T1 grading skeleton: shipped <code>%Example:</code> lines carry expected detector values (<code>mctest</code> mechanism) — free ground truth for integrated-intensity checks</li><li class=""><span class="tick">○</span>Tier structure: T1 reproduce (from NL description), T2 optimize (fixed topology vs known optima), T3 open design (expert rubric + FOM)</li><li class=""><span class="tick">○</span>Contamination controls: seen/held-out split (held-out = 2024–26 instruments with no public <code>.instr</code>); memorization probe per task; perturbed variants</li><li class=""><span class="tick">○</span>Grading harness: observable-based (flux spectrum at sample, beam profile, resolution function) with tolerance tiers; fully headless, no LLM judge for T1/T2</li></ul>
         <div class="accept"><strong>Accept:</strong> every task graded automatically from a transcript directory; a deliberately-wrong <code>.instr</code> fails and the reference passes.</div>
       </div>
       <div class="card pending">

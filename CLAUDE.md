@@ -9,6 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `note/mcstas-mcp-feasibility-and-spec.md` (2026-07-08) — feasibility analysis, full SPEC, research plan.
 - `note/scope-decision-2026-07-09.md` — scope/framing decision; supersedes §7 framing in the spec where they differ.
 - `PLAN.md` — the concrete implementation plan: milestones M0–M7 with acceptance criteria, de-risk gates, and standing decisions. This is the living document; check items off there.
+- `note/m1-server-design-2026-07-09.md` — the M1 server design (construction-vs-execution split, 10 server-side rules, revised tool signatures, benchmark spillover). Grounded in three systematic studies: `note/study-mcstas-software-*.md`, `note/study-mcstasscript-api-*.md`, `note/study-instrument-papers-*.md` — consult these before touching McStas/McStasScript integration code; they contain verified error behaviors and gotchas.
 - `progress.html` — human-friendly dashboard generated from PLAN.md. **After editing PLAN.md, regenerate it**: `python3 scripts/progress_report.py` (stdlib only, any python). Never edit progress.html by hand.
 
 Read these before doing any design or implementation work here; keep them updated when decisions change.
@@ -36,7 +37,7 @@ Deliverables:
 
 ## Environment (working, verified 2026-07-09)
 
-Conda env `mcstas`: McStas 3.7.12 (conda-forge, osx-arm64) + McStasScript 0.0.84 + fastmcp + pytest. Run anything McStas-related via `conda run -n mcstas ...`. Smoke test: `conda run -n mcstas python scripts/m0_smoke_test.py` (three stages: mcrun CLI → McStasScript data load → programmatic build; also documents two mcrun gotchas — interactive parameter prompting and CWD compilation). Simulation outputs go in `runs/` (gitignored).
+Conda env `mcstas`: McStas 3.7.12 (conda-forge, osx-arm64) + McStasScript 0.0.84 + NCrystal 4.4.6 (required by PowderN-class components) + fastmcp + pytest. MPI available (Homebrew Open MPI on PATH). Run anything McStas-related via `conda run -n mcstas ...`. Smoke test: `conda run -n mcstas python scripts/m0_smoke_test.py` (three stages: mcrun CLI → McStasScript data load → programmatic build; also documents two mcrun gotchas — interactive parameter prompting and CWD compilation). Simulation outputs go in `runs/` (gitignored).
 
 ## Where to start
 

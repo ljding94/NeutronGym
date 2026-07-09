@@ -7,3 +7,4 @@ dist/
 build/
 # McStas simulation outputs
 runs/
+.claude/

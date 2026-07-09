@@ -18,23 +18,18 @@ Apple Silicon Mac, 8 cores, 16 GB RAM. Miniconda at `/opt/homebrew/Caskroom/mini
 - **Accepted:** all monitors nonzero-intensity; full run seconds-scale; PNG renders. **De-risk gate 1 passed** — no Docker fallback needed.
 - Gotchas found (encode in M1 server): (1) running an `.instr` with zero CLI parameters makes the binary prompt interactively (`mcreadparams`) and hang — always pass at least one parameter or `-N`-style defaults; (2) `mcrun` compiles into the CWD — always run in a scratch/build dir, never the repo root.
 
-### M1 — MVP MCP server (3–4 days, week of Jul 13)
+### M1 — MVP MCP server (week of Jul 13)
 
-Package layout:
+Design is fully specified in `note/m1-server-design-2026-07-09.md` (grounded in the three 2026-07-09 studies — read it before implementing). Core decision: McStasScript for construction/introspection/validation/data-loading, **server-owned subprocess for execution** (backengine is sync, discards diagnostics, and silently returns `[]` on runtime failure).
 
-```
-src/mcstas_mcp/
-  server.py        # FastMCP entry, stdio
-  components.py    # list_components, describe_component
-  instruments.py   # in-memory registry; create/add_component/set_parameters
-  execution.py     # run_simulation (synchronous, ncount capped at 1e8)
-  results.py       # get_results summary stats; get_monitor_data PNG
-tests/             # pytest against real McStas; @pytest.mark.slow for runs
-pyproject.toml
-.mcp.json          # registers the server for Claude Code
-```
-
-- [ ] The 8 MVP tools (SPEC §6 Phase 1) with validation-at-tool-call-time (SPEC §4.2 rules)
+- [x] Pre-M1 systematic study: McStas toolchain, McStasScript API (verified error behaviors), instrument papers + .instr pairs → `note/study-*-2026-07-09.md`
+- [x] Env fix: `ncrystal` installed (PowderN/NCrystal instruments compile; PSI_DMC verified running)
+- [ ] Package skeleton: `src/mcstas_mcp/{server,components,instruments,execution,results}.py`, pyproject, `.mcp.json`
+- [ ] Component catalog: cached JSON from `ComponentReader.load_all_components()` (374 comps); `list_components`, `describe_component` (required = default None)
+- [ ] Registry: declarative JSON spec per instrument (NOT dill, NOT .instr re-parsing); `create_instrument`, `add_component`, `set_parameters` with call-time validation (nearest-match errors, required-param checks, RELATIVE checks, isalpha-loophole closed)
+- [ ] Execution: `run_simulation` via own subprocess (ANSI-stripped diagnostics, timeout, deterministic `-d`, all params explicit on CLI, `-c` on MPI toggle, seed≠0) — the 10 server-side rules in the design note
+- [ ] Results: `get_results` summary stats parsed from mccode.sim `values:/statistics:/signal:` lines; `get_monitor_data` PNG via `make_sub_plot`
+- [ ] Tests: pytest vs real install; 3–5 shipped examples graded against their `%Example:` expected values (mctest-style)
 - [ ] Register in `.mcp.json`; drive manually from Claude Code
 - **Accept:** from the single prompt "build a source → guide → PSD instrument and tell me the flux at the detector," the agent completes end-to-end with no human help. *Kill-list item 2.*
 
@@ -56,13 +51,16 @@ pyproject.toml
 
 ### M4 — Optimization layer (weeks of Aug 3–10)
 
-- [ ] `scan_parameter` (wraps `mcrun -N`), `optimize` (scipy Nelder-Mead loop), FWHM/CoM in `get_results`
+- [ ] `scan_parameter` wraps `mcrun -N` (parse `mccode.dat`; key yvars columns by position — component names can repeat)
+- [ ] `optimize` wraps `mcrun --optimize` — mcrun has a built-in scipy optimizer (14 methods, `--optimize-eval` FOM expressions, `--optimize-monitor`); no hand-rolled loop needed
+- [ ] FWHM/CoM in `get_results`
 - **Accept:** reproduce a guide_bot-style task — maximize brilliance transfer into 2×2 cm², ±0.5°, given λ-band — and match the classical optimizer's FOM within noise.
 
 ### M5 — Benchmark curation (weeks of Aug 10 – Sep 4) ← headline contribution
 
 - [ ] **Pilot first (kill-list item 4):** 3 reproduction tasks — one memorization probe, one underspecified paper — to validate the grading rubric *before* curating at scale
-- [ ] Task inventory: mine the ~80 shipped examples modeling real instruments (ILL/PSI/SNS/ISIS/ESS/FRM-II/HZB/NIST) + 19 with in-file literature citations; select 20–30 (paper, reference `.instr`, reference monitor outputs) triples
+- [ ] Task inventory — head start from the 2026-07-09 studies (`note/m1-server-design-2026-07-09.md` §Benchmark spillover): 15-instrument seen-tier shortlist with verified DOIs, 9 held-out candidates (2024–26, no public .instr, per-instrument contamination evidence), 5 paper-but-no-model instruments for T3; select 20–30 (paper, reference `.instr`, reference monitor outputs) triples
+- [ ] T1 grading skeleton: shipped `%Example:` lines carry expected detector values (`mctest` mechanism) — free ground truth for integrated-intensity checks
 - [ ] Tier structure: T1 reproduce (from NL description), T2 optimize (fixed topology vs known optima), T3 open design (expert rubric + FOM)
 - [ ] Contamination controls: seen/held-out split (held-out = 2024–26 instruments with no public `.instr`); memorization probe per task; perturbed variants
 - [ ] Grading harness: observable-based (flux spectrum at sample, beam profile, resolution function) with tolerance tiers; fully headless, no LLM judge for T1/T2
