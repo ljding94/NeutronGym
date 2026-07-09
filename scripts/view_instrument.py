@@ -14,9 +14,13 @@ Usage (inside the mcstas conda env):
     python scripts/view_instrument.py templateSANS lambda=8
     python scripts/view_instrument.py runs/m0_build/m0_minimal.instr
     python scripts/view_instrument.py <file.instr> --rays 100 --no-browser
+    python scripts/view_instrument.py PSI_DMC --diagram
 
-The viewer opens in your browser and its local server stays up for
---timeout seconds (default 600); re-run the script to view again.
+Default mode is the interactive 3D geometry view (browser; its local server
+stays up for --timeout seconds, default 600). With --diagram it instead
+renders McStasScript's 2D component-connection schematic (beam order,
+AT/ROTATED couplings) to a PNG and opens it — often the clearer view for
+"is the setup right?" checks.
 """
 
 import argparse
@@ -80,15 +84,42 @@ def read_parameters(instr_path):
     return params
 
 
+def make_diagram(instr_path, name, workdir):
+    """Render McStasScript's component-connection diagram to PNG."""
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    import mcstasscript as ms
+
+    os.chdir(workdir)  # McStasScript writes .instr copies and a *_db/ dir in CWD
+    instrument = ms.McStas_instr(f"{name}_diagram", input_path=".")
+    instrument.settings(checks=False)  # diagram needs structure only, not runnability
+    try:
+        ms.McStas_file(instr_path).add_to_instr(instrument)
+    except Exception as e:
+        die(
+            f"could not parse this .instr for a diagram: {type(e).__name__}: {e}\n"
+            "(the McStasScript reader chokes on some complex instruments — "
+            "known limitation; the 3D view without --diagram still works)"
+        )
+    instrument.show_diagram()
+    png = os.path.join(workdir, f"{name}_diagram.png")
+    plt.gcf().savefig(png, dpi=150, bbox_inches="tight")
+    return png
+
+
 def main():
     ap = argparse.ArgumentParser(
-        description="Human-friendly 3D viewer for McStas instrument files."
+        description="Human-friendly viewer for McStas instrument files (3D or diagram)."
     )
     ap.add_argument("instr", help=".instr path or shipped example name")
     ap.add_argument("params", nargs="*", help="param=value overrides (optional)")
+    ap.add_argument("--diagram", action="store_true",
+                    help="render the 2D component-connection schematic instead of the 3D view")
     ap.add_argument("--rays", type=int, default=50, help="trajectories to draw (default 50)")
-    ap.add_argument("--no-browser", action="store_true", help="generate only, do not open browser")
-    ap.add_argument("--timeout", type=int, default=600, help="viewer server lifetime in s")
+    ap.add_argument("--no-browser", action="store_true", help="generate only, do not open viewer")
+    ap.add_argument("--timeout", type=int, default=600, help="3D viewer server lifetime in s")
     args = ap.parse_args()
 
     if not CONDA_PREFIX or not os.path.isdir(os.path.join(CONDA_PREFIX, "share", "mcstas")):
@@ -121,6 +152,13 @@ def main():
 
     workdir = os.path.join(REPO, "runs", "_view", f"{name}_{datetime.now():%Y%m%d_%H%M%S}")
     os.makedirs(workdir)
+
+    if args.diagram:
+        png = make_diagram(instr, name, workdir)
+        print(f"\ndiagram written to {os.path.relpath(png, REPO)}")
+        if not args.no_browser and sys.platform == "darwin":
+            subprocess.run(["open", png])
+        return
 
     cmd = ["mcdisplay-webgl", instr, "-n", str(args.rays),
            "--dirname", os.path.join(workdir, "trace"),
