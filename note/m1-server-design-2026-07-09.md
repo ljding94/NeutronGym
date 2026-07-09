@@ -23,6 +23,7 @@ McStasScript is kept for what it does well and **bypassed for what it does badly
 | 8 | Deterministic output dirs: server names them (`runs/<instrument>/<job_id>`), no reliance on `increment_folder_name` | default silently renames to `_0`, `_1`, … |
 | 9 | Never touch `Configurator` (mutates site-packages YAML); rely on PATH auto-detection | verified auto-detection works in-env |
 | 10 | Error messages must name the next action (nearest-match suggestions for unknown components/params) | spec §4.2 requirement, now concretely implementable |
+| 11 | Never pass `unit=` to McStasScript's `add_parameter` — libpyvinyl validates units with **pint**, which rejects McStas units like `AA` (crash). Fold units into the comment | found during M1 walkthrough, 2026-07-09 |
 
 ## Registry & persistence
 

@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "mcstas": {
+      "command": "/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas-mcp"
+    }
+  }
+}

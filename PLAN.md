@@ -24,14 +24,14 @@ Design is fully specified in `note/m1-server-design-2026-07-09.md` (grounded in 
 
 - [x] Pre-M1 systematic study: McStas toolchain, McStasScript API (verified error behaviors), instrument papers + .instr pairs → `note/study-*-2026-07-09.md`
 - [x] Env fix: `ncrystal` installed (PowderN/NCrystal instruments compile; PSI_DMC verified running)
-- [ ] Package skeleton: `src/mcstas_mcp/{server,components,instruments,execution,results}.py`, pyproject, `.mcp.json`
-- [ ] Component catalog: cached JSON from `ComponentReader.load_all_components()` (374 comps); `list_components`, `describe_component` (required = default None)
-- [ ] Registry: declarative JSON spec per instrument (NOT dill, NOT .instr re-parsing); `create_instrument`, `add_component`, `set_parameters` with call-time validation (nearest-match errors, required-param checks, RELATIVE checks, isalpha-loophole closed)
-- [ ] Execution: `run_simulation` via own subprocess (ANSI-stripped diagnostics, timeout, deterministic `-d`, all params explicit on CLI, `-c` on MPI toggle, seed≠0) — the 10 server-side rules in the design note
-- [ ] Results: `get_results` summary stats parsed from mccode.sim `values:/statistics:/signal:` lines; `get_monitor_data` PNG via `make_sub_plot`
-- [ ] Tests: pytest vs real install; 3–5 shipped examples graded against their `%Example:` expected values (mctest-style)
-- [ ] Register in `.mcp.json`; drive manually from Claude Code
-- **Accept:** from the single prompt "build a source → guide → PSD instrument and tell me the flux at the detector," the agent completes end-to-end with no human help. *Kill-list item 2.*
+- [x] Package skeleton: `src/mcstas_mcp/{server,catalog,registry,execution,results,config}.py`, pyproject (editable install), `.mcp.json`
+- [x] Component catalog: cached introspection over ComponentReader (374 comps); `list_components`, `describe_component` (required = default None), one-line docs from `%D`
+- [x] Registry: declarative JSON spec per instrument; `create_instrument`, `add_parameter`, `add_component`, `set_parameters`, `get_instrument` with call-time validation (nearest-match errors, required-param warnings, RELATIVE checks, isalpha-loophole closed, string auto-quoting)
+- [x] Execution: `run_simulation` via server-owned subprocess (ANSI-stripped diagnostics with translate/compile/run stage, timeout, deterministic `-d`, all params explicit, seed≠0, ncount cap 1e8); persistent job records
+- [x] Results: `get_results` summary stats parsed from mccode.sim; `get_monitor_data` PNG (headless) or downsampled arrays; <1000-event monitors flagged
+- [x] Tests: 28 passing (catalog/registry/execution/server-over-MCP + 2 shipped examples graded against `%Example:` values); rule 11 added (pint rejects McStas units — never pass unit= to McStasScript)
+- [x] Registered in `.mcp.json`; verified over real stdio transport (11 tools); human demo `scripts/m1_walkthrough.py` (build → validate → run → stats table → PNGs)
+- [ ] **Accept:** from the single prompt "build a source → guide → PSD instrument and tell me the flux at the detector," the agent completes end-to-end with no human help. *Kill-list item 2. Needs a fresh Claude Code session so `.mcp.json` loads — user-driven.*
 
 ### M2 — Robustness (week of Jul 20)
 
