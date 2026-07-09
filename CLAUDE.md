@@ -37,7 +37,7 @@ Deliverables:
 
 ## Environment (working, verified 2026-07-09)
 
-Conda env `mcstas`: McStas 3.7.12 (conda-forge, osx-arm64) + McStasScript 0.0.84 + NCrystal 4.4.6 (required by PowderN-class components) + fastmcp + pytest. MPI available (Homebrew Open MPI on PATH). Run anything McStas-related via `conda run -n mcstas ...`. Smoke test: `conda run -n mcstas python scripts/m0_smoke_test.py` (three stages: mcrun CLI → McStasScript data load → programmatic build; also documents two mcrun gotchas — interactive parameter prompting and CWD compilation). Simulation outputs go in `runs/` (gitignored).
+Conda env `mcstas`: McStas 3.7.12 (conda-forge, osx-arm64) + McStasScript 0.0.84 + NCrystal 4.4.6 (required by PowderN-class components) + fastmcp + pytest + ply (needed by `mcdisplay-*` visualization). MPI available (Homebrew Open MPI on PATH). Instrument 3D visualization: `conda run -n mcstas mcdisplay-webgl <file.instr> <params>` (opens browser; serves for 300 s). This conda-forge install is the single McStas on this machine — do NOT add the official macOS app bundle alongside it (duplicate toolchains/PATH conflicts). Run anything McStas-related via `conda run -n mcstas ...`. Smoke test: `conda run -n mcstas python scripts/m0_smoke_test.py` (three stages: mcrun CLI → McStasScript data load → programmatic build; also documents two mcrun gotchas — interactive parameter prompting and CWD compilation). Simulation outputs go in `runs/` (gitignored).
 
 ## Where to start
 
