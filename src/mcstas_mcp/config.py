@@ -37,7 +37,7 @@ def resources_dir() -> str:
     """McStas resources dir (components + examples), via mcrun --showcfg."""
     out = subprocess.run(
         [mcrun_path(), "--showcfg=resourcedir"],
-        capture_output=True, text=True, timeout=30,
+        capture_output=True, text=True, timeout=30, stdin=subprocess.DEVNULL,
     )
     path = out.stdout.strip().splitlines()[-1] if out.stdout.strip() else ""
     if not os.path.isdir(path):

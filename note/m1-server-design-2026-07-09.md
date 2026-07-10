@@ -24,6 +24,14 @@ McStasScript is kept for what it does well and **bypassed for what it does badly
 | 9 | Never touch `Configurator` (mutates site-packages YAML); rely on PATH auto-detection | verified auto-detection works in-env |
 | 10 | Error messages must name the next action (nearest-match suggestions for unknown components/params) | spec §4.2 requirement, now concretely implementable |
 | 11 | Never pass `unit=` to McStasScript's `add_parameter` — libpyvinyl validates units with **pint**, which rejects McStas units like `AA` (crash). Fold units into the comment | found during M1 walkthrough, 2026-07-09 |
+| 12 | Children get `stdin=DEVNULL` — the server's stdin IS the MCP transport; a prompting child (mcreadparams) eats protocol messages and desyncs the session | adversarial review C2, verified live |
+| 13 | Run mcrun in its own process group (`start_new_session`) and `killpg` on timeout — mcrun wraps bash→python→sh→binary, and killing only the direct child orphans the compute process | adversarial review M4 |
+| 14 | Reject statement-like punctuation (`, [ ] { } ; = ?`) in scalar expression values — C's comma operator makes `"(1, 2)"` compile and silently evaluate to 2: wrong physics, no error | adversarial review C1, verified live |
+| 15 | Serialize spec load→mutate→save under a lock and write JSON atomically (`os.replace`) — concurrent tool calls silently lost 25 of 50 component adds | adversarial review M1, verified live |
+
+### Adversarial review (2026-07-09, post-implementation)
+
+A fresh-context review agent verified the implementation and found 2 critical + 6 major issues, all fixed same day and pinned by `tests/test_adversarial_review.py` (C1 garbage-compiles-silently, C2 stdin inheritance, M1 lost updates, M2 bool bypass, M3 scientific-notation false rejection, M4 timeout orphans, M5 parametrized AT impossible, M6 unvalidated parameter names). **Deferred to M2** (recorded in PLAN.md): string-typed instrument parameters (needs a type field), EXTEND/WHEN/GROUP/SPLIT in the spec (caps which shipped examples are reproducible through the tools — templateTOF needs EXTEND), cross-process file locking, binary caching (currently always `-c`; ~2 s recompile per iteration).
 
 ## Registry & persistence
 

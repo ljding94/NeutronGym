@@ -7,10 +7,13 @@ from note/m1-server-design-2026-07-09.md: explicit parameters on the CLI,
 deterministic output dirs, forced recompile, seed != 0, cwd = workdir.
 """
 
+import itertools
 import json
 import os
 import re
+import signal
 import subprocess
+import threading
 import time
 
 from . import registry, results
@@ -23,6 +26,10 @@ _NOISE = re.compile(r"^(ld: warning|Info:|INFO: (Regenerating|Recompiling|Using)
 
 class RunError(RuntimeError):
     pass
+
+
+_job_counter = itertools.count(int(time.time() * 10) % 100000)
+_jobs_lock = threading.Lock()
 
 
 def _jobs_path():
@@ -38,10 +45,11 @@ def _load_jobs():
 
 
 def _record_job(job):
-    jobs = _load_jobs()
-    jobs[job["job_id"]] = job
-    with open(_jobs_path(), "w") as f:
-        json.dump(jobs, f, indent=2)
+    with _jobs_lock:  # read-modify-write; FastMCP tools run in worker threads
+        jobs = _load_jobs()
+        jobs[job["job_id"]] = job
+        with open(_jobs_path(), "w") as f:
+            json.dump(jobs, f, indent=2)
 
 
 def get_job(job_id: str) -> dict:
@@ -62,7 +70,11 @@ def _diagnostics(output: str, max_lines: int = 40) -> list[str]:
 
 def _classify(output: str) -> str:
     low = strip_ansi(output)
-    if re.search(r"\.instr:\d+|McStas.*[Ee]rror", low):
+    # real mcstas cogen failure signatures (verified 2026-07-09):
+    #   "ERROR: syntax error at line 53." / "Errors encountered during parse"
+    #   / "Code generation failed for instrument"
+    if re.search(r"syntax error at line|Errors encountered during parse"
+                 r"|Code generation failed|\.instr:\d+", low):
         return "translate"
     if re.search(r"(error:|undefined symbol|ld: error)", low):
         return "compile"
@@ -74,6 +86,8 @@ def run_instr_file(instr_path: str, params: dict, ncount: float = 1e6,
                    mpi: int | None = None, gravity: bool = False,
                    timeout: int = DEFAULT_TIMEOUT, job_prefix: str = "job") -> dict:
     """Compile + run one .instr; returns a job dict (also persisted)."""
+    if ncount < 1:
+        raise RunError(f"ncount must be >= 1 (got {ncount:g}).")
     if ncount > NCOUNT_CAP:
         raise RunError(f"ncount {ncount:g} exceeds cap {NCOUNT_CAP:g} — iterate low, "
                        "validate high, but stay under the cap.")
@@ -83,7 +97,10 @@ def run_instr_file(instr_path: str, params: dict, ncount: float = 1e6,
     instr_path = os.path.abspath(instr_path)
     wd = workdir or os.path.dirname(instr_path)
     os.makedirs(wd, exist_ok=True)
-    job_id = f"{job_prefix}_{time.strftime('%Y%m%d_%H%M%S')}_{os.getpid() % 1000}"
+    # counter guarantees unique job ids (and thus output dirs, rule 8) even
+    # for multiple runs within the same second
+    job_id = (f"{job_prefix}_{time.strftime('%Y%m%d_%H%M%S')}"
+              f"_{next(_job_counter)}")
     outdir = os.path.join(wd, job_id)
 
     cmd = [mcrun_path(), instr_path, "-c", "-n", str(int(ncount)), "-d", outdir]
@@ -96,17 +113,31 @@ def run_instr_file(instr_path: str, params: dict, ncount: float = 1e6,
     cmd += [f"{k}={v}" for k, v in params.items()]
 
     t0 = time.time()
+    # stdin=DEVNULL: the server's stdin IS the MCP transport — a prompting
+    # child (mcreadparams) would eat protocol messages. start_new_session so
+    # a timeout can kill the whole tree (mcrun wraps bash -> python -> sh ->
+    # binary; killing only the direct child orphans the compute process).
+    proc = subprocess.Popen(
+        cmd, cwd=wd, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE, text=True, start_new_session=True,
+    )
     try:
-        proc = subprocess.run(cmd, cwd=wd, capture_output=True, text=True, timeout=timeout)
+        stdout, stderr = proc.communicate(timeout=timeout)
     except subprocess.TimeoutExpired:
+        try:
+            os.killpg(os.getpgid(proc.pid), signal.SIGKILL)
+        except (ProcessLookupError, PermissionError):
+            pass
+        proc.communicate()
         job = {"job_id": job_id, "ok": False, "stage": "run", "instr": instr_path,
                "output_dir": outdir, "params": params, "ncount": ncount, "seed": seed,
                "elapsed_s": round(time.time() - t0, 1),
-               "diagnostics": [f"timed out after {timeout}s — reduce ncount or raise timeout"]}
+               "diagnostics": [f"timed out after {timeout}s and was killed — "
+                               "reduce ncount or raise timeout"]}
         _record_job(job)
         return job
 
-    output = (proc.stdout or "") + "\n" + (proc.stderr or "")
+    output = (stdout or "") + "\n" + (stderr or "")
     ok = proc.returncode == 0 and os.path.isfile(os.path.join(outdir, "mccode.sim"))
     job = {
         "job_id": job_id, "ok": ok, "instr": instr_path, "output_dir": outdir,

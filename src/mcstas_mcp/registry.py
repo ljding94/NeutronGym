@@ -18,6 +18,7 @@ import difflib
 import json
 import os
 import re
+import threading
 import time
 
 from . import catalog
@@ -37,6 +38,11 @@ class SpecError(ValueError):
     """Validation failure; message tells the agent what to do next."""
 
 
+# serialize load-mutate-save cycles: FastMCP runs tools in worker threads and
+# concurrent mutations of one spec would otherwise silently lose updates
+spec_lock = threading.RLock()
+
+
 def _instruments_dir():
     d = os.path.join(home_dir(), "instruments")
     os.makedirs(d, exist_ok=True)
@@ -50,7 +56,8 @@ def workdir(name: str) -> str:
 
 
 def _spec_path(name: str) -> str:
-    return os.path.join(workdir(name), "spec.json")
+    # no makedirs here: exists()/load() must not create directories
+    return os.path.join(_instruments_dir(), name, "spec.json")
 
 
 def exists(name: str) -> bool:
@@ -70,8 +77,11 @@ def load(name: str) -> dict:
 
 def save(spec: dict):
     spec["modified"] = time.strftime("%Y-%m-%d %H:%M:%S")
-    with open(_spec_path(spec["name"]), "w") as f:
+    path = _spec_path(spec["name"])
+    tmp = path + ".tmp"
+    with open(tmp, "w") as f:  # atomic: a crash mid-write can't corrupt the spec
         json.dump(spec, f, indent=2)
+    os.replace(tmp, path)
 
 
 def list_instruments():
@@ -96,13 +106,21 @@ def create(name: str, description: str = "") -> dict:
         "components": [],   # {name, component, at, relative, rotated, rotated_relative, parameters}
         "created": time.strftime("%Y-%m-%d %H:%M:%S"),
     }
+    workdir(name)  # create() is the only reader/writer allowed to make the dir
     save(spec)
     return spec
 
 
 def add_parameter(spec: dict, name: str, default=None, unit: str = "", comment: str = ""):
+    if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", name):
+        raise SpecError(
+            f"'{name}' is not a valid parameter name (letters/digits/underscore, "
+            "not starting with a digit)."
+        )
     if any(p["name"] == name for p in spec["parameters"]):
         raise SpecError(f"Instrument parameter '{name}' already exists.")
+    if name in _component_names(spec):
+        raise SpecError(f"'{name}' is already a component name in this instrument.")
     spec["parameters"].append(
         {"name": name, "default": default, "unit": unit, "comment": comment}
     )
@@ -117,12 +135,55 @@ def _component_names(spec):
     return [c["name"] for c in spec["components"]]
 
 
+def _check_expression(spec: dict, context: str, v: str) -> str:
+    """Validate a string as a scalar C expression over known names.
+
+    Rejects unknown identifiers (closing McStasScript's isalpha() loophole)
+    and statement-like punctuation that C would silently mis-evaluate — e.g.
+    '(1, 2)' compiles via the comma operator and yields 2: wrong physics
+    with no error anywhere.
+    """
+    without_strings = re.sub(r'"[^"]*"', "", v)
+    if re.search(r"[,\[\]{};=?]", without_strings):
+        raise SpecError(
+            f"{context}: value '{v}' contains characters not allowed in a scalar "
+            "expression (, [ ] {{ }} ; = ?). Pass a single number or an arithmetic "
+            "expression over instrument parameters."
+        )
+    # strip numeric/hex literals first so 1e-3 does not tokenize as ident 'e'
+    stripped = re.sub(
+        r"(?<![\w.])(0[xX][0-9a-fA-F]+|\d+\.?\d*([eE][-+]?\d+)?)", " ", without_strings
+    )
+    unknown = [
+        t for t in IDENT_RE.findall(stripped)
+        if t not in _param_names(spec) and t not in C_ALLOW
+    ]
+    if unknown:
+        raise SpecError(
+            f"{context}: unknown identifier(s) {unknown} in value '{v}'. Use a "
+            "number, or first define instrument parameter(s) with add_parameter."
+        )
+    return v
+
+
 def _check_value(spec: dict, comp_type: str, pname: str, value):
-    """Validate one parameter value; returns the (possibly auto-quoted) value."""
+    """Validate one parameter value; returns the (possibly coerced) value."""
     ptype = catalog.param_types(comp_type).get(pname, "double")
+    if isinstance(value, bool):  # JSON true/false — natural for 0/1 flag params
+        return int(value)
     if isinstance(value, (int, float)):
+        if ptype == "string" and value != 0:
+            raise SpecError(
+                f"'{pname}' of '{comp_type}' is a string parameter — pass a file "
+                f"name string, not the number {value} (0 means 'no file')."
+            )
         return value
-    v = str(value).strip()
+    if not isinstance(value, str):
+        raise SpecError(
+            f"Parameter '{pname}' of '{comp_type}' got {type(value).__name__} "
+            f"{value!r} — values must be numbers or strings, not lists/objects."
+        )
+    v = value.strip()
     if ptype == "string":
         if v in ("0", "NULL"):  # McStas convention for "no file"
             return 0
@@ -134,19 +195,21 @@ def _check_value(spec: dict, comp_type: str, pname: str, value):
     # numeric parameter given as a string: number, or expression over known names
     if NUMBER_RE.match(v):
         return v
-    without_strings = re.sub(r'"[^"]*"', "", v)
-    unknown = [
-        t for t in IDENT_RE.findall(without_strings)
-        if t not in _param_names(spec) and t not in C_ALLOW
-    ]
-    if unknown:
-        raise SpecError(
-            f"Parameter '{pname}' of '{comp_type}' references unknown identifier(s) "
-            f"{unknown} in value '{v}'. Use a number, or first define instrument "
-            "parameter(s) with add_parameter. String literals must be file names "
-            "on string-typed parameters."
-        )
-    return v
+    return _check_expression(spec, f"Parameter '{pname}' of '{comp_type}'", v)
+
+
+def _check_vector(spec: dict, label: str, vec):
+    """Validate an AT/ROTATED 3-vector; elements may be numbers or expressions."""
+    if not (isinstance(vec, (list, tuple)) and len(vec) == 3):
+        raise SpecError(f"'{label}' must be a 3-list [x, y, z].")
+    out = []
+    for el in vec:
+        if isinstance(el, bool) or not isinstance(el, (int, float, str)):
+            raise SpecError(f"'{label}' elements must be numbers or expression strings.")
+        if isinstance(el, str) and not NUMBER_RE.match(el.strip()):
+            _check_expression(spec, f"'{label}' element", el.strip())
+        out.append(el)
+    return out
 
 
 def _validate_params(spec: dict, comp_type: str, params: dict) -> dict:
@@ -178,8 +241,14 @@ def add_component(spec: dict, name: str, component: str, at, relative=None,
         raise SpecError(
             f"Component instance name '{name}' is already used. Names must be unique."
         )
-    if not (isinstance(at, (list, tuple)) and len(at) == 3):
-        raise SpecError("'at' must be a 3-list [x, y, z] in meters.")
+    if name in _param_names(spec):
+        raise SpecError(f"'{name}' is already an instrument parameter name.")
+    at = _check_vector(spec, "at", at)
+    if rotated is not None:
+        rotated = _check_vector(spec, "rotated", rotated)
+    elif rotated_relative:
+        raise SpecError("'rotated_relative' given without 'rotated' — it would be "
+                        "silently ignored; pass rotated=[rx, ry, rz] too.")
     for ref, label in ((relative, "relative"), (rotated_relative, "rotated_relative")):
         if ref and ref != "ABSOLUTE" and ref not in _component_names(spec):
             raise SpecError(
@@ -233,6 +302,26 @@ def set_parameters(spec: dict, component_name: str, parameters: dict):
     )
 
 
+def remove_component(spec: dict, component_name: str):
+    names = _component_names(spec)
+    if component_name not in names:
+        raise SpecError(
+            f"No component named '{component_name}' to remove "
+            f"(have: {', '.join(names) or 'none'})."
+        )
+    dependents = [
+        c["name"] for c in spec["components"]
+        if component_name in (c["relative"], c["rotated_relative"]) and c["name"] != component_name
+    ]
+    if dependents:
+        raise SpecError(
+            f"Cannot remove '{component_name}': component(s) {', '.join(dependents)} "
+            "are positioned RELATIVE to it. Re-anchor or remove those first."
+        )
+    spec["components"] = [c for c in spec["components"] if c["name"] != component_name]
+    save(spec)
+
+
 def missing_required(spec: dict):
     """[(component_name, [missing params])] across the instrument."""
     out = []
@@ -241,6 +330,11 @@ def missing_required(spec: dict):
         if miss:
             out.append((c["name"], miss))
     return out
+
+
+# McStasScript caches dynamically-generated component classes globally and
+# FastMCP runs sync tools in worker threads — serialize instrument builds.
+_build_lock = threading.Lock()
 
 
 def build_instr_file(spec: dict) -> str:
@@ -252,10 +346,10 @@ def build_instr_file(spec: dict) -> str:
     import mcstasscript as ms
 
     wd = workdir(spec["name"])
-    prev = os.getcwd()
-    os.chdir(wd)  # McStas_instr side-effects (<name>_db/) stay in the workdir
-    try:
-        instr = ms.McStas_instr(spec["name"], input_path=".")
+    with _build_lock:
+        # absolute input_path keeps all McStas_instr side effects (<name>_db/,
+        # the .instr itself) in the workdir without a process-global chdir
+        instr = ms.McStas_instr(spec["name"], input_path=wd)
         for p in spec["parameters"]:
             # never pass unit= to McStasScript: libpyvinyl validates it with
             # pint, which rejects McStas units like "AA" — fold into comment
@@ -273,8 +367,6 @@ def build_instr_file(spec: dict) -> str:
             if c["parameters"]:
                 comp.set_parameters(**c["parameters"])
         instr.write_full_instrument()
-    finally:
-        os.chdir(prev)
     return os.path.join(wd, f"{spec['name']}.instr")
 
 

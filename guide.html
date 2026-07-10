@@ -38,7 +38,7 @@
   a { color: #0969da; }
 </style></head><body><div class="wrap">
   <h1>How the agent drives McStas</h1>
-  <div class="meta">Generated 2026-07-09 18:51 from the live server (11 tools) ·
+  <div class="meta">Generated 2026-07-09 20:12 from the live server (12 tools) ·
     <a href="progress.html">progress dashboard</a> ·
     design: <code>note/m1-server-design-2026-07-09.md</code></div>
 
@@ -116,7 +116,7 @@ get_monitor_data(job_id="...", monitor="psd", format="png")
 
   <h2>Tool reference <span class="muted">(auto-generated from the live server)</span></h2>
   <div class="card">
-    <p class="muted"><a href='#tool-list_components'><code>list_components</code></a> · <a href='#tool-describe_component'><code>describe_component</code></a> · <a href='#tool-create_instrument'><code>create_instrument</code></a> · <a href='#tool-add_parameter'><code>add_parameter</code></a> · <a href='#tool-add_component'><code>add_component</code></a> · <a href='#tool-set_parameters'><code>set_parameters</code></a> · <a href='#tool-get_instrument'><code>get_instrument</code></a> · <a href='#tool-run_simulation'><code>run_simulation</code></a> · <a href='#tool-get_results'><code>get_results</code></a> · <a href='#tool-get_monitor_data'><code>get_monitor_data</code></a> · <a href='#tool-list_instruments'><code>list_instruments</code></a></p>
+    <p class="muted"><a href='#tool-list_components'><code>list_components</code></a> · <a href='#tool-describe_component'><code>describe_component</code></a> · <a href='#tool-create_instrument'><code>create_instrument</code></a> · <a href='#tool-add_parameter'><code>add_parameter</code></a> · <a href='#tool-add_component'><code>add_component</code></a> · <a href='#tool-set_parameters'><code>set_parameters</code></a> · <a href='#tool-remove_component'><code>remove_component</code></a> · <a href='#tool-get_instrument'><code>get_instrument</code></a> · <a href='#tool-run_simulation'><code>run_simulation</code></a> · <a href='#tool-get_results'><code>get_results</code></a> · <a href='#tool-get_monitor_data'><code>get_monitor_data</code></a> · <a href='#tool-list_instruments'><code>list_instruments</code></a></p>
     
     <div class="tool" id="tool-list_components">
       <h4><code>list_components</code></h4>
@@ -145,16 +145,23 @@ all other tools.</p>
     <div class="tool" id="tool-add_component">
       <h4><code>add_component</code></h4>
       <p>Append a component to the instrument (beam order matters!).
-at = [x,y,z] meters, relative = an earlier component&#x27;s name (recommended)
-or omit for ABSOLUTE. parameters = {param: value}; string values that are
-file names are auto-quoted. Validated immediately against the component
-library.</p>
+at = [x,y,z] meters; elements may be numbers or expressions over instrument
+parameters (e.g. [0, 0, &quot;L1&quot;]). relative = an earlier component&#x27;s name
+(recommended) or omit for ABSOLUTE. parameters = {param: value}; string
+values that are file names are auto-quoted. Validated immediately against
+the component library.</p>
       <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>instrument_id</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>name</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>component</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>at</code></td><td>array</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>relative</code></td><td>string</td><td></td><td><code>None</code></td></tr><tr><td><code>rotated</code></td><td>array</td><td></td><td><code>None</code></td></tr><tr><td><code>rotated_relative</code></td><td>string</td><td></td><td><code>None</code></td></tr><tr><td><code>parameters</code></td><td>object</td><td></td><td><code>None</code></td></tr><tr><td><code>after</code></td><td>string</td><td></td><td><code>None</code></td></tr></table>
     </div>
     <div class="tool" id="tool-set_parameters">
       <h4><code>set_parameters</code></h4>
       <p>Set/overwrite parameters on an existing component instance.</p>
       <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>instrument_id</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>component_name</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>parameters</code></td><td>object</td><td>yes</td><td><code>—</code></td></tr></table>
+    </div>
+    <div class="tool" id="tool-remove_component">
+      <h4><code>remove_component</code></h4>
+      <p>Remove a component instance. Refused if other components are positioned
+RELATIVE to it (re-anchor them first).</p>
+      <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>instrument_id</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>component_name</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr></table>
     </div>
     <div class="tool" id="tool-get_instrument">
       <h4><code>get_instrument</code></h4>
@@ -166,10 +173,11 @@ view_instrument.py).</p>
     <div class="tool" id="tool-run_simulation">
       <h4><code>run_simulation</code></h4>
       <p>Compile and run the instrument (synchronous; ncount capped at 1e8,
-default timeout 600 s). Iterate at ncount 1e5-1e6; go high only for final
-validation. Returns job_id for get_results, plus per-detector totals.
-On failure returns the stage (translate/compile/run) and diagnostics.</p>
-      <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>instrument_id</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>ncount</code></td><td>number</td><td></td><td><code>1000000.0</code></td></tr><tr><td><code>parameters</code></td><td>object</td><td></td><td><code>None</code></td></tr><tr><td><code>seed</code></td><td>integer</td><td></td><td><code>None</code></td></tr><tr><td><code>mpi</code></td><td>integer</td><td></td><td><code>None</code></td></tr><tr><td><code>gravity</code></td><td>boolean</td><td></td><td><code>False</code></td></tr></table>
+timeout capped at 1800 s). Iterate at ncount 1e5-1e6; go high only for
+final validation. Returns job_id for get_results, plus per-detector
+totals. On failure returns the stage (translate/compile/run) and
+diagnostics.</p>
+      <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>instrument_id</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>ncount</code></td><td>number</td><td></td><td><code>1000000.0</code></td></tr><tr><td><code>parameters</code></td><td>object</td><td></td><td><code>None</code></td></tr><tr><td><code>seed</code></td><td>integer</td><td></td><td><code>None</code></td></tr><tr><td><code>mpi</code></td><td>integer</td><td></td><td><code>None</code></td></tr><tr><td><code>gravity</code></td><td>boolean</td><td></td><td><code>False</code></td></tr><tr><td><code>timeout</code></td><td>integer</td><td></td><td><code>600</code></td></tr></table>
     </div>
     <div class="tool" id="tool-get_results">
       <h4><code>get_results</code></h4>
@@ -183,7 +191,8 @@ rerun with higher ncount before drawing conclusions.</p>
       <h4><code>get_monitor_data</code></h4>
       <p>One monitor in detail. format=&#x27;png&#x27; renders the plot and returns its
 file path (view it with the Read tool). format=&#x27;array&#x27; returns a
-downsampled numeric curve (1D) or x/y profiles (2D).</p>
+downsampled numeric curve (1D) or x/y profiles (2D). monitor = component
+name or, for components writing several files, the filename.</p>
       <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>job_id</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>monitor</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>format</code></td><td>string</td><td></td><td><code>png</code></td></tr><tr><td><code>log</code></td><td>boolean</td><td></td><td><code>True</code></td></tr></table>
     </div>
     <div class="tool" id="tool-list_instruments">

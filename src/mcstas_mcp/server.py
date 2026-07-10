@@ -26,7 +26,9 @@ mcp = FastMCP(
 
 
 def _err(e: Exception) -> dict:
-    return {"ok": False, "error": str(e)}
+    # KeyError's str() wraps the message in extra quotes — unwrap it
+    msg = e.args[0] if isinstance(e, KeyError) and e.args else str(e)
+    return {"ok": False, "error": str(msg)}
 
 
 @mcp.tool
@@ -69,8 +71,9 @@ def add_parameter(instrument_id: str, name: str, default: Optional[float] = None
                   unit: str = "", comment: str = "") -> dict:
     """Add an instrument-level parameter (settable per run), e.g. wavelength."""
     try:
-        spec = registry.load(instrument_id)
-        registry.add_parameter(spec, name, default=default, unit=unit, comment=comment)
+        with registry.spec_lock:
+            spec = registry.load(instrument_id)
+            registry.add_parameter(spec, name, default=default, unit=unit, comment=comment)
         return {"ok": True}
     except SpecError as e:
         return _err(e)
@@ -78,22 +81,24 @@ def add_parameter(instrument_id: str, name: str, default: Optional[float] = None
 
 @mcp.tool
 def add_component(instrument_id: str, name: str, component: str,
-                  at: list[float], relative: Optional[str] = None,
-                  rotated: Optional[list[float]] = None,
+                  at: list[float | str], relative: Optional[str] = None,
+                  rotated: Optional[list[float | str]] = None,
                   rotated_relative: Optional[str] = None,
                   parameters: Optional[dict] = None,
                   after: Optional[str] = None) -> dict:
     """Append a component to the instrument (beam order matters!).
-    at = [x,y,z] meters, relative = an earlier component's name (recommended)
-    or omit for ABSOLUTE. parameters = {param: value}; string values that are
-    file names are auto-quoted. Validated immediately against the component
-    library."""
+    at = [x,y,z] meters; elements may be numbers or expressions over instrument
+    parameters (e.g. [0, 0, "L1"]). relative = an earlier component's name
+    (recommended) or omit for ABSOLUTE. parameters = {param: value}; string
+    values that are file names are auto-quoted. Validated immediately against
+    the component library."""
     try:
-        spec = registry.load(instrument_id)
-        warnings = registry.add_component(
-            spec, name, component, at, relative=relative, rotated=rotated,
-            rotated_relative=rotated_relative, parameters=parameters, after=after,
-        )
+        with registry.spec_lock:
+            spec = registry.load(instrument_id)
+            warnings = registry.add_component(
+                spec, name, component, at, relative=relative, rotated=rotated,
+                rotated_relative=rotated_relative, parameters=parameters, after=after,
+            )
         return {"ok": True, "warnings": warnings,
                 "component_order": [c["name"] for c in spec["components"]]}
     except SpecError as e:
@@ -104,9 +109,24 @@ def add_component(instrument_id: str, name: str, component: str,
 def set_parameters(instrument_id: str, component_name: str, parameters: dict) -> dict:
     """Set/overwrite parameters on an existing component instance."""
     try:
-        spec = registry.load(instrument_id)
-        warnings = registry.set_parameters(spec, component_name, parameters)
+        with registry.spec_lock:
+            spec = registry.load(instrument_id)
+            warnings = registry.set_parameters(spec, component_name, parameters)
         return {"ok": True, "warnings": warnings}
+    except SpecError as e:
+        return _err(e)
+
+
+@mcp.tool
+def remove_component(instrument_id: str, component_name: str) -> dict:
+    """Remove a component instance. Refused if other components are positioned
+    RELATIVE to it (re-anchor them first)."""
+    try:
+        with registry.spec_lock:
+            spec = registry.load(instrument_id)
+            registry.remove_component(spec, component_name)
+        return {"ok": True,
+                "component_order": [c["name"] for c in spec["components"]]}
     except SpecError as e:
         return _err(e)
 
@@ -118,37 +138,50 @@ def get_instrument(instrument_id: str) -> dict:
     view_instrument.py)."""
     try:
         spec = registry.load(instrument_id)
-        source = registry.instr_source(spec) if spec["components"] else ""
-        return {
-            "ok": True,
-            "instrument_id": spec["name"],
-            "parameters": spec["parameters"],
-            "components": [
-                {k: c[k] for k in ("name", "component", "at", "relative", "parameters")}
-                for c in spec["components"]
-            ],
-            "missing_required": dict(registry.missing_required(spec)),
-            "instr_file": registry.workdir(spec["name"]) + f"/{spec['name']}.instr",
-            "instr_source": source,
-        }
-    except Exception as e:  # includes McStasScript build errors at write time
+    except SpecError as e:
         return _err(e)
+    out = {
+        "ok": True,
+        "instrument_id": spec["name"],
+        "parameters": spec["parameters"],
+        "components": [
+            {k: c[k] for k in ("name", "component", "at", "relative", "parameters")}
+            for c in spec["components"]
+        ],
+        "missing_required": dict(registry.missing_required(spec)),
+        "instr_file": registry.workdir(spec["name"]) + f"/{spec['name']}.instr",
+    }
+    # an incomplete instrument (missing required params) cannot be written to
+    # .instr — still return its state so the agent can see what to fix
+    try:
+        out["instr_source"] = registry.instr_source(spec) if spec["components"] else ""
+    except Exception as e:
+        out["instr_source"] = None
+        out["instr_source_error"] = str(e)
+    return out
 
 
 @mcp.tool
 def run_simulation(instrument_id: str, ncount: float = 1e6,
                    parameters: Optional[dict] = None, seed: Optional[int] = None,
-                   mpi: Optional[int] = None, gravity: bool = False) -> dict:
+                   mpi: Optional[int] = None, gravity: bool = False,
+                   timeout: int = 600) -> dict:
     """Compile and run the instrument (synchronous; ncount capped at 1e8,
-    default timeout 600 s). Iterate at ncount 1e5-1e6; go high only for final
-    validation. Returns job_id for get_results, plus per-detector totals.
-    On failure returns the stage (translate/compile/run) and diagnostics."""
+    timeout capped at 1800 s). Iterate at ncount 1e5-1e6; go high only for
+    final validation. Returns job_id for get_results, plus per-detector
+    totals. On failure returns the stage (translate/compile/run) and
+    diagnostics."""
     try:
         spec = registry.load(instrument_id)
         job = execution.run_spec(spec, ncount=ncount, parameters=parameters,
-                                 seed=seed, mpi=mpi, gravity=gravity)
+                                 seed=seed, mpi=mpi, gravity=gravity,
+                                 timeout=min(int(timeout), 1800))
         return job
     except (SpecError, RunError) as e:
+        return _err(e)
+    except Exception as e:
+        # McStasScript write-time checks (McStasError etc.) must reach the
+        # agent as a clean message, not a traceback
         return _err(e)
 
 
@@ -169,7 +202,10 @@ def get_monitor_data(job_id: str, monitor: str, format: str = "png",
                      log: bool = True) -> dict:
     """One monitor in detail. format='png' renders the plot and returns its
     file path (view it with the Read tool). format='array' returns a
-    downsampled numeric curve (1D) or x/y profiles (2D)."""
+    downsampled numeric curve (1D) or x/y profiles (2D). monitor = component
+    name or, for components writing several files, the filename."""
+    if format not in ("png", "array"):
+        return _err(ValueError(f"format must be 'png' or 'array', got '{format}'"))
     try:
         job = execution.get_job(job_id)
         if not job["ok"]:

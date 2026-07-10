@@ -84,8 +84,7 @@ def categories():
 
 
 @functools.lru_cache(maxsize=512)
-def describe(name: str):
-    """Full parameter metadata for one component. Raises KeyError if unknown."""
+def _describe_cached(name: str):
     if name not in _index():
         raise KeyError(name)
     info = _reader().read_name(name)
@@ -108,6 +107,16 @@ def describe(name: str):
         "description": _one_line_doc(name),
         "parameters": params,
     }
+
+
+def describe(name: str):
+    """Full parameter metadata for one component. Raises KeyError if unknown.
+
+    Deep-copied so callers can't mutate the cache.
+    """
+    import copy
+
+    return copy.deepcopy(_describe_cached(name))
 
 
 def required_params(name: str):
