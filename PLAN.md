@@ -32,7 +32,8 @@ Design is fully specified in `note/m1-server-design-2026-07-09.md` (grounded in 
 - [x] Tests: 28 passing (catalog/registry/execution/server-over-MCP + 2 shipped examples graded against `%Example:` values); rule 11 added (pint rejects McStas units — never pass unit= to McStasScript)
 - [x] Registered in `.mcp.json`; verified over real stdio transport; human demo `scripts/m1_walkthrough.py` (build → validate → run → stats table → PNGs)
 - [x] Adversarial review (fresh-context agent + author pass): 2 critical (silent wrong-physics values, MCP-stdin inheritance) + 6 major issues found and fixed; rules 12–15 added to design note; 54 tests passing incl. regression suite `tests/test_adversarial_review.py`
-- [ ] **Accept:** from the single prompt "build a source → guide → PSD instrument and tell me the flux at the detector," the agent completes end-to-end with no human help. *Kill-list item 2. Needs a fresh Claude Code session so `.mcp.json` loads — user-driven.*
+- [x] First acceptance attempt (2026-07-20) exposed a deployment bug: Claude Code launches the server without the conda env on PATH → first tool call died; the agent correctly self-diagnosed and patched `.mcp.json`. Fixed server-side (rule 16: self-locate from `sys.executable`); regression in `tests/test_deployment.py`; `.mcp.json` reverted to minimal form
+- [ ] **Accept (retest needed):** from the single prompt "build a source → guide → PSD instrument and tell me the flux at the detector," the agent completes end-to-end with no human help. *Kill-list item 2. Needs a fresh Claude Code session so `.mcp.json` loads — user-driven.*
 
 ### M2 — Robustness (week of Jul 20)
 

@@ -28,6 +28,7 @@ McStasScript is kept for what it does well and **bypassed for what it does badly
 | 13 | Run mcrun in its own process group (`start_new_session`) and `killpg` on timeout — mcrun wraps bash→python→sh→binary, and killing only the direct child orphans the compute process | adversarial review M4 |
 | 14 | Reject statement-like punctuation (`, [ ] { } ; = ?`) in scalar expression values — C's comma operator makes `"(1, 2)"` compile and silently evaluate to 2: wrong physics, no error | adversarial review C1, verified live |
 | 15 | Serialize spec load→mutate→save under a lock and write JSON atomically (`os.replace`) — concurrent tool calls silently lost 25 of 50 component adds | adversarial review M1, verified live |
+| 16 | **Self-locate the toolchain from `sys.executable`, never trust the launch PATH** (amends rule 9's "PATH auto-detection"): MCP clients spawn the server binary with the user's default environment — no conda env on PATH — so `shutil.which("mcrun")` fails and the first tool call dies. The server prepends its own bin dir to PATH at import | acceptance-test incident 2026-07-20: agent's first tool calls failed; it diagnosed the PATH issue itself and patched `.mcp.json` (fix moved server-side; regression: `tests/test_deployment.py`) |
 
 ### Adversarial review (2026-07-09, post-implementation)
 
