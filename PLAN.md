@@ -18,7 +18,7 @@ Apple Silicon Mac, 8 cores, 16 GB RAM. Miniconda at `/opt/homebrew/Caskroom/mini
 - **Accepted:** all monitors nonzero-intensity; full run seconds-scale; PNG renders. **De-risk gate 1 passed** — no Docker fallback needed.
 - Gotchas found (encode in M1 server): (1) running an `.instr` with zero CLI parameters makes the binary prompt interactively (`mcreadparams`) and hang — always pass at least one parameter or `-N`-style defaults; (2) `mcrun` compiles into the CWD — always run in a scratch/build dir, never the repo root.
 
-### M1 — MVP MCP server (week of Jul 13)
+### M1 — MVP MCP server ✅ DONE 2026-07-21
 
 Design is fully specified in `note/m1-server-design-2026-07-09.md` (grounded in the three 2026-07-09 studies — read it before implementing). Core decision: McStasScript for construction/introspection/validation/data-loading, **server-owned subprocess for execution** (backengine is sync, discards diagnostics, and silently returns `[]` on runtime failure).
 
@@ -33,7 +33,7 @@ Design is fully specified in `note/m1-server-design-2026-07-09.md` (grounded in 
 - [x] Registered in `.mcp.json`; verified over real stdio transport; human demo `scripts/m1_walkthrough.py` (build → validate → run → stats table → PNGs)
 - [x] Adversarial review (fresh-context agent + author pass): 2 critical (silent wrong-physics values, MCP-stdin inheritance) + 6 major issues found and fixed; rules 12–15 added to design note; 54 tests passing incl. regression suite `tests/test_adversarial_review.py`
 - [x] First acceptance attempt (2026-07-20) exposed a deployment bug: Claude Code launches the server without the conda env on PATH → first tool call died; the agent correctly self-diagnosed and patched `.mcp.json`. Fixed server-side (rule 16: self-locate from `sys.executable`); regression in `tests/test_deployment.py`; `.mcp.json` reverted to minimal form
-- [ ] **Accept (retest needed):** from the single prompt "build a source → guide → PSD instrument and tell me the flux at the detector," the agent completes end-to-end with no human help. *Kill-list item 2. Needs a fresh Claude Code session so `.mcp.json` loads — user-driven.*
+- [x] **Accepted 2026-07-21 — de-risk gate 2 passed.** From the single acceptance prompt, the agent completed end-to-end with no help: 11 tool calls, built source→guide→PSD with a wavelength instrument parameter, ran 1e6 then 1e7 rays (consistency check), reported 1.2502e11 n/s ± 0.07% (6.6M events) → 8.33e9 n/s/cm², disclosed its source-brightness assumption. Every claim verified against mccode.sim on disk; diagram confirms topology. Notable agent behaviors for M3 skill/benchmark: per-area normalization unprompted, statistics floor respected, no seed fixed (worth a skill rule).
 
 ### M2 — Robustness (week of Jul 20)
 
