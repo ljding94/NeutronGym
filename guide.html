@@ -38,7 +38,7 @@
   a { color: #0969da; }
 </style></head><body><div class="wrap">
   <h1>How the agent drives McStas</h1>
-  <div class="meta">Generated 2026-07-09 20:12 from the live server (12 tools) ·
+  <div class="meta">Generated 2026-07-21 21:35 from the live server (20 tools) ·
     <a href="progress.html">progress dashboard</a> ·
     design: <code>note/m1-server-design-2026-07-09.md</code></div>
 
@@ -116,7 +116,7 @@ get_monitor_data(job_id="...", monitor="psd", format="png")
 
   <h2>Tool reference <span class="muted">(auto-generated from the live server)</span></h2>
   <div class="card">
-    <p class="muted"><a href='#tool-list_components'><code>list_components</code></a> · <a href='#tool-describe_component'><code>describe_component</code></a> · <a href='#tool-create_instrument'><code>create_instrument</code></a> · <a href='#tool-add_parameter'><code>add_parameter</code></a> · <a href='#tool-add_component'><code>add_component</code></a> · <a href='#tool-set_parameters'><code>set_parameters</code></a> · <a href='#tool-remove_component'><code>remove_component</code></a> · <a href='#tool-get_instrument'><code>get_instrument</code></a> · <a href='#tool-run_simulation'><code>run_simulation</code></a> · <a href='#tool-get_results'><code>get_results</code></a> · <a href='#tool-get_monitor_data'><code>get_monitor_data</code></a> · <a href='#tool-list_instruments'><code>list_instruments</code></a></p>
+    <p class="muted"><a href='#tool-list_components'><code>list_components</code></a> · <a href='#tool-describe_component'><code>describe_component</code></a> · <a href='#tool-create_instrument'><code>create_instrument</code></a> · <a href='#tool-add_parameter'><code>add_parameter</code></a> · <a href='#tool-add_declare'><code>add_declare</code></a> · <a href='#tool-add_component'><code>add_component</code></a> · <a href='#tool-set_parameters'><code>set_parameters</code></a> · <a href='#tool-remove_component'><code>remove_component</code></a> · <a href='#tool-get_instrument'><code>get_instrument</code></a> · <a href='#tool-run_simulation'><code>run_simulation</code></a> · <a href='#tool-job_status'><code>job_status</code></a> · <a href='#tool-cancel_job'><code>cancel_job</code></a> · <a href='#tool-validate_instrument'><code>validate_instrument</code></a> · <a href='#tool-load_instr_file'><code>load_instr_file</code></a> · <a href='#tool-export_instr_file'><code>export_instr_file</code></a> · <a href='#tool-list_examples'><code>list_examples</code></a> · <a href='#tool-get_example'><code>get_example</code></a> · <a href='#tool-get_results'><code>get_results</code></a> · <a href='#tool-get_monitor_data'><code>get_monitor_data</code></a> · <a href='#tool-list_instruments'><code>list_instruments</code></a></p>
     
     <div class="tool" id="tool-list_components">
       <h4><code>list_components</code></h4>
@@ -139,8 +139,16 @@ all other tools.</p>
     </div>
     <div class="tool" id="tool-add_parameter">
       <h4><code>add_parameter</code></h4>
-      <p>Add an instrument-level parameter (settable per run), e.g. wavelength.</p>
-      <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>instrument_id</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>name</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>default</code></td><td>number</td><td></td><td><code>None</code></td></tr><tr><td><code>unit</code></td><td>string</td><td></td><td><code></code></td></tr><tr><td><code>comment</code></td><td>string</td><td></td><td><code></code></td></tr></table>
+      <p>Add an instrument-level parameter (settable per run), e.g. wavelength.
+type: double (default), int, or string (for per-run file names; inferred
+when the default is a non-numeric string).</p>
+      <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>instrument_id</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>name</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>default</code></td><td>number/string</td><td></td><td><code>None</code></td></tr><tr><td><code>unit</code></td><td>string</td><td></td><td><code></code></td></tr><tr><td><code>comment</code></td><td>string</td><td></td><td><code></code></td></tr><tr><td><code>type</code></td><td>string</td><td></td><td><code>None</code></td></tr></table>
+    </div>
+    <div class="tool" id="tool-add_declare">
+      <h4><code>add_declare</code></h4>
+      <p>Declare an instrument-scope C variable (DECLARE block) for use in WHEN
+conditions and EXTEND code. type: double, int, or string.</p>
+      <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>instrument_id</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>type</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>name</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>value</code></td><td>number/string</td><td></td><td><code>None</code></td></tr><tr><td><code>array</code></td><td>integer</td><td></td><td><code>0</code></td></tr></table>
     </div>
     <div class="tool" id="tool-add_component">
       <h4><code>add_component</code></h4>
@@ -148,9 +156,11 @@ all other tools.</p>
 at = [x,y,z] meters; elements may be numbers or expressions over instrument
 parameters (e.g. [0, 0, &quot;L1&quot;]). relative = an earlier component&#x27;s name
 (recommended) or omit for ABSOLUTE. parameters = {param: value}; string
-values that are file names are auto-quoted. Validated immediately against
-the component library.</p>
-      <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>instrument_id</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>name</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>component</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>at</code></td><td>array</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>relative</code></td><td>string</td><td></td><td><code>None</code></td></tr><tr><td><code>rotated</code></td><td>array</td><td></td><td><code>None</code></td></tr><tr><td><code>rotated_relative</code></td><td>string</td><td></td><td><code>None</code></td></tr><tr><td><code>parameters</code></td><td>object</td><td></td><td><code>None</code></td></tr><tr><td><code>after</code></td><td>string</td><td></td><td><code>None</code></td></tr></table>
+values that are file names are auto-quoted. when = boolean condition for
+conditional execution; extend = raw C run after the component (escape
+hatch); group = exclusive-group name; split = SPLIT count (variance
+reduction). Validated immediately against the component library.</p>
+      <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>instrument_id</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>name</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>component</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>at</code></td><td>array</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>relative</code></td><td>string</td><td></td><td><code>None</code></td></tr><tr><td><code>rotated</code></td><td>array</td><td></td><td><code>None</code></td></tr><tr><td><code>rotated_relative</code></td><td>string</td><td></td><td><code>None</code></td></tr><tr><td><code>parameters</code></td><td>object</td><td></td><td><code>None</code></td></tr><tr><td><code>after</code></td><td>string</td><td></td><td><code>None</code></td></tr><tr><td><code>when</code></td><td>string</td><td></td><td><code>None</code></td></tr><tr><td><code>extend</code></td><td>string</td><td></td><td><code>None</code></td></tr><tr><td><code>group</code></td><td>string</td><td></td><td><code>None</code></td></tr><tr><td><code>split</code></td><td>integer</td><td></td><td><code>None</code></td></tr></table>
     </div>
     <div class="tool" id="tool-set_parameters">
       <h4><code>set_parameters</code></h4>
@@ -172,12 +182,59 @@ view_instrument.py).</p>
     </div>
     <div class="tool" id="tool-run_simulation">
       <h4><code>run_simulation</code></h4>
-      <p>Compile and run the instrument (synchronous; ncount capped at 1e8,
-timeout capped at 1800 s). Iterate at ncount 1e5-1e6; go high only for
-final validation. Returns job_id for get_results, plus per-detector
-totals. On failure returns the stage (translate/compile/run) and
-diagnostics.</p>
-      <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>instrument_id</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>ncount</code></td><td>number</td><td></td><td><code>1000000.0</code></td></tr><tr><td><code>parameters</code></td><td>object</td><td></td><td><code>None</code></td></tr><tr><td><code>seed</code></td><td>integer</td><td></td><td><code>None</code></td></tr><tr><td><code>mpi</code></td><td>integer</td><td></td><td><code>None</code></td></tr><tr><td><code>gravity</code></td><td>boolean</td><td></td><td><code>False</code></td></tr><tr><td><code>timeout</code></td><td>integer</td><td></td><td><code>600</code></td></tr></table>
+      <p>Compile and run the instrument (ncount capped at 1e8, timeout capped
+at 1800 s). Iterate at ncount 1e5-1e6; go high only for final validation.
+Waits up to wait_s for completion: short runs return finished (state
+&#x27;done&#x27; + per-detector totals); longer ones return state &#x27;running&#x27; — poll
+job_status(job_id), then get_results. Unchanged instruments reuse the
+cached binary (parameter changes via `parameters` need no recompile).</p>
+      <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>instrument_id</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>ncount</code></td><td>number</td><td></td><td><code>1000000.0</code></td></tr><tr><td><code>parameters</code></td><td>object</td><td></td><td><code>None</code></td></tr><tr><td><code>seed</code></td><td>integer</td><td></td><td><code>None</code></td></tr><tr><td><code>mpi</code></td><td>integer</td><td></td><td><code>None</code></td></tr><tr><td><code>gravity</code></td><td>boolean</td><td></td><td><code>False</code></td></tr><tr><td><code>timeout</code></td><td>integer</td><td></td><td><code>600</code></td></tr><tr><td><code>wait_s</code></td><td>number</td><td></td><td><code>60</code></td></tr></table>
+    </div>
+    <div class="tool" id="tool-job_status">
+      <h4><code>job_status</code></h4>
+      <p>State of a simulation job: running (with elapsed time + log tail),
+done, failed, or cancelled. Jobs survive server restarts.</p>
+      <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>job_id</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr></table>
+    </div>
+    <div class="tool" id="tool-cancel_job">
+      <h4><code>cancel_job</code></h4>
+      <p>Kill a running simulation (whole process group).</p>
+      <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>job_id</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr></table>
+    </div>
+    <div class="tool" id="tool-validate_instrument">
+      <h4><code>validate_instrument</code></h4>
+      <p>Check the instrument without a real run: required-parameter audit,
+then translate + compile + a 1-ray execution. Returns ok, or the failing
+stage (translate/compile/run) with diagnostics. Use before burning a
+large ncount.</p>
+      <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>instrument_id</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr></table>
+    </div>
+    <div class="tool" id="tool-load_instr_file">
+      <h4><code>load_instr_file</code></h4>
+      <p>Escape hatch: import an existing .instr file into the registry
+(best-effort — McStasScript&#x27;s reader fails on some complex instruments;
+the error names the known failure classes). Returns per-component
+warnings for anything that did not survive the import.</p>
+      <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>path</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>name</code></td><td>string</td><td></td><td><code>None</code></td></tr></table>
+    </div>
+    <div class="tool" id="tool-export_instr_file">
+      <h4><code>export_instr_file</code></h4>
+      <p>Write the generated .instr to disk (instrument workdir by default, or
+an explicit path) for use outside the server.</p>
+      <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>instrument_id</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>path</code></td><td>string</td><td></td><td><code>None</code></td></tr></table>
+    </div>
+    <div class="tool" id="tool-list_examples">
+      <h4><code>list_examples</code></h4>
+      <p>Browse the ~300 shipped McStas example instruments (few-shot material;
+many model real facility instruments). search filters name/site/doc.</p>
+      <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>search</code></td><td>string</td><td></td><td><code>None</code></td></tr></table>
+    </div>
+    <div class="tool" id="tool-get_example">
+      <h4><code>get_example</code></h4>
+      <p>Full .instr source of one shipped example, plus its %Example
+self-test line (expected detector value — ground truth for that setup).
+Import it with load_instr_file(path) to modify it.</p>
+      <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>name</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr></table>
     </div>
     <div class="tool" id="tool-get_results">
       <h4><code>get_results</code></h4>

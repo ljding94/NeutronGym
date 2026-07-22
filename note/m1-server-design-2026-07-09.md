@@ -34,6 +34,14 @@ McStasScript is kept for what it does well and **bypassed for what it does badly
 
 A fresh-context review agent verified the implementation and found 2 critical + 6 major issues, all fixed same day and pinned by `tests/test_adversarial_review.py` (C1 garbage-compiles-silently, C2 stdin inheritance, M1 lost updates, M2 bool bypass, M3 scientific-notation false rejection, M4 timeout orphans, M5 parametrized AT impossible, M6 unvalidated parameter names). **Deferred to M2** (recorded in PLAN.md): string-typed instrument parameters (needs a type field), EXTEND/WHEN/GROUP/SPLIT in the spec (caps which shipped examples are reproducible through the tools — templateTOF needs EXTEND), cross-process file locking, binary caching (currently always `-c`; ~2 s recompile per iteration).
 
+### M2 implementation decisions (2026-07-21)
+
+- **Hybrid sync/async**: `run_simulation(wait_s=60)` — agents get finished results for cheap runs without a polling turn; long runs return `running` + `job_id`. Supervisor thread finalizes; restart recovery reconciles from pid + on-disk output (orphans past 1.5× timeout are killed).
+- **Binary cache keyed on comment-stripped `.instr` sha + MPI flag** — McStasScript stamps a timestamp comment into every generated file, which must not bust the cache. Parameter changes ride the mcrun CLI: iteration loops never recompile.
+- **Spec extensions**: typed parameters (double/int/string), declares, INITIALIZE (raw C), WHEN (validated: known identifiers + per-ray state vars), EXTEND (raw C escape hatch, unvalidated by design), GROUP, SPLIT. Numeric expressions reject string-typed identifiers.
+- **Loader** (`load_instr_file`): converts reader output to a spec with `_validate=False` (values from a real file are trusted); bare `SPLIT` (reader gives `''`) maps to McStas's default 10. Fidelity test: imported templateSANS = direct-file run at same seed.
+- **Layout decision**: no `projects/<name>/` level (spec §4.4) — flat `MCSTAS_MCP_HOME`; benchmark episodes get isolation by pointing `MCSTAS_MCP_HOME` at an episode dir.
+
 ## Registry & persistence
 
 Server-owned **declarative JSON spec** per instrument (name, parameters, declares, ordered components with type/AT/ROTATED/RELATIVE/params/EXTEND-WHEN-GROUP-SPLIT strings) as the source of truth; McStasScript objects are rebuilt from the spec on demand. Not dill dumps (version-fragile), not `.instr` re-parsing (reader verified fragile: SNS_BASIS, ISIS_OSIRIS fail). Registry dir: `~/.mcstas-mcp/projects/<project>/instruments/*.json` + exported `.instr` alongside. `load_instr_file` (M2) is explicitly best-effort with the known failure classes in its error message.

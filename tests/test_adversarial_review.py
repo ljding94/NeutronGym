@@ -51,7 +51,7 @@ def test_c1_array_indexing_rejected(spec):
 
 # --- C2: stdin isolation -------------------------------------------------------
 
-def test_c2_mcrun_never_inherits_server_stdin(spec, monkeypatch):
+def test_c2_mcrun_never_inherits_server_stdin(spec, monkeypatch, tmp_path):
     """The server's stdin is the MCP transport; children must get DEVNULL."""
     captured = {}
 
@@ -60,8 +60,10 @@ def test_c2_mcrun_never_inherits_server_stdin(spec, monkeypatch):
         raise RuntimeError("probe stop")
 
     monkeypatch.setattr(subprocess, "Popen", fake_popen)
+    dummy = tmp_path / "dummy.instr"
+    dummy.write_text("DEFINE INSTRUMENT dummy()\nTRACE\nEND\n")
     with pytest.raises(RuntimeError, match="probe stop"):
-        execution.run_instr_file("/dev/null", {}, ncount=1e3)
+        execution.run_instr_file(str(dummy), {}, ncount=1e3)
     assert captured["stdin"] == subprocess.DEVNULL
     assert captured["start_new_session"] is True  # M4: killable process group
 

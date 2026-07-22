@@ -1,11 +1,13 @@
 """Paths and shared helpers."""
 
+import fcntl
 import functools
 import os
 import re
 import shutil
 import subprocess
 import sys
+from contextlib import contextmanager
 
 ANSI_RE = re.compile(r"\x1b\[[0-9;]*m")
 
@@ -29,6 +31,19 @@ _ensure_env_bin_on_path()
 
 def strip_ansi(text: str) -> str:
     return ANSI_RE.sub("", text)
+
+
+@contextmanager
+def file_lock(path):
+    """Advisory cross-process lock — two servers sharing one MCSTAS_MCP_HOME
+    must not interleave jobs.json read-modify-writes."""
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "a") as f:
+        fcntl.flock(f, fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            fcntl.flock(f, fcntl.LOCK_UN)
 
 
 def home_dir() -> str:

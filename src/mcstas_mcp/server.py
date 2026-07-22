@@ -5,11 +5,11 @@ run in server-owned subprocesses with captured diagnostics. See
 note/m1-server-design-2026-07-09.md.
 """
 
-from typing import Optional
+from typing import Optional, Union
 
 from fastmcp import FastMCP
 
-from . import catalog, execution, registry, results
+from . import catalog, examples, execution, registry, results
 from .registry import SpecError
 from .execution import RunError
 
@@ -67,13 +67,32 @@ def create_instrument(name: str, description: str = "") -> dict:
 
 
 @mcp.tool
-def add_parameter(instrument_id: str, name: str, default: Optional[float] = None,
-                  unit: str = "", comment: str = "") -> dict:
-    """Add an instrument-level parameter (settable per run), e.g. wavelength."""
+def add_parameter(instrument_id: str, name: str,
+                  default: Union[float, str, None] = None,
+                  unit: str = "", comment: str = "",
+                  type: Optional[str] = None) -> dict:
+    """Add an instrument-level parameter (settable per run), e.g. wavelength.
+    type: double (default), int, or string (for per-run file names; inferred
+    when the default is a non-numeric string)."""
     try:
         with registry.spec_lock:
             spec = registry.load(instrument_id)
-            registry.add_parameter(spec, name, default=default, unit=unit, comment=comment)
+            registry.add_parameter(spec, name, default=default, unit=unit,
+                                   comment=comment, ptype=type)
+        return {"ok": True}
+    except SpecError as e:
+        return _err(e)
+
+
+@mcp.tool
+def add_declare(instrument_id: str, type: str, name: str,
+                value: Union[float, str, None] = None, array: int = 0) -> dict:
+    """Declare an instrument-scope C variable (DECLARE block) for use in WHEN
+    conditions and EXTEND code. type: double, int, or string."""
+    try:
+        with registry.spec_lock:
+            spec = registry.load(instrument_id)
+            registry.add_declare(spec, type, name, value=value, array=array)
         return {"ok": True}
     except SpecError as e:
         return _err(e)
@@ -85,19 +104,24 @@ def add_component(instrument_id: str, name: str, component: str,
                   rotated: Optional[list[float | str]] = None,
                   rotated_relative: Optional[str] = None,
                   parameters: Optional[dict] = None,
-                  after: Optional[str] = None) -> dict:
+                  after: Optional[str] = None,
+                  when: Optional[str] = None, extend: Optional[str] = None,
+                  group: Optional[str] = None, split: Optional[int] = None) -> dict:
     """Append a component to the instrument (beam order matters!).
     at = [x,y,z] meters; elements may be numbers or expressions over instrument
     parameters (e.g. [0, 0, "L1"]). relative = an earlier component's name
     (recommended) or omit for ABSOLUTE. parameters = {param: value}; string
-    values that are file names are auto-quoted. Validated immediately against
-    the component library."""
+    values that are file names are auto-quoted. when = boolean condition for
+    conditional execution; extend = raw C run after the component (escape
+    hatch); group = exclusive-group name; split = SPLIT count (variance
+    reduction). Validated immediately against the component library."""
     try:
         with registry.spec_lock:
             spec = registry.load(instrument_id)
             warnings = registry.add_component(
                 spec, name, component, at, relative=relative, rotated=rotated,
-                rotated_relative=rotated_relative, parameters=parameters, after=after,
+                rotated_relative=rotated_relative, parameters=parameters,
+                after=after, when=when, extend=extend, group=group, split=split,
             )
         return {"ok": True, "warnings": warnings,
                 "component_order": [c["name"] for c in spec["components"]]}
@@ -144,8 +168,10 @@ def get_instrument(instrument_id: str) -> dict:
         "ok": True,
         "instrument_id": spec["name"],
         "parameters": spec["parameters"],
+        "declares": spec["declares"],
         "components": [
-            {k: c[k] for k in ("name", "component", "at", "relative", "parameters")}
+            {**{k: c[k] for k in ("name", "component", "at", "relative", "parameters")},
+             **{k: c[k] for k in ("when", "extend", "group", "split") if c.get(k)}}
             for c in spec["components"]
         ],
         "missing_required": dict(registry.missing_required(spec)),
@@ -165,23 +191,119 @@ def get_instrument(instrument_id: str) -> dict:
 def run_simulation(instrument_id: str, ncount: float = 1e6,
                    parameters: Optional[dict] = None, seed: Optional[int] = None,
                    mpi: Optional[int] = None, gravity: bool = False,
-                   timeout: int = 600) -> dict:
-    """Compile and run the instrument (synchronous; ncount capped at 1e8,
-    timeout capped at 1800 s). Iterate at ncount 1e5-1e6; go high only for
-    final validation. Returns job_id for get_results, plus per-detector
-    totals. On failure returns the stage (translate/compile/run) and
-    diagnostics."""
+                   timeout: int = 600, wait_s: float = 60) -> dict:
+    """Compile and run the instrument (ncount capped at 1e8, timeout capped
+    at 1800 s). Iterate at ncount 1e5-1e6; go high only for final validation.
+    Waits up to wait_s for completion: short runs return finished (state
+    'done' + per-detector totals); longer ones return state 'running' — poll
+    job_status(job_id), then get_results. Unchanged instruments reuse the
+    cached binary (parameter changes via `parameters` need no recompile)."""
     try:
         spec = registry.load(instrument_id)
         job = execution.run_spec(spec, ncount=ncount, parameters=parameters,
                                  seed=seed, mpi=mpi, gravity=gravity,
-                                 timeout=min(int(timeout), 1800))
+                                 timeout=timeout, wait=max(0.0, float(wait_s)))
         return job
     except (SpecError, RunError) as e:
         return _err(e)
     except Exception as e:
         # McStasScript write-time checks (McStasError etc.) must reach the
         # agent as a clean message, not a traceback
+        return _err(e)
+
+
+@mcp.tool
+def job_status(job_id: str) -> dict:
+    """State of a simulation job: running (with elapsed time + log tail),
+    done, failed, or cancelled. Jobs survive server restarts."""
+    try:
+        return {"ok": True, **execution.job_status(job_id)}
+    except RunError as e:
+        return _err(e)
+
+
+@mcp.tool
+def cancel_job(job_id: str) -> dict:
+    """Kill a running simulation (whole process group)."""
+    try:
+        rec = execution.cancel(job_id)
+        return {"ok": True, "state": rec.get("state")}
+    except RunError as e:
+        return _err(e)
+
+
+@mcp.tool
+def validate_instrument(instrument_id: str) -> dict:
+    """Check the instrument without a real run: required-parameter audit,
+    then translate + compile + a 1-ray execution. Returns ok, or the failing
+    stage (translate/compile/run) with diagnostics. Use before burning a
+    large ncount."""
+    try:
+        spec = registry.load(instrument_id)
+        missing = registry.missing_required(spec)
+        if missing:
+            detail = "; ".join(f"{n}: {', '.join(ps)}" for n, ps in missing)
+            return {"ok": False, "error":
+                    f"Required component parameters unset — {detail}. "
+                    "Fix with set_parameters, then validate again."}
+        job = execution.run_spec(spec, ncount=1, timeout=180, wait=None,
+                                 job_prefix=f"{spec['name']}_validate")
+        out = {"ok": job["ok"], "instr_file":
+               registry.workdir(spec["name"]) + f"/{spec['name']}.instr"}
+        if not job["ok"]:
+            out["stage"] = job.get("stage")
+            out["diagnostics"] = job.get("diagnostics")
+        return out
+    except (SpecError, RunError) as e:
+        return _err(e)
+    except Exception as e:
+        return _err(e)
+
+
+@mcp.tool
+def load_instr_file(path: str, name: Optional[str] = None) -> dict:
+    """Escape hatch: import an existing .instr file into the registry
+    (best-effort — McStasScript's reader fails on some complex instruments;
+    the error names the known failure classes). Returns per-component
+    warnings for anything that did not survive the import."""
+    try:
+        with registry.spec_lock:
+            spec, warnings = registry.load_from_instr(path, name=name)
+        return {"ok": True, "instrument_id": spec["name"],
+                "components": len(spec["components"]),
+                "parameters": [p["name"] for p in spec["parameters"]],
+                "warnings": warnings}
+    except SpecError as e:
+        return _err(e)
+
+
+@mcp.tool
+def export_instr_file(instrument_id: str, path: Optional[str] = None) -> dict:
+    """Write the generated .instr to disk (instrument workdir by default, or
+    an explicit path) for use outside the server."""
+    try:
+        spec = registry.load(instrument_id)
+        return {"ok": True, "path": registry.export_instr(spec, dest=path)}
+    except (SpecError, Exception) as e:
+        return _err(e)
+
+
+@mcp.tool
+def list_examples(search: Optional[str] = None) -> dict:
+    """Browse the ~300 shipped McStas example instruments (few-shot material;
+    many model real facility instruments). search filters name/site/doc."""
+    items = examples.list_examples(search=search)
+    return {"ok": True, "count": len(items), "examples": items}
+
+
+@mcp.tool
+def get_example(name: str) -> dict:
+    """Full .instr source of one shipped example, plus its %Example
+    self-test line (expected detector value — ground truth for that setup).
+    Import it with load_instr_file(path) to modify it."""
+    try:
+        return {"ok": True, **examples.get_example(name)}
+    except KeyError as e:
         return _err(e)
 
 

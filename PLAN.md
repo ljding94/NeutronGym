@@ -35,16 +35,17 @@ Design is fully specified in `note/m1-server-design-2026-07-09.md` (grounded in 
 - [x] First acceptance attempt (2026-07-20) exposed a deployment bug: Claude Code launches the server without the conda env on PATH → first tool call died; the agent correctly self-diagnosed and patched `.mcp.json`. Fixed server-side (rule 16: self-locate from `sys.executable`); regression in `tests/test_deployment.py`; `.mcp.json` reverted to minimal form
 - [x] **Accepted 2026-07-21 — de-risk gate 2 passed.** From the single acceptance prompt, the agent completed end-to-end with no help: 11 tool calls, built source→guide→PSD with a wavelength instrument parameter, ran 1e6 then 1e7 rays (consistency check), reported 1.2502e11 n/s ± 0.07% (6.6M events) → 8.33e9 n/s/cm², disclosed its source-brightness assumption. Every claim verified against mccode.sim on disk; diagram confirms topology. Notable agent behaviors for M3 skill/benchmark: per-area normalization unprompted, statistics floor respected, no seed fixed (worth a skill rule).
 
-### M2 — Robustness (week of Jul 20)
+### M2 — Robustness ✅ DONE 2026-07-21
 
-- [ ] Async job manager (`run_simulation` → `job_id`; `job_status`; `get_results`) — subprocess + state file, no queue framework
-- [ ] Deferred from M1 review: string-typed instrument parameters (type field in spec); EXTEND/WHEN/GROUP/SPLIT in spec (templateTOF-class examples need EXTEND); cross-process file locking; binary caching (drop always-`-c`, ~2 s/iteration)
-- [ ] `validate_instrument` (translate + cc, no run) with full diagnostics passthrough
-- [ ] `load_instr_file` / `export_instr_file` escape hatches
-- [ ] `list_examples` / `get_example` over the shipped 297-instrument corpus
-- [ ] Persistence in `~/.mcstas-mcp/projects/<name>/` (instr versions, seeds, ncount per run)
-- [ ] Error-quality pass: every failure message names the next action
-- **Accept:** kill and restart the server mid-session; instrument registry and job results survive.
+- [x] Async job manager: `run_simulation(wait_s)` hybrid — short runs return finished, long ones return `running` for `job_status` polling (elapsed + log tail); `cancel_job` kills the process group; per-job log files; jobs recover after server death via pid + on-disk reconciliation (orphans past 1.5× timeout get killed)
+- [x] Deferred M1-review items: string/int-typed instrument parameters; declares + WHEN/EXTEND/GROUP/SPLIT in spec and tools; cross-process file locking (fcntl) with atomic writes; binary caching via comment-insensitive `.instr` sha (validate compiles once, parameter iterations never recompile)
+- [x] `validate_instrument`: required-param audit + translate/compile/1-ray probe with staged diagnostics
+- [x] `load_instr_file` / `export_instr_file` escape hatches — the loader converts reader output into a full spec (params/declares/INITIALIZE/WHEN/EXTEND/GROUP/SPLIT; bare `SPLIT` = McStas default 10), fidelity-tested: imported templateSANS reproduces the direct-file run at the same seed; failure messages name the reader's known failure classes
+- [x] `list_examples` / `get_example` over the 297-example corpus, exposing `%Example:` ground-truth lines
+- [x] Persistence: per-run `.instr` snapshots + seed/ncount/params in every job record. **Decision:** no `projects/` level — flat `~/.mcstas-mcp/`, benchmark episodes isolate via `MCSTAS_MCP_HOME`
+- [x] Error-quality pass: every failure names the next action (poll `job_status`, fix with `set_parameters`, reader failure classes, nearest-match suggestions)
+- [x] **Accepted:** kill and restart the server mid-run over real stdio — registry and job results survive (`test_restart_survival_acceptance`). Suite: 72 tests passing.
+- Human demo: `conda run -n mcstas python scripts/m2_walkthrough.py` (import shipped example → validate → async poll → caching → persistence map; detector PNG at λ=8 vs λ=6 shows correct ring scaling)
 
 ### M3 — Skill (week of Jul 27, parallel with M2 tail)
 
