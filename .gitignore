@@ -10,3 +10,5 @@ runs/
 # harness state, except the committed skills symlink
 .claude/*
 !.claude/skills/
+# grader reference cache — regenerable from shipped examples + task protocol
+benchmark/refcache/
