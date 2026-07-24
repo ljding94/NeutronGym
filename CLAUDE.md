@@ -13,6 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `note/m1-server-design-2026-07-09.md` — the M1 server design (construction-vs-execution split, 10 server-side rules, revised tool signatures, benchmark spillover). Grounded in three systematic studies: `note/study-mcstas-software-*.md`, `note/study-mcstasscript-api-*.md`, `note/study-instrument-papers-*.md` — consult these before touching McStas/McStasScript integration code; they contain verified error behaviors and gotchas.
 - `progress.html` — human-friendly dashboard generated from PLAN.md. **After editing PLAN.md, regenerate it**: `python3 scripts/progress_report.py` (stdlib only, any python). Never edit progress.html by hand.
 - `guide.html` — human-friendly explainer: agent→MCP→mcstas pipeline, tool reference (introspected from the live server), how to read results. **After changing server tools, regenerate it**: `conda run -n mcstas python scripts/guide_report.py`. Never edit guide.html by hand.
+- `tasks.html` — human-friendly benchmark task catalog (provenance chain, per-task references with GitHub links, papers, grading contracts, prompts). **After changing benchmark tasks, regenerate it**: `python3 scripts/tasks_report.py` (stdlib only). Never edit tasks.html by hand.
 
 Read these before doing any design or implementation work here; keep them updated when decisions change.
 

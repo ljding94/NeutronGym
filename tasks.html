@@ -1,0 +1,1929 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>McStasBench — Task Catalog</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+         margin: 0; background: #f6f8fa; color: #1f2328; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #0d1117; color: #e6edf3; }
+    .card { background: #161b22 !important; border-color: #30363d !important; }
+    pre, code, th { background: #21262d !important; }
+  }
+  .wrap { max-width: 1020px; margin: 0 auto; padding: 32px 20px 60px; }
+  h1 { font-size: 26px; margin: 0 0 4px; }
+  h2 { font-size: 19px; margin: 30px 0 10px; }
+  h3 { margin: 0 0 6px; font-size: 15px; }
+  .meta { color: #656d76; font-size: 13px; margin: 3px 0; }
+  .card { background: #fff; border: 1px solid #d0d7de; border-radius: 10px;
+          padding: 14px 18px; margin: 12px 0; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; margin: 8px 0; }
+  th, td { text-align: left; padding: 5px 9px; border-bottom: 1px solid #d0d7de55; }
+  th { background: #f6f8fa; font-size: 12px; }
+  code { background: #f0f1f3; padding: 1px 5px; border-radius: 4px; font-size: 12.5px; }
+  pre { background: #f0f1f3; border-radius: 8px; padding: 12px; overflow-x: auto;
+        font-size: 12px; line-height: 1.45; white-space: pre-wrap; }
+  details summary { cursor: pointer; color: #0969da; font-size: 13px; margin: 6px 0; }
+  a { color: #0969da; }
+</style></head><body><div class="wrap">
+  <h1>McStasBench — Task Catalog</h1>
+  <p class="meta">Generated 2026-07-24 16:44 · 14 T1 tasks + 3 pilot/control tasks ·
+    <a href="progress.html">progress</a> · <a href="guide.html">how the agent works</a></p>
+
+  <h2>Where tasks come from</h2>
+  <div class="card">
+  <p><strong>1 — Raw material:</strong> the ~297 example instruments shipped inside
+  <a href="https://www.mcstas.org/">McStas</a> itself
+  (<a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples">browse them on GitHub</a>) — written over ~25 years by facility
+  instrument scientists; many are validated models of real instruments, each
+  carrying a <code>%Example:</code> self-test line with an expected detector value.</p>
+  <p><strong>2 — Curation:</strong> literature study links models to their
+  instrument papers (DOIs verified; see
+  <code>note/study-instrument-papers-2026-07-09.md</code>,
+  <code>note/study-paper-pairs-2026-07-24.md</code>); a machine-verification
+  sweep (<code>benchmark/build_inventory.py</code>) confirms each reference
+  compiles, runs, and reproduces its <code>%Example</code> value in this
+  environment.</p>
+  <p><strong>3 — Manufacturing:</strong> <code>benchmark/author_tasks.py</code>
+  converts each reference <code>.instr</code> into a natural-language spec-sheet
+  prompt and derives the grading contract from the reference's own monitors.
+  Every task is then self-validated: the reference must pass its own task at a
+  fresh random seed. Grading is observable-based — no LLM judge.</p>
+  <p class="meta">Seen-tier references are public by construction (that's the
+  tier's definition); the memorization probe (P2) and the future held-out tier
+  (2024–26 instruments with no public model) control for contamination.</p>
+  </div>
+
+  <h2>T1 reproduction tasks (14) <span class="meta">SANS: 4 · SESANS: 1 · TAS: 2 · ToF-spectrometer: 4 · powder-diffractometer: 3</span></h2>
+  <table>
+    <tr><th>task</th><th>class</th><th>split</th><th>self-validated</th>
+        <th>ref verified in-env</th><th>reference</th><th>paper</th></tr>
+    <tr><td><a href="#T1_templateSANS"><code>T1_templateSANS</code></a></td><td>SANS</td><td>dev</td><td>✅</td><td>✅</td><td><a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/Templates/templateSANS">source</a></td><td>—</td></tr><tr><td><a href="#T1_templateTOF"><code>T1_templateTOF</code></a></td><td>ToF-spectrometer</td><td>dev</td><td>✅</td><td>✅</td><td><a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/Templates/templateTOF">source</a></td><td>—</td></tr><tr><td><a href="#T1_ESS_IN5_reprate"><code>T1_ESS_IN5_reprate</code></a></td><td>ToF-spectrometer</td><td>seen</td><td>✅</td><td>✅</td><td><a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/ESS/ESS_IN5_reprate">source</a></td><td>—</td></tr><tr><td><a href="#T1_HZB_FLEX"><code>T1_HZB_FLEX</code></a></td><td>TAS</td><td>seen</td><td>✅</td><td>✅</td><td><a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/HZB/HZB_FLEX">source</a></td><td>—</td></tr><tr><td><a href="#T1_HZB_NEAT"><code>T1_HZB_NEAT</code></a></td><td>ToF-spectrometer</td><td>seen</td><td>✅</td><td>✅</td><td><a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/HZB/HZB_NEAT">source</a></td><td>—</td></tr><tr><td><a href="#T1_ILL_D2B"><code>T1_ILL_D2B</code></a></td><td>powder-diffractometer</td><td>seen</td><td>✅</td><td>✅</td><td><a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/ILL/ILL_D2B">source</a></td><td><a href="https://doi.org/10.1016/j.nima.2005.08.018">doi</a></td></tr><tr><td><a href="#T1_ILL_H10_IN8"><code>T1_ILL_H10_IN8</code></a></td><td>TAS</td><td>seen</td><td>✅</td><td>✅</td><td><a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/ILL/ILL_H10_IN8">source</a></td><td>—</td></tr><tr><td><a href="#T1_ILL_H15_D11"><code>T1_ILL_H15_D11</code></a></td><td>SANS</td><td>seen</td><td>✅</td><td>✅</td><td><a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/ILL/ILL_H15_D11">source</a></td><td><a href="https://doi.org/10.1080/10448631003697985">doi</a></td></tr><tr><td><a href="#T1_ILL_H512_D22"><code>T1_ILL_H512_D22</code></a></td><td>SANS</td><td>seen</td><td>✅</td><td>✅</td><td><a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/ILL/ILL_H512_D22">source</a></td><td>—</td></tr><tr><td><a href="#T1_ILL_IN6"><code>T1_ILL_IN6</code></a></td><td>ToF-spectrometer</td><td>seen</td><td>✅</td><td>✅</td><td><a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/ILL/ILL_IN6">source</a></td><td>—</td></tr><tr><td><a href="#T1_ISIS_SANS2d"><code>T1_ISIS_SANS2d</code></a></td><td>SANS</td><td>seen</td><td>✅</td><td>—</td><td><a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/ISIS/ISIS_SANS2d">source</a></td><td><a href="https://doi.org/10.1080/10448632.2011.569531">doi</a></td></tr><tr><td><a href="#T1_PSI_DMC"><code>T1_PSI_DMC</code></a></td><td>powder-diffractometer</td><td>seen</td><td>✅</td><td>✅</td><td><a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/PSI/PSI_DMC">source</a></td><td><a href="https://doi.org/10.1016/j.physb.2006.05.329">doi</a></td></tr><tr><td><a href="#T1_RTP_DIF"><code>T1_RTP_DIF</code></a></td><td>powder-diffractometer</td><td>seen</td><td>✅</td><td>✅</td><td><a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/TRIGA/RTP_DIF">source</a></td><td>—</td></tr><tr><td><a href="#T1_SESANS_Delft"><code>T1_SESANS_Delft</code></a></td><td>SESANS</td><td>seen</td><td>✅</td><td>✅</td><td><a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/TUDelft/SESANS_Delft">source</a></td><td><a href="https://doi.org/10.1107/S1600576720015496">doi</a></td></tr>
+  </table>
+  <div class="card" id="T1_templateSANS">
+<h3><code>T1_templateSANS</code> <span style="background:#2da44e;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">validated</span> <span style="background:#656d76;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">dev</span></h3>
+<p class="meta">class: <strong>SANS</strong> · reference: <code>templateSANS</code> · <a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/Templates/templateSANS">source on GitHub</a> · ground truth: <code>%Example: lambda=6 Detector: detector_I=0.0445623</code> · reference verified in-env: ✅</p>
+<p class="meta">protocol: ncount 1e+06, seed 1234</p>
+<table><tr><th>graded monitor role</th><th>observables (tolerance)</th></tr><tr><td><code>2d</code></td><td>intensity (rtol 0.2, 3σ), beam_width_x (rtol 0.3), beam_width_y (rtol 0.3)</td></tr><tr><td><code>wavelength</code></td><td>intensity (rtol 0.25, 3σ), center_of_mass (rtol 0.05), fwhm (rtol 0.5)</td></tr></table>
+<details><summary>task prompt (2060 chars)</summary><pre>Rebuild the following SANS in McStas from its specification, run it, and report the integrated intensity (with error and event count) on every monitor.
+
+Instrument parameters (defaults in parentheses):
+- lambda (6)
+- dlambda (0.05)
+- r (100)
+- PHI (0.001)
+- Delta_Rho (0.6)
+- sigma_abs (0.5)
+
+Beamline, in order (positions in meters; AT [x,y,z] RELATIVE to the named component; parameters as given):
+- a1: Progress_bar AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- arm: Arm AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- source: Source_simple AT [0, 0, 0] RELATIVE arm ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: radius=0.02, dist=3, focus_xw=0.01, focus_yh=0.01, lambda0=lambda, dlambda=dlambda, flux=1e8
+- coll1: Slit AT [0, 0, 3] RELATIVE arm ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: radius=0.005
+- coll2: Slit AT [0, 0, 6] RELATIVE arm ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: radius=0.005
+- sample: Sans_spheres AT [0, 0, 0.2] RELATIVE coll2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (SPLIT 10)
+    parameters: R=r, Phi=PHI, Delta_rho=Delta_Rho, sigma_abs=sigma_abs, xwidth=0.01, yheight=0.01, zdepth=0.005, target_index=2, focus_xw=0.6, focus_yh=0.6
+- STOP: Beamstop AT [0, 0, 2.9] RELATIVE sample ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: radius=0.02
+- detector: PSD_monitor AT [0, 0, 3] RELATIVE sample ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nx=128, ny=128, filename=&quot;PSD.dat&quot;, xmin=-0.3, xmax=0.3, ymin=-0.3, ymax=0.3
+- Ldetector: L_monitor AT [0, 0, 3.01] RELATIVE sample ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=1000, filename=&quot;Edet.dat&quot;, xmin=-0.3, xmax=0.3, ymin=-0.3, ymax=0.3, Lmin=5.5, Lmax=6.5
+- PSDrad: PSD_monitor_rad AT [0, 0, 3.02] RELATIVE sample ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: filename=&quot;psd2.dat&quot;, filename_av=&quot;psd2_av.dat&quot;, rmax=0.3
+
+Your instrument must include at least: a 2D position-sensitive monitor; a wavelength monitor.
+Run with: lambda=6, dlambda=0.05, r=100, PHI=1e-3, Delta_Rho=0.6, sigma_abs=0.5.</pre></details>
+<p class="meta">file: <code>benchmark/tasks/T1/T1_templateSANS.json</code></p>
+</div>
+<div class="card" id="T1_templateTOF">
+<h3><code>T1_templateTOF</code> <span style="background:#2da44e;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">validated</span> <span style="background:#656d76;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">dev</span></h3>
+<p class="meta">class: <strong>ToF-spectrometer</strong> · reference: <code>templateTOF</code> · <a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/Templates/templateTOF">source on GitHub</a> · ground truth: <code>%Example: E0=4.94 Detector:  M_single_coh_I=5e-11</code> · reference verified in-env: ✅</p>
+<p class="meta">protocol: ncount 1e+06, seed 1234</p>
+<table><tr><th>graded monitor role</th><th>observables (tolerance)</th></tr><tr><td><code>2d</code></td><td>intensity (rtol 0.2, 3σ), beam_width_x (rtol 0.3), beam_width_y (rtol 0.3)</td></tr></table>
+<details><summary>task prompt (5599 chars)</summary><pre>Rebuild the following ToF spectrometer in McStas from its specification, run it, and report the integrated intensity (with error and event count) on every monitor.
+
+Instrument parameters (defaults in parentheses):
+- E0 (4.94)
+- dE (0.24)
+- dt (6.4e-06)
+- coh (&quot;Rb_liq_coh.sqw&quot;)
+- inc (&quot;Rb_liq_inc.sqw&quot;)
+- thickness (0.0001)
+- yheight (0.0168)
+- radius (0.005)
+- container (&quot;Nb.laz&quot;)
+- container_thickness (5e-05)
+- environment (&quot;Al.laz&quot;)
+- environment_radius (0.025)
+- environment_thickness (0.002)
+- dt0 (0)
+
+Constants and derived quantities computed at startup (implement equivalent logic):
+- declaration: `#pragma acc declare create(_dt0)`
+```c
+vi=SE2V*sqrt(E0);
+  double ki=V2K*vi;
+double t0=1.25/vi;
+  double lambda=2*PI/ki;
+  sprintf(op,   &quot;energy limits=[%g %g] bins=50, theta limits=[5 175] bins=150, banana, parallel&quot;, 0.5*E0, 2*E0);
+  printf(&quot;templateTOF: lambda=%g [Angs], k=%g [Angs-1], v=%g [m/s], E=%g [meV]. Time=[%g %g %g]\n&quot;,
+    lambda,ki,vi, E0, t0*.75, t0, t0*1.5);
+  printf(&quot;templateTOF: sample is %s, with %s%s geometry.\n&quot;,
+    coh, thickness ? &quot;hollow &quot; : &quot;&quot;, yheight ? &quot;cylindrical&quot; : &quot;spherical&quot;);
+  if (yheight &amp;&amp; container_thickness)
+    printf(&quot;templateTOF: container is %s (outer cylinder)\n&quot;, container);
+  if (environment_thickness &gt; 0)
+    printf(&quot;templateTOF: external environment is %s\n&quot;, environment);
+  dt0=dt;
+  if (environment_thickness &gt; 0 &amp;&amp; radius &gt; environment_radius-environment_thickness)
+    exit(printf(&quot;templateTOF: sample radius %g is larger than sample environment %g\n&quot;,
+      radius, environment_radius-environment_thickness));
+  if (container_thickness &gt; 0 &amp;&amp; environment_thickness &gt; 0 &amp;&amp; yheight &gt; 0
+      &amp;&amp; radius+container_thickness+0.0001 &gt; environment_radius-environment_thickness)
+    exit(printf(&quot;templateTOF: sample container radius %g is larger than sample environment %g\n&quot;,
+      radius+container_thickness+0.0001, environment_radius-environment_thickness));
+  _dt0=dt0;
+  #pragma acc update device(_dt0)
+```
+
+Beamline, in order (positions in meters; AT [x,y,z] RELATIVE to the named component; parameters as given):
+- a1: Progress_bar AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: percent=5
+    EXTEND: ```c
+    flag_single=flag_multi=flag_env=flag_container=0;
+    ```
+- csource: Source_gen AT [0, 0, 0] RELATIVE a1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: radius=0.02, dist=2.88, focus_xw=2*radius, focus_yh=yheight ? yheight : 2*radius, E0=E0, dE=dE/2, I1=1, T1=300.0
+- SampleIn: Arm AT [0, 0, 2.88] RELATIVE a1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- Environment_in: Isotropic_Sqw AT [0, 0, 0] RELATIVE SampleIn ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (environment_thickness &gt; 0))
+    parameters: Sqw_coh=environment, radius=environment_radius, thickness=environment_thickness, yheight=0.1, verbose=0, concentric=1
+    EXTEND: ```c
+    if (SCATTERED) flag_env=1;
+    ```
+- Container_in: Isotropic_Sqw AT [0, 0, 0] RELATIVE SampleIn ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (yheight &amp;&amp; container_thickness &gt; 0))
+    parameters: Sqw_coh=container, radius=radius+0.0001+container_thickness, thickness=container_thickness, yheight=yheight, verbose=0, concentric=1
+    EXTEND: ```c
+    if (SCATTERED) flag_container=1;
+    ```
+- Sample_in: Isotropic_Sqw AT [0, 0, 0] RELATIVE SampleIn ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: Sqw_coh=coh, Sqw_inc=inc, radius=radius, thickness=thickness, yheight=yheight, p_interact=0.9
+    EXTEND: ```c
+    if      (SCATTERED == 1) flag_single=(type == &#x27;c&#x27; ? 1 : 2);
+else if (SCATTERED &gt;  1) flag_multi =(type == &#x27;c&#x27; ? 1 : 2);
+else                     flag_multi =flag_single=0;
+t = randtriangle()*2*_dt0;
+    ```
+- Container_out: Isotropic_Sqw AT [0, 0, 0] RELATIVE SampleIn ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (yheight &amp;&amp; container_thickness))
+    parameters: Sqw_coh=container, radius=radius+0.0001+container_thickness, thickness=container_thickness, yheight=yheight, verbose=0, concentric=1
+    EXTEND: ```c
+    if (SCATTERED) flag_container=1;
+    ```
+- Environment_out: Isotropic_Sqw AT [0, 0, 0] RELATIVE SampleIn ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (environment_thickness &gt; 0))
+    parameters: Sqw_coh=environment, radius=environment_radius, thickness=environment_thickness, yheight=0.1, verbose=0, concentric=1
+    EXTEND: ```c
+    if (SCATTERED) flag_env=1;
+    ```
+- SampleOut: Arm AT [0, 0, 0] RELATIVE SampleIn ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- M_total: Monitor_nD AT [0, 0, 0] RELATIVE SampleOut ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=2.5, yheight=0.4, options=op
+- M_single_coh: Monitor_nD AT [0, 0, 0] RELATIVE SampleOut ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (flag_single == 1))
+    parameters: xwidth=2.5, yheight=0.4, options=op
+- M_single_inc: Monitor_nD AT [0, 0, 0] RELATIVE SampleOut ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (flag_single == 2))
+    parameters: xwidth=2.5, yheight=0.4, options=op
+- M_multi: Monitor_nD AT [0, 0, 0] RELATIVE SampleOut ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (flag_multi))
+    parameters: xwidth=2.5, yheight=0.4, options=op
+- M_env_container: Monitor_nD AT [0, 0, 0] RELATIVE SampleOut ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (flag_env || flag_container))
+    parameters: xwidth=2.5, yheight=0.4, options=op
+
+Your instrument must include at least: a 2D position-sensitive monitor.
+Run with: E0=4.94, dE=0.24, dt=6.4e-6, coh=Rb_liq_coh.sqw, inc=Rb_liq_inc.sqw, thickness=1e-4, yheight=0.0168, radius=0.005, container=Nb.laz, container_thickness=50e-6, environment=Al.laz, environment_radius=0.025, environment_thickness=2e-3, dt0=0.</pre></details>
+<p class="meta">file: <code>benchmark/tasks/T1/T1_templateTOF.json</code></p>
+</div>
+<div class="card" id="T1_ESS_IN5_reprate">
+<h3><code>T1_ESS_IN5_reprate</code> <span style="background:#2da44e;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">validated</span> <span style="background:#0969da;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">seen</span></h3>
+<p class="meta">class: <strong>ToF-spectrometer</strong> · reference: <code>ESS_IN5_reprate</code> · <a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/ESS/ESS_IN5_reprate">source on GitHub</a> · ground truth: <code>%Example: Lmin=4.9 Detector: PSDfast2_I=1.18335e+10</code> · reference verified in-env: ✅</p>
+<p class="meta">protocol: ncount 1e+06, seed 1234</p>
+<table><tr><th>graded monitor role</th><th>observables (tolerance)</th></tr><tr><td><code>2d</code></td><td>intensity (rtol 0.2, 3σ), beam_width_x (rtol 0.3), beam_width_y (rtol 0.3)</td></tr><tr><td><code>wavelength</code></td><td>intensity (rtol 0.25, 3σ), center_of_mass (rtol 0.05), fwhm (rtol 0.5)</td></tr><tr><td><code>tof</code></td><td>intensity (rtol 0.25, 3σ), center_of_mass (rtol 0.05)</td></tr></table>
+<details><summary>task prompt (13099 chars)</summary><pre>Rebuild the following ToF spectrometer in McStas from its specification, run it, and report the integrated intensity (with error and event count) on every monitor.
+
+Instrument parameters (defaults in parentheses):
+- Lmin (4.9)
+- Lmax (5.1)
+- lambda0 (5)
+- Pulse_width (0.002857)
+- Num_pulses (1)
+- GUI_start (2)
+- FO1_DIST (6)
+- L_ballistic_begin (19.5)
+- L_ballistic_end (17)
+- Length (100)
+- SAMPLE_DIST (1.2)
+- DETECTOR_DIST (4)
+- GUI_h (0.105)
+- GUI_w (0.1)
+- GUI_GAP (0.05)
+- H1 (0.167)
+- W1 (0.116)
+- H2 (0.185)
+- W2 (0.15)
+- H3 (0.19)
+- W3 (0.15)
+- H4 (0.213)
+- W4 (0.14)
+- H_chop (0.075)
+- W_chop (0.03)
+- H_end (0.042)
+- W_end (0.0215)
+- ALPHA (3.4)
+- M (3.5)
+- F_slow1 (16.6667)
+- F_slow2 (0)
+- F_fast1 (0)
+- F_fast2 (200)
+- N_fast (1)
+- SLOW1_THETA (120)
+- FO3 (1)
+- THETA_fast1 (180)
+- FAST_THETA (5)
+- Gamma (0)
+- Etun (1)
+- V_HOLE (0)
+- FRAC_QUASIEL (0)
+- FRAC_TUNNEL (0)
+- TT (50)
+- RES_DE (0.5)
+- cold (0.95)
+
+Constants and derived quantities computed at startup (implement equivalent logic):
+```c
+FREQ = ESS_SOURCE_FREQUENCY;
+        t_offset=Pulse_width/2.0+170e-6;
+        t_FO1 = FO1_DIST*lambda0/(2*PI*K2V)+t_offset;
+        t_FO2 = Length/2*lambda0/(2*PI*K2V)+t_offset;
+        t_fast1 = (Length/2+0.1)*lambda0/(2*PI*K2V)+t_offset;
+        t_fast2 = Length*lambda0/(2*PI*K2V)+t_offset;
+        t_fast2a = (Length+GUI_GAP)*lambda0/(2*PI*K2V)+t_offset;
+        t_fast3 = (Length+2*GUI_GAP)*lambda0/(2*PI*K2V)+t_offset;
+        t_sample = (Length+SAMPLE_DIST)*lambda0/(2*PI*K2V)+t_offset;
+        t_detector = (Length+SAMPLE_DIST+DETECTOR_DIST)*lambda0/(2*PI*K2V)+t_offset;
+        tmin_zoom = t_fast2*1e6-1e3;
+        tmax_zoom = t_fast2*1e6+1e3;
+        E_target = VS2E*(K2V*2*PI/lambda0)*(K2V*2*PI/lambda0);
+```
+
+Beamline, in order (positions in meters; AT [x,y,z] RELATIVE to the named component; parameters as given):
+- source: ESS_butterfly AT [0, 0, -0.1] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: sector=&quot;W&quot;, beamline=5, cold_frac=cold, target_index=6, dist=GUI_start, focus_xw=GUI_w, focus_yh=GUI_h, Lmin=Lmin, Lmax=Lmax, n_pulses=Num_pulses
+- Origin: Progress_bar AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- TOFmoderator_zoom: TOF_monitor AT [0, 0, 1E-6] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nt=1000, filename=&quot;TOFmoderator_zoom.dat&quot;, xwidth=0.12, yheight=0.12, tmin=0, tmax=5000, restore_neutron=1
+- TOFmoderator: TOF_monitor AT [0, 0, 1E-6] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nt=1000, filename=&quot;TOFmoderator.dat&quot;, xwidth=0.12, yheight=0.12, tmin=0, tmax=3.0e5, restore_neutron=1
+- Lmon_guistart: L_monitor AT [0, 0, GUI_start-2e-6] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=1000, filename=&quot;Lmon_guistart.dat&quot;, xwidth=GUI_w+0.01, yheight=GUI_h+0.01, Lmin=0, Lmax=Lmax+1
+- Lmon_normalize: L_monitor AT [0, 0, GUI_start-1e-6] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=2880, filename=&quot;Lmon_guistart_normalize.dat&quot;, xwidth=0.10, yheight=0.10, Lmin=0, Lmax=20
+- Guide1: Guide AT [0, 0, GUI_start] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=GUI_w, h1=GUI_h, w2=W1, h2=H1, l=FO1_DIST-GUI_start-GUI_GAP/2, R0=1, alpha=ALPHA, m=M, W=0.003
+- Lmonslow1: L_monitor AT [0, 0, FO1_DIST-2e-6] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=200, filename=&quot;Lmonslow1.dat&quot;, xwidth=0.06, yheight=0.21, Lmin=0, Lmax=Lmax+1
+- PSDslow1: PSD_monitor AT [0, 0, FO1_DIST-1e-6] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: filename=&quot;PSDslow1.dat&quot;, xwidth=0.1, yheight=0.25
+- FOchop1: DiskChopper AT [0, 0, FO1_DIST] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: theta_0=SLOW1_THETA, radius=0.6, yheight=0.20, nu=F_slow1, nslit=1, delay=t_FO1
+- TOFLmon1: TOFLambda_monitor AT [0, 0, 1e-6] RELATIVE FOchop1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=200, nt=200, tmin=0, tmax=3e5, filename=&quot;TOFLmon1.dat&quot;, xwidth=0.05, yheight=0.21, Lmin=0, Lmax=Lmax+1
+- Lmon_afterslow1: L_monitor AT [0, 0, 2e-6] RELATIVE FOchop1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=200, filename=&quot;Lmon_afterslow1.dat&quot;, xwidth=0.06, yheight=0.21, Lmin=0, Lmax=Lmax+1
+- PSD_afterslow1: PSD_monitor AT [0, 0, 3e-6] RELATIVE FOchop1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: filename=&quot;PSD_afterslow1.dat&quot;, xwidth=0.1, yheight=0.25
+- Guidelong1: Guide AT [0, 0, GUI_GAP/2] RELATIVE FOchop1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=W1, h1=H1, w2=W2, h2=H2, l=L_ballistic_begin+GUI_start-FO1_DIST-GUI_GAP/2, R0=1, alpha=ALPHA, m=M, W=0.003
+- Guidelong1b: Guide AT [0, 0, L_ballistic_begin+GUI_start] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=W2, h1=H2, w2=W3, h2=H3, l=Length/2-L_ballistic_begin-GUI_start-GUI_GAP/2, R0=1, alpha=ALPHA, m=M, W=0.003
+- Lmon_slow2: L_monitor AT [0, 0, Length/2-1e-6] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=200, filename=&quot;Lmon_slow2.dat&quot;, xwidth=0.06, yheight=0.21, Lmin=0, Lmax=Lmax+1
+- FOchop2: DiskChopper AT [0, 0.1, Length/2] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: theta_0=155, radius=0.6, yheight=0.6, nu=F_slow2, nslit=1, delay=t_FO2
+- Fastchop1: DiskChopper AT [0, 0.1, Length/2+GUI_GAP] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: theta_0=THETA_fast1, radius=0.5, yheight=0.5, nu=F_fast1, nslit=N_fast, delay=t_fast1
+- PSD_afterslow2: PSD_monitor AT [0, -0.1, 1e-6] RELATIVE Fastchop1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: filename=&quot;PSD_afterslow2.dat&quot;, xwidth=0.1, yheight=0.25
+- Lmon_afterslow2: L_monitor AT [0, 0, 1e-6] RELATIVE PSD_afterslow2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=200, filename=&quot;Lmon_afterslow2.dat&quot;, xwidth=0.06, yheight=0.21, Lmin=0, Lmax=Lmax+1
+- TOFL_afterslow2: TOFLambda_monitor AT [0, 0, 1e-6] RELATIVE Lmon_afterslow2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=200, nt=200, tmin=0, tmax=3.0e5, filename=&quot;TOFL_afterslow2.dat&quot;, xwidth=0.05, yheight=0.21, Lmin=0, Lmax=Lmax+1
+- Guidelong2: Guide AT [0, -0.1, GUI_GAP/2] RELATIVE Fastchop1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=W3, h1=H3, w2=W4, h2=H4, l=Length/2-2*GUI_GAP-L_ballistic_end, R0=1, alpha=ALPHA, m=M, W=0.003
+- Lmon_beforeballistic: L_monitor AT [0, 0, Length/2-2*GUI_GAP-L_ballistic_end+1e-6] RELATIVE Guidelong2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=200, filename=&quot;Lmon_before_ballistic.dat&quot;, xwidth=0.06, yheight=0.18, Lmin=0, Lmax=Lmax+1
+- PSD_beforeballistic: PSD_monitor AT [0, 0, 1e-6] RELATIVE Lmon_beforeballistic ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: filename=&quot;PSD_beforeballistic.dat&quot;, xwidth=0.1, yheight=0.25
+- Guidelong2a: Guide AT [0, 0, 1e-6] RELATIVE PSD_beforeballistic ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=W4, h1=H4, w2=W_chop, h2=H_chop, l=L_ballistic_end, R0=1, alpha=ALPHA, m=M, W=0.003
+- Lmonfast2: L_monitor AT [0, 0, L_ballistic_end+1e-6] RELATIVE Guidelong2a ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=200, filename=&quot;Lmonfast2.dat&quot;, xwidth=0.06, yheight=0.18, Lmin=0, Lmax=Lmax+1
+- Lmonfast2_zoom: L_monitor AT [0, 0, 1e-6] RELATIVE Lmonfast2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=200, filename=&quot;Lmonfast2_zoom.dat&quot;, xwidth=0.06, yheight=0.18, Lmin=lambda0-0.2, Lmax=lambda0+0.2
+- TOFLfast2: TOFLambda_monitor AT [0, 0, 1e-6] RELATIVE Lmonfast2_zoom ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=200, nt=200, tmin=0, tmax=3.0e5, filename=&quot;TOFLfast2.dat&quot;, xwidth=0.05, yheight=0.12, Lmin=0, Lmax=Lmax+1
+- TOFLfast2zoom: TOFLambda_monitor AT [0, 0, 1e-6] RELATIVE TOFLfast2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=200, nt=200, tmin=tmin_zoom, tmax=tmax_zoom, filename=&quot;TOFLfast2_zoom.dat&quot;, xwidth=0.05, yheight=0.12, Lmin=lambda0-0.2, Lmax=lambda0+0.2
+- PSDfast2: PSD_monitor AT [0, 0, 1e-6] RELATIVE TOFLfast2zoom ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: filename=&quot;PSDfast2.dat&quot;, xwidth=0.1, yheight=0.25
+- Fastchop2: DiskChopper AT [0, 0.04, Length] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: theta_0=FAST_THETA, radius=0.35, yheight=0.35, nu=F_fast2, nslit=N_fast, delay=t_fast2
+- Fastchop2counter: DiskChopper AT [0, 0.04, Length+GUI_GAP] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: theta_0=FAST_THETA, radius=0.35, yheight=0.35, nu=-F_fast2, nslit=N_fast, delay=-t_fast2a
+- FOchop3: DiskChopper AT [0, 0.04, Length+2*GUI_GAP] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: theta_0=2*FAST_THETA, radius=0.35, yheight=0.35, nu=F_fast2/FO3, nslit=N_fast, delay=t_fast3
+- TOFfast2_zoom: TOF_monitor AT [0, -0.04, 1e-6] RELATIVE FOchop3 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nt=100, filename=&quot;TOF_fast2.dat&quot;, xwidth=1.1, yheight=1.2, tmin=1e6*t_fast3-2e2, tmax=1e6*t_fast3+2e2
+- Lmon_afterfast2: L_monitor AT [0, 0, 1e-6] RELATIVE TOFfast2_zoom ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=500, filename=&quot;Lmon_afterfast2.dat&quot;, xwidth=0.06, yheight=0.18, Lmin=0, Lmax=Lmax+1
+- TOFL_afterfast2: TOFLambda_monitor AT [0, 0, 1e-6] RELATIVE Lmon_afterfast2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=200, nt=200, tmin=0, tmax=3.0e5, filename=&quot;TOF_afterfast2.dat&quot;, xwidth=0.05, yheight=0.12, Lmin=0, Lmax=Lmax+1
+- TOFL_afterfast2_zoom: TOFLambda_monitor AT [0, 0, 1e-6] RELATIVE TOFL_afterfast2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=200, nt=200, tmin=tmin_zoom, tmax=tmax_zoom, filename=&quot;TOFL_afterfast2_zoom.dat&quot;, xwidth=0.05, yheight=0.12, Lmin=lambda0-0.2, Lmax=lambda0+0.2
+- PSD_afterfast2: PSD_monitor AT [0, 0, 1e-6] RELATIVE TOFL_afterfast2_zoom ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: filename=&quot;PSD_afterfast2.dat&quot;, xwidth=0.1, yheight=0.25
+- Guidesample: Guide AT [0, 0, GUI_GAP/2] RELATIVE PSD_afterfast2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=W_chop, h1=H_chop, w2=W_end, h2=H_end, l=SAMPLE_DIST-4*GUI_GAP, R0=1, alpha=ALPHA, m=M, W=0.003
+- Lmon_guideend: L_monitor AT [0, 0, SAMPLE_DIST-4*GUI_GAP+1e-6] RELATIVE Guidesample ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=1000, filename=&quot;Lmon_guideend.dat&quot;, xwidth=W_end+0.01, yheight=H_end+0.01, Lmin=0, Lmax=Lmax+1
+- PSDsample: PSD_monitor AT [0, 0, SAMPLE_DIST-3*GUI_GAP+1e-6] RELATIVE Lmon_guideend ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: filename=&quot;PSDsample.dat&quot;, xwidth=0.1, yheight=0.25
+- TOFsample_zoom: TOF_monitor AT [0, 0, 1e-6] RELATIVE PSDsample ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nt=500, filename=&quot;TOF_sample.dat&quot;, xwidth=0.02, yheight=0.04, tmin=1e6*t_sample-5e4, tmax=1e6*t_sample+5e4
+- Esample: E_monitor AT [0, 0, 1e-6] RELATIVE TOFsample_zoom ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nE=400, filename=&quot;Esample&quot;, xwidth=0.02, yheight=0.04, Emin=E_target-RES_DE, Emax=E_target+RES_DE
+- Lmon_sample_zoom: L_monitor AT [0, 0, 1e-6] RELATIVE Esample ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=100, filename=&quot;LMON_sample_zoom.dat&quot;, xwidth=0.02, yheight=0.04, Lmin=lambda0-0.1, Lmax=lambda0+0.1
+- sample: Tunneling_sample AT [0, -0.04, SAMPLE_DIST] RELATIVE Fastchop2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: thickness=0.01-V_HOLE, radius=0.01, p_interact=1, f_QE=FRAC_QUASIEL, f_tun=FRAC_TUNNEL, gamma=Gamma, E_tun=Etun, focus_xw=0.015, focus_yh=0.015, yheight=0.04, target_index=2
+- detectorarm: Arm AT [0, 0, 0] RELATIVE sample ROTATED [0, TT, 0] RELATIVE sample
+- TOFdetector: TOF_monitor AT [0, 0, DETECTOR_DIST] RELATIVE detectorarm ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nt=512, filename=&quot;TOF.dat&quot;, xwidth=0.015, yheight=0.015, tmin=0, tmax=2e5
+- TOFdetector_zoom: TOF_monitor AT [0, 0, 1e-6] RELATIVE TOFdetector ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nt=100, filename=&quot;TOF_zoom.dat&quot;, xwidth=0.015, yheight=0.015, tmin=1e6*t_detector-10e2, tmax=1e6*t_detector+10e2
+- Edetector: E_monitor AT [0, 0, 1e-6] RELATIVE TOFdetector_zoom ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nE=400, filename=&quot;Edet&quot;, xwidth=0.015, yheight=0.015, Emin=E_target-RES_DE, Emax=E_target+RES_DE
+- TOF2Edetector: TOF2E_monitor AT [0, 0, 1e-6] RELATIVE Edetector ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nE=200, filename=&quot;TOF2E.dat&quot;, xwidth=0.015, yheight=0.015, Emin=E_target-RES_DE, Emax=E_target+RES_DE, T_zero=t_sample, L_flight=DETECTOR_DIST
+
+Your instrument must include at least: a 2D position-sensitive monitor; a wavelength monitor; a time-of-flight monitor.
+Run with: Lmin=4.9, Lmax=5.1, lambda0=5, Pulse_width=2.857e-3, Num_pulses=1, GUI_start=2.0, FO1_DIST=6, L_ballistic_begin=19.5, L_ballistic_end=17, Length=100, SAMPLE_DIST=1.2, DETECTOR_DIST=4, GUI_h=0.105, GUI_w=0.1, GUI_GAP=0.05, H1=0.167, W1=0.116, H2=0.185, W2=0.15, H3=0.19, W3=0.15, H4=0.213, W4=0.14, H_chop=0.075, W_chop=0.03, H_end=0.042, W_end=0.0215, ALPHA=3.4, M=3.5, F_slow1=16.6667, F_slow2=0, F_fast1=0, F_fast2=200, N_fast=1, SLOW1_THETA=120, FO3=1, THETA_fast1=180, FAST_THETA=5, Gamma=0, Etun=1, V_HOLE=0, FRAC_QUASIEL=0, FRAC_TUNNEL=0, TT=50, RES_DE=0.5, cold=0.95.</pre></details>
+<p class="meta">file: <code>benchmark/tasks/T1/T1_ESS_IN5_reprate.json</code></p>
+</div>
+<div class="card" id="T1_HZB_FLEX">
+<h3><code>T1_HZB_FLEX</code> <span style="background:#2da44e;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">validated</span> <span style="background:#0969da;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">seen</span></h3>
+<p class="meta">class: <strong>TAS</strong> · reference: <code>HZB_FLEX</code> · <a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/HZB/HZB_FLEX">source on GitHub</a> · ground truth: <code>%Example: kI=1.55 Detector: dpsd1_I=4.3e+06</code> · reference verified in-env: ✅</p>
+<p class="meta">protocol: ncount 1e+06, seed 1234</p>
+<table><tr><th>graded monitor role</th><th>observables (tolerance)</th></tr><tr><td><code>2d</code></td><td>intensity (rtol 0.2, 3σ), beam_width_x (rtol 0.3), beam_width_y (rtol 0.3)</td></tr><tr><td><code>energy</code></td><td>intensity (rtol 0.25, 3σ), center_of_mass (rtol 0.05), fwhm (rtol 0.5)</td></tr></table>
+<details><summary>task prompt (9536 chars)</summary><pre>Rebuild the following TAS in McStas from its specification, run it, and report the integrated intensity (with error and event count) on every monitor.
+
+Instrument parameters (defaults in parentheses):
+- kI (1.55)
+- kF (1.55)
+- wVS (0.03)
+- tilt (0)
+- SA (-1)
+- A3 (0)
+- A4 (70)
+- L3 (1)
+- L4 (1)
+- Mono_flatswitch (0)
+
+Constants and derived quantities computed at startup (implement equivalent logic):
+- m_n = 1.67493e-27
+- hbar = 1.05457e-34
+- meV_to_SI = 1.6022e-22
+- SI_to_meV = 6.2414e+21
+- MGUIDE = 3.2
+- W_para = 0.0025
+- R0_para = 0.99
+- Qc_para = 0.0217
+- alpha_para = 3.9
+- LGUIDE_1 = 18.65
+- LGUIDE_2 = 17.8
+- rho_AV = 1.23
+- L1 = 1.75
+- L2 = 2.2
+```c
+int    SM=-1;
+int    SS=+1;
+double DM = 3.355;
+double DA = 3.355;
+  A1 = SM*RAD2DEG*asin(PI/(DM*kI));
+  A2 = 2*A1;
+RMH = (L1+L2)/(2*sin(A1*DEG2RAD));
+if (Mono_flatswitch == 1) RMH = 0.0;
+RMV = (L1+L2)*sin(A1*DEG2RAD);
+  printf(&quot;monochromator angles are:\n A1=%7.3f, A2=%7.3f [deg]\n&quot;,A1,A2);
+  printf(&quot;radius of curvature RMH=%7.3f [m]\nradius of curvature RMV=%7.3f [m] \n&quot;,RMH,RMV);
+printf(&quot;sample angles are:\n A3=%7.3f, A4=%7.3f [deg]\n&quot;,A3,A4);
+  A5 = SA*RAD2DEG*asin(PI/(DA*kF));
+  A6 = 2*A5;
+RAH = (L3+L4)/(2*sin(A5*DEG2RAD));
+  RAV = SA*1/rho_AV;
+  printf(&quot;analyser angles are:\n A5=%7.3f, A6=%7.3f [deg]\n&quot;,A5,A6);
+  printf(&quot;radius of curvature RAH=%7.3f [m]\nradius of curvature RAV=%7.3f [m] \n&quot;,RAH,RAV);
+lambdaI=2*PI/kI;
+  EI=SI_to_meV*hbar*hbar*kI*kI*1e20/2/m_n;
+  SelFreq = 3956.06/(lambdaI*(360/(19.7+(2.1*tilt)))*0.25);
+ dlambdaI = (1.75004E-05*pow(lambdaI,6) - 5.13903E-04*pow(lambdaI,5) + 6.04404E-03*pow(lambdaI,4) - 3.66989E-02*pow(lambdaI,3) + 1.22399E-01*pow(lambdaI,2) - 2.19626E-01*lambdaI + 2.0E-01)*lambdaI;
+  l_min=lambdaI-dlambdaI;
+  l_max=lambdaI+dlambdaI;
+  e_min=81.81/l_max/l_max;
+  e_max=81.81/l_min/l_min;
+  printf(&quot;velocity selector frequency is %7.3f [Hz]\n&quot;,SelFreq);
+  printf(&quot;lambda=%7.3f [A]\nkI=%7.3f [A^-1] \nEI=%7.3f [meV]\n&quot;,lambdaI,kI,EI);
+  printf(&quot;Maxwellian source forced to emit only between l_min=%7.3f and l_max=%7.3f [A] in order to save simulation time\n&quot;,l_min,l_max);
+  printf(&quot;correspondingly, the energy monitors at sample position are detecting between %7.3f and %7.3f [meV]\n&quot;,e_min,e_max);
+  beta_guide_1=LGUIDE_1/2800*180/PI;
+  beta_guide_2=LGUIDE_2/2800*180/PI;
+  s_guide_1 = 2800-sqrt(2800*2800-LGUIDE_1*LGUIDE_1);
+  s_guide_2 = 2800-sqrt(2800*2800-LGUIDE_2*LGUIDE_2);
+```
+
+Beamline, in order (positions in meters; AT [x,y,z] RELATIVE to the named component; parameters as given):
+- Origin: Progress_bar AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- Gen_Source: Source_gen AT [0, 0, 0] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE Origin
+    parameters: radius=0.0775, dist=1.53, focus_xw=0.2, focus_yh=0.125, I1=1e10, T1=45, Lmin=l_min, Lmax=l_max
+- NL1A_NL1B_NL2_NL3_InPile_Entrance_Window: Arm AT [0, 0, 1.530] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE Origin
+- NL1A_NL1B_NL2_NL3_InPile: Guide AT [0, 0, 0] RELATIVE NL1A_NL1B_NL2_NL3_InPile_Entrance_Window ROTATED [0, 0, 0] RELATIVE NL1A_NL1B_NL2_NL3_InPile_Entrance_Window
+    parameters: w1=0.170696, h1=0.129, w2=0.340522, h2=0.129, l=1.870, R0=R0_para, Qc=Qc_para, alpha=alpha_para, m=MGUIDE, W=W_para
+- NL1B_Straight1_Entrance_Window: Arm AT [-0.1277, 0, 3.405] RELATIVE Origin ROTATED [0, -2.15, 0] RELATIVE Origin
+- NL1B_Straight1: Guide AT [0, 0, 0] RELATIVE NL1B_Straight1_Entrance_Window ROTATED [0, 0, 0] RELATIVE NL1B_Straight1_Entrance_Window
+    parameters: w1=0.06, h1=0.125, w2=0.06, h2=0.125, l=1.549, R0=R0_para, Qc=Qc_para, alpha=alpha_para, m=MGUIDE, W=W_para
+- NL1B_Curved_Entrance_Window: Arm AT [0, 0, 1.549] RELATIVE NL1B_Straight1_Entrance_Window ROTATED [0, 0, 0] RELATIVE NL1B_Straight1_Entrance_Window
+- NL1B_Curved_Guide_1: Guide_curved AT [0, 0, 0] RELATIVE NL1B_Curved_Entrance_Window ROTATED [0, 0, 180] RELATIVE NL1B_Curved_Entrance_Window
+    parameters: w1=0.06, h1=0.125, l=LGUIDE_1, R0=R0_para, Qc=Qc_para, alpha=alpha_para, m=MGUIDE, W=W_para, curvature=2800
+- NL1B_Velocity_Selector_Gap_Entrance_Window: Arm AT [-s_guide_1, 0, LGUIDE_1] RELATIVE NL1B_Curved_Entrance_Window ROTATED [0, -beta_guide_1, 0] RELATIVE NL1B_Curved_Entrance_Window
+- Before_selec: PSD_monitor AT [0, 0, 0.19] RELATIVE NL1B_Velocity_Selector_Gap_Entrance_Window ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nx=50, ny=50, filename=&quot;PSD_monitor_before.dat&quot;, xwidth=0.20, yheight=0.20, restore_neutron=1
+- SELEC: Selector AT [0, 0, 0.2] RELATIVE NL1B_Velocity_Selector_Gap_Entrance_Window ROTATED [0, tilt, 90] RELATIVE NL1B_Velocity_Selector_Gap_Entrance_Window
+    parameters: xmin=-0.0625, xmax=0.0625, ymin=-0.03, ymax=0.03, length=0.25, nslit=72, d=0.0004, radius=0.123, alpha=19.7, nu=SelFreq
+- After_selec: PSD_monitor AT [0, 0, 0.46] RELATIVE NL1B_Velocity_Selector_Gap_Entrance_Window ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nx=50, ny=50, filename=&quot;PSD_monitor_after.dat&quot;, xwidth=0.20, yheight=0.20, restore_neutron=1
+- NL1B_Curved_2_Entrance_Window: Arm AT [0, 0, 0.47] RELATIVE NL1B_Velocity_Selector_Gap_Entrance_Window ROTATED [0, 0, 0] RELATIVE NL1B_Velocity_Selector_Gap_Entrance_Window
+- NL1B_Curved_Guide_2: Guide_curved AT [0, 0, 0] RELATIVE NL1B_Curved_2_Entrance_Window ROTATED [0, 0, 180] RELATIVE NL1B_Curved_2_Entrance_Window
+    parameters: w1=0.06, h1=0.125, l=LGUIDE_2, R0=R0_para, Qc=Qc_para, alpha=alpha_para, m=MGUIDE, W=W_para, curvature=2800
+- NL1B_Straight2_Entrance_Window: Arm AT [-s_guide_2, 0, LGUIDE_2] RELATIVE NL1B_Curved_2_Entrance_Window ROTATED [0, -beta_guide_2, 0] RELATIVE NL1B_Curved_2_Entrance_Window
+- NL1B_Straight2: Guide AT [0, 0, 0] RELATIVE NL1B_Straight2_Entrance_Window ROTATED [0, 0, 0] RELATIVE NL1B_Straight2_Entrance_Window
+    parameters: w1=0.06, h1=0.125, w2=0.06, h2=0.125, l=3.500, R0=R0_para, Qc=Qc_para, alpha=alpha_para, m=MGUIDE, W=W_para
+- NL1B_Elliptical_Entrance_Window: Arm AT [0.0000, 0, 3.500] RELATIVE NL1B_Straight2_Entrance_Window ROTATED [0, 0.000, 0.00] RELATIVE NL1B_Straight2_Entrance_Window
+- elliptical_piece: Guide_tapering AT [0, 0, 0] RELATIVE NL1B_Elliptical_Entrance_Window ROTATED [0, 0, 0] RELATIVE NL1B_Elliptical_Entrance_Window
+    parameters: option=&quot;elliptical&quot;, w1=0.06, h1=0.125, l=2.5, linw=2.9, loutw=0.4, R0=0.99, Qcx=0.0217, Qcy=0.0217, alphax=4.00, alphay=alpha_para, W=0.002, mx=5.2, my=MGUIDE, segno=800
+- Virtual_source: Slit AT [0, 0, 2.900] RELATIVE NL1B_Elliptical_Entrance_Window ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=wVS, yheight=0.2
+- NL1B_Vertical_Guide_Entrance_Window: Arm AT [0.0000, 0, 2.925] RELATIVE NL1B_Elliptical_Entrance_Window ROTATED [0, 0.000, 0.00] RELATIVE NL1B_Elliptical_Entrance_Window
+- NL1B_Vertical_Guide: Guide_channeled AT [0, 0, 0] RELATIVE NL1B_Vertical_Guide_Entrance_Window ROTATED [0, 0, 0] RELATIVE NL1B_Vertical_Guide_Entrance_Window
+    parameters: w1=0.03, h1=0.125, w2=0.15, h2=0.125, l=1.475, R0=R0_para, nslit=1, Qcx=Qc_para, Qcy=Qc_para, alphax=alpha_para, alphay=alpha_para, W=W_para, mx=0, my=MGUIDE
+- NL1B_Guide_Exit: Arm AT [0, 0, 1.475] RELATIVE NL1B_Vertical_Guide_Entrance_Window ROTATED [0, 0, 0] RELATIVE NL1B_Vertical_Guide_Entrance_Window
+- energy_endguide: E_monitor AT [0, 0, 0] RELATIVE NL1B_Guide_Exit ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nE=200, filename=&quot;energy-endguide.dat&quot;, xwidth=0.17, yheight=0.135, Emin=e_min, Emax=e_max, restore_neutron=1
+- Mono_center: Arm AT [0, 0, 0.25] RELATIVE NL1B_Guide_Exit ROTATED [0, A1, 0] RELATIVE NL1B_Guide_Exit
+- Monochromator: Monochromator_curved AT [0, 0, 0] RELATIVE Mono_center ROTATED [0, 0, 0] RELATIVE Mono_center
+    parameters: zwidth=0.02, yheight=0.02, gap=0.0005, NH=15, NV=7, mosaich=40, mosaicv=40, r0=1.0, t0=0.00001, RV=RMV, RH=RMH
+- Mono_sample_arm: Arm AT [0, 0, 0] RELATIVE Mono_center ROTATED [0, A2, 0] RELATIVE NL1B_Guide_Exit
+- energy_mono: E_monitor AT [0, 0, 0.15] RELATIVE Mono_sample_arm ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nE=200, filename=&quot;energy-mono.dat&quot;, xwidth=0.2, yheight=0.125, Emin=e_min, Emax=e_max, restore_neutron=1
+- energy_pre_sample: E_monitor AT [0, 0, L2-0.1] RELATIVE Mono_sample_arm ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nE=50, filename=&quot;energy-pre-sample.dat&quot;, xwidth=0.08, yheight=0.08, Emin=e_min, Emax=e_max, restore_neutron=1
+- Sample_center: Arm AT [0, 0, L2] RELATIVE Mono_sample_arm ROTATED [0, A3, 0] RELATIVE Mono_sample_arm
+- Sample_analyser_arm: Arm AT [0, 0, 0] RELATIVE Sample_center ROTATED [0, A4, 0] RELATIVE Mono_sample_arm
+- div_mono: Divergence_monitor AT [0, 0, L2-0.05] RELATIVE Mono_sample_arm ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nh=20, nv=20, filename=&quot;div-sample.dat&quot;, xwidth=0.1, yheight=0.1, maxdiv_h=4, maxdiv_v=4, restore_neutron=1
+- div_mono_H: Div1D_monitor AT [0, 0, L2-0.04] RELATIVE Mono_sample_arm ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: ndiv=35, filename=&quot;H-div-sample.dat&quot;, xwidth=0.005, yheight=0.7, maxdiv=4, restore_neutron=1
+- psd_sam: PSD_monitor AT [0, 0, 0] RELATIVE Sample_center ROTATED [0, 0, 0] RELATIVE Mono_sample_arm
+    parameters: nx=60, ny=60, filename=&quot;psd-sam.dat&quot;, xwidth=0.20, yheight=0.20, restore_neutron=1
+- dpsd1: PSDlin_monitor AT [0, 0, 0] RELATIVE Sample_center ROTATED [0, 0, 0] RELATIVE Mono_sample_arm
+    parameters: nbins=30, filename=&quot;linpsdsam.dat&quot;, xmin=-0.1, xmax=0.1, ymin=-0.1, ymax=0.1
+
+Your instrument must include at least: a 2D position-sensitive monitor; an energy monitor.
+Run with: kI=1.55, kF=1.55, wVS=0.03, tilt=0, SA=-1, A3=0, A4=70, L3=1.00, L4=1.00, Mono_flatswitch=0.</pre></details>
+<p class="meta">file: <code>benchmark/tasks/T1/T1_HZB_FLEX.json</code></p>
+</div>
+<div class="card" id="T1_HZB_NEAT">
+<h3><code>T1_HZB_NEAT</code> <span style="background:#2da44e;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">validated</span> <span style="background:#0969da;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">seen</span></h3>
+<p class="meta">class: <strong>ToF-spectrometer</strong> · reference: <code>HZB_NEAT</code> · <a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/HZB/HZB_NEAT">source on GitHub</a> · ground truth: <code>%Example: lambda=6                       Detector: Detector_I=2900</code> · reference verified in-env: ✅</p>
+<p class="meta">protocol: ncount 1e+06, seed 1234</p>
+<table><tr><th>graded monitor role</th><th>observables (tolerance)</th></tr><tr><td><code>2d</code></td><td>intensity (rtol 0.2, 3σ), beam_width_x (rtol 0.3), beam_width_y (rtol 0.3)</td></tr><tr><td><code>wavelength</code></td><td>intensity (rtol 0.25, 3σ), center_of_mass (rtol 0.05), fwhm (rtol 0.5)</td></tr><tr><td><code>tof</code></td><td>intensity (rtol 0.25, 3σ), center_of_mass (rtol 0.05)</td></tr></table>
+<details><summary>task prompt (8049 chars)</summary><pre>Rebuild the following ToF spectrometer in McStas from its specification, run it, and report the integrated intensity (with error and event count) on every monitor.
+
+Instrument parameters (defaults in parentheses):
+- lambda (6)
+- dlambda (0.05)
+- rpm (10000)
+- coh (&quot;Rb_liq_coh.sqw&quot;)
+- inc (&quot;Rb_liq_inc.sqw&quot;)
+- tmin (0.01806)
+- tmax (0.01826)
+
+Constants and derived quantities computed at startup (implement equivalent logic):
+```c
+double Chopper2Detector = 11.97+2.143+0.165;
+  double KI, Vi, EI;
+  double Emin, Emax, Vmin, Vmax, Tmin, Tmax;
+  KI= 2*PI/lambda;
+  Vi = K2V*fabs(KI);
+  EI = VS2E*Vi*Vi;
+  printf(&quot;%s: Detailed NEAT/TOF configuration\n&quot;, NAME_INSTRUMENT);
+  printf(&quot;* Incoming beam: lambda=%.4g [Angs] EI=%.4g [meV]  KI=%.4g [Angs-1] Vi=%g [m/s]\n&quot;,
+    lambda, EI, KI, Vi);
+  time_elastic = 252.78*Chopper2Detector*lambda*1e-6; /* time from Chopper1 to reach Detector */
+  printf(&quot;  Sample: coh=%s inc=%s\n&quot;, coh, inc);
+  printf(&quot;          Elastic line time: %g [us]\n&quot;, time_elastic*1e6);
+  Emin = EI-20; if (Emin &lt; EI/3) Emin=EI/3;
+  Emax = EI+20;
+  Vmin = sqrt(Emin/VS2E);
+  Vmax = sqrt(Emax/VS2E);
+  Tmin = 2.5/Vmax;
+  Tmax = 2.5/Vmin;
+  sprintf(detector_options,
+    &quot;banana, abs angle limits=[13 136] bins=300, time limits=[%g %g] bins=256&quot;,
+    time_elastic+Tmin, time_elastic+Tmax);
+  sprintf(lmon_options,&quot;lambda limits=[%g %g] bins=100&quot;,lambda-dlambda/2.0,lambda+dlambda/2.0);
+  sprintf(tmon_options,&quot;tof limits=[%g %g] bins=100&quot;,tmin,tmax);
+```
+
+Beamline, in order (positions in meters; AT [x,y,z] RELATIVE to the named component; parameters as given):
+- PG: Progress_bar AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- Source: Source_gen AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: radius=.155, focus_xw=0.03, focus_yh=0.055, lambda0=lambda, dlambda=dlambda, I1=1.4e12, T1=43.7, T2=137.2, I2=2.08e12
+- Guide0: Guide_gravity AT [0, 0, 2] RELATIVE Source ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=0.03, h1=0.055, l=2, m=1.2
+- Guide0_copy: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0
+    parameters: w1=0.03, h1=0.055, l=2, m=1.2
+- Guide0_copy_0: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy
+    parameters: w1=0.03, h1=0.055, l=2, m=1.2
+- Guide0_copy_1: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_0 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_0
+    parameters: w1=0.03, h1=0.055, l=2, m=1.2
+- Guide0_copy_2: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_1 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_1
+    parameters: w1=0.03, h1=0.055, l=2, m=1.2
+- Guide0_copy_3: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_2 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_2
+    parameters: w1=0.03, h1=0.055, l=2, m=1.2
+- Guide0_copy_4: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_3 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_3
+    parameters: w1=0.03, h1=0.055, l=2, m=1.2
+- Guide0_copy_5: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_4 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_4
+    parameters: w1=0.03, h1=0.055, l=2, m=1.2
+- Guide0_copy_6: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_5 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_5
+    parameters: w1=0.03, h1=0.055, l=2, m=1.2
+- Guide0_copy_7: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_6 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_6
+    parameters: w1=0.03, h1=0.055, l=2, m=1.2
+- Guide0_copy_8: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_7 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_7
+    parameters: w1=0.03, h1=0.055, l=2, m=1.2
+- Guide0_copy_9: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_8 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_8
+    parameters: w1=0.03, h1=0.055, l=2, m=1.2
+- Guide0_copy_10: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_9 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_9
+    parameters: w1=0.03, h1=0.055, l=2, m=1.2
+- Guide0_copy_11: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_10 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_10
+    parameters: w1=0.03, h1=0.055, l=2, m=1.2
+- Guide0_copy_12: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_11 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_11
+    parameters: w1=0.03, h1=0.055, l=2, m=1.2
+- Guide0_copy_13: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_12 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_12
+    parameters: w1=0.03, h1=0.055, l=2, m=1.2
+- Guide0_copy_14: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_13 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_13
+    parameters: w1=0.03, h1=0.055, l=2, m=1.2
+- Guide_PSD: Monitor_nD AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_14 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.03, yheight=0.055, options=&quot;y x&quot;
+- Guide_Lambda: Monitor_nD AT [0, 0, 1e-4] RELATIVE Guide_PSD ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.03, yheight=0.055, options=lmon_options
+- Chopper1: DiskChopper AT [0, 0, 1.2e-2/2] RELATIVE Guide_Lambda ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: radius=0.24, yheight=0.06, nu=rpm/60, isfirst=1, xwidth=0.03
+- Guide_SGS1: Guide_gravity AT [0, 0, 1.2e-2] RELATIVE Guide_Lambda ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=0.03, h1=0.055, l=2, m=1.2
+- Guide_SGS2: Guide_gravity AT [0, 0, 2.41] RELATIVE Guide_SGS1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=0.03, h1=0.055, l=2, m=1.2
+- Guide_SGS3: Guide_gravity AT [0, 0, 5.065] RELATIVE Guide_SGS2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=0.03, h1=0.055, l=2, m=1.2
+- Guide_CGS: Guide_gravity AT [0, 0, 2.352] RELATIVE Guide_SGS3 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=0.03, h1=0.055, l=2, m=1.2
+- Guide2_PSD: Monitor_nD AT [0, 0, 2.143-2*6e-3+1e-4] RELATIVE Guide_CGS ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.03, yheight=0.055, options=&quot;x y&quot;
+- Guide2_Lambda: Monitor_nD AT [0, 0, 1e-4] RELATIVE Guide2_PSD ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.03, yheight=0.055, options=lmon_options
+- Guide2_dXY: Monitor_nD AT [0, 0, 1e-4] RELATIVE Guide2_Lambda ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.03, yheight=0.055, options=&quot;dx dy&quot;
+- Chopper6: DiskChopper AT [0, 0, 1.2e-2/2] RELATIVE Guide2_dXY ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: radius=0.24, yheight=0.06, nu=rpm/60, delay=252.78*11.97*lambda*1e-6, xwidth=0.03
+- Guide_time: Monitor_nD AT [0, 0, 1.2e-2/2] RELATIVE Chopper6 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.03, yheight=0.055, options=&quot;y x&quot;
+- Guide_DGS: Guide_gravity AT [0, 0, 2.143] RELATIVE Guide_CGS ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=0.03, h1=0.055, l=2, m=1.2
+- Sample_pos: Arm AT [0, 0, 2.143+0.165] RELATIVE Guide_DGS ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- Sample: Isotropic_Sqw AT [0, 0, 0] RELATIVE Sample_pos ROTATED [0, 45, 0] RELATIVE Sample_pos  (SPLIT 10)
+    parameters: Sqw_coh=coh, Sqw_inc=inc, xwidth=0.05, yheight=0.06, zdepth=0.002, p_interact=0.99
+    EXTEND: ```c
+    if (!SCATTERED) ABSORB;
+    ```
+- Ideal_Det: Monitor_nD AT [0, 0, 0] RELATIVE Sample_pos ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: yheight=2, restore_neutron=1, radius=2.5, options=detector_options
+- Detector: PSD_Detector AT [0, 0, 0] RELATIVE Sample_pos ROTATED [0, (136-13)/2+13, 0] RELATIVE Sample_pos
+    parameters: nx=640, ny=256, radius=2.5, yheight=2.0, zdepth=0.01, threshold=100, PressureConv=8, PressureStop=1, dc=0, borderx=-1, bordery=-1, xChDivRelSigma=0, yChDivRelSigma=0.0037, angle=136-13, filename=&quot;NEAT.psd&quot;, FN_Conv=&quot;Gas_tables/He3inHe.table&quot;, FN_Stop=&quot;Gas_tables/He3inCF4.table&quot;
+
+Your instrument must include at least: a 2D position-sensitive monitor; a wavelength monitor; a time-of-flight monitor.
+Run with: lambda=6, dlambda=0.05, rpm=10000, coh=Rb_liq_coh.sqw, inc=Rb_liq_inc.sqw, tmin=0.01806, tmax=0.01826.</pre></details>
+<p class="meta">file: <code>benchmark/tasks/T1/T1_HZB_NEAT.json</code></p>
+</div>
+<div class="card" id="T1_ILL_D2B">
+<h3><code>T1_ILL_D2B</code> <span style="background:#2da44e;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">validated</span> <span style="background:#0969da;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">seen</span></h3>
+<p class="meta">class: <strong>powder-diffractometer</strong> · reference: <code>ILL_D2B</code> · <a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/ILL/ILL_D2B">source on GitHub</a> · ground truth: <code>%Example: lambda=1 Detector: D2B_BananaPSD_I=1.4489E+04</code> · reference verified in-env: ✅</p>
+<p class="meta">paper: Cussen, NIM A 554, 406 (2005) — <a href="https://doi.org/10.1016/j.nima.2005.08.018">doi:10.1016/j.nima.2005.08.018</a> (spec-sheet)</p>
+<p class="meta">protocol: ncount 1e+06, seed 1234</p>
+<table><tr><th>graded monitor role</th><th>observables (tolerance)</th></tr><tr><td><code>2d</code></td><td>intensity (rtol 0.2, 3σ), beam_width_x (rtol 0.3), beam_width_y (rtol 0.3)</td></tr><tr><td><code>wavelength</code></td><td>intensity (rtol 0.25, 3σ), center_of_mass (rtol 0.05), fwhm (rtol 0.5)</td></tr></table>
+<details><summary>task prompt (8813 chars)</summary><pre>Rebuild the following powder diffractometer in McStas from its specification, run it, and report the integrated intensity (with error and event count) on every monitor.
+
+Instrument parameters (defaults in parentheses):
+- lambda (1.594)
+- DM (0)
+- Powder (&quot;Na2Ca3Al2F14.laz&quot;)
+- RV (-1)
+- L1 (16.05)
+- L2 (2.645)
+- L3 (1.3)
+- verbose (1)
+- ALPHA1 (18)
+- ALPHA2 (11)
+- ALPHA3 (5)
+- ETA (12)
+- THETA_M (67.5)
+- TILT (0)
+- SM (1)
+- Dheight (0.3)
+- coating (0)
+
+Constants and derived quantities computed at startup (implement equivalent logic):
+```c
+double L;
+	double KI, Vi, EI;
+	double ALPHA3_Opt;
+	if (!THETA_M &amp;&amp; lambda &amp;&amp; DM)
+		THETA_M =asin(lambda/(2*DM))*RAD2DEG;
+	else if (THETA_M &amp;&amp; !lambda &amp;&amp; DM)
+		lambda = fabs(sin(THETA_M*DEG2RAD))*2*DM;
+	else if (THETA_M &amp;&amp; lambda)
+		DM = fabs(lambda/sin(DEG2RAD*THETA_M)/2.0);
+	THETA_M *= SM; /* take-off direction left or right */
+	if (!THETA_M || !DM || !lambda) exit(fprintf(stderr,
+	      &quot;ILL_D2B: ERROR: Monochromator take-off, d-spacing or wavelength is null (THETA_M=%g, DM=%g, lambda=%g). Abort.\n&quot;,
+	      THETA_M, DM, lambda));
+	if (!L1)    L = L2;
+	else        L = 1/(1/L1+1/L2);
+	if (RV &lt; 0) RV=2*L*sin(DEG2RAD*THETA_M);
+	KI = 2*PI/lambda;
+	Vi = K2V*fabs(KI);
+	EI = VS2E*Vi*Vi;
+	if (ALPHA1&lt;0)  ALPHA1=600;
+	if (ALPHA2&lt;0)  ALPHA2=600;
+	if (ALPHA3&lt;0)  ALPHA3=600;
+	if (ETA&lt;=0)    ETA   =30;
+	U = 4*(ALPHA1*ALPHA1 * ALPHA2*ALPHA2 + ALPHA1*ALPHA1 * ETA*ETA + ALPHA2*ALPHA2 * ETA*ETA)
+	     /(tan(THETA_M*DEG2RAD)*tan(THETA_M*DEG2RAD) * (ALPHA1*ALPHA1 + ALPHA2*ALPHA2 + 4*ETA*ETA));
+	V = 4*ALPHA2*ALPHA2*(ALPHA1*ALPHA1 +2*ETA*ETA)
+	     /(tan(THETA_M*DEG2RAD) * (ALPHA1*ALPHA1 + ALPHA2*ALPHA2 + 4*ETA*ETA));
+	W = ALPHA3*ALPHA3+(ALPHA1*ALPHA1 * ALPHA2*ALPHA2 + 4*ALPHA2*ALPHA2 * ETA*ETA)
+	                 /(ALPHA1*ALPHA1 + ALPHA2*ALPHA2 + 4*ETA*ETA);
+	L0 = (ALPHA1*ETA*ALPHA2*ALPHA3/tan(fabs(THETA_M)*DEG2RAD))
+	   / sqrt(ALPHA1*ALPHA1 + ALPHA2*ALPHA2 + 4*ETA*ETA);
+	ALPHA3_Opt = 1/sqrt(1/ALPHA1/ALPHA1+1/ALPHA2/ALPHA2+1/ETA/ETA);
+	if (verbose) {
+	  printf(&quot;ILL_D2B: Detailed DIF configuration\n&quot;);
+	  printf(&quot;* Incoming beam: lambda=%.4g [Angs] EI=%.4g [meV]  KI=%.4g [Angs-1] Vi=%g [m/s]\n&quot;,
+	    lambda, EI, KI, Vi);
+	  printf(&quot;* Monochromator:  DM=%.4g [Angs] RV=%.4g [m] %s, take-off 2*THETA_M=%.4g [deg]\n&quot;,
+	    DM, RV, (!RV ? &quot;flat&quot; : &quot;curved&quot;), THETA_M*2);
+	  printf(&quot;* Resolution:     Caglioti              U=%g V=%g W=%g [deg^2]\n&quot;, U/60/60, V/60/60, W/60/60);
+	  printf(&quot;                  Optimal          ALPHA3=%g [min]\n&quot;,  ALPHA3_Opt);
+	  printf(&quot;                  Optimal resolution A1/2=%g [min]\n&quot;,  ALPHA3_Opt/sqrt(2));
+	  printf(&quot;                  Normalized Intensity L0=%g [min^3]\n&quot;, L0);
+	}
+	RV = fabs(RV)*SM;
+	sprintf(lamopts, &quot;lambda limits=[%g, %g]&quot;,lambda*0.99, lambda*1.01);
+```
+
+Beamline, in order (positions in meters; AT [x,y,z] RELATIVE to the named component; parameters as given):
+- Origin: Progress_bar AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- Source: Source_gen AT [0, 0, 0] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: radius=0.11, dist=11, focus_xw=fabs(0.05*fabs(sin(DEG2RAD*THETA_M))), focus_yh=0.3, lambda0=lambda, dlambda=lambda*0.01, I1=0.5874e+13, T1=683.7, T2=257.7, I2=2.5099e+13, T3=16.7, I3=1.0343e+12
+- Win0: Slit AT [0, 0, 2.462] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: radius=0.11
+- Oct1: Slit AT [0, 0, 2.512] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.15, yheight=0.15
+- Oct2: Slit AT [0, 0, 2.512] RELATIVE Origin ROTATED [0, 0, 45] RELATIVE Origin
+    parameters: xwidth=0.177, yheight=0.177
+- Win1: Slit AT [0, 0, 3.5321] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: radius=0.0565
+- Win2: Slit AT [0, 0, 4.0421] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: radius=0.0555
+- Win3: Slit AT [0, 0, 4.087] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: radius=0.0575
+- Win4: Slit AT [0, 0, 4.999] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: radius=0.0575
+- Win5: Slit AT [0, 0, 5.006] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: radius=0.0625
+- Win6: Slit AT [0, 0, 5.151] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: radius=0.0625
+- SMguide: Guide AT [0, 0, 11] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (coating&gt;0))
+    parameters: w1=0.07, h1=0.3, l=5, m=coating
+- Alpha_One: Collimator_linear AT [0, 0, L1-1.045] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (ALPHA1&gt;0))
+    parameters: xwidth=0.07, yheight=0.30, length=0.70, divergence=ALPHA1, transmission=1.0
+- Slit_Mono: Slit AT [0, 0, L1-0.1] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.05, yheight=0.3
+- D2B_Mono_XY: Monitor_nD AT [0, 0, 0] RELATIVE Slit_Mono ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.1, yheight=0.3, bins=40, restore_neutron=1, options=&quot;x y&quot;
+- D2B_ALPHA1_Div: Monitor_nD AT [0, 0, 0] RELATIVE D2B_Mono_XY ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.1, yheight=0.3, bins=40, restore_neutron=1, options=&quot;dx limits=[-0.5 0.5] dy limits=[-1 1]&quot;
+- D2B_Mono_Lambda: Monitor_nD AT [0, 0, 0] RELATIVE D2B_ALPHA1_Div ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.1, yheight=0.3, bins=40, restore_neutron=1, options=lamopts
+- mono_cradle: Arm AT [0, 0, L1] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- Monok: Monochromator_curved AT [0, 0, 0] RELATIVE mono_cradle ROTATED [0, THETA_M+TILT, 0] RELATIVE mono_cradle  (SPLIT 10)
+    parameters: NH=1, NV=28, mosaich=ETA, mosaicv=12, RV=RV, DM=DM, width=0.1, height=0.3
+- sphere: PSD_monitor_4PI AT [0, 0, 0] RELATIVE mono_cradle ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: filename=&quot;sphere&quot;, radius=0.5, restore_neutron=1
+- mono_out: Arm AT [0, 0, 0] RELATIVE mono_cradle ROTATED [0, 2*THETA_M, 0] RELATIVE mono_cradle
+- Shield_Hole: Guide_channeled AT [0, 0, 0.304] RELATIVE mono_out ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=0.05, h1=0.274, w2=0.044, h2=0.201, l=0.752, R0=0, nslit=1
+- Alpha_Two: Collimator_linear AT [0, 0, L2-0.25] RELATIVE mono_out ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (ALPHA2&gt;0))
+    parameters: xwidth=0.05, yheight=0.2, length=0.2, divergence=ALPHA2, transmission=1.0
+- Slit_Sample: Slit AT [0, 0, L2-0.02] RELATIVE mono_out ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.01, yheight=0.05
+- D2B_ALPHA2_Div: Monitor_nD AT [0, 0, 0] RELATIVE Slit_Sample ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.02, yheight=0.05, bins=40, restore_neutron=1, options=&quot;dx limits=[-0.5 0.5] dy limits=[-1 1]&quot;
+- D2B_Sample_Lambda: Monitor_nD AT [0, 0, 0] RELATIVE D2B_ALPHA2_Div ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.02, yheight=0.05, bins=40, restore_neutron=1, options=lamopts
+- Arm_Sample: Arm AT [0, 0, L2] RELATIVE mono_out ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (SPLIT 10)
+- Container_in: PowderN AT [0, 0, 0] RELATIVE Arm_Sample ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: reflections=&quot;V.lau&quot;, radius=0.0025+0.00051, yheight=0.04, thickness=0.0005, d_phi=RAD2DEG*atan2(Dheight+0.05,L3), p_interact=0.1, concentric=1
+- Sample: PowderN AT [0, 0, 0] RELATIVE Arm_Sample ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: reflections=Powder, radius=0.0025, yheight=0.04, d_phi=RAD2DEG*atan2(Dheight+0.05,L3)
+- Container_out: PowderN AT [0, 0, 0] RELATIVE Arm_Sample ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: reflections=&quot;V.lau&quot;, radius=0.0025+0.00051, yheight=0.04, thickness=0.0005, d_phi=RAD2DEG*atan2(Dheight+0.05,L3), p_interact=0.1, concentric=1
+- collimador_radial: Collimator_radial AT [0, 0, 0] RELATIVE Sample ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (ALPHA3&gt;0))
+    parameters: yheight=Dheight, length=.30, divergence=ALPHA3, theta_min=-165, theta_max=-5, radius=L3-0.3-0.01, verbose=1, approx=1
+- D2B_BananaTheta: Monitor_nD AT [0, 0, 0] RELATIVE Sample ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: yheight=Dheight, restore_neutron=1, radius=L3, options=&quot;banana, angle limits=[5 165], bins=3200&quot;
+- D2B_BananaThetaCenter: Monitor_nD AT [0, 0, 0] RELATIVE Sample ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: yheight=0.1, restore_neutron=1, radius=L3, options=&quot;banana, angle limits=[5 165], bins=3200&quot;
+- D2B_BananaPSD: Monitor_nD AT [0, 0, 0] RELATIVE Sample ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: yheight=Dheight, radius=L3*1.005, options=&quot;banana, theta limits=[-165 -5] bins=320, y bins=25&quot;
+
+Your instrument must include at least: a 2D position-sensitive monitor; a wavelength monitor.
+Run with: lambda=1, DM=0, Powder=Na2Ca3Al2F14.laz, RV=-1, L1=16.05, L2=2.645, L3=1.3, verbose=1, ALPHA1=18, ALPHA2=11, ALPHA3=5, ETA=12, THETA_M=67.5, TILT=0, SM=1, Dheight=0.3, coating=0.</pre></details>
+<p class="meta">file: <code>benchmark/tasks/T1/T1_ILL_D2B.json</code></p>
+</div>
+<div class="card" id="T1_ILL_H10_IN8">
+<h3><code>T1_ILL_H10_IN8</code> <span style="background:#2da44e;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">validated</span> <span style="background:#0969da;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">seen</span></h3>
+<p class="meta">class: <strong>TAS</strong> · reference: <code>ILL_H10_IN8</code> · <a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/ILL/ILL_H10_IN8">source on GitHub</a> · ground truth: <code>%Example: QM=1 EN=0 Sqw_coh=V.lau Detector: D7_SC3_1D_I=9.36585e+08</code> · reference verified in-env: ✅</p>
+<p class="meta">protocol: ncount 1e+06, seed 1234</p>
+<table><tr><th>graded monitor role</th><th>observables (tolerance)</th></tr><tr><td><code>2d</code></td><td>intensity (rtol 0.2, 3σ), beam_width_x (rtol 0.3), beam_width_y (rtol 0.3)</td></tr><tr><td><code>wavelength</code></td><td>intensity (rtol 0.25, 3σ), center_of_mass (rtol 0.05), fwhm (rtol 0.5)</td></tr></table>
+<details><summary>task prompt (1753 chars)</summary><pre>Rebuild the following TAS in McStas from its specification, run it, and report the integrated intensity (with error and event count) on every monitor.
+
+Instrument parameters (defaults in parentheses):
+- KF (5)
+- KI (0)
+- QM (0.5)
+- EN (0)
+- verbose (1)
+- WM (0.233)
+- HM (0.197)
+- RMH (-1)
+- RMV (-1)
+- DM (1.807)
+- NHM (15)
+- NVM (15)
+- WA (0.16)
+- HA (0.08)
+- RAH (-1)
+- RAV (-1)
+- DA (2.087)
+- NHA (15)
+- NVA (15)
+- L1 (2.3)
+- ALF1 (60)
+- ALF2 (60)
+- ALF3 (60)
+- ALF4 (60)
+- BET1 (120)
+- BET2 (120)
+- BET3 (120)
+- BET4 (120)
+
+Beamline, in order (positions in meters; AT [x,y,z] RELATIVE to the named component; parameters as given):
+- Origin: Progress_bar AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- Source: Source_gen AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: radius=0.10, dist=machine_hkl.l1, focus_xw=fabs(WM*sin(machine_real.a1*DEG2RAD)), focus_yh=HM, E0=machine_hkl.ei, dE=machine_hkl.ei*0.03, I1=0.5874e+13, T1=683.7, T2=257.7, I2=2.5099e+13, T3=16.7, I3=1.0343e+12
+- SC1: Collimator_linear AT [0, 0, machine_hkl.l1/4] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (ALF1 &amp;&amp; BET1))
+    parameters: xmin=-WM/2, xmax=WM/2, ymin=-HM/2, ymax=HM/2, length=machine_hkl.l1/2, divergence=ALF1, divergenceV=BET1
+- Guide_out: Arm AT [0, 0, machine_hkl.l1-0.2] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+
+Your instrument must include at least: a 2D position-sensitive monitor; a wavelength monitor.
+Run with: KF=5, KI=0, QM=1, EN=0, verbose=1, WM=0.233, HM=0.197, RMH=-1, RMV=-1, DM=1.807, NHM=15, NVM=15, WA=0.16, HA=0.08, RAH=-1, RAV=-1, DA=2.087, NHA=15, NVA=15, L1=2.3, ALF1=60, ALF2=60, ALF3=60, ALF4=60, BET1=120, BET2=120, BET3=120, BET4=120, Sqw_coh=V.lau.</pre></details>
+<p class="meta">file: <code>benchmark/tasks/T1/T1_ILL_H10_IN8.json</code></p>
+</div>
+<div class="card" id="T1_ILL_H15_D11">
+<h3><code>T1_ILL_H15_D11</code> <span style="background:#2da44e;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">validated</span> <span style="background:#0969da;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">seen</span></h3>
+<p class="meta">class: <strong>SANS</strong> · reference: <code>ILL_H15_D11</code> · <a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/ILL/ILL_H15_D11">source on GitHub</a> · ground truth: <code>%Example: Lambda=4.51 Detector: SampleC_I=2.1e7</code> · reference verified in-env: ✅</p>
+<p class="meta">paper: Lindner &amp; Schweins, Neutron News 21(2) (2010) — <a href="https://doi.org/10.1080/10448631003697985">doi:10.1080/10448631003697985</a> (spec-sheet)</p>
+<p class="meta">protocol: ncount 1e+06, seed 1234</p>
+<table><tr><th>graded monitor role</th><th>observables (tolerance)</th></tr><tr><td><code>2d</code></td><td>intensity (rtol 0.2, 3σ), beam_width_x (rtol 0.3), beam_width_y (rtol 0.3)</td></tr></table>
+<details><summary>task prompt (29862 chars)</summary><pre>Rebuild the following SANS in McStas from its specification, run it, and report the integrated intensity (with error and event count) on every monitor.
+
+Instrument parameters (defaults in parentheses):
+- Lambda (4.51)
+- Config (&quot;Borkron_1972&quot;)
+- Lc (0)
+- iLc (5)
+- Chamfers (0.0002)
+- Waviness (2.5e-05)
+
+Constants and derived quantities computed at startup (implement equivalent logic):
+- sLambda = 4
+- sDeltaLambdaPercent = 0.08
+- sT1 = 216.8
+- sI1 = 1.24e+13
+- sT2 = 33.9
+- sI2 = 1.02e+13
+- sT3 = 16.7
+- sI3 = 3.0423e+12
+- sH = 0.22
+- sW = 0.1
+- gInputWidth = 0.038
+- gObtWidth = 0.032
+- gGuideHeight1 = 0.2
+- gGuideHeight2 = 0.05
+- gSourceInput = 2.33
+- gGuideWidth = 0.03
+- gLength1 = 25.5
+- gCurvatureRadius = 2700
+- gLength2 = 22.284
+- gLength3 = 5.4
+- gToSampleLength = 1.5
+- gElementGap = 0.004
+- mInPile = 1
+- mGuide1 = 1
+- mGuide2 = 0.65
+- mAlpha = 4.07
+- mQc = 0.0218
+- mR0 = 0.995
+- mW = 1.0/300.0
+- Borkron_1972_l = [20.0, 0.0, 0.0, 0.0, 0.0, 4.0, 3.0, 3.0, 2.5, 0.0, 2.5, 0.0, 1.5, 0.0, 1.5, 0.0, 0.0]
+- Borkron_2003_l = [6.5, 0.0, 6.0, 7.5, 0.0, 4.0, 3.0, 3.0, 2.5, 0.0, 2.5, 0.0, 1.5, 0.0, 1.5, 0.0, 1.0]
+- Borofloat_2001_l = [0.5, 6.0, 6.0, 0.5, 7.0, 4.0, 3.0, 3.0, 2.0, 0.5, 2.0, 0.5, 0.5, 1.0, 0.5, 1.0, 1.0]
+- Borkron_1972_n = [40.0, 0.0, 0.0, 0.0, 0.0, 8.0, 6.0, 6.0, 5.0, 0.0, 5.0, 0.0, 3.0, 0.0, 3.0, 0.0, 0.0]
+- Borkron_2003_n = [13.0, 0.0, 12.0, 15.0, 0.0, 8.0, 6.0, 6.0, 5.0, 0.0, 5.0, 0.0, 3.0, 0.0, 3.0, 0.0, 2.0]
+- Borofloat_2001_n = [1.0, 6.0, 6.0, 1.0, 7.0, 4.0, 3.0, 3.0, 2.0, 1.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+- Borkron_1972_g = [0.0, 0.0]
+- Borkron_2003_g = [0.002, 0.002]
+- Borofloat_2001_g = [0.002, 0.002]
+- Length_Lc = [1.5, 2.5, 4.0, 5.5, 8.0, 10.5, 13.5, 16.5, 20.5, 28.0, 34.0, 40.5]
+- microGap = 0.0001
+- declaration: `#define VERSION \&quot;H15_D11@ILL Farhi 10/08/2003\&quot;`
+```c
+double PhiC, GammaC, ThetaC, LambdaC, LStar, Zc;
+  double Ki;
+  int    i=0;
+  double sum_length=0;
+  double n_elements=0;
+  
+  gElmtLength1 = fabs(gLength1)/25;
+  gElmtRot1    = gElmtLength1/gCurvatureRadius*180/PI;
+  
+  gElmtLength2 = fabs(gLength2)/22;
+  gElmtLength3 = fabs(gLength3)/5;
+  printf(&quot;Simulation : %s on %s [pid %i]\n&quot;,VERSION,getenv(&quot;HOSTNAME&quot;), getpid());
+ 
+  sLambda = Lambda;
+  sDeltaLambda        = sDeltaLambdaPercent * sLambda / 2;
+  PhiC    = sqrt(2*fabs(gGuideWidth/gCurvatureRadius));
+  GammaC  = mGuide1*mQc/4/PI;
+  ThetaC  = sLambda*GammaC;
+  LambdaC = PhiC/GammaC;
+  LStar   = sqrt(8*fabs(gGuideWidth*gCurvatureRadius));
+  Zc      = gGuideWidth*(0.5-ThetaC*ThetaC/PhiC/PhiC);
+  printf(&quot;Guide: L =%.4f m, rho=%.4f m, m=%.2f\n&quot;, gLength1, gCurvatureRadius, mGuide1);
+  printf(&quot;Guide: L*=%.2f m, Phi_c = %.2f deg, Gamma_c = %.2f deg/Angs\n&quot;, LStar, PhiC*RAD2DEG, GammaC*RAD2DEG);
+  printf(&quot;Guide: Zc = %.4f m, Lambda_c = %.2f Angs\n&quot;, Zc, LambdaC);
+  if (sLambda &lt; LambdaC) 
+    printf(&quot;Guide: Garland reflections only\n&quot;);
+  else 
+    printf(&quot;Guide: Garland and Zig-Zag reflections\n&quot;);
+  if (gLength1 &lt; LStar) 
+    printf(&quot;Guide: Guide is too short\n&quot;);
+  
+  if (Lambda &lt; 0.12) exit(printf(&quot;** D11 Error: Unreachable wavelength for D11: %.4g\n&quot;, Lambda));
+  Ki   = 2*PI/Lambda;
+  Vrpm = 124270/(Lambda-0.11832);
+  if (Vrpm &lt; 3100 || Vrpm &gt; 28300) exit(printf(&quot;D11 Error: Unreachable V_selector speed for D11: %.4g\n&quot;, Vrpm));
+  if (Vrpm &gt; 9000 &amp;&amp; Vrpm &lt; 11900) printf(&quot;D11 Warning: Resonance V_selector speed for D11: %.4g\n&quot;, Vrpm);
+  printf(&quot;D11:   Ki = %.4g [Angs-1], Lambda = %.4g [Angs], V_Dolores=%.4g [rpm]\n&quot;, Ki, Lambda, Vrpm);
+  
+  if (!Config) exit(printf(&quot;** D11 Error: No movable guide configuration selected for D11\n&quot;));
+  
+  if (strstr(Config, &quot;Borkron_1972&quot;)) {
+    for (i=0; i&lt;17; i++) {
+      Config_l[i] = Borkron_1972_l[i];
+      Config_n[i] = Borkron_1972_n[i];
+      if (i&lt;2) Config_g[i] = Borkron_1972_g[i];
+    }
+  }
+  if (strstr(Config, &quot;Borkron_2003&quot;)) {
+    for (i=0; i&lt;17; i++) {
+      Config_l[i] = Borkron_2003_l[i];
+      Config_n[i] = Borkron_2003_n[i];
+      if (i&lt;2) Config_g[i] = Borkron_2003_g[i];
+    }
+  }
+  if (strstr(Config, &quot;Borofloat_2001&quot;)) {
+    for (i=0; i&lt;17; i++) {
+      Config_l[i] = Borofloat_2001_l[i];
+      Config_n[i] = Borofloat_2001_n[i];
+      if (i&lt;2) Config_g[i] = Borofloat_2001_g[i];
+    }
+  }
+  if (strstr(Config, &quot;Borofloat_2003&quot;)) {
+    for (i=0; i&lt;17; i++) {
+      Config_l[i] = Borofloat_2001_l[i];
+      Config_n[i] = Borofloat_2001_n[i];
+      if (i&lt;2) Config_g[i] = Borofloat_2001_g[i];
+    }
+  }
+  if (!i) exit(printf(&quot;** D11 Error: No movable guide configuration selected for D11\n&quot;));
+  if (strstr(Config,&quot;nogap&quot;)) for (i=0; i&lt;2; Config_g[i++]=0);
+  
+  if (Lc == 0)
+    if (iLc &gt;= 0 &amp;&amp; iLc &lt; 12)
+      Lc = Length_Lc[(int)iLc];
+    else exit(printf(&quot;** D11 Error: invalid collimator length specification for D11\n&quot;));
+  
+  for (i=0; i&lt; 17; i++) { 
+    if (40.5 - Lc &lt;= sum_length) Config_n[i]=0;
+    else {
+      sum_length += Config_l[i];
+      n_elements += Config_n[i];
+    }
+  }
+  printf(&quot;D11:   Coll.  L_c=%8.3g [m], Configuration=&#x27;%s&#x27;, \n&quot;, Lc, Config);
+  printf(&quot;D11:   Length L_g=%8.3g [m], n_elements=%8.2g\n&quot;, sum_length, n_elements);
+  printf(&quot;D11:   Chamfers  =%8.3g [m], Waviness  =%8.3g [rad] (%.3g [deg])\n&quot;, Chamfers, Waviness, Waviness*RAD2DEG);
+  Waviness *= RAD2DEG;
+  sprintf(xlmonopts,&quot;x bins=100 lambda limits=[%g %g] bins=100&quot;,sLambda-sDeltaLambda,sLambda+sDeltaLambda);
+```
+
+Beamline, in order (positions in meters; AT [x,y,z] RELATIVE to the named component; parameters as given):
+- PG: Progress_bar AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- Source: Source_gen AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: dist=gSourceInput, focus_xw=gInputWidth, focus_yh=gGuideHeight1, I1=sI1, yheight=sH, xwidth=sW, verbose=1, T1=sT1, Lmin=sLambda-sDeltaLambda, Lmax=sLambda+sDeltaLambda, T2=sT2, I2=sI2, T3=sT3, I3=sI3, zdepth=0.1
+- AlWindow1: Al_window AT [0, 0, gSourceInput-0.01] RELATIVE Source ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: thickness=0.002
+- PinkCarter: Guide_gravity AT [0, 0, gSourceInput] RELATIVE Source ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gInputWidth, h1=gGuideHeight1, w2=gObtWidth, h2=gGuideHeight1, l=3.170, R0=mR0, Qc=mQc, alpha=mAlpha, m=mInPile, W=mW
+- AlWindow2: Al_window AT [0, 0, gSourceInput+3.522+0.001] RELATIVE Source ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: thickness=0.002
+- LeadShutter: Guide_gravity AT [0, 0, gSourceInput+3.522+0.01] RELATIVE Source ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gObtWidth, h1=gGuideHeight1, w2=gObtWidth, h2=gGuideHeight1, l=0.228, R0=mR0, Qc=mQc, alpha=mAlpha, m=mInPile, W=mW
+- AlWindow3: Al_window AT [0, 0, gSourceInput+3.522+0.01+0.228+0.005] RELATIVE Source ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: thickness=0.002
+- CurvedGuideStart: Arm AT [0, 0, gSourceInput+3.522+0.01+0.228+0.08] RELATIVE Source ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- cg1: Guide_gravity AT [0, 0, 0] RELATIVE CurvedGuideStart ROTATED [0, gElmtRot1, 0] RELATIVE CurvedGuideStart
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg2: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg1 ROTATED [0, gElmtRot1, 0] RELATIVE cg1
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg3: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg2 ROTATED [0, gElmtRot1, 0] RELATIVE cg2
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg4: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg3 ROTATED [0, gElmtRot1, 0] RELATIVE cg3
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg5: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg4 ROTATED [0, gElmtRot1, 0] RELATIVE cg4
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg6: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg5 ROTATED [0, gElmtRot1, 0] RELATIVE cg5
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg7: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg6 ROTATED [0, gElmtRot1, 0] RELATIVE cg6
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg8: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg7 ROTATED [0, gElmtRot1, 0] RELATIVE cg7
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg9: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg8 ROTATED [0, gElmtRot1, 0] RELATIVE cg8
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg10: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg9 ROTATED [0, gElmtRot1, 0] RELATIVE cg9
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg11: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg10 ROTATED [0, gElmtRot1, 0] RELATIVE cg10
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg12: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg11 ROTATED [0, gElmtRot1, 0] RELATIVE cg11
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg13: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg12 ROTATED [0, gElmtRot1, 0] RELATIVE cg12
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg14: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg13 ROTATED [0, gElmtRot1, 0] RELATIVE cg13
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg15: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg14 ROTATED [0, gElmtRot1, 0] RELATIVE cg14
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg16: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg15 ROTATED [0, gElmtRot1, 0] RELATIVE cg15
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg17: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg16 ROTATED [0, gElmtRot1, 0] RELATIVE cg16
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg18: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg17 ROTATED [0, gElmtRot1, 0] RELATIVE cg17
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg19: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg18 ROTATED [0, gElmtRot1, 0] RELATIVE cg18
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg20: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg19 ROTATED [0, gElmtRot1, 0] RELATIVE cg19
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg21: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg20 ROTATED [0, gElmtRot1, 0] RELATIVE cg20
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg22: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg21 ROTATED [0, gElmtRot1, 0] RELATIVE cg21
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg23: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg22 ROTATED [0, gElmtRot1, 0] RELATIVE cg22
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg24: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg23 ROTATED [0, gElmtRot1, 0] RELATIVE cg23
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- cg25: Guide_gravity AT [0, 0, gElmtLength1] RELATIVE cg24 ROTATED [0, gElmtRot1, 0] RELATIVE cg24
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- AlWindow4: Al_window AT [0, 0, gElmtLength1+0.001] RELATIVE cg25 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: thickness=0.002
+- PSD_VTE: Monitor_nD AT [0, 0, gElmtLength1+0.13] RELATIVE cg25 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=gGuideWidth, yheight=gGuideHeight1, options=&quot;x y&quot;
+- AlWindow5: Al_window AT [0, 0, gElmtLength1+0.26-0.003] RELATIVE cg25 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: thickness=0.002
+- VTEtoIN6GuideStart: Arm AT [0, 0, gElmtLength1+0.26] RELATIVE cg25 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- sg1: Guide_gravity AT [0, 0, 0] RELATIVE VTEtoIN6GuideStart ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength2-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg2: Guide_gravity AT [0, 0, gElmtLength2] RELATIVE sg1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength2-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg3: Guide_gravity AT [0, 0, gElmtLength2] RELATIVE sg2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength2-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg4: Guide_gravity AT [0, 0, gElmtLength2] RELATIVE sg3 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength2-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg5: Guide_gravity AT [0, 0, gElmtLength2] RELATIVE sg4 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength2-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg6: Guide_gravity AT [0, 0, gElmtLength2] RELATIVE sg5 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength2-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg7: Guide_gravity AT [0, 0, gElmtLength2] RELATIVE sg6 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength2-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg8: Guide_gravity AT [0, 0, gElmtLength2] RELATIVE sg7 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength2-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg9: Guide_gravity AT [0, 0, gElmtLength2] RELATIVE sg8 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength2-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg10: Guide_gravity AT [0, 0, gElmtLength2] RELATIVE sg9 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength2-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg11: Guide_gravity AT [0, 0, gElmtLength2] RELATIVE sg10 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength2-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg12: Guide_gravity AT [0, 0, gElmtLength2] RELATIVE sg11 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength2-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg13: Guide_gravity AT [0, 0, gElmtLength2] RELATIVE sg12 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength2-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg14: Guide_gravity AT [0, 0, gElmtLength2] RELATIVE sg13 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength2-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg15: Guide_gravity AT [0, 0, gElmtLength2] RELATIVE sg14 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength2-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg16: Guide_gravity AT [0, 0, gElmtLength2] RELATIVE sg15 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength2-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg17: Guide_gravity AT [0, 0, gElmtLength2] RELATIVE sg16 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength2-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg18: Guide_gravity AT [0, 0, gElmtLength2] RELATIVE sg17 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength2-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg19: Guide_gravity AT [0, 0, gElmtLength2] RELATIVE sg18 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength2-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg20: Guide_gravity AT [0, 0, gElmtLength2] RELATIVE sg19 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength2-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg21: Guide_gravity AT [0, 0, gElmtLength2] RELATIVE sg20 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength2-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg22: Guide_gravity AT [0, 0, gElmtLength2] RELATIVE sg21 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength2-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- AlWindow6: Al_window AT [0, 0, gElmtLength2+0.001] RELATIVE sg22 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: thickness=0.002
+- PSD_IN6: Monitor_nD AT [0, 0, gElmtLength2+0.15] RELATIVE sg22 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=gGuideWidth, yheight=gGuideHeight1, options=&quot;x y&quot;
+- AlWindow7: Al_window AT [0, 0, gElmtLength2+0.290] RELATIVE sg22 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: thickness=0.002
+- IN6toD7GuideStart: Arm AT [0, 0, gElmtLength2+0.30] RELATIVE sg22 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- sg23: Guide_gravity AT [0, 0, 0] RELATIVE IN6toD7GuideStart ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength3-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg24: Guide_gravity AT [0, 0, gElmtLength3] RELATIVE sg23 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength3-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg25: Guide_gravity AT [0, 0, gElmtLength3] RELATIVE sg24 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength3-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg26: Guide_gravity AT [0, 0, gElmtLength3] RELATIVE sg25 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength3-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- sg27: Guide_gravity AT [0, 0, gElmtLength3] RELATIVE sg26 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1, l=(gElmtLength3-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW
+- AlWindow8: Al_window AT [0, 0, gElmtLength3+0.001] RELATIVE sg27 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: thickness=0.002
+- PSD_D7: Monitor_nD AT [0, 0, gElmtLength3+0.15] RELATIVE sg27 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=gGuideWidth, yheight=gGuideHeight1, options=&quot;x y&quot;
+- AlWindow9: Al_window AT [0, 0, gElmtLength3+0.290] RELATIVE sg27 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: thickness=0.002
+- D7toD11GuideStart: Arm AT [0, -.065, gElmtLength3+0.30] RELATIVE sg27 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- sg28: Guide_gravity AT [0, 0, 0] RELATIVE D7toD11GuideStart ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight2, w2=gGuideWidth, h2=gGuideHeight2, l=(1.25-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide2, W=mW
+- sg29: Guide_gravity AT [0, 0, 1.25] RELATIVE sg28 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight2, w2=gGuideWidth, h2=gGuideHeight2, l=(0.5-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide2, W=mW
+- AlWindow10: Al_window AT [0, 0, 0.5+0.001] RELATIVE sg29 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: thickness=0.004
+- Mon_D11_In: Monitor_nD AT [0, 0, 0.5+0.01] RELATIVE sg29 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=gGuideWidth, yheight=gGuideHeight2, options=xlmonopts
+- Dolores: V_selector AT [0, 0, 0.5+0.025+0.30/2] RELATIVE sg29 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.03, yheight=0.05, zdepth=0.30, radius=0.12, alpha=48.298, length=0.250, d=0.0004, nu=Vrpm/60, nslit=72
+- AlWindow11: Al_window AT [0, 0, 0.15+0.01] RELATIVE Dolores ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: thickness=0.004
+- sg30: Guide_gravity AT [0, 0, 0.15+0.02] RELATIVE Dolores ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight2, w2=gGuideWidth, h2=gGuideHeight2, l=(0.5-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide2, W=mW
+- AlWindow12: Al_window AT [0, 0, 0.5+0.001] RELATIVE sg30 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: thickness=0.002
+- Mon_D11_Out: Monitor_nD AT [0, 0, 0.5+0.01] RELATIVE sg30 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=gGuideWidth, yheight=gGuideHeight2, options=xlmonopts
+- AlWindow13: Al_window AT [0, 0, 0.5+0.03-0.003] RELATIVE sg30 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: thickness=0.002
+- MovableGuideStart: Arm AT [0, 0, 0.66] RELATIVE sg30 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- mg0: Guide_gravity AT [0, 0, 0] RELATIVE MovableGuideStart ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight2, w2=gGuideWidth, h2=gGuideHeight2, l=(Config_l[0]), alpha=mAlpha, m=mGuide2, W=mW, wavy=Waviness, chamfers_z=Chamfers, chamfers_tb=Chamfers, nelements=Config_n[0]
+- mg1: Guide_gravity AT [0, 0, (microGap+Config_l[0])] RELATIVE mg0 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight2, w2=gGuideWidth, h2=gGuideHeight2, l=(Config_l[1]), alpha=mAlpha, m=mGuide2, W=mW, wavy=Waviness, chamfers_z=Chamfers, chamfers_tb=Chamfers, nelements=(Config_n[1])
+- mg2: Guide_gravity AT [0, 0, (microGap+Config_l[1]+Config_g[0])] RELATIVE mg1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight2, w2=gGuideWidth, h2=gGuideHeight2, l=(Config_l[2]), alpha=mAlpha, m=mGuide2, W=mW, wavy=Waviness, chamfers_z=Chamfers, chamfers_tb=Chamfers, nelements=(Config_n[2])
+- mg3: Guide_gravity AT [0, 0, (microGap+Config_l[2]+Config_g[1])] RELATIVE mg2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight2, w2=gGuideWidth, h2=gGuideHeight2, l=(Config_l[3]), alpha=mAlpha, m=mGuide2, W=mW, wavy=Waviness, chamfers_z=Chamfers, chamfers_tb=Chamfers, nelements=(Config_n[3])
+- mg4: Guide_gravity AT [0, 0, (microGap+Config_l[3])] RELATIVE mg3 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight2, w2=gGuideWidth, h2=gGuideHeight2, l=(Config_l[4]), alpha=mAlpha, m=mGuide2, W=mW, wavy=Waviness, chamfers_z=Chamfers, chamfers_tb=Chamfers, nelements=(Config_n[4])
+- mg5: Guide_gravity AT [0, 0, (microGap+Config_l[4]+0.017)] RELATIVE mg4 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight2, w2=gGuideWidth, h2=gGuideHeight2, l=(Config_l[5]), alpha=mAlpha, m=mGuide2, W=mW, wavy=Waviness, chamfers_z=Chamfers, chamfers_tb=Chamfers, nelements=(Config_n[5])
+- mg6: Guide_gravity AT [0, 0, (microGap+Config_l[5]+0.002)] RELATIVE mg5 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight2, w2=gGuideWidth, h2=gGuideHeight2, l=(Config_l[6]), alpha=mAlpha, m=mGuide2, W=mW, wavy=Waviness, chamfers_z=Chamfers, chamfers_tb=Chamfers, nelements=(Config_n[6])
+- mg7: Guide_gravity AT [0, 0, (microGap+Config_l[6]+0.002)] RELATIVE mg6 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight2, w2=gGuideWidth, h2=gGuideHeight2, l=(Config_l[7]), alpha=mAlpha, m=mGuide2, W=mW, wavy=Waviness, chamfers_z=Chamfers, chamfers_tb=Chamfers, nelements=(Config_n[7])
+- mg8: Guide_gravity AT [0, 0, (microGap+Config_l[7]+0.017)] RELATIVE mg7 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight2, w2=gGuideWidth, h2=gGuideHeight2, l=(Config_l[8]), alpha=mAlpha, m=mGuide2, W=mW, wavy=Waviness, chamfers_z=Chamfers, chamfers_tb=Chamfers, nelements=(Config_n[8])
+- mg9: Guide_gravity AT [0, 0, (microGap+Config_l[8])] RELATIVE mg8 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight2, w2=gGuideWidth, h2=gGuideHeight2, l=(Config_l[9]), alpha=mAlpha, m=mGuide2, W=mW, wavy=Waviness, chamfers_z=Chamfers, chamfers_tb=Chamfers, nelements=(Config_n[9])
+- mg10: Guide_gravity AT [0, 0, (microGap+Config_l[9]+0.002)] RELATIVE mg9 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight2, w2=gGuideWidth, h2=gGuideHeight2, l=(Config_l[10]), alpha=mAlpha, m=mGuide2, W=mW, wavy=Waviness, chamfers_z=Chamfers, chamfers_tb=Chamfers, nelements=(Config_n[10])
+- mg11: Guide_gravity AT [0, 0, (microGap+Config_l[10])] RELATIVE mg10 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight2, w2=gGuideWidth, h2=gGuideHeight2, l=(Config_l[11]), alpha=mAlpha, m=mGuide2, W=mW, wavy=Waviness, chamfers_z=Chamfers, chamfers_tb=Chamfers, nelements=(Config_n[11])
+- mg12: Guide_gravity AT [0, 0, (microGap+Config_l[11]+0.017)] RELATIVE mg11 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight2, w2=gGuideWidth, h2=gGuideHeight2, l=(Config_l[12]), alpha=mAlpha, m=mGuide2, W=mW, wavy=Waviness, chamfers_z=Chamfers, chamfers_tb=Chamfers, nelements=(Config_n[12])
+- mg13: Guide_gravity AT [0, 0, (microGap+Config_l[12])] RELATIVE mg12 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight2, w2=gGuideWidth, h2=gGuideHeight2, l=(Config_l[13]), alpha=mAlpha, m=mGuide2, W=mW, wavy=Waviness, chamfers_z=Chamfers, chamfers_tb=Chamfers, nelements=(Config_n[13])
+- mg14: Guide_gravity AT [0, 0, (microGap+Config_l[13]+0.002)] RELATIVE mg13 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight2, w2=gGuideWidth, h2=gGuideHeight2, l=(Config_l[14]), alpha=mAlpha, m=mGuide2, W=mW, wavy=Waviness, chamfers_z=Chamfers, chamfers_tb=Chamfers, nelements=(Config_n[14])
+- mg15: Guide_gravity AT [0, 0, (microGap+Config_l[14])] RELATIVE mg14 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight2, w2=gGuideWidth, h2=gGuideHeight2, l=(Config_l[15]), alpha=mAlpha, m=mGuide2, W=mW, wavy=Waviness, chamfers_z=Chamfers, chamfers_tb=Chamfers, nelements=(Config_n[15])
+- mg16: Guide_gravity AT [0, 0, (microGap+Config_l[15]+0.002)] RELATIVE mg15 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=gGuideWidth, h1=gGuideHeight2, w2=gGuideWidth, h2=gGuideHeight2, l=(Config_l[16]), alpha=mAlpha, m=mGuide2, W=mW, wavy=Waviness, chamfers_z=Chamfers, chamfers_tb=Chamfers, nelements=(Config_n[16])
+- SampleF: Monitor_nD AT [0, 0, (Config_l[15]+2.5)] RELATIVE mg15 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=gGuideWidth, yheight=gGuideHeight2, options=&quot;x y,per cm2&quot;
+- SampleC: Monitor_nD AT [0, 0, 0.001] RELATIVE SampleF ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=gGuideWidth, yheight=gGuideHeight2, options=&quot;x y, capture,per cm2&quot;
+
+Your instrument must include at least: a 2D position-sensitive monitor.
+Run with: Lambda=4.51, Config=Borkron_1972, Lc=0, iLc=5, Chamfers=0.0002, Waviness=2.5e-5.</pre></details>
+<p class="meta">file: <code>benchmark/tasks/T1/T1_ILL_H15_D11.json</code></p>
+</div>
+<div class="card" id="T1_ILL_H512_D22">
+<h3><code>T1_ILL_H512_D22</code> <span style="background:#2da44e;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">validated</span> <span style="background:#0969da;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">seen</span></h3>
+<p class="meta">class: <strong>SANS</strong> · reference: <code>ILL_H512_D22</code> · <a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/ILL/ILL_H512_D22">source on GitHub</a> · ground truth: <code>%Example: lambda=4.5 Detector: D22_Detector_I=2e+07</code> · reference verified in-env: ✅</p>
+<p class="meta">protocol: ncount 1e+06, seed 1234</p>
+<table><tr><th>graded monitor role</th><th>observables (tolerance)</th></tr><tr><td><code>2d</code></td><td>intensity (rtol 0.2, 3σ), beam_width_x (rtol 0.3), beam_width_y (rtol 0.3)</td></tr></table>
+<details><summary>task prompt (13818 chars)</summary><pre>Rebuild the following SANS in McStas from its specification, run it, and report the integrated intensity (with error and event count) on every monitor.
+
+Instrument parameters (defaults in parentheses):
+- lambda (4.5)
+- dlambda (0.45)
+- D22_collimation (2)
+- D22_sample (&quot;H2O_liq.qSq&quot;)
+
+Constants and derived quantities computed at startup (implement equivalent logic):
+- sT3 = 413.5
+- sI3 = 1.022e+13
+- sT2 = 145.8
+- sI2 = 3.44e+13
+- sT1 = 40.1
+- sI1 = 2.78e+13
+- gR0 = 1
+- gQc = 0.0216
+- gAlpha = 4.07
+- gW = 1.0/300.0
+- Al_Thickness = 0.001
+- gGap = 0.001
+- D22_nu = 0
+- flag = 0
+```c
+D22_nu   = 3956*48.3*DEG2RAD/2/PI/lambda/0.25;
+  printf(&quot;ILL_H512_D22: D22:  nu=%g [rpm] lambda=%g [Angs] sample=%s\n&quot;,
+    D22_nu*60, lambda, D22_sample);
+```
+
+Beamline, in order (positions in meters; AT [x,y,z] RELATIVE to the named component; parameters as given):
+- Origin: Progress_bar AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- HCS: Source_gen AT [0, 0, 0] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: radius=0.21/2, dist=2.155, focus_xw=0.123, focus_yh=0.120, lambda0=lambda, dlambda=dlambda, I1=sI1, verbose=1, T1=sT1, T2=sT2, I2=sI2, T3=sT3, I3=sI3, zdepth=0.15
+- HCS_Al: PowderN AT [0, 0, 0.21] RELATIVE HCS ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: reflections=&quot;Al.laz&quot;, yheight=0.12, xwidth=0.17, zdepth=Al_Thickness, p_inc=0.005, p_transmit=0.9450, d_phi=10, p_interact=0.05
+- HCS_Al_copy: PowderN AT [0, 0, 0.61] RELATIVE HCS ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: reflections=&quot;Al.laz&quot;, yheight=0.12, xwidth=0.17, zdepth=Al_Thickness, p_inc=0.005, p_transmit=0.9450, d_phi=10, p_interact=0.05
+- HCS_Al_copy_0: PowderN AT [0, 0, 0.78] RELATIVE HCS ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: reflections=&quot;Al.laz&quot;, yheight=0.12, xwidth=0.17, zdepth=Al_Thickness, p_inc=0.005, p_transmit=0.9450, d_phi=10, p_interact=0.05
+- HCS_Al_copy_1: PowderN AT [0, 0, 0.92] RELATIVE HCS ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: reflections=&quot;Al.laz&quot;, yheight=0.12, xwidth=0.17, zdepth=Al_Thickness, p_inc=0.005, p_transmit=0.9450, d_phi=10, p_interact=0.05
+- HCS_Al_copy_2: PowderN AT [0, 0, 2.15] RELATIVE HCS ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: reflections=&quot;Al.laz&quot;, yheight=0.12, xwidth=0.17, zdepth=Al_Thickness, p_inc=0.005, p_transmit=0.9450, d_phi=10, p_interact=0.05
+- H5: Monitor_nD AT [0, 0, 2.155] RELATIVE HCS ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.04+0.004+0.015+0.004+0.06, yheight=0.12, bins=50, options=&quot;x y, slit&quot;
+- H51_origin: Monitor_nD AT [-(0.04+0.004+0.015+0.004+0.06)/2+0.04/2, 0, 0] RELATIVE H5 ROTATED [0, -1.3269, 0] RELATIVE H5
+    parameters: xwidth=0.04+0.004+0.015+0.004+0.06, yheight=0.12, bins=50, options=&quot;x y, slit&quot;
+- H51_Start: Arm AT [0, 0, 0] RELATIVE H51_origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- H51_inpile: Guide_gravity AT [0, 0, 0] RELATIVE H51_Start ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H51_Obt_1: Guide_gravity AT [0, 0, 2.775+0.025] RELATIVE H51_inpile ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H51_Obt_2: Guide_gravity AT [0, 0, 0.863+0.012] RELATIVE H51_Obt_1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H51_Obt_3: Guide_gravity AT [0, 0, 1.433+0.012] RELATIVE H51_Obt_2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- HCS_Al_copy_3: PowderN AT [0, 0, 0.745+0.01] RELATIVE H51_Obt_3 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: reflections=&quot;Al.laz&quot;, yheight=0.12, xwidth=0.17, zdepth=Al_Thickness, p_inc=0.005, p_transmit=0.9450, d_phi=10, p_interact=0.05
+- H51_Obt_Out: Monitor_nD AT [0, 0, 0.06] RELATIVE HCS_Al_copy_3 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.04+0.004+0.015+0.004+0.06, yheight=0.12, bins=50, options=&quot;x y, slit&quot;
+- HCS_Al_copy_4: PowderN AT [0, 0, 0] RELATIVE H51_Obt_Out ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: reflections=&quot;Al.laz&quot;, yheight=0.12, xwidth=0.17, zdepth=Al_Thickness, p_inc=0.005, p_transmit=0.9450, d_phi=10, p_interact=0.05
+- H51_S2: Guide_gravity AT [0, 0, 0.05] RELATIVE HCS_Al_copy_4 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H51_S2_copy: Guide_gravity AT [0, 0, 2.5/3] RELATIVE H51_S2 ROTATED [0, -2.5/3/3000*RAD2DEG, 0] RELATIVE H51_S2
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H51_S2_copy_0: Guide_gravity AT [0, 0, 2.5/3] RELATIVE H51_S2_copy ROTATED [0, -2.5/3/3000*RAD2DEG, 0] RELATIVE H51_S2_copy
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- HCS_Al_H51: PowderN AT [0, 0, 2.5/3+0.01] RELATIVE H51_S2_copy_0 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: reflections=&quot;Al.laz&quot;, yheight=0.12, xwidth=0.17, zdepth=Al_Thickness, p_inc=0.005, p_transmit=0.9450, d_phi=10, p_interact=0.05
+- H51_S2_Out: Monitor_nD AT [0, 0, 0.05] RELATIVE HCS_Al_H51 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.04+0.004+0.015+0.004+0.06, yheight=0.12, bins=50, options=&quot;x y, slit&quot;
+- H51_split_2: Monitor_nD AT [0, 0.12/2-0.055/2, 0] RELATIVE H51_S2_Out ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.04+0.004+0.015+0.004+0.06, yheight=0.12, bins=50, options=&quot;x y, slit&quot;
+    EXTEND: ```c
+    if(SCATTERED) splitflag=2;
+    ```
+- H51_split_1: Monitor_nD AT [0, -0.12/2+0.055/2, 0] RELATIVE H51_S2_Out ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.04+0.004+0.015+0.004+0.06, yheight=0.12, bins=50, options=&quot;x y, slit&quot;
+    EXTEND: ```c
+    if(SCATTERED) splitflag=1;
+    ```
+- H511_Start: Arm AT [0, 0, 0] RELATIVE H51_split_1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    EXTEND: ```c
+    if (splitflag==1) ABSORB;
+    ```
+- H512_Start: Arm AT [0, 0, 0] RELATIVE H51_split_2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- H512_S36: Guide_gravity AT [0, 0, 0.0] RELATIVE H512_Start ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H512_S36_copy: Guide_gravity AT [0, 0, 20.85/16] RELATIVE H512_S36 ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H512_S36_copy_0: Guide_gravity AT [0, 0, 20.85/16] RELATIVE H512_S36_copy ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H512_S36_copy_1: Guide_gravity AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_0 ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_0
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H512_S36_copy_2: Guide_gravity AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_1 ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_1
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H512_S36_copy_3: Guide_gravity AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_2 ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_2
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H512_S36_copy_4: Guide_gravity AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_3 ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_3
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H512_S36_copy_5: Guide_gravity AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_4 ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_4
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H512_S36_copy_6: Guide_gravity AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_5 ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_5
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H512_S36_copy_7: Guide_gravity AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_6 ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_6
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H512_S36_copy_8: Guide_gravity AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_7 ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_7
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H512_S36_copy_9: Guide_gravity AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_8 ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_8
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H512_S36_copy_10: Guide_gravity AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_9 ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_9
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H512_S36_copy_11: Guide_gravity AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_10 ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_10
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H512_S36_copy_12: Guide_gravity AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_11 ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_11
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H512_S36_copy_13: Guide_gravity AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_12 ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_12
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- HCS_Al_H512: PowderN AT [0, 0, 20.85/16+0.01] RELATIVE H512_S36_copy_13 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: reflections=&quot;Al.laz&quot;, yheight=0.12, xwidth=0.17, zdepth=Al_Thickness, p_inc=0.005, p_transmit=0.9450, d_phi=10, p_interact=0.05
+- H512_VTE: Monitor_nD AT [0, 0, 0.108/2-0.001] RELATIVE HCS_Al_H512 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.04+0.004+0.015+0.004+0.06, yheight=0.12, bins=50, options=&quot;x y, slit&quot;
+- HCS_Al_copy_5: PowderN AT [0, 0, 0.108/2-0.05] RELATIVE H512_VTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: reflections=&quot;Al.laz&quot;, yheight=0.12, xwidth=0.17, zdepth=Al_Thickness, p_inc=0.005, p_transmit=0.9450, d_phi=10, p_interact=0.05
+- H51_S78: Guide_gravity AT [0, 0, 0.05] RELATIVE HCS_Al_copy_5 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H51_S78_copy: Guide_gravity AT [0, 0, 6.0/4] RELATIVE H51_S78 ROTATED [0, -6.0/4/3000*RAD2DEG, 0] RELATIVE H51_S78
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H51_S78_copy_0: Guide_gravity AT [0, 0, 6.0/4] RELATIVE H51_S78_copy ROTATED [0, -6.0/4/3000*RAD2DEG, 0] RELATIVE H51_S78_copy
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- H51_S78_copy_1: Guide_gravity AT [0, 0, 6.0/4] RELATIVE H51_S78_copy_0 ROTATED [0, -6.0/4/3000*RAD2DEG, 0] RELATIVE H51_S78_copy_0
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- HCS_Al_copy_6: PowderN AT [0, 0, 6.0/4+0.01] RELATIVE H51_S78_copy_1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: reflections=&quot;Al.laz&quot;, yheight=0.12, xwidth=0.17, zdepth=Al_Thickness, p_inc=0.005, p_transmit=0.9450, d_phi=10, p_interact=0.05
+- H512_S11: Guide_gravity AT [0, 0, 0.01] RELATIVE HCS_Al_copy_6 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- HCS_Al_copy_7: PowderN AT [0, 0, 3+0.01] RELATIVE H512_S11 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: reflections=&quot;Al.laz&quot;, yheight=0.12, xwidth=0.17, zdepth=Al_Thickness, p_inc=0.005, p_transmit=0.9450, d_phi=10, p_interact=0.05
+- D22_PreV: Monitor_nD AT [0, 0, 0.01] RELATIVE HCS_Al_copy_7 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.04, yheight=0.05, bins=50, restore_neutron=1, options=&quot;x y&quot;
+- D22_Vselector: V_selector AT [0, 0, 3+0.01+0.3+0.01] RELATIVE H512_S11 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.04, yheight=0.05, zdepth=0.30, radius=0.12, alpha=48.3, length=0.25, d=0.0004, nu=D22_nu, nslit=72
+- D22_Collimation: Guide_gravity AT [0, 0, 0.3] RELATIVE D22_Vselector ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=0.04, h1=0.12, l=2.775, R0=gR0, Qc=gQc, alpha=gAlpha, m=1.2, W=gW
+- D22_Sample_Pos: Arm AT [0, 0, 20+0.3] RELATIVE D22_Vselector ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- H51_D22_Sample_Div: Monitor_nD AT [0, 0, 0] RELATIVE D22_Sample_Pos ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.02, yheight=0.05, bins=100, restore_neutron=1, options=&quot;dx limits=[-2 2], dy limits=[-2 2]&quot;
+- H51_D22_Sample_XY: Monitor_nD AT [0, 0, 0] RELATIVE D22_Sample_Pos ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.02, yheight=0.05, bins=50, restore_neutron=1, options=&quot;x y&quot;
+- H51_D22_Sample_L: Monitor_nD AT [0, 0, 0] RELATIVE D22_Sample_Pos ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.02, yheight=0.05, bins=50, restore_neutron=1, options=&quot;lambda limits=[1 10]&quot;
+- H51_D22_Sample: Isotropic_Sqw AT [0, 0, 0] RELATIVE D22_Sample_Pos ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (SPLIT 10)
+    parameters: Sqw_coh=D22_sample, Sqw_inc=NULL, radius=0.005, yheight=0.05, d_phi=RAD2DEG*atan2(1, D22_collimation)
+    EXTEND: ```c
+    if (!SCATTERED) ABSORB;
+    ```
+- D22_Detector: Monitor_nD AT [0, 0, D22_collimation] RELATIVE D22_Sample_Pos ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=1, yheight=1, bins=128, options=&quot;x y&quot;
+    EXTEND: ```c
+    ABSORB;
+    ```
+
+Your instrument must include at least: a 2D position-sensitive monitor.
+Run with: lambda=4.5, dlambda=.45, D22_collimation=2, D22_sample=H2O_liq.qSq.</pre></details>
+<p class="meta">file: <code>benchmark/tasks/T1/T1_ILL_H512_D22.json</code></p>
+</div>
+<div class="card" id="T1_ILL_IN6">
+<h3><code>T1_ILL_IN6</code> <span style="background:#2da44e;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">validated</span> <span style="background:#0969da;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">seen</span></h3>
+<p class="meta">class: <strong>ToF-spectrometer</strong> · reference: <code>ILL_IN6</code> · <a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/ILL/ILL_IN6">source on GitHub</a> · ground truth: <code>%Example: lambda=4.14 Detector: M_theta_t_all_I=120000</code> · reference verified in-env: ✅</p>
+<p class="meta">paper: Blanc, ILL Report 83BL21G (1983) (spec-sheet)</p>
+<p class="meta">protocol: ncount 1e+06, seed 1234</p>
+<table><tr><th>graded monitor role</th><th>observables (tolerance)</th></tr><tr><td><code>2d</code></td><td>intensity (rtol 0.2, 3σ), beam_width_x (rtol 0.3), beam_width_y (rtol 0.3)</td></tr><tr><td><code>wavelength</code></td><td>intensity (rtol 0.25, 3σ), center_of_mass (rtol 0.05), fwhm (rtol 0.5)</td></tr><tr><td><code>tof</code></td><td>intensity (rtol 0.25, 3σ), center_of_mass (rtol 0.05)</td></tr></table>
+<details><summary>task prompt (11216 chars)</summary><pre>Rebuild the following ToF spectrometer in McStas from its specification, run it, and report the integrated intensity (with error and event count) on every monitor.
+
+Instrument parameters (defaults in parentheses):
+- lambda (4.14)
+- dlambda (0.075)
+- SPEED (-1)
+- M1 (-1)
+- M2 (-1)
+- M3 (-1)
+- MONITOR (1)
+- CHA_WIDTH (-1)
+- TOF_DELAY (-1)
+- TOF_CHA_RESOL (128)
+- ELPEAK (-1)
+- RATIO (1)
+- mFC (0)
+- PHASE (-360)
+- Sqw_coh (&quot;Rb_liq_coh.sqw&quot;)
+- Sqw_inc (&quot;Rb_liq_inc.sqw&quot;)
+- radius (0.01)
+- thickness (0.005)
+
+Constants and derived quantities computed at startup (implement equivalent logic):
+- declaration: `#pragma acc declare create(Frequency)`
+- declaration: `#pragma acc declare create(iRATIO)`
+```c
+DM = 3.355;        /*   mono d-spacing (Angs)  */
+  mos= 40;
+  RV = 3;
+  LME = 2.1;   /* distance monochromator 2 &lt;--&gt; sample */
+  LMM = 0.030; /* distance between 2 monochromators    */
+  LED = 2.483; /* distance sample &lt;--&gt; detector        */
+  LCE = 0.395; /* distance fermi chopper &lt;--&gt; sample   */
+  LCC = 0.2;   /* [m] Chopper1-Chopper2 distance */
+  ref_phas=0;
+  dq=0;
+  dw=0;
+  double chopper_const = 252.77;  /*constant in chopper SPEED formula*/
+  double Ki, Ei, theta;
+  double tmin, tmax;
+  double dE  = 0.0;   /* energy transfer */
+  Ki = 2*PI/lambda;
+  vi = K2V*fabs(Ki);
+  Ei = VS2E*vi*vi;
+  theta = asin(lambda/DM/2);
+  A2 = theta*2;
+  A1 = atan2(LME*sin(A2),(LME*cos(A2)+LMM))*RAD2DEG;
+  A3 = atan2(LME*sin(A2),(LME*cos(A2)-LMM))*RAD2DEG;
+  A2 *=RAD2DEG;
+  A2cradle = A2;
+  RV = 2*LME*sin(theta);
+  if (A1&lt;0.0) A1=180+A1;
+  if (A2&lt;0.0) A2=180+A2;
+  if (A3&lt;0.0) A3=180+A3;
+  if (M1 == 0) A1 = 0; else
+    if (M1&gt;=0) A1 = -0.0210199*M1+178.55; else  M1 = -(A1-178.55)/0.0210199;
+  if (M2 == 0) A2 = 0; else
+    if (M2&gt;=0) A2 = -0.0210302*M2+182.558; else M2 = -(A2-182.558)/0.0210302;
+  if (M3 == 0) A3 = 0; else
+    if (M3&gt;=0) A3 = -0.0206945*M3+187.566; else M3 = -(A3-187.566)/0.0206945;
+  {
+    double el_t_resol  = 0.125;   /* [us] Electronic Time Base */
+    ref_phas    = 0;      /* [deg] Reference Phase */
+    double phase_offset= 0;       /* [deg] Phase Offset (added to Fermi phase) */
+    double el_delay    = 44.875;  /* [us]  Default Electronic Delay */
+    double speed, chan_width, dead_time, time_of_flight, trav_time;
+    double delta_phase, el_peak_O, delay;
+    if (TOF_CHA_RESOL&lt;=0) iTOF_CHA_RESOL=128; else iTOF_CHA_RESOL=TOF_CHA_RESOL;
+    if (RATIO &lt;= 0)       iRATIO = 1;         else iRATIO        =RATIO;
+    #pragma acc update device(iRATIO)
+    if (ELPEAK &gt;= 0 &amp;&amp; ELPEAK&lt;=iTOF_CHA_RESOL) iELPEAK  = ELPEAK;
+    else iELPEAK=ceil(iTOF_CHA_RESOL/2);
+    speed       = 60*K2V/(DM*cos(theta)*(LCE+(LED*pow((1-dE/Ei),-1.5))));
+    period      = 0.5e6 * 60 * iRATIO/speed;
+    chan_width  = floor(period/el_t_resol/iTOF_CHA_RESOL)*el_t_resol;
+    dead_time   = period-(iTOF_CHA_RESOL*chan_width);
+    time_of_flight = (0.07+LCC+LCE+LED)/vi*1e6;
+    trav_time   = LCC/vi*1e6;
+    delta_phase = (trav_time/period)*180;
+    phas_ferm   = ref_phas + delta_phase;
+    if (fmod(iRATIO, 2) == 0) phas_ferm *= 2;
+    phas_ferm  += phase_offset;
+    el_peak_O   = floor((time_of_flight + el_delay)/chan_width);
+    delay       =  (el_peak_O-iELPEAK) * chan_width;
+    if (iELPEAK &gt;= el_peak_O) delay +=  period;
+    if (delay &lt;= 1) delay = 2;
+    if (PHASE&gt;-180 &amp;&amp; PHASE &lt;360) iPHASE=PHASE;    else iPHASE=-phas_ferm;
+    if (CHA_WIDTH &lt;=0)    iCHA_WIDTH=chan_width;   else iCHA_WIDTH=CHA_WIDTH;
+    if (TOF_DELAY &lt;=0)    iTOF_DELAY=delay;        else iTOF_DELAY=TOF_DELAY;
+    if (SPEED     &lt;0)     iSPEED=speed;            else iSPEED=SPEED;
+    Frequency = iSPEED/60;
+    #pragma acc update device(Frequency)
+    printf(&quot;Instrument Simulation %s (%s)\n&quot;, instrument_name, instrument_source);
+    printf(&quot;  using computed monochromator take-off angles: %g %g %g [deg]\n&quot;, A1, A2, A3);
+    printf(&quot;Wavelength               [AA]  %g\n&quot;,  lambda);
+    printf(&quot;Neutron velocity         [m/s] %g\n&quot;,  vi);
+    printf(&quot;Monochr. Bragg angle     [deg] %g\n&quot;,  A2/2);
+    printf(&quot;Incident Energy          [meV] %g\n&quot;,  Ei);
+    printf(&quot;Focusing Energy transfer[meV] %g\n&quot;,  dE);
+    printf(&quot;Travel time: Supp./Fermi [us]  %g\n&quot;,  trav_time);
+    printf(&quot;Travel time: Supp./Det.  [us]  %g\n&quot;,  time_of_flight);
+    printf(&quot;TOF Delay                [us]  %g\n&quot;,  delay);
+    printf(&quot;TOF Dead Time            [us]  %g\n&quot;,  dead_time);
+    printf(&quot;TOF Period (1 cycle)     [us]  %g\n&quot;,  period);
+    printf(&quot;TOF Channel width        [us]  %g\n&quot;,  chan_width);
+    printf(&quot;CHOP Fermi Phase         [deg] %g\n&quot;,  iPHASE);
+    printf(&quot;CHOP Suppressor Phase    [deg] %g\n&quot;,  ref_phas);
+    printf(&quot;CHOP Fermi Speed         [rpm] %g\n&quot;,  iSPEED);
+    printf(&quot;CHOP Suppressor Speed    [rpm] %g\n&quot;,  iSPEED/iRATIO);
+    printf(&quot;Number of time channels        %g\n&quot;,  iTOF_CHA_RESOL);
+    printf(&quot;Current Elastic Peak Ch.       %g\n&quot;,  iELPEAK);
+    printf(&quot;Elast. peak ch. for 0-delay    %g\n&quot;,  el_peak_O);
+    tmin = time_of_flight*1e-6 - (iCHA_WIDTH*iELPEAK-iTOF_DELAY)*1e-6;
+  }
+  tmax = tmin+iTOF_CHA_RESOL*iCHA_WIDTH*1e-6;
+  printf(&quot;Time window:                   min=%g max=%g delay=%g tof-width=%g [ms]\n&quot;, tmin*1000, tmax*1000, iTOF_DELAY*1e-3, (tmax-tmin)*1000);
+  sprintf(opt2, &quot;kxy limits=[0 5] bins=50, energy limits=[%g %g] bins=40, banana, parallel&quot;,
+  (Ei-20 &lt; 0 ? 0 : Ei-20), Ei+20);
+  sprintf(opt1, &quot;angle limits=[0 180] bins=180, energy limits=[%g %g] bins=40, banana, parallel&quot;,
+  (Ei-20 &lt; 0 ? 0 : Ei-20), Ei+20);
+  sprintf(opt3,&quot;user1 limits=[0.5,3.5] bins=9, lambda limits=[%g %g] bins=20, square, per cm2&quot;,0.97*lambda,1.03*lambda);
+  sprintf(optL,&quot;lambda limits=[%g %g] bins=50&quot;,lambda-dlambda,lambda+dlambda);
+  sprintf(optT,&quot;t slit limits=[%g %g]&quot;,tmin, tmax);
+```
+
+Beamline, in order (positions in meters; AT [x,y,z] RELATIVE to the named component; parameters as given):
+- Origin: Progress_bar AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- VCS: Source_gen AT [0, 0, 0] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: focus_xw=0.03, focus_yh=0.2, lambda0=lambda, dlambda=dlambda, I1=1.24e+13, yheight=0.2, xwidth=0.03, verbose=1, T1=216.8, T2=33.9, I2=1.02e+13, T3=16.7, I3=3.0423e+12
+- SourceTarget: Arm AT [0, 0, 2.55] RELATIVE VCS ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- Cradle: Arm AT [0, 0, 0.15] RELATIVE SourceTarget ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (SPLIT 10)
+    EXTEND: ```c
+    monok_index=0;
+    ```
+- Mono1: Monochromator_curved AT [0, 0, -LMM] RELATIVE Cradle ROTATED [0, A1/2, 0] RELATIVE Cradle
+    parameters: reflect=&quot;HOPG.rfl&quot;, transmit=&quot;HOPG.trm&quot;, zwidth=0.054, yheight=0.029, gap=0.001, NH=1, NV=7, r0=1, t0=1, RV=RV, DM=3.355, mosaic=40
+    EXTEND: ```c
+    if (SCATTERED) { monok_index=1; }
+    ```
+- Mono2: Monochromator_curved AT [0, 0, 0] RELATIVE Cradle ROTATED [0, A2/2, 0] RELATIVE Cradle
+    parameters: reflect=&quot;HOPG.rfl&quot;, transmit=&quot;HOPG.trm&quot;, zwidth=0.054, yheight=0.029, gap=0.001, NH=1, NV=7, r0=1, t0=1, RV=RV, DM=3.355, mosaic=40
+    EXTEND: ```c
+    if (SCATTERED) { monok_index=2; }
+    ```
+- Mono3: Monochromator_curved AT [0, 0, +LMM] RELATIVE Cradle ROTATED [0, A3/2, 0] RELATIVE Cradle
+    parameters: reflect=&quot;HOPG.rfl&quot;, transmit=&quot;HOPG.trm&quot;, zwidth=0.054, yheight=0.029, gap=0.001, NH=1, NV=7, r0=1, t0=1, RV=RV, DM=3.355, mosaic=40
+    EXTEND: ```c
+    if (SCATTERED) { monok_index=3; }
+    ```
+- mono_out: Arm AT [0, 0, 0] RELATIVE Cradle ROTATED [0, A2cradle, 0] RELATIVE Cradle
+- SuppPos: Arm AT [0, 0, LME-LCE-LCC] RELATIVE mono_out ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- Mon_SuppInL: Monitor_nD AT [0, 0, -0.07-0.002] RELATIVE SuppPos ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.052, yheight=0.098, options=optL
+- Mon_SuppInT: Monitor_nD AT [0, 0, -0.07-0.001] RELATIVE SuppPos ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.052, yheight=0.098, bins=iTOF_CHA_RESOL, options=optT
+    EXTEND: ```c
+    double Vi=sqrt(vx*vx+vy*vy+vz*vz); 
+double ratio=PI*Frequency/iRATIO/atan(0.052/0.14);
+if (iRATIO &amp;&amp; Vi) {
+double Tfermi=atan2(0.052,0.14)/Frequency/PI; 
+t  = -(0.071/Vi)+(rand01()-0.5)*Tfermi;    
+p *= 4*atan2(0.052,0.14)*RAD2DEG/360;
+}
+    ```
+- Suppressor: FermiChopper AT [0, 0, 0] RELATIVE SuppPos ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (iRATIO &gt; 0))
+    parameters: phase=0, radius=0.07, nu=Frequency/iRATIO, nslit=1, R0=0, length=0.012, eff=1, xwidth=0.052, verbose=1, yheight=0.098
+- Mon_SuppOutT: Monitor_nD AT [0, 0, +0.07+0.001] RELATIVE SuppPos ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.052, yheight=0.098, bins=iTOF_CHA_RESOL, options=&quot;t slit limits=[-700e-6 700e-6]&quot;
+- SlitFC: Slit AT [0, 0, LME-LCE-0.041] RELATIVE mono_out ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.0441, yheight=0.0641
+- FermiPos: Arm AT [0, 0, LME-LCE] RELATIVE mono_out ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- FermiM: FermiChopper AT [0, 0, 0] RELATIVE FermiPos ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: phase=iPHASE, radius=0.04, nu=Frequency, nslit=200.0, R0=.99, Qc=(mFC &lt; 1 &amp;&amp; mFC ? mFC*0.02176 : 0.02176), alpha=2.33, m=mFC, length=0.012, eff=1.0, xwidth=0.044, verbose=1, yheight=0.064
+- Mon_FermiOutdT: Monitor_nD AT [0, 0, +0.06+0.001] RELATIVE FermiPos ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.044, yheight=0.064, bins=iTOF_CHA_RESOL, options=&quot;t slit limits=[180e-6 365e-6]&quot;
+- MonokMonitor: Monitor_nD AT [0, 0, +0.06+0.002] RELATIVE FermiPos ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: user1=&quot;monok_index&quot;, xwidth=0.2, yheight=0.2, options=opt3, username1=&quot;Monoch. index&quot;
+- Mon_SampleInT: Monitor_nD AT [0, 0, LME-.273] RELATIVE mono_out ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.05, yheight=0.05, bins=iTOF_CHA_RESOL, options=&quot; t limits=[255e-6 425e-6] parallel, per cm2&quot;
+- Mon_SampleInXY: Monitor_nD AT [0, 0, 0] RELATIVE Mon_SampleInT ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.06, yheight=0.1, options=&quot;x y parallel,per cm2 bins=50&quot;
+- sample_pos: Arm AT [0, 0, LME] RELATIVE mono_out ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    EXTEND: ```c
+    vix=vx;
+viy=vy;
+viz=vz;
+    ```
+- Sample: Isotropic_Sqw AT [0, 0, 0] RELATIVE sample_pos ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (SPLIT 10)
+    parameters: Sqw_coh=Sqw_coh, Sqw_inc=Sqw_inc, radius=radius, thickness=thickness, yheight=0.055, p_interact=0.9
+    EXTEND: ```c
+    if (!SCATTERED) ABSORB;
+    ```
+- Out: PSD_monitor_4PI AT [0, 0, 0] RELATIVE sample_pos ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: filename=&quot;out&quot;
+- M_theta_t_all: Monitor_nD AT [0, 0, 0] RELATIVE sample_pos ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=2.5, yheight=1, bins=100, options=opt1
+- Detector_nM: Sqw_monitor AT [0, 0, 0] RELATIVE M_theta_t_all ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: qmin=0, qmax=6, Emin=-20, Emax=20, nq=100, nE=100, filename=&quot;Detector_nM&quot;, vix=&quot;vix&quot;, viy=&quot;viy&quot;, viz=&quot;viz&quot;, radius=1.3, yheight=1
+
+Your instrument must include at least: a 2D position-sensitive monitor; a wavelength monitor; a time-of-flight monitor.
+Run with: lambda=4.14, dlambda=0.075, SPEED=-1, M1=-1, M2=-1, M3=-1, MONITOR=1, CHA_WIDTH=-1, TOF_DELAY=-1, TOF_CHA_RESOL=128, ELPEAK=-1, RATIO=1, mFC=0, PHASE=-360, Sqw_coh=Rb_liq_coh.sqw, Sqw_inc=Rb_liq_inc.sqw, radius=0.01, thickness=0.005.</pre></details>
+<p class="meta">file: <code>benchmark/tasks/T1/T1_ILL_IN6.json</code></p>
+</div>
+<div class="card" id="T1_ISIS_SANS2d">
+<h3><code>T1_ISIS_SANS2d</code> <span style="background:#2da44e;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">validated</span> <span style="background:#0969da;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">seen</span></h3>
+<p class="meta">class: <strong>SANS</strong> · reference: <code>ISIS_SANS2d</code> · <a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/ISIS/ISIS_SANS2d">source on GitHub</a></p>
+<p class="meta">paper: Heenan et al., Neutron News 22(2) (2011) — <a href="https://doi.org/10.1080/10448632.2011.569531">doi:10.1080/10448632.2011.569531</a> (spec-sheet)</p>
+<p class="meta">protocol: ncount 1e+06, seed 1234</p>
+<table><tr><th>graded monitor role</th><th>observables (tolerance)</th></tr><tr><td><code>2d</code></td><td>intensity (rtol 0.2, 3σ), beam_width_x (rtol 0.3), beam_width_y (rtol 0.3)</td></tr><tr><td><code>wavelength</code></td><td>intensity (rtol 0.25, 3σ), center_of_mass (rtol 0.05), fwhm (rtol 0.5)</td></tr></table>
+<details><summary>task prompt (6242 chars)</summary><pre>Rebuild the following SANS in McStas from its specification, run it, and report the integrated intensity (with error and event count) on every monitor.
+
+Instrument parameters (defaults in parentheses):
+- L1 (3.926)
+- A1w (0.03)
+- A1h (0.02)
+- S6 (0.006)
+- A2 (0.006)
+- Lmin (1)
+- Lmax (14)
+
+Beamline, in order (positions in meters; AT [x,y,z] RELATIVE to the named component; parameters as given):
+- Origin: Arm AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- isis_source: ISIS_moderator AT [0.0, 0.0, 0.00001] RELATIVE Origin ROTATED [0.0, 0.0, 0.0] RELATIVE Origin
+    parameters: Face=&quot;E2&quot;, Emin=-Lmax, Emax=-Lmin, dist=3.68, focus_xw=0.0365, focus_yh=0.021, xwidth=-1, yheight=-1, CAngle=0.0, SAC=1
+- lmon1: L_monitor AT [0.0, 0.0, 3.698] RELATIVE isis_source ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=140, filename=&quot;lmon1.dat&quot;, xmin=-0.04, xmax=0.04, ymin=-0.03, ymax=0.03, Lmin=0.0, Lmax=17.0
+- psd1: PSD_monitor AT [0.0, 0.0, 3.699] RELATIVE isis_source ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nx=100, ny=100, filename=&quot;psd1.dat&quot;, xmin=-0.05, xmax=0.05, ymin=-0.05, ymax=0.05
+- bender1: Guide_gravity AT [0, 0, 3.7] RELATIVE isis_source ROTATED [0.0, 0.137099, 0.0] RELATIVE isis_source
+    parameters: w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245, nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0
+- bender2: Guide_gravity AT [0, 0, 0.325] RELATIVE bender1 ROTATED [0.0, 0.1375099, 0.0] RELATIVE bender1
+    parameters: w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245, nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0
+- bender3: Guide_gravity AT [0, 0, 0.325] RELATIVE bender2 ROTATED [0.0, 0.1375099, 0.0] RELATIVE bender2
+    parameters: w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245, nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0
+- bender4: Guide_gravity AT [0, 0, 0.325] RELATIVE bender3 ROTATED [0.0, 0.1375099, 0.0] RELATIVE bender3
+    parameters: w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245, nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0
+- bender5: Guide_gravity AT [0, 0, 0.325] RELATIVE bender4 ROTATED [0.0, 0.1375099, 0.0] RELATIVE bender4
+    parameters: w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245, nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0
+- bender6: Guide_gravity AT [0, 0, 0.325] RELATIVE bender5 ROTATED [0.0, 0.1375099, 0.0] RELATIVE bender5
+    parameters: w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245, nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0
+- bender7: Guide_gravity AT [0, 0, 0.325] RELATIVE bender6 ROTATED [0.0, 0.1375099, 0.0] RELATIVE bender6
+    parameters: w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245, nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0
+- bender8: Guide_gravity AT [0, 0, 0.325] RELATIVE bender7 ROTATED [0.0, 0.1375099, 0.0] RELATIVE bender7
+    parameters: w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245, nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0
+- bender9: Guide_gravity AT [0, 0, 0.325] RELATIVE bender8 ROTATED [0.0, 0.1375099, 0.0] RELATIVE bender8
+    parameters: w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245, nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0
+- bender10: Guide_gravity AT [0, 0, 0.325] RELATIVE bender9 ROTATED [0.0, 0.1375099, 0.0] RELATIVE bender9
+    parameters: w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245, nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0
+- lmonb: L_monitor AT [0.0, 0.0, 0.326] RELATIVE bender10 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=140, filename=&quot;lmonB.dat&quot;, xmin=-0.018, xmax=0.018, ymin=-0.018, ymax=0.018, Lmin=0.0, Lmax=17.0
+- psd2: PSD_monitor AT [0.0, 0.0, 0.001] RELATIVE lmonb ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nx=100, ny=100, filename=&quot;psd2.dat&quot;, xmin=-0.025, xmax=0.025, ymin=-0.025, ymax=0.025
+- guide_in: Slit AT [0, 0, 0.2845] RELATIVE psd2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xmin=-0.015, xmax=0.015, ymin=-.01, ymax=+.01
+- guide_straight1: Guide_gravity AT [0, 0, 0.0075] RELATIVE guide_in ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=.030, h1=.020, w2=.030, h2=.020, l=1.985, mleft=1, mright=1, mtop=1, mbottom=1, wavy=0
+- guide_straight2: Guide_gravity AT [0, 0, 2.000] RELATIVE guide_straight1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=.030, h1=.020, w2=.030, h2=.020, l=1.985, mleft=1, mright=1, mtop=1, mbottom=1, wavy=0
+- guide_straight3: Guide_gravity AT [0, 0, 2.000] RELATIVE guide_straight2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=.030, h1=.020, w2=.030, h2=.020, l=1.985, mleft=1, mright=1, mtop=1, mbottom=1, wavy=0
+- guide_straight4: Guide_gravity AT [0, 0, 2.000] RELATIVE guide_straight3 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=.030, h1=.020, w2=.030, h2=.020, l=1.985, mleft=1, mright=1, mtop=1, mbottom=1, wavy=0
+- psd3: PSD_monitor AT [0.0, 0.0, 7.999] RELATIVE guide_in ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nx=100, ny=100, filename=&quot;psd3.dat&quot;, xmin=-0.030, xmax=0.030, ymin=-0.030, ymax=0.030
+- aperture1: Slit AT [0, 0, 8.000] RELATIVE guide_in ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=A1w, yheight=A1h
+- lmonitor2: L_monitor AT [0.0, 0.0, 2.651] RELATIVE aperture1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=140, filename=&quot;lmonitor2.dat&quot;, xmin=-0.0155, xmax=0.0155, ymin=-0.0105, ymax=0.0105, Lmin=0.0, Lmax=17.0
+- S6: Slit AT [0, 0, 2.800] RELATIVE aperture1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: radius=S6
+- APERTURE2: Slit AT [0, 0, L1] RELATIVE aperture1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: radius=A2
+- lmon2: L_monitor AT [0.0, 0.0, 0.285] RELATIVE APERTURE2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=140, filename=&quot;lmonitor3.dat&quot;, xmin=-0.0075, xmax=0.0075, ymin=-0.0075, ymax=0.0075, Lmin=0.0, Lmax=17.0
+- psd4: PSD_monitor AT [0.0, 0.0, 0.286] RELATIVE APERTURE2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nx=100, ny=100, filename=&quot;psd4.dat&quot;, xmin=-0.0075, xmax=0.0075, ymin=-0.0075, ymax=0.0075
+
+Your instrument must include at least: a 2D position-sensitive monitor; a wavelength monitor.
+Run with: L1=3.926, A1w=0.030, A1h=0.02, S6=0.006, A2=0.006, Lmin=1, Lmax=14.</pre></details>
+<p class="meta">file: <code>benchmark/tasks/T1/T1_ISIS_SANS2d.json</code></p>
+</div>
+<div class="card" id="T1_PSI_DMC">
+<h3><code>T1_PSI_DMC</code> <span style="background:#2da44e;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">validated</span> <span style="background:#0969da;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">seen</span></h3>
+<p class="meta">class: <strong>powder-diffractometer</strong> · reference: <code>PSI_DMC</code> · <a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/PSI/PSI_DMC">source on GitHub</a> · ground truth: <code>%Example: lambda=2.5666 Detector: Detector_I=7.5965E+02</code> · reference verified in-env: ✅</p>
+<p class="meta">paper: Willendrup et al., Physica B 385-386, 1032 (2006) — <a href="https://doi.org/10.1016/j.physb.2006.05.329">doi:10.1016/j.physb.2006.05.329</a> (spec-sheet)</p>
+<p class="meta">protocol: ncount 1e+06, seed 1234</p>
+<table><tr><th>graded monitor role</th><th>observables (tolerance)</th></tr><tr><td><code>2d</code></td><td>intensity (rtol 0.2, 3σ), beam_width_x (rtol 0.3), beam_width_y (rtol 0.3)</td></tr><tr><td><code>wavelength</code></td><td>intensity (rtol 0.25, 3σ), center_of_mass (rtol 0.05), fwhm (rtol 0.5)</td></tr></table>
+<details><summary>task prompt (6971 chars)</summary><pre>Rebuild the following powder diffractometer in McStas from its specification, run it, and report the integrated intensity (with error and event count) on every monitor.
+
+Instrument parameters (defaults in parentheses):
+- lambda (2.5666)
+- R (0.87)
+- R_curve (0.87)
+- filename (&quot;Na2Ca3Al2F14.laz&quot;)
+- D_PHI (6)
+- SHIFT (0)
+- PACK (0.7)
+- Dw (0.8)
+- BARNS (1)
+- SPLITS (58)
+
+Constants and derived quantities computed at startup (implement equivalent logic):
+- mono_q = 1.8734
+- y_mono = 0.025
+- NV = 5
+- sample_radius = 0.008/2
+- sample_height = 0.03
+- can_radius = 0.0083/2
+- can_height = 0.0303
+- can_thick = 0.00015
+- Qc = 0.0217
+- R0 = 0.995
+- Mvalue = 1.9
+- W = 1.0/250.0
+- Qc_curve = 0.0217
+- R0_curve = 0.995
+- Mvalue_curve = 2.1
+- W_curve = 1.0/250.0
+- ldiff = 0.05
+```c
+TTM = 2*asin(mono_q*lambda/(4*PI))*RAD2DEG;
+  OMA = TTM/2;
+  RV = fabs(2*2.82*sin(DEG2RAD*OMA));
+  
+  angleGuideCurved=-2.0*asin(0.4995 /2.0/3612)/PI*180;
+  alpha=(R0-R)/Qc/(Mvalue-1);
+  alpha_curve=(R0_curve-R_curve)/Qc_curve/(Mvalue_curve-1);
+```
+
+Beamline, in order (positions in meters; AT [x,y,z] RELATIVE to the named component; parameters as given):
+- source_arm: Progress_bar AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- source: Source_Maxwell_3 AT [0, 0, 0] RELATIVE source_arm ROTATED [0, 0, 0] RELATIVE source_arm
+    parameters: yheight=0.156, xwidth=0.126, Lmin=lambda-ldiff/2, Lmax=lambda+ldiff/2, dist=1.5, focus_xw=0.02, focus_yh=0.12, T1=296.16, T2=40.68, I1=8.5E11, I2=5.2E11
+- PSDbefore_guides: PSD_monitor AT [0, 0, 1.49999] RELATIVE source_arm ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nx=128, ny=128, filename=&quot;PSDbefore_guides&quot;, xwidth=0.02, yheight=0.12
+- l_mon_source: L_monitor AT [0, 0, 1e-9] RELATIVE PSDbefore_guides ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=101, filename=&quot;lmonsource.dat&quot;, xwidth=0.02, yheight=0.12, Lmin=0, Lmax=20
+- guide1: Guide AT [0, 0, 1.50] RELATIVE source_arm ROTATED [0, 0, 0] RELATIVE source_arm
+    parameters: w1=0.02, h1=0.12, w2=0.02, h2=0.12, l=4.66, R0=R0, Qc=Qc, alpha=alpha, m=1.8, W=W
+- PSDbefore_curve: PSD_monitor AT [0, 0, 4.664] RELATIVE guide1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nx=128, ny=128, filename=&quot;PSDbefore_curve&quot;, xwidth=0.02, yheight=0.12
+- guide2: Bender AT [0, 0, 4.69] RELATIVE guide1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w=0.02, h=0.12, r=3612, l=20, R0a=R0_curve, Qca=Qc_curve, alphaa=alpha_curve, ma=Mvalue_curve, Wa=W_curve, R0i=R0_curve, Qci=Qc_curve, alphai=alpha_curve, mi=1, Wi=W_curve, R0s=R0_curve, Qcs=Qc_curve, alphas=alpha_curve, ms=Mvalue_curve, Ws=W_curve
+- PSDafter_curve: PSD_monitor AT [0, 0, 20.0001] RELATIVE guide2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nx=128, ny=128, filename=&quot;PSDafter_curve&quot;, xwidth=0.02, yheight=0.12
+- bunker: Guide AT [0, 0, 20.1502] RELATIVE guide2 ROTATED [0, 0, 0] RELATIVE guide2
+    parameters: w1=0.02, h1=.12, w2=0.02, h2=.12, l=3.43, R0=R0, Qc=Qc, alpha=alpha, m=1.6, W=W
+- guide3: Guide AT [0, 0, 3.56] RELATIVE bunker ROTATED [0, 0, 0] RELATIVE bunker
+    parameters: w1=0.02, h1=.12, w2=0.02, h2=.12, l=12.275, R0=R0, Qc=Qc, alpha=alpha, m=1.6, W=W
+- guide4: Guide AT [0, 0, 15.8555] RELATIVE bunker ROTATED [0, 0, 0] RELATIVE guide3
+    parameters: w1=0.02, h1=.12, w2=0.02, h2=.12, l=5.66, R0=R0, Qc=Qc, alpha=alpha, m=1.6, W=W
+- window1: Al_window AT [0, 0, 5.66+1e-9] RELATIVE guide4 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: thickness=0.002
+- ydist_fluxpos: PSDlin_monitor AT [0, 0, 5.66+1e-8+0.01] RELATIVE guide4 ROTATED [0, 0, 90] RELATIVE window1
+    parameters: nbins=11, filename=&quot;ydist_fluxpos.dat&quot;, xwidth=0.120, yheight=0.02
+- PSD_fluxpos: PSD_monitor AT [0, 0, 5.66+1e-7+0.01] RELATIVE guide4 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nx=100, ny=100, filename=&quot;xdist_fluxposy.dat&quot;, xwidth=0.02, yheight=0.12
+- xdist_flux_pos: PSDlin_monitor AT [0, 0, 1e-9] RELATIVE PSD_fluxpos ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nbins=11, filename=&quot;xdist_fluxpos.dat&quot;, xwidth=0.020, yheight=0.12
+- PSD_fluxposB: PSD_monitor AT [0, 0, 6.24-1e-7-0.01] RELATIVE guide4 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nx=100, ny=100, filename=&quot;PSD_fluxposB.dat&quot;, xwidth=0.02, yheight=0.12
+- window2: Al_window AT [0, 0, 1e-9] RELATIVE PSD_fluxposB ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: thickness=0.002
+- in_slit: Slit AT [0, 0, 0.0021] RELATIVE window2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xmin=-0.01, xmax=0.01, ymin=-0.06, ymax=0.06
+- lambda_in: L_monitor AT [0, 0, 0.001] RELATIVE in_slit ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=128, filename=&quot;L_in.dat&quot;, xmin=-0.011, xmax=0.011, ymin=-0.061, ymax=0.061, Lmin=0, Lmax=2*lambda
+- sma: Arm AT [0, 0, 0.65] RELATIVE in_slit ROTATED [0, OMA, 0] RELATIVE in_slit
+- foc_mono: Monochromator_2foc AT [0, 0, 0] RELATIVE sma ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (SPLIT 10)
+    parameters: zwidth=0.05, yheight=0.025, gap=0.0005, NH=1, NV=5, mosaich=38, mosaicv=38, r0=0.7, Q=mono_q, RV=RV, RH=0
+- msa: Arm AT [0, 0, 0] RELATIVE sma ROTATED [0, TTM, 0] RELATIVE in_slit
+- out1_slit: Slit AT [0, 0, 0.2] RELATIVE msa ROTATED [0, 0, 0] RELATIVE msa
+    parameters: xmin=-0.01, xmax=0.01, ymin=-0.06, ymax=0.06
+- Amoin_slit: Slit AT [0, 0, 0.325] RELATIVE msa ROTATED [0, 0, 0] RELATIVE msa
+    parameters: xmin=-0.01, xmax=0.01, ymin=-0.06, ymax=0.06
+- Bmoin_slit: Slit AT [0, 0, 0.525] RELATIVE msa ROTATED [0, 0, 0] RELATIVE msa
+    parameters: xmin=-0.01, xmax=0.01, ymin=-0.06, ymax=0.06
+- out2_slit: Slit AT [0, 0, 0.65] RELATIVE msa ROTATED [0, 0, 0] RELATIVE msa
+    parameters: xmin=-0.01, xmax=0.01, ymin=-0.06, ymax=0.06
+- PSD_sample: PSD_monitor AT [0, 0, 2.77] RELATIVE msa ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nx=80, ny=80, filename=&quot;PSD_sample.dat&quot;, xmin=-0.05, xmax=0.05, ymin=-0.07, ymax=0.07
+- lambda_sample: L_monitor AT [0, 0, 2.81] RELATIVE msa ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=128, filename=&quot;L_sample.dat&quot;, xmin=-sample_radius, xmax=sample_radius, ymin=-sample_height/2, ymax=sample_height/2, Lmin=lambda-0.2, Lmax=lambda+0.2
+- sa_arm: Arm AT [0, 0, 2.82] RELATIVE msa ROTATED [0, 0, 0] RELATIVE msa
+- sample: PowderN AT [0, 0, 0] RELATIVE sa_arm ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: reflections=filename, radius=sample_radius, yheight=sample_height, pack=PACK, p_inc=0, p_transmit=0, DW=Dw, d_phi=D_PHI, barns=BARNS
+- STOP: Beamstop AT [0, 0, 1.4] RELATIVE sa_arm ROTATED [0, 0, 0] RELATIVE sa_arm
+    parameters: radius=0.3
+- Detector: Monitor_nD AT [0, 0, 0] RELATIVE sa_arm ROTATED [0, 0, 180] RELATIVE sa_arm
+    parameters: xwidth=3.0, yheight=0.09, bins=400, min=19.9+SHIFT, max=99.9+SHIFT, options=&quot;banana,theta&quot;, filename=&quot;detector.dat&quot;
+
+Your instrument must include at least: a 2D position-sensitive monitor; a wavelength monitor.
+Run with: lambda=2.5666, R=0.87, R_curve=0.87, filename=Na2Ca3Al2F14.laz, D_PHI=6, SHIFT=0, PACK=0.7, Dw=0.8, BARNS=1, SPLITS=58.</pre></details>
+<p class="meta">file: <code>benchmark/tasks/T1/T1_PSI_DMC.json</code></p>
+</div>
+<div class="card" id="T1_RTP_DIF">
+<h3><code>T1_RTP_DIF</code> <span style="background:#2da44e;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">validated</span> <span style="background:#0969da;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">seen</span></h3>
+<p class="meta">class: <strong>powder-diffractometer</strong> · reference: <code>RTP_DIF</code> · <a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/TRIGA/RTP_DIF">source on GitHub</a> · ground truth: <code>%Example: mcrun RTP_DIF.instr lambda=2.36 Detector: det_big_I=123752</code> · reference verified in-env: ✅</p>
+<p class="meta">protocol: ncount 1e+06, seed 1234</p>
+<table><tr><th>graded monitor role</th><th>observables (tolerance)</th></tr><tr><td><code>2d</code></td><td>intensity (rtol 0.2, 3σ), beam_width_x (rtol 0.3), beam_width_y (rtol 0.3)</td></tr><tr><td><code>wavelength</code></td><td>intensity (rtol 0.25, 3σ), center_of_mass (rtol 0.05), fwhm (rtol 0.5)</td></tr></table>
+<details><summary>task prompt (4897 chars)</summary><pre>Rebuild the following powder diffractometer in McStas from its specification, run it, and report the integrated intensity (with error and event count) on every monitor.
+
+Instrument parameters (defaults in parentheses):
+- lambda (2.36)
+- DM (3.355)
+- Mono_tilt (0)
+- powder (&quot;Na2Ca3Al2F14.laz&quot;)
+- det_rotation (45)
+
+Constants and derived quantities computed at startup (implement equivalent logic):
+```c
+printf(&quot;RTP_DIF: Monochromator take-off angle=%g [deg]\n&quot;,
+    2*asin(lambda/2/DM)*RAD2DEG);
+```
+
+Beamline, in order (positions in meters; AT [x,y,z] RELATIVE to the named component; parameters as given):
+- Origin: Progress_bar AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- source: Source_gen AT [0, 0, 0] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: radius=.154/2, dist=1.16+1.50, focus_xw=.11, focus_yh=.03, lambda0=lambda, dlambda=.2, I1=2.79e12/4/PI, T1=300
+- CoarseCollimator1: Guide AT [0, 0, .01] RELATIVE source ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=.154, h1=.154, l=1.16125, m=0
+- CoarseCollimator2: Guide AT [0, 0, 1.16125+0.003] RELATIVE CoarseCollimator1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: w1=.11, h1=.11, l=1.5, m=0
+- lmon: Monitor_nD AT [0, 0, 1.5+0.01] RELATIVE CoarseCollimator2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=.11, bins=50, options=&quot;slit disk, auto wavelength&quot;
+- Be_Position: Arm AT [0, 0, .147+.15/2] RELATIVE lmon ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- mono_cradle: Arm AT [0, 0, .145+.15/2+.176] RELATIVE Be_Position ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (SPLIT 10)
+- mono_rotation: Arm AT [0, 0, 0] RELATIVE mono_cradle ROTATED [0, -asin(lambda/2/DM)*RAD2DEG, 0] RELATIVE mono_cradle
+    EXTEND: ```c
+    mono_index=0;
+    ```
+- mono1: Monochromator_curved AT [-.01, 0, 0] RELATIVE mono_rotation ROTATED [0, Mono_tilt, 0] RELATIVE mono_rotation
+    parameters: reflect=&quot;HOPG.rfl&quot;, transmit=&quot;HOPG.trm&quot;, NH=1, NV=1, mosaich=48, mosaicv=48, RV=0, RH=0, DM=DM, width=.11, height=.03
+    EXTEND: ```c
+    if (SCATTERED) mono_index=1;
+    ```
+- mono2: Monochromator_curved AT [0, 0, 0] RELATIVE mono_rotation ROTATED [0, 0, 0] RELATIVE mono_rotation
+    parameters: reflect=&quot;HOPG.rfl&quot;, transmit=&quot;HOPG.trm&quot;, NH=1, NV=1, mosaich=48, mosaicv=48, RV=0, RH=0, DM=DM, width=.11, height=.03
+    EXTEND: ```c
+    if (SCATTERED) mono_index=2;
+    ```
+- mono3: Monochromator_curved AT [0.01, 0, 0] RELATIVE mono_rotation ROTATED [0, -Mono_tilt, 0] RELATIVE mono_rotation
+    parameters: reflect=&quot;HOPG.rfl&quot;, transmit=&quot;HOPG.trm&quot;, NH=1, NV=1, mosaich=48, mosaicv=48, RV=0, RH=0, DM=DM, width=.11, height=.03
+    EXTEND: ```c
+    if (SCATTERED) mono_index=3;
+    ```
+- mono_takeoff: Arm AT [0, 0, 0] RELATIVE mono_cradle ROTATED [0, -2*asin(lambda/2/DM)*RAD2DEG, 0] RELATIVE mono_cradle
+- psd_transmit: Monitor_nD AT [0, 0, 0.25] RELATIVE mono_cradle ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (GROUP mono_rt)
+    parameters: xwidth=.12, yheight=.12, bins=50, options=&quot;x y&quot;
+- psd_reflect: Monitor_nD AT [0, 0, 0.574] RELATIVE mono_takeoff ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (GROUP mono_rt)
+    parameters: xwidth=.12, yheight=.12, bins=50, options=&quot;x y&quot;
+- sample_psd: Monitor_nD AT [0, 0, 0.575+.50] RELATIVE mono_takeoff ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=.02, yheight=.02, bins=50, options=&quot;disk slit, x y&quot;
+- sample_position: Arm AT [0, 0, .575+.5+.01] RELATIVE mono_takeoff ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (SPLIT 100)
+- container_in: PowderN AT [0, 0, 0] RELATIVE sample_position ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: reflections=&quot;V.lau&quot;, radius=0.01/2, yheight=0.04, thickness=-50e-6, p_transmit=.95, d_phi=50, concentric=1
+- sample: PowderN AT [0, 0, 0] RELATIVE sample_position ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: reflections=powder, radius=0.01/2, yheight=0.04, d_phi=atan2(0.5,1)*RAD2DEG
+    EXTEND: ```c
+    if (!SCATTERED) ABSORB;
+    ```
+- container_out: PowderN AT [0, 0, 0] RELATIVE sample_position ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: reflections=&quot;V.lau&quot;, radius=0.01/2, yheight=0.04, thickness=-50e-6, p_transmit=.95, d_phi=50, concentric=1
+- sample_out: Arm AT [0, 0, 0] RELATIVE sample_position ROTATED [0, det_rotation, 0] RELATIVE sample_position
+- det_big: Monitor_nD AT [0, 0, 0] RELATIVE sample_position ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: yheight=.5, radius=1, options=&quot;banana theta limits=[-150 150] bins=300, y bins=64&quot;
+- det: Monitor_nD AT [0, 0, 1] RELATIVE sample_out ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=.5, yheight=.0254, bins=25, options=&quot;x&quot;
+- reactor: Shape AT [0, 0, -.35] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: radius=.7/2, yheight=.4
+
+Your instrument must include at least: a 2D position-sensitive monitor; a wavelength monitor.
+Run with: lambda=2.36, DM=3.355, Mono_tilt=0, powder=Na2Ca3Al2F14.laz, det_rotation=45.</pre></details>
+<p class="meta">file: <code>benchmark/tasks/T1/T1_RTP_DIF.json</code></p>
+</div>
+<div class="card" id="T1_SESANS_Delft">
+<h3><code>T1_SESANS_Delft</code> <span style="background:#2da44e;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">validated</span> <span style="background:#0969da;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">seen</span></h3>
+<p class="meta">class: <strong>SESANS</strong> · reference: <code>SESANS_Delft</code> · <a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/TUDelft/SESANS_Delft">source on GitHub</a> · ground truth: <code>%Example: -y Detector: det_I=2.2537e-07</code> · reference verified in-env: ✅</p>
+<p class="meta">paper: Bouwman, J. Appl. Cryst. 54 (2021) — <a href="https://doi.org/10.1107/S1600576720015496">doi:10.1107/S1600576720015496</a> (oa-pdf)</p>
+<p class="meta">protocol: ncount 1e+06, seed 1234</p>
+<table><tr><th>graded monitor role</th><th>observables (tolerance)</th></tr><tr><td><code>2d</code></td><td>intensity (rtol 0.2, 3σ), beam_width_x (rtol 0.3), beam_width_y (rtol 0.3)</td></tr></table>
+<details><summary>task prompt (3452 chars)</summary><pre>Rebuild the following SESANS in McStas from its specification, run it, and report the integrated intensity (with error and event count) on every monitor.
+
+Instrument parameters (defaults in parentheses):
+- L0 (2.165)
+- DL (0.02)
+- By (0.00468)
+
+Beamline, in order (positions in meters; AT [x,y,z] RELATIVE to the named component; parameters as given):
+- origin: Progress_bar AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+- src: Source_simple AT [0, 0, 0] RELATIVE origin ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: yheight=0.01, xwidth=0.01, dist=2.25, focus_xw=0.01, focus_yh=0.01, lambda0=L0, dlambda=DL, gauss=1
+- set_pol: Set_pol AT [0, 0, 0.1] RELATIVE src ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: px=1
+- px1: PolLambda_monitor AT [0, 0, 0.01] RELATIVE set_pol ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=501, restore_neutron=1, filename=&quot;pxAfterAnalyser&quot;, mx=1, Lmin=L0-DL, Lmax=L0+DL
+- f1: Foil_flipper_magnet AT [0, 0, 0.5] RELATIVE src ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.1, yheight=0.1, zdepth=0.3, phi=0.095993, foilthick=3.0, Bx=0, By=By, Bz=0, foil_in=1, verbose=0
+- px2: PolLambda_monitor AT [0, 0, 0.16] RELATIVE f1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=501, restore_neutron=1, filename=&quot;pxAfterAnalyser&quot;, mx=1, Lmin=L0-DL, Lmax=L0+DL
+- f2: Foil_flipper_magnet AT [0, 0, 2.0] RELATIVE src ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.1, yheight=0.1, zdepth=0.3, phi=0.095993, foilthick=3.0, Bx=0, By=By, Bz=0, foil_in=1, verbose=0
+- px3: PolLambda_monitor AT [0, 0, 0.16] RELATIVE f2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=501, restore_neutron=1, filename=&quot;pxAfterAnalyser&quot;, mx=1, Lmin=L0-DL, Lmax=L0+DL
+- sans_spheres: SANS_spheres2 AT [0, 0, 2.25] RELATIVE src ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (1==1))
+    parameters: xwidth=0.02, yheight=0.02, zthick=0.001, dsdw_inc=0.0, sc_aim=0.8, sans_aim=0.95, R=10000, phi=0.015, singlesp=0, Qmind=0.00003, Qmaxd=0.001
+- f3: Foil_flipper_magnet AT [0, 0, 2.5] RELATIVE src ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.1, yheight=0.1, zdepth=0.3, phi=0.095993, foilthick=3.0, Bx=0, By=By, Bz=0, foil_in=1, verbose=0
+- f4: Foil_flipper_magnet AT [0, 0, 4.0] RELATIVE src ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: xwidth=0.1, yheight=0.1, zdepth=0.3, phi=0.095993, foilthick=3.0, Bx=0, By=By, Bz=0, foil_in=1, verbose=0
+- px6: PolLambda_monitor AT [0, 0, 0.16] RELATIVE f4 ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nL=501, restore_neutron=1, filename=&quot;pxAfterAnalyser&quot;, mx=1, Lmin=L0-DL, Lmax=L0+DL
+- ana: PolAnalyser_ideal AT [0, 0, 4.4] RELATIVE src ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: mx=1
+- det: PSD_monitor AT [0, 0, 4.5] RELATIVE src ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nx=101, ny=101, filename=&quot;det&quot;, xwidth=0.011, yheight=0.011
+- trick: Arm AT [0, 0, 4.4] RELATIVE src ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    EXTEND: ```c
+    RESTORE_NEUTRON(INDEX_CURRENT_COMP-2,x,y,z,vx,vy,vz,t,sx,sy,sz,p);
+    ```
+- ana2: PolAnalyser_ideal AT [0, 0, 4.4] RELATIVE src ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: mx=-1
+- det2: PSD_monitor AT [0, 0, 4.5] RELATIVE src ROTATED [0, 0, 0] RELATIVE ABSOLUTE
+    parameters: nx=101, ny=101, filename=&quot;det2&quot;, xwidth=0.011, yheight=0.011
+
+Your instrument must include at least: a 2D position-sensitive monitor.
+Run with: L0=2.165, DL=0.02, By=4.68e-3.</pre></details>
+<p class="meta">file: <code>benchmark/tasks/T1/T1_SESANS_Delft.json</code></p>
+</div>
+
+  <h2>Pilot &amp; control tasks (3)</h2>
+  <div class="card" id="P1_sans_reproduce">
+<h3><code>P1_sans_reproduce</code> <span style="background:#2da44e;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">pilot-validated</span> <span style="background:#0969da;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">T1</span></h3>
+<p class="meta">class: <strong>reproduce</strong> · reference: <code>templateSANS</code> · <a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/Templates/templateSANS">source on GitHub</a> · ground truth: <code>%Example: lambda=6 Detector: detector_I=0.0445623</code> · reference verified in-env: ✅</p>
+<p class="meta">protocol: ncount 1e+06, seed 1234</p>
+<table><tr><th>graded monitor role</th><th>observables (tolerance)</th></tr><tr><td><code>2d</code></td><td>intensity (rtol 0.2, 3σ), beam_width_x (rtol 0.3), beam_width_y (rtol 0.3)</td></tr><tr><td><code>wavelength</code></td><td>intensity (rtol 0.25, 3σ), center_of_mass (rtol 0.02), fwhm (rtol 0.5)</td></tr></table>
+<details><summary>task prompt (874 chars)</summary><pre>Build a pinhole SANS instrument with the following specification, run it, and report the integrated intensity on the main detector.
+
+Source: circular, radius 2 cm, emitting wavelength 6.0 +- 0.05 Angstrom (uniform), flux 1e8 n/s/cm2/st/AA.
+Collimation: two circular pinhole apertures of radius 5 mm, at 3 m and at 6 m from the source.
+Sample: 0.2 m downstream of the second pinhole — a dilute suspension of monodisperse hard spheres: sphere radius 100 Angstrom, volume fraction 0.1%, scattering contrast Delta_rho 0.6 fm/Angstrom^2, absorption cross-section 0.5 barns; sample size 1 x 1 cm, thickness 0.5 cm.
+Beamstop: circular, radius 2 cm, 2.9 m behind the sample.
+Detector: 2D position-sensitive, 60 x 60 cm (128 x 128 pixels), 3.0 m behind the sample.
+Also include a wavelength monitor just behind the detector plane (60 x 60 cm acceptance) covering 5.5 to 6.5 Angstrom.</pre></details>
+<p class="meta">file: <code>benchmark/tasks/P1_sans_reproduce.json</code></p>
+</div>
+<div class="card" id="P2_memorization_psi_dmc">
+<h3><code>P2_memorization_psi_dmc</code> <span style="background:#2da44e;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">pilot-validated</span> <span style="background:#0969da;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">control</span></h3>
+<p class="meta">class: <strong>memorization_probe</strong></p>
+<p>Contamination control mechanism (SPEC 7 Study A): a (paper, instrument) pair only counts as &#x27;unseen&#x27; if the model FAILS this probe — i.e. cannot emit the reference file without tools. similarity = difflib ratio on normalized text; keyfacts = recall of the component-type sequence. Run via benchmark/probe_memorization.py against each evaluated model.</p>
+<p class="meta">file: <code>benchmark/tasks/P2_memorization_psi_dmc.json</code></p>
+</div>
+<div class="card" id="P3_sans_underspecified">
+<h3><code>P3_sans_underspecified</code> <span style="background:#2da44e;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">pilot-validated</span> <span style="background:#0969da;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">T1</span></h3>
+<p class="meta">class: <strong>reproduce_underspecified</strong> · reference: <code>templateSANS</code> · <a href="https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples/Templates/templateSANS">source on GitHub</a> · ground truth: <code>%Example: lambda=6 Detector: detector_I=0.0445623</code> · reference verified in-env: ✅</p>
+<p class="meta">protocol: ncount 1e+06, seed 1234</p>
+<table><tr><th>graded monitor role</th><th>observables (tolerance)</th></tr><tr><td><code>wavelength</code></td><td>center_of_mass (rtol 0.02), fwhm (rtol 0.5)</td></tr><tr><td><code>2d</code></td><td>presence only</td></tr></table>
+<details><summary>task prompt (764 chars)</summary><pre>Build a pinhole SANS instrument. The available information is incomplete — make reasonable design choices where the specification is silent, and state every assumption you make.
+
+Known: the instrument uses 6.0 Angstrom neutrons with a narrow band (+-0.05 Angstrom, uniform); the sample is a dilute suspension of 100 Angstrom monodisperse hard spheres (volume fraction 0.1%, contrast 0.6 fm/Angstrom^2, 1 x 1 cm, 0.5 cm thick); the 2D detector is 60 x 60 cm and sits 3.0 m behind the sample, with a beamstop in front of it. The collimation geometry (aperture sizes and distances) is NOT specified. Include a wavelength monitor covering 5.5 to 6.5 Angstrom behind the detector plane. Run the instrument and report the detector intensity and your collimation choices.</pre></details>
+<p class="meta">file: <code>benchmark/tasks/P3_sans_underspecified.json</code></p>
+</div>
+
+  <footer class="meta" style="margin-top:28px">
+    Regenerate: <code>python3 scripts/tasks_report.py</code> · tasks live in
+    <code>benchmark/tasks/</code> · grading: <code>benchmark/grader.py</code>
+  </footer>
+</div></body></html>
