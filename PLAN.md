@@ -3,6 +3,8 @@
 **Created:** 2026-07-09 · **Living document** — check off items and revise dates as work proceeds.
 Derived from `note/mcstas-mcp-feasibility-and-spec.md` (SPEC) and `note/scope-decision-2026-07-09.md` (benchmark = headline, agent = baseline). Assumes part-time effort, ~11 weeks → draft by mid-October 2026.
 
+**Status (reviewed 2026-07-24):** infrastructure phase (M0–M4) complete — server (22 tools, 88 tests), skill, optimization/baseline layer — ~2.5 weeks ahead of the original schedule (M4 was planned through Aug 10). M5 pulled forward accordingly. **Next actions: (1) de-risk gate 3 (OpenRouter spike) — overdue, run before M5 curation locks in; (2) M5 pilot (gate 4).**
+
 ## Purpose (aligned 2026-07-24 — every milestone must serve one of these)
 
 1. **Reproduction:** can an LLM agent reproduce a neutron instrument from its
@@ -58,7 +60,7 @@ Design is fully specified in `note/m1-server-design-2026-07-09.md` (grounded in 
 - [x] **Accepted:** kill and restart the server mid-run over real stdio — registry and job results survive (`test_restart_survival_acceptance`). Suite: 72 tests passing.
 - Human demo: `conda run -n mcstas python scripts/m2_walkthrough.py` (import shipped example → validate → async poll → caching → persistence map; detector PNG at λ=8 vs λ=6 shows correct ring scaling)
 
-### M3 — Skill (week of Jul 27)
+### M3 — Skill (built 2026-07-24; informal acceptance pending, rigorous version = M5 ablation)
 
 - [x] `mcstas-instrument-design` skill per SPEC §5: SKILL.md (96 lines) + 5 references (units/conventions, figures of merit with quadrature rules, 8 instrument archetypes each pointing at shipped starting examples, component guide with traps, verification checklist) + `resolution_calcs.py` (conversions, Bragg, chopper phasing/frame overlap, guide m, SANS Q — CLI + importable; physics pinned by 8 tests)
 - [x] Canonical copy in `skills/` (benchmark-installable); local sessions load it via committed `.claude/skills/` symlink
@@ -80,7 +82,7 @@ parametrization under the same compute.
 - [x] **Accepted:** guide_bot-style task (flux into 2×2 cm², ±0.5°, λ=5±0.5 Å, 10 m m=2 guide, free width) — optimizer reaches the classical scan's best FOM within statistics in 11 iterations; optimum re-verified at 1e6 with a fresh seed. *First T2 prototype; 88 tests passing.*
 - Human demo: `conda run -n mcstas python scripts/m4_walkthrough.py` → `runs/m4_demo/scan_curve.png` (scan curve + optimizer line + re-verified point; FOM plateau above guide-acceptance matching is the expected physics)
 
-### M5 — Benchmark curation (weeks of Aug 10 – Sep 4) ← headline contribution
+### M5 — Benchmark curation (pulled forward: late Jul – mid Aug; orig. Aug 10 – Sep 4) ← headline contribution
 
 - [ ] **Pilot first (kill-list item 4):** 3 reproduction tasks — one memorization probe, one underspecified paper — to validate the grading rubric *before* curating at scale
 - [ ] Task inventory — head start from the 2026-07-09 studies (`note/m1-server-design-2026-07-09.md` §Benchmark spillover): 15-instrument seen-tier shortlist with verified DOIs, 9 held-out candidates (2024–26, no public .instr, per-instrument contamination evidence), 5 paper-but-no-model instruments for T3; select 20–30 (paper, reference `.instr`, reference monitor outputs) triples
@@ -93,21 +95,21 @@ parametrization under the same compute.
 - [ ] Grading harness: observable-based (flux spectrum at sample, beam profile, resolution function) with tolerance tiers; fully headless, no LLM judge for T1/T2
 - **Accept:** every task graded automatically from a transcript directory; a deliberately-wrong `.instr` fails and the reference passes.
 
-### M6 — Evaluation runs (weeks of Sep 7–18)
+### M6 — Evaluation runs (pulled forward: late Aug – early Sep; orig. Sep 7–18)
 
-- [ ] **OpenRouter spike early** (kill-list item 3, actually run it in week of Jul 20): same MVP task via `ANTHROPIC_BASE_URL` with 2 non-Claude models — verifies tool-calling fidelity through the alternate backend
+- [ ] **OpenRouter spike (gate 3) — OVERDUE, run next**: same one-prompt task via `ANTHROPIC_BASE_URL` with 2 non-Claude models — verifies tool-calling fidelity through the alternate backend *before* M5 curation assumes the multi-model scaffold works
 - [ ] Scaffold: headless `claude -p` + `.mcp.json` + skill installed; JSON transcripts; pin model IDs + Claude Code version; log tokens/tool-calls/wall-clock per episode
 - [ ] Protocol: pass@1, fixed seeds, 50-turn cap, 5-task dev split for all debugging, held-out set touched once
 - [ ] Model tiers: Claude via subscription ($0, spread over days under weekly caps); mid/small via OpenRouter (~$50–200); open-weights via vLLM+LiteLLM optional
 - **Accept:** full run matrix complete within the $100–300 budget; transcripts reproducible from pinned config.
 
-### M7 — Analysis + writing (weeks of Sep 21 – Oct 9)
+### M7 — Analysis + writing (pulled forward: Sep; orig. Sep 21 – Oct 9)
 
 - [ ] Failure taxonomy: format failures (tool-calling mechanics) vs physics failures
 - [ ] Ablations (SPEC §7 Study C): structured vs raw `.instr`, ±introspection, ±skill, ±vision; cost/scaling curves vs token budget and ncount
 - [ ] T2 analysis is core (purpose 2) and **not cuttable**. Only the stretch layer of SPEC Study B — expert-adjudicated claims that an agent design *beats the published instrument* — is cut-if-behind (that claim standard is a follow-up paper on its own)
 - [ ] Paper draft: lead with benchmark + failure-mode analysis; system description as means, not claim
-- **Target venue:** NeurIPS 2027 Datasets & Benchmarks (deadline ~May 2027 — comfortable). ICLR 2027 (~late Sep 2026) is too tight for a part-time schedule ending mid-October; verify actual deadlines when M5 starts and re-decide.
+- **Target venue:** NeurIPS 2027 Datasets & Benchmarks (deadline ~May 2027 — comfortable). ICLR 2027 (~late Sep 2026) was ruled too tight, but the ~2.5-week schedule gain reopens it *if* M5 curation goes fast — verify actual deadlines when M5 completes and re-decide then.
 
 ## De-risk gates (fatal-flaw checks, in order — from SPEC §7)
 
@@ -115,7 +117,7 @@ parametrization under the same compute.
 |---|---|---|---|
 | 1 | conda McStas + example runs on this Mac | M0 | osx-arm64 binaries broken AND Docker unusable |
 | 2 | Agent builds/runs instrument from one prompt | M1 | validation-at-call-time can't be made reliable |
-| 3 | OpenRouter backend spike, 2 non-Claude models | week of Jul 20 | tool-calling fidelity too poor → single-model paper only |
+| 3 | OpenRouter backend spike, 2 non-Claude models | **OVERDUE — next action** (orig. week of Jul 20) | tool-calling fidelity too poor → single-model paper only |
 | 4 | 3 pilot tasks incl. memorization probe | M5 start | grading rubric can't separate memorization from capability |
 
 ## Standing decisions (defaults from SPEC §8 — change only with a dated note)
