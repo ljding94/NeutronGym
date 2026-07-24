@@ -47,11 +47,13 @@ Design is fully specified in `note/m1-server-design-2026-07-09.md` (grounded in 
 - [x] **Accepted:** kill and restart the server mid-run over real stdio — registry and job results survive (`test_restart_survival_acceptance`). Suite: 72 tests passing.
 - Human demo: `conda run -n mcstas python scripts/m2_walkthrough.py` (import shipped example → validate → async poll → caching → persistence map; detector PNG at λ=8 vs λ=6 shows correct ring scaling)
 
-### M3 — Skill (week of Jul 27, parallel with M2 tail)
+### M3 — Skill (week of Jul 27)
 
-- [ ] `mcstas-instrument-design` skill per SPEC §5: SKILL.md (<200 lines) + 5 reference files + `resolution_calcs.py`
-- [ ] Refine from failure transcripts: every recurring agent mistake becomes a skill line
-- **Accept:** on 3 informal dev tasks, agent-with-skill avoids the unit/statistics/phasing errors that agent-without-skill makes (eyeball comparison; the rigorous version is the M5 ablation).
+- [x] `mcstas-instrument-design` skill per SPEC §5: SKILL.md (96 lines) + 5 references (units/conventions, figures of merit with quadrature rules, 8 instrument archetypes each pointing at shipped starting examples, component guide with traps, verification checklist) + `resolution_calcs.py` (conversions, Bragg, chopper phasing/frame overlap, guide m, SANS Q — CLI + importable; physics pinned by 8 tests)
+- [x] Canonical copy in `skills/` (benchmark-installable); local sessions load it via committed `.claude/skills/` symlink
+- [x] Failure-transcript rules encoded (and regression-tested in `test_skill_encodes_observed_failures`): fix a seed for any comparison (M1 acceptance run never did), 1000-event statistics floor, `restore_neutron=1` on diagnostics, disclose source-brightness assumptions, compute chopper phases don't scan them
+- [ ] Keep refining from future transcripts: every recurring agent mistake becomes a skill line (standing task through M5/M6)
+- [ ] **Accept (user-driven):** on 3 informal dev tasks, agent-with-skill avoids the unit/statistics/phasing errors that agent-without-skill makes (eyeball comparison; the rigorous version is the M5 ablation).
 
 ### M4 — Optimization layer (weeks of Aug 3–10)
 

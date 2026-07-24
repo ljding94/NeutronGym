@@ -7,4 +7,6 @@ dist/
 build/
 # McStas simulation outputs
 runs/
-.claude/
+# harness state, except the committed skills symlink
+.claude/*
+!.claude/skills/

@@ -25,7 +25,7 @@ Deliverables:
 
 1. **McStasBench** (headline) — tiered evaluation (reproduce / optimize / open-ended design) run through headless Claude Code as a universal scaffold across model tiers (spec §7). Benchmark quality bars are load-bearing: contamination controls, difficulty tiers, pipeline-decomposed metrics.
 2. **`mcstas-mcp` server** (baseline tooling) — Python (FastMCP) wrapping [McStasScript](https://github.com/PaNOSC-ViNYL/McStasScript): component discovery/introspection, structured instrument construction, async simulation jobs, parameter scans, scipy-driven optimization. Tool signatures in spec §4.
-3. **`mcstas-instrument-design` skill** (baseline tooling) — the judgment layer: units/conventions, figures of merit, instrument archetypes, verification checklist (spec §5).
+3. **`mcstas-instrument-design` skill** (baseline tooling) — the judgment layer: units/conventions, figures of merit, instrument archetypes, verification checklist (spec §5). Canonical copy: `skills/mcstas-instrument-design/` (loaded into local sessions via the committed `.claude/skills/` symlink). Rules distilled from real agent transcripts live in SKILL.md and are regression-tested (`tests/test_skill.py`) — when an eval transcript shows a new recurring mistake, add a rule AND extend that test.
 
 ## Key architecture decisions (from the spec — don't relitigate without reason)
 

@@ -18,7 +18,7 @@
   h1 { margin: 0 0 4px; font-size: 26px; }
   .meta { color: #656d76; font-size: 13px; margin-bottom: 18px; }
   .overall { background: #d0d7de55; border-radius: 8px; height: 14px; overflow: hidden; margin: 10px 0 6px; }
-  .overall > div { height: 100%; background: #2da44e; width: 56%; transition: width .3s; }
+  .overall > div { height: 100%; background: #2da44e; width: 59%; transition: width .3s; }
   .chips { margin: 10px 0 26px; }
   .chip { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px;
            font-weight: 600; margin-right: 6px; color: #fff; }
@@ -53,11 +53,11 @@
   footer { margin-top: 34px; font-size: 12.5px; color: #656d76; }
 </style></head><body><div class="wrap">
   <h1>McStasBench — Progress</h1>
-  <div class="meta">Generated 2026-07-21 21:35 · commit b028994 (2026-07-21) · source of truth: <code>PLAN.md</code>
+  <div class="meta">Generated 2026-07-23 23:06 · commit 678eacc (2026-07-21) · source of truth: <code>PLAN.md</code>
    · <a href="guide.html">how the agent drives McStas &rarr;</a></div>
   <div class="overall"><div></div></div>
-  <div class="meta"><strong>24/43</strong> checklist items complete (56%)</div>
-  <div class="chips"><span class="chip done" title="Environment + repo bootstrap — done 2026-07-09">M0</span><span class="chip done" title="MVP MCP server — done 2026-07-21">M1</span><span class="chip done" title="Robustness — done 2026-07-21">M2</span><span class="chip pending" title="Skill (week of Jul 27, parallel with M2 tail)">M3</span><span class="chip pending" title="Optimization layer (weeks of Aug 3–10)">M4</span><span class="chip pending" title="Benchmark curation (weeks of Aug 10 – Sep 4) ← headline contribution">M5</span><span class="chip pending" title="Evaluation runs (weeks of Sep 7–18)">M6</span><span class="chip pending" title="Analysis + writing (weeks of Sep 21 – Oct 9)">M7</span></div>
+  <div class="meta"><strong>27/46</strong> checklist items complete (59%)</div>
+  <div class="chips"><span class="chip done" title="Environment + repo bootstrap — done 2026-07-09">M0</span><span class="chip done" title="MVP MCP server — done 2026-07-21">M1</span><span class="chip done" title="Robustness — done 2026-07-21">M2</span><span class="chip active" title="Skill (week of Jul 27)">M3</span><span class="chip pending" title="Optimization layer (weeks of Aug 3–10)">M4</span><span class="chip pending" title="Benchmark curation (weeks of Aug 10 – Sep 4) ← headline contribution">M5</span><span class="chip pending" title="Evaluation runs (weeks of Sep 7–18)">M6</span><span class="chip pending" title="Analysis + writing (weeks of Sep 21 – Oct 9)">M7</span></div>
   <div class="grid">
       <div class="card done">
         <div class="card-head">
@@ -89,15 +89,15 @@
         <ul class="checklist"><li class="ok"><span class="tick">✓</span>Async job manager: <code>run_simulation(wait_s)</code> hybrid — short runs return finished, long ones return <code>running</code> for <code>job_status</code> polling (elapsed + log tail); <code>cancel_job</code> kills the process group; per-job log files; jobs recover after server death via pid + on-disk reconciliation (orphans past 1.5× timeout get killed)</li><li class="ok"><span class="tick">✓</span>Deferred M1-review items: string/int-typed instrument parameters; declares + WHEN/EXTEND/GROUP/SPLIT in spec and tools; cross-process file locking (fcntl) with atomic writes; binary caching via comment-insensitive <code>.instr</code> sha (validate compiles once, parameter iterations never recompile)</li><li class="ok"><span class="tick">✓</span><code>validate_instrument</code>: required-param audit + translate/compile/1-ray probe with staged diagnostics</li><li class="ok"><span class="tick">✓</span><code>load_instr_file</code> / <code>export_instr_file</code> escape hatches — the loader converts reader output into a full spec (params/declares/INITIALIZE/WHEN/EXTEND/GROUP/SPLIT; bare <code>SPLIT</code> = McStas default 10), fidelity-tested: imported templateSANS reproduces the direct-file run at the same seed; failure messages name the reader&#x27;s known failure classes</li><li class="ok"><span class="tick">✓</span><code>list_examples</code> / <code>get_example</code> over the 297-example corpus, exposing <code>%Example:</code> ground-truth lines</li><li class="ok"><span class="tick">✓</span>Persistence: per-run <code>.instr</code> snapshots + seed/ncount/params in every job record. <strong>Decision:</strong> no <code>projects/</code> level — flat <code>~/.mcstas-mcp/</code>, benchmark episodes isolate via <code>MCSTAS_MCP_HOME</code></li><li class="ok"><span class="tick">✓</span>Error-quality pass: every failure names the next action (poll <code>job_status</code>, fix with <code>set_parameters</code>, reader failure classes, nearest-match suggestions)</li><li class="ok"><span class="tick">✓</span><strong>Accepted:</strong> kill and restart the server mid-run over real stdio — registry and job results survive (<code>test_restart_survival_acceptance</code>). Suite: 72 tests passing.</li></ul>
         <div class="note">Human demo: <code>conda run -n mcstas python scripts/m2_walkthrough.py</code> (import shipped example → validate → async poll → caching → persistence map; detector PNG at λ=8 vs λ=6 shows correct ring scaling)</div>
       </div>
-      <div class="card pending">
+      <div class="card active">
         <div class="card-head">
           <span class="mid">M3</span>
-          <span class="badge" style="background:#8b949e">pending</span>
-          <span class="count">0/2</span>
+          <span class="badge" style="background:#bf8700">in progress</span>
+          <span class="count">3/5</span>
         </div>
-        <h3>Skill (week of Jul 27, parallel with M2 tail)</h3>
-        <ul class="checklist"><li class=""><span class="tick">○</span><code>mcstas-instrument-design</code> skill per SPEC §5: SKILL.md (&lt;200 lines) + 5 reference files + <code>resolution_calcs.py</code></li><li class=""><span class="tick">○</span>Refine from failure transcripts: every recurring agent mistake becomes a skill line</li></ul>
-        <div class="accept"><strong>Accept:</strong> on 3 informal dev tasks, agent-with-skill avoids the unit/statistics/phasing errors that agent-without-skill makes (eyeball comparison; the rigorous version is the M5 ablation).</div>
+        <h3>Skill (week of Jul 27)</h3>
+        <ul class="checklist"><li class="ok"><span class="tick">✓</span><code>mcstas-instrument-design</code> skill per SPEC §5: SKILL.md (96 lines) + 5 references (units/conventions, figures of merit with quadrature rules, 8 instrument archetypes each pointing at shipped starting examples, component guide with traps, verification checklist) + <code>resolution_calcs.py</code> (conversions, Bragg, chopper phasing/frame overlap, guide m, SANS Q — CLI + importable; physics pinned by 8 tests)</li><li class="ok"><span class="tick">✓</span>Canonical copy in <code>skills/</code> (benchmark-installable); local sessions load it via committed <code>.claude/skills/</code> symlink</li><li class="ok"><span class="tick">✓</span>Failure-transcript rules encoded (and regression-tested in <code>test_skill_encodes_observed_failures</code>): fix a seed for any comparison (M1 acceptance run never did), 1000-event statistics floor, <code>restore_neutron=1</code> on diagnostics, disclose source-brightness assumptions, compute chopper phases don&#x27;t scan them</li><li class=""><span class="tick">○</span>Keep refining from future transcripts: every recurring agent mistake becomes a skill line (standing task through M5/M6)</li><li class=""><span class="tick">○</span><strong>Accept (user-driven):</strong> on 3 informal dev tasks, agent-with-skill avoids the unit/statistics/phasing errors that agent-without-skill makes (eyeball comparison; the rigorous version is the M5 ablation).</li></ul>
+        
       </div>
       <div class="card pending">
         <div class="card-head">
