@@ -3,18 +3,28 @@
 **Created:** 2026-07-09 · **Living document** — check off items and revise dates as work proceeds.
 Derived from `note/mcstas-mcp-feasibility-and-spec.md` (SPEC) and `note/scope-decision-2026-07-09.md` (benchmark = headline, agent = baseline). Assumes part-time effort, ~11 weeks → draft by mid-October 2026.
 
-**Status (reviewed 2026-07-24, evening):** infrastructure phase (M0–M4) complete — server (22 tools), skill, optimization/baseline layer; 96 tests. **All 4 de-risk gates passed** — nothing known left that can kill the plan. `benchmark/` harness exists (grader + memorization probe + 3 pilot tasks, mechanics validated). **Next: pilot agent episodes (P1/P3 through the headless scaffold), then M5 curation at scale. Before M6 model matrix: widen the OpenRouter privacy policy (only Google models route today).**
+**Status (reviewed 2026-07-24, evening):** infrastructure phase (M0–M4) complete — server (22 tools), skill, optimization/baseline layer; 96 tests. **All 4 de-risk gates passed.** `benchmark/` harness exists (grader + memorization probe + 3 pilot tasks, mechanics validated). Scope evolved same day to **environment-first framing with an RL track (M8)** — see `note/scope-evolution-rl-env-2026-07-24.md`. **Next: pilot agent episodes (P1/P3), then M5 environment build (fast-tier timing, procedural generator, reward-ladder API). Before M6 model matrix: widen the OpenRouter privacy policy (only Google models route today).**
 
-## Purpose (aligned 2026-07-24 — every milestone must serve one of these)
+## Purpose (aligned 2026-07-24; environment-first evolution same day — see `note/scope-evolution-rl-env-2026-07-24.md`)
+
+**Headline artifact: a fast, physically-verifiable, inverse-design RL
+environment for LLM agents** — neutron optics is the substrate. Procedurally
+generated, densely rewarded (three-tier ladder), trainable; the benchmark is
+its held-out slice. Three questions, every milestone must serve one:
 
 1. **Reproduction:** can an LLM agent reproduce a neutron instrument from its
-   instrument-design paper, graded on simulation observables?
+   instrument-design paper, graded on simulation observables? (held-out
+   benchmark slice — curated, non-generatable)
 2. **Improvement:** can an LLM agent improve an instrument design against
-   quantitative target specs, measured against classical baselines?
+   quantitative target specs, measured against classical baselines? (the
+   trainable core — procedurally generated)
+3. **Trainability:** does physics-verifiable reward train? Small-model delta
+   (rejection sampling → filtered SFT → GRPO if signal); claim bar: 7B +
+   training beats 7B baseline, approaching a larger untrained model.
 
-Both questions are answered on the same infrastructure (mcstas-mcp server +
-design skill + grading harness). Purpose 1 is benchmark tier T1; purpose 2 is
-tier T2 (+ open-design T3) — **neither tier is cuttable**.
+Structural advantages to protect: seconds-per-rollout (template families +
+binary cache), fully programmatic reward (no LLM judge anywhere), Liouville
+bound as physics-native hack detection, open-source releasability.
 
 ## Machine facts (verified 2026-07-09)
 
@@ -82,7 +92,20 @@ parametrization under the same compute.
 - [x] **Accepted:** guide_bot-style task (flux into 2×2 cm², ±0.5°, λ=5±0.5 Å, 10 m m=2 guide, free width) — optimizer reaches the classical scan's best FOM within statistics in 11 iterations; optimum re-verified at 1e6 with a fresh seed. *First T2 prototype; 88 tests passing.*
 - Human demo: `conda run -n mcstas python scripts/m4_walkthrough.py` → `runs/m4_demo/scan_curve.png` (scan curve + optimizer line + re-verified point; FOM plateau above guide-acceptance matching is the expected physics)
 
-### M5 — Benchmark curation (pulled forward: late Jul – mid Aug; orig. Aug 10 – Sep 4) ← headline contribution
+### M5 — Environment + benchmark curation (pulled forward: late Jul – mid Aug) ← headline contribution
+
+Environment work (new, from the 2026-07-24 scope evolution — mostly wraps
+existing machinery):
+
+- [ ] **Fast-tier rollout timing, measured** (the RL plan rests on it): template-family regime — compile once (~2–3 s), then parameter-instance rollouts at truncated ncount; target < 1 s/rollout. Current evidence: cached runs 0.3–1 s at 1e4–1e5
+- [ ] Procedural instance generator: parameterized template families per archetype (compile-once/sample-many for the fast tier; topology variation = slow tier only); nothing memorizable; held-out parameter regimes for the eval split
+- [ ] Reward-ladder API wrapping existing tiers: static (registry validation + `validate_instrument`, free) → cheap dynamic (truncated-ncount run, staged diagnostics) → terminal (full-protocol run through `benchmark/grader.py`); reward computed at env-controlled protocol (never agent-chosen ncount)
+- [ ] Multi-objective target-spec format (flux + resolution + geometry constraints jointly — single-metric gaming fails by construction)
+- [ ] Anti-hacking checks: Liouville/brilliance-transfer ≤ 1 (matched phase-space monitors), degenerate-config detectors; then **red-team our own reward and write up what broke** (paper section)
+- [ ] Packaging: pip-installable env + Docker with McStas baked in; one-command eval slice
+- [ ] Env/reward API kept McStas-agnostic at the interface (soft constraint for a possible physics-reward suite with autoMartiniAgent — parked option)
+
+Benchmark slice (curation items, as before):
 
 - [x] **Pilot (kill-list item 4) — de-risk gate 4 passed 2026-07-24 (mechanics):** `benchmark/` harness with grader (observable-based, role-matched monitors, statistics-aware tolerances, hard-failure gating), memorization probe (live-validated: real file ≈1.0 → contaminated; flash-lite from memory 0.07 → unseen), 3 pilot tasks (P1 full-spec SANS, P2 probe, P3 underspecified). Validated: reference passes at fresh seed; λ=8 and R=30 frauds fail with localized blame; underspecified choices not punished. See `note/spike-and-pilot-2026-07-24.md`
 - [ ] Pilot agent episodes: run P1/P3 through the headless scaffold (Claude + 1 OpenRouter model), grade the real transcripts end-to-end
@@ -104,13 +127,31 @@ parametrization under the same compute.
 - [ ] Model tiers: Claude via subscription ($0, spread over days under weekly caps); mid/small via OpenRouter (~$50–200); open-weights via vLLM+LiteLLM optional
 - **Accept:** full run matrix complete within the $100–300 budget; transcripts reproducible from pinned config.
 
-### M7 — Analysis + writing (pulled forward: Sep; orig. Sep 21 – Oct 9)
+### M7 — Analysis + environment-paper writing (pulled forward: Sep; orig. Sep 21 – Oct 9)
+
+The paper is the **environment paper** (env + reward ladder + procedural
+generation + frontier-model numbers on the held-out slice + red-team-the-
+reward section). It does NOT wait for RL results — M8 stages are separately
+publishable. **Re-check prior art immediately before writing the positioning
+section** (this space produces papers monthly; last check 2026-07-09).
 
 - [ ] Failure taxonomy: format failures (tool-calling mechanics) vs physics failures
 - [ ] Ablations (SPEC §7 Study C): structured vs raw `.instr`, ±introspection, ±skill, ±vision; cost/scaling curves vs token budget and ncount
 - [ ] T2 analysis is core (purpose 2) and **not cuttable**. Only the stretch layer of SPEC Study B — expert-adjudicated claims that an agent design *beats the published instrument* — is cut-if-behind (that claim standard is a follow-up paper on its own)
 - [ ] Paper draft: lead with benchmark + failure-mode analysis; system description as means, not claim
 - **Target venue:** NeurIPS 2027 Datasets & Benchmarks (deadline ~May 2027 — comfortable). ICLR 2027 (~late Sep 2026) was ruled too tight, but the ~2.5-week schedule gain reopens it *if* M5 curation goes fast — verify actual deadlines when M5 completes and re-decide then.
+
+### M8 — RL post-training track (after env-paper submission; each stage stands alone)
+
+Purpose-3 machinery. Recorded defaults from the 2026-07-24 scope evolution;
+hardware: 8×A100-40G (~4 generation / ~4 training; McStas rollouts are
+CPU-bound — no GPU contention).
+
+- [ ] **Rejection sampling FIRST**: strong-model trajectories → filter by programmatic reward (physics-passing only) → filtered SFT on Qwen-family 7–8B → iterate. If filtered SFT shows no delta, the reward signal has a problem — learned in weeks, not months
+- [ ] Agentic-RL framework: survey + capability test of current tooling before committing (churns fast; do not write the loop by hand)
+- [ ] GRPO (critic-free) only if SFT shows signal: LoRA r=32–64 on ALL linear projections (attention-only low-rank is where "LoRA underperforms" comes from; justification: RL post-training sharpens existing capability — the regime where LoRA tracks full FT); ~2,500 generations/gradient step (8 samples × 32 prompts × ~10 turns)
+- [ ] Budget: days per experiment → 2–3 real runs total; one headline result + ablations that reuse rollouts
+- **Claim bar:** the delta validates the environment (7B+training > 7B baseline, approaching a larger untrained model on held-out tasks) — not a frontier agent.
 
 ## De-risk gates (fatal-flaw checks, in order — from SPEC §7)
 
@@ -123,7 +164,9 @@ parametrization under the same compute.
 
 ## Standing decisions (defaults from SPEC §8 — change only with a dated note)
 
-- Laptop-scale compute; SLURM path deferred (async API already accommodates it)
+- Laptop-scale compute for env/eval; 8×A100-40G reserved for the M8 RL track; SLURM path deferred (async API already accommodates it)
 - McStas only; McXtrace kept in the design, out of scope for MVP
 - Union components / NCrystal deferred past MVP (introspection exposes them anyway)
 - Single agent + skill + validating tools; no multi-agent split unless evals show persistent unforced physics errors
+- Environment-first framing (2026-07-24): benchmark = held-out slice; T1 paper-reproduction stays curated and uncuttable
+- Suite/common-API with autoMartiniAgent ("physics-verifiable reward" framework paper): **parked strategic option**, revisit after the env paper; until then keep the reward API McStas-agnostic at the interface

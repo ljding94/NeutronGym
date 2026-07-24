@@ -8,6 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - `note/mcstas-mcp-feasibility-and-spec.md` (2026-07-08) — feasibility analysis, full SPEC, research plan.
 - `note/scope-decision-2026-07-09.md` — scope/framing decision; supersedes §7 framing in the spec where they differ.
+- `note/scope-evolution-rl-env-2026-07-24.md` — environment-first reframing (RL env with three-tier reward ladder + procedural generation; benchmark = held-out slice) + M8 RL track; supersedes the 07-09 note's framing where they differ.
 - `PLAN.md` — the concrete implementation plan: milestones M0–M7 with acceptance criteria, de-risk gates, and standing decisions. This is the living document; check items off there.
 - `note/m1-server-design-2026-07-09.md` — the M1 server design (construction-vs-execution split, 10 server-side rules, revised tool signatures, benchmark spillover). Grounded in three systematic studies: `note/study-mcstas-software-*.md`, `note/study-mcstasscript-api-*.md`, `note/study-instrument-papers-*.md` — consult these before touching McStas/McStasScript integration code; they contain verified error behaviors and gotchas.
 - `progress.html` — human-friendly dashboard generated from PLAN.md. **After editing PLAN.md, regenerate it**: `python3 scripts/progress_report.py` (stdlib only, any python). Never edit progress.html by hand.
