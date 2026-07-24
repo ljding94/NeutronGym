@@ -131,7 +131,9 @@ def _parse_mccode_dat(output_dir: str):
             if line.startswith("#"):
                 key, _, val = line.lstrip("# ").partition(": ")
                 if key == "xvars":
-                    xvars = val.split()
+                    # single-param scans: space-separated; multi-param
+                    # optimizations: comma-separated ("w_in, w_out")
+                    xvars = [x for x in re.split(r"[,\s]+", val.strip()) if x]
                 elif key == "yvars":
                     pairs = re.findall(r"\(([^,]+),([^)]+)\)", val)
             elif line:

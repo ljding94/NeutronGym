@@ -59,6 +59,20 @@ def test_optimize_validates_inputs(spec):
         optimization.run_optimize(spec, {"gws": [0.01, 0.02, 0.05]})
 
 
+def test_mccode_dat_multiparam_optimizer_xvars(tmp_path):
+    """Multi-parameter optimizations write 'xvars: a, b' (comma-separated) —
+    regression for the T2 calibration KeyError."""
+    (tmp_path / "mccode.dat").write_text(
+        "# xvars: w_in, w_out\n"
+        "# yvars: (divmon_I,divmon_ERR)\n"
+        "# variables: w_in w_out divmon_I divmon_ERR\n"
+        "0.05 0.03 1.0 0.1\n")
+    xv, pairs, rows = optimization._parse_mccode_dat(str(tmp_path))
+    assert xv == ["w_in", "w_out"]
+    scanned, _ = optimization._tabulate(xv, pairs, rows)
+    assert scanned["w_in"] == [0.05] and scanned["w_out"] == [0.03]
+
+
 def test_mccode_dat_parsing_positional_keying(tmp_path):
     """Component names repeat when one component writes several files —
     columns must be keyed by position (study finding)."""

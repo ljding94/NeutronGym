@@ -1,0 +1,325 @@
+{
+  "name": "t2_sans_collimation",
+  "description": "T2 baseline: templateSANS with parameterized collimation",
+  "parameters": [
+    {
+      "name": "lambda",
+      "type": "double",
+      "default": 6.0,
+      "unit": "",
+      "comment": ""
+    },
+    {
+      "name": "dlambda",
+      "type": "double",
+      "default": 0.05,
+      "unit": "",
+      "comment": ""
+    },
+    {
+      "name": "r",
+      "type": "double",
+      "default": 100.0,
+      "unit": "",
+      "comment": ""
+    },
+    {
+      "name": "PHI",
+      "type": "double",
+      "default": 0.001,
+      "unit": "",
+      "comment": ""
+    },
+    {
+      "name": "Delta_Rho",
+      "type": "double",
+      "default": 0.6,
+      "unit": "",
+      "comment": ""
+    },
+    {
+      "name": "sigma_abs",
+      "type": "double",
+      "default": 0.5,
+      "unit": "",
+      "comment": ""
+    },
+    {
+      "name": "r_pin1",
+      "type": "double",
+      "default": 0.005,
+      "unit": "m",
+      "comment": "first pinhole radius"
+    },
+    {
+      "name": "r_pin2",
+      "type": "double",
+      "default": 0.005,
+      "unit": "m",
+      "comment": "sample pinhole radius"
+    }
+  ],
+  "declares": [],
+  "raw_declares": [],
+  "initialize": null,
+  "components": [
+    {
+      "name": "a1",
+      "component": "Progress_bar",
+      "at": [
+        "0",
+        "0",
+        "0"
+      ],
+      "relative": "ABSOLUTE",
+      "rotated": [
+        "0",
+        "0",
+        "0"
+      ],
+      "rotated_relative": "ABSOLUTE",
+      "parameters": {},
+      "when": null,
+      "extend": null,
+      "group": null,
+      "split": null
+    },
+    {
+      "name": "arm",
+      "component": "Arm",
+      "at": [
+        "0",
+        "0",
+        "0"
+      ],
+      "relative": "ABSOLUTE",
+      "rotated": [
+        "0",
+        "0",
+        "0"
+      ],
+      "rotated_relative": "ABSOLUTE",
+      "parameters": {},
+      "when": null,
+      "extend": null,
+      "group": null,
+      "split": null
+    },
+    {
+      "name": "source",
+      "component": "Source_simple",
+      "at": [
+        "0",
+        "0",
+        "0"
+      ],
+      "relative": "arm",
+      "rotated": [
+        "0",
+        "0",
+        "0"
+      ],
+      "rotated_relative": "ABSOLUTE",
+      "parameters": {
+        "radius": "0.02",
+        "dist": "3",
+        "focus_xw": "0.01",
+        "focus_yh": "0.01",
+        "lambda0": "lambda",
+        "dlambda": "dlambda",
+        "flux": "1e8"
+      },
+      "when": null,
+      "extend": null,
+      "group": null,
+      "split": null
+    },
+    {
+      "name": "coll1",
+      "component": "Slit",
+      "at": [
+        "0",
+        "0",
+        "3"
+      ],
+      "relative": "arm",
+      "rotated": [
+        "0",
+        "0",
+        "0"
+      ],
+      "rotated_relative": "ABSOLUTE",
+      "parameters": {
+        "radius": "r_pin1"
+      },
+      "when": null,
+      "extend": null,
+      "group": null,
+      "split": null
+    },
+    {
+      "name": "coll2",
+      "component": "Slit",
+      "at": [
+        "0",
+        "0",
+        "6"
+      ],
+      "relative": "arm",
+      "rotated": [
+        "0",
+        "0",
+        "0"
+      ],
+      "rotated_relative": "ABSOLUTE",
+      "parameters": {
+        "radius": "r_pin2"
+      },
+      "when": null,
+      "extend": null,
+      "group": null,
+      "split": null
+    },
+    {
+      "name": "sample",
+      "component": "Sans_spheres",
+      "at": [
+        "0",
+        "0",
+        "0.2"
+      ],
+      "relative": "coll2",
+      "rotated": [
+        "0",
+        "0",
+        "0"
+      ],
+      "rotated_relative": "ABSOLUTE",
+      "parameters": {
+        "R": "r",
+        "Phi": "PHI",
+        "Delta_rho": "Delta_Rho",
+        "sigma_abs": "sigma_abs",
+        "xwidth": "0.01",
+        "yheight": "0.01",
+        "zdepth": "0.005",
+        "target_index": "2",
+        "focus_xw": "0.6",
+        "focus_yh": "0.6"
+      },
+      "when": null,
+      "extend": null,
+      "group": null,
+      "split": 10
+    },
+    {
+      "name": "STOP",
+      "component": "Beamstop",
+      "at": [
+        "0",
+        "0",
+        "2.9"
+      ],
+      "relative": "sample",
+      "rotated": [
+        "0",
+        "0",
+        "0"
+      ],
+      "rotated_relative": "ABSOLUTE",
+      "parameters": {
+        "radius": "0.02"
+      },
+      "when": null,
+      "extend": null,
+      "group": null,
+      "split": null
+    },
+    {
+      "name": "detector",
+      "component": "PSD_monitor",
+      "at": [
+        "0",
+        "0",
+        "3"
+      ],
+      "relative": "sample",
+      "rotated": [
+        "0",
+        "0",
+        "0"
+      ],
+      "rotated_relative": "ABSOLUTE",
+      "parameters": {
+        "nx": "128",
+        "ny": "128",
+        "filename": "\"PSD.dat\"",
+        "xmin": "-0.3",
+        "xmax": "0.3",
+        "ymin": "-0.3",
+        "ymax": "0.3"
+      },
+      "when": null,
+      "extend": null,
+      "group": null,
+      "split": null
+    },
+    {
+      "name": "Ldetector",
+      "component": "L_monitor",
+      "at": [
+        "0",
+        "0",
+        "3.01"
+      ],
+      "relative": "sample",
+      "rotated": [
+        "0",
+        "0",
+        "0"
+      ],
+      "rotated_relative": "ABSOLUTE",
+      "parameters": {
+        "nL": "1000",
+        "filename": "\"Edet.dat\"",
+        "xmin": "-0.3",
+        "xmax": "0.3",
+        "ymin": "-0.3",
+        "ymax": "0.3",
+        "Lmin": "5.5",
+        "Lmax": "6.5"
+      },
+      "when": null,
+      "extend": null,
+      "group": null,
+      "split": null
+    },
+    {
+      "name": "PSDrad",
+      "component": "PSD_monitor_rad",
+      "at": [
+        "0",
+        "0",
+        "3.02"
+      ],
+      "relative": "sample",
+      "rotated": [
+        "0",
+        "0",
+        "0"
+      ],
+      "rotated_relative": "ABSOLUTE",
+      "parameters": {
+        "filename": "\"psd2.dat\"",
+        "filename_av": "\"psd2_av.dat\"",
+        "rmax": "0.3"
+      },
+      "when": null,
+      "extend": null,
+      "group": null,
+      "split": null
+    }
+  ],
+  "created": "2026-07-24 16:51:10",
+  "modified": "2026-07-24 16:51:10"
+}

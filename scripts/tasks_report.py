@@ -56,7 +56,7 @@ def gh_link(inv_entry):
 
 
 def ref_name(task):
-    ref = task.get("reference", {}).get("instr", "")
+    ref = (task.get("reference") or {}).get("instr", "")
     return ref.split(":", 1)[1] if ref.startswith("shipped:") else None
 
 
@@ -70,9 +70,17 @@ def task_card(t, val, inv):
     e = inv.get(name, {}) if name else {}
     v = val.get(t["id"])
     parts = [f'<div class="card" id="{esc(t["id"])}">']
-    status = (badge("validated", GREEN) if v and v.get("pass")
-              else badge("pilot-validated", GREEN) if t["id"].startswith("P")
-              else badge("unvalidated", AMBER))
+    if v and v.get("pass"):
+        status = badge("validated", GREEN)
+    elif t["id"].startswith("P"):
+        status = badge("pilot-validated", GREEN)
+    elif t.get("kind") == "improve":
+        status = (badge("calibrated", GREEN) if t.get("targets")
+                  else badge("uncalibrated", AMBER))
+    elif t.get("kind") == "open_design":
+        status = badge("definition — rubric pending", AMBER)
+    else:
+        status = badge("unvalidated", AMBER)
     parts.append(f'<h3><code>{esc(t["id"])}</code> {status} '
                  f'{badge(t.get("split", t["tier"]), BLUE if t.get("split") != "dev" else GRAY)}</h3>')
     meta = [f'class: <strong>{esc(t.get("class", t["kind"]))}</strong>']
@@ -111,6 +119,39 @@ def task_card(t, val, inv):
             rows += f"<tr><td><code>{esc(m['role'])}</code></td><td>{esc(obs)}</td></tr>"
         parts.append("<table><tr><th>graded monitor role</th><th>observables "
                      "(tolerance)</th></tr>" + rows + "</table>")
+    if t.get("kind") == "improve":
+        fp = t.get("free_parameters", {})
+        parts.append('<p class="meta">free parameters: ' + ", ".join(
+            f"<code>{esc(k)}</code> ∈ [{lo:g}, {hi:g}]" for k, (lo, hi) in fp.items())
+            + "</p>")
+        tgt = t.get("targets", {}).get("fom_min")
+        base = t.get("baselines", {})
+        if tgt is not None:
+            def num(x):
+                return f"{x:.5g}" if isinstance(x, (int, float)) else "—"
+            cb = base.get("classical_best", {})
+            ob = base.get("optimizer", {})
+            rows = (f"<tr><td>baseline</td><td>{num(base.get('initial', {}).get('fom'))}</td></tr>"
+                    f"<tr><td><strong>target (agent must beat)</strong></td><td><strong>{num(tgt)}</strong></td></tr>"
+                    f"<tr><td>classical best ({esc(cb.get('source', '?'))}, constraint-filtered)</td>"
+                    f"<td>{num(cb.get('fom'))}</td></tr>"
+                    f"<tr><td>mcrun optimizer ({ob.get('iterations')} iters)</td>"
+                    f"<td>{num(ob.get('fom'))}{'' if ob.get('fom') else ' <span class=meta>(' + esc((ob.get('note') or '')[:60]) + ')</span>'}</td></tr>"
+                    f"<tr><td>constrained random search ({base.get('random_search', {}).get('samples')} samples)</td>"
+                    f"<td>{num(base.get('random_search', {}).get('fom'))}</td></tr>")
+            parts.append(f"<table><tr><th>FOM ({esc(t['fom']['monitor'])} intensity)</th>"
+                         f"<th>n/s</th></tr>{rows}</table>")
+        for c in t.get("constraints", []):
+            if c.get("max_value") is not None:
+                parts.append(f'<p class="meta">constraint: <code>{esc(c["role"])}.'
+                             f'{esc(c["observable"])}</code> ≤ {c["max_value"]:.4g} '
+                             f'({c["max_factor_of_baseline"]}× baseline)</p>')
+    if t.get("kind") == "open_design":
+        floors = t.get("grading", {}).get("automatic_floors", [])
+        if floors:
+            parts.append("<p class=\"meta\">automatic floors: "
+                         + "; ".join(esc(f["description"]) for f in floors) + "</p>")
+        parts.append(f'<p class="meta">⚠ {esc(t.get("grading", {}).get("expert_rubric", ""))}</p>')
     if t.get("kind") == "memorization_probe":
         parts.append(f'<p>{esc(t.get("notes", ""))}</p>')
     prompt = t.get("prompt")
@@ -125,7 +166,9 @@ def task_card(t, val, inv):
 def main():
     tasks, val, inv = load_all()
     t1 = [t for t in tasks if t["tier"] == "T1" and t["id"].startswith("T1_")]
-    pilots = [t for t in tasks if not t["id"].startswith("T1_")]
+    t2 = [t for t in tasks if t["tier"] == "T2"]
+    t3 = [t for t in tasks if t["tier"] == "T3"]
+    pilots = [t for t in tasks if t["id"].startswith("P")]
     classes = {}
     for t in t1:
         classes[t.get("class", "?")] = classes.get(t.get("class", "?"), 0) + 1
@@ -151,6 +194,8 @@ def main():
     cards = "\n".join(task_card(t, val, inv) for t in
                       sorted(t1, key=lambda x: (x.get("split", ""), x["id"])))
     pilot_cards = "\n".join(task_card(t, val, inv) for t in pilots)
+    t2_cards = "\n".join(task_card(t, val, inv) for t in sorted(t2, key=lambda x: x["id"]))
+    t3_cards = "\n".join(task_card(t, val, inv) for t in sorted(t3, key=lambda x: x["id"]))
     class_chips = " · ".join(f"{k}: {n}" for k, n in sorted(classes.items()))
 
     page = f"""<!DOCTYPE html>
@@ -183,7 +228,7 @@ def main():
   a {{ color: {BLUE}; }}
 </style></head><body><div class="wrap">
   <h1>McStasBench — Task Catalog</h1>
-  <p class="meta">Generated {now} · {len(t1)} T1 tasks + {len(pilots)} pilot/control tasks ·
+  <p class="meta">Generated {now} · {len(t1)} T1 + {len(t2)} T2 + {len(t3)} T3 tasks + {len(pilots)} pilot/control ·
     <a href="../progress.html">progress</a> · <a href="../guide.html">how the agent works</a></p>
 
   <h2>Task naming: P vs T</h2>
@@ -199,8 +244,10 @@ def main():
   model only if that model fails to emit the file from memory).</p>
   <p><strong>T tasks (benchmark tiers)</strong> are the scored benchmark. The number is
   the tier, mapping to the project's research questions: <strong>T1</strong> reproduce an
-  instrument from its specification (this page), <strong>T2</strong> improve a design to
-  quantitative target specs (in preparation), <strong>T3</strong> open-ended design.
+  instrument from its specification (this page), <strong>T2</strong> improve a design against
+  calibrated quantitative targets (on this page — targets set by classical
+  optimization, hardened by red-teaming), <strong>T3</strong> open-ended design
+  (definitions below; expert rubric pending).
   T1 tasks are auto-authored at scale from machine-verified references and
   each is self-validated before admission.</p>
   </div>
@@ -237,6 +284,19 @@ def main():
   </table>
   {cards}
 
+  <h2>T2 improvement tasks ({len(t2)})</h2>
+  <p class="meta">Improve a baseline instrument against calibrated targets under a
+  multi-objective contract. Targets are set from what the classical optimizer
+  (mcrun --optimize) achieves — achievable-but-not-trivial by construction —
+  and random search under matched compute provides the discrimination floor.</p>
+  {t2_cards}
+
+  <h2>T3 open-design tasks ({len(t3)}) <span class="meta">definitions — expert rubric pending (M6/M7)</span></h2>
+  <p class="meta">Goal-only specifications. Automatic floors (compiles, statistics,
+  geometry, Liouville sanity) are machine-checkable; design-quality grading
+  requires the expert rubric and these tasks are NOT yet in the scored set.</p>
+  {t3_cards}
+
   <h2>Pilot &amp; control tasks ({len(pilots)})</h2>
   {pilot_cards}
 
@@ -248,7 +308,7 @@ def main():
 """
     with open(OUT, "w") as f:
         f.write(page)
-    print(f"wrote benchmark/tasks.html: {len(t1)} T1 + {len(pilots)} pilot tasks")
+    print(f"wrote benchmark/tasks.html: {len(t1)} T1 + {len(t2)} T2 + {len(t3)} T3 + {len(pilots)} pilot")
 
 
 if __name__ == "__main__":

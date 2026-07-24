@@ -1,0 +1,131 @@
+{
+  "name": "t2_guide_divergence",
+  "description": "T2 baseline: guide feeding a divergence-limited target",
+  "parameters": [
+    {
+      "name": "w_in",
+      "type": "double",
+      "default": 0.02,
+      "unit": "m",
+      "comment": "guide entry width/height"
+    },
+    {
+      "name": "w_out",
+      "type": "double",
+      "default": 0.02,
+      "unit": "m",
+      "comment": "guide exit width/height"
+    },
+    {
+      "name": "m_coat",
+      "type": "double",
+      "default": 2.0,
+      "unit": "1",
+      "comment": "supermirror m-value"
+    }
+  ],
+  "declares": [],
+  "raw_declares": [],
+  "initialize": null,
+  "components": [
+    {
+      "name": "src",
+      "component": "Source_simple",
+      "at": [
+        0,
+        0,
+        0
+      ],
+      "relative": null,
+      "rotated": null,
+      "rotated_relative": null,
+      "parameters": {
+        "xwidth": 0.1,
+        "yheight": 0.1,
+        "dist": 1.5,
+        "focus_xw": "w_in",
+        "focus_yh": "w_in",
+        "lambda0": 5,
+        "dlambda": 0.5
+      },
+      "when": null,
+      "extend": null,
+      "group": null,
+      "split": null
+    },
+    {
+      "name": "guide",
+      "component": "Guide",
+      "at": [
+        0,
+        0,
+        1.5
+      ],
+      "relative": "src",
+      "rotated": null,
+      "rotated_relative": null,
+      "parameters": {
+        "w1": "w_in",
+        "h1": "w_in",
+        "w2": "w_out",
+        "h2": "w_out",
+        "l": 10,
+        "m": "m_coat"
+      },
+      "when": null,
+      "extend": null,
+      "group": null,
+      "split": null
+    },
+    {
+      "name": "divmon",
+      "component": "Divergence_monitor",
+      "at": [
+        0,
+        0,
+        10.05
+      ],
+      "relative": "guide",
+      "rotated": null,
+      "rotated_relative": null,
+      "parameters": {
+        "xwidth": 0.02,
+        "yheight": 0.02,
+        "maxdiv_h": 0.5,
+        "maxdiv_v": 0.5,
+        "filename": "\"div.dat\"",
+        "restore_neutron": 1
+      },
+      "when": null,
+      "extend": null,
+      "group": null,
+      "split": null
+    },
+    {
+      "name": "psd",
+      "component": "PSD_monitor",
+      "at": [
+        0,
+        0,
+        10.06
+      ],
+      "relative": "guide",
+      "rotated": null,
+      "rotated_relative": null,
+      "parameters": {
+        "nx": 60,
+        "ny": 60,
+        "xwidth": 0.03,
+        "yheight": 0.03,
+        "filename": "\"psd.dat\"",
+        "restore_neutron": 1
+      },
+      "when": null,
+      "extend": null,
+      "group": null,
+      "split": null
+    }
+  ],
+  "created": "2026-07-24 16:51:07",
+  "modified": "2026-07-24 16:51:09"
+}

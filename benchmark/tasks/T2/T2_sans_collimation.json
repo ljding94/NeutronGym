@@ -1,0 +1,87 @@
+{
+  "id": "T2_sans_collimation",
+  "tier": "T2",
+  "split": "seen",
+  "kind": "improve",
+  "class": "SANS-optimization",
+  "prompt_template": "Improve the collimation of this SANS instrument.\n\nBaseline (provided as t2_sans_collimation): a pinhole SANS \u2014 6 m collimation with two circular pinholes (r_pin1 = {r_pin1} m at 3 m, r_pin2 = {r_pin2} m at 6 m), monodisperse-sphere sample, beamstop, and a 60x60 cm 2D detector ('detector') 3 m behind the sample; lambda = 6.0 +- 0.05 Angstrom.\n\nGoal: maximize the scattered intensity on the detector.\nYou may change ONLY: r_pin1 in [{r1_min}, {r1_max}] m, r_pin2 in [{r2_min}, {r2_max}] m.\nHard constraint (pattern-integrity band): the detector pattern RMS width dX must stay within [{bwx_min:.4g}, {bwx_max:.4g}] cm (\u00b110% of the baseline pattern). This catches both resolution destruction (over-wide pinholes smearing the rings) AND direct-beam leakage around the beamstop (which floods the center and shrinks dX) \u2014 the beamstop must keep shadowing the direct beam.\nTarget to beat: detector intensity >= {fom_min:.4g} n/s at the evaluation protocol (ncount {ncount:g}, fixed seed).\nReport chosen radii and achieved intensity with error, events, and the measured dX.",
+  "reference": {
+    "instr": "benchmark/instruments/t2_sans_collimation/t2_sans_collimation.instr",
+    "parameters": {
+      "lambda": 6,
+      "r_pin1": 0.005,
+      "r_pin2": 0.005
+    }
+  },
+  "free_parameters": {
+    "r_pin1": [
+      0.002,
+      0.02
+    ],
+    "r_pin2": [
+      0.002,
+      0.02
+    ]
+  },
+  "fom": {
+    "role": "2d",
+    "monitor": "detector",
+    "metric": "intensity",
+    "maximize": true
+  },
+  "constraints": [
+    {
+      "role": "2d",
+      "observable": "beam_width_x",
+      "min_factor_of_baseline": 0.9,
+      "max_factor_of_baseline": 1.1,
+      "max_value": 5.547751,
+      "min_value": 4.539069
+    }
+  ],
+  "protocol": {
+    "ncount": 1000000.0,
+    "seed": 1234,
+    "timeout": 900
+  },
+  "calibration": {
+    "maxiter": 30,
+    "method": "nelder-mead",
+    "target_fraction": 0.8
+  },
+  "notes": "Flux/resolution trade-off with a multi-objective contract (anti single-metric gaming). Baselines/targets filled by calibrate_t2.py.",
+  "baselines": {
+    "initial": {
+      "fom": 0.0451716,
+      "err": 0.000265475,
+      "constraints": {
+        "2d.beam_width_x": 5.04341
+      }
+    },
+    "classical_best": {
+      "source": "random_search",
+      "fom": 0.0663015,
+      "parameters": {
+        "r_pin1": 0.015796656790252335,
+        "r_pin2": 0.0062625759565361205
+      }
+    },
+    "optimizer": {
+      "note": "DISCARDED: violates constraints {'2d.beam_width_x': 1.69406}",
+      "fom": 3.017,
+      "iterations": 36
+    },
+    "random_search": {
+      "fom": 0.0663015,
+      "parameters": {
+        "r_pin1": 0.015796656790252335,
+        "r_pin2": 0.0062625759565361205
+      },
+      "samples": 30
+    }
+  },
+  "targets": {
+    "fom_min": 0.062075519999999995
+  },
+  "prompt": "Improve the collimation of this SANS instrument.\n\nBaseline (provided as t2_sans_collimation): a pinhole SANS \u2014 6 m collimation with two circular pinholes (r_pin1 = 0.005 m at 3 m, r_pin2 = 0.005 m at 6 m), monodisperse-sphere sample, beamstop, and a 60x60 cm 2D detector ('detector') 3 m behind the sample; lambda = 6.0 +- 0.05 Angstrom.\n\nGoal: maximize the scattered intensity on the detector.\nYou may change ONLY: r_pin1 in [0.002, 0.02] m, r_pin2 in [0.002, 0.02] m.\nHard constraint (pattern-integrity band): the detector pattern RMS width dX must stay within [4.539, 5.548] cm (\u00b110% of the baseline pattern). This catches both resolution destruction (over-wide pinholes smearing the rings) AND direct-beam leakage around the beamstop (which floods the center and shrinks dX) \u2014 the beamstop must keep shadowing the direct beam.\nTarget to beat: detector intensity >= 0.06208 n/s at the evaluation protocol (ncount 1e+06, fixed seed).\nReport chosen radii and achieved intensity with error, events, and the measured dX."
+}

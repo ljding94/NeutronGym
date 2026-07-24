@@ -1,0 +1,21 @@
+{
+  "id": "T3_ballistic_guide",
+  "tier": "T3",
+  "split": "seen",
+  "kind": "open_design",
+  "class": "guide-design",
+  "prompt": "Design the neutron transport from a cold source to a distant sample position, from scratch.\n\nRequirements:\n- Source: 12x12 cm cold source, lambda = 4-6 Angstrom (model with Source_simple or a Maxwellian source; state your brightness assumption).\n- Sample position: 30 m from the source; sample area 3x3 cm; the delivered beam must have divergence within +-0.6 degrees (both axes).\n- Coating budget: use m > 3 on at most 10 m of total guide length (m <= 3 elsewhere) — justify where you spend it.\n- Topology is YOUR choice: straight guide, tapered, ballistic (expanding-straight-focusing), or elliptic; single guide or segmented.\n- Include diagnostic monitors after each stage and a divergence monitor plus PSD at the sample position.\n\nDeliver: the instrument (leave it in the registry), the topology rationale, and the figure of merit — flux into the 3x3 cm, +-0.6 deg acceptance at the sample — with error and event count at ncount 1e6, fixed seed. Compare at least two topologies and report both numbers.",
+  "reference": null,
+  "protocol": {"ncount": 1e6, "seed": 1234, "timeout": 900},
+  "grading": {
+    "min_events": 1000,
+    "automatic_floors": [
+      {"description": "instrument compiles and runs under the protocol"},
+      {"description": "divergence monitor at ~30 m with >= 1000 events"},
+      {"description": "geometry: sample position at 30 +- 0.5 m; guide sections' m-values respect the coating budget (from get_instrument)"},
+      {"description": "Liouville sanity: brilliance transfer <= 1 for the stated acceptance"}
+    ],
+    "expert_rubric": "PENDING — topology choice quality, line-of-sight handling, and the two-topology comparison require the M6/M7 expert rubric; automatic floors alone do NOT constitute a grade"
+  },
+  "notes": "T3 open-design task DEFINITION (guide_bot-class problem with a coating budget). Not yet in the scored set; the agent-vs-classical comparison for guide design is exactly SPEC Study B's stretch layer."
+}

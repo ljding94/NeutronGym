@@ -1,0 +1,22 @@
+{
+  "id": "T3_compact_sans",
+  "tier": "T3",
+  "split": "seen",
+  "kind": "open_design",
+  "class": "SANS",
+  "prompt": "Design a compact pinhole SANS instrument for a compact accelerator-driven neutron source, from scratch.\n\nRequirements:\n- Total instrument length (source to detector) <= 12 m.\n- Wavelength 5 Angstrom with a velocity-selector-like band of Delta-lambda/lambda approximately 10% FWHM (model the band at the source).\n- Must measure scattering from 100 Angstrom monodisperse spheres (use the standard hard-sphere SANS sample model, 1x1 cm, volume fraction 0.1%, contrast 0.6 fm/A^2) with usable Q coverage reaching Qmin <= 0.006 1/Angstrom.\n- Include: source, collimation of your choosing, sample, beamstop, a 2D position-sensitive detector sized to your geometry, and a wavelength monitor.\n- Assume a source brightness of 1e8 n/s/cm^2/st/Angstrom (state any further assumptions).\n\nDeliver: the instrument (leave it in the registry), your design rationale (collimation choice, distances, detector size vs Q range), and the flux on sample and detector with errors and event counts at ncount 1e6 with a fixed seed.",
+  "reference": null,
+  "protocol": {"ncount": 1e6, "seed": 1234, "timeout": 900},
+  "grading": {
+    "min_events": 1000,
+    "automatic_floors": [
+      {"description": "instrument compiles and runs under the protocol"},
+      {"description": "2D detector present with >= 1000 events"},
+      {"description": "wavelength monitor: CoM in [4.5, 5.5] A, FWHM/CoM in [0.05, 0.2]"},
+      {"description": "geometry: total length <= 12 m (from component positions)"},
+      {"description": "Liouville sanity: flux on sample consistent with stated source brightness (brilliance transfer <= 1)"}
+    ],
+    "expert_rubric": "PENDING — design quality (collimation optimization, detector sizing vs Q range, beamstop sizing, assumption hygiene) requires the M6/M7 expert rubric; automatic floors alone do NOT constitute a grade"
+  },
+  "notes": "T3 open-design task DEFINITION. Automatic floors are implemented by the standard grader mechanisms (roles, statistics, geometry from get_instrument); the expert rubric is an M6/M7 deliverable. Not yet in the scored set."
+}

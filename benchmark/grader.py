@@ -172,6 +172,57 @@ def grade(task: dict, cand_summary: dict, ref_summary: dict) -> dict:
     }
 
 
+def grade_improvement(task: dict, cand_summary: dict) -> dict:
+    """Grade a T2 improve-task candidate: FOM vs calibrated target AND every
+    constraint within bounds (multi-objective — single-metric gaming fails).
+    Baselines are included for context; the classical optimizer is the bar."""
+    if not cand_summary.get("ok"):
+        return {"task": task["id"], "pass": False, "score": 0.0,
+                "hard_failures": [f"candidate failed to run "
+                                  f"({cand_summary.get('stage')})"],
+                "diagnostics": cand_summary.get("diagnostics")}
+    fom_spec = task["fom"]
+    mon = next((m for m in cand_summary["monitors"]
+                if m["component"] == fom_spec["monitor"]), None) \
+        or match_monitor(cand_summary, fom_spec["role"])
+    if mon is None:
+        return {"task": task["id"], "pass": False, "score": 0.0,
+                "hard_failures": [f"no FOM monitor (role '{fom_spec['role']}')"]}
+    if (mon.get("events") or 0) < task.get("grading", {}).get("min_events", 1000):
+        return {"task": task["id"], "pass": False, "score": 0.0,
+                "hard_failures": [f"FOM monitor has {mon.get('events'):.0f} "
+                                  "events — below statistics floor"]}
+    fom = mon["intensity"]
+    target = task["targets"]["fom_min"]
+    checks = [{"check": "fom>=target", "fom": fom, "err": mon["intensity_err"],
+               "target": target, "pass": fom >= target}]
+    for c in task.get("constraints", []):
+        cmon = match_monitor(cand_summary, c["role"])
+        val = _get_observable(cmon, c["observable"]) if cmon else None
+        hi, lo = c.get("max_value"), c.get("min_value")
+        ok = (val is not None
+              and (hi is None or val <= hi)
+              and (lo is None or val >= lo))
+        checks.append({"check": f"{c['role']}.{c['observable']} in band",
+                       "value": val, "min": lo, "max": hi, "pass": ok})
+    n_pass = sum(1 for c in checks if c["pass"])
+    base = task.get("baselines", {})
+    return {
+        "task": task["id"],
+        "pass": n_pass == len(checks),
+        "score": round(n_pass / len(checks), 3),
+        "checks_passed": f"{n_pass}/{len(checks)}",
+        "hard_failures": [],
+        "checks": checks,
+        "context": {
+            "baseline_fom": base.get("initial", {}).get("fom"),
+            "optimizer_fom": base.get("optimizer", {}).get("fom"),
+            "random_search_fom": base.get("random_search", {}).get("fom"),
+        },
+        "protocol": task["protocol"],
+    }
+
+
 def grade_candidate_file(task: dict, instr_path: str, params: dict | None,
                          workdir: str) -> dict:
     ref = reference_summary(task)

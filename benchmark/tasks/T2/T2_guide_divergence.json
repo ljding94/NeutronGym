@@ -1,0 +1,82 @@
+{
+  "id": "T2_guide_divergence",
+  "tier": "T2",
+  "split": "seen",
+  "kind": "improve",
+  "class": "guide-optimization",
+  "prompt_template": "Improve this neutron guide design.\n\nBaseline instrument (provided as t2_guide_divergence): a 10 m straight supermirror guide (entry = exit = {w_in} m square, m = {m_coat}) starts 1.5 m from a 10x10 cm source emitting 5.0 +- 0.5 Angstrom; the target is a 2x2 cm sample area accepting +-0.5 degrees, 5 cm behind the guide exit (Divergence_monitor 'divmon').\n\nGoal: maximize the neutron flux into that acceptance (integrated intensity on 'divmon').\nYou may change ONLY these instrument parameters, within bounds: w_in in [{w_in_min}, {w_in_max}] m, w_out in [{w_out_min}, {w_out_max}] m, m_coat in [{m_min}, {m_max}].\nTarget to beat: divmon intensity >= {fom_min:.4g} n/s at the evaluation protocol (ncount {ncount:g}, fixed seed \u2014 your result is re-verified independently).\nReport your chosen parameters and the achieved flux with error and event count.",
+  "reference": {
+    "instr": "benchmark/instruments/t2_guide_divergence/t2_guide_divergence.instr",
+    "parameters": {
+      "w_in": 0.02,
+      "w_out": 0.02,
+      "m_coat": 2.0
+    }
+  },
+  "free_parameters": {
+    "w_in": [
+      0.01,
+      0.09
+    ],
+    "w_out": [
+      0.01,
+      0.09
+    ],
+    "m_coat": [
+      1.0,
+      3.0
+    ]
+  },
+  "fom": {
+    "role": "div",
+    "monitor": "divmon",
+    "metric": "intensity",
+    "maximize": true
+  },
+  "constraints": [],
+  "protocol": {
+    "ncount": 1000000.0,
+    "seed": 1234,
+    "timeout": 900
+  },
+  "calibration": {
+    "maxiter": 30,
+    "method": "nelder-mead",
+    "target_fraction": 0.8
+  },
+  "notes": "Formalizes the M4 acceptance task. Targets and baselines are filled by benchmark/calibrate_t2.py from classical-optimizer results.",
+  "baselines": {
+    "initial": {
+      "fom": 0.00114011,
+      "err": 4.4032e-06,
+      "constraints": {}
+    },
+    "classical_best": {
+      "source": "random_search",
+      "fom": 0.00122207,
+      "parameters": {
+        "w_in": 0.05458641899531745,
+        "w_out": 0.021539657728152663,
+        "m_coat": 2.8746141693924496
+      }
+    },
+    "optimizer": {
+      "note": "DISCARDED: left bounds {'w_in': 0.042556442068642085, 'w_out': 2.1000545984083074, 'm_coat': 0.05359610355758218}",
+      "fom": null,
+      "iterations": 68
+    },
+    "random_search": {
+      "fom": 0.00122207,
+      "parameters": {
+        "w_in": 0.05458641899531745,
+        "w_out": 0.021539657728152663,
+        "m_coat": 2.8746141693924496
+      },
+      "samples": 30
+    }
+  },
+  "targets": {
+    "fom_min": 0.001205678
+  },
+  "prompt": "Improve this neutron guide design.\n\nBaseline instrument (provided as t2_guide_divergence): a 10 m straight supermirror guide (entry = exit = 0.02 m square, m = 2.0) starts 1.5 m from a 10x10 cm source emitting 5.0 +- 0.5 Angstrom; the target is a 2x2 cm sample area accepting +-0.5 degrees, 5 cm behind the guide exit (Divergence_monitor 'divmon').\n\nGoal: maximize the neutron flux into that acceptance (integrated intensity on 'divmon').\nYou may change ONLY these instrument parameters, within bounds: w_in in [0.01, 0.09] m, w_out in [0.01, 0.09] m, m_coat in [1.0, 3.0].\nTarget to beat: divmon intensity >= 0.001206 n/s at the evaluation protocol (ncount 1e+06, fixed seed \u2014 your result is re-verified independently).\nReport your chosen parameters and the achieved flux with error and event count."
+}

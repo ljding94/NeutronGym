@@ -29,16 +29,29 @@ def test_task_files_valid():
     import glob
     paths = sorted(glob.glob(os.path.join(TASKS, "**", "*.json"), recursive=True))
     tasks = [p for p in paths if not os.path.basename(p).startswith("_")]
-    assert len(tasks) >= 17  # 3 pilot + 14 authored T1
+    assert len(tasks) >= 21  # 3 pilot + 14 T1 + 2 T2 + 2 T3
     for path in tasks:
         with open(path) as f:
             t = json.load(f)
         assert t["id"] and t["tier"] and t["kind"], path
-        if t["kind"] != "memorization_probe":
+        kind = t["kind"]
+        if kind == "memorization_probe":
+            continue
+        assert t["protocol"]["seed"] and t["protocol"]["ncount"], path
+        assert t["prompt"], path
+        if kind == "improve":
+            ref = t["reference"]["instr"]
+            assert os.path.isfile(os.path.join(REPO, ref)), path
+            assert t["free_parameters"] and t["fom"]["monitor"], path
+            assert t["targets"]["fom_min"], f"{path}: not calibrated"
+            assert t["baselines"]["classical_best"]["fom"], path
+        elif kind == "open_design":
+            assert t["reference"] is None, path
+            assert t["grading"]["automatic_floors"], path
+            assert "PENDING" in t["grading"]["expert_rubric"], path
+        else:  # reproduce variants
             assert t["reference"]["instr"].startswith("shipped:"), path
-            assert t["protocol"]["seed"] and t["protocol"]["ncount"], path
             assert t["grading"]["monitors"], path
-            assert t["prompt"], path
 
 
 def test_monitor_role_matching():

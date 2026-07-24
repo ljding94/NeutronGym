@@ -1,0 +1,131 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: t2_sans_collimation
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 16:51:10 on July 24, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* lambda: [unit] 
+* dlambda: [unit] 
+* r: [unit] 
+* PHI: [unit] 
+* Delta_Rho: [unit] 
+* sigma_abs: [unit] 
+* r_pin1: [unit] m] first pinhole radius
+* r_pin2: [unit] m] sample pinhole radius
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT t2_sans_collimation (
+lambda = 6.0, 
+dlambda = 0.05, 
+r = 100.0, 
+PHI = 0.001, 
+Delta_Rho = 0.6, 
+sigma_abs = 0.5, 
+r_pin1 = 0.005, // m] first pinhole radius
+r_pin2 = 0.005 // m] sample pinhole radius
+)
+
+DECLARE 
+%{
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated t2_sans_collimation
+%}
+
+TRACE 
+COMPONENT a1 = Progress_bar()
+AT (0, 0, 0) ABSOLUTE
+ROTATED (0, 0, 0) ABSOLUTE
+
+COMPONENT arm = Arm()
+AT (0, 0, 0) ABSOLUTE
+ROTATED (0, 0, 0) ABSOLUTE
+
+COMPONENT source = Source_simple(
+ radius = 0.02, dist = 3,
+ focus_xw = 0.01, focus_yh = 0.01,
+ lambda0 = lambda, dlambda = dlambda,
+ flux = 1e8)
+AT (0, 0, 0) RELATIVE arm
+ROTATED (0, 0, 0) RELATIVE arm
+
+COMPONENT coll1 = Slit(
+ radius = r_pin1)
+AT (0, 0, 3) RELATIVE arm
+ROTATED (0, 0, 0) RELATIVE arm
+
+COMPONENT coll2 = Slit(
+ radius = r_pin2)
+AT (0, 0, 6) RELATIVE arm
+ROTATED (0, 0, 0) RELATIVE arm
+
+SPLIT 10 COMPONENT sample = Sans_spheres(
+ R = r, Phi = PHI,
+ Delta_rho = Delta_Rho, sigma_abs = sigma_abs,
+ xwidth = 0.01, yheight = 0.01,
+ zdepth = 0.005, target_index = 2,
+ focus_xw = 0.6, focus_yh = 0.6)
+AT (0, 0, 0.2) RELATIVE coll2
+ROTATED (0, 0, 0) RELATIVE coll2
+
+COMPONENT STOP = Beamstop(
+ radius = 0.02)
+AT (0, 0, 2.9) RELATIVE sample
+ROTATED (0, 0, 0) RELATIVE sample
+
+COMPONENT detector = PSD_monitor(
+ nx = 128, ny = 128,
+ filename = "PSD.dat", xmin = -0.3,
+ xmax = 0.3, ymin = -0.3,
+ ymax = 0.3)
+AT (0, 0, 3) RELATIVE sample
+ROTATED (0, 0, 0) RELATIVE sample
+
+COMPONENT Ldetector = L_monitor(
+ nL = 1000, filename = "Edet.dat",
+ xmin = -0.3, xmax = 0.3,
+ ymin = -0.3, ymax = 0.3,
+ Lmin = 5.5, Lmax = 6.5)
+AT (0, 0, 3.01) RELATIVE sample
+ROTATED (0, 0, 0) RELATIVE sample
+
+COMPONENT PSDrad = PSD_monitor_rad(
+ filename = "psd2.dat", filename_av = "psd2_av.dat",
+ rmax = 0.3)
+AT (0, 0, 3.02) RELATIVE sample
+ROTATED (0, 0, 0) RELATIVE sample
+
+FINALLY 
+%{
+// Start of finally for generated t2_sans_collimation
+%}
+
+END

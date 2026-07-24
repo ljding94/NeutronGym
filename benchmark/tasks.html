@@ -28,7 +28,7 @@
   a { color: #0969da; }
 </style></head><body><div class="wrap">
   <h1>McStasBench — Task Catalog</h1>
-  <p class="meta">Generated 2026-07-24 16:47 · 14 T1 tasks + 3 pilot/control tasks ·
+  <p class="meta">Generated 2026-07-24 17:13 · 14 T1 + 2 T2 + 2 T3 tasks + 3 pilot/control ·
     <a href="../progress.html">progress</a> · <a href="../guide.html">how the agent works</a></p>
 
   <h2>Task naming: P vs T</h2>
@@ -44,8 +44,10 @@
   model only if that model fails to emit the file from memory).</p>
   <p><strong>T tasks (benchmark tiers)</strong> are the scored benchmark. The number is
   the tier, mapping to the project's research questions: <strong>T1</strong> reproduce an
-  instrument from its specification (this page), <strong>T2</strong> improve a design to
-  quantitative target specs (in preparation), <strong>T3</strong> open-ended design.
+  instrument from its specification (this page), <strong>T2</strong> improve a design against
+  calibrated quantitative targets (on this page — targets set by classical
+  optimization, hardened by red-teaming), <strong>T3</strong> open-ended design
+  (definitions below; expert rubric pending).
   T1 tasks are auto-authored at scale from machine-verified references and
   each is self-validated before admission.</p>
   </div>
@@ -1906,6 +1908,87 @@ Beamline, in order (positions in meters; AT [x,y,z] RELATIVE to the named compon
 Your instrument must include at least: a 2D position-sensitive monitor.
 Run with: L0=2.165, DL=0.02, By=4.68e-3.</pre></details>
 <p class="meta">file: <code>benchmark/tasks/T1/T1_SESANS_Delft.json</code></p>
+</div>
+
+  <h2>T2 improvement tasks (2)</h2>
+  <p class="meta">Improve a baseline instrument against calibrated targets under a
+  multi-objective contract. Targets are set from what the classical optimizer
+  (mcrun --optimize) achieves — achievable-but-not-trivial by construction —
+  and random search under matched compute provides the discrimination floor.</p>
+  <div class="card" id="T2_guide_divergence">
+<h3><code>T2_guide_divergence</code> <span style="background:#2da44e;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">calibrated</span> <span style="background:#0969da;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">seen</span></h3>
+<p class="meta">class: <strong>guide-optimization</strong></p>
+<p class="meta">protocol: ncount 1e+06, seed 1234</p>
+<p class="meta">free parameters: <code>w_in</code> ∈ [0.01, 0.09], <code>w_out</code> ∈ [0.01, 0.09], <code>m_coat</code> ∈ [1, 3]</p>
+<table><tr><th>FOM (divmon intensity)</th><th>n/s</th></tr><tr><td>baseline</td><td>0.0011401</td></tr><tr><td><strong>target (agent must beat)</strong></td><td><strong>0.0012057</strong></td></tr><tr><td>classical best (random_search, constraint-filtered)</td><td>0.0012221</td></tr><tr><td>mcrun optimizer (68 iters)</td><td>— <span class=meta>(DISCARDED: left bounds {&#x27;w_in&#x27;: 0.042556442068642085, &#x27;w_out)</span></td></tr><tr><td>constrained random search (30 samples)</td><td>0.0012221</td></tr></table>
+<details><summary>task prompt (800 chars)</summary><pre>Improve this neutron guide design.
+
+Baseline instrument (provided as t2_guide_divergence): a 10 m straight supermirror guide (entry = exit = 0.02 m square, m = 2.0) starts 1.5 m from a 10x10 cm source emitting 5.0 +- 0.5 Angstrom; the target is a 2x2 cm sample area accepting +-0.5 degrees, 5 cm behind the guide exit (Divergence_monitor &#x27;divmon&#x27;).
+
+Goal: maximize the neutron flux into that acceptance (integrated intensity on &#x27;divmon&#x27;).
+You may change ONLY these instrument parameters, within bounds: w_in in [0.01, 0.09] m, w_out in [0.01, 0.09] m, m_coat in [1.0, 3.0].
+Target to beat: divmon intensity &gt;= 0.001206 n/s at the evaluation protocol (ncount 1e+06, fixed seed — your result is re-verified independently).
+Report your chosen parameters and the achieved flux with error and event count.</pre></details>
+<p class="meta">file: <code>benchmark/tasks/T2/T2_guide_divergence.json</code></p>
+</div>
+<div class="card" id="T2_sans_collimation">
+<h3><code>T2_sans_collimation</code> <span style="background:#2da44e;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">calibrated</span> <span style="background:#0969da;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">seen</span></h3>
+<p class="meta">class: <strong>SANS-optimization</strong></p>
+<p class="meta">protocol: ncount 1e+06, seed 1234</p>
+<p class="meta">free parameters: <code>r_pin1</code> ∈ [0.002, 0.02], <code>r_pin2</code> ∈ [0.002, 0.02]</p>
+<table><tr><th>FOM (detector intensity)</th><th>n/s</th></tr><tr><td>baseline</td><td>0.045172</td></tr><tr><td><strong>target (agent must beat)</strong></td><td><strong>0.062076</strong></td></tr><tr><td>classical best (random_search, constraint-filtered)</td><td>0.066301</td></tr><tr><td>mcrun optimizer (36 iters)</td><td>3.017</td></tr><tr><td>constrained random search (30 samples)</td><td>0.066301</td></tr></table>
+<p class="meta">constraint: <code>2d.beam_width_x</code> ≤ 5.548 (1.1× baseline)</p>
+<details><summary>task prompt (1019 chars)</summary><pre>Improve the collimation of this SANS instrument.
+
+Baseline (provided as t2_sans_collimation): a pinhole SANS — 6 m collimation with two circular pinholes (r_pin1 = 0.005 m at 3 m, r_pin2 = 0.005 m at 6 m), monodisperse-sphere sample, beamstop, and a 60x60 cm 2D detector (&#x27;detector&#x27;) 3 m behind the sample; lambda = 6.0 +- 0.05 Angstrom.
+
+Goal: maximize the scattered intensity on the detector.
+You may change ONLY: r_pin1 in [0.002, 0.02] m, r_pin2 in [0.002, 0.02] m.
+Hard constraint (pattern-integrity band): the detector pattern RMS width dX must stay within [4.539, 5.548] cm (±10% of the baseline pattern). This catches both resolution destruction (over-wide pinholes smearing the rings) AND direct-beam leakage around the beamstop (which floods the center and shrinks dX) — the beamstop must keep shadowing the direct beam.
+Target to beat: detector intensity &gt;= 0.06208 n/s at the evaluation protocol (ncount 1e+06, fixed seed).
+Report chosen radii and achieved intensity with error, events, and the measured dX.</pre></details>
+<p class="meta">file: <code>benchmark/tasks/T2/T2_sans_collimation.json</code></p>
+</div>
+
+  <h2>T3 open-design tasks (2) <span class="meta">definitions — expert rubric pending (M6/M7)</span></h2>
+  <p class="meta">Goal-only specifications. Automatic floors (compiles, statistics,
+  geometry, Liouville sanity) are machine-checkable; design-quality grading
+  requires the expert rubric and these tasks are NOT yet in the scored set.</p>
+  <div class="card" id="T3_ballistic_guide">
+<h3><code>T3_ballistic_guide</code> <span style="background:#bf8700;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">definition — rubric pending</span> <span style="background:#0969da;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">seen</span></h3>
+<p class="meta">class: <strong>guide-design</strong></p>
+<p class="meta">protocol: ncount 1e+06, seed 1234</p>
+<p class="meta">automatic floors: instrument compiles and runs under the protocol; divergence monitor at ~30 m with &gt;= 1000 events; geometry: sample position at 30 +- 0.5 m; guide sections&#x27; m-values respect the coating budget (from get_instrument); Liouville sanity: brilliance transfer &lt;= 1 for the stated acceptance</p>
+<p class="meta">⚠ PENDING — topology choice quality, line-of-sight handling, and the two-topology comparison require the M6/M7 expert rubric; automatic floors alone do NOT constitute a grade</p>
+<details><summary>task prompt (1006 chars)</summary><pre>Design the neutron transport from a cold source to a distant sample position, from scratch.
+
+Requirements:
+- Source: 12x12 cm cold source, lambda = 4-6 Angstrom (model with Source_simple or a Maxwellian source; state your brightness assumption).
+- Sample position: 30 m from the source; sample area 3x3 cm; the delivered beam must have divergence within +-0.6 degrees (both axes).
+- Coating budget: use m &gt; 3 on at most 10 m of total guide length (m &lt;= 3 elsewhere) — justify where you spend it.
+- Topology is YOUR choice: straight guide, tapered, ballistic (expanding-straight-focusing), or elliptic; single guide or segmented.
+- Include diagnostic monitors after each stage and a divergence monitor plus PSD at the sample position.
+
+Deliver: the instrument (leave it in the registry), the topology rationale, and the figure of merit — flux into the 3x3 cm, +-0.6 deg acceptance at the sample — with error and event count at ncount 1e6, fixed seed. Compare at least two topologies and report both numbers.</pre></details>
+<p class="meta">file: <code>benchmark/tasks/T3/T3_ballistic_guide.json</code></p>
+</div>
+<div class="card" id="T3_compact_sans">
+<h3><code>T3_compact_sans</code> <span style="background:#bf8700;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">definition — rubric pending</span> <span style="background:#0969da;color:#fff;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600">seen</span></h3>
+<p class="meta">class: <strong>SANS</strong></p>
+<p class="meta">protocol: ncount 1e+06, seed 1234</p>
+<p class="meta">automatic floors: instrument compiles and runs under the protocol; 2D detector present with &gt;= 1000 events; wavelength monitor: CoM in [4.5, 5.5] A, FWHM/CoM in [0.05, 0.2]; geometry: total length &lt;= 12 m (from component positions); Liouville sanity: flux on sample consistent with stated source brightness (brilliance transfer &lt;= 1)</p>
+<p class="meta">⚠ PENDING — design quality (collimation optimization, detector sizing vs Q range, beamstop sizing, assumption hygiene) requires the M6/M7 expert rubric; automatic floors alone do NOT constitute a grade</p>
+<details><summary>task prompt (1006 chars)</summary><pre>Design a compact pinhole SANS instrument for a compact accelerator-driven neutron source, from scratch.
+
+Requirements:
+- Total instrument length (source to detector) &lt;= 12 m.
+- Wavelength 5 Angstrom with a velocity-selector-like band of Delta-lambda/lambda approximately 10% FWHM (model the band at the source).
+- Must measure scattering from 100 Angstrom monodisperse spheres (use the standard hard-sphere SANS sample model, 1x1 cm, volume fraction 0.1%, contrast 0.6 fm/A^2) with usable Q coverage reaching Qmin &lt;= 0.006 1/Angstrom.
+- Include: source, collimation of your choosing, sample, beamstop, a 2D position-sensitive detector sized to your geometry, and a wavelength monitor.
+- Assume a source brightness of 1e8 n/s/cm^2/st/Angstrom (state any further assumptions).
+
+Deliver: the instrument (leave it in the registry), your design rationale (collimation choice, distances, detector size vs Q range), and the flux on sample and detector with errors and event counts at ncount 1e6 with a fixed seed.</pre></details>
+<p class="meta">file: <code>benchmark/tasks/T3/T3_compact_sans.json</code></p>
 </div>
 
   <h2>Pilot &amp; control tasks (3)</h2>
