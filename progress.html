@@ -18,7 +18,7 @@
   h1 { margin: 0 0 4px; font-size: 26px; }
   .meta { color: #656d76; font-size: 13px; margin-bottom: 18px; }
   .overall { background: #d0d7de55; border-radius: 8px; height: 14px; overflow: hidden; margin: 10px 0 6px; }
-  .overall > div { height: 100%; background: #2da44e; width: 59%; transition: width .3s; }
+  .overall > div { height: 100%; background: #2da44e; width: 57%; transition: width .3s; }
   .chips { margin: 10px 0 26px; }
   .chip { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px;
            font-weight: 600; margin-right: 6px; color: #fff; }
@@ -53,10 +53,10 @@
   footer { margin-top: 34px; font-size: 12.5px; color: #656d76; }
 </style></head><body><div class="wrap">
   <h1>McStasBench — Progress</h1>
-  <div class="meta">Generated 2026-07-23 23:06 · commit 678eacc (2026-07-21) · source of truth: <code>PLAN.md</code>
+  <div class="meta">Generated 2026-07-23 23:13 · commit a08995f (2026-07-23) · source of truth: <code>PLAN.md</code>
    · <a href="guide.html">how the agent drives McStas &rarr;</a></div>
   <div class="overall"><div></div></div>
-  <div class="meta"><strong>27/46</strong> checklist items complete (59%)</div>
+  <div class="meta"><strong>27/47</strong> checklist items complete (57%)</div>
   <div class="chips"><span class="chip done" title="Environment + repo bootstrap — done 2026-07-09">M0</span><span class="chip done" title="MVP MCP server — done 2026-07-21">M1</span><span class="chip done" title="Robustness — done 2026-07-21">M2</span><span class="chip active" title="Skill (week of Jul 27)">M3</span><span class="chip pending" title="Optimization layer (weeks of Aug 3–10)">M4</span><span class="chip pending" title="Benchmark curation (weeks of Aug 10 – Sep 4) ← headline contribution">M5</span><span class="chip pending" title="Evaluation runs (weeks of Sep 7–18)">M6</span><span class="chip pending" title="Analysis + writing (weeks of Sep 21 – Oct 9)">M7</span></div>
   <div class="grid">
       <div class="card done">
@@ -103,11 +103,11 @@
         <div class="card-head">
           <span class="mid">M4</span>
           <span class="badge" style="background:#8b949e">pending</span>
-          <span class="count">0/3</span>
+          <span class="count">0/4</span>
         </div>
         <h3>Optimization layer (weeks of Aug 3–10)</h3>
-        <ul class="checklist"><li class=""><span class="tick">○</span><code>scan_parameter</code> wraps <code>mcrun -N</code> (parse <code>mccode.dat</code>; key yvars columns by position — component names can repeat)</li><li class=""><span class="tick">○</span><code>optimize</code> wraps <code>mcrun --optimize</code> — mcrun has a built-in scipy optimizer (14 methods, <code>--optimize-eval</code> FOM expressions, <code>--optimize-monitor</code>); no hand-rolled loop needed</li><li class=""><span class="tick">○</span>FWHM/CoM in <code>get_results</code></li></ul>
-        <div class="accept"><strong>Accept:</strong> reproduce a guide_bot-style task — maximize brilliance transfer into 2×2 cm², ±0.5°, given λ-band — and match the classical optimizer&#x27;s FOM within noise.</div>
+        <ul class="checklist"><li class=""><span class="tick">○</span><code>scan_parameter</code> wraps <code>mcrun -N</code> (parse <code>mccode.dat</code>; key yvars columns by position — component names can repeat)</li><li class=""><span class="tick">○</span><code>optimize</code> wraps <code>mcrun --optimize</code> — mcrun has a built-in scipy optimizer (14 methods, <code>--optimize-eval</code> FOM expressions, <code>--optimize-monitor</code>); no hand-rolled loop needed</li><li class=""><span class="tick">○</span>FWHM/CoM in <code>get_results</code></li><li class=""><span class="tick">○</span>Baseline-runner mode: the same scan/optimize machinery invocable headlessly by the benchmark harness (not only via MCP) for T2 baseline curves</li></ul>
+        <div class="accept"><strong>Accept:</strong> reproduce a guide_bot-style task — maximize brilliance transfer into 2×2 cm², ±0.5°, given λ-band — and match the classical optimizer&#x27;s FOM within noise. *This doubles as the first T2 task prototype.*</div>
       </div>
       <div class="card pending">
         <div class="card-head">
@@ -116,7 +116,7 @@
           <span class="count">0/6</span>
         </div>
         <h3>Benchmark curation (weeks of Aug 10 – Sep 4) ← headline contribution</h3>
-        <ul class="checklist"><li class=""><span class="tick">○</span><strong>Pilot first (kill-list item 4):</strong> 3 reproduction tasks — one memorization probe, one underspecified paper — to validate the grading rubric *before* curating at scale</li><li class=""><span class="tick">○</span>Task inventory — head start from the 2026-07-09 studies (<code>note/m1-server-design-2026-07-09.md</code> §Benchmark spillover): 15-instrument seen-tier shortlist with verified DOIs, 9 held-out candidates (2024–26, no public .instr, per-instrument contamination evidence), 5 paper-but-no-model instruments for T3; select 20–30 (paper, reference <code>.instr</code>, reference monitor outputs) triples</li><li class=""><span class="tick">○</span>T1 grading skeleton: shipped <code>%Example:</code> lines carry expected detector values (<code>mctest</code> mechanism) — free ground truth for integrated-intensity checks</li><li class=""><span class="tick">○</span>Tier structure: T1 reproduce (from NL description), T2 optimize (fixed topology vs known optima), T3 open design (expert rubric + FOM)</li><li class=""><span class="tick">○</span>Contamination controls: seen/held-out split (held-out = 2024–26 instruments with no public <code>.instr</code>); memorization probe per task; perturbed variants</li><li class=""><span class="tick">○</span>Grading harness: observable-based (flux spectrum at sample, beam profile, resolution function) with tolerance tiers; fully headless, no LLM judge for T1/T2</li></ul>
+        <ul class="checklist"><li class=""><span class="tick">○</span><strong>Pilot first (kill-list item 4):</strong> 3 reproduction tasks — one memorization probe, one underspecified paper — to validate the grading rubric *before* curating at scale</li><li class=""><span class="tick">○</span>Task inventory — head start from the 2026-07-09 studies (<code>note/m1-server-design-2026-07-09.md</code> §Benchmark spillover): 15-instrument seen-tier shortlist with verified DOIs, 9 held-out candidates (2024–26, no public .instr, per-instrument contamination evidence), 5 paper-but-no-model instruments for T3; select 20–30 (paper, reference <code>.instr</code>, reference monitor outputs) triples</li><li class=""><span class="tick">○</span>T1 grading skeleton: shipped <code>%Example:</code> lines carry expected detector values (<code>mctest</code> mechanism) — free ground truth for integrated-intensity checks</li><li class=""><span class="tick">○</span>Tier structure (maps 1:1 to the Purpose questions):</li><li class=""><span class="tick">○</span>Contamination controls: seen/held-out split (held-out = 2024–26 instruments with no public <code>.instr</code>); memorization probe per task; perturbed variants</li><li class=""><span class="tick">○</span>Grading harness: observable-based (flux spectrum at sample, beam profile, resolution function) with tolerance tiers; fully headless, no LLM judge for T1/T2</li></ul>
         <div class="accept"><strong>Accept:</strong> every task graded automatically from a transcript directory; a deliberately-wrong <code>.instr</code> fails and the reference passes.</div>
       </div>
       <div class="card pending">
@@ -136,7 +136,7 @@
           <span class="count">0/4</span>
         </div>
         <h3>Analysis + writing (weeks of Sep 21 – Oct 9)</h3>
-        <ul class="checklist"><li class=""><span class="tick">○</span>Failure taxonomy: format failures (tool-calling mechanics) vs physics failures</li><li class=""><span class="tick">○</span>Ablations (SPEC §7 Study C): structured vs raw <code>.instr</code>, ±introspection, ±skill, ±vision; cost/scaling curves vs token budget and ncount</li><li class=""><span class="tick">○</span>Study B case study if time permits (autonomous design improvement) — <strong>cut first if behind schedule</strong>; it&#x27;s a follow-up paper on its own</li><li class=""><span class="tick">○</span>Paper draft: lead with benchmark + failure-mode analysis; system description as means, not claim</li></ul>
+        <ul class="checklist"><li class=""><span class="tick">○</span>Failure taxonomy: format failures (tool-calling mechanics) vs physics failures</li><li class=""><span class="tick">○</span>Ablations (SPEC §7 Study C): structured vs raw <code>.instr</code>, ±introspection, ±skill, ±vision; cost/scaling curves vs token budget and ncount</li><li class=""><span class="tick">○</span>T2 analysis is core (purpose 2) and <strong>not cuttable</strong>. Only the stretch layer of SPEC Study B — expert-adjudicated claims that an agent design *beats the published instrument* — is cut-if-behind (that claim standard is a follow-up paper on its own)</li><li class=""><span class="tick">○</span>Paper draft: lead with benchmark + failure-mode analysis; system description as means, not claim</li></ul>
         <div class="note"><strong>Target venue:</strong> NeurIPS 2027 Datasets &amp; Benchmarks (deadline ~May 2027 — comfortable). ICLR 2027 (~late Sep 2026) is too tight for a part-time schedule ending mid-October; verify actual deadlines when M5 starts and re-decide.</div>
       </div>
   </div>

@@ -3,6 +3,17 @@
 **Created:** 2026-07-09 · **Living document** — check off items and revise dates as work proceeds.
 Derived from `note/mcstas-mcp-feasibility-and-spec.md` (SPEC) and `note/scope-decision-2026-07-09.md` (benchmark = headline, agent = baseline). Assumes part-time effort, ~11 weeks → draft by mid-October 2026.
 
+## Purpose (aligned 2026-07-24 — every milestone must serve one of these)
+
+1. **Reproduction:** can an LLM agent reproduce a neutron instrument from its
+   instrument-design paper, graded on simulation observables?
+2. **Improvement:** can an LLM agent improve an instrument design against
+   quantitative target specs, measured against classical baselines?
+
+Both questions are answered on the same infrastructure (mcstas-mcp server +
+design skill + grading harness). Purpose 1 is benchmark tier T1; purpose 2 is
+tier T2 (+ open-design T3) — **neither tier is cuttable**.
+
 ## Machine facts (verified 2026-07-09)
 
 Apple Silicon Mac, 8 cores, 16 GB RAM. Miniconda at `/opt/homebrew/Caskroom/miniconda/base` (no `mcstas` env yet, no McStas binaries). `claude` CLI 2.1.195, `git`, `gh` all present. conda-forge ships `mcstas-core`/`mcstas-data` for osx-arm64. 8 cores is fine for design iteration at 1e6–1e7 rays; production 1e9 runs are hours-scale — acceptable for final validation passes, revisit HPC only if M6 wall-clock hurts.
@@ -57,17 +68,26 @@ Design is fully specified in `note/m1-server-design-2026-07-09.md` (grounded in 
 
 ### M4 — Optimization layer (weeks of Aug 3–10)
 
+These tools are double-duty: agent capability AND the **classical baselines
+that purpose-2 (T2) tasks are measured against** — a T2 score is only
+meaningful relative to what `mcrun --optimize` achieves on the same
+parametrization under the same compute.
+
 - [ ] `scan_parameter` wraps `mcrun -N` (parse `mccode.dat`; key yvars columns by position — component names can repeat)
 - [ ] `optimize` wraps `mcrun --optimize` — mcrun has a built-in scipy optimizer (14 methods, `--optimize-eval` FOM expressions, `--optimize-monitor`); no hand-rolled loop needed
 - [ ] FWHM/CoM in `get_results`
-- **Accept:** reproduce a guide_bot-style task — maximize brilliance transfer into 2×2 cm², ±0.5°, given λ-band — and match the classical optimizer's FOM within noise.
+- [ ] Baseline-runner mode: the same scan/optimize machinery invocable headlessly by the benchmark harness (not only via MCP) for T2 baseline curves
+- **Accept:** reproduce a guide_bot-style task — maximize brilliance transfer into 2×2 cm², ±0.5°, given λ-band — and match the classical optimizer's FOM within noise. *This doubles as the first T2 task prototype.*
 
 ### M5 — Benchmark curation (weeks of Aug 10 – Sep 4) ← headline contribution
 
 - [ ] **Pilot first (kill-list item 4):** 3 reproduction tasks — one memorization probe, one underspecified paper — to validate the grading rubric *before* curating at scale
 - [ ] Task inventory — head start from the 2026-07-09 studies (`note/m1-server-design-2026-07-09.md` §Benchmark spillover): 15-instrument seen-tier shortlist with verified DOIs, 9 held-out candidates (2024–26, no public .instr, per-instrument contamination evidence), 5 paper-but-no-model instruments for T3; select 20–30 (paper, reference `.instr`, reference monitor outputs) triples
 - [ ] T1 grading skeleton: shipped `%Example:` lines carry expected detector values (`mctest` mechanism) — free ground truth for integrated-intensity checks
-- [ ] Tier structure: T1 reproduce (from NL description), T2 optimize (fixed topology vs known optima), T3 open design (expert rubric + FOM)
+- [ ] Tier structure (maps 1:1 to the Purpose questions):
+  - **T1 reproduce (purpose 1):** task input = the instrument paper (or excerpts/tech report), agent rebuilds the instrument, graded on simulation observables vs the reference `.instr` outputs. An NL-spec-sheet variant per task acts as the pipeline-decomposition control (separates "couldn't extract the spec from the paper" from "couldn't build the instrument")
+  - **T2 improve to target specs (purpose 2):** task input = a working baseline instrument + quantitative targets (e.g. "≥20% more flux at sample, same Δλ/λ, same envelope"); metrics = FOM vs three baselines under matched compute — the published/baseline design, classical optimization (`mcrun --optimize` on the same parametrization, the M4 tools), and random search; success = target met AND improvement > 3σ re-verified at high ncount with a fresh seed
+  - **T3 open design:** goal-only specification; expert rubric + FOM
 - [ ] Contamination controls: seen/held-out split (held-out = 2024–26 instruments with no public `.instr`); memorization probe per task; perturbed variants
 - [ ] Grading harness: observable-based (flux spectrum at sample, beam profile, resolution function) with tolerance tiers; fully headless, no LLM judge for T1/T2
 - **Accept:** every task graded automatically from a transcript directory; a deliberately-wrong `.instr` fails and the reference passes.
@@ -84,7 +104,7 @@ Design is fully specified in `note/m1-server-design-2026-07-09.md` (grounded in 
 
 - [ ] Failure taxonomy: format failures (tool-calling mechanics) vs physics failures
 - [ ] Ablations (SPEC §7 Study C): structured vs raw `.instr`, ±introspection, ±skill, ±vision; cost/scaling curves vs token budget and ncount
-- [ ] Study B case study if time permits (autonomous design improvement) — **cut first if behind schedule**; it's a follow-up paper on its own
+- [ ] T2 analysis is core (purpose 2) and **not cuttable**. Only the stretch layer of SPEC Study B — expert-adjudicated claims that an agent design *beats the published instrument* — is cut-if-behind (that claim standard is a follow-up paper on its own)
 - [ ] Paper draft: lead with benchmark + failure-mode analysis; system description as means, not claim
 - **Target venue:** NeurIPS 2027 Datasets & Benchmarks (deadline ~May 2027 — comfortable). ICLR 2027 (~late Sep 2026) is too tight for a part-time schedule ending mid-October; verify actual deadlines when M5 starts and re-decide.
 
