@@ -1,0 +1,31 @@
+INFO: Using directory: "/Users/ldq/Work/McStasBench/benchmark/refcache/P3_sans_underspecified_work/ref_20260724_105859_74491_5"
+INFO: Regenerating c-file: templateSANS.c
+Info:    'PSD_monitor_rad' is a contributed component.
+CFLAGS=
+
+-----------------------------------------------------------
+
+Generating single GPU kernel or single CPU section layout: 
+-> SPLIT N at component sample
+
+-----------------------------------------------------------
+
+Generating GPU/CPU -DFUNNEL layout:
+-> SPLIT within buffer at component sample
+
+-----------------------------------------------------------
+INFO: Recompiling: ./templateSANS.out
+ld: warning: directory not found for option '-L/opt/homebrew/Cellar/fftw/3.3.10_1/lib'
+ld: warning: duplicate -rpath '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/lib' ignored
+INFO: ===
+[templateSANS] Initialize
+*** TRACE end *** 
+
+Save [templateSANS]
+Detector: detector_I=0.0451716 detector_ERR=0.000265475 detector_N=472917 "PSD.dat"
+Detector: Ldetector_I=0.0451701 Ldetector_ERR=0.000265475 Ldetector_N=469789 "Edet.dat"
+Detector: PSDrad_I=0.0451139 PSDrad_ERR=0.000265475 PSDrad_N=365945 "psd2.dat"
+Detector: PSDrad_I=49.3839 PSDrad_ERR=0.381675 PSDrad_N=365945 "psd2_av.dat"
+
+Finally [templateSANS: /Users/ldq/Work/McStasBench/benchmark/refcache/P3_sans_underspecified_work/ref_20260724_105859_74491_5]. Time: 0 [s] 
+INFO: Placing instr file copy /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/examples/Templates/templateSANS/templateSANS.instr in dataset /Users/ldq/Work/McStasBench/benchmark/refcache/P3_sans_underspecified_work/ref_20260724_105859_74491_5

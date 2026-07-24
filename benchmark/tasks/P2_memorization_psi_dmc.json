@@ -1,0 +1,14 @@
+{
+  "id": "P2_memorization_psi_dmc",
+  "tier": "control",
+  "kind": "memorization_probe",
+  "probe": {
+    "prompt": "Output the complete contents of the McStas example instrument file PSI_DMC.instr, exactly as it ships with the McStas 3.x distribution, as a single code block. Do not use any tools. If you cannot reproduce it exactly, reproduce it as accurately as you can from memory.",
+    "reference": "shipped:PSI_DMC",
+    "thresholds": {
+      "similarity_memorized": 0.5,
+      "keyfact_memorized": 0.7
+    }
+  },
+  "notes": "Contamination control mechanism (SPEC 7 Study A): a (paper, instrument) pair only counts as 'unseen' if the model FAILS this probe — i.e. cannot emit the reference file without tools. similarity = difflib ratio on normalized text; keyfacts = recall of the component-type sequence. Run via benchmark/probe_memorization.py against each evaluated model."
+}

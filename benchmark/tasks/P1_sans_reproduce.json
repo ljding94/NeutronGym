@@ -1,0 +1,33 @@
+{
+  "id": "P1_sans_reproduce",
+  "tier": "T1",
+  "kind": "reproduce",
+  "prompt": "Build a pinhole SANS instrument with the following specification, run it, and report the integrated intensity on the main detector.\n\nSource: circular, radius 2 cm, emitting wavelength 6.0 +- 0.05 Angstrom (uniform), flux 1e8 n/s/cm2/st/AA.\nCollimation: two circular pinhole apertures of radius 5 mm, at 3 m and at 6 m from the source.\nSample: 0.2 m downstream of the second pinhole — a dilute suspension of monodisperse hard spheres: sphere radius 100 Angstrom, volume fraction 0.1%, scattering contrast Delta_rho 0.6 fm/Angstrom^2, absorption cross-section 0.5 barns; sample size 1 x 1 cm, thickness 0.5 cm.\nBeamstop: circular, radius 2 cm, 2.9 m behind the sample.\nDetector: 2D position-sensitive, 60 x 60 cm (128 x 128 pixels), 3.0 m behind the sample.\nAlso include a wavelength monitor just behind the detector plane (60 x 60 cm acceptance) covering 5.5 to 6.5 Angstrom.",
+  "reference": {
+    "instr": "shipped:templateSANS",
+    "parameters": {"lambda": 6}
+  },
+  "protocol": {"ncount": 1e6, "seed": 1234, "timeout": 900},
+  "grading": {
+    "min_events": 1000,
+    "monitors": [
+      {
+        "role": "2d",
+        "observables": {
+          "intensity": {"rtol": 0.2, "nsigma": 3},
+          "beam_width_x": {"rtol": 0.3},
+          "beam_width_y": {"rtol": 0.3}
+        }
+      },
+      {
+        "role": "wavelength",
+        "observables": {
+          "intensity": {"rtol": 0.25, "nsigma": 3},
+          "center_of_mass": {"rtol": 0.02},
+          "fwhm": {"rtol": 0.5}
+        }
+      }
+    ]
+  },
+  "notes": "Seen-tier pilot. Reference is the shipped templateSANS at lambda=6 (never name it in the prompt). The 2D beam widths encode the sphere form-factor ring pattern; the wavelength CoM/FWHM encode the 6.0 +- 0.05 AA band."
+}

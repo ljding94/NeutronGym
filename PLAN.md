@@ -3,7 +3,7 @@
 **Created:** 2026-07-09 · **Living document** — check off items and revise dates as work proceeds.
 Derived from `note/mcstas-mcp-feasibility-and-spec.md` (SPEC) and `note/scope-decision-2026-07-09.md` (benchmark = headline, agent = baseline). Assumes part-time effort, ~11 weeks → draft by mid-October 2026.
 
-**Status (reviewed 2026-07-24):** infrastructure phase (M0–M4) complete — server (22 tools, 88 tests), skill, optimization/baseline layer — ~2.5 weeks ahead of the original schedule (M4 was planned through Aug 10). M5 pulled forward accordingly. **Next actions: (1) de-risk gate 3 (OpenRouter spike) — overdue, run before M5 curation locks in; (2) M5 pilot (gate 4).**
+**Status (reviewed 2026-07-24, evening):** infrastructure phase (M0–M4) complete — server (22 tools), skill, optimization/baseline layer; 96 tests. **All 4 de-risk gates passed** — nothing known left that can kill the plan. `benchmark/` harness exists (grader + memorization probe + 3 pilot tasks, mechanics validated). **Next: pilot agent episodes (P1/P3 through the headless scaffold), then M5 curation at scale. Before M6 model matrix: widen the OpenRouter privacy policy (only Google models route today).**
 
 ## Purpose (aligned 2026-07-24 — every milestone must serve one of these)
 
@@ -84,7 +84,8 @@ parametrization under the same compute.
 
 ### M5 — Benchmark curation (pulled forward: late Jul – mid Aug; orig. Aug 10 – Sep 4) ← headline contribution
 
-- [ ] **Pilot first (kill-list item 4):** 3 reproduction tasks — one memorization probe, one underspecified paper — to validate the grading rubric *before* curating at scale
+- [x] **Pilot (kill-list item 4) — de-risk gate 4 passed 2026-07-24 (mechanics):** `benchmark/` harness with grader (observable-based, role-matched monitors, statistics-aware tolerances, hard-failure gating), memorization probe (live-validated: real file ≈1.0 → contaminated; flash-lite from memory 0.07 → unseen), 3 pilot tasks (P1 full-spec SANS, P2 probe, P3 underspecified). Validated: reference passes at fresh seed; λ=8 and R=30 frauds fail with localized blame; underspecified choices not punished. See `note/spike-and-pilot-2026-07-24.md`
+- [ ] Pilot agent episodes: run P1/P3 through the headless scaffold (Claude + 1 OpenRouter model), grade the real transcripts end-to-end
 - [ ] Task inventory — head start from the 2026-07-09 studies (`note/m1-server-design-2026-07-09.md` §Benchmark spillover): 15-instrument seen-tier shortlist with verified DOIs, 9 held-out candidates (2024–26, no public .instr, per-instrument contamination evidence), 5 paper-but-no-model instruments for T3; select 20–30 (paper, reference `.instr`, reference monitor outputs) triples
 - [ ] T1 grading skeleton: shipped `%Example:` lines carry expected detector values (`mctest` mechanism) — free ground truth for integrated-intensity checks
 - [ ] Tier structure (maps 1:1 to the Purpose questions):
@@ -97,7 +98,7 @@ parametrization under the same compute.
 
 ### M6 — Evaluation runs (pulled forward: late Aug – early Sep; orig. Sep 7–18)
 
-- [ ] **OpenRouter spike (gate 3) — OVERDUE, run next**: same one-prompt task via `ANTHROPIC_BASE_URL` with 2 non-Claude models — verifies tool-calling fidelity through the alternate backend *before* M5 curation assumes the multi-model scaffold works
+- [x] **OpenRouter spike — de-risk gate 3 passed 2026-07-24**: gemini-3.6-flash + gemini-3.5-flash-lite both completed the one-prompt task through the identical scaffold (9–12 MCP calls, zero tool-format errors, jobs verified on disk, ~$0.5–0.8/episode). Harness lessons + **M6 prerequisite: widen OpenRouter privacy policy** (only Google models route today) in `note/spike-and-pilot-2026-07-24.md`
 - [ ] Scaffold: headless `claude -p` + `.mcp.json` + skill installed; JSON transcripts; pin model IDs + Claude Code version; log tokens/tool-calls/wall-clock per episode
 - [ ] Protocol: pass@1, fixed seeds, 50-turn cap, 5-task dev split for all debugging, held-out set touched once
 - [ ] Model tiers: Claude via subscription ($0, spread over days under weekly caps); mid/small via OpenRouter (~$50–200); open-weights via vLLM+LiteLLM optional
@@ -117,8 +118,8 @@ parametrization under the same compute.
 |---|---|---|---|
 | 1 | conda McStas + example runs on this Mac | M0 | osx-arm64 binaries broken AND Docker unusable |
 | 2 | Agent builds/runs instrument from one prompt | M1 | validation-at-call-time can't be made reliable |
-| 3 | OpenRouter backend spike, 2 non-Claude models | **OVERDUE — next action** (orig. week of Jul 20) | tool-calling fidelity too poor → single-model paper only |
-| 4 | 3 pilot tasks incl. memorization probe | M5 start | grading rubric can't separate memorization from capability |
+| 3 | OpenRouter backend spike, 2 non-Claude models | **de-risk gate 3 passed** 2026-07-24 | tool-calling fidelity too poor → single-model paper only |
+| 4 | 3 pilot tasks incl. memorization probe | **de-risk gate 4 passed** 2026-07-24 (mechanics; agent episodes next) | grading rubric can't separate memorization from capability |
 
 ## Standing decisions (defaults from SPEC §8 — change only with a dated note)
 

@@ -1,0 +1,29 @@
+{
+  "id": "P3_sans_underspecified",
+  "tier": "T1",
+  "kind": "reproduce_underspecified",
+  "prompt": "Build a pinhole SANS instrument. The available information is incomplete — make reasonable design choices where the specification is silent, and state every assumption you make.\n\nKnown: the instrument uses 6.0 Angstrom neutrons with a narrow band (+-0.05 Angstrom, uniform); the sample is a dilute suspension of 100 Angstrom monodisperse hard spheres (volume fraction 0.1%, contrast 0.6 fm/Angstrom^2, 1 x 1 cm, 0.5 cm thick); the 2D detector is 60 x 60 cm and sits 3.0 m behind the sample, with a beamstop in front of it. The collimation geometry (aperture sizes and distances) is NOT specified. Include a wavelength monitor covering 5.5 to 6.5 Angstrom behind the detector plane. Run the instrument and report the detector intensity and your collimation choices.",
+  "reference": {
+    "instr": "shipped:templateSANS",
+    "parameters": {"lambda": 6}
+  },
+  "protocol": {"ncount": 1e6, "seed": 1234, "timeout": 900},
+  "grading": {
+    "min_events": 1000,
+    "graded_only_specified": true,
+    "monitors": [
+      {
+        "role": "wavelength",
+        "observables": {
+          "center_of_mass": {"rtol": 0.02},
+          "fwhm": {"rtol": 0.5}
+        }
+      },
+      {
+        "role": "2d",
+        "observables": {}
+      }
+    ]
+  },
+  "notes": "Pipeline-decomposition control: identical physics to P1 but collimation unspecified. Grades ONLY what the task specifies (wavelength band; presence of a 2D detector with adequate statistics) — absolute detector intensity depends on the agent's free collimation choice and must NOT be graded. Validates that the rubric does not punish legitimate choices under underspecification, separating spec-extraction failures from build failures."
+}
