@@ -186,6 +186,25 @@ def main():
   <p class="meta">Generated {now} · {len(t1)} T1 tasks + {len(pilots)} pilot/control tasks ·
     <a href="../progress.html">progress</a> · <a href="../guide.html">how the agent works</a></p>
 
+  <h2>Task naming: P vs T</h2>
+  <div class="card">
+  <p><strong>P tasks (pilot &amp; control)</strong> were built first, to validate the
+  grading machinery itself (de-risk gate 4) — they are not scored benchmark
+  items. <strong>P1</strong>: hand-authored full-spec SANS reproduction, the prototype
+  the T1 generator is modeled on. <strong>P3</strong>: the same physics deliberately
+  under-specified — a control proving the rubric grades only what a task
+  specifies and never punishes legitimate design choices. <strong>P2</strong>: the
+  memorization probe — not a reproduction task but a contamination-control
+  mechanism, run per evaluated model (a reference counts as "unseen" for a
+  model only if that model fails to emit the file from memory).</p>
+  <p><strong>T tasks (benchmark tiers)</strong> are the scored benchmark. The number is
+  the tier, mapping to the project's research questions: <strong>T1</strong> reproduce an
+  instrument from its specification (this page), <strong>T2</strong> improve a design to
+  quantitative target specs (in preparation), <strong>T3</strong> open-ended design.
+  T1 tasks are auto-authored at scale from machine-verified references and
+  each is self-validated before admission.</p>
+  </div>
+
   <h2>Where tasks come from</h2>
   <div class="card">
   <p><strong>1 — Raw material:</strong> the ~297 example instruments shipped inside
