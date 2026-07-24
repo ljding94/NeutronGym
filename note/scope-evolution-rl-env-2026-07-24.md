@@ -69,10 +69,10 @@ Purpose set grows to three questions:
    same NeurIPS D&B / ICLR class but with an RL-infrastructure pitch;
    prior-art re-check immediately before writing is mandatory (this space
    moves monthly).
-4. **Suite with autoMartiniAgent ("physics-verifiable reward" framework
-   paper): parked as a strategic option** — depends on that project's state;
-   not a plan commitment. Soft constraint adopted now: keep the env/reward
-   API cleanly separable from McStas specifics so a common API remains cheap.
+4. **Suite with autoMartiniAgent: DROPPED (user decision, same day).** This
+   work is McStas only — one substrate, done deeply. The RL track stays (it
+   strengthens the paper); the cross-project framework paper does not exist
+   in this plan.
 5. **Claim bar recorded verbatim**: the RL result is a delta validating the
    environment, not a frontier agent. 2–3 real GRPO runs max at this scale —
    one headline + ablations that reuse rollouts.

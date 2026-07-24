@@ -103,7 +103,6 @@ existing machinery):
 - [ ] Multi-objective target-spec format (flux + resolution + geometry constraints jointly — single-metric gaming fails by construction)
 - [ ] Anti-hacking checks: Liouville/brilliance-transfer ≤ 1 (matched phase-space monitors), degenerate-config detectors; then **red-team our own reward and write up what broke** (paper section)
 - [ ] Packaging: pip-installable env + Docker with McStas baked in; one-command eval slice
-- [ ] Env/reward API kept McStas-agnostic at the interface (soft constraint for a possible physics-reward suite with autoMartiniAgent — parked option)
 
 Benchmark slice (curation items, as before):
 
@@ -168,5 +167,5 @@ CPU-bound — no GPU contention).
 - McStas only; McXtrace kept in the design, out of scope for MVP
 - Union components / NCrystal deferred past MVP (introspection exposes them anyway)
 - Single agent + skill + validating tools; no multi-agent split unless evals show persistent unforced physics errors
-- Environment-first framing (2026-07-24): benchmark = held-out slice; T1 paper-reproduction stays curated and uncuttable
-- Suite/common-API with autoMartiniAgent ("physics-verifiable reward" framework paper): **parked strategic option**, revisit after the env paper; until then keep the reward API McStas-agnostic at the interface
+- Environment-first framing (2026-07-24): benchmark = held-out slice; T1 paper-reproduction stays curated and uncuttable; RL track (M8) in scope as the paper-strengthening trainability result
+- **This work is McStas only** (user decision 2026-07-24): no autoMartiniAgent suite, no cross-project framework paper — one substrate, done deeply
