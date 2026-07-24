@@ -66,18 +66,19 @@ Design is fully specified in `note/m1-server-design-2026-07-09.md` (grounded in 
 - [ ] Keep refining from future transcripts: every recurring agent mistake becomes a skill line (standing task through M5/M6)
 - [ ] **Accept (user-driven):** on 3 informal dev tasks, agent-with-skill avoids the unit/statistics/phasing errors that agent-without-skill makes (eyeball comparison; the rigorous version is the M5 ablation).
 
-### M4 — Optimization layer (weeks of Aug 3–10)
+### M4 — Optimization layer ✅ DONE 2026-07-24
 
 These tools are double-duty: agent capability AND the **classical baselines
 that purpose-2 (T2) tasks are measured against** — a T2 score is only
 meaningful relative to what `mcrun --optimize` achieves on the same
 parametrization under the same compute.
 
-- [ ] `scan_parameter` wraps `mcrun -N` (parse `mccode.dat`; key yvars columns by position — component names can repeat)
-- [ ] `optimize` wraps `mcrun --optimize` — mcrun has a built-in scipy optimizer (14 methods, `--optimize-eval` FOM expressions, `--optimize-monitor`); no hand-rolled loop needed
-- [ ] FWHM/CoM in `get_results`
-- [ ] Baseline-runner mode: the same scan/optimize machinery invocable headlessly by the benchmark harness (not only via MCP) for T2 baseline curves
-- **Accept:** reproduce a guide_bot-style task — maximize brilliance transfer into 2×2 cm², ±0.5°, given λ-band — and match the classical optimizer's FOM within noise. *This doubles as the first T2 task prototype.*
+- [x] `scan_parameter` wraps `mcrun -N` — instrument-parameter-only (actionable error otherwise), mccode.dat parsed with positional column keying (component names can repeat)
+- [x] `optimize` wraps `mcrun --optimize` (scipy: 10 validated methods, monitor-intensity FOM or eval expressions, minimize flag, maxiter cap 500); results = best params + FOM ± err + downsampled history + scipy log tail + "re-verify fresh-seed" next_step
+- [x] FWHM/CoM for 1D monitors in `get_results` (interpolated half-max crossings; synthetic-profile pinned)
+- [x] Baseline-runner: `mcstas-baseline scan|optimize <instrument> ...` console script prints results JSON — the harness's classical T2 baselines without MCP
+- [x] **Accepted:** guide_bot-style task (flux into 2×2 cm², ±0.5°, λ=5±0.5 Å, 10 m m=2 guide, free width) — optimizer reaches the classical scan's best FOM within statistics in 11 iterations; optimum re-verified at 1e6 with a fresh seed. *First T2 prototype; 88 tests passing.*
+- Human demo: `conda run -n mcstas python scripts/m4_walkthrough.py` → `runs/m4_demo/scan_curve.png` (scan curve + optimizer line + re-verified point; FOM plateau above guide-acceptance matching is the expected physics)
 
 ### M5 — Benchmark curation (weeks of Aug 10 – Sep 4) ← headline contribution
 

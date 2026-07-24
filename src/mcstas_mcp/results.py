@@ -25,6 +25,43 @@ def _stats_dict(s: str):
     return {k: float(v) for k, v in re.findall(r"(\w+)=([-\d.eE+]+)", s or "")}
 
 
+def _fwhm_com(dat_path: str):
+    """(center_of_mass, fwhm) of a 1D monitor from its .dat file; FWHM by
+    linear interpolation of the outermost half-max crossings (None for
+    empty or shapeless profiles)."""
+    xs, Is = [], []
+    try:
+        with open(dat_path, errors="replace") as f:
+            for line in f:
+                if line.startswith("#"):
+                    continue
+                parts = line.split()
+                if len(parts) >= 2:
+                    xs.append(float(parts[0]))
+                    Is.append(float(parts[1]))
+    except (OSError, ValueError):
+        return None, None
+    total = sum(Is)
+    if total <= 0 or len(xs) < 3:
+        return None, None
+    com = sum(x * i for x, i in zip(xs, Is)) / total
+    peak = max(Is)
+    half = peak / 2
+    lo = hi = None
+    for k in range(len(Is)):
+        if Is[k] >= half:
+            lo = xs[k] if k == 0 or Is[k - 1] >= half else (
+                xs[k - 1] + (xs[k] - xs[k - 1]) * (half - Is[k - 1]) / (Is[k] - Is[k - 1]))
+            break
+    for k in range(len(Is) - 1, -1, -1):
+        if Is[k] >= half:
+            hi = xs[k] if k == len(Is) - 1 or Is[k + 1] >= half else (
+                xs[k] + (xs[k + 1] - xs[k]) * (Is[k] - half) / (Is[k] - Is[k + 1]))
+            break
+    fwhm = (hi - lo) if lo is not None and hi is not None and hi > lo else None
+    return round(com, 6), round(fwhm, 6) if fwhm else None
+
+
 def summarize(output_dir: str) -> dict:
     sim = os.path.join(output_dir, "mccode.sim")
     if not os.path.isfile(sim):
@@ -45,9 +82,14 @@ def summarize(output_dir: str) -> dict:
         total_i = float(values[0]) if values else 0.0
         total_e = float(values[1]) if len(values) > 1 else 0.0
         total_n = float(values[2]) if len(values) > 2 else 0.0
+        com = fwhm = None
+        if dims and len(dims.group(2).split(",")) == 1 and b.get("filename"):
+            com, fwhm = _fwhm_com(os.path.join(output_dir, b["filename"]))
         monitors.append({
             "component": b.get("component", ""),
             "filename": b.get("filename", ""),
+            "center_of_mass": com,   # 1D monitors only, in xlabel units
+            "fwhm": fwhm,
             "title": b.get("title", ""),
             "dims": [int(x) for x in dims.group(2).split(",")] if dims else [],
             "position": [float(x) for x in b.get("position", "0 0 0").split()],

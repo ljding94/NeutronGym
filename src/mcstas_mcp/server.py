@@ -9,7 +9,7 @@ from typing import Optional, Union
 
 from fastmcp import FastMCP
 
-from . import catalog, examples, execution, registry, results
+from . import catalog, examples, execution, optimization, registry, results
 from .registry import SpecError
 from .execution import RunError
 
@@ -309,13 +309,70 @@ def get_example(name: str) -> dict:
 
 @mcp.tool
 def get_results(job_id: str) -> dict:
-    """Summary statistics per monitor for a finished job: integrated
-    intensity/error/events, beam center and width, signal min/max/mean.
-    Monitors listed in low_statistics (<1000 events) are unreliable —
-    rerun with higher ncount before drawing conclusions."""
+    """Results for a finished job. Runs: summary statistics per monitor
+    (intensity/error/events, beam center/width, CoM + FWHM for 1D monitors;
+    <1000-event monitors flagged in low_statistics). Scans: parameter values
+    + per-monitor intensity curves. Optimizations: best parameters + FOM,
+    downsampled history."""
     try:
+        kind = execution.get_job(job_id).get("kind", "run")
+        if kind == "scan":
+            return optimization.scan_results(job_id)
+        if kind == "optimize":
+            return optimization.optimize_results(job_id)
         return execution.job_results(job_id)
     except (RunError, FileNotFoundError) as e:
+        return _err(e)
+
+
+@mcp.tool
+def scan_parameter(instrument_id: str, parameter: str, min: float, max: float,
+                   numpoints: int = 7, ncount: float = 1e5,
+                   parameters: Optional[dict] = None, seed: Optional[int] = None,
+                   wait_s: float = 120) -> dict:
+    """Linear scan of one instrument parameter (mcrun -N): numpoints runs
+    from min to max, other parameters fixed. Returns finished scan results
+    when done within wait_s, else state 'running' (poll job_status, then
+    get_results). Use for 1D FOM curves before/instead of optimize."""
+    try:
+        spec = registry.load(instrument_id)
+        wait = float(wait_s) if wait_s > 0 else 0.0  # `max` is shadowed here
+        job = optimization.run_scan(
+            spec, parameter, min, max, numpoints=numpoints, ncount=ncount,
+            parameters=parameters, seed=seed, wait=wait)
+        if job.get("state") == "done":
+            return optimization.scan_results(job["job_id"])
+        return job
+    except (SpecError, RunError) as e:
+        return _err(e)
+    except Exception as e:
+        return _err(e)
+
+
+@mcp.tool
+def optimize(instrument_id: str, free_parameters: dict, monitor: str,
+             method: str = "powell", maxiter: int = 50, minimize: bool = False,
+             ncount: float = 1e5, parameters: Optional[dict] = None,
+             seed: Optional[int] = None, wait_s: float = 300) -> dict:
+    """Classical (scipy) optimization of instrument parameters via
+    mcrun --optimize. free_parameters = {name: [min, guess, max]}; the FOM
+    is the integrated intensity of `monitor` (maximized unless minimize).
+    Each iteration is a full simulation at ncount — keep ncount low (1e5)
+    and maxiter modest. ALWAYS re-verify the returned optimum with
+    run_simulation at high ncount and a fresh seed. Reserve your own
+    reasoning for topology; this tool grinds continuous knobs."""
+    try:
+        spec = registry.load(instrument_id)
+        job = optimization.run_optimize(
+            spec, free_parameters, monitor=monitor, method=method,
+            maxiter=maxiter, minimize=minimize, ncount=ncount,
+            parameters=parameters, seed=seed, wait=max(0.0, float(wait_s)))
+        if job.get("state") == "done":
+            return optimization.optimize_results(job["job_id"])
+        return job
+    except (SpecError, RunError) as e:
+        return _err(e)
+    except Exception as e:
         return _err(e)
 
 

@@ -18,7 +18,7 @@
   h1 { margin: 0 0 4px; font-size: 26px; }
   .meta { color: #656d76; font-size: 13px; margin-bottom: 18px; }
   .overall { background: #d0d7de55; border-radius: 8px; height: 14px; overflow: hidden; margin: 10px 0 6px; }
-  .overall > div { height: 100%; background: #2da44e; width: 57%; transition: width .3s; }
+  .overall > div { height: 100%; background: #2da44e; width: 67%; transition: width .3s; }
   .chips { margin: 10px 0 26px; }
   .chip { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px;
            font-weight: 600; margin-right: 6px; color: #fff; }
@@ -53,11 +53,11 @@
   footer { margin-top: 34px; font-size: 12.5px; color: #656d76; }
 </style></head><body><div class="wrap">
   <h1>McStasBench — Progress</h1>
-  <div class="meta">Generated 2026-07-23 23:13 · commit a08995f (2026-07-23) · source of truth: <code>PLAN.md</code>
+  <div class="meta">Generated 2026-07-24 10:33 · commit 276921f (2026-07-23) · source of truth: <code>PLAN.md</code>
    · <a href="guide.html">how the agent drives McStas &rarr;</a></div>
   <div class="overall"><div></div></div>
-  <div class="meta"><strong>27/47</strong> checklist items complete (57%)</div>
-  <div class="chips"><span class="chip done" title="Environment + repo bootstrap — done 2026-07-09">M0</span><span class="chip done" title="MVP MCP server — done 2026-07-21">M1</span><span class="chip done" title="Robustness — done 2026-07-21">M2</span><span class="chip active" title="Skill (week of Jul 27)">M3</span><span class="chip pending" title="Optimization layer (weeks of Aug 3–10)">M4</span><span class="chip pending" title="Benchmark curation (weeks of Aug 10 – Sep 4) ← headline contribution">M5</span><span class="chip pending" title="Evaluation runs (weeks of Sep 7–18)">M6</span><span class="chip pending" title="Analysis + writing (weeks of Sep 21 – Oct 9)">M7</span></div>
+  <div class="meta"><strong>32/48</strong> checklist items complete (67%)</div>
+  <div class="chips"><span class="chip done" title="Environment + repo bootstrap — done 2026-07-09">M0</span><span class="chip done" title="MVP MCP server — done 2026-07-21">M1</span><span class="chip done" title="Robustness — done 2026-07-21">M2</span><span class="chip active" title="Skill (week of Jul 27)">M3</span><span class="chip done" title="Optimization layer — done 2026-07-24">M4</span><span class="chip pending" title="Benchmark curation (weeks of Aug 10 – Sep 4) ← headline contribution">M5</span><span class="chip pending" title="Evaluation runs (weeks of Sep 7–18)">M6</span><span class="chip pending" title="Analysis + writing (weeks of Sep 21 – Oct 9)">M7</span></div>
   <div class="grid">
       <div class="card done">
         <div class="card-head">
@@ -99,15 +99,15 @@
         <ul class="checklist"><li class="ok"><span class="tick">✓</span><code>mcstas-instrument-design</code> skill per SPEC §5: SKILL.md (96 lines) + 5 references (units/conventions, figures of merit with quadrature rules, 8 instrument archetypes each pointing at shipped starting examples, component guide with traps, verification checklist) + <code>resolution_calcs.py</code> (conversions, Bragg, chopper phasing/frame overlap, guide m, SANS Q — CLI + importable; physics pinned by 8 tests)</li><li class="ok"><span class="tick">✓</span>Canonical copy in <code>skills/</code> (benchmark-installable); local sessions load it via committed <code>.claude/skills/</code> symlink</li><li class="ok"><span class="tick">✓</span>Failure-transcript rules encoded (and regression-tested in <code>test_skill_encodes_observed_failures</code>): fix a seed for any comparison (M1 acceptance run never did), 1000-event statistics floor, <code>restore_neutron=1</code> on diagnostics, disclose source-brightness assumptions, compute chopper phases don&#x27;t scan them</li><li class=""><span class="tick">○</span>Keep refining from future transcripts: every recurring agent mistake becomes a skill line (standing task through M5/M6)</li><li class=""><span class="tick">○</span><strong>Accept (user-driven):</strong> on 3 informal dev tasks, agent-with-skill avoids the unit/statistics/phasing errors that agent-without-skill makes (eyeball comparison; the rigorous version is the M5 ablation).</li></ul>
         
       </div>
-      <div class="card pending">
+      <div class="card done">
         <div class="card-head">
           <span class="mid">M4</span>
-          <span class="badge" style="background:#8b949e">pending</span>
-          <span class="count">0/4</span>
+          <span class="badge" style="background:#2da44e">done</span>
+          <span class="count">5/5</span>
         </div>
-        <h3>Optimization layer (weeks of Aug 3–10)</h3>
-        <ul class="checklist"><li class=""><span class="tick">○</span><code>scan_parameter</code> wraps <code>mcrun -N</code> (parse <code>mccode.dat</code>; key yvars columns by position — component names can repeat)</li><li class=""><span class="tick">○</span><code>optimize</code> wraps <code>mcrun --optimize</code> — mcrun has a built-in scipy optimizer (14 methods, <code>--optimize-eval</code> FOM expressions, <code>--optimize-monitor</code>); no hand-rolled loop needed</li><li class=""><span class="tick">○</span>FWHM/CoM in <code>get_results</code></li><li class=""><span class="tick">○</span>Baseline-runner mode: the same scan/optimize machinery invocable headlessly by the benchmark harness (not only via MCP) for T2 baseline curves</li></ul>
-        <div class="accept"><strong>Accept:</strong> reproduce a guide_bot-style task — maximize brilliance transfer into 2×2 cm², ±0.5°, given λ-band — and match the classical optimizer&#x27;s FOM within noise. *This doubles as the first T2 task prototype.*</div>
+        <h3>Optimization layer — done 2026-07-24</h3>
+        <ul class="checklist"><li class="ok"><span class="tick">✓</span><code>scan_parameter</code> wraps <code>mcrun -N</code> — instrument-parameter-only (actionable error otherwise), mccode.dat parsed with positional column keying (component names can repeat)</li><li class="ok"><span class="tick">✓</span><code>optimize</code> wraps <code>mcrun --optimize</code> (scipy: 10 validated methods, monitor-intensity FOM or eval expressions, minimize flag, maxiter cap 500); results = best params + FOM ± err + downsampled history + scipy log tail + &quot;re-verify fresh-seed&quot; next_step</li><li class="ok"><span class="tick">✓</span>FWHM/CoM for 1D monitors in <code>get_results</code> (interpolated half-max crossings; synthetic-profile pinned)</li><li class="ok"><span class="tick">✓</span>Baseline-runner: <code>mcstas-baseline scan|optimize &lt;instrument&gt; ...</code> console script prints results JSON — the harness&#x27;s classical T2 baselines without MCP</li><li class="ok"><span class="tick">✓</span><strong>Accepted:</strong> guide_bot-style task (flux into 2×2 cm², ±0.5°, λ=5±0.5 Å, 10 m m=2 guide, free width) — optimizer reaches the classical scan&#x27;s best FOM within statistics in 11 iterations; optimum re-verified at 1e6 with a fresh seed. *First T2 prototype; 88 tests passing.*</li></ul>
+        <div class="note">Human demo: <code>conda run -n mcstas python scripts/m4_walkthrough.py</code> → <code>runs/m4_demo/scan_curve.png</code> (scan curve + optimizer line + re-verified point; FOM plateau above guide-acceptance matching is the expected physics)</div>
       </div>
       <div class="card pending">
         <div class="card-head">

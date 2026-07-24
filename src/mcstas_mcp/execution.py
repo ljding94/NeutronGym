@@ -135,6 +135,10 @@ def _finalize(job_id: str, returncode, timed_out=False, cancelled=False) -> dict
         rec = dict(rec)
         output = _read_log(rec)
         sim_ok = os.path.isfile(os.path.join(rec["output_dir"], "mccode.sim"))
+        if rec.get("kind") in ("scan", "optimize"):
+            # scans/optimizations index their points in mccode.dat
+            sim_ok = sim_ok or os.path.isfile(
+                os.path.join(rec["output_dir"], "mccode.dat"))
         ok = sim_ok and (returncode == 0 if returncode is not None else True)
         rec["elapsed_s"] = round(time.time() - rec["started"], 1)
         rec["returncode"] = returncode
@@ -150,11 +154,12 @@ def _finalize(job_id: str, returncode, timed_out=False, cancelled=False) -> dict
                  "or raise the timeout"] + _log_lines(output, 10))
         elif rec["ok"]:
             rec["state"] = "done"
-            rec["detectors"] = [
-                m.groupdict() for m in re.finditer(
-                    r"Detector: (?P<name>\S+)_I=(?P<I>\S+) \S+_ERR=(?P<err>\S+) "
-                    r"\S+_N=(?P<N>\S+)", strip_ansi(output))
-            ]
+            if rec.get("kind", "run") == "run":
+                rec["detectors"] = [
+                    m.groupdict() for m in re.finditer(
+                        r"Detector: (?P<name>\S+)_I=(?P<I>\S+) \S+_ERR=(?P<err>\S+) "
+                        r"\S+_N=(?P<N>\S+)", strip_ansi(output))
+                ]
             if rec.get("instr_sha"):  # remember the now-valid cached binary
                 _write_build_meta(rec)
         else:
@@ -270,7 +275,8 @@ def run_instr_file(instr_path: str, params: dict, ncount: float = 1e6,
                    workdir: str | None = None, seed: int | None = None,
                    mpi: int | None = None, gravity: bool = False,
                    timeout: int = DEFAULT_TIMEOUT, job_prefix: str = "job",
-                   wait: float | None = None) -> dict:
+                   wait: float | None = None, extra_flags: list[str] | None = None,
+                   kind: str = "run") -> dict:
     """Launch one mcrun job. wait=None blocks until done/timeout (M1
     semantics); wait=N blocks at most N seconds; wait=0 returns immediately
     with state 'running'. Always returns the current job record."""
@@ -302,6 +308,7 @@ def run_instr_file(instr_path: str, params: dict, ncount: float = 1e6,
         cmd += [f"--mpi={int(mpi)}"]
     if gravity:
         cmd += ["-g"]
+    cmd += list(extra_flags or [])  # scan (-N) / optimize (--optimize ...) flags
     cmd += [f"{k}={v}" for k, v in params.items()]
 
     # per-run provenance: snapshot the exact .instr next to the log
@@ -310,7 +317,7 @@ def run_instr_file(instr_path: str, params: dict, ncount: float = 1e6,
     except OSError:
         pass
 
-    _update_job(job_id, state="running", ok=None, instr=instr_path,
+    _update_job(job_id, state="running", ok=None, kind=kind, instr=instr_path,
                 output_dir=outdir, log=log_path, params=params, ncount=ncount,
                 seed=seed, mpi=mpi, gravity=gravity, timeout=timeout,
                 compiled=need_compile, instr_sha=sha, started=time.time(),
@@ -337,7 +344,8 @@ def run_instr_file(instr_path: str, params: dict, ncount: float = 1e6,
 def run_spec(spec: dict, ncount: float = 1e6, parameters: dict | None = None,
              seed: int | None = None, mpi: int | None = None,
              gravity: bool = False, timeout: int = DEFAULT_TIMEOUT,
-             wait: float | None = None, job_prefix: str | None = None) -> dict:
+             wait: float | None = None, job_prefix: str | None = None,
+             extra_flags: list[str] | None = None, kind: str = "run") -> dict:
     """Validate, rebuild .instr from spec, launch it."""
     missing = registry.missing_required(spec)
     if missing:
@@ -372,7 +380,7 @@ def run_spec(spec: dict, ncount: float = 1e6, parameters: dict | None = None,
     return run_instr_file(
         instr_path, values, ncount=ncount, workdir=registry.workdir(spec["name"]),
         seed=seed, mpi=mpi, gravity=gravity, timeout=timeout, wait=wait,
-        job_prefix=job_prefix or spec["name"],
+        job_prefix=job_prefix or spec["name"], extra_flags=extra_flags, kind=kind,
     )
 
 

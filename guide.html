@@ -38,7 +38,7 @@
   a { color: #0969da; }
 </style></head><body><div class="wrap">
   <h1>How the agent drives McStas</h1>
-  <div class="meta">Generated 2026-07-21 21:35 from the live server (20 tools) ·
+  <div class="meta">Generated 2026-07-24 10:34 from the live server (22 tools) ·
     <a href="progress.html">progress dashboard</a> ·
     design: <code>note/m1-server-design-2026-07-09.md</code></div>
 
@@ -116,7 +116,7 @@ get_monitor_data(job_id="...", monitor="psd", format="png")
 
   <h2>Tool reference <span class="muted">(auto-generated from the live server)</span></h2>
   <div class="card">
-    <p class="muted"><a href='#tool-list_components'><code>list_components</code></a> · <a href='#tool-describe_component'><code>describe_component</code></a> · <a href='#tool-create_instrument'><code>create_instrument</code></a> · <a href='#tool-add_parameter'><code>add_parameter</code></a> · <a href='#tool-add_declare'><code>add_declare</code></a> · <a href='#tool-add_component'><code>add_component</code></a> · <a href='#tool-set_parameters'><code>set_parameters</code></a> · <a href='#tool-remove_component'><code>remove_component</code></a> · <a href='#tool-get_instrument'><code>get_instrument</code></a> · <a href='#tool-run_simulation'><code>run_simulation</code></a> · <a href='#tool-job_status'><code>job_status</code></a> · <a href='#tool-cancel_job'><code>cancel_job</code></a> · <a href='#tool-validate_instrument'><code>validate_instrument</code></a> · <a href='#tool-load_instr_file'><code>load_instr_file</code></a> · <a href='#tool-export_instr_file'><code>export_instr_file</code></a> · <a href='#tool-list_examples'><code>list_examples</code></a> · <a href='#tool-get_example'><code>get_example</code></a> · <a href='#tool-get_results'><code>get_results</code></a> · <a href='#tool-get_monitor_data'><code>get_monitor_data</code></a> · <a href='#tool-list_instruments'><code>list_instruments</code></a></p>
+    <p class="muted"><a href='#tool-list_components'><code>list_components</code></a> · <a href='#tool-describe_component'><code>describe_component</code></a> · <a href='#tool-create_instrument'><code>create_instrument</code></a> · <a href='#tool-add_parameter'><code>add_parameter</code></a> · <a href='#tool-add_declare'><code>add_declare</code></a> · <a href='#tool-add_component'><code>add_component</code></a> · <a href='#tool-set_parameters'><code>set_parameters</code></a> · <a href='#tool-remove_component'><code>remove_component</code></a> · <a href='#tool-get_instrument'><code>get_instrument</code></a> · <a href='#tool-run_simulation'><code>run_simulation</code></a> · <a href='#tool-job_status'><code>job_status</code></a> · <a href='#tool-cancel_job'><code>cancel_job</code></a> · <a href='#tool-validate_instrument'><code>validate_instrument</code></a> · <a href='#tool-load_instr_file'><code>load_instr_file</code></a> · <a href='#tool-export_instr_file'><code>export_instr_file</code></a> · <a href='#tool-list_examples'><code>list_examples</code></a> · <a href='#tool-get_example'><code>get_example</code></a> · <a href='#tool-get_results'><code>get_results</code></a> · <a href='#tool-scan_parameter'><code>scan_parameter</code></a> · <a href='#tool-optimize'><code>optimize</code></a> · <a href='#tool-get_monitor_data'><code>get_monitor_data</code></a> · <a href='#tool-list_instruments'><code>list_instruments</code></a></p>
     
     <div class="tool" id="tool-list_components">
       <h4><code>list_components</code></h4>
@@ -238,11 +238,31 @@ Import it with load_instr_file(path) to modify it.</p>
     </div>
     <div class="tool" id="tool-get_results">
       <h4><code>get_results</code></h4>
-      <p>Summary statistics per monitor for a finished job: integrated
-intensity/error/events, beam center and width, signal min/max/mean.
-Monitors listed in low_statistics (&lt;1000 events) are unreliable —
-rerun with higher ncount before drawing conclusions.</p>
+      <p>Results for a finished job. Runs: summary statistics per monitor
+(intensity/error/events, beam center/width, CoM + FWHM for 1D monitors;
+&lt;1000-event monitors flagged in low_statistics). Scans: parameter values
++ per-monitor intensity curves. Optimizations: best parameters + FOM,
+downsampled history.</p>
       <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>job_id</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr></table>
+    </div>
+    <div class="tool" id="tool-scan_parameter">
+      <h4><code>scan_parameter</code></h4>
+      <p>Linear scan of one instrument parameter (mcrun -N): numpoints runs
+from min to max, other parameters fixed. Returns finished scan results
+when done within wait_s, else state &#x27;running&#x27; (poll job_status, then
+get_results). Use for 1D FOM curves before/instead of optimize.</p>
+      <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>instrument_id</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>parameter</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>min</code></td><td>number</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>max</code></td><td>number</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>numpoints</code></td><td>integer</td><td></td><td><code>7</code></td></tr><tr><td><code>ncount</code></td><td>number</td><td></td><td><code>100000.0</code></td></tr><tr><td><code>parameters</code></td><td>object</td><td></td><td><code>None</code></td></tr><tr><td><code>seed</code></td><td>integer</td><td></td><td><code>None</code></td></tr><tr><td><code>wait_s</code></td><td>number</td><td></td><td><code>120</code></td></tr></table>
+    </div>
+    <div class="tool" id="tool-optimize">
+      <h4><code>optimize</code></h4>
+      <p>Classical (scipy) optimization of instrument parameters via
+mcrun --optimize. free_parameters = {name: [min, guess, max]}; the FOM
+is the integrated intensity of `monitor` (maximized unless minimize).
+Each iteration is a full simulation at ncount — keep ncount low (1e5)
+and maxiter modest. ALWAYS re-verify the returned optimum with
+run_simulation at high ncount and a fresh seed. Reserve your own
+reasoning for topology; this tool grinds continuous knobs.</p>
+      <table><tr><th>parameter</th><th>type</th><th>required</th><th>default</th></tr><tr><td><code>instrument_id</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>free_parameters</code></td><td>object</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>monitor</code></td><td>string</td><td>yes</td><td><code>—</code></td></tr><tr><td><code>method</code></td><td>string</td><td></td><td><code>powell</code></td></tr><tr><td><code>maxiter</code></td><td>integer</td><td></td><td><code>50</code></td></tr><tr><td><code>minimize</code></td><td>boolean</td><td></td><td><code>False</code></td></tr><tr><td><code>ncount</code></td><td>number</td><td></td><td><code>100000.0</code></td></tr><tr><td><code>parameters</code></td><td>object</td><td></td><td><code>None</code></td></tr><tr><td><code>seed</code></td><td>integer</td><td></td><td><code>None</code></td></tr><tr><td><code>wait_s</code></td><td>number</td><td></td><td><code>300</code></td></tr></table>
     </div>
     <div class="tool" id="tool-get_monitor_data">
       <h4><code>get_monitor_data</code></h4>
