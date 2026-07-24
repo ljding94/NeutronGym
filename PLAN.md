@@ -97,7 +97,8 @@ parametrization under the same compute.
 Environment work (new, from the 2026-07-24 scope evolution — mostly wraps
 existing machinery):
 
-- [ ] **Fast-tier rollout timing, measured** (the RL plan rests on it): template-family regime — compile once (~2–3 s), then parameter-instance rollouts at truncated ncount; target < 1 s/rollout. Current evidence: cached runs 0.3–1 s at 1e4–1e5
+- [x] **Fast-tier rollout timing measured 2026-07-24** (`benchmark/measure_fast_tier.py`): mcrun-path rollouts are ~2.4 s FLAT regardless of ncount (wrapper+rebuild overhead, not physics); **direct binary execution = ~0.04 s/rollout at 1e5 rays** (validated output) → ~25 rollouts/s/core. Env throughput will never bound RL training
+- [ ] Env executor: fast-tier `step()` runs the compiled binary directly (mcrun compiles once per template family); MCP path keeps the wrapper for interactive use
 - [ ] Procedural instance generator: parameterized template families per archetype (compile-once/sample-many for the fast tier; topology variation = slow tier only); nothing memorizable; held-out parameter regimes for the eval split
 - [ ] Reward-ladder API wrapping existing tiers: static (registry validation + `validate_instrument`, free) → cheap dynamic (truncated-ncount run, staged diagnostics) → terminal (full-protocol run through `benchmark/grader.py`); reward computed at env-controlled protocol (never agent-chosen ncount)
 - [ ] Multi-objective target-spec format (flux + resolution + geometry constraints jointly — single-metric gaming fails by construction)
@@ -107,7 +108,7 @@ existing machinery):
 Benchmark slice (curation items, as before):
 
 - [x] **Pilot (kill-list item 4) — de-risk gate 4 passed 2026-07-24 (mechanics):** `benchmark/` harness with grader (observable-based, role-matched monitors, statistics-aware tolerances, hard-failure gating), memorization probe (live-validated: real file ≈1.0 → contaminated; flash-lite from memory 0.07 → unseen), 3 pilot tasks (P1 full-spec SANS, P2 probe, P3 underspecified). Validated: reference passes at fresh seed; λ=8 and R=30 frauds fail with localized blame; underspecified choices not punished. See `note/spike-and-pilot-2026-07-24.md`
-- [ ] Pilot agent episodes: run P1/P3 through the headless scaffold (Claude + 1 OpenRouter model), grade the real transcripts end-to-end
+- [x] **Pilot agent episodes complete 2026-07-24 — 4/4 PASS** (P1/P3 × claude-fable-5+skill / gemini-3.6-flash) via `benchmark/run_episode.py`; grader needed zero manual overrides; failure-taxonomy entries from two infra-failed attempts (stream-drop → M6 retry policy; harness path bug → fixed). Cost anchor $2.5–3.9/episode → M6 budget needs revisiting. See `note/pilot-episodes-and-fast-tier-2026-07-24.md`
 - [ ] Task inventory — head start from the 2026-07-09 studies (`note/m1-server-design-2026-07-09.md` §Benchmark spillover): 15-instrument seen-tier shortlist with verified DOIs, 9 held-out candidates (2024–26, no public .instr, per-instrument contamination evidence), 5 paper-but-no-model instruments for T3; select 20–30 (paper, reference `.instr`, reference monitor outputs) triples
 - [ ] T1 grading skeleton: shipped `%Example:` lines carry expected detector values (`mctest` mechanism) — free ground truth for integrated-intensity checks
 - [ ] Tier structure (maps 1:1 to the Purpose questions):
