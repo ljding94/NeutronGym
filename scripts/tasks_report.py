@@ -14,7 +14,7 @@ import os
 from datetime import datetime
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(REPO, "tasks.html")
+OUT = os.path.join(REPO, "benchmark", "tasks.html")
 GREEN, AMBER, BLUE, GRAY = "#2da44e", "#bf8700", "#0969da", "#656d76"
 GH = "https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples"
 
@@ -184,7 +184,7 @@ def main():
 </style></head><body><div class="wrap">
   <h1>McStasBench — Task Catalog</h1>
   <p class="meta">Generated {now} · {len(t1)} T1 tasks + {len(pilots)} pilot/control tasks ·
-    <a href="progress.html">progress</a> · <a href="guide.html">how the agent works</a></p>
+    <a href="../progress.html">progress</a> · <a href="../guide.html">how the agent works</a></p>
 
   <h2>Where tasks come from</h2>
   <div class="card">
@@ -229,7 +229,7 @@ def main():
 """
     with open(OUT, "w") as f:
         f.write(page)
-    print(f"wrote tasks.html: {len(t1)} T1 + {len(pilots)} pilot tasks")
+    print(f"wrote benchmark/tasks.html: {len(t1)} T1 + {len(pilots)} pilot tasks")
 
 
 if __name__ == "__main__":
