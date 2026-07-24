@@ -1,0 +1,205 @@
+{
+  "output_dir": "/Users/ldq/Work/McStasBench/benchmark/refcache/T1_ILL_H10_IN8_work/ref_20260724_152859_94648_9",
+  "ncount": 1000000.0,
+  "seed": 1234,
+  "run_parameters": {
+    "KF": "5",
+    "KI": "0",
+    "QM": "1",
+    "EN": "0",
+    "verbose": "1",
+    "WM": "0.233",
+    "HM": "0.197",
+    "RMH": "-1",
+    "RMV": "-1",
+    "DM": "1.807",
+    "NHM": "15",
+    "NVM": "15",
+    "WA": "0.16",
+    "HA": "0.08",
+    "RAH": "-1",
+    "RAV": "-1",
+    "DA": "2.087",
+    "NHA": "15",
+    "NVA": "15",
+    "L1": "2.3",
+    "ALF1": "60",
+    "ALF2": "60",
+    "ALF3": "60",
+    "ALF4": "60",
+    "BET1": "120",
+    "BET2": "120",
+    "BET3": "120",
+    "BET4": "120",
+    "EI": "0",
+    "EF": "0",
+    "QH": "0",
+    "QK": "0",
+    "QL": "0",
+    "KFIX": "0",
+    "FX": "0",
+    "L2": "2.1",
+    "L3": "1.5",
+    "L4": "0.7",
+    "SM": "1",
+    "SS": "-1",
+    "SA": "1",
+    "ETAM": "30",
+    "ETAA": "30",
+    "AS": "6.28",
+    "BS": "6.28",
+    "CS": "6.28",
+    "AA": "90",
+    "BB": "90",
+    "CC": "90",
+    "AX": "1",
+    "AY": "0",
+    "AZ": "0",
+    "BX": "0",
+    "BY": "1",
+    "BZ": "0",
+    "A1": "0",
+    "A2": "0",
+    "A3": "0",
+    "A4": "0",
+    "A5": "0",
+    "A6": "0",
+    "Sqw_coh": "V.lau",
+    "Sqw_inc": "NULL",
+    "radius": "0.01",
+    "thickness": "0.005",
+    "height": "0.05"
+  },
+  "monitors": [
+    {
+      "component": "D4_SC2_1D",
+      "filename": "D4_SC2_1D_1784924945.L",
+      "center_of_mass": 1.256725,
+      "fwhm": 0.037504,
+      "title": "Wavelength [Angs] monitor",
+      "dims": [
+        100
+      ],
+      "position": [
+        0.380353,
+        0.0,
+        2.74228
+      ],
+      "intensity": 10248400000.0,
+      "intensity_err": 20841900.0,
+      "events": 366480.0,
+      "relative_err": 0.002,
+      "beam_center": {
+        "X0": 1.25673
+      },
+      "beam_width": {
+        "dX": 0.0108244
+      },
+      "signal": {
+        "Min": 0.0,
+        "Max": 362426000.0,
+        "Mean": 102484000.0
+      },
+      "xlabel": "Wavelength [Angs]",
+      "ylabel": "Intensity [n/s/bin]",
+      "limits": "1.19381 1.31947"
+    },
+    {
+      "component": "Sample_Cradle",
+      "filename": "Sample_Cradle.dat",
+      "center_of_mass": null,
+      "fwhm": null,
+      "title": "Intensity Monitor (Square)",
+      "dims": [],
+      "position": [
+        1.36927,
+        0.0,
+        3.8922
+      ],
+      "intensity": 99773500.0,
+      "intensity_err": 523418.0,
+      "events": 77220.0,
+      "relative_err": 0.0052,
+      "beam_center": {},
+      "beam_width": {},
+      "signal": {},
+      "xlabel": "",
+      "ylabel": "",
+      "limits": "0 0 0 0 0 0"
+    },
+    {
+      "component": "D7_SC3_1D",
+      "filename": "D7_SC3_1D_1784924945.th_E",
+      "center_of_mass": null,
+      "fwhm": null,
+      "title": "Intensity Angle Energy Monitor (Banana) [out] per bin",
+      "dims": [
+        100,
+        100
+      ],
+      "position": [
+        1.36927,
+        0.0,
+        3.8922
+      ],
+      "intensity": 932948000.0,
+      "intensity_err": 3023370.0,
+      "events": 1229650.0,
+      "relative_err": 0.0032,
+      "beam_center": {
+        "X0": 11.1256,
+        "Y0": 51.7809
+      },
+      "beam_width": {
+        "dX": 23.3513,
+        "dY": 0.856549
+      },
+      "signal": {
+        "Min": 0.0,
+        "Max": 2580860.0,
+        "Mean": 93294.8
+      },
+      "xlabel": "Longitude [deg]",
+      "ylabel": "Energy [meV]",
+      "limits": "-180 180 49.213 54.3933"
+    },
+    {
+      "component": "He3H",
+      "filename": "He3H.psd",
+      "center_of_mass": null,
+      "fwhm": null,
+      "title": "PSD monitor",
+      "dims": [
+        20,
+        20
+      ],
+      "position": [
+        2.73198,
+        0.0,
+        5.50537
+      ],
+      "intensity": 506.775,
+      "intensity_err": 19.5084,
+      "events": 2744.0,
+      "relative_err": 0.0385,
+      "beam_center": {
+        "X0": -0.0125365,
+        "Y0": -0.00440681
+      },
+      "beam_width": {
+        "dX": 0.434046,
+        "dY": 0.539029
+      },
+      "signal": {
+        "Min": 0.0,
+        "Max": 36.3764,
+        "Mean": 1.26694
+      },
+      "xlabel": "X position [cm]",
+      "ylabel": "Y position [cm]",
+      "limits": "-2.54 2.54 -4.285 4.285"
+    }
+  ],
+  "low_statistics": [],
+  "ok": true
+}

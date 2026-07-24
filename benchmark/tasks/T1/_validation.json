@@ -1,0 +1,114 @@
+[
+  {
+    "task": "T1_ESS_IN5_reprate",
+    "pass": true,
+    "score": 1.0,
+    "checks": "8/8",
+    "hard_failures": [],
+    "failed": []
+  },
+  {
+    "task": "T1_HZB_FLEX",
+    "pass": true,
+    "score": 1.0,
+    "checks": "6/6",
+    "hard_failures": [],
+    "failed": []
+  },
+  {
+    "task": "T1_HZB_NEAT",
+    "pass": true,
+    "score": 1.0,
+    "checks": "8/8",
+    "hard_failures": [],
+    "failed": []
+  },
+  {
+    "task": "T1_ILL_D2B",
+    "pass": true,
+    "score": 1.0,
+    "checks": "6/6",
+    "hard_failures": [],
+    "failed": []
+  },
+  {
+    "task": "T1_ILL_H10_IN8",
+    "pass": true,
+    "score": 1.0,
+    "checks": "6/6",
+    "hard_failures": [],
+    "failed": []
+  },
+  {
+    "task": "T1_ILL_H15_D11",
+    "pass": true,
+    "score": 1.0,
+    "checks": "3/3",
+    "hard_failures": [],
+    "failed": []
+  },
+  {
+    "task": "T1_ILL_H512_D22",
+    "pass": true,
+    "score": 1.0,
+    "checks": "3/3",
+    "hard_failures": [],
+    "failed": []
+  },
+  {
+    "task": "T1_ILL_IN6",
+    "pass": true,
+    "score": 1.0,
+    "checks": "8/8",
+    "hard_failures": [],
+    "failed": []
+  },
+  {
+    "task": "T1_ISIS_SANS2d",
+    "pass": true,
+    "score": 1.0,
+    "checks": "6/6",
+    "hard_failures": [],
+    "failed": []
+  },
+  {
+    "task": "T1_PSI_DMC",
+    "pass": true,
+    "score": 1.0,
+    "checks": "6/6",
+    "hard_failures": [],
+    "failed": []
+  },
+  {
+    "task": "T1_RTP_DIF",
+    "pass": true,
+    "score": 1.0,
+    "checks": "6/6",
+    "hard_failures": [],
+    "failed": []
+  },
+  {
+    "task": "T1_SESANS_Delft",
+    "pass": true,
+    "score": 1.0,
+    "checks": "3/3",
+    "hard_failures": [],
+    "failed": []
+  },
+  {
+    "task": "T1_templateSANS",
+    "pass": true,
+    "score": 1.0,
+    "checks": "6/6",
+    "hard_failures": [],
+    "failed": []
+  },
+  {
+    "task": "T1_templateTOF",
+    "pass": true,
+    "score": 1.0,
+    "checks": "3/3",
+    "hard_failures": [],
+    "failed": []
+  }
+]

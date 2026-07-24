@@ -1,0 +1,47 @@
+# Format: McCode with text headers
+# URL: http://www.mccode.org
+# Creator:  3.7.12, git
+# Instrument: /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/examples/PSI/PSI_DMC/PSI_DMC.instr
+# Ncount: 1000000
+# Trace: no
+# Gravitation: no
+# Seed: 1234
+# Directory: /Users/ldq/Work/McStasBench/benchmark/refcache/T1_PSI_DMC_work/ref_20260724_153108_94648_19
+# Param: lambda=2.5666
+# Param: R=0.87
+# Param: R_curve=0.87
+# Param: filename=Na2Ca3Al2F14.laz
+# Param: D_PHI=6
+# Param: SHIFT=0
+# Param: PACK=0.7
+# Param: Dw=0.8
+# Param: BARNS=1
+# Param: SPLITS=58
+# Date: Fri Jul 24 15:31:17 2026 (1784925077)
+# type: array_1d(11)
+# Source: PSI_DMC (/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/examples/PSI/PSI_DMC/PSI_DMC.instr)
+# component: ydist_fluxpos
+# position: 0 0 47.8657
+# title: Linear PSD monitor
+# Ncount: 1000000
+# filename: ydist_fluxpos.dat
+# statistics: X0=0.000488006; dX=0.0344316;
+# signal: Min=3.06169e+06; Max=3.41856e+06; Mean=3.2563e+06;
+# values: 3.58193e+07 284184 78073
+# xvar: x
+# yvar: (I,I_err)
+# xlabel: x-Position [m]
+# ylabel: Intensity
+# xlimits: -0.06 0.06
+# variables: x I I_err N
+-0.05454545455 3193450.424 84828.95219 7074 
+-0.04363636364 3232601.905 85604.44953 7099 
+-0.03272727273 3169813.433 84632.3798 7054 
+-0.02181818182 3061688.623 83053.39616 6904 
+-0.01090909091 3380641.679 87328.75002 7121 
+0 3328941.777 86193.82131 7205 
+0.01090909091 3116411.281 83484.73439 7084 
+0.02181818182 3418559.993 88019.39262 6998 
+0.03272727273 3348570.101 86885.84162 7123 
+0.04363636364 3329097.162 86869.04095 7299 
+0.05454545455 3239565.659 85532.65293 7112 

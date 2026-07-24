@@ -1,0 +1,54 @@
+{
+  "id": "T1_templateTOF",
+  "tier": "T1",
+  "split": "dev",
+  "kind": "reproduce",
+  "class": "ToF-spectrometer",
+  "paper": null,
+  "prompt": "Rebuild the following ToF spectrometer in McStas from its specification, run it, and report the integrated intensity (with error and event count) on every monitor.\n\nInstrument parameters (defaults in parentheses):\n- E0 (4.94)\n- dE (0.24)\n- dt (6.4e-06)\n- coh (\"Rb_liq_coh.sqw\")\n- inc (\"Rb_liq_inc.sqw\")\n- thickness (0.0001)\n- yheight (0.0168)\n- radius (0.005)\n- container (\"Nb.laz\")\n- container_thickness (5e-05)\n- environment (\"Al.laz\")\n- environment_radius (0.025)\n- environment_thickness (0.002)\n- dt0 (0)\n\nConstants and derived quantities computed at startup (implement equivalent logic):\n- declaration: `#pragma acc declare create(_dt0)`\n```c\nvi=SE2V*sqrt(E0);\n  double ki=V2K*vi;\ndouble t0=1.25/vi;\n  double lambda=2*PI/ki;\n  sprintf(op,   \"energy limits=[%g %g] bins=50, theta limits=[5 175] bins=150, banana, parallel\", 0.5*E0, 2*E0);\n  printf(\"templateTOF: lambda=%g [Angs], k=%g [Angs-1], v=%g [m/s], E=%g [meV]. Time=[%g %g %g]\\n\",\n    lambda,ki,vi, E0, t0*.75, t0, t0*1.5);\n  printf(\"templateTOF: sample is %s, with %s%s geometry.\\n\",\n    coh, thickness ? \"hollow \" : \"\", yheight ? \"cylindrical\" : \"spherical\");\n  if (yheight && container_thickness)\n    printf(\"templateTOF: container is %s (outer cylinder)\\n\", container);\n  if (environment_thickness > 0)\n    printf(\"templateTOF: external environment is %s\\n\", environment);\n  dt0=dt;\n  if (environment_thickness > 0 && radius > environment_radius-environment_thickness)\n    exit(printf(\"templateTOF: sample radius %g is larger than sample environment %g\\n\",\n      radius, environment_radius-environment_thickness));\n  if (container_thickness > 0 && environment_thickness > 0 && yheight > 0\n      && radius+container_thickness+0.0001 > environment_radius-environment_thickness)\n    exit(printf(\"templateTOF: sample container radius %g is larger than sample environment %g\\n\",\n      radius+container_thickness+0.0001, environment_radius-environment_thickness));\n  _dt0=dt0;\n  #pragma acc update device(_dt0)\n```\n\nBeamline, in order (positions in meters; AT [x,y,z] RELATIVE to the named component; parameters as given):\n- a1: Progress_bar AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: percent=5\n    EXTEND: ```c\n    flag_single=flag_multi=flag_env=flag_container=0;\n    ```\n- csource: Source_gen AT [0, 0, 0] RELATIVE a1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: radius=0.02, dist=2.88, focus_xw=2*radius, focus_yh=yheight ? yheight : 2*radius, E0=E0, dE=dE/2, I1=1, T1=300.0\n- SampleIn: Arm AT [0, 0, 2.88] RELATIVE a1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n- Environment_in: Isotropic_Sqw AT [0, 0, 0] RELATIVE SampleIn ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (environment_thickness > 0))\n    parameters: Sqw_coh=environment, radius=environment_radius, thickness=environment_thickness, yheight=0.1, verbose=0, concentric=1\n    EXTEND: ```c\n    if (SCATTERED) flag_env=1;\n    ```\n- Container_in: Isotropic_Sqw AT [0, 0, 0] RELATIVE SampleIn ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (yheight && container_thickness > 0))\n    parameters: Sqw_coh=container, radius=radius+0.0001+container_thickness, thickness=container_thickness, yheight=yheight, verbose=0, concentric=1\n    EXTEND: ```c\n    if (SCATTERED) flag_container=1;\n    ```\n- Sample_in: Isotropic_Sqw AT [0, 0, 0] RELATIVE SampleIn ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: Sqw_coh=coh, Sqw_inc=inc, radius=radius, thickness=thickness, yheight=yheight, p_interact=0.9\n    EXTEND: ```c\n    if      (SCATTERED == 1) flag_single=(type == 'c' ? 1 : 2);\nelse if (SCATTERED >  1) flag_multi =(type == 'c' ? 1 : 2);\nelse                     flag_multi =flag_single=0;\nt = randtriangle()*2*_dt0;\n    ```\n- Container_out: Isotropic_Sqw AT [0, 0, 0] RELATIVE SampleIn ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (yheight && container_thickness))\n    parameters: Sqw_coh=container, radius=radius+0.0001+container_thickness, thickness=container_thickness, yheight=yheight, verbose=0, concentric=1\n    EXTEND: ```c\n    if (SCATTERED) flag_container=1;\n    ```\n- Environment_out: Isotropic_Sqw AT [0, 0, 0] RELATIVE SampleIn ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (environment_thickness > 0))\n    parameters: Sqw_coh=environment, radius=environment_radius, thickness=environment_thickness, yheight=0.1, verbose=0, concentric=1\n    EXTEND: ```c\n    if (SCATTERED) flag_env=1;\n    ```\n- SampleOut: Arm AT [0, 0, 0] RELATIVE SampleIn ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n- M_total: Monitor_nD AT [0, 0, 0] RELATIVE SampleOut ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: xwidth=2.5, yheight=0.4, options=op\n- M_single_coh: Monitor_nD AT [0, 0, 0] RELATIVE SampleOut ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (flag_single == 1))\n    parameters: xwidth=2.5, yheight=0.4, options=op\n- M_single_inc: Monitor_nD AT [0, 0, 0] RELATIVE SampleOut ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (flag_single == 2))\n    parameters: xwidth=2.5, yheight=0.4, options=op\n- M_multi: Monitor_nD AT [0, 0, 0] RELATIVE SampleOut ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (flag_multi))\n    parameters: xwidth=2.5, yheight=0.4, options=op\n- M_env_container: Monitor_nD AT [0, 0, 0] RELATIVE SampleOut ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (WHEN (flag_env || flag_container))\n    parameters: xwidth=2.5, yheight=0.4, options=op\n\nYour instrument must include at least: a 2D position-sensitive monitor.\nRun with: E0=4.94, dE=0.24, dt=6.4e-6, coh=Rb_liq_coh.sqw, inc=Rb_liq_inc.sqw, thickness=1e-4, yheight=0.0168, radius=0.005, container=Nb.laz, container_thickness=50e-6, environment=Al.laz, environment_radius=0.025, environment_thickness=2e-3, dt0=0.",
+  "reference": {
+    "instr": "shipped:templateTOF",
+    "parameters": {
+      "E0": "4.94",
+      "dE": "0.24",
+      "dt": "6.4e-6",
+      "coh": "Rb_liq_coh.sqw",
+      "inc": "Rb_liq_inc.sqw",
+      "thickness": "1e-4",
+      "yheight": "0.0168",
+      "radius": "0.005",
+      "container": "Nb.laz",
+      "container_thickness": "50e-6",
+      "environment": "Al.laz",
+      "environment_radius": "0.025",
+      "environment_thickness": "2e-3",
+      "dt0": "0"
+    }
+  },
+  "protocol": {
+    "ncount": 1000000.0,
+    "seed": 1234,
+    "timeout": 900
+  },
+  "grading": {
+    "min_events": 1000,
+    "monitors": [
+      {
+        "role": "2d",
+        "observables": {
+          "intensity": {
+            "rtol": 0.2,
+            "nsigma": 3
+          },
+          "beam_width_x": {
+            "rtol": 0.3
+          },
+          "beam_width_y": {
+            "rtol": 0.3
+          }
+        }
+      }
+    ]
+  },
+  "notes": "Auto-authored from the reference via reader->spec converter on 2026-07-24; %Example check: True"
+}

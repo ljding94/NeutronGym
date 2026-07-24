@@ -26,13 +26,19 @@ def _task(name):
 # --- fast: schema + matching + scoring logic ------------------------------------
 
 def test_task_files_valid():
-    for fn in sorted(os.listdir(TASKS)):
-        t = _task(fn)
-        assert t["id"] and t["tier"] and t["kind"]
+    import glob
+    paths = sorted(glob.glob(os.path.join(TASKS, "**", "*.json"), recursive=True))
+    tasks = [p for p in paths if not os.path.basename(p).startswith("_")]
+    assert len(tasks) >= 17  # 3 pilot + 14 authored T1
+    for path in tasks:
+        with open(path) as f:
+            t = json.load(f)
+        assert t["id"] and t["tier"] and t["kind"], path
         if t["kind"] != "memorization_probe":
-            assert t["reference"]["instr"].startswith("shipped:")
-            assert t["protocol"]["seed"] and t["protocol"]["ncount"]
-            assert t["grading"]["monitors"]
+            assert t["reference"]["instr"].startswith("shipped:"), path
+            assert t["protocol"]["seed"] and t["protocol"]["ncount"], path
+            assert t["grading"]["monitors"], path
+            assert t["prompt"], path
 
 
 def test_monitor_role_matching():

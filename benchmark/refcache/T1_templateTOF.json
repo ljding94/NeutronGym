@@ -1,0 +1,205 @@
+{
+  "output_dir": "/Users/ldq/Work/McStasBench/benchmark/refcache/T1_templateTOF_work/ref_20260724_153348_94648_27",
+  "ncount": 1000000.0,
+  "seed": 1234,
+  "run_parameters": {
+    "E0": "4.94",
+    "dE": "0.24",
+    "dt": "6.4e-06",
+    "coh": "Rb_liq_coh.sqw",
+    "inc": "Rb_liq_inc.sqw",
+    "thickness": "0.0001",
+    "yheight": "0.0168",
+    "radius": "0.005",
+    "container": "Nb.laz",
+    "container_thickness": "5e-05",
+    "environment": "Al.laz",
+    "environment_radius": "0.025",
+    "environment_thickness": "0.002",
+    "dt0": "0"
+  },
+  "monitors": [
+    {
+      "component": "M_total",
+      "filename": "M_total_1784925234.E_th",
+      "center_of_mass": null,
+      "fwhm": null,
+      "title": "Intensity Energy Angle Monitor (Banana) [out] per bin",
+      "dims": [
+        50,
+        150
+      ],
+      "position": [
+        0.0,
+        0.0,
+        2.88
+      ],
+      "intensity": 8.06759e-10,
+      "intensity_err": 3.09563e-11,
+      "events": 52481.0,
+      "relative_err": 0.0384,
+      "beam_center": {
+        "X0": 4.97752,
+        "Y0": 135.57
+      },
+      "beam_width": {
+        "dX": 0.441428,
+        "dY": 28.803
+      },
+      "signal": {
+        "Min": 0.0,
+        "Max": 4.60728e-11,
+        "Mean": 1.07568e-13
+      },
+      "xlabel": "Energy [meV]",
+      "ylabel": "Longitude [deg]",
+      "limits": "2.47 9.88 5 175"
+    },
+    {
+      "component": "M_single_coh",
+      "filename": "M_single_coh_1784925234.E_th",
+      "center_of_mass": null,
+      "fwhm": null,
+      "title": "Intensity Energy Angle Monitor (Banana) [out] per bin",
+      "dims": [
+        50,
+        150
+      ],
+      "position": [
+        0.0,
+        0.0,
+        2.88
+      ],
+      "intensity": 4.59781e-11,
+      "intensity_err": 5.03737e-13,
+      "events": 38341.0,
+      "relative_err": 0.011,
+      "beam_center": {
+        "X0": 5.60746,
+        "Y0": 101.742
+      },
+      "beam_width": {
+        "dX": 1.62008,
+        "dY": 40.4668
+      },
+      "signal": {
+        "Min": 0.0,
+        "Max": 2.25151e-13,
+        "Mean": 6.13041e-15
+      },
+      "xlabel": "Energy [meV]",
+      "ylabel": "Longitude [deg]",
+      "limits": "2.47 9.88 5 175"
+    },
+    {
+      "component": "M_single_inc",
+      "filename": "M_single_inc_1784925234.E_th",
+      "center_of_mass": null,
+      "fwhm": null,
+      "title": "Intensity Energy Angle Monitor (Banana) [out] per bin",
+      "dims": [
+        50,
+        150
+      ],
+      "position": [
+        0.0,
+        0.0,
+        2.88
+      ],
+      "intensity": 4.527e-12,
+      "intensity_err": 1.48116e-13,
+      "events": 3813.0,
+      "relative_err": 0.0327,
+      "beam_center": {
+        "X0": 5.48878,
+        "Y0": 82.61
+      },
+      "beam_width": {
+        "dX": 1.47661,
+        "dY": 49.7804
+      },
+      "signal": {
+        "Min": 0.0,
+        "Max": 4.44478e-14,
+        "Mean": 6.036e-16
+      },
+      "xlabel": "Energy [meV]",
+      "ylabel": "Longitude [deg]",
+      "limits": "2.47 9.88 5 175"
+    },
+    {
+      "component": "M_multi",
+      "filename": "M_multi_1784925234.E_th",
+      "center_of_mass": null,
+      "fwhm": null,
+      "title": "Intensity Energy Angle Monitor (Banana) [out] per bin",
+      "dims": [
+        50,
+        150
+      ],
+      "position": [
+        0.0,
+        0.0,
+        2.88
+      ],
+      "intensity": 9.74735e-14,
+      "intensity_err": 3.97636e-15,
+      "events": 8533.0,
+      "relative_err": 0.0408,
+      "beam_center": {
+        "X0": 6.09453,
+        "Y0": 90.3138
+      },
+      "beam_width": {
+        "dX": 1.92713,
+        "dY": 50.4158
+      },
+      "signal": {
+        "Min": 0.0,
+        "Max": 2.28541e-15,
+        "Mean": 1.29965e-17
+      },
+      "xlabel": "Energy [meV]",
+      "ylabel": "Longitude [deg]",
+      "limits": "2.47 9.88 5 175"
+    },
+    {
+      "component": "M_env_container",
+      "filename": "M_env_container_1784925234.E_th",
+      "center_of_mass": null,
+      "fwhm": null,
+      "title": "Intensity Energy Angle Monitor (Banana) [out] per bin",
+      "dims": [
+        50,
+        150
+      ],
+      "position": [
+        0.0,
+        0.0,
+        2.88
+      ],
+      "intensity": 7.56953e-10,
+      "intensity_err": 3.09557e-11,
+      "events": 3068.0,
+      "relative_err": 0.0409,
+      "beam_center": {
+        "X0": 4.93679,
+        "Y0": 137.903
+      },
+      "beam_width": {
+        "dX": 0.0976951,
+        "dY": 26.1152
+      },
+      "signal": {
+        "Min": 0.0,
+        "Max": 4.60571e-11,
+        "Mean": 1.00927e-13
+      },
+      "xlabel": "Energy [meV]",
+      "ylabel": "Longitude [deg]",
+      "limits": "2.47 9.88 5 175"
+    }
+  ],
+  "low_statistics": [],
+  "ok": true
+}

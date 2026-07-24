@@ -1,0 +1,74 @@
+{
+  "id": "T1_HZB_NEAT",
+  "tier": "T1",
+  "split": "seen",
+  "kind": "reproduce",
+  "class": "ToF-spectrometer",
+  "paper": null,
+  "prompt": "Rebuild the following ToF spectrometer in McStas from its specification, run it, and report the integrated intensity (with error and event count) on every monitor.\n\nInstrument parameters (defaults in parentheses):\n- lambda (6)\n- dlambda (0.05)\n- rpm (10000)\n- coh (\"Rb_liq_coh.sqw\")\n- inc (\"Rb_liq_inc.sqw\")\n- tmin (0.01806)\n- tmax (0.01826)\n\nConstants and derived quantities computed at startup (implement equivalent logic):\n```c\ndouble Chopper2Detector = 11.97+2.143+0.165;\n  double KI, Vi, EI;\n  double Emin, Emax, Vmin, Vmax, Tmin, Tmax;\n  KI= 2*PI/lambda;\n  Vi = K2V*fabs(KI);\n  EI = VS2E*Vi*Vi;\n  printf(\"%s: Detailed NEAT/TOF configuration\\n\", NAME_INSTRUMENT);\n  printf(\"* Incoming beam: lambda=%.4g [Angs] EI=%.4g [meV]  KI=%.4g [Angs-1] Vi=%g [m/s]\\n\",\n    lambda, EI, KI, Vi);\n  time_elastic = 252.78*Chopper2Detector*lambda*1e-6; /* time from Chopper1 to reach Detector */\n  printf(\"  Sample: coh=%s inc=%s\\n\", coh, inc);\n  printf(\"          Elastic line time: %g [us]\\n\", time_elastic*1e6);\n  Emin = EI-20; if (Emin < EI/3) Emin=EI/3;\n  Emax = EI+20;\n  Vmin = sqrt(Emin/VS2E);\n  Vmax = sqrt(Emax/VS2E);\n  Tmin = 2.5/Vmax;\n  Tmax = 2.5/Vmin;\n  sprintf(detector_options,\n    \"banana, abs angle limits=[13 136] bins=300, time limits=[%g %g] bins=256\",\n    time_elastic+Tmin, time_elastic+Tmax);\n  sprintf(lmon_options,\"lambda limits=[%g %g] bins=100\",lambda-dlambda/2.0,lambda+dlambda/2.0);\n  sprintf(tmon_options,\"tof limits=[%g %g] bins=100\",tmin,tmax);\n```\n\nBeamline, in order (positions in meters; AT [x,y,z] RELATIVE to the named component; parameters as given):\n- PG: Progress_bar AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n- Source: Source_gen AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: radius=.155, focus_xw=0.03, focus_yh=0.055, lambda0=lambda, dlambda=dlambda, I1=1.4e12, T1=43.7, T2=137.2, I2=2.08e12\n- Guide0: Guide_gravity AT [0, 0, 2] RELATIVE Source ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: w1=0.03, h1=0.055, l=2, m=1.2\n- Guide0_copy: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0\n    parameters: w1=0.03, h1=0.055, l=2, m=1.2\n- Guide0_copy_0: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy\n    parameters: w1=0.03, h1=0.055, l=2, m=1.2\n- Guide0_copy_1: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_0 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_0\n    parameters: w1=0.03, h1=0.055, l=2, m=1.2\n- Guide0_copy_2: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_1 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_1\n    parameters: w1=0.03, h1=0.055, l=2, m=1.2\n- Guide0_copy_3: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_2 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_2\n    parameters: w1=0.03, h1=0.055, l=2, m=1.2\n- Guide0_copy_4: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_3 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_3\n    parameters: w1=0.03, h1=0.055, l=2, m=1.2\n- Guide0_copy_5: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_4 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_4\n    parameters: w1=0.03, h1=0.055, l=2, m=1.2\n- Guide0_copy_6: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_5 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_5\n    parameters: w1=0.03, h1=0.055, l=2, m=1.2\n- Guide0_copy_7: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_6 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_6\n    parameters: w1=0.03, h1=0.055, l=2, m=1.2\n- Guide0_copy_8: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_7 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_7\n    parameters: w1=0.03, h1=0.055, l=2, m=1.2\n- Guide0_copy_9: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_8 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_8\n    parameters: w1=0.03, h1=0.055, l=2, m=1.2\n- Guide0_copy_10: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_9 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_9\n    parameters: w1=0.03, h1=0.055, l=2, m=1.2\n- Guide0_copy_11: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_10 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_10\n    parameters: w1=0.03, h1=0.055, l=2, m=1.2\n- Guide0_copy_12: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_11 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_11\n    parameters: w1=0.03, h1=0.055, l=2, m=1.2\n- Guide0_copy_13: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_12 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_12\n    parameters: w1=0.03, h1=0.055, l=2, m=1.2\n- Guide0_copy_14: Guide_gravity AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_13 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_13\n    parameters: w1=0.03, h1=0.055, l=2, m=1.2\n- Guide_PSD: Monitor_nD AT [0, 0, 2+1e-4] RELATIVE Guide0_copy_14 ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: xwidth=0.03, yheight=0.055, options=\"y x\"\n- Guide_Lambda: Monitor_nD AT [0, 0, 1e-4] RELATIVE Guide_PSD ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: xwidth=0.03, yheight=0.055, options=lmon_options\n- Chopper1: DiskChopper AT [0, 0, 1.2e-2/2] RELATIVE Guide_Lambda ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: radius=0.24, yheight=0.06, nu=rpm/60, isfirst=1, xwidth=0.03\n- Guide_SGS1: Guide_gravity AT [0, 0, 1.2e-2] RELATIVE Guide_Lambda ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: w1=0.03, h1=0.055, l=2, m=1.2\n- Guide_SGS2: Guide_gravity AT [0, 0, 2.41] RELATIVE Guide_SGS1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: w1=0.03, h1=0.055, l=2, m=1.2\n- Guide_SGS3: Guide_gravity AT [0, 0, 5.065] RELATIVE Guide_SGS2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: w1=0.03, h1=0.055, l=2, m=1.2\n- Guide_CGS: Guide_gravity AT [0, 0, 2.352] RELATIVE Guide_SGS3 ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: w1=0.03, h1=0.055, l=2, m=1.2\n- Guide2_PSD: Monitor_nD AT [0, 0, 2.143-2*6e-3+1e-4] RELATIVE Guide_CGS ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: xwidth=0.03, yheight=0.055, options=\"x y\"\n- Guide2_Lambda: Monitor_nD AT [0, 0, 1e-4] RELATIVE Guide2_PSD ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: xwidth=0.03, yheight=0.055, options=lmon_options\n- Guide2_dXY: Monitor_nD AT [0, 0, 1e-4] RELATIVE Guide2_Lambda ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: xwidth=0.03, yheight=0.055, options=\"dx dy\"\n- Chopper6: DiskChopper AT [0, 0, 1.2e-2/2] RELATIVE Guide2_dXY ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: radius=0.24, yheight=0.06, nu=rpm/60, delay=252.78*11.97*lambda*1e-6, xwidth=0.03\n- Guide_time: Monitor_nD AT [0, 0, 1.2e-2/2] RELATIVE Chopper6 ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: xwidth=0.03, yheight=0.055, options=\"y x\"\n- Guide_DGS: Guide_gravity AT [0, 0, 2.143] RELATIVE Guide_CGS ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: w1=0.03, h1=0.055, l=2, m=1.2\n- Sample_pos: Arm AT [0, 0, 2.143+0.165] RELATIVE Guide_DGS ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n- Sample: Isotropic_Sqw AT [0, 0, 0] RELATIVE Sample_pos ROTATED [0, 45, 0] RELATIVE Sample_pos  (SPLIT 10)\n    parameters: Sqw_coh=coh, Sqw_inc=inc, xwidth=0.05, yheight=0.06, zdepth=0.002, p_interact=0.99\n    EXTEND: ```c\n    if (!SCATTERED) ABSORB;\n    ```\n- Ideal_Det: Monitor_nD AT [0, 0, 0] RELATIVE Sample_pos ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: yheight=2, restore_neutron=1, radius=2.5, options=detector_options\n- Detector: PSD_Detector AT [0, 0, 0] RELATIVE Sample_pos ROTATED [0, (136-13)/2+13, 0] RELATIVE Sample_pos\n    parameters: nx=640, ny=256, radius=2.5, yheight=2.0, zdepth=0.01, threshold=100, PressureConv=8, PressureStop=1, dc=0, borderx=-1, bordery=-1, xChDivRelSigma=0, yChDivRelSigma=0.0037, angle=136-13, filename=\"NEAT.psd\", FN_Conv=\"Gas_tables/He3inHe.table\", FN_Stop=\"Gas_tables/He3inCF4.table\"\n\nYour instrument must include at least: a 2D position-sensitive monitor; a wavelength monitor; a time-of-flight monitor.\nRun with: lambda=6, dlambda=0.05, rpm=10000, coh=Rb_liq_coh.sqw, inc=Rb_liq_inc.sqw, tmin=0.01806, tmax=0.01826.",
+  "reference": {
+    "instr": "shipped:HZB_NEAT",
+    "parameters": {
+      "lambda": "6",
+      "dlambda": "0.05",
+      "rpm": "10000",
+      "coh": "Rb_liq_coh.sqw",
+      "inc": "Rb_liq_inc.sqw",
+      "tmin": "0.01806",
+      "tmax": "0.01826"
+    }
+  },
+  "protocol": {
+    "ncount": 1000000.0,
+    "seed": 1234,
+    "timeout": 900
+  },
+  "grading": {
+    "min_events": 1000,
+    "monitors": [
+      {
+        "role": "2d",
+        "observables": {
+          "intensity": {
+            "rtol": 0.2,
+            "nsigma": 3
+          },
+          "beam_width_x": {
+            "rtol": 0.3
+          },
+          "beam_width_y": {
+            "rtol": 0.3
+          }
+        }
+      },
+      {
+        "role": "wavelength",
+        "observables": {
+          "intensity": {
+            "rtol": 0.25,
+            "nsigma": 3
+          },
+          "center_of_mass": {
+            "rtol": 0.05
+          },
+          "fwhm": {
+            "rtol": 0.5
+          }
+        }
+      },
+      {
+        "role": "tof",
+        "observables": {
+          "intensity": {
+            "rtol": 0.25,
+            "nsigma": 3
+          },
+          "center_of_mass": {
+            "rtol": 0.05
+          }
+        }
+      }
+    ]
+  },
+  "notes": "Auto-authored from the reference via reader->spec converter on 2026-07-24; %Example check: True"
+}

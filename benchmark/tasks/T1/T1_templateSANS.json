@@ -1,0 +1,61 @@
+{
+  "id": "T1_templateSANS",
+  "tier": "T1",
+  "split": "dev",
+  "kind": "reproduce",
+  "class": "SANS",
+  "paper": null,
+  "prompt": "Rebuild the following SANS in McStas from its specification, run it, and report the integrated intensity (with error and event count) on every monitor.\n\nInstrument parameters (defaults in parentheses):\n- lambda (6)\n- dlambda (0.05)\n- r (100)\n- PHI (0.001)\n- Delta_Rho (0.6)\n- sigma_abs (0.5)\n\nBeamline, in order (positions in meters; AT [x,y,z] RELATIVE to the named component; parameters as given):\n- a1: Progress_bar AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n- arm: Arm AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n- source: Source_simple AT [0, 0, 0] RELATIVE arm ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: radius=0.02, dist=3, focus_xw=0.01, focus_yh=0.01, lambda0=lambda, dlambda=dlambda, flux=1e8\n- coll1: Slit AT [0, 0, 3] RELATIVE arm ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: radius=0.005\n- coll2: Slit AT [0, 0, 6] RELATIVE arm ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: radius=0.005\n- sample: Sans_spheres AT [0, 0, 0.2] RELATIVE coll2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE  (SPLIT 10)\n    parameters: R=r, Phi=PHI, Delta_rho=Delta_Rho, sigma_abs=sigma_abs, xwidth=0.01, yheight=0.01, zdepth=0.005, target_index=2, focus_xw=0.6, focus_yh=0.6\n- STOP: Beamstop AT [0, 0, 2.9] RELATIVE sample ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: radius=0.02\n- detector: PSD_monitor AT [0, 0, 3] RELATIVE sample ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: nx=128, ny=128, filename=\"PSD.dat\", xmin=-0.3, xmax=0.3, ymin=-0.3, ymax=0.3\n- Ldetector: L_monitor AT [0, 0, 3.01] RELATIVE sample ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: nL=1000, filename=\"Edet.dat\", xmin=-0.3, xmax=0.3, ymin=-0.3, ymax=0.3, Lmin=5.5, Lmax=6.5\n- PSDrad: PSD_monitor_rad AT [0, 0, 3.02] RELATIVE sample ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: filename=\"psd2.dat\", filename_av=\"psd2_av.dat\", rmax=0.3\n\nYour instrument must include at least: a 2D position-sensitive monitor; a wavelength monitor.\nRun with: lambda=6, dlambda=0.05, r=100, PHI=1e-3, Delta_Rho=0.6, sigma_abs=0.5.",
+  "reference": {
+    "instr": "shipped:templateSANS",
+    "parameters": {
+      "lambda": "6",
+      "dlambda": "0.05",
+      "r": "100",
+      "PHI": "1e-3",
+      "Delta_Rho": "0.6",
+      "sigma_abs": "0.5"
+    }
+  },
+  "protocol": {
+    "ncount": 1000000.0,
+    "seed": 1234,
+    "timeout": 900
+  },
+  "grading": {
+    "min_events": 1000,
+    "monitors": [
+      {
+        "role": "2d",
+        "observables": {
+          "intensity": {
+            "rtol": 0.2,
+            "nsigma": 3
+          },
+          "beam_width_x": {
+            "rtol": 0.3
+          },
+          "beam_width_y": {
+            "rtol": 0.3
+          }
+        }
+      },
+      {
+        "role": "wavelength",
+        "observables": {
+          "intensity": {
+            "rtol": 0.25,
+            "nsigma": 3
+          },
+          "center_of_mass": {
+            "rtol": 0.05
+          },
+          "fwhm": {
+            "rtol": 0.5
+          }
+        }
+      }
+    ]
+  },
+  "notes": "Auto-authored from the reference via reader->spec converter on 2026-07-24; %Example check: True"
+}

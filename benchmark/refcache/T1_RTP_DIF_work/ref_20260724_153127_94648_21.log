@@ -1,0 +1,120 @@
+INFO: Using directory: "/Users/ldq/Work/McStasBench/benchmark/refcache/T1_RTP_DIF_work/ref_20260724_153127_94648_21"
+INFO: Regenerating c-file: RTP_DIF.c
+
+-----------------------------------------------------------
+WARNING: Existing (COPY) EXTEND block in COMPONENT mono2:
+  EXTEND %{
+      if (SCATTERED) mono_index=1;
+  %}
+
+is overwritten by:
+  EXTEND %{
+      if (SCATTERED) mono_index=2;
+  %}
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+WARNING: Existing (COPY) EXTEND block in COMPONENT mono3:
+  EXTEND %{
+      if (SCATTERED) mono_index=1;
+  %}
+
+is overwritten by:
+  EXTEND %{
+      if (SCATTERED) mono_index=3;
+  %}
+-----------------------------------------------------------
+CFLAGS= @NCRYSTALFLAGS@
+            
+--> Added COMPONENT mono1 USERVAR ncol_9 with type int 
+
+--> Added COMPONENT mono1 USERVAR nrow_9 with type int 
+
+--> Added COMPONENT mono2 USERVAR ncol_10 with type int 
+
+--> Added COMPONENT mono2 USERVAR nrow_10 with type int 
+
+--> Added COMPONENT mono3 USERVAR ncol_11 with type int 
+
+--> Added COMPONENT mono3 USERVAR nrow_11 with type int 
+
+WARNING:
+ The parameter format of container_in is initialized 
+ using a static {,,,} vector.
+  -> Such static vectors support literal numbers ONLY.
+  -> Any vector use of variables or defines must happen via a 
+     DECLARE/INITIALIZE pointer.
+
+
+-----------------------------------------------------------
+
+Generating single GPU kernel or single CPU section layout: 
+-> SPLIT N at component mono_cradle
+-> SPLIT N at component sample_position
+
+-----------------------------------------------------------
+
+Generating GPU/CPU -DFUNNEL layout:
+-> SPLIT within buffer at component mono_cradle
+-> SPLIT within buffer at component sample_position
+
+-----------------------------------------------------------
+INFO: Recompiling: ./RTP_DIF.out
+ld: warning: directory not found for option '-L/opt/homebrew/Cellar/fftw/3.3.10_1/lib'
+ld: warning: duplicate -rpath '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/lib' ignored
+ld: warning: duplicate -rpath '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/lib' ignored
+INFO: ===
+RTP_DIF: Monochromator take-off angle=41.1844 [deg]
+[RTP_DIF] Initialize
+Opening input file '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/data/HOPG.rfl' (Table_Read_Offset)
+Opening input file '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/data/HOPG.trm' (Table_Read_Offset)
+Reusing input file 'HOPG.rfl' (Table_Read_Offset)
+Reusing input file 'HOPG.trm' (Table_Read_Offset)
+Reusing input file 'HOPG.rfl' (Table_Read_Offset)
+Reusing input file 'HOPG.trm' (Table_Read_Offset)
+PowderN: container_in: Concentric mode - remember to include the 'opposite' copy of this component !
+WARNING  The equivalent, 'opposite' comp should have concentric=0
+Opening input file '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/data/V.lau' (Table_Read_Offset)
+Table from file 'V.lau' (block 1) is 3558 x 6 (x=-10:10), constant step. interpolation: linear
+  '# TITLE   V1 [Triclinic, Acentric], via https://materialsproject.org/materi ...'
+PowderN: container_in: Reading 3558 rows from V.lau
+PowderN: container_in: Powder file probably of type Crystallographica/Fullprof (lau)
+WARNING: but F2 unit is set to barns=1 (barns). Intensity might be 100 times too high.
+PowderN: container_in: Read 3558 reflections from file 'V.lau'
+PowderN: container_in: Vc=13.3996 [Angs] sigma_abs=5.08 [barn] sigma_inc=5.07999 [barn] reflections=V.lau
+Opening input file '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/data/Na2Ca3Al2F14.laz' (Table_Read_Offset)
+Table from file 'Na2Ca3Al2F14.laz' (block 1) is 841 x 18 (x=1:20), constant step. interpolation: linear
+  '# TITLE *-Na2Ca3Al2F14-[I213] Courbion, G.;Ferey, G.[1988] Standard NAC cal ...'
+PowderN: sample: Reading 841 rows from Na2Ca3Al2F14.laz
+PowderN: sample: Read 841 reflections from file 'Na2Ca3Al2F14.laz'
+PowderN: sample: Vc=1079.1 [Angs] sigma_abs=11.7856 [barn] sigma_inc=13.6704 [barn] reflections=Na2Ca3Al2F14.laz
+Opening input file '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/data/V.lau' (Table_Read_Offset)
+Table from file 'V.lau' (block 1) is 3558 x 6 (x=-10:10), constant step. interpolation: linear
+  '# TITLE   V1 [Triclinic, Acentric], via https://materialsproject.org/materi ...'
+PowderN: container_out: Reading 3558 rows from V.lau
+PowderN: container_out: Powder file probably of type Crystallographica/Fullprof (lau)
+WARNING: but F2 unit is set to barns=1 (barns). Intensity might be 100 times too high.
+PowderN: container_out: Read 3558 reflections from file 'V.lau'
+PowderN: container_out: Vc=13.3996 [Angs] sigma_abs=5.08 [barn] sigma_inc=5.07999 [barn] reflections=V.lau
+
+Trace ETA (single process) 55 [s] 
+20 %
+30 %
+40 %
+50 %
+60 %
+70 %
+80 %
+90 %
+*** TRACE end *** 
+
+Save [RTP_DIF]
+Detector: lmon_I=1.17073e+09 lmon_ERR=1.21505e+06 lmon_N=961446 "lmon_1784925092.L"
+Detector: psd_transmit_I=7.88379e+08 psd_transmit_ERR=302906 psd_transmit_N=7.37515e+06 "psd_transmit_1784925092.x_y"
+Detector: psd_reflect_I=5.34007e+07 psd_reflect_ERR=77686.3 psd_reflect_N=487348 "psd_reflect_1784925092.x_y"
+Detector: sample_psd_I=4.66355e+06 sample_psd_ERR=23318 sample_psd_N=40918 "sample_psd_1784925092.x_y"
+Detector: det_big_I=121358 det_big_ERR=188.83 det_big_N=1.92476e+06 "det_big_1784925092.th_y"
+Detector: det_I=391.192 det_ERR=8.4482 det_N=8632 "det_1784925092.x"
+
+Finally [RTP_DIF: /Users/ldq/Work/McStasBench/benchmark/refcache/T1_RTP_DIF_work/ref_20260724_153127_94648_21]. Time: 53 [s] 
+INFO: Placing instr file copy /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/examples/TRIGA/RTP_DIF/RTP_DIF.instr in dataset /Users/ldq/Work/McStasBench/benchmark/refcache/T1_RTP_DIF_work/ref_20260724_153127_94648_21

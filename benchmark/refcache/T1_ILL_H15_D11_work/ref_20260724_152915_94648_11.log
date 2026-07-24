@@ -1,0 +1,103 @@
+INFO: Using directory: "/Users/ldq/Work/McStasBench/benchmark/refcache/T1_ILL_H15_D11_work/ref_20260724_152915_94648_11"
+INFO: Regenerating c-file: ILL_H15_D11.c
+Info:    'Al_window' is a contributed component.
+CFLAGS=
+          
+-----------------------------------------------------------
+
+Generating single GPU kernel or single CPU section layout: 
+
+-----------------------------------------------------------
+
+Generating GPU/CPU -DFUNNEL layout:
+
+-----------------------------------------------------------
+INFO: Recompiling: ./ILL_H15_D11.out
+./ILL_H15_D11.c:22311:6: warning: address of array 'xlmonopts' will always evaluate to 'true' [-Wpointer-bool-conversion]
+ 22311 |   if(xlmonopts && strlen(xlmonopts))
+       |      ^~~~~~~~~ ~~
+./ILL_H15_D11.c:22312:50: warning: address of array 'xlmonopts' will always evaluate to 'true' [-Wpointer-bool-conversion]
+ 22312 |     stracpy(_Mon_D11_In_var._parameters.options, xlmonopts ? xlmonopts : "", 16384);
+       |                                                  ^~~~~~~~~ ~
+./ILL_H15_D11.c:22804:6: warning: address of array 'xlmonopts' will always evaluate to 'true' [-Wpointer-bool-conversion]
+ 22804 |   if(xlmonopts && strlen(xlmonopts))
+       |      ^~~~~~~~~ ~~
+./ILL_H15_D11.c:22805:51: warning: address of array 'xlmonopts' will always evaluate to 'true' [-Wpointer-bool-conversion]
+ 22805 |     stracpy(_Mon_D11_Out_var._parameters.options, xlmonopts ? xlmonopts : "", 16384);
+       |                                                   ^~~~~~~~~ ~
+./ILL_H15_D11.c:26513:5: warning: add explicit braces to avoid dangling else [-Wdangling-else]
+ 26513 |     else exit(printf("** D11 Error: invalid collimator length specification for D11\n"));
+       |     ^
+5 warnings generated.
+ld: warning: directory not found for option '-L/opt/homebrew/Cellar/fftw/3.3.10_1/lib'
+ld: warning: duplicate -rpath '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/lib' ignored
+INFO: ===
+Al_window AlWindow1 WARNING: Using simple lo-fi transmission model.
+ - Replace with PowderN or NCrystal for bragg edges etc.
+Al_window AlWindow2 WARNING: Using simple lo-fi transmission model.
+ - Replace with PowderN or NCrystal for bragg edges etc.
+Al_window AlWindow3 WARNING: Using simple lo-fi transmission model.
+ - Replace with PowderN or NCrystal for bragg edges etc.
+Al_window AlWindow4 WARNING: Using simple lo-fi transmission model.
+ - Replace with PowderN or NCrystal for bragg edges etc.
+Al_window AlWindow5 WARNING: Using simple lo-fi transmission model.
+ - Replace with PowderN or NCrystal for bragg edges etc.
+Al_window AlWindow6 WARNING: Using simple lo-fi transmission model.
+ - Replace with PowderN or NCrystal for bragg edges etc.
+Al_window AlWindow7 WARNING: Using simple lo-fi transmission model.
+ - Replace with PowderN or NCrystal for bragg edges etc.
+Al_window AlWindow8 WARNING: Using simple lo-fi transmission model.
+ - Replace with PowderN or NCrystal for bragg edges etc.
+Al_window AlWindow9 WARNING: Using simple lo-fi transmission model.
+ - Replace with PowderN or NCrystal for bragg edges etc.
+Al_window AlWindow10 WARNING: Using simple lo-fi transmission model.
+ - Replace with PowderN or NCrystal for bragg edges etc.
+Al_window AlWindow11 WARNING: Using simple lo-fi transmission model.
+ - Replace with PowderN or NCrystal for bragg edges etc.
+Al_window AlWindow12 WARNING: Using simple lo-fi transmission model.
+ - Replace with PowderN or NCrystal for bragg edges etc.
+Al_window AlWindow13 WARNING: Using simple lo-fi transmission model.
+ - Replace with PowderN or NCrystal for bragg edges etc.
+Simulation : H15_D11@ILL Farhi 10/08/2003 on (null) [pid 94971]
+Guide: L =25.5000 m, rho=2700.0000 m, m=1.00
+Guide: L*=25.46 m, Phi_c = 0.27 deg, Gamma_c = 0.10 deg/Angs
+Guide: Zc = -0.0676 m, Lambda_c = 2.72 Angs
+Guide: Garland and Zig-Zag reflections
+D11:   Ki = 1.393 [Angs-1], Lambda = 4.51 [Angs], V_Dolores=2.83e+04 [rpm]
+D11:   Coll.  L_c=    10.5 [m], Configuration='Borkron_1972', 
+D11:   Length L_g=      30 [m], n_elements=      60
+D11:   Chamfers  =  0.0002 [m], Waviness  = 2.5e-05 [rad] (0.00143 [deg])
+[ILL_H15_D11] Initialize
+Source_gen: component Source (square 0.1 x 0.22)
+            focusing distance dist=2.33 area=0.038 x 0.2
+            spectra 4.330 to 4.690 AA (3.719 to 4.364 meV)
+            T1=216.8 K (2.093 AA), T2=33.9 K (5.292 AA), T3=16.7 K (7.539 AA)
+  Flux is dPhi/dlambda in [n/s/cm2].
+Guide_gravity: mg1: unactivated (l=0 or nelements=0)
+Guide_gravity: mg2: unactivated (l=0 or nelements=0)
+Guide_gravity: mg3: unactivated (l=0 or nelements=0)
+Guide_gravity: mg4: unactivated (l=0 or nelements=0)
+Guide_gravity: mg8: unactivated (l=0 or nelements=0)
+Guide_gravity: mg9: unactivated (l=0 or nelements=0)
+Guide_gravity: mg10: unactivated (l=0 or nelements=0)
+Guide_gravity: mg11: unactivated (l=0 or nelements=0)
+Guide_gravity: mg12: unactivated (l=0 or nelements=0)
+Guide_gravity: mg13: unactivated (l=0 or nelements=0)
+Guide_gravity: mg14: unactivated (l=0 or nelements=0)
+Guide_gravity: mg15: unactivated (l=0 or nelements=0)
+Guide_gravity: mg16: unactivated (l=0 or nelements=0)
+Monitor_nD: SampleC: Using capture flux weightening on 400 bins.
+WARNING     Use binned data with caution, and prefer monitor integral value (I,Ierr).
+*** TRACE end *** 
+
+Save [ILL_H15_D11]
+Detector: PSD_VTE_I=1.28684e+10 PSD_VTE_ERR=6.26539e+07 PSD_VTE_N=207387 "PSD_VTE_1784924964.x_y"
+Detector: PSD_IN6_I=1.1503e+10 PSD_IN6_ERR=5.88017e+07 PSD_IN6_N=183393 "PSD_IN6_1784924964.x_y"
+Detector: PSD_D7_I=1.07259e+10 PSD_D7_ERR=5.62151e+07 PSD_D7_N=164774 "PSD_D7_1784924964.x_y"
+Detector: Mon_D11_In_I=2.16889e+09 Mon_D11_In_ERR=2.47603e+07 Mon_D11_In_N=35035 "Mon_D11_In_1784924964.x_L"
+Detector: Mon_D11_Out_I=1.41466e+09 Mon_D11_Out_ERR=1.73557e+07 Mon_D11_Out_N=29323 "Mon_D11_Out_1784924964.x_L"
+Detector: SampleF_I=7.91363e+06 SampleF_ERR=342721 SampleF_N=547 "SampleF_1784924964.x_y"
+Detector: SampleC_I=1.97938e+07 SampleC_ERR=856736 SampleC_N=547 "SampleC_1784924964.x_y"
+
+Finally [ILL_H15_D11: /Users/ldq/Work/McStasBench/benchmark/refcache/T1_ILL_H15_D11_work/ref_20260724_152915_94648_11]. Time: 4 [s] 
+INFO: Placing instr file copy /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/examples/ILL/ILL_H15_D11/ILL_H15_D11.instr in dataset /Users/ldq/Work/McStasBench/benchmark/refcache/T1_ILL_H15_D11_work/ref_20260724_152915_94648_11

@@ -1,0 +1,61 @@
+INFO: Using directory: "/Users/ldq/Work/McStasBench/benchmark/refcache/T1_HZB_FLEX_work/ref_20260724_152807_94648_3"
+INFO: Regenerating c-file: HZB_FLEX.c
+Info:    'Guide_curved' is a contributed component.
+CFLAGS=
+  
+--> Added COMPONENT Monochromator USERVAR ncol_25 with type int 
+
+--> Added COMPONENT Monochromator USERVAR nrow_25 with type int 
+
+-----------------------------------------------------------
+
+Generating single GPU kernel or single CPU section layout: 
+
+-----------------------------------------------------------
+
+Generating GPU/CPU -DFUNNEL layout:
+
+-----------------------------------------------------------
+INFO: Recompiling: ./HZB_FLEX.out
+ld: warning: directory not found for option '-L/opt/homebrew/Cellar/fftw/3.3.10_1/lib'
+ld: warning: duplicate -rpath '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/lib' ignored
+INFO: ===
+Component: elliptical_piece (Guide_tapering)
+           Height at the guide exit (h2): 0.125000 
+Component: elliptical_piece (Guide_tapering)
+           Width at the guide exit (w2): 0.030412 
+monochromator angles are:
+ A1=-37.166, A2=-74.332 [deg]
+radius of curvature RMH= -3.269 [m]
+radius of curvature RMV= -2.386 [m] 
+sample angles are:
+ A3=  0.000, A4= 70.000 [deg]
+analyser angles are:
+ A5=-37.166, A6=-74.332 [deg]
+radius of curvature RAH= -1.655 [m]
+radius of curvature RAV= -0.813 [m] 
+velocity selector frequency is 213.618 [Hz]
+lambda=  4.054 [A]
+kI=  1.550 [A^-1] 
+EI=  4.978 [meV]
+Maxwellian source forced to emit only between l_min=  3.958 and l_max=  4.149 [A] in order to save simulation time
+correspondingly, the energy monitors at sample position are detecting between   4.752 and   5.222 [meV]
+[HZB_FLEX] Initialize
+*** TRACE end *** 
+
+Save [HZB_FLEX]
+Detector: Before_selec_I=2.98489e+07 Before_selec_ERR=138968 Before_selec_N=83251 "PSD_monitor_before.dat"
+Detector: After_selec_I=2.04156e+07 After_selec_ERR=115012 After_selec_N=48603 "PSD_monitor_after.dat"
+Detector: energy_endguide_I=1.33159e+07 energy_endguide_ERR=89006.1 energy_endguide_N=32983 "energy-endguide.dat"
+<E> : 4.98298 meV , E-width : 0.135671 meV 
+Detector: energy_mono_I=4.32308e+06 energy_mono_ERR=50699.6 energy_mono_N=10625 "energy-mono.dat"
+<E> : 4.9796 meV , E-width : 0.0831177 meV 
+Detector: energy_pre_sample_I=3.65568e+06 energy_pre_sample_ERR=47239.6 energy_pre_sample_N=7661 "energy-pre-sample.dat"
+<E> : 4.97916 meV , E-width : 0.0701723 meV 
+Detector: div_mono_I=4.06295e+06 div_mono_ERR=49429.3 div_mono_N=9068 "div-sample.dat"
+Detector: div_mono_H_I=374098 div_mono_H_ERR=14904.3 div_mono_H_N=936 "H-div-sample.dat"
+Detector: psd_sam_I=4.34011e+06 psd_sam_ERR=50759.3 psd_sam_N=10763 "psd-sam.dat"
+Detector: dpsd1_I=4.34011e+06 dpsd1_ERR=50759.3 dpsd1_N=10763 "linpsdsam.dat"
+
+Finally [HZB_FLEX: /Users/ldq/Work/McStasBench/benchmark/refcache/T1_HZB_FLEX_work/ref_20260724_152807_94648_3]. Time: 1 [s] 
+INFO: Placing instr file copy /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/examples/HZB/HZB_FLEX/HZB_FLEX.instr in dataset /Users/ldq/Work/McStasBench/benchmark/refcache/T1_HZB_FLEX_work/ref_20260724_152807_94648_3

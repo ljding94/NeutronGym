@@ -1,0 +1,114 @@
+INFO: Using directory: "/Users/ldq/Work/McStasBench/benchmark/refcache/T1_ILL_H10_IN8_work/ref_20260724_152859_94648_9"
+INFO: Regenerating c-file: ILL_H10_IN8.c
+CFLAGS=
+            
+--> Added COMPONENT PG1Xtal USERVAR ncol_10 with type int 
+
+--> Added COMPONENT PG1Xtal USERVAR nrow_10 with type int 
+
+--> Added COMPONENT PG2Xtal USERVAR ncol_20 with type int 
+
+--> Added COMPONENT PG2Xtal USERVAR nrow_20 with type int 
+
+WARNING:
+ The parameter powder_format of Sample is initialized 
+ using a static {,,,} vector.
+  -> Such static vectors support literal numbers ONLY.
+  -> Any vector use of variables or defines must happen via a 
+     DECLARE/INITIALIZE pointer.
+
+
+-----------------------------------------------------------
+
+Generating single GPU kernel or single CPU section layout: 
+-> SPLIT N at component PG1Xtal
+-> SPLIT N at component Sample_Cradle
+-> SPLIT N at component PG2Xtal
+
+-----------------------------------------------------------
+
+Generating GPU/CPU -DFUNNEL layout:
+-> SPLIT within buffer at component PG1Xtal
+-> SPLIT within buffer at component Sample_Cradle
+-> SPLIT within buffer at component PG2Xtal
+
+-----------------------------------------------------------
+INFO: Recompiling: ./ILL_H10_IN8.out
+./ILL_H10_IN8.c:15109:11: warning: using floating point absolute value function 'fabs' when argument is of integer type [-Wabsolute-value]
+ 15109 |       if (fabs(arg > 1))
+       |           ^
+./ILL_H10_IN8.c:15109:11: note: use function 'abs' instead
+ 15109 |       if (fabs(arg > 1))
+       |           ^~~~
+       |           abs
+./ILL_H10_IN8.c:15121:11: warning: using floating point absolute value function 'fabs' when argument is of integer type [-Wabsolute-value]
+ 15121 |       if (fabs(arg > 1))
+       |           ^
+./ILL_H10_IN8.c:15121:11: note: use function 'abs' instead
+ 15121 |       if (fabs(arg > 1))
+       |           ^~~~
+       |           abs
+./ILL_H10_IN8.c:15532:6: warning: address of array 'Mono_refl' will always evaluate to 'true' [-Wpointer-bool-conversion]
+ 15532 |   if(Mono_refl && strlen(Mono_refl))
+       |      ^~~~~~~~~ ~~
+./ILL_H10_IN8.c:15533:47: warning: address of array 'Mono_refl' will always evaluate to 'true' [-Wpointer-bool-conversion]
+ 15533 |     stracpy(_PG1Xtal_var._parameters.reflect, Mono_refl ? Mono_refl : "", 16384);
+       |                                               ^~~~~~~~~ ~
+./ILL_H10_IN8.c:15732:6: warning: address of array 'lmonopts' will always evaluate to 'true' [-Wpointer-bool-conversion]
+ 15732 |   if(lmonopts && strlen(lmonopts))
+       |      ^~~~~~~~ ~~
+./ILL_H10_IN8.c:15733:49: warning: address of array 'lmonopts' will always evaluate to 'true' [-Wpointer-bool-conversion]
+ 15733 |     stracpy(_D4_SC2_1D_var._parameters.options, lmonopts ? lmonopts : "", 16384);
+       |                                                 ^~~~~~~~ ~
+./ILL_H10_IN8.c:16374:6: warning: address of array 'ethmonopts' will always evaluate to 'true' [-Wpointer-bool-conversion]
+ 16374 |   if(ethmonopts && strlen(ethmonopts))
+       |      ^~~~~~~~~~ ~~
+./ILL_H10_IN8.c:16375:49: warning: address of array 'ethmonopts' will always evaluate to 'true' [-Wpointer-bool-conversion]
+ 16375 |     stracpy(_D7_SC3_1D_var._parameters.options, ethmonopts ? ethmonopts : "", 16384);
+       |                                                 ^~~~~~~~~~ ~
+./ILL_H10_IN8.c:16638:6: warning: address of array 'Mono_refl' will always evaluate to 'true' [-Wpointer-bool-conversion]
+ 16638 |   if(Mono_refl && strlen(Mono_refl))
+       |      ^~~~~~~~~ ~~
+./ILL_H10_IN8.c:16639:47: warning: address of array 'Mono_refl' will always evaluate to 'true' [-Wpointer-bool-conversion]
+ 16639 |     stracpy(_PG2Xtal_var._parameters.reflect, Mono_refl ? Mono_refl : "", 16384);
+       |                                               ^~~~~~~~~ ~
+10 warnings generated.
+ld: warning: directory not found for option '-L/opt/homebrew/Cellar/fftw/3.3.10_1/lib'
+ld: warning: duplicate -rpath '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/lib' ignored
+INFO: ===
+templateTAS: Detailed TAS configuration
+* Incoming beam: EI=51.8 [meV] KI=5 [Angs-1] Vi=3148.11 [m/s]
+* Outgoing beam: EF=51.8 [meV] KF=5 [Angs-1] Vf=3148.11 [m/s]
+* Transfer:     EN=0 [meV] QM=1 [Angs-1]
+Angles: A1=20.35 A2=40.7 A3=0 A4=-11.48 A5=17.52 A6=35.04 [deg]
+Monochromator: DM=1.807 [Angs] RMH=6.314 [m] RMV=0.7634 [m] curved
+Analyzer:      DA=2.087 [Angs] RAH=3.171 [m] RAV=0.2874 [m] curved
+Sample:        Powder V.lau
+[ILL_H10_IN8] Initialize
+Isotropic_Sqw: Sample: is a hollow cylinder: radius=0.010000 thickness=0.005000 height=0.050000 [J Comp Phys 228 (2009) 5251]
+Opening input file '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/data/V.lau' (Table_Read_Offset)
+Opening input file '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/data/V.lau' (Table_Read_Offset)
+Isotropic_sqw: Sample: Powder file probably of type Crystallographica/Fullprof (lau)
+WARNING:       but F2 unit is set to powder_barns=1 (barns). Intensity might be 100 times too high.
+Isotropic_sqw: Converting 3558 powder lines from V.lau into S(q,w) data
+Isotropic_sqw: q range [0:25.0197], creating 423 elements vector
+Isotropic_Sqw: Sample: Generated V.lau coherent Sqw
+                   q=[0:24.9605 Angs-1] w=[0:0 meV] |S|=0.869429 size=[423x1] sigma=0.01834 [barns]
+               Mainly elastic scattering.
+Isotropic_Sqw: Sample: Using Isotropic elastic incoherent scattering (sigma=5.07999 [barns])
+Isotropic_Sqw: Sample: Sample temperature not defined (T=0).
+Warning        Disabling detailed balance.
+*** TRACE end *** 
+
+Save [ILL_H10_IN8]
+Detector: D4_SC2_1D_I=1.02484e+10 D4_SC2_1D_ERR=2.08419e+07 D4_SC2_1D_N=366480 "D4_SC2_1D_1784924945.L"
+Detector: Sample_Cradle_I=9.97735e+07 Sample_Cradle_ERR=523418 Sample_Cradle_N=77220 "Sample_Cradle.dat"
+Detector: D7_SC3_1D_I=9.32948e+08 D7_SC3_1D_ERR=3.02337e+06 D7_SC3_1D_N=1.22965e+06 "D7_SC3_1D_1784924945.th_E"
+Detector: He3H_I=506.775 He3H_ERR=19.5084 He3H_N=2744 "He3H.psd"
+
+Finally [ILL_H10_IN8: /Users/ldq/Work/McStasBench/benchmark/refcache/T1_ILL_H10_IN8_work/ref_20260724_152859_94648_9]. Time: 2 [s] 
+Isotropic_Sqw: Sample: Scattering fraction=0.372239 of incoming intensity
+               Absorption fraction           =0.410936
+               Single   scattering intensity =6.34337e+06 (coh=10980.6 inc=6.33239e+06)
+               Multiple scattering intensity =0
+INFO: Placing instr file copy /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/examples/ILL/ILL_H10_IN8/ILL_H10_IN8.instr in dataset /Users/ldq/Work/McStasBench/benchmark/refcache/T1_ILL_H10_IN8_work/ref_20260724_152859_94648_9

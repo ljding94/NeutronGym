@@ -1,0 +1,223 @@
+INFO: Using directory: "/Users/ldq/Work/McStasBench/benchmark/refcache/T1_ILL_IN6_work/ref_20260724_153002_94648_15"
+INFO: Regenerating c-file: ILL_IN6.c
+CFLAGS=
+              
+--> Added COMPONENT Mono1 USERVAR ncol_5 with type int 
+
+--> Added COMPONENT Mono1 USERVAR nrow_5 with type int 
+
+--> Added COMPONENT Mono2 USERVAR ncol_6 with type int 
+
+--> Added COMPONENT Mono2 USERVAR nrow_6 with type int 
+
+--> Added COMPONENT Mono3 USERVAR ncol_7 with type int 
+
+--> Added COMPONENT Mono3 USERVAR nrow_7 with type int 
+
+WARNING:
+ The parameter powder_format of Sample is initialized 
+ using a static {,,,} vector.
+  -> Such static vectors support literal numbers ONLY.
+  -> Any vector use of variables or defines must happen via a 
+     DECLARE/INITIALIZE pointer.
+
+
+-----------------------------------------------------------
+
+Generating single GPU kernel or single CPU section layout: 
+-> SPLIT N at component Cradle
+-> SPLIT N at component Sample
+
+-----------------------------------------------------------
+
+Generating GPU/CPU -DFUNNEL layout:
+-> SPLIT within buffer at component Cradle
+-> SPLIT within buffer at component Sample
+
+-----------------------------------------------------------
+INFO: Recompiling: ./ILL_IN6.out
+./ILL_IN6.c:16256:6: warning: address of array 'optL' will always evaluate to 'true' [-Wpointer-bool-conversion]
+ 16256 |   if(optL && strlen(optL))
+       |      ^~~~ ~~
+./ILL_IN6.c:16257:51: warning: address of array 'optL' will always evaluate to 'true' [-Wpointer-bool-conversion]
+ 16257 |     stracpy(_Mon_SuppInL_var._parameters.options, optL ? optL : "", 16384);
+       |                                                   ^~~~ ~
+./ILL_IN6.c:16454:6: warning: address of array 'optT' will always evaluate to 'true' [-Wpointer-bool-conversion]
+ 16454 |   if(optT && strlen(optT))
+       |      ^~~~ ~~
+./ILL_IN6.c:16455:51: warning: address of array 'optT' will always evaluate to 'true' [-Wpointer-bool-conversion]
+ 16455 |     stracpy(_Mon_SuppInT_var._parameters.options, optT ? optT : "", 16384);
+       |                                                   ^~~~ ~
+./ILL_IN6.c:17336:6: warning: address of array 'opt3' will always evaluate to 'true' [-Wpointer-bool-conversion]
+ 17336 |   if(opt3 && strlen(opt3))
+       |      ^~~~ ~~
+./ILL_IN6.c:17337:52: warning: address of array 'opt3' will always evaluate to 'true' [-Wpointer-bool-conversion]
+ 17337 |     stracpy(_MonokMonitor_var._parameters.options, opt3 ? opt3 : "", 16384);
+       |                                                    ^~~~ ~
+./ILL_IN6.c:18171:6: warning: address of array 'opt1' will always evaluate to 'true' [-Wpointer-bool-conversion]
+ 18171 |   if(opt1 && strlen(opt1))
+       |      ^~~~ ~~
+./ILL_IN6.c:18172:53: warning: address of array 'opt1' will always evaluate to 'true' [-Wpointer-bool-conversion]
+ 18172 |     stracpy(_M_theta_t_all_var._parameters.options, opt1 ? opt1 : "", 16384);
+       |                                                     ^~~~ ~
+8 warnings generated.
+ld: warning: directory not found for option '-L/opt/homebrew/Cellar/fftw/3.3.10_1/lib'
+ld: warning: duplicate -rpath '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/lib' ignored
+INFO: ===
+Instrument Simulation ILL_IN6 (/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/examples/ILL/ILL_IN6/ILL_IN6.instr)
+  using computed monochromator take-off angles: 75.4011 76.1933 76.9908 [deg]
+Wavelength               [AA]  4.14
+Neutron velocity         [m/s] 955.564
+Monochr. Bragg angle     [deg] 38.0966
+Incident Energy          [meV] 4.77282
+Focusing Energy transfer[meV] 0
+Travel time: Supp./Fermi [us]  209.301
+Travel time: Supp./Det.  [us]  3294.39
+TOF Delay                [us]  282.75
+TOF Dead Time            [us]  2.37202
+TOF Period (1 cycle)     [us]  6034.37
+TOF Channel width        [us]  47.125
+CHOP Fermi Phase         [deg] -6.24325
+CHOP Suppressor Phase    [deg] 0
+CHOP Fermi Speed         [rpm] 4971.52
+CHOP Suppressor Speed    [rpm] 4971.52
+Number of time channels        128
+Current Elastic Peak Ch.       64
+Elast. peak ch. for 0-delay    70
+Time window:                   min=0.56114 max=6.59314 delay=0.28275 tof-width=6.032 [ms]
+[ILL_IN6] Initialize
+Source_gen: component VCS (square 0.03 x 0.2)
+            focusing distance dist=2.55 area=0.03 x 0.2
+            spectra 4.065 to 4.215 AA (4.605 to 4.951 meV)
+            T1=216.8 K (2.093 AA), T2=33.9 K (5.292 AA), T3=16.7 K (7.539 AA)
+  Flux is dPhi/dlambda in [n/s/cm2].
+Opening input file '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/data/HOPG.rfl' (Table_Read_Offset)
+Opening input file '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/data/HOPG.trm' (Table_Read_Offset)
+Reusing input file 'HOPG.rfl' (Table_Read_Offset)
+Reusing input file 'HOPG.trm' (Table_Read_Offset)
+Reusing input file 'HOPG.rfl' (Table_Read_Offset)
+Reusing input file 'HOPG.trm' (Table_Read_Offset)
+FermiChopper: Suppressor: Frequency nu=82.8587 [Hz] 4971.52 [rpm], time frame=0.0241375 [s] phase=0 [deg]
+FermiChopper: FermiM: Frequency nu=82.8587 [Hz] 4971.52 [rpm], time frame=0.0241375 [s] phase=-6.24325 [deg]
+Isotropic_Sqw: Sample: is a hollow cylinder: radius=0.010000 thickness=0.005000 height=0.055000 [J Comp Phys 228 (2009) 5251]
+Opening input file '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/data/Rb_liq_inc.sqw' (Table_Read_Offset)
+Opening input file '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/data/Rb_liq_inc.sqw' (Table_Read_Offset)
+Opening input file '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/data/Rb_liq_inc.sqw' (Table_Read_Offset)
+Opening input file '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/data/Rb_liq_inc.sqw' (Table_Read_Offset)
+Isotropic_Sqw: Sample: Temperature set to T=350 [K]
+Isotropic_Sqw: Sample: S(q,w) data from Rb_liq_inc.sqw (inc) assumed to be classical (symmetrised in energy).
+Isotropic_Sqw: Sample: Applying exp(hw/2kT) factor with T=350 [K] on Rb_liq_inc.sqw file (classical/symmetric) using 'Frommhold' quantum correction
+Isotropic_Sqw: Sample: Generated Rb_liq_inc.sqw incoherent Sqw
+                   q=[0.1:10 Angs-1] w=[0:101.849 meV] |S|=0.985192 size=[101x10185] sigma=0.5 [barns]
+                   normalization factor S(q,w)*0.492586 (auto) \int q^2 S(q) dq=676.701
+Opening input file '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/data/Rb_liq_coh.sqw' (Table_Read_Offset)
+Opening input file '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/data/Rb_liq_coh.sqw' (Table_Read_Offset)
+Opening input file '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/data/Rb_liq_coh.sqw' (Table_Read_Offset)
+Opening input file '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/data/Rb_liq_coh.sqw' (Table_Read_Offset)
+Isotropic_Sqw: Sample: Temperature set to T=350 [K]
+Isotropic_Sqw: Sample: S(q,w) data from Rb_liq_coh.sqw (coh) assumed to be classical (symmetrised in energy).
+Isotropic_Sqw: Sample: Applying exp(hw/2kT) factor with T=350 [K] on Rb_liq_coh.sqw file (classical/symmetric) using 'Frommhold' quantum correction
+Isotropic_Sqw: Sample: Generated Rb_liq_coh.sqw coherent Sqw
+                   q=[0.1:10 Angs-1] w=[0:101.849 meV] |S|=0.887933 size=[101x10185] sigma=6.32 [barns]
+                   normalization factor S(q,w)*0.477012 (auto) \int q^2 S(q) dq=698.369
+FermiChopper: Suppressor: ABSORB Neutron propagation time v*dt/length=0.949026 in slit does not match its length=0.012 (slit exit expected).
+FermiChopper: FermiM: ABSORB Neutron propagation time v*dt/length=0.968927 in slit does not match its length=0.012 (slit exit expected).
+FermiChopper: Suppressor: ABSORB Neutron propagation time v*dt/length=0.975743 in slit does not match its length=0.012 (slit exit expected).
+FermiChopper: Suppressor: ABSORB Neutron propagation time v*dt/length=0.671234 in slit does not match its length=0.012 (slit exit expected).
+FermiChopper: Suppressor: ABSORB Neutron propagation time v*dt/length=0.953798 in slit does not match its length=0.012 (slit exit expected).
+FermiChopper: Suppressor: ABSORB Neutron propagation time v*dt/length=0.936789 in slit does not match its length=0.012 (slit exit expected).
+FermiChopper: Suppressor: ABSORB Neutron propagation time v*dt/length=0.950367 in slit does not match its length=0.012 (slit exit expected).
+FermiChopper: FermiM: ABSORB Neutron propagation time v*dt/length=0.969167 in slit does not match its length=0.012 (slit exit expected).
+FermiChopper: Suppressor: ABSORB Neutron propagation time v*dt/length=0.945723 in slit does not match its length=0.012 (slit exit expected).
+FermiChopper: Suppressor: ABSORB Neutron propagation time v*dt/length=0.662204 in slit does not match its length=0.012 (slit exit expected).
+
+Trace ETA (single process) 18 [s] 
+59 %
+FermiChopper: Suppressor: ABSORB Neutron propagation time v*dt/length=0.951581 in slit does not match its length=0.012 (slit exit expected).
+60 %
+FermiChopper: Suppressor: ABSORB Neutron propagation time v*dt/length=0.965986 in slit does not match its length=0.012 (slit exit expected).
+FermiChopper: Suppressor: ABSORB Neutron propagation time v*dt/length=0.950631 in slit does not match its length=0.012 (slit exit expected).
+70 %
+FermiChopper: Suppressor: ABSORB Neutron propagation time v*dt/length=0.969439 in slit does not match its length=0.012 (slit exit expected).
+FermiChopper: Suppressor: ABSORB Neutron propagation time v*dt/length=0.938404 in slit does not match its length=0.012 (slit exit expected).
+FermiChopper: Suppressor: ABSORB Neutron propagation time v*dt/length=0.961834 in slit does not match its length=0.012 (slit exit expected).
+80 %
+FermiChopper: Suppressor: ABSORB Neutron propagation time v*dt/length=0.952566 in slit does not match its length=0.012 (slit exit expected).
+90 %
+FermiChopper: Suppressor: ABSORB Neutron propagation time v*dt/length=0.961181 in slit does not match its length=0.012 (slit exit expected).
+FermiChopper: Suppressor: ABSORB Neutron propagation time v*dt/length=0.978792 in slit does not match its length=0.012 (slit exit expected).
+*** TRACE end *** 
+
+Save [ILL_IN6]
+Detector: Mon_SuppInL_I=7.68502e+09 Mon_SuppInL_ERR=4.59651e+06 Mon_SuppInL_N=2.80448e+06 "Mon_SuppInL_1784925008.L"
+Detector: Mon_SuppInT_I=7.685e+09 Mon_SuppInT_ERR=4.59651e+06 Mon_SuppInT_N=2.80447e+06 "Mon_SuppInT_1784925008.t"
+FermiChopper: Suppressor
+              Mean velocity     v     = 954.905 [m/s]
+              Mean wavelength   lambda= 4.14286 [Angs]
+              Mean energy       omega = 4.76624 [meV]
+              Mean arrival time t     = 0.00227956 [s]
+              Mean phase              = 70.184 [deg] (use phase=-(this value) to optimize)
+              Slit pack divergence    = 154.011 [deg] (full width)
+              Opening time      dt    = 0.295824 [s]
+              Intensity reaching FC   = 3.62937e+09 [n/s]
+              Intensity passing  FC   = 9.71242e+08 [n/s]
+FermiChopper: Suppressor: Lost events anaylsis
+              Already inside:            0
+              By Top/Bottom of cylinder: 153683
+              At cylinder entrance:      951495
+              Hit cyl. entrance sides:   0
+              Can't prop. to slit pack:  29295
+              At slit pack entrance:     240271
+              On absorbing slit coating: 188128
+              Exiting slit pack:         0
+              Too many iterations:       0
+              Prop. in wrong direction : 0
+              Mad neutron (no control):  25
+              At cylinder exit:          463092
+Warning:      Can not reach slit wall:   0
+Warning:      Can not reach slit output: 59
+Detector: Mon_SuppOutT_I=9.63777e+08 Mon_SuppOutT_ERR=775300 Mon_SuppOutT_N=1.55055e+06 "Mon_SuppOutT_1784925008.t"
+FermiChopper: FermiM
+              Mean velocity     v     = 957.085 [m/s]
+              Mean wavelength   lambda= 4.13342 [Angs]
+              Mean energy       omega = 4.78803 [meV]
+              Mean arrival time t     = 0.000160983 [s]
+              Mean phase              = 6.04864 [deg] (use phase=-(this value) to optimize)
+              Slit pack divergence    = 2.10061 [deg] (full width)
+              Opening time      dt    = 0.00403485 [s]
+              Intensity reaching FC   = 6.36394e+08 [n/s]
+              Intensity passing  FC   = 2.59498e+07 [n/s]
+FermiChopper: FermiM: Lost events anaylsis
+              Already inside:            0
+              By Top/Bottom of cylinder: 26088
+              At cylinder entrance:      23558
+              Hit cyl. entrance sides:   0
+              Can't prop. to slit pack:  18
+              At slit pack entrance:     1154
+              On absorbing slit coating: 956972
+              Exiting slit pack:         0
+              Too many iterations:       0
+              Prop. in wrong direction : 0
+              Mad neutron (no control):  0
+              At cylinder exit:          54
+Warning:      Can not reach slit wall:   0
+Warning:      Can not reach slit output: 4
+Detector: Mon_FermiOutdT_I=2.55241e+07 Mon_FermiOutdT_ERR=126066 Mon_FermiOutdT_N=41133 "Mon_FermiOutdT_1784925008.t"
+Detector: MonokMonitor_I=67238.3 MonokMonitor_ERR=323.5 MonokMonitor_N=43348 "MonokMonitor_1784925008.U1_L"
+Detector: Mon_SampleInT_I=839466 Mon_SampleInT_ERR=4572.08 Mon_SampleInT_N=33827 "Mon_SampleInT_1784925008.t"
+Detector: Mon_SampleInXY_I=448255 Mon_SampleInXY_ERR=2156.67 Mon_SampleInXY_N=43348 "Mon_SampleInXY_1784925008.x_y"
+Detector: Out_I=712290 Out_ERR=2110.34 Out_N=138413 "out.dat"
+Detector: M_theta_t_all_I=123033 M_theta_t_all_ERR=879.257 M_theta_t_all_N=23935 "M_theta_t_all_1784925010.A_E"
+Detector: Detector_nM_I=231143 Detector_nM_ERR=1204.77 Detector_nM_N=44974 "Detector_nM.dat"
+
+Finally [ILL_IN6: /Users/ldq/Work/McStasBench/benchmark/refcache/T1_ILL_IN6_work/ref_20260724_153002_94648_15]. Time: 18 [s] 
+Isotropic_Sqw: Sample: 527756 neutron events (out of 693624) that should have
+               scattered were transmitted because scattering conditions
+WARNING        could not be satisfied after 100 tries.
+Isotropic_Sqw: Sample: 519 neutron events (out of 165868) reached
+WARNING        unrealistic weight. The S(q,w) norm might be too high.
+Isotropic_Sqw: Sample: Scattering fraction=0.0750798 of incoming intensity
+               Absorption fraction           =0.123061
+               Single   scattering intensity =676126 (coh=621821 inc=54305.5)
+               Multiple scattering intensity =36163.3
+INFO: Placing instr file copy /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/examples/ILL/ILL_IN6/ILL_IN6.instr in dataset /Users/ldq/Work/McStasBench/benchmark/refcache/T1_ILL_IN6_work/ref_20260724_153002_94648_15

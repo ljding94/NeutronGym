@@ -1,0 +1,66 @@
+# Format: McCode with text headers
+# URL: http://www.mccode.org
+# Creator:  3.7.12, git
+# Instrument: /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/examples/HZB/HZB_FLEX/HZB_FLEX.instr
+# Ncount: 1000000
+# Trace: no
+# Gravitation: no
+# Seed: 1234
+# Directory: /Users/ldq/Work/McStasBench/benchmark/refcache/T1_HZB_FLEX_work/ref_20260724_152807_94648_3
+# Param: kI=1.55
+# Param: kF=1.55
+# Param: wVS=0.03
+# Param: tilt=0
+# Param: SA=-1
+# Param: A3=0
+# Param: A4=70
+# Param: L3=1
+# Param: L4=1
+# Param: Mono_flatswitch=0
+# Date: Fri Jul 24 15:28:14 2026 (1784924894)
+# type: array_1d(30)
+# Source: HZB_FLEX (/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/examples/HZB/HZB_FLEX/HZB_FLEX.instr)
+# component: dpsd1
+# position: -4.36838 0 50.4631
+# title: Linear PSD monitor
+# Ncount: 1000000
+# filename: linpsdsam.dat
+# statistics: X0=0.000596511; dX=0.0241517;
+# signal: Min=0; Max=482145; Mean=144670;
+# values: 4.34011e+06 50759.3 10763
+# xvar: x
+# yvar: (I,I_err)
+# xlabel: x-Position [m]
+# ylabel: Intensity
+# xlimits: -0.1 0.1
+# variables: x I I_err N
+-0.09666666667 0 0 0 
+-0.09 0 0 0 
+-0.08333333333 0 0 0 
+-0.07666666667 2203.581368 1274.39225 3 
+-0.07 4835.303594 1702.033052 17 
+-0.06333333333 14021.37307 2803.643439 43 
+-0.05666666667 29051.70216 4167.126307 66 
+-0.05 55452.64516 5479.060316 156 
+-0.04333333333 101542.6836 7844.862099 243 
+-0.03666666667 152307.1616 9450.783394 405 
+-0.03 212977.2955 11074.51857 548 
+-0.02333333333 292133.3411 13075.19104 743 
+-0.01666666667 373209.1877 15037.61445 917 
+-0.01 408463.4748 15382.33988 1051 
+-0.003333333333 482144.6378 16901.21643 1172 
+0.003333333333 467573.1249 16708.03067 1156 
+0.01 429411.7269 15914.82076 1055 
+0.01666666667 386901.1968 15251.42639 936 
+0.02333333333 303229.7005 13469.13017 750 
+0.03 251562.1522 12435.21484 580 
+0.03666666667 159301.0835 9782.641761 374 
+0.04333333333 87843.53693 7225.936569 236 
+0.05 57533.74756 5927.33816 144 
+0.05666666667 48761.05034 5563.079579 104 
+0.06333333333 13368.1141 2778.75195 41 
+0.07 5032.418459 1456.928817 17 
+0.07666666667 1252.82453 754.3332576 4 
+0.08333333333 1.068148546 1.308209454 2 
+0.09 0 0 0 
+0.09666666667 0 0 0 

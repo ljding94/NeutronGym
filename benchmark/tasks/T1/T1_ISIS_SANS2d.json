@@ -1,0 +1,66 @@
+{
+  "id": "T1_ISIS_SANS2d",
+  "tier": "T1",
+  "split": "seen",
+  "kind": "reproduce",
+  "class": "SANS",
+  "paper": {
+    "cite": "Heenan et al., Neutron News 22(2) (2011)",
+    "doi": "10.1080/10448632.2011.569531",
+    "access": "spec-sheet"
+  },
+  "prompt": "Rebuild the following SANS in McStas from its specification, run it, and report the integrated intensity (with error and event count) on every monitor.\n\nInstrument parameters (defaults in parentheses):\n- L1 (3.926)\n- A1w (0.03)\n- A1h (0.02)\n- S6 (0.006)\n- A2 (0.006)\n- Lmin (1)\n- Lmax (14)\n\nBeamline, in order (positions in meters; AT [x,y,z] RELATIVE to the named component; parameters as given):\n- Origin: Arm AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n- isis_source: ISIS_moderator AT [0.0, 0.0, 0.00001] RELATIVE Origin ROTATED [0.0, 0.0, 0.0] RELATIVE Origin\n    parameters: Face=\"E2\", Emin=-Lmax, Emax=-Lmin, dist=3.68, focus_xw=0.0365, focus_yh=0.021, xwidth=-1, yheight=-1, CAngle=0.0, SAC=1\n- lmon1: L_monitor AT [0.0, 0.0, 3.698] RELATIVE isis_source ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: nL=140, filename=\"lmon1.dat\", xmin=-0.04, xmax=0.04, ymin=-0.03, ymax=0.03, Lmin=0.0, Lmax=17.0\n- psd1: PSD_monitor AT [0.0, 0.0, 3.699] RELATIVE isis_source ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: nx=100, ny=100, filename=\"psd1.dat\", xmin=-0.05, xmax=0.05, ymin=-0.05, ymax=0.05\n- bender1: Guide_gravity AT [0, 0, 3.7] RELATIVE isis_source ROTATED [0.0, 0.137099, 0.0] RELATIVE isis_source\n    parameters: w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245, nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0\n- bender2: Guide_gravity AT [0, 0, 0.325] RELATIVE bender1 ROTATED [0.0, 0.1375099, 0.0] RELATIVE bender1\n    parameters: w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245, nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0\n- bender3: Guide_gravity AT [0, 0, 0.325] RELATIVE bender2 ROTATED [0.0, 0.1375099, 0.0] RELATIVE bender2\n    parameters: w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245, nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0\n- bender4: Guide_gravity AT [0, 0, 0.325] RELATIVE bender3 ROTATED [0.0, 0.1375099, 0.0] RELATIVE bender3\n    parameters: w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245, nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0\n- bender5: Guide_gravity AT [0, 0, 0.325] RELATIVE bender4 ROTATED [0.0, 0.1375099, 0.0] RELATIVE bender4\n    parameters: w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245, nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0\n- bender6: Guide_gravity AT [0, 0, 0.325] RELATIVE bender5 ROTATED [0.0, 0.1375099, 0.0] RELATIVE bender5\n    parameters: w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245, nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0\n- bender7: Guide_gravity AT [0, 0, 0.325] RELATIVE bender6 ROTATED [0.0, 0.1375099, 0.0] RELATIVE bender6\n    parameters: w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245, nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0\n- bender8: Guide_gravity AT [0, 0, 0.325] RELATIVE bender7 ROTATED [0.0, 0.1375099, 0.0] RELATIVE bender7\n    parameters: w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245, nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0\n- bender9: Guide_gravity AT [0, 0, 0.325] RELATIVE bender8 ROTATED [0.0, 0.1375099, 0.0] RELATIVE bender8\n    parameters: w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245, nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0\n- bender10: Guide_gravity AT [0, 0, 0.325] RELATIVE bender9 ROTATED [0.0, 0.1375099, 0.0] RELATIVE bender9\n    parameters: w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245, nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0\n- lmonb: L_monitor AT [0.0, 0.0, 0.326] RELATIVE bender10 ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: nL=140, filename=\"lmonB.dat\", xmin=-0.018, xmax=0.018, ymin=-0.018, ymax=0.018, Lmin=0.0, Lmax=17.0\n- psd2: PSD_monitor AT [0.0, 0.0, 0.001] RELATIVE lmonb ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: nx=100, ny=100, filename=\"psd2.dat\", xmin=-0.025, xmax=0.025, ymin=-0.025, ymax=0.025\n- guide_in: Slit AT [0, 0, 0.2845] RELATIVE psd2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: xmin=-0.015, xmax=0.015, ymin=-.01, ymax=+.01\n- guide_straight1: Guide_gravity AT [0, 0, 0.0075] RELATIVE guide_in ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: w1=.030, h1=.020, w2=.030, h2=.020, l=1.985, mleft=1, mright=1, mtop=1, mbottom=1, wavy=0\n- guide_straight2: Guide_gravity AT [0, 0, 2.000] RELATIVE guide_straight1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: w1=.030, h1=.020, w2=.030, h2=.020, l=1.985, mleft=1, mright=1, mtop=1, mbottom=1, wavy=0\n- guide_straight3: Guide_gravity AT [0, 0, 2.000] RELATIVE guide_straight2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: w1=.030, h1=.020, w2=.030, h2=.020, l=1.985, mleft=1, mright=1, mtop=1, mbottom=1, wavy=0\n- guide_straight4: Guide_gravity AT [0, 0, 2.000] RELATIVE guide_straight3 ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: w1=.030, h1=.020, w2=.030, h2=.020, l=1.985, mleft=1, mright=1, mtop=1, mbottom=1, wavy=0\n- psd3: PSD_monitor AT [0.0, 0.0, 7.999] RELATIVE guide_in ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: nx=100, ny=100, filename=\"psd3.dat\", xmin=-0.030, xmax=0.030, ymin=-0.030, ymax=0.030\n- aperture1: Slit AT [0, 0, 8.000] RELATIVE guide_in ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: xwidth=A1w, yheight=A1h\n- lmonitor2: L_monitor AT [0.0, 0.0, 2.651] RELATIVE aperture1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: nL=140, filename=\"lmonitor2.dat\", xmin=-0.0155, xmax=0.0155, ymin=-0.0105, ymax=0.0105, Lmin=0.0, Lmax=17.0\n- S6: Slit AT [0, 0, 2.800] RELATIVE aperture1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: radius=S6\n- APERTURE2: Slit AT [0, 0, L1] RELATIVE aperture1 ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: radius=A2\n- lmon2: L_monitor AT [0.0, 0.0, 0.285] RELATIVE APERTURE2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: nL=140, filename=\"lmonitor3.dat\", xmin=-0.0075, xmax=0.0075, ymin=-0.0075, ymax=0.0075, Lmin=0.0, Lmax=17.0\n- psd4: PSD_monitor AT [0.0, 0.0, 0.286] RELATIVE APERTURE2 ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: nx=100, ny=100, filename=\"psd4.dat\", xmin=-0.0075, xmax=0.0075, ymin=-0.0075, ymax=0.0075\n\nYour instrument must include at least: a 2D position-sensitive monitor; a wavelength monitor.\nRun with: L1=3.926, A1w=0.030, A1h=0.02, S6=0.006, A2=0.006, Lmin=1, Lmax=14.",
+  "reference": {
+    "instr": "shipped:ISIS_SANS2d",
+    "parameters": {
+      "L1": "3.926",
+      "A1w": "0.030",
+      "A1h": "0.02",
+      "S6": "0.006",
+      "A2": "0.006",
+      "Lmin": "1",
+      "Lmax": "14"
+    }
+  },
+  "protocol": {
+    "ncount": 1000000.0,
+    "seed": 1234,
+    "timeout": 900
+  },
+  "grading": {
+    "min_events": 1000,
+    "monitors": [
+      {
+        "role": "2d",
+        "observables": {
+          "intensity": {
+            "rtol": 0.2,
+            "nsigma": 3
+          },
+          "beam_width_x": {
+            "rtol": 0.3
+          },
+          "beam_width_y": {
+            "rtol": 0.3
+          }
+        }
+      },
+      {
+        "role": "wavelength",
+        "observables": {
+          "intensity": {
+            "rtol": 0.25,
+            "nsigma": 3
+          },
+          "center_of_mass": {
+            "rtol": 0.05
+          },
+          "fwhm": {
+            "rtol": 0.5
+          }
+        }
+      }
+    ]
+  },
+  "notes": "Auto-authored from the reference via reader->spec converter on 2026-07-24; %Example check: None"
+}

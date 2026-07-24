@@ -1,0 +1,65 @@
+{
+  "id": "T1_HZB_FLEX",
+  "tier": "T1",
+  "split": "seen",
+  "kind": "reproduce",
+  "class": "TAS",
+  "paper": null,
+  "prompt": "Rebuild the following TAS in McStas from its specification, run it, and report the integrated intensity (with error and event count) on every monitor.\n\nInstrument parameters (defaults in parentheses):\n- kI (1.55)\n- kF (1.55)\n- wVS (0.03)\n- tilt (0)\n- SA (-1)\n- A3 (0)\n- A4 (70)\n- L3 (1)\n- L4 (1)\n- Mono_flatswitch (0)\n\nConstants and derived quantities computed at startup (implement equivalent logic):\n- m_n = 1.67493e-27\n- hbar = 1.05457e-34\n- meV_to_SI = 1.6022e-22\n- SI_to_meV = 6.2414e+21\n- MGUIDE = 3.2\n- W_para = 0.0025\n- R0_para = 0.99\n- Qc_para = 0.0217\n- alpha_para = 3.9\n- LGUIDE_1 = 18.65\n- LGUIDE_2 = 17.8\n- rho_AV = 1.23\n- L1 = 1.75\n- L2 = 2.2\n```c\nint    SM=-1;\nint    SS=+1;\ndouble DM = 3.355;\ndouble DA = 3.355;\n  A1 = SM*RAD2DEG*asin(PI/(DM*kI));\n  A2 = 2*A1;\nRMH = (L1+L2)/(2*sin(A1*DEG2RAD));\nif (Mono_flatswitch == 1) RMH = 0.0;\nRMV = (L1+L2)*sin(A1*DEG2RAD);\n  printf(\"monochromator angles are:\\n A1=%7.3f, A2=%7.3f [deg]\\n\",A1,A2);\n  printf(\"radius of curvature RMH=%7.3f [m]\\nradius of curvature RMV=%7.3f [m] \\n\",RMH,RMV);\nprintf(\"sample angles are:\\n A3=%7.3f, A4=%7.3f [deg]\\n\",A3,A4);\n  A5 = SA*RAD2DEG*asin(PI/(DA*kF));\n  A6 = 2*A5;\nRAH = (L3+L4)/(2*sin(A5*DEG2RAD));\n  RAV = SA*1/rho_AV;\n  printf(\"analyser angles are:\\n A5=%7.3f, A6=%7.3f [deg]\\n\",A5,A6);\n  printf(\"radius of curvature RAH=%7.3f [m]\\nradius of curvature RAV=%7.3f [m] \\n\",RAH,RAV);\nlambdaI=2*PI/kI;\n  EI=SI_to_meV*hbar*hbar*kI*kI*1e20/2/m_n;\n  SelFreq = 3956.06/(lambdaI*(360/(19.7+(2.1*tilt)))*0.25);\n dlambdaI = (1.75004E-05*pow(lambdaI,6) - 5.13903E-04*pow(lambdaI,5) + 6.04404E-03*pow(lambdaI,4) - 3.66989E-02*pow(lambdaI,3) + 1.22399E-01*pow(lambdaI,2) - 2.19626E-01*lambdaI + 2.0E-01)*lambdaI;\n  l_min=lambdaI-dlambdaI;\n  l_max=lambdaI+dlambdaI;\n  e_min=81.81/l_max/l_max;\n  e_max=81.81/l_min/l_min;\n  printf(\"velocity selector frequency is %7.3f [Hz]\\n\",SelFreq);\n  printf(\"lambda=%7.3f [A]\\nkI=%7.3f [A^-1] \\nEI=%7.3f [meV]\\n\",lambdaI,kI,EI);\n  printf(\"Maxwellian source forced to emit only between l_min=%7.3f and l_max=%7.3f [A] in order to save simulation time\\n\",l_min,l_max);\n  printf(\"correspondingly, the energy monitors at sample position are detecting between %7.3f and %7.3f [meV]\\n\",e_min,e_max);\n  beta_guide_1=LGUIDE_1/2800*180/PI;\n  beta_guide_2=LGUIDE_2/2800*180/PI;\n  s_guide_1 = 2800-sqrt(2800*2800-LGUIDE_1*LGUIDE_1);\n  s_guide_2 = 2800-sqrt(2800*2800-LGUIDE_2*LGUIDE_2);\n```\n\nBeamline, in order (positions in meters; AT [x,y,z] RELATIVE to the named component; parameters as given):\n- Origin: Progress_bar AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n- Gen_Source: Source_gen AT [0, 0, 0] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE Origin\n    parameters: radius=0.0775, dist=1.53, focus_xw=0.2, focus_yh=0.125, I1=1e10, T1=45, Lmin=l_min, Lmax=l_max\n- NL1A_NL1B_NL2_NL3_InPile_Entrance_Window: Arm AT [0, 0, 1.530] RELATIVE Origin ROTATED [0, 0, 0] RELATIVE Origin\n- NL1A_NL1B_NL2_NL3_InPile: Guide AT [0, 0, 0] RELATIVE NL1A_NL1B_NL2_NL3_InPile_Entrance_Window ROTATED [0, 0, 0] RELATIVE NL1A_NL1B_NL2_NL3_InPile_Entrance_Window\n    parameters: w1=0.170696, h1=0.129, w2=0.340522, h2=0.129, l=1.870, R0=R0_para, Qc=Qc_para, alpha=alpha_para, m=MGUIDE, W=W_para\n- NL1B_Straight1_Entrance_Window: Arm AT [-0.1277, 0, 3.405] RELATIVE Origin ROTATED [0, -2.15, 0] RELATIVE Origin\n- NL1B_Straight1: Guide AT [0, 0, 0] RELATIVE NL1B_Straight1_Entrance_Window ROTATED [0, 0, 0] RELATIVE NL1B_Straight1_Entrance_Window\n    parameters: w1=0.06, h1=0.125, w2=0.06, h2=0.125, l=1.549, R0=R0_para, Qc=Qc_para, alpha=alpha_para, m=MGUIDE, W=W_para\n- NL1B_Curved_Entrance_Window: Arm AT [0, 0, 1.549] RELATIVE NL1B_Straight1_Entrance_Window ROTATED [0, 0, 0] RELATIVE NL1B_Straight1_Entrance_Window\n- NL1B_Curved_Guide_1: Guide_curved AT [0, 0, 0] RELATIVE NL1B_Curved_Entrance_Window ROTATED [0, 0, 180] RELATIVE NL1B_Curved_Entrance_Window\n    parameters: w1=0.06, h1=0.125, l=LGUIDE_1, R0=R0_para, Qc=Qc_para, alpha=alpha_para, m=MGUIDE, W=W_para, curvature=2800\n- NL1B_Velocity_Selector_Gap_Entrance_Window: Arm AT [-s_guide_1, 0, LGUIDE_1] RELATIVE NL1B_Curved_Entrance_Window ROTATED [0, -beta_guide_1, 0] RELATIVE NL1B_Curved_Entrance_Window\n- Before_selec: PSD_monitor AT [0, 0, 0.19] RELATIVE NL1B_Velocity_Selector_Gap_Entrance_Window ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: nx=50, ny=50, filename=\"PSD_monitor_before.dat\", xwidth=0.20, yheight=0.20, restore_neutron=1\n- SELEC: Selector AT [0, 0, 0.2] RELATIVE NL1B_Velocity_Selector_Gap_Entrance_Window ROTATED [0, tilt, 90] RELATIVE NL1B_Velocity_Selector_Gap_Entrance_Window\n    parameters: xmin=-0.0625, xmax=0.0625, ymin=-0.03, ymax=0.03, length=0.25, nslit=72, d=0.0004, radius=0.123, alpha=19.7, nu=SelFreq\n- After_selec: PSD_monitor AT [0, 0, 0.46] RELATIVE NL1B_Velocity_Selector_Gap_Entrance_Window ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: nx=50, ny=50, filename=\"PSD_monitor_after.dat\", xwidth=0.20, yheight=0.20, restore_neutron=1\n- NL1B_Curved_2_Entrance_Window: Arm AT [0, 0, 0.47] RELATIVE NL1B_Velocity_Selector_Gap_Entrance_Window ROTATED [0, 0, 0] RELATIVE NL1B_Velocity_Selector_Gap_Entrance_Window\n- NL1B_Curved_Guide_2: Guide_curved AT [0, 0, 0] RELATIVE NL1B_Curved_2_Entrance_Window ROTATED [0, 0, 180] RELATIVE NL1B_Curved_2_Entrance_Window\n    parameters: w1=0.06, h1=0.125, l=LGUIDE_2, R0=R0_para, Qc=Qc_para, alpha=alpha_para, m=MGUIDE, W=W_para, curvature=2800\n- NL1B_Straight2_Entrance_Window: Arm AT [-s_guide_2, 0, LGUIDE_2] RELATIVE NL1B_Curved_2_Entrance_Window ROTATED [0, -beta_guide_2, 0] RELATIVE NL1B_Curved_2_Entrance_Window\n- NL1B_Straight2: Guide AT [0, 0, 0] RELATIVE NL1B_Straight2_Entrance_Window ROTATED [0, 0, 0] RELATIVE NL1B_Straight2_Entrance_Window\n    parameters: w1=0.06, h1=0.125, w2=0.06, h2=0.125, l=3.500, R0=R0_para, Qc=Qc_para, alpha=alpha_para, m=MGUIDE, W=W_para\n- NL1B_Elliptical_Entrance_Window: Arm AT [0.0000, 0, 3.500] RELATIVE NL1B_Straight2_Entrance_Window ROTATED [0, 0.000, 0.00] RELATIVE NL1B_Straight2_Entrance_Window\n- elliptical_piece: Guide_tapering AT [0, 0, 0] RELATIVE NL1B_Elliptical_Entrance_Window ROTATED [0, 0, 0] RELATIVE NL1B_Elliptical_Entrance_Window\n    parameters: option=\"elliptical\", w1=0.06, h1=0.125, l=2.5, linw=2.9, loutw=0.4, R0=0.99, Qcx=0.0217, Qcy=0.0217, alphax=4.00, alphay=alpha_para, W=0.002, mx=5.2, my=MGUIDE, segno=800\n- Virtual_source: Slit AT [0, 0, 2.900] RELATIVE NL1B_Elliptical_Entrance_Window ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: xwidth=wVS, yheight=0.2\n- NL1B_Vertical_Guide_Entrance_Window: Arm AT [0.0000, 0, 2.925] RELATIVE NL1B_Elliptical_Entrance_Window ROTATED [0, 0.000, 0.00] RELATIVE NL1B_Elliptical_Entrance_Window\n- NL1B_Vertical_Guide: Guide_channeled AT [0, 0, 0] RELATIVE NL1B_Vertical_Guide_Entrance_Window ROTATED [0, 0, 0] RELATIVE NL1B_Vertical_Guide_Entrance_Window\n    parameters: w1=0.03, h1=0.125, w2=0.15, h2=0.125, l=1.475, R0=R0_para, nslit=1, Qcx=Qc_para, Qcy=Qc_para, alphax=alpha_para, alphay=alpha_para, W=W_para, mx=0, my=MGUIDE\n- NL1B_Guide_Exit: Arm AT [0, 0, 1.475] RELATIVE NL1B_Vertical_Guide_Entrance_Window ROTATED [0, 0, 0] RELATIVE NL1B_Vertical_Guide_Entrance_Window\n- energy_endguide: E_monitor AT [0, 0, 0] RELATIVE NL1B_Guide_Exit ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: nE=200, filename=\"energy-endguide.dat\", xwidth=0.17, yheight=0.135, Emin=e_min, Emax=e_max, restore_neutron=1\n- Mono_center: Arm AT [0, 0, 0.25] RELATIVE NL1B_Guide_Exit ROTATED [0, A1, 0] RELATIVE NL1B_Guide_Exit\n- Monochromator: Monochromator_curved AT [0, 0, 0] RELATIVE Mono_center ROTATED [0, 0, 0] RELATIVE Mono_center\n    parameters: zwidth=0.02, yheight=0.02, gap=0.0005, NH=15, NV=7, mosaich=40, mosaicv=40, r0=1.0, t0=0.00001, RV=RMV, RH=RMH\n- Mono_sample_arm: Arm AT [0, 0, 0] RELATIVE Mono_center ROTATED [0, A2, 0] RELATIVE NL1B_Guide_Exit\n- energy_mono: E_monitor AT [0, 0, 0.15] RELATIVE Mono_sample_arm ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: nE=200, filename=\"energy-mono.dat\", xwidth=0.2, yheight=0.125, Emin=e_min, Emax=e_max, restore_neutron=1\n- energy_pre_sample: E_monitor AT [0, 0, L2-0.1] RELATIVE Mono_sample_arm ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: nE=50, filename=\"energy-pre-sample.dat\", xwidth=0.08, yheight=0.08, Emin=e_min, Emax=e_max, restore_neutron=1\n- Sample_center: Arm AT [0, 0, L2] RELATIVE Mono_sample_arm ROTATED [0, A3, 0] RELATIVE Mono_sample_arm\n- Sample_analyser_arm: Arm AT [0, 0, 0] RELATIVE Sample_center ROTATED [0, A4, 0] RELATIVE Mono_sample_arm\n- div_mono: Divergence_monitor AT [0, 0, L2-0.05] RELATIVE Mono_sample_arm ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: nh=20, nv=20, filename=\"div-sample.dat\", xwidth=0.1, yheight=0.1, maxdiv_h=4, maxdiv_v=4, restore_neutron=1\n- div_mono_H: Div1D_monitor AT [0, 0, L2-0.04] RELATIVE Mono_sample_arm ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: ndiv=35, filename=\"H-div-sample.dat\", xwidth=0.005, yheight=0.7, maxdiv=4, restore_neutron=1\n- psd_sam: PSD_monitor AT [0, 0, 0] RELATIVE Sample_center ROTATED [0, 0, 0] RELATIVE Mono_sample_arm\n    parameters: nx=60, ny=60, filename=\"psd-sam.dat\", xwidth=0.20, yheight=0.20, restore_neutron=1\n- dpsd1: PSDlin_monitor AT [0, 0, 0] RELATIVE Sample_center ROTATED [0, 0, 0] RELATIVE Mono_sample_arm\n    parameters: nbins=30, filename=\"linpsdsam.dat\", xmin=-0.1, xmax=0.1, ymin=-0.1, ymax=0.1\n\nYour instrument must include at least: a 2D position-sensitive monitor; an energy monitor.\nRun with: kI=1.55, kF=1.55, wVS=0.03, tilt=0, SA=-1, A3=0, A4=70, L3=1.00, L4=1.00, Mono_flatswitch=0.",
+  "reference": {
+    "instr": "shipped:HZB_FLEX",
+    "parameters": {
+      "kI": "1.55",
+      "kF": "1.55",
+      "wVS": "0.03",
+      "tilt": "0",
+      "SA": "-1",
+      "A3": "0",
+      "A4": "70",
+      "L3": "1.00",
+      "L4": "1.00",
+      "Mono_flatswitch": "0"
+    }
+  },
+  "protocol": {
+    "ncount": 1000000.0,
+    "seed": 1234,
+    "timeout": 900
+  },
+  "grading": {
+    "min_events": 1000,
+    "monitors": [
+      {
+        "role": "2d",
+        "observables": {
+          "intensity": {
+            "rtol": 0.2,
+            "nsigma": 3
+          },
+          "beam_width_x": {
+            "rtol": 0.3
+          },
+          "beam_width_y": {
+            "rtol": 0.3
+          }
+        }
+      },
+      {
+        "role": "energy",
+        "observables": {
+          "intensity": {
+            "rtol": 0.25,
+            "nsigma": 3
+          },
+          "center_of_mass": {
+            "rtol": 0.05
+          },
+          "fwhm": {
+            "rtol": 0.5
+          }
+        }
+      }
+    ]
+  },
+  "notes": "Auto-authored from the reference via reader->spec converter on 2026-07-24; %Example check: True"
+}

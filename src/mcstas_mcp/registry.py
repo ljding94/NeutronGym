@@ -75,6 +75,7 @@ def load(name: str) -> dict:
         spec = json.load(f)
     # migrate specs written before M2
     spec.setdefault("declares", [])
+    spec.setdefault("raw_declares", [])
     spec.setdefault("initialize", None)
     for p in spec["parameters"]:
         p.setdefault("type", "double")
@@ -113,6 +114,7 @@ def create(name: str, description: str = "") -> dict:
         "description": description,
         "parameters": [],   # {name, type, default, unit, comment}
         "declares": [],     # {type, name, value, array}
+        "raw_declares": [],  # verbatim DECLARE lines (loader escape hatch)
         "initialize": None,  # raw C for the INITIALIZE block (escape hatch)
         "components": [],   # {name, component, at, relative, rotated,
                             #  rotated_relative, parameters, when, extend,
@@ -335,8 +337,18 @@ def add_component(spec: dict, name: str, component: str, at, relative=None,
         raise SpecError(
             f"Component instance name '{name}' is already used. Names must be unique."
         )
-    if name in _param_names(spec):
+    if name in _param_names(spec) and _validate:
+        # legal in McStas (e.g. shipped ISIS_SANS2d slit S6 = param S6) but a
+        # footgun when building fresh — reject only for tool-driven builds
         raise SpecError(f"'{name}' is already an instrument parameter name.")
+    # 'PREVIOUS' is McStas shorthand for the preceding component — resolve it
+    # so specs stay explicit
+    if relative == "PREVIOUS" or rotated_relative == "PREVIOUS":
+        if not spec["components"]:
+            raise SpecError("'PREVIOUS' used but there is no previous component.")
+        prev = spec["components"][-1]["name"]
+        relative = prev if relative == "PREVIOUS" else relative
+        rotated_relative = prev if rotated_relative == "PREVIOUS" else rotated_relative
     if when is not None and _validate:
         when = _check_when(spec, str(when).strip())
     if group is not None and not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", str(group)):
@@ -477,6 +489,8 @@ def build_instr_file(spec: dict) -> str:
             if d.get("array"):
                 dkw["array"] = d["array"]
             instr.add_declare_var(d["type"], d["name"], **dkw)
+        for raw in spec.get("raw_declares", []):
+            instr.append_declare(raw if raw.endswith("\n") else raw + "\n")
         if spec.get("initialize"):
             instr.append_initialize(spec["initialize"])
         for c in spec["components"]:
@@ -564,6 +578,11 @@ def load_from_instr(path: str, name: str | None = None):
                 "comment": getattr(p, "comment", "") or "",
             })
         for d in instr.declare_list:
+            if isinstance(d, str):
+                # raw DECLARE-block line the reader kept verbatim (arrays,
+                # multi-declarations) — carried through untouched at build
+                spec["raw_declares"].append(d)
+                continue
             spec["declares"].append({
                 "type": getattr(d, "type", "double"),
                 "name": d.name,

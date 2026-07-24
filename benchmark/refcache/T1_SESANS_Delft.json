@@ -1,0 +1,232 @@
+{
+  "output_dir": "/Users/ldq/Work/McStasBench/benchmark/refcache/T1_SESANS_Delft_work/ref_20260724_153324_94648_23",
+  "ncount": 1000000.0,
+  "seed": 1234,
+  "run_parameters": {
+    "L0": "2.165",
+    "DL": "0.02",
+    "By": "0.00468"
+  },
+  "monitors": [
+    {
+      "component": "px1",
+      "filename": "pxAfterAnalyser.dat",
+      "center_of_mass": null,
+      "fwhm": null,
+      "title": "Pol-wavelength monitor",
+      "dims": [
+        501,
+        21
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.11
+      ],
+      "intensity": 5.39353e-07,
+      "intensity_err": 6.52801e-10,
+      "events": 682627.0,
+      "relative_err": 0.0012,
+      "beam_center": {
+        "X0": 2.16499,
+        "Y0": 0.952381
+      },
+      "beam_width": {
+        "dX": 0.0107979,
+        "dY": 0.0
+      },
+      "signal": {
+        "Min": 0.0,
+        "Max": 1.32423e-09,
+        "Mean": 5.12644e-11
+      },
+      "xlabel": "Wavelength [AA]",
+      "ylabel": "Polarisation projection",
+      "limits": "2.145 2.185 -1 1"
+    },
+    {
+      "component": "px2",
+      "filename": "pxAfterFirstFoil.dat",
+      "center_of_mass": null,
+      "fwhm": null,
+      "title": "Pol-wavelength monitor",
+      "dims": [
+        501,
+        21
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.66
+      ],
+      "intensity": 5.39353e-07,
+      "intensity_err": 6.52801e-10,
+      "events": 682627.0,
+      "relative_err": 0.0012,
+      "beam_center": {
+        "X0": 2.16499,
+        "Y0": 0.000976612
+      },
+      "beam_width": {
+        "dX": 0.0107979,
+        "dY": 0.699828
+      },
+      "signal": {
+        "Min": 1.3432e-11,
+        "Max": 2.06219e-10,
+        "Mean": 5.12644e-11
+      },
+      "xlabel": "Wavelength [AA]",
+      "ylabel": "Polarisation projection",
+      "limits": "2.145 2.185 -1 1"
+    },
+    {
+      "component": "px3",
+      "filename": "pxAfterSecondFoil.dat",
+      "center_of_mass": null,
+      "fwhm": null,
+      "title": "Pol-wavelength monitor",
+      "dims": [
+        501,
+        21
+      ],
+      "position": [
+        0.0,
+        0.0,
+        2.16
+      ],
+      "intensity": 5.39353e-07,
+      "intensity_err": 6.52801e-10,
+      "events": 682627.0,
+      "relative_err": 0.0012,
+      "beam_center": {
+        "X0": 2.16499,
+        "Y0": 0.000801254
+      },
+      "beam_width": {
+        "dX": 0.0107979,
+        "dY": 0.699894
+      },
+      "signal": {
+        "Min": 1.02715e-11,
+        "Max": 2.04639e-10,
+        "Mean": 5.12644e-11
+      },
+      "xlabel": "Wavelength [AA]",
+      "ylabel": "Polarisation projection",
+      "limits": "2.145 2.185 -1 1"
+    },
+    {
+      "component": "px6",
+      "filename": "px6.dat",
+      "center_of_mass": null,
+      "fwhm": null,
+      "title": "Pol-wavelength monitor",
+      "dims": [
+        501,
+        21
+      ],
+      "position": [
+        0.0,
+        0.0,
+        4.16
+      ],
+      "intensity": 5.3544e-07,
+      "intensity_err": 1.06514e-09,
+      "events": 650118.0,
+      "relative_err": 0.002,
+      "beam_center": {
+        "X0": 2.16498,
+        "Y0": 0.873965
+      },
+      "beam_width": {
+        "dX": 0.0107999,
+        "dY": 0.244154
+      },
+      "signal": {
+        "Min": 6.83365e-14,
+        "Max": 1.10789e-09,
+        "Mean": 5.08925e-11
+      },
+      "xlabel": "Wavelength [AA]",
+      "ylabel": "Polarisation projection",
+      "limits": "2.145 2.185 -1 1"
+    },
+    {
+      "component": "det",
+      "filename": "det.dat",
+      "center_of_mass": null,
+      "fwhm": null,
+      "title": "PSD monitor",
+      "dims": [
+        101,
+        101
+      ],
+      "position": [
+        0.0,
+        0.0,
+        4.5
+      ],
+      "intensity": 2.24759e-07,
+      "intensity_err": 6.92689e-10,
+      "events": 286401.0,
+      "relative_err": 0.0031,
+      "beam_center": {
+        "X0": -0.00073691,
+        "Y0": -0.00148507
+      },
+      "beam_width": {
+        "dX": 0.316924,
+        "dY": 0.316788
+      },
+      "signal": {
+        "Min": 3.22794e-12,
+        "Max": 5.05095e-11,
+        "Mean": 2.2033e-11
+      },
+      "xlabel": "X position [cm]",
+      "ylabel": "Y position [cm]",
+      "limits": "-0.55 0.55 -0.55 0.55"
+    },
+    {
+      "component": "det2",
+      "filename": "det2.dat",
+      "center_of_mass": null,
+      "fwhm": null,
+      "title": "PSD monitor",
+      "dims": [
+        101,
+        101
+      ],
+      "position": [
+        0.0,
+        0.0,
+        4.5
+      ],
+      "intensity": 0.0,
+      "intensity_err": 0.0,
+      "events": 0.0,
+      "relative_err": null,
+      "beam_center": {
+        "X0": 0.0,
+        "Y0": 0.0
+      },
+      "beam_width": {
+        "dX": 0.0,
+        "dY": 0.0
+      },
+      "signal": {
+        "Min": 0.0,
+        "Max": 0.0,
+        "Mean": 0.0
+      },
+      "xlabel": "X position [cm]",
+      "ylabel": "Y position [cm]",
+      "limits": "-0.55 0.55 -0.55 0.55"
+    }
+  ],
+  "low_statistics": [
+    "det2"
+  ],
+  "ok": true
+}

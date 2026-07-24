@@ -1,0 +1,71 @@
+# Format: McCode with text headers
+# URL: http://www.mccode.org
+# Creator:  3.7.12, git
+# Instrument: /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/examples/HZB/HZB_FLEX/HZB_FLEX.instr
+# Ncount: 1000000
+# Trace: no
+# Gravitation: no
+# Seed: 1234
+# Directory: /Users/ldq/Work/McStasBench/benchmark/refcache/T1_HZB_FLEX_work/ref_20260724_152807_94648_3
+# Param: kI=1.55
+# Param: kF=1.55
+# Param: wVS=0.03
+# Param: tilt=0
+# Param: SA=-1
+# Param: A3=0
+# Param: A4=70
+# Param: L3=1
+# Param: L4=1
+# Param: Mono_flatswitch=0
+# Date: Fri Jul 24 15:28:14 2026 (1784924894)
+# type: array_1d(35)
+# Source: HZB_FLEX (/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/examples/HZB/HZB_FLEX/HZB_FLEX.instr)
+# component: div_mono_H
+# position: -4.32937 0 50.4542
+# title: Horizontal divergence monitor
+# Ncount: 1000000
+# filename: H-div-sample.dat
+# statistics: X0=-0.055546; dX=0.946644;
+# signal: Min=0; Max=41280.3; Mean=10688.5;
+# values: 374098 14904.3 936
+# xvar: divergence
+# yvar: (I,I_err)
+# xlabel: horizontal divergence [deg]
+# ylabel: Intensity
+# xlimits: -4 4
+# variables: divergence I I_err N
+-3.885714286 0 0 0 
+-3.657142857 0 0 0 
+-3.428571429 0 0 0 
+-3.2 0 0 0 
+-2.971428571 0 0 0 
+-2.742857143 0 0 0 
+-2.514285714 1338.261272 490.9824155 14 
+-2.285714286 4678.752369 1228.757099 27 
+-2.057142857 9012.032484 1970.363288 38 
+-1.828571429 8607.052228 1896.544187 28 
+-1.6 10043.69972 2263.389331 30 
+-1.371428571 11046.48657 2341.466164 35 
+-1.142857143 11839.01258 2497.782945 38 
+-0.9142857143 17993.99723 3200.144509 48 
+-0.6857142857 24462.86136 3883.38741 49 
+-0.4571428571 35863.56331 4853.106711 70 
+-0.2285714286 41280.27343 5321.183896 80 
+0 30665.38125 4552.013538 64 
+0.2285714286 36222.35388 5044.0761 71 
+0.4571428571 28647.21857 4399.122565 54 
+0.6857142857 28167.62874 4072.458425 58 
+0.9142857143 25916.25616 3903.484214 57 
+1.142857143 18526.17521 3183.532529 49 
+1.371428571 14368.17127 2478.110892 48 
+1.6 9590.774212 2089.438851 35 
+1.828571429 5400.914292 1388.915239 32 
+2.057142857 427.3925257 208.88059 11 
+2.285714286 0 0 0 
+2.514285714 0 0 0 
+2.742857143 0 0 0 
+2.971428571 0 0 0 
+3.2 0 0 0 
+3.428571429 0 0 0 
+3.657142857 0 0 0 
+3.885714286 0 0 0 

@@ -1,0 +1,148 @@
+mcstas simulation description file for templateTOF.
+Date:    Fri Jul 24 15:33:53 2026
+Program:  3.7.12, git
+
+begin instrument: templateTOF
+  File: /Users/ldq/Work/McStasBench/benchmark/refcache/T1_templateTOF_work/ref_20260724_153348_94648_27/mccode
+  Source: /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/examples/Templates/templateTOF/templateTOF.instr
+  Parameters:  E0(double) dE(double) dt(double) coh(string) inc(string) thickness(double) yheight(double) radius(double) container(string) container_thickness(double) environment(string) environment_radius(double) environment_thickness(double) dt0(double)
+  Trace_enabled: yes
+  Default_main: yes
+  Embedded_runtime: yes
+end instrument
+
+begin simulation: /Users/ldq/Work/McStasBench/benchmark/refcache/T1_templateTOF_work/ref_20260724_153348_94648_27
+  Format: McCode with text headers
+  URL: http://www.mccode.org
+  Creator:  3.7.12, git
+  Instrument: /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/examples/Templates/templateTOF/templateTOF.instr
+  Ncount: 1000000
+  Trace: no
+  Gravitation: no
+  Seed: 1234
+  Directory: /Users/ldq/Work/McStasBench/benchmark/refcache/T1_templateTOF_work/ref_20260724_153348_94648_27
+  Param: E0=4.94
+  Param: dE=0.24
+  Param: dt=6.4e-06
+  Param: coh=Rb_liq_coh.sqw
+  Param: inc=Rb_liq_inc.sqw
+  Param: thickness=0.0001
+  Param: yheight=0.0168
+  Param: radius=0.005
+  Param: container=Nb.laz
+  Param: container_thickness=5e-05
+  Param: environment=Al.laz
+  Param: environment_radius=0.025
+  Param: environment_thickness=0.002
+  Param: dt0=0
+end simulation
+
+begin data
+  Date: Fri Jul 24 15:33:57 2026 (1784925237)
+  type: array_2d(50, 150)
+  Source: templateTOF (/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/examples/Templates/templateTOF/templateTOF.instr)
+  component: M_total
+  position: 0 0 2.88
+  title:  Intensity Energy Angle Monitor (Banana) [out] per bin
+  Ncount: 1000000
+  filename: M_total_1784925234.E_th
+  statistics: X0=4.97752; dX=0.441428; Y0=135.57; dY=28.803;
+  signal: Min=0; Max=4.60728e-11; Mean=1.07568e-13;
+  values: 8.06759e-10 3.09563e-11 52481
+  xvar: En
+  yvar: Lo
+  xlabel: Energy [meV]
+  ylabel: Longitude [deg]
+  zvar: I
+  zlabel: Signal per bin
+  xylimits: 2.47 9.88 5 175
+  variables: I I_err N
+end data
+
+begin data
+  Date: Fri Jul 24 15:33:57 2026 (1784925237)
+  type: array_2d(50, 150)
+  Source: templateTOF (/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/examples/Templates/templateTOF/templateTOF.instr)
+  component: M_single_coh
+  position: 0 0 2.88
+  title:  Intensity Energy Angle Monitor (Banana) [out] per bin
+  Ncount: 1000000
+  filename: M_single_coh_1784925234.E_th
+  statistics: X0=5.60746; dX=1.62008; Y0=101.742; dY=40.4668;
+  signal: Min=0; Max=2.25151e-13; Mean=6.13041e-15;
+  values: 4.59781e-11 5.03737e-13 38341
+  xvar: En
+  yvar: Lo
+  xlabel: Energy [meV]
+  ylabel: Longitude [deg]
+  zvar: I
+  zlabel: Signal per bin
+  xylimits: 2.47 9.88 5 175
+  variables: I I_err N
+end data
+
+begin data
+  Date: Fri Jul 24 15:33:57 2026 (1784925237)
+  type: array_2d(50, 150)
+  Source: templateTOF (/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/examples/Templates/templateTOF/templateTOF.instr)
+  component: M_single_inc
+  position: 0 0 2.88
+  title:  Intensity Energy Angle Monitor (Banana) [out] per bin
+  Ncount: 1000000
+  filename: M_single_inc_1784925234.E_th
+  statistics: X0=5.48878; dX=1.47661; Y0=82.61; dY=49.7804;
+  signal: Min=0; Max=4.44478e-14; Mean=6.036e-16;
+  values: 4.527e-12 1.48116e-13 3813
+  xvar: En
+  yvar: Lo
+  xlabel: Energy [meV]
+  ylabel: Longitude [deg]
+  zvar: I
+  zlabel: Signal per bin
+  xylimits: 2.47 9.88 5 175
+  variables: I I_err N
+end data
+
+begin data
+  Date: Fri Jul 24 15:33:57 2026 (1784925237)
+  type: array_2d(50, 150)
+  Source: templateTOF (/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/examples/Templates/templateTOF/templateTOF.instr)
+  component: M_multi
+  position: 0 0 2.88
+  title:  Intensity Energy Angle Monitor (Banana) [out] per bin
+  Ncount: 1000000
+  filename: M_multi_1784925234.E_th
+  statistics: X0=6.09453; dX=1.92713; Y0=90.3138; dY=50.4158;
+  signal: Min=0; Max=2.28541e-15; Mean=1.29965e-17;
+  values: 9.74735e-14 3.97636e-15 8533
+  xvar: En
+  yvar: Lo
+  xlabel: Energy [meV]
+  ylabel: Longitude [deg]
+  zvar: I
+  zlabel: Signal per bin
+  xylimits: 2.47 9.88 5 175
+  variables: I I_err N
+end data
+
+begin data
+  Date: Fri Jul 24 15:33:57 2026 (1784925237)
+  type: array_2d(50, 150)
+  Source: templateTOF (/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources/examples/Templates/templateTOF/templateTOF.instr)
+  component: M_env_container
+  position: 0 0 2.88
+  title:  Intensity Energy Angle Monitor (Banana) [out] per bin
+  Ncount: 1000000
+  filename: M_env_container_1784925234.E_th
+  statistics: X0=4.93679; dX=0.0976951; Y0=137.903; dY=26.1152;
+  signal: Min=0; Max=4.60571e-11; Mean=1.00927e-13;
+  values: 7.56953e-10 3.09557e-11 3068
+  xvar: En
+  yvar: Lo
+  xlabel: Energy [meV]
+  ylabel: Longitude [deg]
+  zvar: I
+  zlabel: Signal per bin
+  xylimits: 2.47 9.88 5 175
+  variables: I I_err N
+end data
