@@ -1,0 +1,18 @@
+[
+  {
+    "task": "T2_guide_divergence",
+    "pass": true,
+    "score": 1.0,
+    "checks": "best:1/1 base_fails:True",
+    "hard_failures": [],
+    "failed": []
+  },
+  {
+    "task": "T2_sans_collimation",
+    "pass": true,
+    "score": 1.0,
+    "checks": "best:2/2 base_fails:True",
+    "hard_failures": [],
+    "failed": []
+  }
+]

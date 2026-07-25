@@ -8,9 +8,9 @@
   "reference": {
     "instr": "benchmark/instruments/t2_guide_divergence/t2_guide_divergence.instr",
     "parameters": {
-      "w_in": 0.02,
-      "w_out": 0.02,
-      "m_coat": 2.0
+      "w_in": 0.012,
+      "w_out": 0.012,
+      "m_coat": 1.5
     }
   },
   "free_parameters": {
@@ -44,24 +44,27 @@
     "method": "nelder-mead",
     "target_fraction": 0.8
   },
-  "notes": "Formalizes the M4 acceptance task. Targets and baselines are filled by benchmark/calibrate_t2.py from classical-optimizer results.",
+  "notes": "Formalizes the M4 acceptance task. Baseline deliberately undersized (w=0.012, m=1.5, ~3-4x below the FOM plateau) so the improvement headroom is large vs selection noise \u2014 the original w=0.02 baseline sat on the plateau and was rejected by the winner's-curse guard (2026-07-24). Targets filled by calibrate_t2.py.",
   "baselines": {
     "initial": {
-      "fom": 0.00114011,
-      "err": 4.4032e-06,
+      "fom": 0.000405201,
+      "err": 1.5521e-06,
       "constraints": {}
     },
     "classical_best": {
       "source": "random_search",
-      "fom": 0.00122207,
+      "fom_selected": 0.00122207,
+      "fom": 0.00119003,
+      "err": 1.24589e-05,
       "parameters": {
         "w_in": 0.05458641899531745,
         "w_out": 0.021539657728152663,
         "m_coat": 2.8746141693924496
-      }
+      },
+      "note": "fom is fresh-seed re-verified (winner's-curse guard)"
     },
     "optimizer": {
-      "note": "DISCARDED: left bounds {'w_in': 0.042556442068642085, 'w_out': 2.1000545984083074, 'm_coat': 0.05359610355758218}",
+      "note": "DISCARDED: left bounds {'w_in': 2.1000545984083074, 'w_out': 0.042556442068642085, 'm_coat': 0.05359610355758218}",
       "fom": null,
       "iterations": 68
     },
@@ -76,7 +79,7 @@
     }
   },
   "targets": {
-    "fom_min": 0.001205678
+    "fom_min": 0.0010330641999999998
   },
-  "prompt": "Improve this neutron guide design.\n\nBaseline instrument (provided as t2_guide_divergence): a 10 m straight supermirror guide (entry = exit = 0.02 m square, m = 2.0) starts 1.5 m from a 10x10 cm source emitting 5.0 +- 0.5 Angstrom; the target is a 2x2 cm sample area accepting +-0.5 degrees, 5 cm behind the guide exit (Divergence_monitor 'divmon').\n\nGoal: maximize the neutron flux into that acceptance (integrated intensity on 'divmon').\nYou may change ONLY these instrument parameters, within bounds: w_in in [0.01, 0.09] m, w_out in [0.01, 0.09] m, m_coat in [1.0, 3.0].\nTarget to beat: divmon intensity >= 0.001206 n/s at the evaluation protocol (ncount 1e+06, fixed seed \u2014 your result is re-verified independently).\nReport your chosen parameters and the achieved flux with error and event count."
+  "prompt": "Improve this neutron guide design.\n\nBaseline instrument (provided as t2_guide_divergence): a 10 m straight supermirror guide (entry = exit = 0.012 m square, m = 1.5) starts 1.5 m from a 10x10 cm source emitting 5.0 +- 0.5 Angstrom; the target is a 2x2 cm sample area accepting +-0.5 degrees, 5 cm behind the guide exit (Divergence_monitor 'divmon').\n\nGoal: maximize the neutron flux into that acceptance (integrated intensity on 'divmon').\nYou may change ONLY these instrument parameters, within bounds: w_in in [0.01, 0.09] m, w_out in [0.01, 0.09] m, m_coat in [1.0, 3.0].\nTarget to beat: divmon intensity >= 0.001033 n/s at the evaluation protocol (ncount 1e+06, fixed seed \u2014 your result is re-verified independently).\nReport your chosen parameters and the achieved flux with error and event count."
 }

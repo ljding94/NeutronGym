@@ -28,7 +28,7 @@
   a { color: #0969da; }
 </style></head><body><div class="wrap">
   <h1>McStasBench — Task Catalog</h1>
-  <p class="meta">Generated 2026-07-24 17:13 · 14 T1 + 2 T2 + 2 T3 tasks + 3 pilot/control ·
+  <p class="meta">Generated 2026-07-24 21:33 · 14 T1 + 2 T2 + 2 T3 tasks + 3 pilot/control ·
     <a href="../progress.html">progress</a> · <a href="../guide.html">how the agent works</a></p>
 
   <h2>Task naming: P vs T</h2>
@@ -1920,14 +1920,14 @@ Run with: L0=2.165, DL=0.02, By=4.68e-3.</pre></details>
 <p class="meta">class: <strong>guide-optimization</strong></p>
 <p class="meta">protocol: ncount 1e+06, seed 1234</p>
 <p class="meta">free parameters: <code>w_in</code> ∈ [0.01, 0.09], <code>w_out</code> ∈ [0.01, 0.09], <code>m_coat</code> ∈ [1, 3]</p>
-<table><tr><th>FOM (divmon intensity)</th><th>n/s</th></tr><tr><td>baseline</td><td>0.0011401</td></tr><tr><td><strong>target (agent must beat)</strong></td><td><strong>0.0012057</strong></td></tr><tr><td>classical best (random_search, constraint-filtered)</td><td>0.0012221</td></tr><tr><td>mcrun optimizer (68 iters)</td><td>— <span class=meta>(DISCARDED: left bounds {&#x27;w_in&#x27;: 0.042556442068642085, &#x27;w_out)</span></td></tr><tr><td>constrained random search (30 samples)</td><td>0.0012221</td></tr></table>
-<details><summary>task prompt (800 chars)</summary><pre>Improve this neutron guide design.
+<table><tr><th>FOM (divmon intensity)</th><th>n/s</th></tr><tr><td>baseline</td><td>0.0004052</td></tr><tr><td><strong>target (agent must beat)</strong></td><td><strong>0.0010331</strong></td></tr><tr><td>classical best (random_search, constraint-filtered)</td><td>0.00119</td></tr><tr><td>mcrun optimizer (68 iters)</td><td>— <span class=meta>(DISCARDED: left bounds {&#x27;w_in&#x27;: 2.1000545984083074, &#x27;w_out&#x27;:)</span></td></tr><tr><td>constrained random search (30 samples)</td><td>0.0012221</td></tr></table>
+<details><summary>task prompt (801 chars)</summary><pre>Improve this neutron guide design.
 
-Baseline instrument (provided as t2_guide_divergence): a 10 m straight supermirror guide (entry = exit = 0.02 m square, m = 2.0) starts 1.5 m from a 10x10 cm source emitting 5.0 +- 0.5 Angstrom; the target is a 2x2 cm sample area accepting +-0.5 degrees, 5 cm behind the guide exit (Divergence_monitor &#x27;divmon&#x27;).
+Baseline instrument (provided as t2_guide_divergence): a 10 m straight supermirror guide (entry = exit = 0.012 m square, m = 1.5) starts 1.5 m from a 10x10 cm source emitting 5.0 +- 0.5 Angstrom; the target is a 2x2 cm sample area accepting +-0.5 degrees, 5 cm behind the guide exit (Divergence_monitor &#x27;divmon&#x27;).
 
 Goal: maximize the neutron flux into that acceptance (integrated intensity on &#x27;divmon&#x27;).
 You may change ONLY these instrument parameters, within bounds: w_in in [0.01, 0.09] m, w_out in [0.01, 0.09] m, m_coat in [1.0, 3.0].
-Target to beat: divmon intensity &gt;= 0.001206 n/s at the evaluation protocol (ncount 1e+06, fixed seed — your result is re-verified independently).
+Target to beat: divmon intensity &gt;= 0.001033 n/s at the evaluation protocol (ncount 1e+06, fixed seed — your result is re-verified independently).
 Report your chosen parameters and the achieved flux with error and event count.</pre></details>
 <p class="meta">file: <code>benchmark/tasks/T2/T2_guide_divergence.json</code></p>
 </div>
@@ -1936,7 +1936,7 @@ Report your chosen parameters and the achieved flux with error and event count.<
 <p class="meta">class: <strong>SANS-optimization</strong></p>
 <p class="meta">protocol: ncount 1e+06, seed 1234</p>
 <p class="meta">free parameters: <code>r_pin1</code> ∈ [0.002, 0.02], <code>r_pin2</code> ∈ [0.002, 0.02]</p>
-<table><tr><th>FOM (detector intensity)</th><th>n/s</th></tr><tr><td>baseline</td><td>0.045172</td></tr><tr><td><strong>target (agent must beat)</strong></td><td><strong>0.062076</strong></td></tr><tr><td>classical best (random_search, constraint-filtered)</td><td>0.066301</td></tr><tr><td>mcrun optimizer (36 iters)</td><td>3.017</td></tr><tr><td>constrained random search (30 samples)</td><td>0.066301</td></tr></table>
+<table><tr><th>FOM (detector intensity)</th><th>n/s</th></tr><tr><td>baseline</td><td>0.045172</td></tr><tr><td><strong>target (agent must beat)</strong></td><td><strong>0.061714</strong></td></tr><tr><td>classical best (random_search, constraint-filtered)</td><td>0.06585</td></tr><tr><td>mcrun optimizer (36 iters)</td><td>721.17</td></tr><tr><td>constrained random search (30 samples)</td><td>0.066301</td></tr></table>
 <p class="meta">constraint: <code>2d.beam_width_x</code> ≤ 5.548 (1.1× baseline)</p>
 <details><summary>task prompt (1019 chars)</summary><pre>Improve the collimation of this SANS instrument.
 
@@ -1945,7 +1945,7 @@ Baseline (provided as t2_sans_collimation): a pinhole SANS — 6 m collimation w
 Goal: maximize the scattered intensity on the detector.
 You may change ONLY: r_pin1 in [0.002, 0.02] m, r_pin2 in [0.002, 0.02] m.
 Hard constraint (pattern-integrity band): the detector pattern RMS width dX must stay within [4.539, 5.548] cm (±10% of the baseline pattern). This catches both resolution destruction (over-wide pinholes smearing the rings) AND direct-beam leakage around the beamstop (which floods the center and shrinks dX) — the beamstop must keep shadowing the direct beam.
-Target to beat: detector intensity &gt;= 0.06208 n/s at the evaluation protocol (ncount 1e+06, fixed seed).
+Target to beat: detector intensity &gt;= 0.06171 n/s at the evaluation protocol (ncount 1e+06, fixed seed).
 Report chosen radii and achieved intensity with error, events, and the measured dX.</pre></details>
 <p class="meta">file: <code>benchmark/tasks/T2/T2_sans_collimation.json</code></p>
 </div>

@@ -127,15 +127,29 @@ def calibrate(path):
     if not candidates:
         print("  !! no valid classical candidate — task rejected, fix design")
         return False
-    src_name, classical_fom, classical_params = max(candidates, key=lambda c: c[1])
-    if classical_fom <= base_fom + 3 * base_err:
-        print("  !! classical best does not beat baseline — task rejected")
+    src_name, selected_fom, classical_params = max(candidates, key=lambda c: c[1])
+    # winner's curse: the selected best is biased upward by selection over
+    # noisy evaluations at one seed (caught by self-validation 2026-07-24).
+    # Re-verify at a FRESH seed — the same discipline the skill demands of
+    # agents — and set the target from the verified value.
+    ver_fom, ver_err, ver_cons = run_point(
+        task, classical_params, seed=int(proto["seed"]) + 4243, label="verify")
+    if not _constraints_ok(task, ver_cons, base_cons):
+        print("  !! classical best violates constraints at fresh seed — rejected")
+        return False
+    print(f"  classical best selected {selected_fom:.5g} -> fresh-seed verified "
+          f"{ver_fom:.5g} ± {ver_err:.2g}")
+    classical_fom = ver_fom
+    if classical_fom <= base_fom + 3 * (base_err + ver_err):
+        print("  !! verified classical best does not beat baseline — task rejected")
         return False
     target = base_fom + cal["target_fraction"] * (classical_fom - base_fom)
     task["baselines"] = {
         "initial": {"fom": base_fom, "err": base_err, "constraints": base_cons},
-        "classical_best": {"source": src_name, "fom": classical_fom,
-                           "parameters": classical_params},
+        "classical_best": {"source": src_name, "fom_selected": selected_fom,
+                           "fom": classical_fom, "err": ver_err,
+                           "parameters": classical_params,
+                           "note": "fom is fresh-seed re-verified (winner's-curse guard)"},
         "optimizer": {"note": opt_note, "fom": opt_fom,
                       "iterations": ores["iterations"]},
         "random_search": {"fom": rand_best, "parameters": rand_params,

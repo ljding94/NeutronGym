@@ -17,9 +17,46 @@ import grader  # noqa: E402
 FRESH_SEED = 777
 
 
+def validate_improve(task: dict) -> dict:
+    """T2: classical-best params must PASS at a fresh seed; unimproved
+    baseline must FAIL (target discriminates; winner's-curse guarded)."""
+    import grader as g
+    from mcstas_mcp import execution, results
+    instr = os.path.join(REPO, task["reference"]["instr"])
+
+    def summarize(params, label):
+        p = {**task["reference"]["parameters"], **params}
+        job = execution.run_instr_file(
+            instr, p, ncount=float(task["protocol"]["ncount"]), seed=FRESH_SEED,
+            workdir=os.path.join(REPO, "runs", "task_validation", task["id"]),
+            timeout=int(task["protocol"]["timeout"]), wait=None, job_prefix=label)
+        if not job.get("ok"):
+            return {"ok": False, "stage": job.get("stage")}
+        summ = results.summarize(job["output_dir"])
+        summ["ok"] = True
+        return summ
+
+    best = task["baselines"]["classical_best"]["parameters"]
+    rep_best = g.grade_improvement(task, summarize(best, "best"))
+    rep_base = g.grade_improvement(task, summarize({}, "base"))
+    ok = rep_best["pass"] and not rep_base["pass"]
+    return {"task": task["id"], "pass": ok,
+            "score": rep_best["score"],
+            "checks": f"best:{rep_best['checks_passed']} base_fails:{not rep_base['pass']}",
+            "hard_failures": [] if ok else
+            [f"classical-best pass={rep_best['pass']}, baseline pass={rep_base['pass']}"],
+            "failed": []}
+
+
 def validate(task_path: str) -> dict:
     with open(task_path) as f:
         task = json.load(f)
+    if task.get("kind") == "improve":
+        return validate_improve(task)
+    if task.get("kind") == "open_design":
+        return {"task": task["id"], "pass": True, "score": None,
+                "checks": "definition-only (rubric pending)", "hard_failures": [],
+                "failed": []}
     ref = grader.reference_summary(task)
     cand = grader.run_protocol(
         grader._resolve_instr(task["reference"]["instr"]),
