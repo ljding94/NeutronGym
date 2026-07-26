@@ -22,7 +22,7 @@ research questions in PLAN.md §Purpose stand unchanged.
   eval audience.
 - McStas is described as the simulation backend, not the subject. (It is
   spelled **McStas** — the vision note's "MCStas" must not reach the paper.)
-- ~~Repo/directory name stays `McStasBench`~~ **Amended same day (user decision): GitHub repo renamed to `NeutronGym`** (`gh repo rename`; old URLs redirect). The local working directory keeps its name (renaming it mid-stream breaks the active session + project-keyed memory; harmless otherwise). The paper and released package use NeutronGym.
+- ~~Repo/directory name stays `McStasBench`~~ **Amended same day (user decision): GitHub repo renamed to `NeutronGym`** (`gh repo rename`; old URLs redirect), and the local working directory was subsequently renamed to `~/Work/NeutronGym` as well. The paper and released package use NeutronGym.
 
 ## Decision 2 — Venue: ICLR 2027, committed
 
@@ -31,28 +31,25 @@ research questions in PLAN.md §Purpose stand unchanged.
 - The 07-24 hedge ("NeurIPS D&B primary, ICLR if fast") is resolved:
   **ICLR 2027 is the target.** NeurIPS 2027 D&B (~May 2027) is the fallback
   — with GRPO results folded in — if ICLR slips or rejects.
-- **RL content policy for the ICLR paper:** M8 stage 1 (rejection sampling →
-  filtered SFT on Qwen-family 7–8B) starts as soon as the M5 reward API
-  lands (~mid-Aug) and runs in parallel with M6 (McStas rollouts are
-  CPU-bound; API-based M6 episodes don't contend). **Include-if-signal
-  cutoff ~Sep 10**: an SFT delta by then goes in as the preliminary
-  trainability result; otherwise the paper ships as env + frontier eval +
-  red-team, and the trainability claim shrinks to "RL-ready by
-  construction". GRPO is follow-up work either way.
+- ~~**RL content policy for the ICLR paper:** include-if-signal SFT by
+  ~Sep 10; GRPO follow-up either way.~~ **Superseded same day — see the
+  Addendum below: bench + RL are both committed ICLR paper content.**
 
-### Back-planned schedule (deadline-anchored, part-time)
+### Back-planned schedule (deadline-anchored, part-time; revised by the Addendum below)
 
 | Window | Work |
 |---|---|
-| now – **Aug 18** | M5: env executor, procedural generator, reward-ladder API with level-resolved output; curation hardening |
+| now – **Aug 10** | M5 RL-critical path: reward-ladder API (level-resolved output) + env executor |
+| **Aug 11 – 18** | M5 remainder: procedural generator, anti-hacking checks, packaging, curation hardening |
+| **Aug 11 – Sep 1** | M8: rejection sampling → filtered SFT (Qwen 7–8B), parallel with everything (CPU rollouts / GPU training) |
 | **Aug 17 – Sep 5** | M6: eval matrix (prereq first: widen OpenRouter privacy policy — only Google models route today) |
-| **Aug 18 – Sep 10** | M8 stage 1: rejection sampling → filtered SFT, parallel with M6; include-if-signal |
-| **Sep 1 – 24** | M7: analysis + writing, overlapping M6 tail; Figure 1 + skeleton by ~Sep 5; abstract locked Sep 19 |
+| **Sep 1 – 15** | M8: GRPO (go/no-go on the Sep 1 SFT signal), 2–3 runs on 7×A100-40G; **RL numbers frozen ~Sep 17** |
+| **Sep 1 – 24** | M7: analysis + writing, overlapping M6/M8 tails; Figure 1 + skeleton by ~Sep 5; abstract locked Sep 19 |
 
 Cuttable-if-behind, in order: T3 from the scored set (rubric already
-PENDING) → the SFT result (policy above) → T1 growth stops at the current 14
+PENDING) → GRPO (drop to SFT-only) → T1 growth stops at the current 14
 (+ vetted externals only). **Not cuttable:** contamination controls,
-red-team-the-reward section, T2 analysis.
+red-team-the-reward section, T2 analysis, the SFT trainability result.
 
 ## Adopted from the vision note (mapped to existing machinery)
 
@@ -107,6 +104,24 @@ red-team-the-reward section, T2 analysis.
   content and the credibility layer of the held-out slice (07-24
   qualification 2 stands). Environment-first framing *contains* the
   benchmark; the disavowal is about story emphasis, not content.
+
+## Addendum (2026-07-26, later same day — user decisions)
+
+1. **Bench + RL are both ICLR paper content** — supersedes the
+   include-if-signal policy above. The trainability result (filtered SFT +
+   GRPO on a 7–8B model) is planned, co-equal paper content, not a stretch
+   goal: 60 days to the deadline is enough if the M5 reward API lands first
+   (~Aug 10). Sequencing: rejection sampling + SFT Aug 11 – Sep 1 → SFT
+   delta is the GRPO go/no-go (Sep 1) → GRPO Sep 1 – 15 (2–3 runs) → all
+   RL numbers frozen ~Sep 17, fresh-seed re-verified on held-out tasks.
+   If training signal genuinely fails, degrade gracefully and report it
+   honestly: GRPO → SFT-only → env+eval-only. The claim bar itself is
+   unchanged (delta validates the environment, not a frontier agent).
+2. **Hardware: 7×A100-40G** (not the 8× recorded on 07-24): ~3 GPUs
+   generation (vLLM serving the 7–8B policy) / ~4 training (LoRA r=32–64
+   fits comfortably); McStas rollouts are CPU-bound and don't contend.
+3. **Local working directory renamed** to `~/Work/NeutronGym`, completing
+   the rename (GitHub repo was renamed earlier the same day).
 
 ## Changes made with this note
 
