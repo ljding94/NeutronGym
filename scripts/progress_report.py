@@ -174,7 +174,7 @@ def render(milestones, gates, decisions):
     return f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>McStasBench — Progress</title>
+<title>NeutronGym — Progress</title>
 <style>
   :root {{ color-scheme: light dark; }}
   * {{ box-sizing: border-box; }}
@@ -225,7 +225,8 @@ def render(milestones, gates, decisions):
   a {{ color: #0969da; }}
   footer {{ margin-top: 34px; font-size: 12.5px; color: #656d76; }}
 </style></head><body><div class="wrap">
-  <h1>McStasBench — Progress</h1>
+  <h1>NeutronGym — Progress</h1>
+  <div class="meta">the executable RL environment for neutron instrument design · McStasBench is its held-out benchmark slice</div>
   <div class="meta">Generated {now} · commit {git_info()} · source of truth: <code>PLAN.md</code>
    · <a href="guide.html">how the agent drives McStas &rarr;</a></div>
   <div class="overall"><div></div></div>

@@ -4,11 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project status
 
-**M0 complete (2026-07-09): environment bootstrapped, smoke test passing.** Git repo initialized; next milestone is M1 (MVP MCP server). Sources of truth, in order:
+**M0–M4 complete; benchmark harness validated (pilot episodes 4/4 PASS, 14 T1 + 2 T2 tasks). Current milestone: M5 (NeutronGym environment build), targeting ICLR 2027 (full paper 2026-09-24 AoE).** Sources of truth, in order:
 
 - `note/mcstas-mcp-feasibility-and-spec.md` (2026-07-08) — feasibility analysis, full SPEC, research plan.
 - `note/scope-decision-2026-07-09.md` — scope/framing decision; supersedes §7 framing in the spec where they differ.
 - `note/scope-evolution-rl-env-2026-07-24.md` — environment-first reframing (RL env with three-tier reward ladder + procedural generation; benchmark = held-out slice) + M8 RL track; supersedes the 07-09 note's framing where they differ.
+- `note/neutrongym-vision-digest-2026-07-26.md` — naming (**NeutronGym** = the environment/headline artifact; **McStasBench** = its held-out benchmark slice; GitHub repo renamed to `NeutronGym` 2026-07-26, local dir name unchanged) + **venue commitment: ICLR 2027** (abstract 2026-09-19, full paper 2026-09-24 AoE) + adopted/rejected items from the external vision note (L1–L4 presentation of the reward ladder, plain-LLM baseline arm, Figure-1 discipline, SFT include-if-signal policy); supersedes earlier notes on naming and venue where they differ.
 - `PLAN.md` — the concrete implementation plan: milestones M0–M7 with acceptance criteria, de-risk gates, and standing decisions. This is the living document; check items off there.
 - `note/m1-server-design-2026-07-09.md` — the M1 server design (construction-vs-execution split, 10 server-side rules, revised tool signatures, benchmark spillover). Grounded in three systematic studies: `note/study-mcstas-software-*.md`, `note/study-mcstasscript-api-*.md`, `note/study-instrument-papers-*.md` — consult these before touching McStas/McStasScript integration code; they contain verified error behaviors and gotchas.
 - `progress.html` — human-friendly dashboard generated from PLAN.md. **After editing PLAN.md, regenerate it**: `python3 scripts/progress_report.py` (stdlib only, any python). Never edit progress.html by hand.
@@ -21,11 +22,11 @@ Read these before doing any design or implementation work here; keep them update
 
 A research program around LLM agents designing neutron instruments with [McStas](https://www.mcstas.org/) (a Monte Carlo ray-tracing simulator whose instruments are text-based `.instr` files).
 
-**Framing (decided 2026-07-09): McStasBench is the paper and headline contribution — a benchmark evaluating LLM agents on McStas tasks (NeurIPS D&B / ICLR class). McStasAgent is the reference baseline shipped inside it**, not a standalone contribution: an agent-tooling paper alone reads as commoditized engineering, and the agent needs the benchmark to prove anything. The agent's failure modes on the benchmark are the analysis section of the paper.
+**Framing (evolved 2026-07-24, named + venue-committed 2026-07-26): NeutronGym is the paper and headline contribution — an executable, physically-verifiable RL environment for neutron instrument design, targeted at ICLR 2027 (full paper 2026-09-24 AoE). McStasBench is its held-out benchmark slice; McStasAgent (MCP server + skill) is the reference baseline shipped inside it**, not a standalone contribution: an agent-tooling paper alone reads as commoditized engineering, and the agent needs the environment to prove anything. The agent's failure modes — level-resolved, L1 syntax through L4 science — are the analysis section of the paper.
 
 Deliverables:
 
-1. **McStasBench** (headline) — tiered evaluation (reproduce / optimize / open-ended design) run through headless Claude Code as a universal scaffold across model tiers (spec §7). Benchmark quality bars are load-bearing: contamination controls, difficulty tiers, pipeline-decomposed metrics.
+1. **NeutronGym** (headline) — executable RL environment (reward ladder, procedural generation, anti-hacking checks) whose held-out slice, **McStasBench**, is the tiered evaluation (reproduce / optimize / open-ended design) run through headless Claude Code as a universal scaffold across model tiers (spec §7). Benchmark quality bars are load-bearing: contamination controls, difficulty tiers, pipeline-decomposed metrics.
 2. **`mcstas-mcp` server** (baseline tooling) — Python (FastMCP) wrapping [McStasScript](https://github.com/PaNOSC-ViNYL/McStasScript): component discovery/introspection, structured instrument construction, async simulation jobs, parameter scans, scipy-driven optimization. Tool signatures in spec §4.
 3. **`mcstas-instrument-design` skill** (baseline tooling) — the judgment layer: units/conventions, figures of merit, instrument archetypes, verification checklist (spec §5). Canonical copy: `skills/mcstas-instrument-design/` (loaded into local sessions via the committed `.claude/skills/` symlink). Rules distilled from real agent transcripts live in SKILL.md and are regression-tested (`tests/test_skill.py`) — when an eval transcript shows a new recurring mistake, add a rule AND extend that test.
 

@@ -188,7 +188,7 @@ def main():
     page = f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>McStasBench — Agent &harr; McStas Guide</title>
+<title>NeutronGym — Agent &harr; McStas Guide</title>
 <style>
   :root {{ color-scheme: light dark; }}
   body {{ font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -224,7 +224,7 @@ def main():
   figcaption {{ font-size: 13px; color: {GRAY}; margin-top: 6px; }}
   a {{ color: {BLUE}; }}
 </style></head><body><div class="wrap">
-  <h1>How the agent drives McStas</h1>
+  <h1>NeutronGym: how the agent drives McStas</h1>
   <div class="meta">Generated {now} from the live server ({len(tools)} tools) ·
     <a href="progress.html">progress dashboard</a> ·
     design: <code>note/m1-server-design-2026-07-09.md</code></div>

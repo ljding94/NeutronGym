@@ -201,7 +201,7 @@ def main():
     page = f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>McStasBench — Task Catalog</title>
+<title>NeutronGym — Task Catalog (McStasBench slice)</title>
 <style>
   :root {{ color-scheme: light dark; }}
   body {{ font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -227,7 +227,7 @@ def main():
   details summary {{ cursor: pointer; color: {BLUE}; font-size: 13px; margin: 6px 0; }}
   a {{ color: {BLUE}; }}
 </style></head><body><div class="wrap">
-  <h1>McStasBench — Task Catalog</h1>
+  <h1>Task Catalog — McStasBench, the benchmark slice of NeutronGym</h1>
   <p class="meta">Generated {now} · {len(t1)} T1 + {len(t2)} T2 + {len(t3)} T3 tasks + {len(pilots)} pilot/control ·
     <a href="../progress.html">progress</a> · <a href="../guide.html">how the agent works</a></p>
 
