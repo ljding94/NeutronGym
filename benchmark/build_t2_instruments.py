@@ -1,8 +1,8 @@
 """Build the T2 baseline instruments deterministically via the registry.
 
 T2 tasks need references whose improvable knobs are instrument parameters
-(mcrun can only scan/optimize those). Two are built here; the third T2 task
-uses shipped templateSANS unmodified (lambda/dlambda are already params).
+(mcrun can only scan/optimize those). Both current T2 tasks (guide_divergence,
+sans_collimation) use instruments built here.
 
 Outputs committed to benchmark/instruments/<name>/: the generated .instr +
 spec.json (diffable provenance).

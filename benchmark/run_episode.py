@@ -4,7 +4,8 @@ artifact the agent actually built (never its claims).
 Episode isolation: fresh MCSTAS_MCP_HOME + scratch cwd. The design skill is
 installed into the episode cwd by default (the reference baseline config);
 --no-skill for ablations. Non-Claude models route via OpenRouter
-(ANTHROPIC_BASE_URL) — lessons from scripts/spike_openrouter.py baked in.
+(ANTHROPIC_BASE_URL) — lessons from the 2026-07-24 OpenRouter spike baked in
+(see note/spike-and-pilot-2026-07-24.md; the spike script itself is deleted).
 
 Grading: the candidate instrument is discovered from the episode registry
 (most recently modified spec with a built .instr), its run parameters are
@@ -167,7 +168,7 @@ def main():
                                     "episode registry"], "checks": []}
     else:
         ref = grader.reference_summary(task)
-        cand = grader.run_protocol(instr_path, params, task["protocol"],
+        cand = grader.run_protocol(instr_path, params or {}, task["protocol"],
                                    os.path.join(ep, "grade_work"), "cand")
         report = grader.grade(task, cand, ref)
         report["candidate_instr"] = instr_path

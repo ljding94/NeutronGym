@@ -19,7 +19,7 @@ mcstas-mcp = "mcstas_mcp.server:main"
 mcstas-baseline = "mcstas_mcp.optimization:main"
 
 [project.optional-dependencies]
-dev = ["pytest"]
+dev = ["pytest", "ply"]  # ply: required by mcdisplay-* visualization tools, not by mcstas_mcp itself
 
 [tool.setuptools.packages.find]
 where = ["src"]

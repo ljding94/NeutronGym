@@ -31,7 +31,7 @@ reference baseline shipped inside it, not a standalone contribution.
 
 | Artifact | What it is |
 |---|---|
-| **NeutronGym** (headline) | Gym-style env: reward-ladder API with level-resolved output, procedural instance generator, anti-hacking checks, fast tier at ~25 rollouts/s/core; pip + Docker |
+| **NeutronGym** (headline) | Gym-style env: reward-ladder API with level-resolved output, procedural instance generator, anti-hacking checks, fast tier at ~25 rollouts/s/core; pip-installable (Docker deferred to camera-ready — trim 2026-07-29) |
 | **McStasBench** | Tiered eval slice: T1 reproduce / T2 improve / T3 open design, with contamination controls (held-out 2024–26 instruments, memorization probes, perturbed variants) |
 | **McStasAgent** | Reference baseline: 22-tool MCP server wrapping McStasScript + the `mcstas-instrument-design` skill; run through headless Claude Code as a universal scaffold |
 | **ICLR 2027 paper** | Bench AND RL as co-equal content: eval matrix across model tiers + the small-model trainability result, with level-resolved failure analysis |
@@ -85,7 +85,8 @@ protocol (never agent-chosen ncount) · grade the artifact the agent built,
 never its claims.
 
 Cut order if behind: T3 from the scored set → GRPO (drop to SFT-only) → T1
-growth beyond the current 14.
+growth beyond the current 14 (already cut-by-default as of 2026-07-29 — the
+14 self-validating tasks are the defensible set; revive only with slack).
 
 ## Anchors
 

@@ -25,7 +25,7 @@ tasks (T2), and open-design briefs (T3), with contamination controls
 
 ```bash
 conda create -n mcstas -c conda-forge mcstas-core mcstas-data ncrystal python=3.11
-conda run -n mcstas pip install -e ".[dev]" && pip install ply
+conda run -n mcstas pip install -e ".[dev]"
 conda run -n mcstas python -m pytest tests -q          # ~100 tests
 conda run -n mcstas python scripts/m1_walkthrough.py   # server demo, end to end
 conda run -n mcstas python benchmark/run_episode.py benchmark/tasks/T1/T1_PSI_DMC.json
