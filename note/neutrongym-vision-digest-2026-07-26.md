@@ -122,6 +122,19 @@ red-team-the-reward section, T2 analysis, the SFT trainability result.
    fits comfortably); McStas rollouts are CPU-bound and don't contend.
 3. **Local working directory renamed** to `~/Work/NeutronGym`, completing
    the rename (GitHub repo was renamed earlier the same day).
+4. **Eval budget (set with the same-day plan review):** Claude via
+   subscription ($0); **~$200 OpenRouter credit** for API-model breadth;
+   open-weights served from the 7×A100 ($0 API cost) and **REQUIRED, not
+   optional** — the untrained Qwen 7–8B and a larger untrained comparator
+   are the RL-claim baseline arms, collected during M6. Spend policy:
+   ablation grid (±MCP × ±skill, plain-LLM) rides on the free tiers
+   (subscription Claude + one mid-tier OpenRouter model on the dev split);
+   paid spend buys cross-model breadth on the main arm. The same review
+   added: the two-axis held-out discipline (curated T1 contamination axis
+   vs procedural-regime generalization axis, each touched once in a single
+   ~Sep 15–17 final pass), an environment acceptance test for M5 (gym-loop
+   over ≥100 procedural instances), a minimal procedural generator pulled
+   into the ~Aug 10 critical path, and de-risk gate 5 (SFT delta by Sep 1).
 
 ## Changes made with this note
 

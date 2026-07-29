@@ -5,7 +5,7 @@
 **Created:** 2026-07-09 · **Living document** — check off items and revise dates as work proceeds.
 Derived from `note/mcstas-mcp-feasibility-and-spec.md` (SPEC) and `note/scope-decision-2026-07-09.md` (benchmark = headline, agent = baseline). Re-anchored 2026-07-26: part-time effort → **ICLR 2027 full-paper deadline 2026-09-24 AoE** (abstract 2026-09-19).
 
-**Status (updated 2026-07-26):** infrastructure phase (M0–M4) complete — server (22 tools), skill, optimization/baseline layer; all 4 de-risk gates passed. Benchmark harness validated end-to-end: pilot agent episodes 4/4 PASS, 14 T1 tasks self-validating, 2 T2 tasks calibrated (reward red-teamed), T3 defined. **Pivot 2026-07-26 (`note/neutrongym-vision-digest-2026-07-26.md` + same-day addendum): the environment is named NeutronGym (McStasBench = its held-out benchmark slice) and the committed venue is ICLR 2027 — abstract 2026-09-19, full paper 2026-09-24 AoE — with bench AND RL both in the paper** (60 days out; RL is planned content, not a stretch goal; hardware secured: 7×A100-40G). Next: M5 environment build by ~Aug 18 with the **reward-ladder API first (~Aug 10, RL critical path)**; M8 rejection sampling → filtered SFT Aug 11 – Sep 1, GRPO Sep 1 – 15, RL numbers frozen ~Sep 17; M6 eval matrix Aug 17 – Sep 5 (prereq: widen the OpenRouter privacy policy — only Google models route today); M7 writing Sep 1 – 24.
+**Status (updated 2026-07-26):** infrastructure phase (M0–M4) complete — server (22 tools), skill, optimization/baseline layer; all 4 de-risk gates passed. Benchmark harness validated end-to-end: pilot agent episodes 4/4 PASS, 14 T1 tasks self-validating, 2 T2 tasks calibrated (reward red-teamed), T3 defined. **Pivot 2026-07-26 (`note/neutrongym-vision-digest-2026-07-26.md` + same-day addendum): the environment is named NeutronGym (McStasBench = its held-out benchmark slice) and the committed venue is ICLR 2027 — abstract 2026-09-19, full paper 2026-09-24 AoE — with bench AND RL both in the paper** (60 days out; RL is planned content, not a stretch goal; hardware secured: 7×A100-40G). Next: M5 environment build by ~Aug 18 with the **reward-ladder API first (~Aug 10, RL critical path)**; M8 rejection sampling → filtered SFT Aug 11 – Sep 1, GRPO Sep 1 – 15, RL numbers frozen ~Sep 17; M6 eval matrix Aug 17 – Sep 5 (prereqs: widen the OpenRouter privacy policy — only Google models route today; budget set: ~$200 OpenRouter + subscription Claude + open-weights on the 7×A100, with open-weights now REQUIRED as the RL-claim baselines); M7 writing Sep 1 – 24.
 
 ## Purpose (aligned 2026-07-24; environment-first evolution same day; named + venue-committed 2026-07-26 — see `note/scope-evolution-rl-env-2026-07-24.md`, `note/neutrongym-vision-digest-2026-07-26.md`)
 
@@ -73,13 +73,13 @@ Design is fully specified in `note/m1-server-design-2026-07-09.md` (grounded in 
 - [x] **Accepted:** kill and restart the server mid-run over real stdio — registry and job results survive (`test_restart_survival_acceptance`). Suite: 72 tests passing.
 - Human demo: `conda run -n mcstas python scripts/m2_walkthrough.py` (import shipped example → validate → async poll → caching → persistence map; detector PNG at λ=8 vs λ=6 shows correct ring scaling)
 
-### M3 — Skill (built 2026-07-24; informal acceptance pending, rigorous version = M5 ablation)
+### M3 — Skill (built 2026-07-24; informal acceptance pending, rigorous version = M7 ablation on M6 arms)
 
 - [x] `mcstas-instrument-design` skill per SPEC §5: SKILL.md (96 lines) + 5 references (units/conventions, figures of merit with quadrature rules, 8 instrument archetypes each pointing at shipped starting examples, component guide with traps, verification checklist) + `resolution_calcs.py` (conversions, Bragg, chopper phasing/frame overlap, guide m, SANS Q — CLI + importable; physics pinned by 8 tests)
 - [x] Canonical copy in `skills/` (benchmark-installable); local sessions load it via committed `.claude/skills/` symlink
 - [x] Failure-transcript rules encoded (and regression-tested in `test_skill_encodes_observed_failures`): fix a seed for any comparison (M1 acceptance run never did), 1000-event statistics floor, `restore_neutron=1` on diagnostics, disclose source-brightness assumptions, compute chopper phases don't scan them
 - [ ] Keep refining from future transcripts: every recurring agent mistake becomes a skill line (standing task through M5/M6)
-- [ ] **Accept (user-driven):** on 3 informal dev tasks, agent-with-skill avoids the unit/statistics/phasing errors that agent-without-skill makes (eyeball comparison; the rigorous version is the M5 ablation).
+- [ ] **Accept (user-driven):** on 3 informal dev tasks, agent-with-skill avoids the unit/statistics/phasing errors that agent-without-skill makes (eyeball comparison; the rigorous version is the M7 ablation over the ±skill arms run in M6).
 
 ### M4 — Optimization layer ✅ DONE 2026-07-24
 
@@ -99,13 +99,17 @@ parametrization under the same compute.
 
 Environment work (new, from the 2026-07-24 scope evolution — mostly wraps
 existing machinery). **Ordering within M5: the reward-ladder API + env
-executor land first (~Aug 10) — they are the M8 critical path** (rejection
-sampling cannot start without them); curation items can trail to Aug 18:
+executor + a minimal procedural generator (1–2 template families) land first
+(~Aug 10) — they are the M8 critical path** (rejection sampling needs tasks
+AND reward; the first days may sample the 16 curated tasks, but training data
+must shift to procedural instances before any SFT epoch — a 16-task set gets
+memorized, not learned). Full generator + curation items can trail to Aug 18:
 
 - [x] **Fast-tier rollout timing measured 2026-07-24** (`benchmark/measure_fast_tier.py`): mcrun-path rollouts are ~2.4 s FLAT regardless of ncount (wrapper+rebuild overhead, not physics); **direct binary execution = ~0.04 s/rollout at 1e5 rays** (validated output) → ~25 rollouts/s/core. Env throughput will never bound RL training
 - [ ] Env executor: fast-tier `step()` runs the compiled binary directly (mcrun compiles once per template family); MCP path keeps the wrapper for interactive use
 - [ ] Procedural instance generator: parameterized template families per archetype (compile-once/sample-many for the fast tier; topology variation = slow tier only); nothing memorizable; held-out parameter regimes for the eval split
 - [ ] Reward-ladder API wrapping existing tiers: static (registry validation + `validate_instrument`, free) → cheap dynamic (truncated-ncount run, staged diagnostics) → terminal (full-protocol run through `benchmark/grader.py`); reward computed at env-controlled protocol (never agent-chosen ncount). Every graded episode also reports **deepest-level-reached** (L1 syntax/compile → L2 runtime → L3 structural → L4 scientific — the ladder presented as the vision note's hierarchy) as a first-class harness field: raw material for the M7 failure taxonomy and M8 "why training improves" attribution
+- [ ] **Episode output contract — one-command entry point (added 2026-07-29):** `benchmark/run_episode.py` becomes the single entry — task **id** (resolved against `benchmark/tasks/`, not a path) + `--model` → a self-contained episode folder under `runs/` holding `report.json`, `transcript.jsonl`, and an `artifacts/` bundle: the candidate `.instr` + resolved run params, the component-connection **diagram PNG** (McStasScript `show_diagram`, the `view_instrument.py --diagram` path), and the **real-scale 3D geometry trace** (`mcdisplay-webgl --nobrowse` directory, re-servable offline). The harness generates the bundle post-episode from the instrument the agent actually built — same principle as grading: never from agent claims, zero agent turns spent on visualization, identical prompts across arms, bundle present for every episode/model. *Feasibility verified 2026-07-29: diagram + webgl paths run headlessly; `mcdisplay-matplotlib --backend=svg` hardcopy renders an EMPTY plot (SIGPIPE truncates the trace stream) — do not use it for the static view.*
 - [ ] Multi-objective target-spec format (flux + resolution + geometry constraints jointly — single-metric gaming fails by construction)
 - [ ] Anti-hacking checks: Liouville/brilliance-transfer ≤ 1 (matched phase-space monitors), degenerate-config detectors; then **red-team our own reward and write up what broke** (paper section)
 - [ ] Packaging: pip-installable env + Docker with McStas baked in; one-command eval slice
@@ -126,16 +130,17 @@ Benchmark slice (curation items, as before):
   - **T3 open design:** goal-only specification; expert rubric + FOM
 - [ ] Contamination controls: seen/held-out split (held-out = 2024–26 instruments with no public `.instr`); memorization probe per task; perturbed variants
 - [ ] Grading harness: observable-based (flux spectrum at sample, beam profile, resolution function) with tolerance tiers; fully headless, no LLM judge for T1/T2
-- **Accept:** every task graded automatically from a transcript directory; a deliberately-wrong `.instr` fails and the reference passes.
+- **Accept (benchmark):** every task graded automatically from a transcript directory; a deliberately-wrong `.instr` fails and the reference passes. **Accept (environment — the headline artifact needs its own test):** ≥100 fresh procedurally-generated instances run end-to-end through the reward-ladder API (gym-style reset/step loop) with level-resolved fields present in every episode record; fast-tier throughput re-verified ≥10 rollouts/s/core on template families.
 
 ### M6 — Evaluation runs (Aug 17 – Sep 5, overlaps M5 tail; ICLR-anchored)
 
 - [x] **OpenRouter spike — de-risk gate 3 passed 2026-07-24**: gemini-3.6-flash + gemini-3.5-flash-lite both completed the one-prompt task through the identical scaffold (9–12 MCP calls, zero tool-format errors, jobs verified on disk, ~$0.5–0.8/episode). Harness lessons + **M6 prerequisite: widen OpenRouter privacy policy** (only Google models route today) in `note/spike-and-pilot-2026-07-24.md`
-- [ ] Scaffold: headless `claude -p` + `.mcp.json` + skill installed; JSON transcripts; pin model IDs + Claude Code version; log tokens/tool-calls/wall-clock per episode
-- [ ] Protocol: pass@1, fixed seeds, 50-turn cap, 5-task dev split for all debugging, held-out set touched once
+- [ ] Scaffold: headless `claude -p` + `.mcp.json` + skill installed; JSON transcripts; pin model IDs + Claude Code version; log tokens/tool-calls/wall-clock per episode; every episode ships the M5 artifact bundle (`.instr` + diagram + real-scale trace) so any run is inspectable without re-execution
+- [ ] Protocol: pass@1, fixed seeds, 50-turn cap, 5-task dev split for all debugging. **Held-out discipline — two distinct axes, each touched exactly once:** (a) curated T1 held-out instruments (contamination axis) and (b) held-out parameter regimes of procedural families (generalization axis = the RL eval split). Both scored in ONE coordinated final pass (~Sep 15–17) covering frontier models AND the M8 trained model — no split gets double-dipped
 - [ ] Baseline arms: **plain-LLM** (no tools — one-shot `.instr` generation from the task prompt, graded by the same harness) anchors the value of the env infrastructure; agent arms form the **±MCP × ±skill 2×2 grid** feeding the M7 ablation table
-- [ ] Model tiers: Claude via subscription ($0, spread over days under weekly caps); mid/small via OpenRouter (~$50–200); open-weights via vLLM+LiteLLM optional
-- **Accept:** full run matrix complete within the $100–300 budget; transcripts reproducible from pinned config.
+- [ ] Model tiers (budget set 2026-07-26): Claude via subscription ($0, spread over days under weekly caps); mid/small API models via OpenRouter (**~$200 ceiling** — confirmed credit); **open-weights REQUIRED, not optional — they are the M8 RL-claim baselines**: Qwen-family 7–8B untrained + a larger untrained comparator, served from the 7×A100 via vLLM+LiteLLM through the identical scaffold ($0 API). Untrained-7B numbers are collected here, not scrambled for in mid-September
+- [ ] Spend-priority policy (fits the $200): (1) main arm (MCP+skill) × all models × scored set; (2) full ±MCP × ±skill grid + plain-LLM on subscription Claude ($0) and ONE mid-tier OpenRouter model on the dev split; (3) plain-LLM arm everywhere (one-shot, no tool loop — cheap). Ablation conclusions ride on the free tiers; paid spend buys cross-model breadth
+- **Accept:** priority-ordered matrix complete within ~$200 OpenRouter spend (subscription + local A100 arms are $0); transcripts reproducible from pinned config.
 
 ### M7 — Analysis + ICLR paper writing (Sep 1–24, overlaps M6 tail; Figure 1 + skeleton by ~Sep 5, abstract locked Sep 19)
 
@@ -169,13 +174,13 @@ Purpose-3 machinery, now a **co-equal paper contribution** (user decision
 (~3 generation / ~4 training; McStas rollouts are CPU-bound — no GPU
 contention; 7–8B + LoRA fits comfortably).
 
-- [ ] **Rejection sampling FIRST**: strong-model trajectories → filter by programmatic reward (physics-passing only) → filtered SFT on Qwen-family 7–8B → iterate. If filtered SFT shows no delta, the reward signal has a problem — learned in weeks, not months. **Starts the day the M5 reward API lands (~Aug 11), parallel with M6 (rollouts are CPU-bound, M6 episodes are API-bound — no contention). SFT delta = the GRPO go/no-go gate, decided ~Sep 1**
+- [ ] **Rejection sampling FIRST**: strong-model trajectories → filter by programmatic reward (physics-passing only) → filtered SFT on Qwen-family 7–8B → iterate. If filtered SFT shows no delta, the reward signal has a problem — learned in weeks, not months. **Starts the day the M5 reward API lands (~Aug 11), parallel with M6 (rollouts are CPU-bound, M6 episodes are API-bound — no contention). SFT delta = the GRPO go/no-go gate, decided ~Sep 1 (de-risk gate 5).** Training data shifts from the 16 curated tasks to procedural instances as families land (M5 ordering)
 - [ ] Rollout logging captures per-level outcomes (deepest-level-reached) from the first trajectory — the M7/M8 attribution analysis cannot be reconstructed after the fact
 - [ ] Agentic-RL framework: survey + capability test of current tooling before committing (churns fast; do not write the loop by hand)
 - [ ] GRPO (critic-free), gated on the Sep 1 SFT signal: LoRA r=32–64 on ALL linear projections (attention-only low-rank is where "LoRA underperforms" comes from; justification: RL post-training sharpens existing capability — the regime where LoRA tracks full FT); ~2,500 generations/gradient step (8 samples × 32 prompts × ~10 turns). **Window Sep 1 – 15** — days per run on 7×A100 → 2–3 real runs fit
 - [ ] Budget: 2–3 real GRPO runs total; one headline result + ablations that reuse rollouts; **all RL numbers destined for the paper frozen ~Sep 17** (fresh-seed re-verified on held-out tasks, same discipline as T2)
 - [ ] **Analysis bar: explain *why* training helps, not just that it helps** — level-resolved attribution: do failures migrate from L1/L2 (syntax/mechanics) to L4 (science)? do L4 pass rates move on held-out families? Mechanics-only gains are reported as such
-- **Claim bar:** the delta validates the environment (7B+training > 7B baseline, approaching a larger untrained model on held-out tasks) — not a frontier agent. **Paper target: SFT delta + one GRPO headline run; SFT-only is the fallback, not the plan.**
+- **Claim bar:** the delta validates the environment (7B+training > 7B baseline, approaching a larger untrained model, evaluated on held-out procedural regimes + the T1 held-out slice in the single M6 final pass) — not a frontier agent. Baseline arms (untrained 7B, larger comparator) come from M6's open-weights tier. **Paper target: SFT delta + one GRPO headline run; SFT-only is the fallback, not the plan.**
 
 ## De-risk gates (fatal-flaw checks, in order — from SPEC §7)
 
@@ -185,6 +190,7 @@ contention; 7–8B + LoRA fits comfortably).
 | 2 | Agent builds/runs instrument from one prompt | M1 | validation-at-call-time can't be made reliable |
 | 3 | OpenRouter backend spike, 2 non-Claude models | **de-risk gate 3 passed** 2026-07-24 | tool-calling fidelity too poor → single-model paper only |
 | 4 | 3 pilot tasks incl. memorization probe | **de-risk gate 4 passed** 2026-07-24 (mechanics; agent episodes next) | grading rubric can't separate memorization from capability |
+| 5 | Filtered SFT shows a delta on dev tasks | ~Sep 1 (M8 GRPO go/no-go) | no delta → reward signal doesn't train; kills the RL *contribution* (degrade GRPO → SFT-only → env+eval-only, reported honestly), not the paper |
 
 ## Standing decisions (defaults from SPEC §8 — change only with a dated note)
 
@@ -194,6 +200,6 @@ contention; 7–8B + LoRA fits comfortably).
 - Single agent + skill + validating tools; no multi-agent split unless evals show persistent unforced physics errors
 - Environment-first framing (2026-07-24): benchmark = held-out slice; T1 paper-reproduction stays curated and uncuttable; RL track (M8) in scope as the paper-strengthening trainability result
 - **This work is McStas only** (user decision 2026-07-24): no autoMartiniAgent suite, no cross-project framework paper — one substrate, done deeply
-- **Naming (2026-07-26): NeutronGym** = the environment (paper headline artifact + released package); **McStasBench** = its held-out benchmark slice; repo name unchanged
+- **Naming (2026-07-26): NeutronGym** = the environment (paper headline artifact + released package); **McStasBench** = its held-out benchmark slice; repo + local dir renamed to NeutronGym (same day)
 - **Venue (2026-07-26): ICLR 2027 committed** (full paper 2026-09-24 AoE); NeurIPS 2027 D&B is the fallback, not a co-target
 - **RL in the paper (2026-07-26, supersedes same-day include-if-signal policy): bench + RL are both ICLR paper content.** SFT Aug 11 – Sep 1 → GRPO go/no-go Sep 1 → GRPO Sep 1 – 15 → RL numbers frozen ~Sep 17. Degradation ladder if signal fails (reported honestly): GRPO → SFT-only → env+eval-only
