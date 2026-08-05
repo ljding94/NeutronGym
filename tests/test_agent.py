@@ -170,6 +170,61 @@ def test_empty_response_nudged_not_accepted(tmp_path):
     assert meta["empty_responses"] == 1 and meta["turns"] == 2
 
 
+def test_provider_pin_lands_in_payload_and_meta(tmp_path):
+    captured = {}
+
+    class FakeHttp:
+        def post(self, url, headers=None, json=None, timeout=None):
+            captured.update(json)
+            return type("R", (), {"status_code": 200, "json": lambda s: {
+                "provider": "Google",
+                "choices": [{"message": {"role": "assistant",
+                                         "content": "done"}}],
+                "usage": {}}})()
+
+    out = agent.chat_completion(FakeHttp(), "http://x", "k", "m", [], [],
+                                0.0, provider_pin="Google")
+    assert captured["provider"] == {"order": ["Google"],
+                                    "allow_fallbacks": False}
+    assert out["provider"] == "Google"
+    # unpinned: no provider field at all
+    captured.clear()
+    agent.chat_completion(FakeHttp(), "http://x", "k", "m", [], [], 0.0)
+    assert "provider" not in captured
+
+
+def test_chat_completion_retries_network_errors(monkeypatch):
+    import httpx
+
+    calls = {"n": 0}
+
+    class FakeHttp:
+        def post(self, *a, **k):
+            calls["n"] += 1
+            if calls["n"] < 3:
+                raise httpx.ReadTimeout("slow provider")
+            return type("R", (), {"status_code": 200,
+                                  "json": lambda self: {"ok": True}})()
+
+    monkeypatch.setattr(agent.time, "sleep", lambda s: None)
+    out = agent.chat_completion(FakeHttp(), "http://x", "k", "m", [], [], 0.0)
+    assert out == {"ok": True} and calls["n"] == 3
+
+
+@pytest.mark.slow
+def test_unrecoverable_api_error_records_infra_failure(tmp_path):
+    def broken(messages, tools):
+        raise RuntimeError("chat completion failed after 3 tries: HTTP 500")
+
+    meta = agent.run_episode("plumbing", model="scripted/model",
+                             episode_dir=str(tmp_path), chat_fn=broken)
+    assert meta["returncode"] == 1 and "HTTP 500" in meta["error"]
+    events = [json.loads(x) for x in
+              open(os.path.join(str(tmp_path), "transcript.jsonl"))]
+    assert any(e["type"] == "error" for e in events)
+    assert events[-1]["type"] == "result"  # transcript closed, not lost
+
+
 @pytest.mark.slow
 def test_turn_cap_flagged(tmp_path):
     looper = [SCRIPT[0]] * 3  # never finishes

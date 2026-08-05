@@ -67,6 +67,23 @@ def test_monitor_role_matching():
     assert grader.match_monitor(summary, "tof") is None
 
 
+def test_monitor_matching_prefers_position_over_events():
+    """The 2026-08-05 loop-shakedown bug: a pre-sample diagnostic monitor
+    (huge events — it stares at the direct beam) must NOT out-match the
+    real detector when the reference position is known."""
+    summary = {"monitors": [
+        {"component": "mon_pinhole2", "dims": [60, 60], "xlabel": "X",
+         "events": 5e4, "position": [0, 0, 6.01]},
+        {"component": "detector", "dims": [128, 128], "xlabel": "X",
+         "events": 800, "position": [0, 0, 9.2]},
+    ]}
+    # reference detector sits ~3 m behind the sample
+    assert grader.match_monitor(summary, "2d",
+                                near=[0, 0, 9.21])["component"] == "detector"
+    # without position context the old most-events rule still applies
+    assert grader.match_monitor(summary, "2d")["component"] == "mon_pinhole2"
+
+
 def test_grade_gates_on_hard_failures():
     task = _task("P1_sans_reproduce.json")
     ref = {"ok": True, "monitors": [

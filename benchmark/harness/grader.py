@@ -88,11 +88,22 @@ def _monitor_role(m: dict) -> set:
     return roles
 
 
-def match_monitor(summary: dict, role: str):
-    """Best monitor for a role: most events among matching."""
+def match_monitor(summary: dict, role: str, near=None):
+    """Best monitor for a role. With `near` (the reference monitor's
+    position), pick the role-matching monitor CLOSEST to it — agents add
+    legitimate diagnostic monitors (the skill tells them to), and the old
+    most-events rule matched the reference's scattering detector against a
+    pre-sample beam monitor (found 2026-08-05 in the loop shakedown: both
+    sonnet-5 and gemini graded 1500x hot for having a correct beamstop AND
+    a pinhole diagnostic). Falls back to most-events without positions."""
     candidates = [m for m in summary["monitors"] if role in _monitor_role(m)]
     if not candidates:
         return None
+    if near is not None:
+        placed = [m for m in candidates if m.get("position")]
+        if placed:
+            return min(placed, key=lambda m: sum(
+                (a - b) ** 2 for a, b in zip(m["position"], near)))
     return max(candidates, key=lambda m: m.get("events") or 0)
 
 
@@ -120,7 +131,8 @@ def grade(task: dict, cand_summary: dict, ref_summary: dict) -> dict:
     for spec in task["grading"]["monitors"]:
         role = spec["role"]
         ref_m = match_monitor(ref_summary, role)
-        cand_m = match_monitor(cand_summary, role)
+        cand_m = match_monitor(cand_summary, role,
+                               near=(ref_m or {}).get("position"))
         if ref_m is None:
             continue  # task authoring error; don't punish candidate
         if cand_m is None:

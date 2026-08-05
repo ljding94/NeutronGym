@@ -82,7 +82,7 @@ def sandbox_deny_rules() -> list:
 
 
 def run_agent_loop(task: dict, model: str | None, ep: str,
-                   use_skill: bool) -> dict:
+                   use_skill: bool, provider: str | None = "Google") -> dict:
     """The NeutronGym reference loop — the measurement instrument
     (note/scaffold-decision-2026-07-30.md). Sandbox by construction: the
     model sees only MCP tools (no shell/Read), server benchmark mode on,
@@ -102,7 +102,8 @@ def run_agent_loop(task: dict, model: str | None, ep: str,
         task["prompt"], model, episode_dir=ep,
         home_dir=os.path.join(ep, "home"),
         server_cwd=os.path.join(ep, "cwd"),
-        skill_text=skill_text, exempt=task_exempt_paths(task))
+        skill_text=skill_text, exempt=task_exempt_paths(task),
+        provider_pin=provider or None)
 
 
 def run_agent(task: dict, model: str | None, ep: str, use_skill: bool) -> dict:
@@ -231,6 +232,12 @@ def main():
     ap.add_argument("--episode-dir", default=None)
     ap.add_argument("--no-artifacts", action="store_true",
                     help="skip the post-episode visual bundle")
+    ap.add_argument("--provider", default="Google",
+                    help="loop only: pin one OpenRouter serving provider, "
+                         "no fallbacks (consistency default: Google/Vertex; "
+                         "non-Vertex models need their provider from "
+                         "note/openrouter-model-roster-2026-08-05.md; "
+                         "'' = unpinned)")
     args = ap.parse_args()
     with open(resolve_task(args.task)) as f:
         task = json.load(f)
@@ -246,8 +253,13 @@ def main():
     shutil.rmtree(ep, ignore_errors=True)
     os.makedirs(ep)
 
-    runner = run_agent_loop if args.scaffold == "loop" else run_agent
-    episode = runner(task, args.model, ep, use_skill=not args.no_skill)
+    if args.scaffold == "loop":
+        episode = run_agent_loop(task, args.model, ep,
+                                 use_skill=not args.no_skill,
+                                 provider=args.provider)
+    else:
+        episode = run_agent(task, args.model, ep,
+                            use_skill=not args.no_skill)
 
     instr_path, params = find_candidate(os.path.join(ep, "home"))
     if instr_path is None:

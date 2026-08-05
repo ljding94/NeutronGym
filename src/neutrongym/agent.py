@@ -84,15 +84,26 @@ def _truncate(text: str, cap: int = TOOL_RESULT_CAP) -> str:
 
 def chat_completion(http: httpx.Client, base_url: str, api_key: str,
                     model: str, messages: list, tools: list,
-                    temperature: float) -> dict:
+                    temperature: float, provider_pin: str | None = None) -> dict:
     payload = {"model": model, "messages": messages, "tools": tools,
                "tool_choice": "auto", "temperature": temperature,
                "max_tokens": 8192}  # explicit: provider defaults can truncate
+    if provider_pin:
+        # one serving provider per model, no fallbacks — provider drift
+        # between episodes is an evaluation confound (measured 2026-08-05:
+        # unpinned claude-sonnet-5 moved Google -> Bedrock within an hour)
+        payload["provider"] = {"order": [provider_pin],
+                               "allow_fallbacks": False}
     last = None
     for attempt in range(RETRIES):
-        resp = http.post(f"{base_url}/chat/completions",
-                         headers={"Authorization": f"Bearer {api_key}"},
-                         json=payload, timeout=REQUEST_TIMEOUT_S)
+        try:
+            resp = http.post(f"{base_url}/chat/completions",
+                             headers={"Authorization": f"Bearer {api_key}"},
+                             json=payload, timeout=REQUEST_TIMEOUT_S)
+        except httpx.HTTPError as e:  # timeouts, resets — retry, never raise raw
+            last = f"{type(e).__name__}: {e}"
+            time.sleep(2 ** attempt)
+            continue
         if resp.status_code == 200:
             return resp.json()
         last = f"HTTP {resp.status_code}: {resp.text[:300]}"
@@ -119,7 +130,7 @@ class Transcript:
 
 async def _run(task_prompt, model, episode_dir, home_dir, server_cwd,
                skill_text, base_url, api_key, max_turns, temperature,
-               benchmark_mode, exempt, chat_fn) -> dict:
+               benchmark_mode, exempt, provider_pin, chat_fn) -> dict:
     from fastmcp import Client
     from fastmcp.client.transports import StdioTransport
 
@@ -163,14 +174,23 @@ async def _run(task_prompt, model, episode_dir, home_dir, server_cwd,
 
                 def call_model(msgs, tls):
                     return chat_completion(http, b_url, key, model, msgs,
-                                           tls, temperature)
+                                           tls, temperature, provider_pin)
             else:
                 call_model = chat_fn
 
             turns = empties = 0
+            error = None
+            providers_seen: set = set()
             while turns < max_turns:
                 turns += 1
-                resp = call_model(messages, tools)
+                try:
+                    resp = call_model(messages, tools)
+                except RuntimeError as e:
+                    # unrecoverable API failure: record an infra-failed
+                    # episode, never lose the transcript to a stack trace
+                    error = str(e)
+                    tr.event({"type": "error", "error": error})
+                    break
                 for k in usage:
                     usage[k] += (resp.get("usage") or {}).get(k) or 0
                 choice = resp["choices"][0]
@@ -183,8 +203,10 @@ async def _run(task_prompt, model, episode_dir, home_dir, server_cwd,
                             "input": json.loads(
                                 c["function"]["arguments"] or "{}")}
                            for c in calls]
+                providers_seen.add(resp.get("provider") or "?")
                 tr.event({"type": "assistant", "message": {"content": blocks},
-                          "finish_reason": choice.get("finish_reason")})
+                          "finish_reason": choice.get("finish_reason"),
+                          "provider": resp.get("provider")})
                 messages.append({k: v for k, v in msg.items()
                                  if k in ("role", "content", "tool_calls")})
                 if not calls:
@@ -233,7 +255,9 @@ async def _run(task_prompt, model, episode_dir, home_dir, server_cwd,
     tr.event(result)
     tr.close()
     return {"model": model, "scaffold": "neutrongym-reference-loop",
-            "returncode": 0, "turns": turns,
+            "provider_pin": provider_pin,
+            "providers_seen": sorted(providers_seen),
+            "returncode": 1 if error else 0, "error": error, "turns": turns,
             "hit_turn_cap": turns >= max_turns and not final,
             "empty_responses": empties,
             "cost_usd": None, "duration_s": round(duration, 1),
@@ -247,11 +271,14 @@ def run_episode(task_prompt: str, model: str, episode_dir: str,
                 api_key: str | None = None,
                 max_turns: int = DEFAULT_MAX_TURNS,
                 temperature: float = 0.0, benchmark_mode: bool = True,
-                exempt=(), chat_fn=None) -> dict:
+                exempt=(), provider_pin: str | None = None,
+                chat_fn=None) -> dict:
     """Run one reference-loop episode; returns the episode meta dict and
-    writes transcript.jsonl into episode_dir. chat_fn(messages, tools) may
-    be injected for tests (scripted model, no network)."""
+    writes transcript.jsonl into episode_dir. provider_pin routes every
+    request through one OpenRouter provider (no fallbacks) — the
+    consistency default for scored runs. chat_fn(messages, tools) may be
+    injected for tests (scripted model, no network)."""
     return asyncio.run(_run(task_prompt, model, episode_dir, home_dir,
                             server_cwd, skill_text, base_url, api_key,
                             max_turns, temperature, benchmark_mode,
-                            tuple(exempt), chat_fn))
+                            tuple(exempt), provider_pin, chat_fn))
