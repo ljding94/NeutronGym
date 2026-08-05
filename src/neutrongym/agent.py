@@ -1,0 +1,257 @@
+"""The NeutronGym reference loop — the measurement instrument.
+
+A minimal, model-agnostic agent scaffold (note/scaffold-decision-2026-07-30.md):
+every headline cross-model number, M8 rejection-sampling rollout, and
+trained-model evaluation runs through THIS loop, so baseline and trained
+models share one scaffold (no scaffold confound under the trainability
+claim). Claude Code is a separate comparison arm.
+
+Design:
+- One OpenAI-compatible chat-completions client (httpx): OpenRouter and
+  local vLLM plug in directly; Claude rides Anthropic's OpenAI-compat
+  surface. Backend resolved from the model id unless base_url is given.
+- MCP client over stdio to the mcstas FastMCP server, spawned per episode
+  with MCSTAS_MCP_HOME (isolation) and MCSTAS_MCP_BENCHMARK=1 (sandbox
+  layer 1). The MCP tool list IS the capability surface.
+- Sandbox by construction: the model has no shell and no file Read — only
+  MCP tools exist. The transcript audit (sandbox layer 3) stays as backstop.
+- Skill = SKILL.md text injected into the system prompt by the caller
+  (±skill stays a clean ablation toggle). The system prompt below is part
+  of the released instrument — deliberately short and pinned.
+- Transcript events mirror Claude Code's stream-json block shapes
+  (assistant tool_use / user tool_result / final result), so the existing
+  episode parsers and benchmark/harness/leak_audit.py consume loop
+  transcripts unchanged.
+"""
+
+import asyncio
+import json
+import os
+import sys
+import time
+
+import httpx
+
+DEFAULT_MAX_TURNS = 40
+TOOL_RESULT_CAP = 50_000
+REQUEST_TIMEOUT_S = 300
+RETRIES = 3
+
+SYSTEM_PROMPT = (
+    "You are an expert neutron instrument scientist. You design and validate "
+    "McStas instruments exclusively through the provided tools. Iterate at "
+    "low ncount; when your instrument runs and matches the task, stop and "
+    "summarize what you built and its key simulated observables."
+)
+
+
+def resolve_backend(model: str, base_url: str | None = None,
+                    api_key: str | None = None) -> tuple[str, str]:
+    """(base_url, api_key) from an explicit base_url, or the model id:
+    'vendor/model' -> OpenRouter; 'claude*' -> Anthropic OpenAI-compat."""
+    if base_url:
+        return base_url.rstrip("/"), (api_key or os.environ.get(
+            "OPENAI_API_KEY") or "EMPTY")
+    if model.startswith("claude"):
+        key = api_key or os.environ.get("ANTHROPIC_API_KEY")
+        if not key:
+            raise RuntimeError("Claude via the reference loop needs "
+                               "ANTHROPIC_API_KEY (subscription auth only "
+                               "works through the claude CLI comparison arm)")
+        return "https://api.anthropic.com/v1", key
+    if "/" in model:
+        key = api_key or os.environ.get("OPENROUTER_API_KEY")
+        if not key:
+            raise RuntimeError("OPENROUTER_API_KEY not set")
+        return "https://openrouter.ai/api/v1", key
+    raise ValueError(f"cannot infer a backend for model {model!r} — pass "
+                     "base_url= (e.g. a local vLLM http://host:8000/v1)")
+
+
+def mcp_tools_to_openai(tools) -> list:
+    return [{"type": "function",
+             "function": {"name": t.name, "description": t.description or "",
+                          "parameters": t.inputSchema
+                          or {"type": "object", "properties": {}}}}
+            for t in tools]
+
+
+def _truncate(text: str, cap: int = TOOL_RESULT_CAP) -> str:
+    if len(text) <= cap:
+        return text
+    return text[:cap] + f"\n...[truncated {len(text) - cap} chars]"
+
+
+def chat_completion(http: httpx.Client, base_url: str, api_key: str,
+                    model: str, messages: list, tools: list,
+                    temperature: float) -> dict:
+    payload = {"model": model, "messages": messages, "tools": tools,
+               "tool_choice": "auto", "temperature": temperature,
+               "max_tokens": 8192}  # explicit: provider defaults can truncate
+    last = None
+    for attempt in range(RETRIES):
+        resp = http.post(f"{base_url}/chat/completions",
+                         headers={"Authorization": f"Bearer {api_key}"},
+                         json=payload, timeout=REQUEST_TIMEOUT_S)
+        if resp.status_code == 200:
+            return resp.json()
+        last = f"HTTP {resp.status_code}: {resp.text[:300]}"
+        if resp.status_code in (429, 500, 502, 503):
+            time.sleep(2 ** attempt)
+            continue
+        break
+    raise RuntimeError(f"chat completion failed after {RETRIES} tries: {last}")
+
+
+class Transcript:
+    """JSONL transcript in Claude stream-json block shapes (see module doc)."""
+
+    def __init__(self, path: str):
+        self.f = open(path, "w")
+
+    def event(self, ev: dict):
+        self.f.write(json.dumps(ev) + "\n")
+        self.f.flush()
+
+    def close(self):
+        self.f.close()
+
+
+async def _run(task_prompt, model, episode_dir, home_dir, server_cwd,
+               skill_text, base_url, api_key, max_turns, temperature,
+               benchmark_mode, exempt, chat_fn) -> dict:
+    from fastmcp import Client
+    from fastmcp.client.transports import StdioTransport
+
+    os.makedirs(episode_dir, exist_ok=True)
+    home_dir = home_dir or os.path.join(episode_dir, "home")
+    server_cwd = server_cwd or os.path.join(episode_dir, "cwd")
+    os.makedirs(home_dir, exist_ok=True)
+    os.makedirs(server_cwd, exist_ok=True)
+
+    env = {**os.environ, "MCSTAS_MCP_HOME": os.path.abspath(home_dir)}
+    if benchmark_mode:
+        env["MCSTAS_MCP_BENCHMARK"] = "1"
+    if exempt:
+        env["MCSTAS_MCP_BENCHMARK_ALLOW"] = os.pathsep.join(exempt)
+    transport = StdioTransport(
+        command=sys.executable,
+        args=["-c", "from mcstas_mcp.server import main; main()"],
+        env=env, cwd=os.path.abspath(server_cwd))
+
+    tr = Transcript(os.path.join(episode_dir, "transcript.jsonl"))
+    system = SYSTEM_PROMPT + ("\n\n" + skill_text if skill_text else "")
+    messages = [{"role": "system", "content": system},
+                {"role": "user", "content": task_prompt}]
+    usage = {"prompt_tokens": 0, "completion_tokens": 0}
+    tool_counts: dict = {}
+    final = ""
+    t0 = time.time()
+
+    async with Client(transport) as mcp:
+        tools = mcp_tools_to_openai(await mcp.list_tools())
+        tr.event({"type": "system", "subtype": "init", "model": model,
+                  "scaffold": "neutrongym-reference-loop",
+                  "config": {"max_turns": max_turns,
+                             "temperature": temperature,
+                             "benchmark_mode": benchmark_mode,
+                             "skill": bool(skill_text),
+                             "n_tools": len(tools)}})
+        with httpx.Client() as http:
+            if chat_fn is None:
+                b_url, key = resolve_backend(model, base_url, api_key)
+
+                def call_model(msgs, tls):
+                    return chat_completion(http, b_url, key, model, msgs,
+                                           tls, temperature)
+            else:
+                call_model = chat_fn
+
+            turns = empties = 0
+            while turns < max_turns:
+                turns += 1
+                resp = call_model(messages, tools)
+                for k in usage:
+                    usage[k] += (resp.get("usage") or {}).get(k) or 0
+                choice = resp["choices"][0]
+                msg = choice["message"]
+                calls = msg.get("tool_calls") or []
+                blocks = ([{"type": "text", "text": msg["content"]}]
+                          if msg.get("content") else [])
+                blocks += [{"type": "tool_use", "id": c["id"],
+                            "name": c["function"]["name"],
+                            "input": json.loads(
+                                c["function"]["arguments"] or "{}")}
+                           for c in calls]
+                tr.event({"type": "assistant", "message": {"content": blocks},
+                          "finish_reason": choice.get("finish_reason")})
+                messages.append({k: v for k, v in msg.items()
+                                 if k in ("role", "content", "tool_calls")})
+                if not calls:
+                    final = msg.get("content") or ""
+                    if not final.strip():
+                        # reasoning-only / truncated turn (seen with Gemini
+                        # via OpenRouter): nudge instead of accepting an
+                        # empty episode as the model's answer
+                        empties += 1
+                        if empties >= 3:
+                            break
+                        messages.append({
+                            "role": "user",
+                            "content": "Your last message was empty. "
+                                       "Continue the task: call a tool, or "
+                                       "give your final summary as text."})
+                        continue
+                    break
+                results = []
+                for c in calls:
+                    name = c["function"]["name"]
+                    tool_counts[name] = tool_counts.get(name, 0) + 1
+                    try:
+                        args = json.loads(c["function"]["arguments"] or "{}")
+                        out = await mcp.call_tool(name, args,
+                                                  raise_on_error=False)
+                        text = "\n".join(b.text for b in out.content
+                                         if getattr(b, "text", None))
+                        is_err = bool(out.is_error)
+                    except Exception as e:  # malformed args, transport, ...
+                        text, is_err = f"tool call failed: {e}", True
+                    text = _truncate(text)
+                    results.append({"type": "tool_result",
+                                    "tool_use_id": c["id"],
+                                    "is_error": is_err,
+                                    "content": [{"type": "text",
+                                                 "text": text}]})
+                    messages.append({"role": "tool", "tool_call_id": c["id"],
+                                     "content": text})
+                tr.event({"type": "user", "message": {"content": results}})
+
+    duration = time.time() - t0
+    result = {"type": "result", "result": final, "num_turns": turns,
+              "usage": usage, "duration_ms": int(duration * 1000),
+              "total_cost_usd": None}
+    tr.event(result)
+    tr.close()
+    return {"model": model, "scaffold": "neutrongym-reference-loop",
+            "returncode": 0, "turns": turns,
+            "hit_turn_cap": turns >= max_turns and not final,
+            "empty_responses": empties,
+            "cost_usd": None, "duration_s": round(duration, 1),
+            "usage": usage, "mcp_calls": tool_counts,
+            "skill_used": bool(skill_text), "final_answer": final}
+
+
+def run_episode(task_prompt: str, model: str, episode_dir: str,
+                home_dir: str | None = None, server_cwd: str | None = None,
+                skill_text: str | None = None, base_url: str | None = None,
+                api_key: str | None = None,
+                max_turns: int = DEFAULT_MAX_TURNS,
+                temperature: float = 0.0, benchmark_mode: bool = True,
+                exempt=(), chat_fn=None) -> dict:
+    """Run one reference-loop episode; returns the episode meta dict and
+    writes transcript.jsonl into episode_dir. chat_fn(messages, tools) may
+    be injected for tests (scripted model, no network)."""
+    return asyncio.run(_run(task_prompt, model, episode_dir, home_dir,
+                            server_cwd, skill_text, base_url, api_key,
+                            max_turns, temperature, benchmark_mode,
+                            tuple(exempt), chat_fn))

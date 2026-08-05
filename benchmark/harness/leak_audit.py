@@ -13,8 +13,15 @@ See note/pilot-leak-audit-2026-07-30.md.
 import json
 import os
 
-EXAMPLE_TOOLS = {"mcp__mcstas__list_examples", "mcp__mcstas__get_example"}
-LOAD_TOOL = "mcp__mcstas__load_instr_file"
+# tool names are normalized before classification: Claude Code transcripts
+# prefix MCP tools (mcp__mcstas__get_example), the reference loop records
+# bare names (get_example) — the audit must catch both
+EXAMPLE_TOOLS = {"list_examples", "get_example"}
+LOAD_TOOL = "load_instr_file"
+
+
+def _tool_name(name: str) -> str:
+    return name.rsplit("__", 1)[-1]
 
 
 def _real(path: str) -> str:
@@ -94,7 +101,8 @@ def audit_transcript(transcript_path: str, allowed_roots, forbidden_trees,
     allowed = list(allowed_roots) + list(exempt)
     events = []
     for cid, call in calls.items():
-        name, inp = call.get("name", ""), call.get("input") or {}
+        raw, inp = call.get("name", ""), call.get("input") or {}
+        name = _tool_name(raw)
         kind = target = None
         if name in EXAMPLE_TOOLS:
             kind = "example_tool"
@@ -110,6 +118,6 @@ def audit_transcript(transcript_path: str, allowed_roots, forbidden_trees,
                 kind, target = "forbidden_read", path
         if kind:
             refused = _tool_result_refused(results.get(cid))
-            events.append({"tool": name, "kind": kind, "target": target,
+            events.append({"tool": raw, "kind": kind, "target": target,
                            "refused": bool(refused)})
     return {"leaked": any(not e["refused"] for e in events), "events": events}

@@ -81,6 +81,30 @@ def sandbox_deny_rules() -> list:
     ]
 
 
+def run_agent_loop(task: dict, model: str | None, ep: str,
+                   use_skill: bool) -> dict:
+    """The NeutronGym reference loop — the measurement instrument
+    (note/scaffold-decision-2026-07-30.md). Sandbox by construction: the
+    model sees only MCP tools (no shell/Read), server benchmark mode on,
+    per-task exemptions via env; the leak audit still runs as backstop."""
+    from neutrongym import agent
+
+    skill_text = None
+    if use_skill:
+        with open(os.path.join(REPO, "skills", "mcstas-instrument-design",
+                               "SKILL.md")) as f:
+            skill_text = f.read()
+    if not model:
+        raise SystemExit("error: --scaffold loop needs an explicit --model "
+                         "(e.g. google/gemini-3.6-flash, claude-sonnet-5, or "
+                         "any id with --base-url for vLLM)")
+    return agent.run_episode(
+        task["prompt"], model, episode_dir=ep,
+        home_dir=os.path.join(ep, "home"),
+        server_cwd=os.path.join(ep, "cwd"),
+        skill_text=skill_text, exempt=task_exempt_paths(task))
+
+
 def run_agent(task: dict, model: str | None, ep: str, use_skill: bool) -> dict:
     home = os.path.join(ep, "home")
     cwd = os.path.join(ep, "cwd")
@@ -195,9 +219,14 @@ def find_candidate(home: str):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("task", help="task id (e.g. T1_PSI_DMC) or task-JSON path")
+    ap.add_argument("--scaffold", choices=["loop", "claude"], default="loop",
+                    help="loop = NeutronGym reference loop (the measurement "
+                         "instrument, default); claude = headless Claude "
+                         "Code (production-harness comparison arm)")
     ap.add_argument("--model", default=None,
-                    help="OpenRouter id (with /) or Claude model alias; "
-                         "default = local claude default")
+                    help="loop: any OpenRouter id / claude* / id+--base-url; "
+                         "claude scaffold: OpenRouter id or Claude alias "
+                         "(default = local claude default)")
     ap.add_argument("--no-skill", action="store_true")
     ap.add_argument("--episode-dir", default=None)
     ap.add_argument("--no-artifacts", action="store_true",
@@ -207,6 +236,8 @@ def main():
         task = json.load(f)
 
     tag = re.sub(r"\W", "_", args.model or "claude")
+    if args.scaffold == "loop":
+        tag = "loop__" + tag  # keep the two arms' episode dirs distinct
     ep = args.episode_dir or os.path.join(REPO, "runs", "pilot",
                                           f"{task['id']}__{tag}")
     # MCSTAS_MCP_HOME reaches the MCP server via env and the server runs with
@@ -215,7 +246,8 @@ def main():
     shutil.rmtree(ep, ignore_errors=True)
     os.makedirs(ep)
 
-    episode = run_agent(task, args.model, ep, use_skill=not args.no_skill)
+    runner = run_agent_loop if args.scaffold == "loop" else run_agent
+    episode = runner(task, args.model, ep, use_skill=not args.no_skill)
 
     instr_path, params = find_candidate(os.path.join(ep, "home"))
     if instr_path is None:
