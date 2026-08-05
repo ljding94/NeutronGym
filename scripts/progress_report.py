@@ -66,7 +66,7 @@ def parse_plan(text):
                 recap["items"].append(m.group(1))
 
         elif section and section.startswith("Milestones"):
-            m = re.match(r"^### (M\d+) — (.+)$", line)
+            m = re.match(r"^### (M\d+(?:\.\d+)?) — (.+)$", line)
             if m:
                 title = m.group(2)
                 done = "✅" in title or re.search(r"\bDONE\b", title)
