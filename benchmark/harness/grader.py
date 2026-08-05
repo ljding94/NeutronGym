@@ -27,6 +27,7 @@ CACHE = os.path.join(REPO, "benchmark", "refcache")
 
 from mcstas_mcp import execution, results  # noqa: E402
 from mcstas_mcp.config import resources_dir  # noqa: E402
+from neutrongym.reward import get_observable  # noqa: E402  (canonical accessor)
 
 
 def _resolve_instr(ref: str) -> str:
@@ -95,23 +96,17 @@ def match_monitor(summary: dict, role: str):
     return max(candidates, key=lambda m: m.get("events") or 0)
 
 
+# the traversal lives in neutrongym.reward.get_observable (canonical); the
+# grader adds a strict guard so a typo'd observable in a task JSON explodes
+# at curation time instead of silently grading None
+GRADED_OBSERVABLES = {"intensity", "beam_width_x", "beam_width_y",
+                      "beam_center_x", "fwhm", "center_of_mass"}
+
+
 def _get_observable(mon: dict, name: str):
-    paths = {
-        "intensity": ("intensity",),
-        "beam_width_x": ("beam_width", "dX"),
-        "beam_width_y": ("beam_width", "dY"),
-        "beam_center_x": ("beam_center", "X0"),
-        "fwhm": ("fwhm",),
-        "center_of_mass": ("center_of_mass",),
-    }
-    if name not in paths:
+    if name not in GRADED_OBSERVABLES:
         raise KeyError(f"unknown observable '{name}'")
-    val = mon
-    for p in paths[name]:
-        val = val.get(p) if isinstance(val, dict) else None
-        if val is None:
-            return None
-    return val
+    return get_observable(mon, name)
 
 
 def grade(task: dict, cand_summary: dict, ref_summary: dict) -> dict:
