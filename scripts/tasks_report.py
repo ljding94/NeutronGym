@@ -7,6 +7,7 @@ Reference links point at the McStas example sources on GitHub (mccode-dev/McCode
 Regenerate after task changes: python3 scripts/tasks_report.py  (stdlib only)
 """
 
+import base64
 import glob
 import html
 import json
@@ -15,6 +16,7 @@ from datetime import datetime
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(REPO, "benchmark", "tasks.html")
+REFVIZ = os.path.join(REPO, "runs", "refviz")
 GREEN, AMBER, BLUE, GRAY = "#2da44e", "#bf8700", "#0969da", "#656d76"
 GH = "https://github.com/mccode-dev/McCode/tree/main/mcstas-comps/examples"
 
@@ -58,6 +60,25 @@ def gh_link(inv_entry):
 def ref_name(task):
     ref = (task.get("reference") or {}).get("instr", "")
     return ref.split(":", 1)[1] if ref.startswith("shipped:") else None
+
+
+def refviz_img(task_id, refviz_root=REFVIZ):
+    """Reference-diagram thumbnail, base64-embedded (self-contained page).
+    Empty string when runs/refviz/ hasn't been rendered — this generator
+    only links/embeds files, it never generates them (stdlib-only)."""
+    png = os.path.join(refviz_root, task_id, "diagram.png")
+    if not os.path.isfile(png):
+        return ""
+    with open(png, "rb") as f:
+        data = base64.b64encode(f.read()).decode("ascii")
+    return (f'<details><summary>reference diagram</summary>'
+            f'<img src="data:image/png;base64,{data}" alt="reference diagram '
+            f'for {esc(task_id)}" style="max-width:100%;border:1px solid '
+            f'#d0d7de;border-radius:8px;margin:6px 0">'
+            f'<p class="meta">rendered from the reference by '
+            f'<code>benchmark/harness/visualize.py --refs</code>; the same '
+            f'visuals are built for every episode in its '
+            f'<code>artifacts/</code> bundle</p></details>')
 
 
 def badge(text, color):
@@ -154,6 +175,7 @@ def task_card(t, val, inv):
         parts.append(f'<p class="meta">⚠ {esc(t.get("grading", {}).get("expert_rubric", ""))}</p>')
     if t.get("kind") == "memorization_probe":
         parts.append(f'<p>{esc(t.get("notes", ""))}</p>')
+    parts.append(refviz_img(t["id"]))
     prompt = t.get("prompt")
     if prompt:
         parts.append(f'<details><summary>task prompt ({len(prompt)} chars)</summary>'
@@ -263,10 +285,10 @@ def main():
   instrument papers (DOIs verified; see
   <code>note/study-instrument-papers-2026-07-09.md</code>,
   <code>note/study-paper-pairs-2026-07-24.md</code>); a machine-verification
-  sweep (<code>benchmark/build_inventory.py</code>) confirms each reference
+  sweep (<code>benchmark/harness/build_inventory.py</code>) confirms each reference
   compiles, runs, and reproduces its <code>%Example</code> value in this
   environment.</p>
-  <p><strong>3 — Manufacturing:</strong> <code>benchmark/author_tasks.py</code>
+  <p><strong>3 — Manufacturing:</strong> <code>benchmark/harness/author_tasks.py</code>
   converts each reference <code>.instr</code> into a natural-language spec-sheet
   prompt and derives the grading contract from the reference's own monitors.
   Every task is then self-validated: the reference must pass its own task at a
@@ -302,7 +324,7 @@ def main():
 
   <footer class="meta" style="margin-top:28px">
     Regenerate: <code>python3 scripts/tasks_report.py</code> · tasks live in
-    <code>benchmark/tasks/</code> · grading: <code>benchmark/grader.py</code>
+    <code>benchmark/tasks/</code> · grading: <code>benchmark/harness/grader.py</code>
   </footer>
 </div></body></html>
 """

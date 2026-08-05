@@ -2,6 +2,8 @@
 
 PLAN.md stays the single source of truth; this just renders it. Conventions
 it relies on:
+  - the quick-sync recap is the bullets under "## Recap" (rendered as the
+    top card; the heading's parenthetical carries the as-of date)
   - milestones are "### M<n> — Title" headings under "## Milestones";
     a completed milestone has "DONE" (with the checkmark emoji) in its heading
   - checklist items are "- [ ]" / "- [x]" bullets
@@ -38,6 +40,7 @@ def md_inline(text):
 def parse_plan(text):
     lines = text.splitlines()
     milestones, gates, decisions = [], [], []
+    recap = {"asof": "", "items": []}
     section = None
     current = None
     in_code = False
@@ -52,9 +55,17 @@ def parse_plan(text):
         if line.startswith("## "):
             section = line[3:].strip()
             current = None
+            if section.startswith("Recap"):
+                m = re.search(r"as of ([0-9-]+)", section)
+                recap["asof"] = m.group(1) if m else ""
             continue
 
-        if section and section.startswith("Milestones"):
+        if section and section.startswith("Recap"):
+            m = re.match(r"^- (.+)$", line)
+            if m:
+                recap["items"].append(m.group(1))
+
+        elif section and section.startswith("Milestones"):
             m = re.match(r"^### (M\d+) — (.+)$", line)
             if m:
                 title = m.group(2)
@@ -101,7 +112,7 @@ def parse_plan(text):
     }
     for g in gates:
         g["passed"] = g["n"] in passed
-    return milestones, gates, decisions
+    return milestones, gates, decisions, recap
 
 
 def git_info():
@@ -127,7 +138,7 @@ def status_of(ms):
     return "pending", GRAY, "pending"
 
 
-def render(milestones, gates, decisions):
+def render(milestones, gates, decisions, recap):
     total = sum(len(m["items"]) for m in milestones)
     checked = sum(1 for m in milestones for ok, _ in m["items"] if ok)
     pct = round(100 * checked / total) if total else 0
@@ -171,6 +182,75 @@ def render(milestones, gates, decisions):
     )
     decision_items = "".join(f"<li>{md_inline(d)}</li>" for d in decisions)
 
+    workflow_html = """
+  <h2>How the benchmark works</h2>
+  <div class="flow">
+    <div class="lane">
+      <div class="lane-title">Reference side · no LLM anywhere</div>
+      <div class="step">shipped / curated reference <code>.instr</code><br>
+        <span class="dim">(McStas example library, <code>benchmark/instruments/</code>)</span></div>
+      <div class="arrow">&darr;</div>
+      <div class="step"><code>build_inventory.py</code> — runs each candidate: eligible? &rarr; <code>inventory.json</code></div>
+      <div class="arrow">&darr;</div>
+      <div class="step"><code>author_tasks.py</code> — NL spec sheet + grading contract;
+        <code>validate_tasks.py</code> — reference passes its own task at a fresh seed</div>
+      <div class="arrow">&darr;</div>
+      <div class="step"><code>refcache/</code> — reference observables, run <strong>once</strong> at the task protocol</div>
+    </div>
+    <div class="lane">
+      <div class="lane-title">Agent side · the only LLM</div>
+      <div class="step">task prompt = <strong>NL spec sheet only</strong><br>
+        <span class="dim">never the reference file or its parameters</span></div>
+      <div class="arrow">&darr;</div>
+      <div class="step">agent in the <strong>NeutronGym reference loop</strong> ± skill
+        <span class="dim">(Claude Code = comparison arm; sandboxed — no example tools, no Read)</span></div>
+      <div class="arrow">&darr;</div>
+      <div class="step">MCP server: discover components, construct + validate &rarr; the agent's <strong>own</strong> <code>.instr</code></div>
+      <div class="arrow">&darr;</div>
+      <div class="step">iterate: <code>run_simulation</code> at low ncount &rarr; <code>get_results</code></div>
+    </div>
+    <div class="lane">
+      <div class="lane-title">Grading · headless, programmatic</div>
+      <div class="step">harness re-runs the agent's <code>.instr</code> at the <strong>env-controlled protocol</strong>
+        <span class="dim">(fixed ncount + seed — never the agent's own runs)</span></div>
+      <div class="arrow">&darr;</div>
+      <div class="step"><code>grader.py</code> — per monitor role, per observable:<br>
+        <code>|cand &minus; ref| &le; max(rtol&middot;|ref|, n&sigma;&middot;errors)</code></div>
+      <div class="arrow">&darr;</div>
+      <div class="step"><code>report.json</code> — pass/score, per-check deltas, deepest level reached (L1&ndash;L4), leak-audit flag</div>
+      <div class="arrow">&darr;</div>
+      <div class="step"><code>artifacts/</code> — candidate <code>.instr</code> + params, diagram PNG, real-scale webgl trace
+        <span class="dim">(harness-rendered post-episode; side-by-side with the reference visuals in <code>runs/refviz/</code>)</span></div>
+    </div>
+  </div>
+  <div class="flow-note">T2 (improve) tasks skip the reference comparison: the agent is <em>given</em> a
+    baseline + quantitative targets and <code>grade_improvement</code> checks its figure-of-merit against the
+    pre-calibrated, fresh-seed-verified classical best with constraint bands. No LLM judge in either path.</div>
+  <div class="gates ladder">
+    <div class="lane-title">Simulation budget ladder — ncount per stage</div>
+    <table>
+      <tr><th>Stage</th><th>ncount</th><th>Role</th></tr>
+      <tr><td>Fast-tier RL rollouts</td><td>1e5</td><td>~0.04 s/rollout via direct binary execution — dense training signal</td></tr>
+      <tr><td>Curation sweep (<code>build_inventory.py</code>)</td><td>1e5</td><td>cheap eligibility check across candidate references</td></tr>
+      <tr><td>Agent iteration inside an episode</td><td>agent's choice, ~1e5&ndash;1e6 (cap 1e8)</td><td>design-loop feedback — never graded</td></tr>
+      <tr><td><strong>Grading protocol (every task, both sides)</strong></td><td><strong>1e6, fixed seed</strong></td><td>reference and candidate measured identically; ~0.1% relative error on well-lit monitors; &lt;1,000-event monitors hard-fail as ungradable</td></tr>
+      <tr><td>Final validation of headline claims</td><td>&ge;1e8, fresh seed</td><td>production bar — T2 improvements must survive fresh-seed re-verification</td></tr>
+    </table>
+    <div class="flow-note">Weak-signal roles on the largest spectrometers (IN5, LET) get per-task higher-stat
+      protocols instead of a global ncount bump (planned, grow-T1 work).</div>
+  </div>
+"""
+
+    recap_html = ""
+    if recap["items"]:
+        recap_items = "".join(f"<li>{md_inline(r)}</li>" for r in recap["items"])
+        asof = f' <span class="asof">as of {recap["asof"]}</span>' if recap["asof"] else ""
+        recap_html = f"""
+  <div class="recap">
+    <div class="recap-head">Quick sync{asof}</div>
+    <ul>{recap_items}</ul>
+  </div>"""
+
     return f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -182,7 +262,8 @@ def render(milestones, gates, decisions):
          margin: 0; background: #f6f8fa; color: #1f2328; }}
   @media (prefers-color-scheme: dark) {{
     body {{ background: #0d1117; color: #e6edf3; }}
-    .card, .gates, .decisions {{ background: #161b22 !important; border-color: #30363d !important; }}
+    .card, .gates, .decisions, .lane {{ background: #161b22 !important; border-color: #30363d !important; }}
+    .flow .step {{ background: #1c2128 !important; border-color: #30363d !important; }}
     .accept {{ background: #1c2128 !important; }}
     th {{ background: #21262d !important; }}
     code {{ background: #21262d !important; }}
@@ -217,6 +298,22 @@ def render(milestones, gates, decisions):
   .note {{ margin-top: 8px; font-size: 12.5px; color: #656d76; }}
   .gates, .decisions {{ background: #fff; border: 1px solid #d0d7de; border-radius: 10px;
                         padding: 16px 18px; margin-top: 26px; }}
+  .recap {{ background: #fff; border: 1px solid #d0d7de; border-left: 4px solid #0969da;
+            border-radius: 10px; padding: 14px 18px; margin: 4px 0 18px; }}
+  .recap-head {{ font-weight: 700; font-size: 13px; text-transform: uppercase;
+                 letter-spacing: .04em; color: #0969da; margin-bottom: 8px; }}
+  .recap .asof {{ font-weight: 400; text-transform: none; letter-spacing: 0; color: #656d76; }}
+  .recap ul {{ margin: 0; padding-left: 20px; font-size: 13.5px; }}
+  .recap li {{ margin: 4px 0; }}
+  .flow {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }}
+  .lane {{ background: #fff; border: 1px solid #d0d7de; border-radius: 10px; padding: 14px; }}
+  .lane-title {{ font-weight: 700; font-size: 12px; text-transform: uppercase;
+                 letter-spacing: .04em; color: #656d76; margin-bottom: 10px; }}
+  .flow .step {{ background: #f6f8fa; border: 1px solid #d0d7de88; border-radius: 8px;
+                 padding: 8px 10px; font-size: 12.5px; }}
+  .flow .arrow {{ text-align: center; color: #656d76; font-size: 14px; line-height: 1.4; }}
+  .flow .dim {{ color: #656d76; }}
+  .flow-note {{ margin-top: 12px; font-size: 12.5px; color: #656d76; }}
   h2 {{ font-size: 18px; margin: 26px 0 12px; }}
   table {{ border-collapse: collapse; width: 100%; font-size: 13.5px; }}
   th, td {{ text-align: left; padding: 6px 10px; border-bottom: 1px solid #d0d7de55; vertical-align: top; }}
@@ -229,11 +326,13 @@ def render(milestones, gates, decisions):
   <div class="meta">the executable RL environment for neutron instrument design · McStasBench is its held-out benchmark slice</div>
   <div class="meta">Generated {now} · commit {git_info()} · source of truth: <code>PLAN.md</code>
    · <a href="guide.html">how the agent drives McStas &rarr;</a></div>
+  {recap_html}
   <div class="overall"><div></div></div>
   <div class="meta"><strong>{checked}/{total}</strong> checklist items complete ({pct}%)</div>
   <div class="chips">{chips}</div>
   <div class="grid">{"".join(cards)}
   </div>
+  {workflow_html}
   <h2>De-risk gates</h2>
   <div class="gates"><table>
     <tr><th></th><th>#</th><th>Gate</th><th>When</th><th>Kills the plan if</th></tr>
@@ -250,11 +349,11 @@ def render(milestones, gates, decisions):
 def main():
     with open(PLAN) as f:
         text = f.read()
-    milestones, gates, decisions = parse_plan(text)
+    milestones, gates, decisions, recap = parse_plan(text)
     if not milestones:
         raise SystemExit("no milestones parsed from PLAN.md — heading format changed?")
     with open(OUT, "w") as f:
-        f.write(render(milestones, gates, decisions))
+        f.write(render(milestones, gates, decisions, recap))
     total = sum(len(m["items"]) for m in milestones)
     done = sum(1 for m in milestones for ok, _ in m["items"] if ok)
     print(f"wrote {os.path.relpath(OUT, REPO)}: {len(milestones)} milestones, "

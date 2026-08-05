@@ -10,7 +10,7 @@ parse (reward-ladder terminal stage at truncated ncount). Static-tier checks
 are pure Python (<1 ms) and cheap-dynamic = the same run at the lowest
 ncount, so this table bounds the whole ladder.
 
-Usage: conda run -n mcstas python benchmark/measure_fast_tier.py [rollouts_per_ncount]
+Usage: conda run -n mcstas python benchmark/harness/measure_fast_tier.py [rollouts_per_ncount]
 """
 
 import os

@@ -10,7 +10,7 @@ import sys
 import pytest
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(REPO, "benchmark"))
+sys.path.insert(0, os.path.join(REPO, "benchmark", "harness"))
 
 import grader  # noqa: E402
 import probe_memorization as probe  # noqa: E402

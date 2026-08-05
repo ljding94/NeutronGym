@@ -10,9 +10,9 @@ from the reference run's actual monitors (roles with adequate statistics).
 
 Reader-incompatible instruments are reported for manual authoring, not
 silently skipped. Every generated task must then pass
-benchmark/validate_tasks.py (reference vs itself at a fresh seed).
+benchmark/harness/validate_tasks.py (reference vs itself at a fresh seed).
 
-Usage: conda run -n mcstas python benchmark/author_tasks.py
+Usage: conda run -n mcstas python benchmark/harness/author_tasks.py
 """
 
 import json
@@ -20,7 +20,7 @@ import os
 import re
 import tempfile
 
-REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 TASK_DIR = os.path.join(REPO, "benchmark", "tasks", "T1")
 
 os.environ.setdefault("MCSTAS_MCP_HOME", tempfile.mkdtemp(prefix="author_"))

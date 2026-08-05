@@ -7,7 +7,7 @@ sans_collimation) use instruments built here.
 Outputs committed to benchmark/instruments/<name>/: the generated .instr +
 spec.json (diffable provenance).
 
-Usage: conda run -n mcstas python benchmark/build_t2_instruments.py
+Usage: conda run -n mcstas python benchmark/harness/build_t2_instruments.py
 """
 
 import json
@@ -15,7 +15,7 @@ import os
 import shutil
 import tempfile
 
-REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 OUT = os.path.join(REPO, "benchmark", "instruments")
 
 os.environ["MCSTAS_MCP_HOME"] = tempfile.mkdtemp(prefix="t2_build_")

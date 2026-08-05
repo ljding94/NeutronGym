@@ -9,7 +9,7 @@ from typing import Optional, Union
 
 from fastmcp import FastMCP
 
-from . import catalog, examples, execution, optimization, registry, results
+from . import catalog, config, examples, execution, optimization, registry, results
 from .registry import SpecError
 from .execution import RunError
 
@@ -266,6 +266,13 @@ def load_instr_file(path: str, name: Optional[str] = None) -> dict:
     (best-effort — McStasScript's reader fails on some complex instruments;
     the error names the known failure classes). Returns per-component
     warnings for anything that did not survive the import."""
+    if config.benchmark_mode() and not config.path_within(
+            path, config.benchmark_allowed_roots()):
+        return _err(ValueError(
+            "benchmark mode: load_instr_file only accepts paths inside the "
+            "episode workspace — importing external instruments would leak "
+            "reference material. Build the instrument from the task "
+            "specification instead."))
     try:
         with registry.spec_lock:
             spec, warnings = registry.load_from_instr(path, name=name)
@@ -292,6 +299,11 @@ def export_instr_file(instrument_id: str, path: Optional[str] = None) -> dict:
 def list_examples(search: Optional[str] = None) -> dict:
     """Browse the ~300 shipped McStas example instruments (few-shot material;
     many model real facility instruments). search filters name/site/doc."""
+    if config.benchmark_mode():
+        return _err(ValueError(
+            "list_examples is disabled in benchmark mode: shipped examples "
+            "are reference material for benchmark tasks. Build the instrument "
+            "from the task specification."))
     items = examples.list_examples(search=search)
     return {"ok": True, "count": len(items), "examples": items}
 
@@ -301,6 +313,11 @@ def get_example(name: str) -> dict:
     """Full .instr source of one shipped example, plus its %Example
     self-test line (expected detector value — ground truth for that setup).
     Import it with load_instr_file(path) to modify it."""
+    if config.benchmark_mode():
+        return _err(ValueError(
+            "get_example is disabled in benchmark mode: shipped examples "
+            "are reference material for benchmark tasks. Build the instrument "
+            "from the task specification."))
     try:
         return {"ok": True, **examples.get_example(name)}
     except KeyError as e:

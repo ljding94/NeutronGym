@@ -9,7 +9,7 @@ prompt is rendered from the template with real numbers.
 Validation printed per task: the optimizer must meet the target (true by
 construction); random search should generally miss it (discrimination).
 
-Usage: conda run -n mcstas python benchmark/calibrate_t2.py
+Usage: conda run -n mcstas python benchmark/harness/calibrate_t2.py
 """
 
 import glob
@@ -19,7 +19,7 @@ import random
 import shutil
 import tempfile
 
-REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 os.environ.setdefault("MCSTAS_MCP_HOME", tempfile.mkdtemp(prefix="t2_cal_"))
 

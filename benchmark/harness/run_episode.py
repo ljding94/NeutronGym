@@ -1,7 +1,12 @@
 """Run one benchmark task as a headless agent episode, then grade the
 artifact the agent actually built (never its claims).
 
-Episode isolation: fresh MCSTAS_MCP_HOME + scratch cwd. The design skill is
+Episode isolation: fresh MCSTAS_MCP_HOME + scratch cwd. Benchmark sandbox
+(note/pilot-leak-audit-2026-07-30.md), three layers: server benchmark mode
+(MCSTAS_MCP_BENCHMARK=1 — example tools off, load_instr_file path-guarded),
+episode-scoped Read deny rules (.claude/settings.json), and a mandatory
+post-episode transcript audit stamped as reference_leak in report.json — a
+leaked episode is INVALID regardless of score. The design skill is
 installed into the episode cwd by default (the reference baseline config);
 --no-skill for ablations. Non-Claude models route via OpenRouter
 (ANTHROPIC_BASE_URL) — lessons from the 2026-07-24 OpenRouter spike baked in
@@ -13,12 +18,19 @@ its own defaults merged with the agent's last successful job parameters,
 and it is re-run under the task's protocol (env-controlled ncount + seed)
 before grading against the cached reference.
 
+Episode folder contract: report.json + transcript.jsonl + artifacts/ (the
+candidate .instr + resolved params, diagram PNG, real-scale webgl trace —
+side-by-side partner of the reference visuals in runs/refviz/, see
+visualize.py --refs).
+
 Usage:
-  conda run -n mcstas python benchmark/run_episode.py benchmark/tasks/P1_sans_reproduce.json \
+  conda run -n mcstas python benchmark/harness/run_episode.py T1_PSI_DMC \
       [--model google/gemini-3.6-flash] [--no-skill] [--episode-dir DIR]
+  (the task argument is an id resolved against benchmark/tasks/, or a path)
 """
 
 import argparse
+import glob
 import json
 import os
 import re
@@ -26,12 +38,47 @@ import shutil
 import subprocess
 import sys
 
-REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(REPO, "benchmark"))
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.join(REPO, "benchmark", "harness"))
 import grader  # noqa: E402
+import leak_audit  # noqa: E402
+import visualize  # noqa: E402
 
 MAX_TURNS = 60
 TIMEOUT_S = 1800
+
+
+def resolve_task(arg: str) -> str:
+    """Accept a task id (resolved against benchmark/tasks/) or a path."""
+    if os.path.isfile(arg):
+        return arg
+    hits = glob.glob(os.path.join(REPO, "benchmark", "tasks", "**",
+                                  f"{arg}.json"), recursive=True)
+    if len(hits) == 1:
+        return hits[0]
+    known = sorted(os.path.splitext(os.path.basename(p))[0] for p in
+                   glob.glob(os.path.join(REPO, "benchmark", "tasks", "**",
+                                          "*.json"), recursive=True)
+                   if not os.path.basename(p).startswith("_"))
+    raise SystemExit(f"error: no task '{arg}'. Known ids: {', '.join(known)}")
+
+
+def task_exempt_paths(task: dict) -> list:
+    """Sandbox exemptions for this task (per-task, not global): an improve
+    task's baseline instrument is task input by design — the agent is given
+    it and may load it."""
+    if task.get("kind") == "improve" and task.get("reference", {}).get("instr"):
+        return [os.path.join(REPO, os.path.dirname(task["reference"]["instr"]))]
+    return []
+
+
+def sandbox_deny_rules() -> list:
+    """Episode-scoped Read deny rules (sandbox layer 2). The skill stays
+    readable — it lives under skills/, none of these trees."""
+    return [
+        "Read(//" + os.path.realpath(t).lstrip("/") + "/**)"
+        for t in leak_audit.default_forbidden_trees(REPO)
+    ]
 
 
 def run_agent(task: dict, model: str | None, ep: str, use_skill: bool) -> dict:
@@ -39,15 +86,22 @@ def run_agent(task: dict, model: str | None, ep: str, use_skill: bool) -> dict:
     cwd = os.path.join(ep, "cwd")
     os.makedirs(home, exist_ok=True)
     os.makedirs(cwd, exist_ok=True)
+    claude_dir = os.path.join(cwd, ".claude")
+    os.makedirs(claude_dir, exist_ok=True)
+    with open(os.path.join(claude_dir, "settings.json"), "w") as f:
+        json.dump({"permissions": {"deny": sandbox_deny_rules()}}, f, indent=1)
     if use_skill:
-        skills = os.path.join(cwd, ".claude", "skills")
+        skills = os.path.join(claude_dir, "skills")
         os.makedirs(skills, exist_ok=True)
         link = os.path.join(skills, "mcstas-instrument-design")
         if not os.path.exists(link):
             os.symlink(os.path.join(REPO, "skills", "mcstas-instrument-design"),
                        link)
 
-    env = dict(os.environ, MCSTAS_MCP_HOME=home)
+    env = dict(os.environ, MCSTAS_MCP_HOME=home, MCSTAS_MCP_BENCHMARK="1")
+    exempt = task_exempt_paths(task)
+    if exempt:
+        env["MCSTAS_MCP_BENCHMARK_ALLOW"] = os.pathsep.join(exempt)
     if model and "/" in model:  # OpenRouter id
         env.update({
             "ANTHROPIC_BASE_URL": "https://openrouter.ai/api",
@@ -140,14 +194,16 @@ def find_candidate(home: str):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("task")
+    ap.add_argument("task", help="task id (e.g. T1_PSI_DMC) or task-JSON path")
     ap.add_argument("--model", default=None,
                     help="OpenRouter id (with /) or Claude model alias; "
                          "default = local claude default")
     ap.add_argument("--no-skill", action="store_true")
     ap.add_argument("--episode-dir", default=None)
+    ap.add_argument("--no-artifacts", action="store_true",
+                    help="skip the post-episode visual bundle")
     args = ap.parse_args()
-    with open(args.task) as f:
+    with open(resolve_task(args.task)) as f:
         task = json.load(f)
 
     tag = re.sub(r"\W", "_", args.model or "claude")
@@ -174,12 +230,30 @@ def main():
         report["candidate_instr"] = instr_path
         report["candidate_params"] = params
 
-    out = {"task": task["id"], "episode": episode, "grade": report}
+    # sandbox layer 3: mandatory leak audit — a leaked episode is INVALID
+    # regardless of score
+    audit = leak_audit.audit_transcript(
+        os.path.join(ep, "transcript.jsonl"),
+        allowed_roots=[os.path.join(ep, "home"), os.path.join(ep, "cwd")],
+        forbidden_trees=leak_audit.default_forbidden_trees(REPO),
+        exempt=task_exempt_paths(task))
+
+    # artifacts/ bundle: harness-rendered from the instrument the agent
+    # actually built (never from claims); side-by-side partner in runs/refviz/
+    artifacts = None
+    if instr_path and not args.no_artifacts:
+        artifacts = visualize.bundle(instr_path, params or {},
+                                     os.path.join(ep, "artifacts"))
+
+    out = {"task": task["id"], "episode": episode, "grade": report,
+           "reference_leak": audit, "artifacts": artifacts}
     with open(os.path.join(ep, "report.json"), "w") as f:
         json.dump(out, f, indent=2)
     print(json.dumps({**out, "episode": {k: v for k, v in episode.items()
                                          if k != "final_answer"}}, indent=2))
-    print(f"\n{'PASS' if report['pass'] else 'FAIL'}  score={report['score']}  "
+    verdict = ("INVALID (reference leak)" if audit["leaked"]
+               else "PASS" if report["pass"] else "FAIL")
+    print(f"\n{verdict}  score={report['score']}  "
           f"({report.get('checks_passed', '0/0')})  report: {ep}/report.json")
 
 

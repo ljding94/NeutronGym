@@ -14,7 +14,7 @@ Verdict: hard requirements (compiles, runs, required monitor roles present)
 gate the score to 0; otherwise score = passed observables / total.
 
 Usage:
-    python benchmark/grader.py <task.json> --candidate <file.instr> [--params k=v ...]
+    python benchmark/harness/grader.py <task.json> --candidate <file.instr> [--params k=v ...]
 """
 
 import argparse
@@ -22,7 +22,7 @@ import json
 import os
 import sys
 
-REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 CACHE = os.path.join(REPO, "benchmark", "refcache")
 
 from mcstas_mcp import execution, results  # noqa: E402

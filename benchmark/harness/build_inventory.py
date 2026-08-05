@@ -8,7 +8,7 @@ where a %Example expectation exists — agreement with it.
 
 Output: benchmark/inventory.json (the curation registry seed).
 
-Usage: conda run -n mcstas python benchmark/build_inventory.py [ncount]
+Usage: conda run -n mcstas python benchmark/harness/build_inventory.py [ncount]
 """
 
 import json
@@ -17,7 +17,7 @@ import re
 import sys
 import time
 
-REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from mcstas_mcp import examples, execution, results  # noqa: E402
 

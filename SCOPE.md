@@ -33,7 +33,7 @@ reference baseline shipped inside it, not a standalone contribution.
 |---|---|
 | **NeutronGym** (headline) | Gym-style env: reward-ladder API with level-resolved output, procedural instance generator, anti-hacking checks, fast tier at ~25 rollouts/s/core; pip-installable (Docker deferred to camera-ready — trim 2026-07-29) |
 | **McStasBench** | Tiered eval slice: T1 reproduce / T2 improve / T3 open design, with contamination controls (held-out 2024–26 instruments, memorization probes, perturbed variants) |
-| **McStasAgent** | Reference baseline: 22-tool MCP server wrapping McStasScript + the `mcstas-instrument-design` skill; run through headless Claude Code as a universal scaffold |
+| **McStasAgent** | Reference baseline: 22-tool MCP server wrapping McStasScript + the `mcstas-instrument-design` skill; run through the **NeutronGym reference loop** (minimal model-agnostic scaffold shipped in the env — the measurement instrument for all headline numbers; Claude Code is a comparison arm, decided 2026-07-30) |
 | **ICLR 2027 paper** | Bench AND RL as co-equal content: eval matrix across model tiers + the small-model trainability result, with level-resolved failure analysis |
 
 ## Claims and their wording (do not inflate)

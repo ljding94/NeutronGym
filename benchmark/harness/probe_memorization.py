@@ -10,9 +10,9 @@ A (paper, instrument) pair counts as 'unseen' for a model only if that model
 FAILS the probe (both scores below the task thresholds).
 
 Usage:
-  python benchmark/probe_memorization.py benchmark/tasks/P2_memorization_psi_dmc.json \
+  python benchmark/harness/probe_memorization.py benchmark/tasks/P2_memorization_psi_dmc.json \
       --model google/gemini-3.5-flash-lite            # via OpenRouter
-  python benchmark/probe_memorization.py <task> --answer-file reply.txt   # offline scoring
+  python benchmark/harness/probe_memorization.py <task> --answer-file reply.txt   # offline scoring
 """
 
 import argparse
@@ -23,7 +23,7 @@ import re
 import sys
 import urllib.request
 
-REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 def normalize(text: str) -> str:

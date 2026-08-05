@@ -2,7 +2,7 @@
 when re-run at a fresh seed (tolerances absorb statistics; grading contract
 is satisfiable). Any task failing this is mis-authored, not hard.
 
-Usage: conda run -n mcstas python benchmark/validate_tasks.py [task_dir]
+Usage: conda run -n mcstas python benchmark/harness/validate_tasks.py [task_dir]
 """
 
 import glob
@@ -10,8 +10,8 @@ import json
 import os
 import sys
 
-REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(REPO, "benchmark"))
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.join(REPO, "benchmark", "harness"))
 import grader  # noqa: E402
 
 FRESH_SEED = 777
