@@ -5,7 +5,7 @@ simulation: the ladder's logic must be testable in milliseconds."""
 from neutrongym import generate, reward
 
 
-def _summary(fom_intensity=1.0, events=5000, div_width=0.3, psd_width=0.9):
+def _summary(fom_intensity=0.001, events=5000, div_width=0.3, psd_width=0.9):
     return {"monitors": [
         {"component": "divmon", "intensity": fom_intensity, "events": events,
          "beam_width": {"dX": div_width, "dY": div_width}},
@@ -79,13 +79,33 @@ def test_l4_improvement_and_shaping_monotone():
                       {"ok": True, "summary": _summary(fom_intensity=fom)})
         return reward.score(INST, GOOD_ACTION, fx, BASE)
 
+    # all intensities physical (instance-0 Liouville bound is ~0.0049)
     worse, same, better, huge = (run(f) for f in
-                                 (0.0005, 0.001, 0.002, 0.01))
+                                 (0.0005, 0.001, 0.002, 0.004))
     assert worse["level"] == 3 and not worse["levels"]["L4"]["pass"]
     assert same["level"] == 3  # resubmitting baseline is NOT an improvement
     assert better["level"] == 4 and better["levels"]["L4"]["pass"]
     assert (worse["reward"] < same["reward"] < better["reward"]
             <= huge["reward"] == 1.25)  # capped at ratio 2
+
+
+def test_unphysical_gain_fails_l3():
+    """Liouville gate: intensity above source-brightness x acceptance is a
+    reward hack (or simulation artifact) by construction, whatever the
+    constraints say."""
+    fx = FakeExec({"ok": True, "summary": _summary()},
+                  {"ok": True, "summary": _summary(fom_intensity=0.5)})
+    rec = reward.score(INST, GOOD_ACTION, fx, BASE)
+    assert rec["level"] == 2
+    assert "unphysical_gain" in rec["levels"]["L3"]["detail"]
+    lio = rec["levels"]["L3"]["liouville"]
+    assert not lio["pass"] and lio["utilization"] > 100
+    # a physical score carries the utilization analysis field
+    fx2 = FakeExec({"ok": True, "summary": _summary()},
+                   {"ok": True, "summary": _summary(fom_intensity=0.004)})
+    rec2 = reward.score(INST, GOOD_ACTION, fx2, BASE)
+    assert rec2["levels"]["L3"]["liouville"]["pass"]
+    assert 0.5 < rec2["levels"]["L3"]["liouville"]["utilization"] < 1.1
 
 
 def test_protocol_is_env_controlled():

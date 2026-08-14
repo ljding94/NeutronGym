@@ -23,6 +23,8 @@ fom_ratio = fom / (baseline_fom * target_ratio) for maximize. Max 1.25.
 
 import math
 
+from . import hacks
+
 # canonical observable accessor (migrated from benchmark/harness/grader.py —
 # the harness imports it back; dependency arrow points into the package)
 _NESTED = {
@@ -143,16 +145,31 @@ def score(inst: dict, action: dict, fexec, base: dict) -> dict:
     fom_mon = _monitor(summary, inst["fom"]["monitor"])
     floor = proto.get("statistics_floor", 0)
     constraints = _check_constraints(inst, summary, base)
+    # Liouville utilization is only meaningful above the statistics floor —
+    # a starved monitor's intensity estimate is noise (measured 2026-08-05:
+    # 1.14 "utilization" at ~250 events collapsed to 0.99 at 10x rays)
+    stats_ok = fom_mon is not None and (fom_mon.get("events") or 0) >= floor
+    liouville = (hacks.liouville_check(inst, action, fom_mon["intensity"])
+                 if stats_ok else
+                 {"pass": True, "kind": "not_evaluated",
+                  "note": "below statistics floor", "utilization": None,
+                  "bound": None, "value": None})
     if fom_mon is None:
         detail = "FOM monitor missing from output"
-    elif (fom_mon.get("events") or 0) < floor:
+    elif not stats_ok:
         detail = (f"FOM monitor statistics below floor "
                   f"({fom_mon.get('events'):g} < {floor:g} events)")
+    elif not liouville["pass"]:
+        detail = (f"unphysical_gain: FOM intensity {liouville['value']:g} "
+                  f"exceeds the {liouville['kind']} bound "
+                  f"{liouville['bound']:g} (Liouville — passive optics "
+                  f"cannot beat source brightness)")
     elif not all(c["pass"] for c in constraints):
         detail = "constraint band violated"
     else:
         detail = None
-    levels["L3"] = {"pass": detail is None, "constraints": constraints}
+    levels["L3"] = {"pass": detail is None, "constraints": constraints,
+                    "liouville": liouville}
     if detail is not None:
         levels["L3"]["detail"] = detail
         return record
