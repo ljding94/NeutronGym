@@ -1,0 +1,62 @@
+[
+ {
+  "task": "T1_ESS_IN5_reprate",
+  "variant": false,
+  "detail": "no candidate passed the pair condition"
+ },
+ {
+  "task": "T1_HZB_FLEX",
+  "variant": true,
+  "detail": "NL1B_Curved_Guide_1.curvature x1.4 | canonical fails: energy.intensity"
+ },
+ {
+  "task": "T1_HZB_NEAT",
+  "variant": false,
+  "detail": "no candidate passed the pair condition"
+ },
+ {
+  "task": "T1_ILL_D2B",
+  "variant": false,
+  "detail": "no candidate passed the pair condition"
+ },
+ {
+  "task": "T1_ILL_H10_IN8",
+  "variant": false,
+  "detail": "no candidate passed the pair condition"
+ },
+ {
+  "task": "T1_ILL_H15_D11",
+  "variant": false,
+  "detail": "no candidate passed the pair condition"
+ },
+ {
+  "task": "T1_ILL_H512_D22",
+  "variant": false,
+  "detail": "no candidate passed the pair condition"
+ },
+ {
+  "task": "T1_ILL_IN6",
+  "variant": false,
+  "detail": "no candidate passed the pair condition"
+ },
+ {
+  "task": "T1_ISIS_SANS2d",
+  "variant": true,
+  "detail": "isis_source.dist x1.15 | canonical fails: 2d.intensity,wavelength.intensity"
+ },
+ {
+  "task": "T1_PSI_DMC",
+  "variant": true,
+  "detail": "source.dist x1.15 | canonical fails: 2d.intensity,wavelength.intensity"
+ },
+ {
+  "task": "T1_RTP_DIF",
+  "variant": false,
+  "detail": "no candidate passed the pair condition"
+ },
+ {
+  "task": "T1_SESANS_Delft",
+  "variant": false,
+  "detail": "no candidate passed the pair condition"
+ }
+]

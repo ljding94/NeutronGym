@@ -91,9 +91,8 @@ def run_agent_loop(task: dict, model: str | None, ep: str,
 
     skill_text = None
     if use_skill:
-        with open(os.path.join(REPO, "skills", "mcstas-instrument-design",
-                               "SKILL.md")) as f:
-            skill_text = f.read()
+        import neutrongym
+        skill_text = neutrongym.skill_text()  # wheel-shipped canonical copy
     if not model:
         raise SystemExit("error: --scaffold loop needs an explicit --model "
                          "(e.g. google/gemini-3.6-flash, claude-sonnet-5, or "

@@ -50,8 +50,16 @@ def test_task_files_valid():
             assert t["grading"]["automatic_floors"], path
             assert "PENDING" in t["grading"]["expert_rubric"], path
         else:  # reproduce variants
-            assert t["reference"]["instr"].startswith("shipped:"), path
+            ref = t["reference"]["instr"]
+            if ref.startswith("shipped:"):
+                pass  # seen tier: the McStas example library
+            else:
+                # held-out / perturbed tiers: committed repo references
+                assert os.path.isfile(os.path.join(REPO, ref)), path
+                assert t.get("split") in ("heldout", "perturbed"), path
             assert t["grading"]["monitors"], path
+            if t.get("split") == "heldout":
+                assert t.get("probe_hint") and t.get("provenance"), path
 
 
 def test_monitor_role_matching():

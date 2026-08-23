@@ -3,13 +3,14 @@ requires = ["setuptools>=64"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "mcstas-mcp"
-version = "0.1.0"
-description = "MCP server exposing McStas neutron ray-tracing simulations to LLM agents"
+name = "neutrongym"
+version = "0.9.0"
+description = "NeutronGym: an executable, physically-verifiable RL environment for neutron instrument design with LLM agents (McStas backend; ships the mcstas-mcp server, the reference agent loop, and the design skill)"
 requires-python = ">=3.10"
 dependencies = [
     "mcstasscript>=0.0.84",
     "fastmcp>=2",
+    "httpx",
     "numpy",
     "matplotlib",
 ]
@@ -17,12 +18,19 @@ dependencies = [
 [project.scripts]
 mcstas-mcp = "mcstas_mcp.server:main"
 mcstas-baseline = "mcstas_mcp.optimization:main"
+neutrongym-eval = "neutrongym.cli:main"
 
 [project.optional-dependencies]
 dev = ["pytest", "ply"]  # ply: required by mcdisplay-* visualization tools, not by mcstas_mcp itself
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+# the design skill ships inside the wheel: the reference loop injects
+# SKILL.md as the agent system prompt (layout decision 2026-07-30/08-23)
+neutrongym = ["skill_mcstas/SKILL.md", "skill_mcstas/references/*",
+              "skill_mcstas/scripts/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

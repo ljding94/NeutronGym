@@ -12,3 +12,12 @@ Will hold, per the M5 build (PLAN.md, layout decision 2026-07-30):
 `src/mcstas_mcp/` is the MCP server the agent talks to; this package is the
 environment around it.
 """
+
+
+def skill_text() -> str:
+    """The mcstas-instrument-design SKILL.md, shipped inside the wheel —
+    the reference loop injects it as the agent system prompt."""
+    from importlib import resources
+
+    return (resources.files("neutrongym") / "skill_mcstas"
+            / "SKILL.md").read_text()

@@ -1,0 +1,540 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: t1_ess_in5_reprate_pert
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 12:54:03 on August 23, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* Lmin: [unit] 
+* Lmax: [unit] 
+* lambda0: [unit] 
+* Pulse_width: [unit] 
+* Num_pulses: [unit] 
+* GUI_start: [unit] 
+* FO1_DIST: [unit] 
+* L_ballistic_begin: [unit] 
+* L_ballistic_end: [unit] 
+* Length: [unit] 
+* SAMPLE_DIST: [unit] 
+* DETECTOR_DIST: [unit] 
+* GUI_h: [unit] 
+* GUI_w: [unit] 
+* GUI_GAP: [unit] 
+* H1: [unit] 
+* W1: [unit] 
+* H2: [unit] 
+* W2: [unit] 
+* H3: [unit] 
+* W3: [unit] 
+* H4: [unit] 
+* W4: [unit] 
+* H_chop: [unit] 
+* W_chop: [unit] 
+* H_end: [unit] 
+* W_end: [unit] 
+* ALPHA: [unit] 
+* M: [unit] 
+* F_slow1: [unit] 
+* F_slow2: [unit] 
+* F_fast1: [unit] 
+* F_fast2: [unit] 
+* N_fast: [unit] 
+* SLOW1_THETA: [unit] 
+* FO3: [unit] 
+* THETA_fast1: [unit] 
+* FAST_THETA: [unit] 
+* Gamma: [unit] 
+* Etun: [unit] 
+* V_HOLE: [unit] 
+* FRAC_QUASIEL: [unit] 
+* FRAC_TUNNEL: [unit] 
+* TT: [unit] 
+* RES_DE: [unit] 
+* cold: [unit] 
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT t1_ess_in5_reprate_pert (
+Lmin = 4.9, 
+Lmax = 5.1, 
+lambda0 = 5.0, 
+Pulse_width = 0.002857, 
+Num_pulses = 1.0, 
+GUI_start = 2.0, 
+FO1_DIST = 6.0, 
+L_ballistic_begin = 19.5, 
+L_ballistic_end = 17.0, 
+Length = 100.0, 
+SAMPLE_DIST = 1.2, 
+DETECTOR_DIST = 4.0, 
+GUI_h = 0.105, 
+GUI_w = 0.1, 
+GUI_GAP = 0.05, 
+H1 = 0.167, 
+W1 = 0.116, 
+H2 = 0.185, 
+W2 = 0.15, 
+H3 = 0.19, 
+W3 = 0.15, 
+H4 = 0.213, 
+W4 = 0.14, 
+H_chop = 0.075, 
+W_chop = 0.03, 
+H_end = 0.042, 
+W_end = 0.0215, 
+ALPHA = 3.4, 
+M = 3.5, 
+F_slow1 = 16.6667, 
+F_slow2 = 0.0, 
+F_fast1 = 0.0, 
+F_fast2 = 200.0, 
+N_fast = 1.0, 
+SLOW1_THETA = 120.0, 
+FO3 = 1.0, 
+THETA_fast1 = 180.0, 
+FAST_THETA = 5.0, 
+Gamma = 0.0, 
+Etun = 1.0, 
+V_HOLE = 0.0, 
+FRAC_QUASIEL = 0.0, 
+FRAC_TUNNEL = 0.0, 
+TT = 50.0, 
+RES_DE = 0.5, 
+cold = 0.95 
+)
+
+DECLARE 
+%{
+double FREQ;
+double t_FO1;
+double t_FO2;
+double t_fast1;
+double t_fast2;
+double t_fast2a;
+double t_fast3;
+double t_sample;
+double t_detector;
+double tmin_zoom;
+double tmax_zoom;
+double t_offset;
+double E_target;
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated t1_ess_in5_reprate_pert
+FREQ = ESS_SOURCE_FREQUENCY;
+        t_offset=Pulse_width/2.0+170e-6;
+        t_FO1 = FO1_DIST*lambda0/(2*PI*K2V)+t_offset;
+        t_FO2 = Length/2*lambda0/(2*PI*K2V)+t_offset;
+        t_fast1 = (Length/2+0.1)*lambda0/(2*PI*K2V)+t_offset;
+        t_fast2 = Length*lambda0/(2*PI*K2V)+t_offset;
+        t_fast2a = (Length+GUI_GAP)*lambda0/(2*PI*K2V)+t_offset;
+        t_fast3 = (Length+2*GUI_GAP)*lambda0/(2*PI*K2V)+t_offset;
+        t_sample = (Length+SAMPLE_DIST)*lambda0/(2*PI*K2V)+t_offset;
+        t_detector = (Length+SAMPLE_DIST+DETECTOR_DIST)*lambda0/(2*PI*K2V)+t_offset;
+        tmin_zoom = t_fast2*1e6-1e3;
+        tmax_zoom = t_fast2*1e6+1e3;
+        E_target = VS2E*(K2V*2*PI/lambda0)*(K2V*2*PI/lambda0);
+%}
+
+TRACE 
+COMPONENT source = ESS_butterfly(
+ sector = "W", beamline = 5,
+ cold_frac = cold, target_index = 6,
+ dist = GUI_start, focus_xw = GUI_w,
+ focus_yh = GUI_h, Lmin = Lmin,
+ Lmax = Lmax, n_pulses = Num_pulses)
+AT (0, 0, -0.1) ABSOLUTE
+ROTATED (0, 0, 0) ABSOLUTE
+
+COMPONENT Origin = Progress_bar()
+AT (0, 0, 0) ABSOLUTE
+ROTATED (0, 0, 0) ABSOLUTE
+
+COMPONENT TOFmoderator_zoom = TOF_monitor(
+ nt = 1000, filename = "TOFmoderator_zoom.dat",
+ xwidth = 0.12, yheight = 0.12,
+ tmin = 0, tmax = 5000,
+ restore_neutron = 1)
+AT (0, 0, 1E-6) RELATIVE Origin
+ROTATED (0, 0, 0) RELATIVE Origin
+
+COMPONENT TOFmoderator = TOF_monitor(
+ nt = 1000, filename = "TOFmoderator.dat",
+ xwidth = 0.12, yheight = 0.12,
+ tmin = 0, tmax = 3.0e5,
+ restore_neutron = 1)
+AT (0, 0, 1E-6) RELATIVE Origin
+ROTATED (0, 0, 0) RELATIVE Origin
+
+COMPONENT Lmon_guistart = L_monitor(
+ nL = 1000, filename = "Lmon_guistart.dat",
+ xwidth = GUI_w+0.01, yheight = GUI_h+0.01,
+ Lmin = 0, Lmax = Lmax+1)
+AT (0, 0, GUI_start-2e-6) RELATIVE Origin
+ROTATED (0, 0, 0) RELATIVE Origin
+
+COMPONENT Lmon_normalize = L_monitor(
+ nL = 2880, filename = "Lmon_guistart_normalize.dat",
+ xwidth = 0.10, yheight = 0.10,
+ Lmin = 0, Lmax = 20)
+AT (0, 0, GUI_start-1e-6) RELATIVE Origin
+ROTATED (0, 0, 0) RELATIVE Origin
+
+COMPONENT Guide1 = Guide(
+ w1 = GUI_w, h1 = GUI_h,
+ w2 = W1, h2 = H1,
+ l = FO1_DIST-GUI_start-GUI_GAP/2, R0 = 1,
+ alpha = ALPHA, m = M,
+ W = 0.003)
+AT (0, 0, GUI_start) RELATIVE Origin
+ROTATED (0, 0, 0) RELATIVE Origin
+
+COMPONENT Lmonslow1 = L_monitor(
+ nL = 200, filename = "Lmonslow1.dat",
+ xwidth = 0.06, yheight = 0.21,
+ Lmin = 0, Lmax = Lmax+1)
+AT (0, 0, FO1_DIST-2e-6) RELATIVE Origin
+ROTATED (0, 0, 0) RELATIVE Origin
+
+COMPONENT PSDslow1 = PSD_monitor(
+ filename = "PSDslow1.dat", xwidth = 0.1,
+ yheight = 0.25)
+AT (0, 0, FO1_DIST-1e-6) RELATIVE Origin
+ROTATED (0, 0, 0) RELATIVE Origin
+
+COMPONENT FOchop1 = DiskChopper(
+ theta_0 = SLOW1_THETA, radius = 0.6,
+ yheight = 0.20, nu = F_slow1,
+ nslit = 1, delay = t_FO1)
+AT (0, 0, FO1_DIST) RELATIVE Origin
+ROTATED (0, 0, 0) RELATIVE Origin
+
+COMPONENT TOFLmon1 = TOFLambda_monitor(
+ nL = 200, nt = 200,
+ tmin = 0, tmax = 3e5,
+ filename = "TOFLmon1.dat", xwidth = 0.05,
+ yheight = 0.21, Lmin = 0,
+ Lmax = Lmax+1)
+AT (0, 0, 1e-6) RELATIVE FOchop1
+ROTATED (0, 0, 0) RELATIVE FOchop1
+
+COMPONENT Lmon_afterslow1 = L_monitor(
+ nL = 200, filename = "Lmon_afterslow1.dat",
+ xwidth = 0.06, yheight = 0.21,
+ Lmin = 0, Lmax = Lmax+1)
+AT (0, 0, 2e-6) RELATIVE FOchop1
+ROTATED (0, 0, 0) RELATIVE FOchop1
+
+COMPONENT PSD_afterslow1 = PSD_monitor(
+ filename = "PSD_afterslow1.dat", xwidth = 0.1,
+ yheight = 0.25)
+AT (0, 0, 3e-6) RELATIVE FOchop1
+ROTATED (0, 0, 0) RELATIVE FOchop1
+
+COMPONENT Guidelong1 = Guide(
+ w1 = W1, h1 = H1,
+ w2 = W2, h2 = H2,
+ l = L_ballistic_begin+GUI_start-FO1_DIST-GUI_GAP/2, R0 = 1,
+ alpha = ALPHA, m = M,
+ W = 0.003)
+AT (0, 0, GUI_GAP/2) RELATIVE FOchop1
+ROTATED (0, 0, 0) RELATIVE FOchop1
+
+COMPONENT Guidelong1b = Guide(
+ w1 = W2, h1 = H2,
+ w2 = W3, h2 = H3,
+ l = Length/2-L_ballistic_begin-GUI_start-GUI_GAP/2, R0 = 1,
+ alpha = ALPHA, m = M,
+ W = 0.003)
+AT (0, 0, L_ballistic_begin+GUI_start) RELATIVE Origin
+ROTATED (0, 0, 0) RELATIVE Origin
+
+COMPONENT Lmon_slow2 = L_monitor(
+ nL = 200, filename = "Lmon_slow2.dat",
+ xwidth = 0.06, yheight = 0.21,
+ Lmin = 0, Lmax = Lmax+1)
+AT (0, 0, Length/2-1e-6) RELATIVE Origin
+ROTATED (0, 0, 0) RELATIVE Origin
+
+COMPONENT FOchop2 = DiskChopper(
+ theta_0 = 155, radius = 0.84,
+ yheight = 0.6, nu = F_slow2,
+ nslit = 1, delay = t_FO2)
+AT (0, 0.1, Length/2) RELATIVE Origin
+ROTATED (0, 0, 0) RELATIVE Origin
+
+COMPONENT Fastchop1 = DiskChopper(
+ theta_0 = THETA_fast1, radius = 0.5,
+ yheight = 0.5, nu = F_fast1,
+ nslit = N_fast, delay = t_fast1)
+AT (0, 0.1, Length/2+GUI_GAP) RELATIVE Origin
+ROTATED (0, 0, 0) RELATIVE Origin
+
+COMPONENT PSD_afterslow2 = PSD_monitor(
+ filename = "PSD_afterslow2.dat", xwidth = 0.1,
+ yheight = 0.25)
+AT (0, -0.1, 1e-6) RELATIVE Fastchop1
+ROTATED (0, 0, 0) RELATIVE Fastchop1
+
+COMPONENT Lmon_afterslow2 = L_monitor(
+ nL = 200, filename = "Lmon_afterslow2.dat",
+ xwidth = 0.06, yheight = 0.21,
+ Lmin = 0, Lmax = Lmax+1)
+AT (0, 0, 1e-6) RELATIVE PSD_afterslow2
+ROTATED (0, 0, 0) RELATIVE PSD_afterslow2
+
+COMPONENT TOFL_afterslow2 = TOFLambda_monitor(
+ nL = 200, nt = 200,
+ tmin = 0, tmax = 3.0e5,
+ filename = "TOFL_afterslow2.dat", xwidth = 0.05,
+ yheight = 0.21, Lmin = 0,
+ Lmax = Lmax+1)
+AT (0, 0, 1e-6) RELATIVE Lmon_afterslow2
+ROTATED (0, 0, 0) RELATIVE Lmon_afterslow2
+
+COMPONENT Guidelong2 = Guide(
+ w1 = W3, h1 = H3,
+ w2 = W4, h2 = H4,
+ l = Length/2-2*GUI_GAP-L_ballistic_end, R0 = 1,
+ alpha = ALPHA, m = M,
+ W = 0.003)
+AT (0, -0.1, GUI_GAP/2) RELATIVE Fastchop1
+ROTATED (0, 0, 0) RELATIVE Fastchop1
+
+COMPONENT Lmon_beforeballistic = L_monitor(
+ nL = 200, filename = "Lmon_before_ballistic.dat",
+ xwidth = 0.06, yheight = 0.18,
+ Lmin = 0, Lmax = Lmax+1)
+AT (0, 0, Length/2-2*GUI_GAP-L_ballistic_end+1e-6) RELATIVE Guidelong2
+ROTATED (0, 0, 0) RELATIVE Guidelong2
+
+COMPONENT PSD_beforeballistic = PSD_monitor(
+ filename = "PSD_beforeballistic.dat", xwidth = 0.1,
+ yheight = 0.25)
+AT (0, 0, 1e-6) RELATIVE Lmon_beforeballistic
+ROTATED (0, 0, 0) RELATIVE Lmon_beforeballistic
+
+COMPONENT Guidelong2a = Guide(
+ w1 = W4, h1 = H4,
+ w2 = W_chop, h2 = H_chop,
+ l = L_ballistic_end, R0 = 1,
+ alpha = ALPHA, m = M,
+ W = 0.003)
+AT (0, 0, 1e-6) RELATIVE PSD_beforeballistic
+ROTATED (0, 0, 0) RELATIVE PSD_beforeballistic
+
+COMPONENT Lmonfast2 = L_monitor(
+ nL = 200, filename = "Lmonfast2.dat",
+ xwidth = 0.06, yheight = 0.18,
+ Lmin = 0, Lmax = Lmax+1)
+AT (0, 0, L_ballistic_end+1e-6) RELATIVE Guidelong2a
+ROTATED (0, 0, 0) RELATIVE Guidelong2a
+
+COMPONENT Lmonfast2_zoom = L_monitor(
+ nL = 200, filename = "Lmonfast2_zoom.dat",
+ xwidth = 0.06, yheight = 0.18,
+ Lmin = lambda0-0.2, Lmax = lambda0+0.2)
+AT (0, 0, 1e-6) RELATIVE Lmonfast2
+ROTATED (0, 0, 0) RELATIVE Lmonfast2
+
+COMPONENT TOFLfast2 = TOFLambda_monitor(
+ nL = 200, nt = 200,
+ tmin = 0, tmax = 3.0e5,
+ filename = "TOFLfast2.dat", xwidth = 0.05,
+ yheight = 0.12, Lmin = 0,
+ Lmax = Lmax+1)
+AT (0, 0, 1e-6) RELATIVE Lmonfast2_zoom
+ROTATED (0, 0, 0) RELATIVE Lmonfast2_zoom
+
+COMPONENT TOFLfast2zoom = TOFLambda_monitor(
+ nL = 200, nt = 200,
+ tmin = tmin_zoom, tmax = tmax_zoom,
+ filename = "TOFLfast2_zoom.dat", xwidth = 0.05,
+ yheight = 0.12, Lmin = lambda0-0.2,
+ Lmax = lambda0+0.2)
+AT (0, 0, 1e-6) RELATIVE TOFLfast2
+ROTATED (0, 0, 0) RELATIVE TOFLfast2
+
+COMPONENT PSDfast2 = PSD_monitor(
+ filename = "PSDfast2.dat", xwidth = 0.1,
+ yheight = 0.25)
+AT (0, 0, 1e-6) RELATIVE TOFLfast2zoom
+ROTATED (0, 0, 0) RELATIVE TOFLfast2zoom
+
+COMPONENT Fastchop2 = DiskChopper(
+ theta_0 = FAST_THETA, radius = 0.35,
+ yheight = 0.35, nu = F_fast2,
+ nslit = N_fast, delay = t_fast2)
+AT (0, 0.04, Length) RELATIVE Origin
+ROTATED (0, 0, 0) RELATIVE Origin
+
+COMPONENT Fastchop2counter = DiskChopper(
+ theta_0 = FAST_THETA, radius = 0.35,
+ yheight = 0.35, nu = -F_fast2,
+ nslit = N_fast, delay = -t_fast2a)
+AT (0, 0.04, Length+GUI_GAP) RELATIVE Origin
+ROTATED (0, 0, 0) RELATIVE Origin
+
+COMPONENT FOchop3 = DiskChopper(
+ theta_0 = 2*FAST_THETA, radius = 0.35,
+ yheight = 0.35, nu = F_fast2/FO3,
+ nslit = N_fast, delay = t_fast3)
+AT (0, 0.04, Length+2*GUI_GAP) RELATIVE Origin
+ROTATED (0, 0, 0) RELATIVE Origin
+
+COMPONENT TOFfast2_zoom = TOF_monitor(
+ nt = 100, filename = "TOF_fast2.dat",
+ xwidth = 1.1, yheight = 1.2,
+ tmin = 1e6*t_fast3-2e2, tmax = 1e6*t_fast3+2e2)
+AT (0, -0.04, 1e-6) RELATIVE FOchop3
+ROTATED (0, 0, 0) RELATIVE FOchop3
+
+COMPONENT Lmon_afterfast2 = L_monitor(
+ nL = 500, filename = "Lmon_afterfast2.dat",
+ xwidth = 0.06, yheight = 0.18,
+ Lmin = 0, Lmax = Lmax+1)
+AT (0, 0, 1e-6) RELATIVE TOFfast2_zoom
+ROTATED (0, 0, 0) RELATIVE TOFfast2_zoom
+
+COMPONENT TOFL_afterfast2 = TOFLambda_monitor(
+ nL = 200, nt = 200,
+ tmin = 0, tmax = 3.0e5,
+ filename = "TOF_afterfast2.dat", xwidth = 0.05,
+ yheight = 0.12, Lmin = 0,
+ Lmax = Lmax+1)
+AT (0, 0, 1e-6) RELATIVE Lmon_afterfast2
+ROTATED (0, 0, 0) RELATIVE Lmon_afterfast2
+
+COMPONENT TOFL_afterfast2_zoom = TOFLambda_monitor(
+ nL = 200, nt = 200,
+ tmin = tmin_zoom, tmax = tmax_zoom,
+ filename = "TOFL_afterfast2_zoom.dat", xwidth = 0.05,
+ yheight = 0.12, Lmin = lambda0-0.2,
+ Lmax = lambda0+0.2)
+AT (0, 0, 1e-6) RELATIVE TOFL_afterfast2
+ROTATED (0, 0, 0) RELATIVE TOFL_afterfast2
+
+COMPONENT PSD_afterfast2 = PSD_monitor(
+ filename = "PSD_afterfast2.dat", xwidth = 0.1,
+ yheight = 0.25)
+AT (0, 0, 1e-6) RELATIVE TOFL_afterfast2_zoom
+ROTATED (0, 0, 0) RELATIVE TOFL_afterfast2_zoom
+
+COMPONENT Guidesample = Guide(
+ w1 = W_chop, h1 = H_chop,
+ w2 = W_end, h2 = H_end,
+ l = SAMPLE_DIST-4*GUI_GAP, R0 = 1,
+ alpha = ALPHA, m = M,
+ W = 0.003)
+AT (0, 0, GUI_GAP/2) RELATIVE PSD_afterfast2
+ROTATED (0, 0, 0) RELATIVE PSD_afterfast2
+
+COMPONENT Lmon_guideend = L_monitor(
+ nL = 1000, filename = "Lmon_guideend.dat",
+ xwidth = W_end+0.01, yheight = H_end+0.01,
+ Lmin = 0, Lmax = Lmax+1)
+AT (0, 0, SAMPLE_DIST-4*GUI_GAP+1e-6) RELATIVE Guidesample
+ROTATED (0, 0, 0) RELATIVE Guidesample
+
+COMPONENT PSDsample = PSD_monitor(
+ filename = "PSDsample.dat", xwidth = 0.1,
+ yheight = 0.25)
+AT (0, 0, SAMPLE_DIST-3*GUI_GAP+1e-6) RELATIVE Lmon_guideend
+ROTATED (0, 0, 0) RELATIVE Lmon_guideend
+
+COMPONENT TOFsample_zoom = TOF_monitor(
+ nt = 500, filename = "TOF_sample.dat",
+ xwidth = 0.02, yheight = 0.04,
+ tmin = 1e6*t_sample-5e4, tmax = 1e6*t_sample+5e4)
+AT (0, 0, 1e-6) RELATIVE PSDsample
+ROTATED (0, 0, 0) RELATIVE PSDsample
+
+COMPONENT Esample = E_monitor(
+ nE = 400, filename = "Esample",
+ xwidth = 0.02, yheight = 0.04,
+ Emin = E_target-RES_DE, Emax = E_target+RES_DE)
+AT (0, 0, 1e-6) RELATIVE TOFsample_zoom
+ROTATED (0, 0, 0) RELATIVE TOFsample_zoom
+
+COMPONENT Lmon_sample_zoom = L_monitor(
+ nL = 100, filename = "LMON_sample_zoom.dat",
+ xwidth = 0.02, yheight = 0.04,
+ Lmin = lambda0-0.1, Lmax = lambda0+0.1)
+AT (0, 0, 1e-6) RELATIVE Esample
+ROTATED (0, 0, 0) RELATIVE Esample
+
+COMPONENT sample = Tunneling_sample(
+ thickness = 0.01-V_HOLE, radius = 0.01,
+ p_interact = 1, f_QE = FRAC_QUASIEL,
+ f_tun = FRAC_TUNNEL, gamma = Gamma,
+ E_tun = Etun, focus_xw = 0.015,
+ focus_yh = 0.015, yheight = 0.04,
+ target_index = 2)
+AT (0, -0.04, SAMPLE_DIST) RELATIVE Fastchop2
+ROTATED (0, 0, 0) RELATIVE Fastchop2
+
+COMPONENT detectorarm = Arm()
+AT (0, 0, 0) RELATIVE sample
+ROTATED (0, TT, 0) RELATIVE sample
+
+COMPONENT TOFdetector = TOF_monitor(
+ nt = 512, filename = "TOF.dat",
+ xwidth = 0.015, yheight = 0.015,
+ tmin = 0, tmax = 2e5)
+AT (0, 0, DETECTOR_DIST) RELATIVE detectorarm
+ROTATED (0, 0, 0) RELATIVE detectorarm
+
+COMPONENT TOFdetector_zoom = TOF_monitor(
+ nt = 100, filename = "TOF_zoom.dat",
+ xwidth = 0.015, yheight = 0.015,
+ tmin = 1e6*t_detector-10e2, tmax = 1e6*t_detector+10e2)
+AT (0, 0, 1e-6) RELATIVE TOFdetector
+ROTATED (0, 0, 0) RELATIVE TOFdetector
+
+COMPONENT Edetector = E_monitor(
+ nE = 400, filename = "Edet",
+ xwidth = 0.015, yheight = 0.015,
+ Emin = E_target-RES_DE, Emax = E_target+RES_DE)
+AT (0, 0, 1e-6) RELATIVE TOFdetector_zoom
+ROTATED (0, 0, 0) RELATIVE TOFdetector_zoom
+
+COMPONENT TOF2Edetector = TOF2E_monitor(
+ nE = 200, filename = "TOF2E.dat",
+ xwidth = 0.015, yheight = 0.015,
+ Emin = E_target-RES_DE, Emax = E_target+RES_DE,
+ T_zero = t_sample, L_flight = DETECTOR_DIST)
+AT (0, 0, 1e-6) RELATIVE Edetector
+ROTATED (0, 0, 0) RELATIVE Edetector
+
+FINALLY 
+%{
+// Start of finally for generated t1_ess_in5_reprate_pert
+%}
+
+END

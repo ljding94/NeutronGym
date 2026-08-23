@@ -1,0 +1,136 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: t1_ill_h10_in8_pert
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 13:00:02 on August 23, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* KF: [unit] 
+* KI: [unit] 
+* QM: [unit] 
+* EN: [unit] 
+* verbose: [unit] 
+* WM: [unit] 
+* HM: [unit] 
+* RMH: [unit] 
+* RMV: [unit] 
+* DM: [unit] 
+* NHM: [unit] 
+* NVM: [unit] 
+* WA: [unit] 
+* HA: [unit] 
+* RAH: [unit] 
+* RAV: [unit] 
+* DA: [unit] 
+* NHA: [unit] 
+* NVA: [unit] 
+* L1: [unit] 
+* ALF1: [unit] 
+* ALF2: [unit] 
+* ALF3: [unit] 
+* ALF4: [unit] 
+* BET1: [unit] 
+* BET2: [unit] 
+* BET3: [unit] 
+* BET4: [unit] 
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT t1_ill_h10_in8_pert (
+KF = 5.0, 
+KI = 0.0, 
+QM = 0.5, 
+EN = 0.0, 
+verbose = 1.0, 
+WM = 0.233, 
+HM = 0.197, 
+RMH = -1.0, 
+RMV = -1.0, 
+DM = 1.807, 
+NHM = 15.0, 
+NVM = 15.0, 
+WA = 0.16, 
+HA = 0.08, 
+RAH = -1.0, 
+RAV = -1.0, 
+DA = 2.087, 
+NHA = 15.0, 
+NVA = 15.0, 
+L1 = 2.3, 
+ALF1 = 60.0, 
+ALF2 = 60.0, 
+ALF3 = 60.0, 
+ALF4 = 60.0, 
+BET1 = 120.0, 
+BET2 = 120.0, 
+BET3 = 120.0, 
+BET4 = 120.0 
+)
+
+DECLARE 
+%{
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated t1_ill_h10_in8_pert
+%}
+
+TRACE 
+COMPONENT Origin = Progress_bar()
+AT (0, 0, 0) ABSOLUTE
+ROTATED (0, 0, 0) ABSOLUTE
+
+COMPONENT Source = Source_gen(
+ radius = 0.10, dist = machine_hkl.l1,
+ focus_xw = fabs(WM*sin(machine_real.a1*DEG2RAD)), focus_yh = HM,
+ E0 = machine_hkl.ei, dE = machine_hkl.ei*0.03,
+ I1 = 0.5874e+13, T1 = 957.18,
+ T2 = 257.7, I2 = 2.5099e+13,
+ T3 = 16.7, I3 = 1.0343e+12)
+AT (0, 0, 0) ABSOLUTE
+ROTATED (0, 0, 0) ABSOLUTE
+
+COMPONENT SC1 = Collimator_linear(
+ xmin = -WM/2, xmax = WM/2,
+ ymin = -HM/2, ymax = HM/2,
+ length = machine_hkl.l1/2, divergence = ALF1,
+ divergenceV = BET1)
+WHEN ((ALF1 && BET1))
+AT (0, 0, machine_hkl.l1/4) ABSOLUTE
+ROTATED (0, 0, 0) ABSOLUTE
+
+COMPONENT Guide_out = Arm()
+AT (0, 0, machine_hkl.l1-0.2) ABSOLUTE
+ROTATED (0, 0, 0) ABSOLUTE
+
+FINALLY 
+%{
+// Start of finally for generated t1_ill_h10_in8_pert
+%}
+
+END

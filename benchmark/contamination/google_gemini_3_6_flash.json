@@ -1,0 +1,172 @@
+{
+ "model": "google/gemini-3.6-flash",
+ "thresholds": {
+  "similarity_memorized": 0.5,
+  "keyfact_memorized": 0.7
+ },
+ "references": {
+  "boya_channel": {
+   "similarity": 0.048,
+   "keyfact_recall": 0.636,
+   "reference_components": 11,
+   "answer_components": 26,
+   "memorized": false,
+   "tasks": [
+    "T1_BOYA_CARR"
+   ]
+  },
+  "ESS_IN5_reprate": {
+   "similarity": 0.097,
+   "keyfact_recall": 0.1,
+   "reference_components": 50,
+   "answer_components": 9,
+   "memorized": false,
+   "tasks": [
+    "T1_ESS_IN5_reprate"
+   ]
+  },
+  "HZB_FLEX": {
+   "similarity": 0.037,
+   "keyfact_recall": 0.225,
+   "reference_components": 40,
+   "answer_components": 16,
+   "memorized": false,
+   "tasks": [
+    "T1_HZB_FLEX"
+   ]
+  },
+  "HZB_NEAT": {
+   "similarity": 0.031,
+   "keyfact_recall": 0.2,
+   "reference_components": 20,
+   "answer_components": 9,
+   "memorized": false,
+   "tasks": [
+    "T1_HZB_NEAT"
+   ]
+  },
+  "ILL_D2B": {
+   "similarity": 0.046,
+   "keyfact_recall": 0.265,
+   "reference_components": 34,
+   "answer_components": 10,
+   "memorized": false,
+   "tasks": [
+    "T1_ILL_D2B"
+   ]
+  },
+  "ILL_H10_IN8": {
+   "similarity": 0.058,
+   "keyfact_recall": 0.75,
+   "reference_components": 4,
+   "answer_components": 17,
+   "memorized": true,
+   "tasks": [
+    "T1_ILL_H10_IN8"
+   ]
+  },
+  "ILL_H15_D11": {
+   "similarity": 0.038,
+   "keyfact_recall": 0.049,
+   "reference_components": 102,
+   "answer_components": 10,
+   "memorized": false,
+   "tasks": [
+    "T1_ILL_H15_D11"
+   ]
+  },
+  "ILL_H512_D22": {
+   "similarity": 0.042,
+   "keyfact_recall": 0.156,
+   "reference_components": 32,
+   "answer_components": 12,
+   "memorized": false,
+   "tasks": [
+    "T1_ILL_H512_D22"
+   ]
+  },
+  "ILL_IN6": {
+   "similarity": 0.046,
+   "keyfact_recall": 0.32,
+   "reference_components": 25,
+   "answer_components": 10,
+   "memorized": false,
+   "tasks": [
+    "T1_ILL_IN6"
+   ]
+  },
+  "ISIS_SANS2d": {
+   "similarity": 0.083,
+   "keyfact_recall": 0.107,
+   "reference_components": 28,
+   "answer_components": 8,
+   "memorized": false,
+   "tasks": [
+    "T1_ISIS_SANS2d"
+   ]
+  },
+  "PSI_DMC": {
+   "similarity": 0.051,
+   "keyfact_recall": 0.188,
+   "reference_components": 32,
+   "answer_components": 8,
+   "memorized": false,
+   "tasks": [
+    "T1_PSI_DMC"
+   ]
+  },
+  "RTP_DIF": {
+   "similarity": 0.122,
+   "keyfact_recall": 0.208,
+   "reference_components": 24,
+   "answer_components": 7,
+   "memorized": false,
+   "tasks": [
+    "T1_RTP_DIF"
+   ]
+  },
+  "SESANS_Delft": {
+   "similarity": 0.031,
+   "keyfact_recall": 0.12,
+   "reference_components": 25,
+   "answer_components": 13,
+   "memorized": false,
+   "tasks": [
+    "T1_SESANS_Delft"
+   ]
+  },
+  "venus_imaging": {
+   "similarity": 0.039,
+   "keyfact_recall": 0.0,
+   "reference_components": 6,
+   "answer_components": 14,
+   "memorized": false,
+   "tasks": [
+    "T1_VENUS_SNS"
+   ]
+  },
+  "templateSANS": {
+   "similarity": 0.335,
+   "keyfact_recall": 0.5,
+   "reference_components": 10,
+   "answer_components": 8,
+   "memorized": false,
+   "tasks": [
+    "T1_templateSANS"
+   ]
+  },
+  "templateTOF": {
+   "similarity": 0.053,
+   "keyfact_recall": 0.071,
+   "reference_components": 14,
+   "answer_components": 6,
+   "memorized": false,
+   "tasks": [
+    "T1_templateTOF"
+   ]
+  }
+ },
+ "memorized": [
+  "ILL_H10_IN8"
+ ]
+}

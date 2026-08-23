@@ -1,0 +1,64 @@
+{
+ "id": "T1_VENUS_SNS",
+ "tier": "T1",
+ "split": "heldout",
+ "kind": "reproduce",
+ "class": "tof-imaging-beamline",
+ "paper": {
+  "cite": "Overview of the conceptual design of the future VENUS neutron imaging beam line at SNS, Physics Procedia 69 (2015)",
+  "doi": "10.1016/j.phpro.2015.07.023",
+  "access": "OA"
+ },
+ "prompt": "Rebuild the following tof imaging beamline in McStas from its specification, run it, and report the integrated intensity (with error and event count) on every monitor.\n\nInstrument parameters (defaults in parentheses):\n- lam (3.5)\n- dlam (1.3)\n- ap_D (0.016)\n\nBeamline, in order (positions in meters; AT [x,y,z] RELATIVE to the named component; parameters as given):\n- src: Source_simple AT [0, 0, 0] RELATIVE ABSOLUTE ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: yheight=0.12, xwidth=0.1, dist=1.0, focus_xw=ap_D, focus_yh=ap_D, lambda0=lam, dlambda=dlam, flux=10000000000000.0\n- aperture: Slit AT [0, 0, 1.0] RELATIVE src ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: radius=0.5*ap_D\n- scraper: Slit AT [0, 0, 10.0] RELATIVE src ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: xwidth=0.3, yheight=0.3\n- fov_mon: PSD_monitor AT [0, 0, 20.0] RELATIVE src ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: nx=128, ny=128, filename=\"fov.dat\", xwidth=0.28, yheight=0.28, restore_neutron=1\n- det: PSD_monitor AT [0, 0, 25.0] RELATIVE src ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: nx=256, ny=256, filename=\"det.dat\", xwidth=0.2, yheight=0.2, restore_neutron=1\n- det_lam: L_monitor AT [0, 0, 25.01] RELATIVE src ROTATED [0, 0, 0] RELATIVE ABSOLUTE\n    parameters: nL=200, filename=\"det_lam.dat\", xwidth=0.2, yheight=0.2, Lmin=lam-2*dlam, Lmax=lam+2*dlam, restore_neutron=1\n\nYour instrument must include at least: a 2D position-sensitive monitor; a wavelength monitor.\nRun with: lam=3.5, dlam=1.3, ap_D=0.016.",
+ "reference": {
+  "instr": "benchmark/instruments/heldout/venus_imaging/venus_imaging.instr",
+  "parameters": {
+   "lam": 3.5,
+   "dlam": 1.3,
+   "ap_D": 0.016
+  }
+ },
+ "protocol": {
+  "ncount": 1000000.0,
+  "seed": 1234,
+  "timeout": 900
+ },
+ "grading": {
+  "min_events": 1000,
+  "monitors": [
+   {
+    "role": "2d",
+    "observables": {
+     "intensity": {
+      "rtol": 0.2,
+      "nsigma": 3
+     },
+     "beam_width_x": {
+      "rtol": 0.3
+     },
+     "beam_width_y": {
+      "rtol": 0.3
+     }
+    }
+   },
+   {
+    "role": "wavelength",
+    "observables": {
+     "intensity": {
+      "rtol": 0.25,
+      "nsigma": 3
+     },
+     "center_of_mass": {
+      "rtol": 0.05
+     },
+     "fwhm": {
+      "rtol": 0.5
+     }
+    }
+   }
+  ]
+ },
+ "probe_hint": "the VENUS time-of-flight neutron imaging beamline at the SNS (BL-10)",
+ "provenance": "Reference authored for NeutronGym 2026-08-23 from the published conceptual-design geometry (choppers modeled as the delivered wavelength band; He flight tubes omitted); no public .instr of VENUS existed at authoring (held-out re-check 2026-07-24). NOT a facility-validated model.",
+ "notes": "Held-out tier (M5.5): reference never public; see provenance."
+}
