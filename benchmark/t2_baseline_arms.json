@@ -1,0 +1,86 @@
+{
+ "verify_ncount": 100000000.0,
+ "fresh_seed": 20260823,
+ "tasks": {
+  "T2_guide_divergence": {
+   "arms": {
+    "initial": {
+     "fom": 0.000406812,
+     "err": 1.55529e-07,
+     "params": {
+      "w_in": 0.012,
+      "w_out": 0.012,
+      "m_coat": 1.5
+     }
+    },
+    "classical_best": {
+     "fom": 0.00119898,
+     "err": 1.25055e-06,
+     "params": {
+      "w_in": 0.05458641899531745,
+      "w_out": 0.021539657728152663,
+      "m_coat": 2.8746141693924496
+     }
+    },
+    "random_search": {
+     "fom": 0.00119898,
+     "err": 1.25055e-06,
+     "params": {
+      "w_in": 0.05458641899531745,
+      "w_out": 0.021539657728152663,
+      "m_coat": 2.8746141693924496
+     },
+     "note": "identical to classical_best (optimizer arm was discarded for bounds escape)"
+    }
+   },
+   "matched_budget": {
+    "maxiter": 30,
+    "method": "nelder-mead",
+    "target_fraction": 0.8
+   },
+   "target_fom_min": 0.0010330641999999998,
+   "improvement_sigma": 628.6,
+   "verified_3sigma": true
+  },
+  "T2_sans_collimation": {
+   "arms": {
+    "initial": {
+     "fom": 0.0445914,
+     "err": 2.63477e-05,
+     "params": {
+      "lambda": 6,
+      "r_pin1": 0.005,
+      "r_pin2": 0.005
+     }
+    },
+    "classical_best": {
+     "fom": 0.0657457,
+     "err": 3.20042e-05,
+     "params": {
+      "lambda": 6,
+      "r_pin1": 0.015796656790252335,
+      "r_pin2": 0.0062625759565361205
+     }
+    },
+    "random_search": {
+     "fom": 0.0657457,
+     "err": 3.20042e-05,
+     "params": {
+      "lambda": 6,
+      "r_pin1": 0.015796656790252335,
+      "r_pin2": 0.0062625759565361205
+     },
+     "note": "identical to classical_best (optimizer arm was discarded for bounds escape)"
+    }
+   },
+   "matched_budget": {
+    "maxiter": 30,
+    "method": "nelder-mead",
+    "target_fraction": 0.8
+   },
+   "target_fom_min": 0.061714240000000004,
+   "improvement_sigma": 510.3,
+   "verified_3sigma": true
+  }
+ }
+}
