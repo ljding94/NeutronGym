@@ -105,6 +105,38 @@ def run_agent_loop(task: dict, model: str | None, ep: str,
         provider_pin=provider or None)
 
 
+def run_agent_oneshot(task: dict, model: str | None, ep: str,
+                      use_skill: bool, provider: str | None = "Google") -> dict:
+    """Plain-LLM baseline arm (M6): one completion, no tools; the emitted
+    .instr is written into the standard episode layout so the identical
+    grading/audit/artifacts tail applies."""
+    from neutrongym import agent, executor
+    import neutrongym
+
+    if not model:
+        raise SystemExit("error: --scaffold oneshot needs an explicit "
+                         "--model")
+    skill_text = neutrongym.skill_text() if use_skill else None
+    episode = agent.run_oneshot(
+        task["prompt"], model, episode_dir=ep, skill_text=skill_text,
+        provider_pin=provider or None)
+    src = agent.extract_instr(episode.get("final_answer") or "")
+    if src:
+        import re as _re
+        m = _re.search(r"DEFINE\s+INSTRUMENT\s+(\w+)", src)
+        name = m.group(1) if m else "oneshot_instr"
+        d = os.path.join(ep, "home", "instruments", name)
+        os.makedirs(d, exist_ok=True)
+        instr_path = os.path.join(d, f"{name}.instr")
+        with open(instr_path, "w") as f:
+            f.write(src)
+        params = [{"name": k, "default": v} for k, v in
+                  executor.read_define_params(instr_path).items()]
+        with open(os.path.join(d, "spec.json"), "w") as f:
+            json.dump({"name": name, "parameters": params}, f, indent=1)
+    return episode
+
+
 def run_agent(task: dict, model: str | None, ep: str, use_skill: bool) -> dict:
     home = os.path.join(ep, "home")
     cwd = os.path.join(ep, "cwd")
@@ -219,10 +251,13 @@ def find_candidate(home: str):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("task", help="task id (e.g. T1_PSI_DMC) or task-JSON path")
-    ap.add_argument("--scaffold", choices=["loop", "claude"], default="loop",
+    ap.add_argument("--scaffold", choices=["loop", "claude", "oneshot"],
+                    default="loop",
                     help="loop = NeutronGym reference loop (the measurement "
                          "instrument, default); claude = headless Claude "
-                         "Code (production-harness comparison arm)")
+                         "Code (production-harness comparison arm); "
+                         "oneshot = plain-LLM baseline (no tools, one "
+                         "completion)")
     ap.add_argument("--model", default=None,
                     help="loop: any OpenRouter id / claude* / id+--base-url; "
                          "claude scaffold: OpenRouter id or Claude alias "
@@ -242,8 +277,8 @@ def main():
         task = json.load(f)
 
     tag = re.sub(r"\W", "_", args.model or "claude")
-    if args.scaffold == "loop":
-        tag = "loop__" + tag  # keep the two arms' episode dirs distinct
+    if args.scaffold != "claude":
+        tag = f"{args.scaffold}__{tag}"  # keep arms' episode dirs distinct
     ep = args.episode_dir or os.path.join(REPO, "runs", "pilot",
                                           f"{task['id']}__{tag}")
     # MCSTAS_MCP_HOME reaches the MCP server via env and the server runs with
@@ -256,6 +291,10 @@ def main():
         episode = run_agent_loop(task, args.model, ep,
                                  use_skill=not args.no_skill,
                                  provider=args.provider)
+    elif args.scaffold == "oneshot":
+        episode = run_agent_oneshot(task, args.model, ep,
+                                    use_skill=not args.no_skill,
+                                    provider=args.provider)
     else:
         episode = run_agent(task, args.model, ep,
                             use_skill=not args.no_skill)

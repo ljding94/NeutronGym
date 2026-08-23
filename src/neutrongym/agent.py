@@ -84,10 +84,15 @@ def _truncate(text: str, cap: int = TOOL_RESULT_CAP) -> str:
 
 def chat_completion(http: httpx.Client, base_url: str, api_key: str,
                     model: str, messages: list, tools: list,
-                    temperature: float, provider_pin: str | None = None) -> dict:
-    payload = {"model": model, "messages": messages, "tools": tools,
+                    temperature: float, provider_pin: str | None = None,
+                    max_tokens: int = 8192) -> dict:
+    payload = {"model": model, "messages": messages,
                "tool_choice": "auto", "temperature": temperature,
-               "max_tokens": 8192}  # explicit: provider defaults can truncate
+               "max_tokens": max_tokens}  # explicit: providers can truncate
+    if tools:
+        payload["tools"] = tools
+    else:
+        payload.pop("tool_choice")
     if provider_pin:
         # one serving provider per model, no fallbacks — provider drift
         # between episodes is an evaluation confound (measured 2026-08-05:
@@ -263,6 +268,92 @@ async def _run(task_prompt, model, episode_dir, home_dir, server_cwd,
             "cost_usd": None, "duration_s": round(duration, 1),
             "usage": usage, "mcp_calls": tool_counts,
             "skill_used": bool(skill_text), "final_answer": final}
+
+
+ONESHOT_SYSTEM = (
+    "You are an expert neutron instrument scientist. Answer with a single "
+    "complete McStas 3.x instrument file (.instr) implementing the "
+    "requested instrument, in ONE ```-fenced code block, and nothing else. "
+    "You have no tools; the file will be compiled and simulated as-is.")
+
+
+def run_oneshot(task_prompt: str, model: str, episode_dir: str,
+                skill_text: str | None = None, base_url: str | None = None,
+                api_key: str | None = None, temperature: float = 0.0,
+                provider_pin: str | None = None, chat_fn=None) -> dict:
+    """The plain-LLM baseline arm (M6): ONE chat completion, no tools —
+    anchors what the env/tooling infrastructure adds over raw generation.
+    Writes the same stream-json-shaped transcript; the harness grades the
+    emitted .instr through the identical tail."""
+    os.makedirs(episode_dir, exist_ok=True)
+    tr = Transcript(os.path.join(episode_dir, "transcript.jsonl"))
+    system = ONESHOT_SYSTEM + ("\n\n" + skill_text if skill_text else "")
+    messages = [{"role": "system", "content": system},
+                {"role": "user", "content": task_prompt}]
+    tr.event({"type": "system", "subtype": "init", "model": model,
+              "scaffold": "plain-llm-oneshot",
+              "config": {"temperature": temperature,
+                         "skill": bool(skill_text)}})
+    t0 = time.time()
+    usage = {"prompt_tokens": 0, "completion_tokens": 0}
+    error, answer, providers = None, "", set()
+    try:
+        for attempt in range(2):
+            if chat_fn is None:
+                b_url, key = resolve_backend(model, base_url, api_key)
+                with httpx.Client() as http:
+                    # generous budget: reasoning models spend heavily on
+                    # thinking BEFORE the file (sonnet-5 burned 8192 tokens
+                    # of pure reasoning in the shakedown -> empty answer)
+                    resp = chat_completion(http, b_url, key, model,
+                                           messages, [], temperature,
+                                           provider_pin, max_tokens=32000)
+            else:
+                resp = chat_fn(messages, [])
+            for k in usage:
+                usage[k] += (resp.get("usage") or {}).get(k) or 0
+            providers.add(resp.get("provider") or "?")
+            answer = resp["choices"][0]["message"].get("content") or ""
+            tr.event({"type": "assistant",
+                      "message": {"content": [{"type": "text",
+                                               "text": answer}]},
+                      "provider": resp.get("provider")})
+            if answer.strip():
+                break
+            messages.append({"role": "assistant", "content": ""})
+            messages.append({"role": "user",
+                             "content": "Your answer was empty. Output the "
+                                        "complete .instr file now, code "
+                                        "only."})
+    except RuntimeError as e:
+        error = str(e)
+        tr.event({"type": "error", "error": error})
+    duration = time.time() - t0
+    tr.event({"type": "result", "result": answer, "num_turns": 1,
+              "usage": usage, "duration_ms": int(duration * 1000),
+              "total_cost_usd": None})
+    tr.close()
+    return {"model": model, "scaffold": "plain-llm-oneshot",
+            "provider_pin": provider_pin, "providers_seen": sorted(providers),
+            "returncode": 1 if error else 0, "error": error, "turns": 1,
+            "hit_turn_cap": False, "empty_responses": 0, "cost_usd": None,
+            "duration_s": round(duration, 1), "usage": usage,
+            "mcp_calls": {}, "skill_used": bool(skill_text),
+            "final_answer": answer}
+
+
+def extract_instr(answer: str) -> str | None:
+    """The .instr source from a one-shot answer: the largest fenced block
+    containing DEFINE INSTRUMENT, else the raw answer if it qualifies."""
+    import re
+
+    blocks = re.findall(r"```[a-zA-Z]*\n(.*?)```", answer, re.DOTALL)
+    blocks = [b for b in blocks if "DEFINE INSTRUMENT" in b]
+    if blocks:
+        return max(blocks, key=len).strip() + "\n"
+    if "DEFINE INSTRUMENT" in answer:
+        return answer.strip() + "\n"
+    return None
 
 
 def run_episode(task_prompt: str, model: str, episode_dir: str,

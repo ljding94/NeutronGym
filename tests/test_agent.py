@@ -58,6 +58,33 @@ def test_truncation_caps_tool_results():
     assert agent._truncate("small") == "small"
 
 
+def test_extract_instr_picks_the_instrument_block():
+    ans = ("Here is the file:\n```c\nDEFINE INSTRUMENT x(a=1)\nTRACE\nEND\n"
+           "```\nand a snippet:\n```\nnot an instrument\n```")
+    src = agent.extract_instr(ans)
+    assert src.startswith("DEFINE INSTRUMENT x") and src.endswith("END\n")
+    assert agent.extract_instr("no code here") is None
+    bare = "DEFINE INSTRUMENT y()\nTRACE\nEND"
+    assert agent.extract_instr(bare).endswith("END\n")
+
+
+def test_oneshot_writes_transcript_and_meta(tmp_path):
+    resp = {"choices": [{"message": {
+        "role": "assistant",
+        "content": "```\nDEFINE INSTRUMENT z(p=2)\nTRACE\nEND\n```"}}],
+        "usage": {"prompt_tokens": 10, "completion_tokens": 5},
+        "provider": "Google"}
+    meta = agent.run_oneshot("build z", "scripted/model",
+                             episode_dir=str(tmp_path),
+                             chat_fn=lambda m, t: resp)
+    assert meta["scaffold"] == "plain-llm-oneshot"
+    assert meta["turns"] == 1 and meta["mcp_calls"] == {}
+    assert "DEFINE INSTRUMENT z" in meta["final_answer"]
+    events = [json.loads(x) for x in
+              open(os.path.join(str(tmp_path), "transcript.jsonl"))]
+    assert [e["type"] for e in events] == ["system", "assistant", "result"]
+
+
 # --- slow: full loop against the real stdio server -------------------------------
 
 def scripted_model(script):
