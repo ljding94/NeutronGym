@@ -126,7 +126,13 @@ spec and is graded against the hidden reference on simulation observables.
 
 ## Status
 
-Infrastructure and benchmark harness complete and self-validated; environment
-build (executor, procedural generation, reward-ladder API) in progress.
-See `progress.html` for the live plan and `PLAN.md` for the source of truth.
-Target: ICLR 2027.
+Environment complete and released as the `neutrongym` wheel: fast-tier
+executor (~30 rollouts/s/core), procedural generator with held-out
+parameter regimes, L1–L4 reward ladder with Liouville anti-hacking bound,
+reference agent loop (the measurement instrument) + plain-LLM baseline
+arm. Benchmark slice hardened: per-model memorization probes, held-out
+tier (BOYA, VENUS — references authored here, never public), perturbed
+variants with memorizer-fails/spec-follower-passes proofs. `neutrongym-eval`
+smokes the installed artifact end-to-end. In progress: the M6 evaluation
+matrix and the M8 SFT→GRPO trainability track. See `progress.html` for the
+live plan and `PLAN.md` for the source of truth. Target: ICLR 2027.
