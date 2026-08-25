@@ -110,7 +110,13 @@ def chat_completion(http: httpx.Client, base_url: str, api_key: str,
             time.sleep(2 ** attempt)
             continue
         if resp.status_code == 200:
-            return resp.json()
+            data = resp.json()
+            if data.get("choices"):
+                return data
+            # 200 with an error body (provider hiccup) — retryable
+            last = f"200 without choices: {str(data)[:300]}"
+            time.sleep(2 ** attempt)
+            continue
         last = f"HTTP {resp.status_code}: {resp.text[:300]}"
         if resp.status_code in (429, 500, 502, 503):
             time.sleep(2 ** attempt)

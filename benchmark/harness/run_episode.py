@@ -310,6 +310,15 @@ def main():
         report = {"task": task["id"], "pass": False, "score": 0.0,
                   "hard_failures": ["agent left no built instrument in the "
                                     "episode registry"], "checks": []}
+    elif task.get("kind") == "improve":
+        # T2: FOM vs calibrated target + constraint bands — no reference
+        # comparison (grade_improvement path; first exercised by the M6
+        # matrix — the pilots were all reproduce tasks)
+        cand = grader.run_protocol(instr_path, params or {}, task["protocol"],
+                                   os.path.join(ep, "grade_work"), "cand")
+        report = grader.grade_improvement(task, cand)
+        report["candidate_instr"] = instr_path
+        report["candidate_params"] = params
     else:
         ref = grader.reference_summary(task)
         cand = grader.run_protocol(instr_path, params or {}, task["protocol"],

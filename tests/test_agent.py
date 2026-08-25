@@ -225,17 +225,22 @@ def test_chat_completion_retries_network_errors(monkeypatch):
 
     calls = {"n": 0}
 
+    body = {"choices": [{"message": {"role": "assistant", "content": "hi"}}]}
+
     class FakeHttp:
         def post(self, *a, **k):
             calls["n"] += 1
-            if calls["n"] < 3:
+            if calls["n"] == 1:
                 raise httpx.ReadTimeout("slow provider")
+            if calls["n"] == 2:  # 200 with an error body — also retryable
+                return type("R", (), {"status_code": 200,
+                                      "json": lambda self: {"error": "x"}})()
             return type("R", (), {"status_code": 200,
-                                  "json": lambda self: {"ok": True}})()
+                                  "json": lambda self: body})()
 
     monkeypatch.setattr(agent.time, "sleep", lambda s: None)
     out = agent.chat_completion(FakeHttp(), "http://x", "k", "m", [], [], 0.0)
-    assert out == {"ok": True} and calls["n"] == 3
+    assert out == body and calls["n"] == 3
 
 
 @pytest.mark.slow
