@@ -1,0 +1,62 @@
+{
+  "_": "M6 pinned run configuration (2026-08-23). The acceptance bar requires transcripts reproducible from THIS file: model ids, provider pins, protocol constants, arm definitions, and spend plan all live here. Prices are $/M tokens, refreshed 2026-08-23 from the OpenRouter catalog.",
+  "protocol": {
+    "pass_at": 1,
+    "max_turns": 50,
+    "temperature": 0.0,
+    "notes": "one attempt per (task, model, arm); simulation seeds are per-task (env-controlled); sampling temperature 0 for measurement runs"
+  },
+  "dev_split": [
+    "T1_templateSANS", "T1_templateTOF", "P1_sans_reproduce",
+    "P3_sans_underspecified", "T2_guide_divergence"
+  ],
+  "scored_sets": {
+    "seen_t1": ["T1_ESS_IN5_reprate", "T1_HZB_FLEX", "T1_HZB_NEAT",
+                "T1_ILL_D2B", "T1_ILL_H10_IN8", "T1_ILL_H15_D11",
+                "T1_ILL_H512_D22", "T1_ILL_IN6", "T1_ISIS_SANS2d",
+                "T1_PSI_DMC", "T1_RTP_DIF", "T1_SESANS_Delft"],
+    "t2": ["T2_guide_divergence", "T2_sans_collimation"],
+    "perturbed": ["T1_PSI_DMC_pert", "T1_ISIS_SANS2d_pert",
+                  "T1_HZB_FLEX_pert"],
+    "heldout_FINAL_PASS_ONLY": ["T1_BOYA_CARR", "T1_VENUS_SNS"],
+    "_heldout_rule": "held-out tasks are touched exactly once, in the coordinated Sep 8-10 final pass — never by matrix runs"
+  },
+  "gpt_slice": ["T1_PSI_DMC", "T1_ISIS_SANS2d", "T1_HZB_FLEX",
+                "T1_ILL_IN6", "T2_guide_divergence", "T2_sans_collimation"],
+  "models": {
+    "google/gemini-3.6-flash":      {"pin": "Google", "price": [0.75, 3.75],  "tier": "mid"},
+    "anthropic/claude-sonnet-5":    {"pin": "Google", "price": [2.0, 10.0],   "tier": "frontier"},
+    "anthropic/claude-haiku-4.5":   {"pin": "Google", "price": [1.0, 5.0],    "tier": "small"},
+    "google/gemini-3.5-flash-lite": {"pin": "Google", "price": [0.3, 2.5],    "tier": "small"},
+    "meta-llama/llama-4-maverick":  {"pin": "Google", "price": [0.2, 0.8],    "tier": "small"},
+    "openai/gpt-5.2-pro":           {"pin": "OpenAI", "price": [21.0, 168.0], "tier": "frontier",
+                                     "slice": "gpt_slice",
+                                     "_": "full scored set would cost ~$100 at the 270k-token episode profile — policy deviation recorded: representative 6-task slice"},
+    "anthropic/claude-opus-5":      {"pin": "Google", "price": [5.0, 25.0],   "tier": "frontier",
+                                     "reserve": "final-pass only, budget permitting"}
+  },
+  "arms": {
+    "main":        {"scaffold": "loop",    "skill": true,
+                    "_": "MCP + skill through the reference loop — every headline number"},
+    "noskill":     {"scaffold": "loop",    "skill": false,
+                    "_": "-skill cell of the ablation grid"},
+    "oneshot":     {"scaffold": "oneshot", "skill": true,
+                    "_": "plain-LLM baseline: no tools (-MCP)"},
+    "claude_code": {"scaffold": "claude",  "skill": true, "model": null,
+                    "_": "production-harness comparison arm, subscription ($0)"}
+  },
+  "priorities": [
+    {"p": 1, "arm": "main", "models": "all",
+     "tasks": ["seen_t1", "t2", "perturbed"]},
+    {"p": 2, "arm": "noskill", "models": ["google/gemini-3.6-flash"],
+     "tasks": ["dev"],
+     "_": "ablation grid on ONE mid-tier OpenRouter model (dev split) + subscription Claude per policy"},
+    {"p": 2, "arm": "claude_code", "models": [null], "tasks": ["dev"]},
+    {"p": 3, "arm": "oneshot", "models": "all",
+     "tasks": ["seen_t1", "t2", "perturbed"],
+     "_": "cheap: single completion per episode"}
+  ],
+  "budget": {"openrouter_ceiling_usd": 200, "warn_at_usd": 120,
+             "hard_stop_usd": 170,
+             "_": "hard stop leaves headroom for the Sep 8-10 final pass (held-out + opus reserve + M8-trained model)"}
+}

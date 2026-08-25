@@ -82,7 +82,8 @@ def sandbox_deny_rules() -> list:
 
 
 def run_agent_loop(task: dict, model: str | None, ep: str,
-                   use_skill: bool, provider: str | None = "Google") -> dict:
+                   use_skill: bool, provider: str | None = "Google",
+                   max_turns: int | None = None) -> dict:
     """The NeutronGym reference loop — the measurement instrument
     (note/scaffold-decision-2026-07-30.md). Sandbox by construction: the
     model sees only MCP tools (no shell/Read), server benchmark mode on,
@@ -102,7 +103,8 @@ def run_agent_loop(task: dict, model: str | None, ep: str,
         home_dir=os.path.join(ep, "home"),
         server_cwd=os.path.join(ep, "cwd"),
         skill_text=skill_text, exempt=task_exempt_paths(task),
-        provider_pin=provider or None)
+        provider_pin=provider or None,
+        max_turns=max_turns or agent.DEFAULT_MAX_TURNS)
 
 
 def run_agent_oneshot(task: dict, model: str | None, ep: str,
@@ -272,6 +274,9 @@ def main():
                          "non-Vertex models need their provider from "
                          "note/openrouter-model-roster-2026-08-05.md; "
                          "'' = unpinned)")
+    ap.add_argument("--max-turns", type=int, default=None,
+                    help="loop turn cap (M6 protocol pins 50 via "
+                         "benchmark/m6_config.json; default = loop default)")
     args = ap.parse_args()
     with open(resolve_task(args.task)) as f:
         task = json.load(f)
@@ -290,7 +295,8 @@ def main():
     if args.scaffold == "loop":
         episode = run_agent_loop(task, args.model, ep,
                                  use_skill=not args.no_skill,
-                                 provider=args.provider)
+                                 provider=args.provider,
+                                 max_turns=args.max_turns)
     elif args.scaffold == "oneshot":
         episode = run_agent_oneshot(task, args.model, ep,
                                     use_skill=not args.no_skill,
