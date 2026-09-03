@@ -82,5 +82,6 @@
    "improvement_sigma": 510.3,
    "verified_3sigma": true
   }
- }
+ },
+ "_presentation_note": "TWO independent baselines, not three: the mcrun optimizer arm was DISCARDED during calibration (nelder-mead escaped parameter bounds \u2014 red-team finding b), so classical_best IS the constraint-filtered random-search winner; the random_search column is the same point. Present as initial + ensemble-filtered classical best, with the optimizer-discard story told front and center (2026-09-02 review fix)."
 }
