@@ -1,0 +1,122 @@
+{
+  "task": "T1_ISIS_SANS2d",
+  "episode": {
+    "model": "anthropic/claude-sonnet-5",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 14,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 157.1,
+    "usage": {
+      "prompt_tokens": 347906,
+      "completion_tokens": 14271
+    },
+    "mcp_calls": {
+      "describe_component": 5,
+      "create_instrument": 1,
+      "add_parameter": 7,
+      "add_component": 28,
+      "validate_instrument": 1,
+      "run_simulation": 2,
+      "get_results": 2
+    },
+    "skill_used": true,
+    "final_answer": "The high-statistics run confirms convergence \u2014 all monitor intensities match the ncount=1e6 run within statistical error, with rel_err now \u22640.24% everywhere. Final results below.\n\n## Summary\n\nI rebuilt the ISIS-style SANS instrument exactly per spec: `Origin` (Arm) \u2192 `isis_source` (ISIS_moderator, Face=\"E2\", energy window set from Lmin/Lmax) \u2192 wavelength/PSD diagnostics (`lmon1`,`psd1`) \u2192 10-segment curved bender (`bender1`...`bender10`, each `Guide_gravity`, tilted 0.1375\u00b0/segment) \u2192 post-bender diagnostics (`lmonb`,`psd2`) \u2192 collimation `Slit` (`guide_in`) \u2192 4\u00d71.985 m straight `Guide_gravity` sections \u2192 diagnostic `psd3` \u2192 first real aperture `aperture1` (A1w\u00d7A1h) \u2192 `lmonitor2` \u2192 circular `S6comp` (radius=S6) \u2192 circular `APERTURE2` (radius=A2, at distance L1 from aperture1) \u2192 final sample-position diagnostics `lmon2`/`psd4`. Gravity was enabled (cold-neutron, ~19 m beamline).\n\n**Run parameters:** L1=3.926 m, A1w=0.030 m, A1h=0.02 m, S6=0.006 m, A2=0.006 m, Lmin=1 \u00c5, Lmax=14 \u00c5, seed=12345.\nProduction run: ncount=1e7 (cross-checked against ncount=1e6, same seed \u2014 consistent to <1%). All monitors have rel_err \u2264 0.24% and events \u2265 195,280 (no low-statistics flags).\n\n**Integrated intensity per monitor** (n/s, \u00b1 error, event count):\n\n| Monitor | Type | Position (z, m) | Intensity [n/s] | Error | Events |\n|---|---|---|---|---|---|\n| lmon1 | Wavelength | 3.698 | 3.4057\u00d710\u2078 | \u00b11.08\u00d710\u2075 | 1.00\u00d710\u2077 |\n| psd1 | PSD | 3.699 | 3.4057\u00d710\u2078 | \u00b11.08\u00d710\u2075 | 1.00\u00d710\u2077 |\n| lmonb | Wavelength | 6.951 | 1.4675\u00d710\u2078 | \u00b16.86\u00d710\u2074 | 7.02\u00d710\u2076 |\n| psd2 | PSD | 6.952 | 1.4675\u00d710\u2078 | \u00b16.86\u00d710\u2074 | 7.02\u00d710\u2076 |\n| psd3 | PSD | 15.233 | 1.0098\u00d710\u2078 | \u00b15.70\u00d710\u2074 | 5.44\u00d710\u2076 |\n| lmonitor2 | Wavelength | 17.884 | 5.0061\u00d710\u2077 | \u00b14.02\u00d710\u2074 | 2.10\u00d710\u2076 |\n| lmon2 | Wavelength | 19.444 | 5.5971\u00d710\u2076 | \u00b11.35\u00d710\u2074 | 1.95\u00d710\u2075 |\n| psd4 | PSD | 19.445 | 5.5971\u00d710\u2076 | \u00b11.35\u00d710\u2074 | 1.95\u00d710\u2075 |\n\n**Transmission chain sanity check:** Intensity decreases monotonically along the beam as expected \u2014 moderator (3.4\u00d710\u2078) \u2192 after 10-bender curved guide (1.47\u00d710\u2078, ~43% transmission, reasonable for a curved multi-channel guide with m=1/3 coatings) \u2192 after straight guide + aperture1 collimation (1.01\u00d710\u2078 at psd3, then a big drop to 5.0\u00d710\u2077 right after A1w\u00d7A1h=0.03\u00d70.02 aperture, consistent with beam clipping) \u2192 further drop through S6 (r=6mm) and APERTURE2 (r=6mm) pinholes to 5.6\u00d710\u2076 at the sample position, an expected ~9\u00d7 cut from two small circular apertures in series with a divergent beam. No unexplained anomalies (no >10\u00d7 unexplained drops, no NaNs/negatives); beam centers (X0,Y0) stay near zero apart from the geometric bender offset (~2-3 cm) which is physically expected from the curved-guide deflection.\n\n**Key assumption disclosed:** absolute flux scale is set entirely by the ISIS_moderator \"E2\" face brightness table (SAC=1 solid-angle correction) shipped with McStas; no additional facility-specific normalization was applied."
+  },
+  "grade": {
+    "task": "T1_ISIS_SANS2d",
+    "pass": true,
+    "score": 1.0,
+    "checks_passed": "6/6",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "2d",
+        "observable": "intensity",
+        "reference": 340574000.0,
+        "candidate": 340574000.0,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 68114800.0
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_x",
+        "reference": 1.05959,
+        "candidate": 1.05959,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.317877
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_y",
+        "reference": 0.610729,
+        "candidate": 0.610729,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.18321869999999998
+      },
+      {
+        "role": "wavelength",
+        "observable": "intensity",
+        "reference": 340574000.0,
+        "candidate": 340574000.0,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 85143500.0
+      },
+      {
+        "role": "wavelength",
+        "observable": "center_of_mass",
+        "reference": 3.98881,
+        "candidate": 3.98881,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.19944050000000002
+      },
+      {
+        "role": "wavelength",
+        "observable": "fwhm",
+        "reference": 4.043045,
+        "candidate": 4.043045,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 2.0215225
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d__main__anthropic_claude_sonnet_5/home/instruments/sans_ts1/sans_ts1.instr",
+    "candidate_params": {
+      "L1": "3.926",
+      "A1w": "0.03",
+      "A1h": "0.02",
+      "S6": "0.006",
+      "A2": "0.006",
+      "Lmin": "1",
+      "Lmax": "14"
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d__main__anthropic_claude_sonnet_5/artifacts/sans_ts1.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d__main__anthropic_claude_sonnet_5/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d__main__anthropic_claude_sonnet_5/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d__main__anthropic_claude_sonnet_5/artifacts/trace",
+    "errors": []
+  }
+}

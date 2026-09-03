@@ -1,0 +1,87 @@
+```c
+/*******************************************************************************
+* Instrument: t2_sans_collimation  (COLLIMATION-OPTIMIZED VERSION)
+*
+* GOAL: Maximize scattered intensity on 'detector' by tuning r_pin1, r_pin2
+*       (only these two parameters were changed relative to baseline),
+*       while keeping the detector pattern RMS width dX inside the
+*       hard-constraint band [4.539, 5.548] cm (baseline dX ~5.043 cm +-10%).
+*
+* BASELINE (unchanged): L(src->pin1)=3 m, L(src->pin2)=6 m (collimation
+* length Lc = 3 m), sample at pin2, sample->detector = 3 m, lambda = 6.0 +-
+* 0.05 A, fixed circular beamstop, 60x60 cm 2D 'detector' monitor.
+* Baseline pinholes: r_pin1 = r_pin2 = 0.005 m -> dX_baseline ~ 5.043 cm
+* (band center of the +-10% window given in the task).
+*
+* ENGINEERING ANALYSIS USED TO CHOOSE THE NEW RADII
+* ---------------------------------------------------------------------------
+* 1) Flux delivered to the sample through a two-pinhole collimator scales as
+*    the solid angle subtended by pin1 (source aperture) times the area of
+*    pin2 (sample aperture):   Phi_sample ~ r_pin1^2 * r_pin2^2 / Lc^2.
+*    -> both radii should increase to gain intensity (quadratic in each).
+*
+* 2) The direct beam footprint radius projected onto the detector plane by
+*    simple pinhole-camera geometry (equal collimation and sample-to-detector
+*    distances, Lc = L_sd = 3 m here) is:
+*         R_beam(detector) = r_pin1 + 2*r_pin2
+*    This spot MUST stay inside the fixed baseline beamstop radius
+*    (bs_radius = 0.025 m here) with margin, or direct-beam leakage floods
+*    the center and collapses dX below the allowed band (constraint 2).
+*
+* 3) The same growth of r_pin1, r_pin2 also increases angular divergence and
+*    therefore smears the scattering rings, which increases dX (constraint
+*    1, the +10% ceiling). The sample-aperture radius (r_pin2) enters this
+*    smearing with roughly twice the leverage of the source aperture
+*    (r_pin1) in the beam-footprint formula above, so for a fixed "resolution
+*    budget" it pays to grow r_pin1 more aggressively than r_pin2.
+*
+* 4) Maximizing Phi ~ r_pin1^2 r_pin2^2 subject to a *linear* shadow budget
+*    r_pin1 + 2*r_pin2 = C (Lagrange multiplier method) gives the optimum at
+*    r_pin1 = 2*r_pin2. Using C = 0.9*bs_radius = 0.0225 m (10% safety
+*    margin under the beamstop edge) gives:
+*         r_pin2 = C/4 = 0.005625 m,  r_pin1 = C/2 = 0.01125 m
+*    Rounded to r_pin1 = 0.0112 m, r_pin2 = 0.0056 m.
+*
+* CHOSEN VALUES (both within the allowed [0.002, 0.02] m range):
+*     r_pin1 = 0.0112 m   (+124% vs baseline 0.005 m)
+*     r_pin2 = 0.0056 m   (+12%  vs baseline 0.005 m; kept close to baseline
+*                          because it has the larger leverage on both the
+*                          beamstop shadow and the ring-smearing term)
+*
+* Predicted direct-beam radius at detector: r_pin1+2*r_pin2 = 0.0224 m,
+* i.e. still ~10% inside the fixed 0.025 m beamstop -> beamstop keeps
+* shadowing the direct beam (constraint 2 respected).
+*
+* Predicted flux gain vs baseline (from Phi ~ r_pin1^2 r_pin2^2):
+*     (0.0112/0.005)^2 * (0.0056/0.005)^2 ~= 5.02 * 1.25 ~= 6.3x
+* Because r_pin2 (the dominant contributor to ring smearing) grew only 12%,
+* the resulting increase of dX is expected to be modest and to remain
+* inside the +-10% band, while the large growth of r_pin1 (which mostly
+* affects overall throughput via the outer solid angle, with a smaller
+* smearing lever arm) drives most of the intensity gain.
+*
+* REPORTING NOTE: this response was produced without executing McStas (no
+* simulation backend available in this transcript). The radii above are a
+* physically-derived engineering estimate, not a measured result. Per the
+* mandatory verification protocol, before accepting this design one MUST
+* run, at fixed seed and ncount=1e6 (then re-verify at ncount>=1e8):
+*     mcrun t2_sans_collimation.instr -n 1e6 --seed=<SEED> \
+*           r_pin1=0.0112 r_pin2=0.0056
+* and read from detector.dat: I +/- err, N (events), and compute
+* dX = sqrt(<x^2> - <x>^2) over the detector image, checking:
+*   (a) I >= 0.06171 n/s (target),
+*   (b) dX in [4.539, 5.548] cm,
+*   (c) events >= 1000 with rel_err < 5% (else re-run at higher ncount).
+* If step (b) fails, reduce the C budget (currently 0.9*bs_radius) and
+* re-solve r_pin1 = 2 r_pin2 = C/2 until dX falls back inside the band.
+*
+* Sample: this file reconstructs the baseline sample as a monodisperse
+* dilute hard-sphere SANS sample (SANS_spheres). All non-collimation
+* parameters (geometry, beamstop radius, detector size/position, sample
+* model) are held fixed relative to the baseline description; ONLY
+* r_pin1 and r_pin2 were changed, per the task's hard constraint.
+*******************************************************************************/
+
+DEFINE INSTRUMENT t2_sans_collimation(
+    r_pin1  = 0.0112,   // [m] source-defining pinhole radius (OPTIMIZED, was 0.005)
+    r_pin2  = 0.0056,   // [m] sample-defining pinhole radius (OPTIMIZED, was 0

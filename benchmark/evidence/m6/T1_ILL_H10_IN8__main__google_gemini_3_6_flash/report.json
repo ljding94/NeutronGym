@@ -1,0 +1,61 @@
+{
+  "task": "T1_ILL_H10_IN8",
+  "episode": {
+    "model": "google/gemini-3.6-flash",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 50,
+    "hit_turn_cap": true,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 73.2,
+    "usage": {
+      "prompt_tokens": 403053,
+      "completion_tokens": 2110
+    },
+    "mcp_calls": {
+      "list_examples": 2,
+      "list_components": 1,
+      "describe_component": 5,
+      "create_instrument": 1,
+      "add_parameter": 28,
+      "add_declare": 10,
+      "add_component": 2,
+      "set_parameters": 1
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_ILL_H10_IN8",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": [
+      {
+        "tool": "list_examples",
+        "kind": "example_tool",
+        "target": "tas",
+        "refused": true
+      },
+      {
+        "tool": "list_examples",
+        "kind": "example_tool",
+        "target": "TAS",
+        "refused": true
+      }
+    ]
+  },
+  "artifacts": null
+}

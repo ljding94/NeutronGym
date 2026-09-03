@@ -1,0 +1,168 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: sesans_rebuild
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 10:12:00 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* L0: [unit] 
+* DL: [unit] 
+* By: [unit] 
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT sesans_rebuild (
+L0 = 2.165, 
+DL = 0.02, 
+By = 0.00468 
+)
+
+DECLARE 
+%{
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated sesans_rebuild
+%}
+
+TRACE 
+COMPONENT origin = Progress_bar()
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT src = Source_simple(
+ yheight = 0.01, xwidth = 0.01,
+ dist = 2.25, focus_xw = 0.01,
+ focus_yh = 0.01, lambda0 = L0,
+ dlambda = DL, gauss = 1)
+AT (0.0, 0.0, 0.0) RELATIVE origin
+
+COMPONENT set_pol = Set_pol(
+ px = 1)
+AT (0.0, 0.0, 0.1) RELATIVE src
+
+COMPONENT px1 = PolLambda_monitor(
+ nL = 501, restore_neutron = 1,
+ filename = "pxAfterAnalyser", mx = 1,
+ Lmin = L0-DL, Lmax = L0+DL)
+AT (0.0, 0.0, 0.01) RELATIVE set_pol
+
+COMPONENT f1 = Foil_flipper_magnet(
+ stray_field = 1, xwidth = 0.1,
+ yheight = 0.1, zdepth = 0.3,
+ phi = 0.095993, foilthick = 3,
+ Bx = 0, By = By,
+ Bz = 0, foil_in = 1,
+ verbose = 0)
+AT (0.0, 0.0, 0.5) RELATIVE src
+
+COMPONENT px2 = PolLambda_monitor(
+ nL = 501, restore_neutron = 1,
+ filename = "pxAfterAnalyser", mx = 1,
+ Lmin = L0-DL, Lmax = L0+DL)
+AT (0.0, 0.0, 0.16) RELATIVE f1
+
+COMPONENT f2 = Foil_flipper_magnet(
+ stray_field = 1, xwidth = 0.1,
+ yheight = 0.1, zdepth = 0.3,
+ phi = 0.095993, foilthick = 3,
+ Bx = 0, By = By,
+ Bz = 0, foil_in = 1,
+ verbose = 0)
+AT (0.0, 0.0, 2.0) RELATIVE src
+
+COMPONENT px3 = PolLambda_monitor(
+ nL = 501, restore_neutron = 1,
+ filename = "pxAfterAnalyser", mx = 1,
+ Lmin = L0-DL, Lmax = L0+DL)
+AT (0.0, 0.0, 0.16) RELATIVE f2
+
+COMPONENT sans_spheres = SANS_spheres2(
+ xwidth = 0.02, yheight = 0.02,
+ zthick = 0.001, dsdw_inc = 0,
+ sc_aim = 0.8, R = 10000,
+ phi = 0.015, singlesp = 0,
+ Qmind = 3e-05, Qmaxd = 0.001)
+WHEN ((1==1))
+AT (0.0, 0.0, 2.25) RELATIVE src
+
+COMPONENT f3 = Foil_flipper_magnet(
+ stray_field = 1, xwidth = 0.1,
+ yheight = 0.1, zdepth = 0.3,
+ phi = 0.095993, foilthick = 3,
+ Bx = 0, By = By,
+ Bz = 0, foil_in = 1,
+ verbose = 0)
+AT (0.0, 0.0, 2.5) RELATIVE src
+
+COMPONENT f4 = Foil_flipper_magnet(
+ stray_field = 1, xwidth = 0.1,
+ yheight = 0.1, zdepth = 0.3,
+ phi = 0.095993, foilthick = 3,
+ Bx = 0, By = By,
+ Bz = 0, foil_in = 1,
+ verbose = 0)
+AT (0.0, 0.0, 4.0) RELATIVE src
+
+COMPONENT px6 = PolLambda_monitor(
+ nL = 501, restore_neutron = 1,
+ filename = "pxAfterAnalyser", mx = 1,
+ Lmin = L0-DL, Lmax = L0+DL)
+AT (0.0, 0.0, 0.16) RELATIVE f4
+
+COMPONENT ana = PolAnalyser_ideal(
+ mx = 1)
+AT (0.0, 0.0, 4.4) RELATIVE src
+
+COMPONENT det = PSD_monitor(
+ nx = 101, ny = 101,
+ filename = "det", xwidth = 0.011,
+ yheight = 0.011)
+AT (0.0, 0.0, 4.5) RELATIVE src
+
+COMPONENT trick = Arm()
+AT (0.0, 0.0, 4.4) RELATIVE src
+EXTEND %{
+RESTORE_NEUTRON(INDEX_CURRENT_COMP-2,x,y,z,vx,vy,vz,t,sx,sy,sz,p);
+%}
+
+COMPONENT ana2 = PolAnalyser_ideal(
+ mx = -1)
+AT (0.0, 0.0, 4.4) RELATIVE src
+
+COMPONENT det2 = PSD_monitor(
+ nx = 101, ny = 101,
+ filename = "det2", xwidth = 0.011,
+ yheight = 0.011)
+AT (0.0, 0.0, 4.5) RELATIVE src
+
+FINALLY 
+%{
+// Start of finally for generated sesans_rebuild
+%}
+
+END

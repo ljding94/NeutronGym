@@ -1,0 +1,98 @@
+{
+  "task": "T1_templateTOF",
+  "episode": {
+    "model": "google/gemini-3.6-flash",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 50,
+    "hit_turn_cap": true,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 66.5,
+    "usage": {
+      "prompt_tokens": 414651,
+      "completion_tokens": 3149
+    },
+    "mcp_calls": {
+      "describe_component": 5,
+      "list_components": 1,
+      "list_examples": 1,
+      "create_instrument": 1,
+      "add_parameter": 14,
+      "add_declare": 10,
+      "add_component": 15,
+      "get_instrument": 2,
+      "set_parameters": 1
+    },
+    "skill_used": false,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_templateTOF",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "candidate failed to run (compile)"
+    ],
+    "diagnostics": [
+      "       |                          ^~",
+      "       |                          =",
+      "./tof_spectrometer.c:19173:26: warning: equality comparison with extraneous parentheses [-Wparentheses-equality]",
+      " 19173 |       if ((( flag_single == 2 ))) // conditional WHEN execution",
+      "       |              ~~~~~~~~~~~~^~~~",
+      "./tof_spectrometer.c:19173:26: note: remove extraneous parentheses around the comparison to silence this warning",
+      " 19173 |       if ((( flag_single == 2 ))) // conditional WHEN execution",
+      "       |           ~              ^     ~",
+      "./tof_spectrometer.c:19173:26: note: use '=' to turn this equality comparison into an assignment",
+      " 19173 |       if ((( flag_single == 2 ))) // conditional WHEN execution",
+      "       |                          ^~",
+      "       |                          =",
+      "2 warnings and 1 error generated.",
+      "INFO: call to /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/arm64-apple-darwin20.0.0-clang failed with Command '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/arm64-apple-darwin20.0.0-clang -o ./tof_spectrometer.out ./tof_spectrometer.c -lm -Wl,-headerpad_max_install_names -Wl,-dead_strip_dylibs -Wl,-rpath,/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/lib -L/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/lib -ftree-vectorize -fPIC -fstack-protector-strong -O2 -pipe -isystem /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/include -headerpad_max_install_names -ftree-vectorize -fPIC -fstack-protector-strong -O2 -pipe -isystem /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/include -fdebug-prefix-map=/Users/runner/miniforge3/conda-bld/mcstas-suite_1783460247618/work=/usr/local/src/conda/mcstas-core-3.7.12 -fdebug-prefix-map=/opt/homebrew/Caskroom/miniconda/base/envs/mcstas=/usr/local/src/conda-prefix -O2 -g -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -D_DARWIN_C_SOURCE -I/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/include -Wl,-rpath,/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/lib -L/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/lib -fno-PIC -fPIE -flto -O3 -march=native -fno-math-errno -ftree-vectorize -g -DNDEBUG -D_POSIX_SOURCE -std=c99 -lm' returned non-zero exit status 1.",
+      "ERROR: Compilation failed for ./tof_spectrometer.c using compiler /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/arm64-apple-darwin20.0.0-clang"
+    ],
+    "checks": [],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_templateTOF__noskill__google_gemini_3_6_flash/home/instruments/tof_spectrometer/tof_spectrometer.instr",
+    "candidate_params": {
+      "E0": 4.94,
+      "dE": 0.24,
+      "dt": 6.4e-06,
+      "coh": "Rb_liq_coh.sqw",
+      "inc": "Rb_liq_inc.sqw",
+      "thickness": 0.0001,
+      "yheight": 0.0168,
+      "radius": 0.005,
+      "container": "Nb.laz",
+      "container_thickness": 5e-05,
+      "environment": "Al.laz",
+      "environment_radius": 0.025,
+      "environment_thickness": 0.002,
+      "dt0": 0.0
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": [
+      {
+        "tool": "list_examples",
+        "kind": "example_tool",
+        "target": "TOF",
+        "refused": true
+      }
+    ]
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_templateTOF__noskill__google_gemini_3_6_flash/artifacts/tof_spectrometer.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_templateTOF__noskill__google_gemini_3_6_flash/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T1_templateTOF__noskill__google_gemini_3_6_flash/artifacts/diagram.png",
+    "trace": null,
+    "errors": [
+      "trace: mcdisplay-webgl failed"
+    ]
+  }
+}

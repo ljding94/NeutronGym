@@ -1,0 +1,725 @@
+DEFINE INSTRUMENT ILL_H512_D22 (
+  lambda = 4.5,
+  dlambda = 0.45,
+  D22_collimation = 2,
+  string D22_sample = "H2O_liq.qSq"
+)
+
+DECLARE
+%{
+  double sT3;
+  double sI3;
+  double sT2;
+  double sI2;
+  double sT1;
+  double sI1;
+  double gR0;
+  double gQc;
+  double gAlpha;
+  double gW;
+  double Al_Thickness;
+  double gGap;
+  double D22_nu;
+  int flag;
+  int splitflag;
+%}
+
+INITIALIZE
+%{
+  sT3 = 413.5;
+  sI3 = 1.022e+13;
+  sT2 = 145.8;
+  sI2 = 3.44e+13;
+  sT1 = 40.1;
+  sI1 = 2.78e+13;
+  gR0 = 1;
+  gQc = 0.0216;
+  gAlpha = 4.07;
+  gW = 1.0/300.0;
+  Al_Thickness = 0.001;
+  gGap = 0.001;
+  D22_nu = 0;
+  flag = 0;
+  splitflag = 0;
+
+  D22_nu = 3956*48.3*DEG2RAD/2/PI/lambda/0.25;
+  printf("ILL_H512_D22: D22:  nu=%g [rpm] lambda=%g [Angs] sample=%s\n",
+    D22_nu*60, lambda, D22_sample);
+%}
+
+TRACE
+
+COMPONENT Origin = Progress_bar()
+AT [0, 0, 0] ABSOLUTE
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT HCS = Source_gen(
+  radius = 0.21/2,
+  dist = 2.155,
+  focus_xw = 0.123,
+  focus_yh = 0.120,
+  lambda0 = lambda,
+  dlambda = dlambda,
+  I1 = sI1,
+  verbose = 1,
+  T1 = sT1,
+  T2 = sT2,
+  I2 = sI2,
+  T3 = sT3,
+  I3 = sI3,
+  zdepth = 0.15)
+AT [0, 0, 0] RELATIVE Origin
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT HCS_Al = PowderN(
+  reflections = "Al.laz",
+  yheight = 0.12,
+  xwidth = 0.17,
+  zdepth = Al_Thickness,
+  p_inc = 0.005,
+  p_transmit = 0.9450,
+  d_phi = 10,
+  p_interact = 0.05)
+AT [0, 0, 0.21] RELATIVE HCS
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT HCS_Al_copy = PowderN(
+  reflections = "Al.laz",
+  yheight = 0.12,
+  xwidth = 0.17,
+  zdepth = Al_Thickness,
+  p_inc = 0.005,
+  p_transmit = 0.9450,
+  d_phi = 10,
+  p_interact = 0.05)
+AT [0, 0, 0.61] RELATIVE HCS
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT HCS_Al_copy_0 = PowderN(
+  reflections = "Al.laz",
+  yheight = 0.12,
+  xwidth = 0.17,
+  zdepth = Al_Thickness,
+  p_inc = 0.005,
+  p_transmit = 0.9450,
+  d_phi = 10,
+  p_interact = 0.05)
+AT [0, 0, 0.78] RELATIVE HCS
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT HCS_Al_copy_1 = PowderN(
+  reflections = "Al.laz",
+  yheight = 0.12,
+  xwidth = 0.17,
+  zdepth = Al_Thickness,
+  p_inc = 0.005,
+  p_transmit = 0.9450,
+  d_phi = 10,
+  p_interact = 0.05)
+AT [0, 0, 0.92] RELATIVE HCS
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT HCS_Al_copy_2 = PowderN(
+  reflections = "Al.laz",
+  yheight = 0.12,
+  xwidth = 0.17,
+  zdepth = Al_Thickness,
+  p_inc = 0.005,
+  p_transmit = 0.9450,
+  d_phi = 10,
+  p_interact = 0.05)
+AT [0, 0, 2.15] RELATIVE HCS
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT H5 = Monitor_nD(
+  xwidth = 0.04+0.004+0.015+0.004+0.06,
+  yheight = 0.12,
+  bins = 50,
+  options = "x y, slit")
+AT [0, 0, 2.155] RELATIVE HCS
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT H51_origin = Monitor_nD(
+  xwidth = 0.04+0.004+0.015+0.004+0.06,
+  yheight = 0.12,
+  bins = 50,
+  options = "x y, slit")
+AT [-(0.04+0.004+0.015+0.004+0.06)/2+0.04/2, 0, 0] RELATIVE H5
+ROTATED [0, -1.3269, 0] RELATIVE H5
+
+COMPONENT H51_Start = Arm()
+AT [0, 0, 0] RELATIVE H51_origin
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT H51_inpile = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 0] RELATIVE H51_Start
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT H51_Obt_1 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 2.775+0.025] RELATIVE H51_inpile
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT H51_Obt_2 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 0.863+0.012] RELATIVE H51_Obt_1
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT H51_Obt_3 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 1.433+0.012] RELATIVE H51_Obt_2
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT HCS_Al_copy_3 = PowderN(
+  reflections = "Al.laz",
+  yheight = 0.12,
+  xwidth = 0.17,
+  zdepth = Al_Thickness,
+  p_inc = 0.005,
+  p_transmit = 0.9450,
+  d_phi = 10,
+  p_interact = 0.05)
+AT [0, 0, 0.745+0.01] RELATIVE H51_Obt_3
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT H51_Obt_Out = Monitor_nD(
+  xwidth = 0.04+0.004+0.015+0.004+0.06,
+  yheight = 0.12,
+  bins = 50,
+  options = "x y, slit")
+AT [0, 0, 0.06] RELATIVE HCS_Al_copy_3
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT HCS_Al_copy_4 = PowderN(
+  reflections = "Al.laz",
+  yheight = 0.12,
+  xwidth = 0.17,
+  zdepth = Al_Thickness,
+  p_inc = 0.005,
+  p_transmit = 0.9450,
+  d_phi = 10,
+  p_interact = 0.05)
+AT [0, 0, 0] RELATIVE H51_Obt_Out
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT H51_S2 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 0.05] RELATIVE HCS_Al_copy_4
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT H51_S2_copy = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 2.5/3] RELATIVE H51_S2
+ROTATED [0, -2.5/3/3000*RAD2DEG, 0] RELATIVE H51_S2
+
+COMPONENT H51_S2_copy_0 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 2.5/3] RELATIVE H51_S2_copy
+ROTATED [0, -2.5/3/3000*RAD2DEG, 0] RELATIVE H51_S2_copy
+
+COMPONENT HCS_Al_H51 = PowderN(
+  reflections = "Al.laz",
+  yheight = 0.12,
+  xwidth = 0.17,
+  zdepth = Al_Thickness,
+  p_inc = 0.005,
+  p_transmit = 0.9450,
+  d_phi = 10,
+  p_interact = 0.05)
+AT [0, 0, 2.5/3+0.01] RELATIVE H51_S2_copy_0
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT H51_S2_Out = Monitor_nD(
+  xwidth = 0.04+0.004+0.015+0.004+0.06,
+  yheight = 0.12,
+  bins = 50,
+  options = "x y, slit")
+AT [0, 0, 0.05] RELATIVE HCS_Al_H51
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT H51_split_2 = Monitor_nD(
+  xwidth = 0.04+0.004+0.015+0.004+0.06,
+  yheight = 0.12,
+  bins = 50,
+  options = "x y, slit")
+AT [0, 0.12/2-0.055/2, 0] RELATIVE H51_S2_Out
+ROTATED [0, 0, 0] ABSOLUTE
+EXTEND:
+%{
+  if(SCATTERED) splitflag=2;
+%}
+
+COMPONENT H51_split_1 = Monitor_nD(
+  xwidth = 0.04+0.004+0.015+0.004+0.06,
+  yheight = 0.12,
+  bins = 50,
+  options = "x y, slit")
+AT [0, -0.12/2+0.055/2, 0] RELATIVE H51_S2_Out
+ROTATED [0, 0, 0] ABSOLUTE
+EXTEND:
+%{
+  if(SCATTERED) splitflag=1;
+%}
+
+COMPONENT H511_Start = Arm()
+AT [0, 0, 0] RELATIVE H51_split_1
+ROTATED [0, 0, 0] ABSOLUTE
+EXTEND:
+%{
+  if (splitflag==1) ABSORB;
+%}
+
+COMPONENT H512_Start = Arm()
+AT [0, 0, 0] RELATIVE H51_split_2
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT H512_S36 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 0.0] RELATIVE H512_Start
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT H512_S36_copy = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 20.85/16] RELATIVE H512_S36
+ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36
+
+COMPONENT H512_S36_copy_0 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 20.85/16] RELATIVE H512_S36_copy
+ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy
+
+COMPONENT H512_S36_copy_1 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_0
+ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_0
+
+COMPONENT H512_S36_copy_2 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_1
+ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_1
+
+COMPONENT H512_S36_copy_3 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_2
+ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_2
+
+COMPONENT H512_S36_copy_4 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_3
+ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_3
+
+COMPONENT H512_S36_copy_5 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_4
+ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_4
+
+COMPONENT H512_S36_copy_6 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_5
+ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_5
+
+COMPONENT H512_S36_copy_7 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_6
+ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_6
+
+COMPONENT H512_S36_copy_8 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_7
+ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_7
+
+COMPONENT H512_S36_copy_9 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_8
+ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_8
+
+COMPONENT H512_S36_copy_10 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_9
+ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_9
+
+COMPONENT H512_S36_copy_11 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_10
+ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_10
+
+COMPONENT H512_S36_copy_12 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_11
+ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_11
+
+COMPONENT H512_S36_copy_13 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 20.85/16] RELATIVE H512_S36_copy_12
+ROTATED [0, -20.85/16/3000*RAD2DEG, 0] RELATIVE H512_S36_copy_12
+
+COMPONENT HCS_Al_H512 = PowderN(
+  reflections = "Al.laz",
+  yheight = 0.12,
+  xwidth = 0.17,
+  zdepth = Al_Thickness,
+  p_inc = 0.005,
+  p_transmit = 0.9450,
+  d_phi = 10,
+  p_interact = 0.05)
+AT [0, 0, 20.85/16+0.01] RELATIVE H512_S36_copy_13
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT H512_VTE = Monitor_nD(
+  xwidth = 0.04+0.004+0.015+0.004+0.06,
+  yheight = 0.12,
+  bins = 50,
+  options = "x y, slit")
+AT [0, 0, 0.108/2-0.001] RELATIVE HCS_Al_H512
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT HCS_Al_copy_5 = PowderN(
+  reflections = "Al.laz",
+  yheight = 0.12,
+  xwidth = 0.17,
+  zdepth = Al_Thickness,
+  p_inc = 0.005,
+  p_transmit = 0.9450,
+  d_phi = 10,
+  p_interact = 0.05)
+AT [0, 0, 0.108/2-0.05] RELATIVE H512_VTE
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT H51_S78 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 0.05] RELATIVE HCS_Al_copy_5
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT H51_S78_copy = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 6.0/4] RELATIVE H51_S78
+ROTATED [0, -6.0/4/3000*RAD2DEG, 0] RELATIVE H51_S78
+
+COMPONENT H51_S78_copy_0 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 6.0/4] RELATIVE H51_S78_copy
+ROTATED [0, -6.0/4/3000*RAD2DEG, 0] RELATIVE H51_S78_copy
+
+COMPONENT H51_S78_copy_1 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 6.0/4] RELATIVE H51_S78_copy_0
+ROTATED [0, -6.0/4/3000*RAD2DEG, 0] RELATIVE H51_S78_copy_0
+
+COMPONENT HCS_Al_copy_6 = PowderN(
+  reflections = "Al.laz",
+  yheight = 0.12,
+  xwidth = 0.17,
+  zdepth = Al_Thickness,
+  p_inc = 0.005,
+  p_transmit = 0.9450,
+  d_phi = 10,
+  p_interact = 0.05)
+AT [0, 0, 6.0/4+0.01] RELATIVE H51_S78_copy_1
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT H512_S11 = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 0.01] RELATIVE HCS_Al_copy_6
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT HCS_Al_copy_7 = PowderN(
+  reflections = "Al.laz",
+  yheight = 0.12,
+  xwidth = 0.17,
+  zdepth = Al_Thickness,
+  p_inc = 0.005,
+  p_transmit = 0.9450,
+  d_phi = 10,
+  p_interact = 0.05)
+AT [0, 0, 3+0.01] RELATIVE H512_S11
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT D22_PreV = Monitor_nD(
+  xwidth = 0.04,
+  yheight = 0.05,
+  bins = 50,
+  restore_neutron = 1,
+  options = "x y")
+AT [0, 0, 0.01] RELATIVE HCS_Al_copy_7
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT D22_Vselector = V_selector(
+  xwidth = 0.04,
+  yheight = 0.05,
+  zdepth = 0.30,
+  radius = 0.12,
+  alpha = 48.3,
+  length = 0.25,
+  d = 0.0004,
+  nu = D22_nu,
+  nslit = 72)
+AT [0, 0, 3+0.01+0.3+0.01] RELATIVE H512_S11
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT D22_Collimation = Guide_gravity(
+  w1 = 0.04,
+  h1 = 0.12,
+  l = 2.775,
+  R0 = gR0,
+  Qc = gQc,
+  alpha = gAlpha,
+  m = 1.2,
+  W = gW)
+AT [0, 0, 0.3] RELATIVE D22_Vselector
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT D22_Sample_Pos = Arm()
+AT [0, 0, 20+0.3] RELATIVE D22_Vselector
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT H51_D22_Sample_Div = Monitor_nD(
+  xwidth = 0.02,
+  yheight = 0.05,
+  bins = 100,
+  restore_neutron = 1,
+  options = "dx limits=[-2 2], dy limits=[-2 2]")
+AT [0, 0, 0] RELATIVE D22_Sample_Pos
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT H51_D22_Sample_XY = Monitor_nD(
+  xwidth = 0.02,
+  yheight = 0.05,
+  bins = 50,
+  restore_neutron = 1,
+  options = "x y")
+AT [0, 0, 0] RELATIVE D22_Sample_Pos
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT H51_D22_Sample_L = Monitor_nD(
+  xwidth = 0.02,
+  yheight = 0.05,
+  bins = 50,
+  restore_neutron = 1,
+  options = "lambda limits=[1 10]")
+AT [0, 0, 0] RELATIVE D22_Sample_Pos
+ROTATED [0, 0, 0] ABSOLUTE
+
+COMPONENT H51_D22_Sample = Isotropic_Sqw(
+  Sqw_coh = D22_sample,
+  Sqw_inc = NULL,
+  radius = 0.005,
+  yheight = 0.05,
+  d_phi = RAD2DEG*atan2(1, D22_collimation))
+AT [0, 0, 0] RELATIVE D22_Sample_Pos
+ROTATED [0, 0, 0] ABSOLUTE
+SPLIT 10
+EXTEND:
+%{
+  if (!SCATTERED) ABSORB;
+%}
+
+COMPONENT D22_Detector = Monitor_nD(
+  xwidth = 1,
+  yheight = 1,
+  bins = 128,
+  options = "x y")
+AT [0, 0, D22_collimation] RELATIVE D22_Sample_Pos
+ROTATED [0, 0, 0] ABSOLUTE
+EXTEND:
+%{
+  ABSORB;
+%}
+
+END

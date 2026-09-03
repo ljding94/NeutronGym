@@ -1,0 +1,63 @@
+{
+  "task": "T1_SESANS_Delft",
+  "episode": {
+    "model": "anthropic/claude-haiku-4.5",
+    "scaffold": "plain-llm-oneshot",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 1,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 7.4,
+    "usage": {
+      "prompt_tokens": 3024,
+      "completion_tokens": 1471
+    },
+    "mcp_calls": {},
+    "skill_used": true,
+    "final_answer": "```c\n/*\n * SESANS instrument in McStas 3.x\n * Rebuilt from specification with polarization analysis and SANS sample\n */\n\nDEFINE INSTRUMENT sesans(L0=2.165, DL=0.02, By=0.00468)\n\nTRACE\n\nCOMPONENT origin = Progress_bar(\n    title=\"SESANS Instrument\")\nAT [0, 0, 0] ABSOLUTE\n\nCOMPONENT src = Source_simple(\n    yheight=0.01,\n    xwidth=0.01,\n    dist=2.25,\n    focus_xw=0.01,\n    focus_yh=0.01,\n    lambda0=L0,\n    dlambda=DL,\n    gauss=1)\nAT [0, 0, 0] RELATIVE origin\n\nCOMPONENT set_pol = Set_pol(\n    px=1)\nAT [0, 0, 0.1] RELATIVE src\n\nCOMPONENT px1 = PolLambda_monitor(\n    nL=501,\n    restore_neutron=1,\n    filename=\"px1\",\n    mx=1,\n    Lmin=L0-DL,\n    Lmax=L0+DL)\nAT [0, 0, 0.01] RELATIVE set_pol\n\nCOMPONENT f1 = Foil_flipper_magnet(\n    xwidth=0.1,\n    yheight=0.1,\n    zdepth=0.3,\n    phi=0.095993,\n    foilthick=3.0,\n    Bx=0,\n    By=By,\n    Bz=0,\n    foil_in=1,\n    verbose=0)\nAT [0, 0, 0.5] RELATIVE src\n\nCOMPONENT px2 = PolLambda_monitor(\n    nL=501,\n    restore_neutron=1,\n    filename=\"px2\",\n    mx=1,\n    Lmin=L0-DL,\n    Lmax=L0+DL)\nAT [0, 0, 0.16] RELATIVE f1\n\nCOMPONENT f2 = Foil_flipper_magnet(\n    xwidth=0.1,\n    yheight=0.1,\n    zdepth=0.3,\n    phi=0.095993,\n    foilthick=3.0,\n    Bx=0,\n    By=By,\n    Bz=0,\n    foil_in=1,\n    verbose=0)\nAT [0, 0, 2.0] RELATIVE src\n\nCOMPONENT px3 = PolLambda_monitor(\n    nL=501,\n    restore_neutron=1,\n    filename=\"px3\",\n    mx=1,\n    Lmin=L0-DL,\n    Lmax=L0+DL)\nAT [0, 0, 0.16] RELATIVE f2\n\nCOMPONENT sans_spheres = SANS_spheres2(\n    xwidth=0.02,\n    yheight=0.02,\n    zthick=0.001,\n    dsdw_inc=0.0,\n    sc_aim=0.8,\n    sans_aim=0.95,\n    R=10000,\n    phi=0.015,\n    singlesp=0,\n    Qmind=0.00003,\n    Qmaxd=0.001)\nAT [0, 0, 2.25] RELATIVE src\n\nCOMPONENT f3 = Foil_flipper_magnet(\n    xwidth=0.1,\n    yheight=0.1,\n    zdepth=0.3,\n    phi=0.095993,\n    foilthick=3.0,\n    Bx=0,\n    By=By,\n    Bz=0,\n    foil_in=1,\n    verbose=0)\nAT [0, 0, 2.5] RELATIVE src\n\nCOMPONENT f4 = Foil_flipper_magnet(\n    xwidth=0.1,\n    yheight=0.1,\n    zdepth=0.3,\n    phi=0.095993,\n    foilthick=3.0,\n    Bx=0,\n    By=By,\n    Bz=0,\n    foil_in=1,\n    verbose=0)\nAT [0, 0, 4.0] RELATIVE src\n\nCOMPONENT px6 = PolLambda_monitor(\n    nL=501,\n    restore_neutron=1,\n    filename=\"px6\",\n    mx=1,\n    Lmin=L0-DL,\n    Lmax=L0+DL)\nAT [0, 0, 0.16] RELATIVE f4\n\nCOMPONENT ana = PolAnalyser_ideal(\n    mx=1)\nAT [0, 0, 4.4] RELATIVE src\n\nCOMPONENT det = PSD_monitor(\n    nx=101,\n    ny=101,\n    filename=\"det\",\n    xwidth=0.011,\n    yheight=0.011)\nAT [0, 0, 4.5] RELATIVE src\n\nCOMPONENT trick = Arm()\nAT [0, 0, 4.4] RELATIVE src\nEXTEND\n%{\n  RESTORE_NEUTRON(INDEX_CURRENT_COMP-2, x, y, z, vx, vy, vz, t, sx, sy, sz, p);\n%}\n\nCOMPONENT ana2 = PolAnalyser_ideal(\n    mx=-1)\nAT [0, 0, 4.4] RELATIVE src\n\nCOMPONENT det2 = PSD_monitor(\n    nx=101,\n    ny=101,\n    filename=\"det2\",\n    xwidth=0.011,\n    yheight=0.011)\nAT [0, 0, 4.5] RELATIVE src\n\nEND\n```"
+  },
+  "grade": {
+    "task": "T1_SESANS_Delft",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "candidate failed to run (translate)"
+    ],
+    "diagnostics": [
+      "ERROR: Unmatched actual parameter title for component origin=Progress_bar() at line /Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__oneshot__anthropic_claude_haiku_4_5/home/instruments/sesans/sesans.instr:11.Please change its name to a valid one:",
+      "  Definition parameters: ",
+      "  Setting parameters: profile percent flag_save minutes ",
+      "ERROR: syntax error at line 12.",
+      "mcstas: 2 Errors encountered during parse of /Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__oneshot__anthropic_claude_haiku_4_5/home/instruments/sesans/sesans.instr.",
+      "INFO: call to /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas failed with Command '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas -t -o ./sesans.c /Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__oneshot__anthropic_claude_haiku_4_5/home/instruments/sesans/sesans.instr' returned non-zero exit status 1.",
+      "ERROR: Code generation failed for instrument /Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__oneshot__anthropic_claude_haiku_4_5/home/instruments/sesans/sesans.instr using code generator /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas"
+    ],
+    "checks": [],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__oneshot__anthropic_claude_haiku_4_5/home/instruments/sesans/sesans.instr",
+    "candidate_params": {
+      "L0": "2.165",
+      "DL": "0.02",
+      "By": "0.00468"
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__oneshot__anthropic_claude_haiku_4_5/artifacts/sesans.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__oneshot__anthropic_claude_haiku_4_5/artifacts/params.json",
+    "diagram": null,
+    "trace": null,
+    "errors": [
+      "diagram: McStasScript reader failed (known limitation)",
+      "trace: mcdisplay-webgl failed"
+    ]
+  }
+}

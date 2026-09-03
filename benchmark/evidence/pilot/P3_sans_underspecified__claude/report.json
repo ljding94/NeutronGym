@@ -1,0 +1,62 @@
+{
+  "task": "P3_sans_underspecified",
+  "episode": {
+    "model": "claude-fable-5",
+    "returncode": 0,
+    "turns": 33,
+    "cost_usd": 3.861319,
+    "duration_s": 369.2,
+    "mcp_calls": {
+      "mcp__mcstas__list_examples": 1,
+      "mcp__mcstas__describe_component": 6,
+      "mcp__mcstas__get_example": 1,
+      "mcp__mcstas__create_instrument": 1,
+      "mcp__mcstas__add_parameter": 2,
+      "mcp__mcstas__add_component": 9,
+      "mcp__mcstas__validate_instrument": 1,
+      "mcp__mcstas__run_simulation": 2,
+      "mcp__mcstas__job_status": 2,
+      "mcp__mcstas__get_results": 1,
+      "mcp__mcstas__get_monitor_data": 1
+    },
+    "skill_used": true,
+    "final_answer": "The detector image is a textbook monodisperse-sphere pattern \u2014 isotropic rings with the first form-factor minimum at radius \u2248 13 cm (Q \u2248 0.045 \u00c5\u207b\u00b9, matching the analytic QR = 4.49 for R = 100 \u00c5) and the second at \u2248 23 cm (Q \u2248 0.080 \u00c5\u207b\u00b9), with the beamstop shadow at center. The instrument is verified. Final report:\n\n## Result\n\nThe pinhole SANS instrument is built, validated, and run to production statistics. **Detector (60\u00d760 cm PSD, 3 m behind sample): I = 0.03787 \u00b1 0.00002 n/s** (3.95\u00d710\u2077 events, rel. err. 0.06%) with the direct beam blocked by the beamstop \u2014 this is pure scattered signal. The \u03bb-monitor behind the detector plane records 0.03786 n/s in a clean uniform band centered at 6.000 \u00c5 with FWHM 0.100 \u00c5, confirming the source band survives to the back of the instrument. Run conditions: ncount = 10\u2078, seed = 67890, gravity on, MPI \u00d78; a low-ncount run with seed 12345 gave a statistically consistent 0.0381 \u00b1 0.0002.\n\n**Collimation choices (the unspecified part):** two-pinhole geometry with a 3.0 m collimation length matched to the 3.0 m sample\u2013detector distance \u2014 the standard pinhole-SANS compromise, since making collimation shorter degrades Q_min resolution and making it longer costs flux with no resolution benefit at this detector distance. Source aperture \u00d81.0 cm at the collimation start; sample aperture \u00d80.9 cm placed 5 cm before the sample, sized to underfill the 1\u00d71 cm sample face. The direct-beam penumbra at the detector is \u00d82.8 cm, covered by a \u00d84 cm beamstop 10 cm in front of the detector. This gives Q_min \u2248 7\u00d710\u207b\u00b3 \u00c5\u207b\u00b9 (Q\u00b7R_g \u2248 0.54, so the Guinier region is captured) and Q_max \u2248 0.10 \u00c5\u207b\u00b9 at the detector edge; both form-factor minima of 100 \u00c5 spheres (0.045, 0.078 \u00c5\u207b\u00b9) appear as rings on the detector exactly where predicted.\n\n**All assumptions made where the spec was silent:**\n\n1. Source: `Source_simple` disc, \u00d84 cm, flux 10\u2078 n/(cm\u00b2\u00b7s\u00b7sr\u00b7\u00c5) \u2014 a typical cold-source order of magnitude. All quoted intensities scale linearly with this number.\n2. Collimation geometry as above (lengths, both aperture diameters, apertures circular).\n3. Beamstop: circular, \u00d84 cm, 10 cm before the detector (task said only \"in front of it\").\n4. The stated contrast \"0.6 fm/\u00c5\u00b2\" is treated as a typo for **0.6 fm/\u00c5\u00b3**, the unit `Sans_spheres` expects (and its default).\n5. Sample absorption \u03c3_abs = 0.05 m\u207b\u00b9 (component default; task silent), sample a filled box 1\u00d71\u00d70.5 cm.\n6. \u03bb-monitor sized 60\u00d760 cm (matching the detector), 10 cm behind it; detector pixelation 128\u00d7128.\n7. Gravity enabled (6 \u00c5 neutrons; sag at detector \u2248 0.2 mm, visible as the Y\u2080 = \u22120.02 cm beam center \u2014 negligible vs. beamstop margin).\n8. Variance reduction only where legitimate: source focusing exactly onto the first pinhole, sample SPLIT 10, scattered rays focused on the detector area.\n\nCross-checks that passed: flux at sample 55.42 \u00b1 0.03 n/s through the \u00d80.9 cm aperture (87 n/s/cm\u00b2) equals the analytic brightness-transfer estimate (no Liouville violation); detector intensity matches the shipped `templateSANS` self-test value scaled by aperture area; no monitor flagged low-statistics.\n\nFiles: instrument source at `home/instruments/pinhole_sans/pinhole_sans.instr`, results and detector PNG in `home/instruments/pinhole_sans/pinhole_sans_20260724_141129_83615_3/`."
+  },
+  "grade": {
+    "task": "P3_sans_underspecified",
+    "pass": true,
+    "score": 1.0,
+    "checks_passed": "2/2",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "wavelength",
+        "observable": "center_of_mass",
+        "reference": 6.000276,
+        "candidate": 6.000332,
+        "pass": true,
+        "delta": 5.599999999983396e-05,
+        "allowed": 0.12000552
+      },
+      {
+        "role": "wavelength",
+        "observable": "fwhm",
+        "reference": 0.099827,
+        "candidate": 0.099725,
+        "pass": true,
+        "delta": -0.00010200000000000486,
+        "allowed": 0.0499135
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/McStasBench/runs/pilot/P3_sans_underspecified__claude/home/instruments/pinhole_sans/pinhole_sans.instr",
+    "candidate_params": {
+      "lambda": 6.0,
+      "dlambda": 0.05
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "Delta_rho": "0.6",
+  "R_sphere": "100",
+  "dlambda": "0.05",
+  "lambda0": "6.0",
+  "phi": "0.001",
+  "sigma_abs": "0.5       // barns"
+}

@@ -1,0 +1,60 @@
+{
+  "task": "T1_templateTOF",
+  "episode": {
+    "model": "claude-opus-5[1m]",
+    "returncode": 1,
+    "turns": 61,
+    "cost_usd": 5.511598500000001,
+    "duration_s": 702.0,
+    "mcp_calls": {
+      "mcp__mcstas__describe_component": 4,
+      "mcp__mcstas__create_instrument": 7,
+      "mcp__mcstas__add_parameter": 43,
+      "mcp__mcstas__add_declare": 26,
+      "mcp__mcstas__get_instrument": 6,
+      "mcp__mcstas__add_component": 37,
+      "mcp__mcstas__load_instr_file": 1,
+      "mcp__mcstas__remove_component": 2,
+      "mcp__mcstas__validate_instrument": 1
+    },
+    "skill_used": true,
+    "final_answer": "`double _dt0 = 6.4e-06;` renders correctly. Rebuilding with `_dt0` as a compile-time constant so both `EXTEND` blocks stay verbatim:"
+  },
+  "grade": {
+    "task": "T1_templateTOF",
+    "pass": false,
+    "score": 0.0,
+    "checks_passed": "0/0",
+    "hard_failures": [
+      "role '2d': only 0 events \u2014 below statistics floor, ungradable"
+    ],
+    "checks": [],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_templateTOF__claude_code__subscription/home/instruments/probe3/probe3.instr",
+    "candidate_params": {
+      "environment": "Al.laz"
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": [
+      {
+        "tool": "mcp__mcstas__load_instr_file",
+        "kind": "out_of_tree_load",
+        "target": "/private/tmp/claude-502/-Users-ldq-Work-NeutronGym-runs-m6-T1-templateTOF--claude-code--subscription-cwd/798c601b-6cfb-40a9-b373-fd1e72aba667/scratchpad/templateTOF.instr",
+        "refused": true
+      }
+    ]
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_templateTOF__claude_code__subscription/artifacts/probe3.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_templateTOF__claude_code__subscription/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T1_templateTOF__claude_code__subscription/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/T1_templateTOF__claude_code__subscription/artifacts/trace",
+    "errors": []
+  }
+}

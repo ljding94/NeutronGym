@@ -1,0 +1,16 @@
+{
+  "E0": 4.94,
+  "coh": "Rb_liq_coh.sqw",
+  "container": "Nb.laz",
+  "container_thickness": 5e-05,
+  "dE": 0.24,
+  "dt": 6.4e-06,
+  "dt0": 0.0,
+  "environment": "Al.laz",
+  "environment_radius": 0.025,
+  "environment_thickness": 0.002,
+  "inc": "Rb_liq_inc.sqw",
+  "radius": 0.005,
+  "thickness": 0.0001,
+  "yheight": 0.0168
+}

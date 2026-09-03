@@ -1,0 +1,99 @@
+{
+  "task": "T1_HZB_NEAT",
+  "episode": {
+    "model": "anthropic/claude-sonnet-5",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 50,
+    "hit_turn_cap": true,
+    "empty_responses": 2,
+    "cost_usd": null,
+    "duration_s": 1205.3,
+    "usage": {
+      "prompt_tokens": 3827672,
+      "completion_tokens": 98827
+    },
+    "mcp_calls": {
+      "list_examples": 1,
+      "describe_component": 7,
+      "create_instrument": 3,
+      "add_parameter": 21,
+      "get_instrument": 12,
+      "add_declare": 53,
+      "add_component": 40,
+      "set_parameters": 1,
+      "remove_component": 5,
+      "validate_instrument": 2,
+      "get_example": 1
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_HZB_NEAT",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "candidate failed to run (compile)"
+    ],
+    "diagnostics": [
+      "-----------------------------------------------------------",
+      "Generating GPU/CPU -DFUNNEL layout:",
+      "-----------------------------------------------------------",
+      "./NEAT_ToF2.c:7094:1: error: unknown type name 'string'",
+      " 7094 | string detector_options;",
+      "      | ^",
+      "./NEAT_ToF2.c:7095:1: error: unknown type name 'string'",
+      " 7095 | string lmon_options;",
+      "      | ^",
+      "./NEAT_ToF2.c:7096:1: error: unknown type name 'string'",
+      " 7096 | string tmon_options;",
+      "      | ^",
+      "3 errors generated.",
+      "INFO: call to /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/arm64-apple-darwin20.0.0-clang failed with Command '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/arm64-apple-darwin20.0.0-clang -o ./NEAT_ToF2.out ./NEAT_ToF2.c -lm -Wl,-headerpad_max_install_names -Wl,-dead_strip_dylibs -Wl,-rpath,/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/lib -L/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/lib -ftree-vectorize -fPIC -fstack-protector-strong -O2 -pipe -isystem /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/include -headerpad_max_install_names -ftree-vectorize -fPIC -fstack-protector-strong -O2 -pipe -isystem /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/include -fdebug-prefix-map=/Users/runner/miniforge3/conda-bld/mcstas-suite_1783460247618/work=/usr/local/src/conda/mcstas-core-3.7.12 -fdebug-prefix-map=/opt/homebrew/Caskroom/miniconda/base/envs/mcstas=/usr/local/src/conda-prefix -O2 -g -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -D_DARWIN_C_SOURCE -I/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/include -Wl,-rpath,/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/lib -L/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/lib -fno-PIC -fPIE -flto -O3 -march=native -fno-math-errno -ftree-vectorize -g -DNDEBUG -D_POSIX_SOURCE -std=c99 -lm' returned non-zero exit status 1.",
+      "ERROR: Compilation failed for ./NEAT_ToF2.c using compiler /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/arm64-apple-darwin20.0.0-clang"
+    ],
+    "checks": [],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_NEAT__main__anthropic_claude_sonnet_5/home/instruments/NEAT_ToF2/NEAT_ToF2.instr",
+    "candidate_params": {
+      "lambda": "6",
+      "dlambda": "0.05",
+      "rpm": "10000",
+      "coh": "Rb_liq_coh.sqw",
+      "inc": "Rb_liq_inc.sqw",
+      "tmin": "0.01806",
+      "tmax": "0.01826"
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": [
+      {
+        "tool": "list_examples",
+        "kind": "example_tool",
+        "target": "NEAT",
+        "refused": true
+      },
+      {
+        "tool": "get_example",
+        "kind": "example_tool",
+        "target": "SANS_test",
+        "refused": true
+      }
+    ]
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_NEAT__main__anthropic_claude_sonnet_5/artifacts/NEAT_ToF2.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_NEAT__main__anthropic_claude_sonnet_5/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_NEAT__main__anthropic_claude_sonnet_5/artifacts/diagram.png",
+    "trace": null,
+    "errors": [
+      "trace: mcdisplay-webgl failed"
+    ]
+  }
+}

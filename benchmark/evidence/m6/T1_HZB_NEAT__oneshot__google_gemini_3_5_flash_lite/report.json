@@ -1,0 +1,64 @@
+{
+  "task": "T1_HZB_NEAT",
+  "episode": {
+    "model": "google/gemini-3.5-flash-lite",
+    "scaffold": "plain-llm-oneshot",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 1,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 11.0,
+    "usage": {
+      "prompt_tokens": 5204,
+      "completion_tokens": 4390
+    },
+    "mcp_calls": {},
+    "skill_used": true,
+    "final_answer": "```c\n/*****************************************************************************\n* McStas instrument definition\n* Instrument: NEAT/TOF spectrometer simulation\n*\n* %D\n* Simulation of the NEAT time-of-flight spectrometer.\n*\n* %P\n* lambda: [Angs] Incident wavelength\n* dlambda: [Angs] Wavelength band\n* rpm: [rpm] Chopper rotation speed\n* coh: [str] Coherent S(Q,w) file\n* inc: [str] Incoherent S(Q,w) file\n* tmin: [s] Minimum TOF for monitor\n* tmax: [s] Maximum TOF for monitor\n*\n* %L\n* %E\n*****************************************************************************/\nDEFINE INSTRUMENT NEAT_TOF(\n    lambda = 6.0,\n    dlambda = 0.05,\n    rpm = 10000.0,\n    string coh = \"Rb_liq_coh.sqw\",\n    string inc = \"Rb_liq_inc.sqw\",\n    tmin = 0.01806,\n    tmax = 0.01826\n)\n\nDECLARE\n%{\n  double Chopper2Detector;\n  double KI, Vi, EI;\n  double Emin, Emax, Vmin, Vmax, Tmin, Tmax;\n  double time_elastic;\n  char detector_options[256];\n  char lmon_options[128];\n  char tmon_options[128];\n  char tmon_spec_options[128];\n%}\n\nINITIALIZE\n%{\n  Chopper2Detector = 11.97 + 2.143 + 0.165;\n  KI = 2 * PI / lambda;\n  Vi = K2V * fabs(KI);\n  EI = VS2E * Vi * Vi;\n  \n  printf(\"%s: Detailed NEAT/TOF configuration\\n\", NAME_INSTRUMENT);\n  printf(\"* Incoming beam: lambda=%.4g [Angs] EI=%.4g [meV]  KI=%.4g [Angs-1] Vi=%g [m/s]\\n\",\n    lambda, EI, KI, Vi);\n  \n  time_elastic = 252.78 * Chopper2Detector * lambda * 1e-6; /* time from Chopper1 to reach Detector */\n  printf(\"  Sample: coh=%s inc=%s\\n\", coh, inc);\n  printf(\"          Elastic line time: %g [us]\\n\", time_elastic * 1e6);\n  \n  Emin = EI - 20; \n  if (Emin < EI / 3) Emin = EI / 3;\n  Emax = EI + 20;\n  Vmin = sqrt(Emin / VS2E);\n  Vmax = sqrt(Emax / VS2E);\n  Tmin = 2.5 / Vmax;\n  Tmax = 2.5 / Vmin;\n  \n  sprintf(detector_options,\n    \"banana, abs angle limits=[13 136] bins=300, time limits=[%g %g] bins=256\",\n    time_elastic + Tmin, time_elastic + Tmax);\n  sprintf(lmon_options, \"lambda limits=[%g %g] bins=100\", lambda - dlambda / 2.0, lambda + dlambda / 2.0);\n  sprintf(tmon_options, \"tof limits=[%g %g] bins=100\", tmin, tmax);\n  sprintf(tmon_spec_options, \"tof limits=[%g %g] bins=100\", time_elastic + Tmin, time_elastic + Tmax);\n%}\n\nTRACE\n\n/* -------------------------------------------------------------------------- */\n/* Progress bar and Source                                                     */\n/* -------------------------------------------------------------------------- */\n\nCOMPONENT PG = Progress_bar()\nAT [0, 0, 0] RELATIVE ABSOLUTE\nROTATED [0, 0, 0] RELATIVE ABSOLUTE\n\nCOMPONENT Source = Source_gen(\n    radius = 0.155,\n    focus_xw = 0.03,\n    focus_yh = 0.055,\n    lambda0 = lambda,\n    dlambda = dlambda,\n    I1 = 1.4e12,\n    T1 = 43.7,\n    T2 = 137.2,\n    I2 = 2.08e12\n)\nAT [0, 0, 0] RELATIVE ABSOLUTE\nROTATED [0, 0, 0] RELATIVE ABSOLUTE\n\n/* -------------------------------------------------------------------------- */\n/* Primary Flight Path Guides                                                  */\n/* -------------------------------------------------------------------------- */\n\nCOMPONENT Guide0 = Guide_gravity(\n    w1 = 0.03, h1 = 0.055, l = 2, m = 1.2\n)\nAT [0, 0, 2] RELATIVE Source\nROTATED [0, 0, 0] RELATIVE ABSOLUTE\n\nCOMPONENT Guide0_copy = Guide_gravity(w1=0.03, h1=0.055, l=2, m=1.2)\nAT [0, 0, 2+1e-4] RELATIVE Guide0 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0\n\nCOMPONENT Guide0_copy_0 = Guide_gravity(w1=0.03, h1=0.055, l=2, m=1.2)\nAT [0, 0, 2+1e-4] RELATIVE Guide0_copy ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy\n\nCOMPONENT Guide0_copy_1 = Guide_gravity(w1=0.03, h1=0.055, l=2, m=1.2)\nAT [0, 0, 2+1e-4] RELATIVE Guide0_copy_0 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_0\n\nCOMPONENT Guide0_copy_2 = Guide_gravity(w1=0.03, h1=0.055, l=2, m=1.2)\nAT [0, 0, 2+1e-4] RELATIVE Guide0_copy_1 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_1\n\nCOMPONENT Guide0_copy_3 = Guide_gravity(w1=0.03, h1=0.055, l=2, m=1.2)\nAT [0, 0, 2+1e-4] RELATIVE Guide0_copy_2 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_2\n\nCOMPONENT Guide0_copy_4 = Guide_gravity(w1=0.03, h1=0.055, l=2, m=1.2)\nAT [0, 0, 2+1e-4] RELATIVE Guide0_copy_3 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_3\n\nCOMPONENT Guide0_copy_5 = Guide_gravity(w1=0.03, h1=0.055, l=2, m=1.2)\nAT [0, 0, 2+1e-4] RELATIVE Guide0_copy_4 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_4\n\nCOMPONENT Guide0_copy_6 = Guide_gravity(w1=0.03, h1=0.055, l=2, m=1.2)\nAT [0, 0, 2+1e-4] RELATIVE Guide0_copy_5 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_5\n\nCOMPONENT Guide0_copy_7 = Guide_gravity(w1=0.03, h1=0.055, l=2, m=1.2)\nAT [0, 0, 2+1e-4] RELATIVE Guide0_copy_6 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_6\n\nCOMPONENT Guide0_copy_8 = Guide_gravity(w1=0.03, h1=0.055, l=2, m=1.2)\nAT [0, 0, 2+1e-4] RELATIVE Guide0_copy_7 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_7\n\nCOMPONENT Guide0_copy_9 = Guide_gravity(w1=0.03, h1=0.055, l=2, m=1.2)\nAT [0, 0, 2+1e-4] RELATIVE Guide0_copy_8 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_8\n\nCOMPONENT Guide0_copy_10 = Guide_gravity(w1=0.03, h1=0.055, l=2, m=1.2)\nAT [0, 0, 2+1e-4] RELATIVE Guide0_copy_9 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_9\n\nCOMPONENT Guide0_copy_11 = Guide_gravity(w1=0.03, h1=0.055, l=2, m=1.2)\nAT [0, 0, 2+1e-4] RELATIVE Guide0_copy_10 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_10\n\nCOMPONENT Guide0_copy_12 = Guide_gravity(w1=0.03, h1=0.055, l=2, m=1.2)\nAT [0, 0, 2+1e-4] RELATIVE Guide0_copy_11 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_11\n\nCOMPONENT Guide0_copy_13 = Guide_gravity(w1=0.03, h1=0.055, l=2, m=1.2)\nAT [0, 0, 2+1e-4] RELATIVE Guide0_copy_12 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_12\n\nCOMPONENT Guide0_copy_14 = Guide_gravity(w1=0.03, h1=0.055, l=2, m=1.2)\nAT [0, 0, 2+1e-4] RELATIVE Guide0_copy_13 ROTATED [0, 2.0/2500*RAD2DEG, 0] RELATIVE Guide0_copy_13\n\n/* -------------------------------------------------------------------------- */\n/* Intermediate Diagnostics & Chopper 1                                        */\n/* -------------------------------------------------------------------------- */\n\nCOMPONENT Guide_PSD = Monitor_nD(\n    xwidth = 0.03, yheight = 0.055, options = \"y x\", restore_neutron = 1\n)\nAT [0, 0, 2 + 1e-4] RELATIVE Guide0_copy_14\nROTATED [0, 0, 0] RELATIVE ABSOLUTE\n\nCOMPONENT Guide_Lambda = Monitor_nD(\n    xwidth = 0.03, yheight = 0.055, options = lmon_options, restore_neutron = 1\n)\nAT [0, 0, 1e-4] RELATIVE Guide_PSD\nROTATED [0, 0, 0] RELATIVE ABSOLUTE\n\nCOMPONENT Chopper1 = DiskChopper(\n    radius = 0.24, yheight = 0.06, nu = rpm / 60.0, isfirst = 1, xwidth = 0.03\n)\nAT [0, 0, 1.2e-2 / 2.0] RELATIVE Guide_Lambda\nROTATED [0, 0, 0] RELATIVE ABSOLUTE\n\n/* -------------------------------------------------------------------------- */\n/* Secondary Guides & Chopper 6                                                */\n/* -------------------------------------------------------------------------- */\n\nCOMPONENT Guide_SGS1 = Guide_gravity(w1=0.03, h1=0.055, l=2, m=1.2)\nAT [0, 0, 1.2e-2] RELATIVE Guide_Lambda\nROTATED [0, 0, 0] RELATIVE ABSOLUTE\n\nCOMPONENT Guide_SGS2 = Guide_gravity(w1=0.03, h1=0.055, l=2, m=1.2)\nAT [0, 0, 2.41] RELATIVE Guide_SGS1\nROTATED [0, 0, 0] RELATIVE ABSOLUTE\n\nCOMPONENT Guide_SGS3 = Guide_gravity(w1=0.03, h1=0.055, l=2, m=1.2)\nAT [0, 0, 5.065] RELATIVE Guide_SGS2\nROTATED [0, 0, 0] RELATIVE ABSOLUTE\n\nCOMPONENT Guide_CGS = Guide_gravity(w1=0.03, h1=0.055, l=2, m=1.2)\nAT [0, 0, 2.352] RELATIVE Guide_SGS3\nROTATED [0, 0, 0] RELATIVE ABSOLUTE\n\nCOMPONENT Guide2_PSD = Monitor_nD(\n    xwidth = 0.03, yheight = 0.055, options = \"x y\", restore_neutron = 1\n)\nAT [0, 0, 2.143 - 2 * 6e-3 + 1e-4] RELATIVE Guide_CGS\nROTATED [0, 0, 0] RELATIVE ABSOLUTE\n\nCOMPONENT Guide2_Lambda = Monitor_nD(\n    xwidth = 0.03, yheight = 0.055, options = lmon_options, restore_neutron = 1\n)\nAT [0, 0, 1e-4] RELATIVE Guide2_PSD\nROTATED [0, 0, 0] RELATIVE ABSOLUTE\n\nCOMPONENT Guide2_dXY = Monitor_nD(\n    xwidth = 0.03, yheight = 0.055, options = \"dx dy\", restore_neutron = 1\n)\nAT [0, 0, 1e-4] RELATIVE Guide2_Lambda\nROTATED [0, 0, 0] RELATIVE ABSOLUTE\n\nCOMPONENT Chopper6 = DiskChopper(\n    radius = 0.24, yheight = 0.06, nu = rpm / 60.0,\n    delay = 252.78 * 11.97 * lambda * 1e-6, xwidth = 0.03\n)\nAT [0, 0, 1.2e-2 / 2.0] RELATIVE Guide2_dXY\nROTATED [0, 0, 0] RELATIVE ABSOLUTE\n\nCOMPONENT Guide_time = Monitor_nD(\n    xwidth = 0.03, yheight = 0.055, options = \"y x\", restore_neutron = 1\n)\nAT [0, 0, 1.2e-2 / 2.0] RELATIVE Chopper6\nROTATED [0, 0, 0] RELATIVE ABSOLUTE\n\nCOMPONENT Guide_DGS = Guide_gravity(\n    w1 = 0.03, h1 = 0.055, l = 2, m = 1.2\n)\nAT [0, 0, 2.143] RELATIVE Guide_CGS\nROTATED [0, 0, 0] RELATIVE ABSOLUTE\n\n/* -------------------------------------------------------------------------- */\n/* Sample and Detectors                                                        */\n/* -------------------------------------------------------------------------- */\n\nCOMPONENT Sample_pos = Arm()\nAT [0, 0, 2.143 + 0.165] RELATIVE Guide_DGS\nROTATED [0, 0, 0] RELATIVE ABSOLUTE\n\nCOMPONENT Sample = Isotropic_Sqw(\n    Sqw_coh = coh, Sqw_inc = inc,\n    xwidth = 0.05, yheight = 0.06, zdepth = 0.002, p_interact = 0.99\n)\nAT [0, 0, 0] RELATIVE Sample_pos\nROTATED [0, 45, 0] RELATIVE Sample_pos\nSPLIT 10\nEXTEND\n%{\n    if (!SCATTERED) ABSORB;\n%}\n\nCOMPONENT Ideal_Det = Monitor_nD(\n    yheight = 2, restore_neutron = 1, radius = 2.5,\n    options = detector_options\n)\nAT [0, 0, 0] RELATIVE Sample_pos\nROTATED [0, 0, 0] RELATIVE ABSOLUTE\n\nCOMPONENT Detector = PSD_Detector(\n    nx = 640, ny = 256, radius = 2.5, yheight = 2.0, zdepth = 0.01,\n    threshold = 100, PressureConv = 8, PressureStop = 1,\n    dc = 0, borderx = -1, bordery = -1,\n    xChDivRelSigma = 0, yChDivRelSigma = 0.0037,\n    angle = 136 - 13, filename = \"NEAT.psd\",\n    FN_Conv = \"Gas_tables/He3inHe.table\",\n    FN_Stop = \"Gas_tables/He3inCF4.table\"\n)\nAT [0, 0, 0] RELATIVE Sample_pos\nROTATED [0, (136 - 13) / 2.0 + 13, 0] RELATIVE Sample_pos\n\nEND\n```"
+  },
+  "grade": {
+    "task": "T1_HZB_NEAT",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "candidate failed to run (translate)"
+    ],
+    "diagnostics": [
+      "ERROR: syntax error at line 80.",
+      "mcstas: 1 Errors encountered during parse of /Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_NEAT__oneshot__google_gemini_3_5_flash_lite/home/instruments/NEAT_TOF/NEAT_TOF.instr.",
+      "INFO: call to /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas failed with Command '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas -t -o ./NEAT_TOF.c /Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_NEAT__oneshot__google_gemini_3_5_flash_lite/home/instruments/NEAT_TOF/NEAT_TOF.instr' returned non-zero exit status 1.",
+      "ERROR: Code generation failed for instrument /Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_NEAT__oneshot__google_gemini_3_5_flash_lite/home/instruments/NEAT_TOF/NEAT_TOF.instr using code generator /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas"
+    ],
+    "checks": [],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_NEAT__oneshot__google_gemini_3_5_flash_lite/home/instruments/NEAT_TOF/NEAT_TOF.instr",
+    "candidate_params": {
+      "lambda": "6.0",
+      "dlambda": "0.05",
+      "rpm": "10000.0",
+      "coh": "\"Rb_liq_coh.sqw\"",
+      "inc": "\"Rb_liq_inc.sqw\"",
+      "tmin": "0.01806",
+      "tmax": "0.01826"
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_NEAT__oneshot__google_gemini_3_5_flash_lite/artifacts/NEAT_TOF.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_NEAT__oneshot__google_gemini_3_5_flash_lite/artifacts/params.json",
+    "diagram": null,
+    "trace": null,
+    "errors": [
+      "diagram: McStasScript reader failed (known limitation)",
+      "trace: mcdisplay-webgl failed"
+    ]
+  }
+}

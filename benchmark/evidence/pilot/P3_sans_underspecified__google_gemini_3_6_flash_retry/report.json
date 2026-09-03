@@ -1,0 +1,36 @@
+{
+  "task": "P3_sans_underspecified",
+  "episode": {
+    "model": "google/gemini-3.6-flash",
+    "returncode": 0,
+    "turns": 40,
+    "cost_usd": 3.3010569999999992,
+    "duration_s": 167.3,
+    "mcp_calls": {
+      "mcp__mcstas__list_components": 1,
+      "mcp__mcstas__describe_component": 6,
+      "mcp__mcstas__create_instrument": 1,
+      "mcp__mcstas__add_parameter": 2,
+      "mcp__mcstas__add_component": 8,
+      "mcp__mcstas__validate_instrument": 1,
+      "mcp__mcstas__get_instrument": 1,
+      "mcp__mcstas__run_simulation": 4,
+      "mcp__mcstas__list_instruments": 1,
+      "mcp__mcstas__get_example": 2,
+      "mcp__mcstas__list_examples": 1,
+      "mcp__mcstas__load_instr_file": 2,
+      "mcp__mcstas__export_instr_file": 1
+    },
+    "skill_used": false,
+    "final_answer": "### **Pinhole SANS Instrument Design & Analysis**\n\n#### **1. Design Assumptions & Collimation Geometry Choices**\n\nSince the collimation geometry was not specified, standard pinhole Small-Angle Neutron Scattering (SANS) design principles were applied (e.g., matching standard geometries such as D11/D22 or classical pinhole setups):\n\n1. **Symmetric Collimation & Resolution Balance ($L_1 = L_2 = 3.0\\text{ m}$):**\n   * **Sample-to-detector distance ($L_d$):** Fixed at $3.0\\text{ m}$.\n   * **Collimation length ($L_c$):** Set to $3.0\\text{ m}$ between Aperture 1 ($A_1$) and Aperture 2 ($A_2$). Equalizing $L_c = L_d$ balances angular resolution with flux on the sample.\n\n2. **Aperture Sizes:**\n   * **Source/Collimation Aperture 1 ($A_1$):** Circular pinhole with radius $R_1 = 1.0\\text{ cm}$ ($2.0\\text{ cm}$ diameter) located at $z = 3.0\\text{ m}$.\n   * **Sample Aperture 2 ($A_2$):** Circular pinhole with radius $R_2 = 0.5\\text{ cm}$ ($1.0\\text{ cm}$ diameter, matching the $1\\text{ cm} \\times 1\\text{ cm}$ sample profile) located at $z = 6.0\\text{ m}$.\n\n3. **Direct Beam & Beamstop Profile:**\n   * **Direct Beam Umbra/Penumbra Radius at Detector Plane ($z = 9.0\\text{ m}$):**\n     $$\\text{Beam Radius} = R_2 + (R_1 + R_2) \\cdot \\frac{L_d}{L_c} = 0.5\\text{ cm} + (1.0 + 0.5)\\text{ cm} \\cdot \\frac{3.0\\text{ m}}{3.0\\text{ m}} = 2.0\\text{ cm}$$\n   * **Beamstop Size & Position:** Positioned at $z = 8.999\\text{ m}$ (1 mm in front of the detector plane) with a radius of $R_{bs} = 2.5\\text{ cm}$ ($5.0\\text{ cm}$ diameter) to fully shadow the direct beam ($2.0\\text{ cm}$ radius) plus a $0.5\\text{ cm}$ safety margin.\n\n4. **Monitored $q$-Range:**\n   * Detector dimensions: $60\\text{ cm} \\times 60\\text{ cm}$ at $z = 9.0\\text{ m}$.\n   * **$q_{min}$ (shadowed by beamstop):** $\\approx \\frac{4\\pi}{\\lambda} \\sin\\left(\\frac{\\arctan(2.5/300)}{2}\\right) \\approx 0.0087\\text{ \\AA}^{-1}$.\n   * **$q_{max}$ (detector edge):** $\\approx \\frac{4\\pi}{\\lambda} \\sin\\left(\\frac{\\arctan(30/300)}{2}\\right) \\approx 0.105\\text{ \\AA}^{-1}$.\n   * This $q$-range ($0.0087\\text{ \\AA}^{-1} \\le q \\le 0.105\\text{ \\AA}^{-1}$) captures the Guinier scattering region ($q R \\sim 1 \\implies q \\sim 0.01\\text{ \\AA}^{-1}$) for $R = 100\\text{ \\AA}$ spheres.\n\n---\n\n#### **2. Complete McStas Instrument Specification (`pinhole_sans.instr`)**\n\n```c\nDEFINE INSTRUMENT pinhole_sans(dummy=0)\n\nTRACE\n\nCOMPONENT progress = Progress_bar()\nAT (0.0, 0.0, 0.0) ABSOLUTE\n\n// Source: 6.0 \u00c5 neutrons, \u00b10.05 \u00c5 uniform spread\nCOMPONENT source = Source_simple(\n    radius = 0.03, \n    focus_xw = 0.02,\n    focus_yh = 0.02, \n    lambda0 = 6.0,\n    dlambda = 0.05, \n    target_index = 1)\nAT (0.0, 0.0, 0.0) ABSOLUTE\n\n// Collimation Aperture 1 (1 cm radius)\nCOMPONENT aperture1 = Slit(\n    radius = 0.01)\nAT (0.0, 0.0, 3.0) RELATIVE source\n\n// Collimation Aperture 2 (0.5 cm radius)\nCOMPONENT aperture2 = Slit(\n    radius = 0.005)\nAT (0.0, 0.0, 3.0) RELATIVE aperture1\n\n// Sample: 100 \u00c5 monodisperse hard spheres\nCOMPONENT sample = Sans_spheres(\n    R = 100, \n    Phi = 0.001,\n    Delta_rho = 0.6, \n    xwidth = 0.01,\n    yheight = 0.01, \n    zdepth = 0.005,\n    target_index = 2, \n    focus_r = 0.3)\nAT (0.0, 0.0, 0.01) RELATIVE aperture2\n\n// Beamstop (2.5 cm radius) in front of detector\nCOMPONENT beamstop = Beamstop(\n    radius = 0.025)\nAT (0.0, 0.0, 2.999) RELATIVE sample\n\n// 2D PSD Detector (60 x 60 cm at 3.0 m)\nCOMPONENT psd_detector = PSD_monitor(\n    nx = 120, \n    ny = 120,\n    filename = \"psd.dat\", \n    xwidth = 0.6,\n    yheight = 0.6)\nAT (0.0, 0.0, 3.0) RELATIVE sample\n\n// Wavelength Monitor covering 5.5 to 6.5 \u00c5 behind detector plane\nCOMPONENT l_monitor = L_monitor(\n    nL = 50, \n    filename = \"l_mon.dat\",\n    xwidth = 0.6, \n    yheight = 0.6,\n    Lmin = 5.5, \n    Lmax = 6.5)\nAT (0.0, 0.0, 3.01) RELATIVE sample\n\nEND\n```\n\n---\n\n#### **3. Performance & Intensity Estimates**\n\n1. **Incident Neutron Intensity at Sample:**\n   * Acceptance solid angle through collimation: $\\Omega = \\frac{\\pi R_2^2}{L_c^2} \\approx 8.73 \\times 10^{-6}\\text{ sr}$.\n   * Relative scattered intensity fraction on the 2D detector is $I_{det} / I_{inc} \\approx 4.4 \\times 10^{-2}\\text{ neutrons/incident neutron}$.\n2. **Wavelength Monitor:**\n   * Registers a sharp uniform peak centered at $6.0\\text{ \\AA}$ spanning $5.95\\text{ \\AA} \\le \\lambda \\le 6.05\\text{ \\AA}$, validating the flat wavelength distribution."
+  },
+  "grade": {
+    "task": "P3_sans_underspecified",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  }
+}

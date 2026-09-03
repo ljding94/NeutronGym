@@ -1,0 +1,20 @@
+{
+  "CHA_WIDTH": "-1",
+  "ELPEAK": "-1",
+  "M1": "-1",
+  "M2": "-1",
+  "M3": "-1",
+  "MONITOR": "1",
+  "PHASE": "-360",
+  "RATIO": "1",
+  "SPEED": "-1",
+  "Sqw_coh": "Rb_liq_coh.sqw",
+  "Sqw_inc": "Rb_liq_inc.sqw",
+  "TOF_CHA_RESOL": "128",
+  "TOF_DELAY": "-1",
+  "dlambda": "0.075",
+  "lambda": "4.14",
+  "mFC": "0",
+  "radius": "0.01",
+  "thickness": "0.005"
+}

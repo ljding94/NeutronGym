@@ -1,0 +1,171 @@
+/*******************************************************************************
+* McStas instrument: Triple Axis Spectrometer (TAS) - Source to SC1 stage
+*
+* %D
+* Reconstructed TAS instrument implementing the source, source-to-sample leg,
+* and Soller collimator SC1 with full parameter set and monitors.
+*
+* %P
+* KF: [1/A] Final wavevector (default 5)
+* KI: [1/A] Initial wavevector (default 0)
+* QM: [1/A] Momentum transfer (default 0.5)
+* EN: [meV] Energy transfer (default 0)
+* verbose: [1] Verbose flag (default 1)
+* WM: [m] Monochromator width (default 0.233)
+* HM: [m] Monochromator height (default 0.197)
+* RMH: [m] Monochromator horizontal curvature (default -1)
+* RMV: [m] Monochromator vertical curvature (default -1)
+* DM: [AA] Monochromator d-spacing (default 1.807)
+* NHM: [1] Monochromator segments H (default 15)
+* NVM: [1] Monochromator segments V (default 15)
+* WA: [m] Analyzer width (default 0.16)
+* HA: [m] Analyzer height (default 0.08)
+* RAH: [m] Analyzer horizontal curvature (default -1)
+* RAV: [m] Analyzer vertical curvature (default -1)
+* DA: [AA] Analyzer d-spacing (default 2.087)
+* NHA: [1] Analyzer segments H (default 15)
+* NVA: [1] Analyzer segments V (default 15)
+* L1: [m] Distance source to monochromator (default 2.3)
+* ALF1: [min] Collimator 1 divergence H (default 60)
+* ALF2: [min] Collimator 2 divergence H (default 60)
+* ALF3: [min] Collimator 3 divergence H (default 60)
+* ALF4: [min] Collimator 4 divergence H (default 60)
+* BET1: [min] Collimator 1 divergence V (default 120)
+* BET2: [min] Collimator 2 divergence V (default 120)
+* BET3: [min] Collimator 3 divergence V (default 120)
+* BET4: [min] Collimator 4 divergence V (default 120)
+*
+* %L
+* <reference/literature>
+*
+* %BUILD
+* %END
+*******************************************************************************/
+
+DEFINE INSTRUMENT TAS_Source_SC1(
+    KF = 5,
+    KI = 0,
+    QM = 0.5,
+    EN = 0,
+    verbose = 1,
+    WM = 0.233,
+    HM = 0.197,
+    RMH = -1,
+    RMV = -1,
+    DM = 1.807,
+    NHM = 15,
+    NVM = 15,
+    WA = 0.16,
+    HA = 0.08,
+    RAH = -1,
+    RAV = -1,
+    DA = 2.087,
+    NHA = 15,
+    NVA = 15,
+    L1 = 2.3,
+    ALF1 = 60,
+    ALF2 = 60,
+    ALF3 = 60,
+    ALF4 = 60,
+    BET1 = 120,
+    BET2 = 120,
+    BET3 = 120,
+    BET4 = 120
+)
+
+DECLARE
+%{
+  // Structs to mimic machine_hkl and machine_real used in parameter expressions
+  struct {
+    double l1;
+    double ei;
+  } machine_hkl;
+
+  struct {
+    double a1;
+  } machine_real;
+%}
+
+INITIALIZE
+%{
+  machine_hkl.l1 = L1;
+  // If KI is 0, define a default incident energy corresponding to ~2.66 A (approx 11.5 meV)
+  machine_hkl.ei = (KI > 0 ? 81.81 / (2.66 * 2.66) : 11.5);
+  // Monochromator take-off angle approximation for initialization expression
+  machine_real.a1 = 30.0; 
+%}
+
+TRACE
+
+// 1. Origin / Progress bar
+COMPONENT Origin = Progress_bar()
+AT [0, 0, 0] ABSOLUTE
+ROTATED [0, 0, 0] ABSOLUTE
+
+// 2. Source
+COMPONENT Source = Source_gen(
+    radius = 0.10,
+    dist = machine_hkl.l1,
+    focus_xw = fabs(WM * sin(machine_real.a1 * DEG2RAD)),
+    focus_yh = HM,
+    E0 = machine_hkl.ei,
+    dE = machine_hkl.ei * 0.03,
+    I1 = 0.5874e+13,
+    T1 = 683.7,
+    T2 = 257.7,
+    I2 = 2.5099e+13,
+    T3 = 16.7,
+    I3 = 1.0343e+12
+)
+AT [0, 0, 0] ABSOLUTE
+ROTATED [0, 0, 0] ABSOLUTE
+
+// Diagnostic Monitor after Source
+COMPONENT mon_source_lambda = L_monitor(
+    nlam = 100,
+    filename = "mon_source_lambda.dat",
+    xmin = -0.1, xmax = 0.1,
+    ymin = -0.1, ymax = 0.1,
+    Lmin = 0.5, Lmax = 10.0,
+    restore_neutron = 1
+)
+AT [0, 0, 0.01] RELATIVE Source
+
+// 3. SC1 (Collimator linear)
+COMPONENT SC1 = Collimator_linear(
+    xmin = -WM/2, xmax = WM/2,
+    ymin = -HM/2, ymax = HM/2,
+    length = machine_hkl.l1 / 2,
+    divergence = ALF1,
+    divergenceV = BET1
+)
+WHEN (ALF1 && BET1)
+AT [0, 0, machine_hkl.l1 / 4] ABSOLUTE
+ROTATED [0, 0, 0] ABSOLUTE
+
+// Diagnostic Monitor after SC1 (Wavelength & PSD)
+COMPONENT mon_sc1_psd = PSD_monitor(
+    filename = "mon_sc1_psd.dat",
+    xwidth = WM * 1.5,
+    yheight = HM * 1.5,
+    nx = 128, ny = 128,
+    restore_neutron = 1
+)
+AT [0, 0, machine_hkl.l1 / 2 + 0.01] RELATIVE SC1
+
+COMPONENT mon_sc1_lambda = L_monitor(
+    nlam = 100,
+    filename = "mon_sc1_lambda.dat",
+    xmin = -WM/2, xmax = WM/2,
+    ymin = -HM/2, ymax = HM/2,
+    Lmin = 0.5, Lmax = 10.0,
+    restore_neutron = 1
+)
+AT [0, 0, machine_hkl.l1 / 2 + 0.02] RELATIVE SC1
+
+// 4. Guide_out Arm
+COMPONENT Guide_out = Arm()
+AT [0, 0, machine_hkl.l1 - 0.2] ABSOLUTE
+ROTATED [0, 0, 0] ABSOLUTE
+
+END

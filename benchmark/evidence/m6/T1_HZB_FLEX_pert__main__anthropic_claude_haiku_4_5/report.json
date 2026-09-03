@@ -1,0 +1,96 @@
+{
+  "task": "T1_HZB_FLEX_pert",
+  "episode": {
+    "model": "anthropic/claude-haiku-4.5",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 50,
+    "hit_turn_cap": true,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 301.9,
+    "usage": {
+      "prompt_tokens": 3123636,
+      "completion_tokens": 45428
+    },
+    "mcp_calls": {
+      "create_instrument": 5,
+      "add_parameter": 32,
+      "add_declare": 114,
+      "describe_component": 10,
+      "add_component": 110,
+      "list_components": 1,
+      "validate_instrument": 10,
+      "get_instrument": 1,
+      "remove_component": 10,
+      "export_instr_file": 1,
+      "set_parameters": 11,
+      "run_simulation": 3
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_HZB_FLEX_pert",
+    "pass": false,
+    "score": 0.0,
+    "checks_passed": "0/3",
+    "hard_failures": [
+      "no monitor with role 'energy' in candidate"
+    ],
+    "checks": [
+      {
+        "role": "2d",
+        "observable": "intensity",
+        "reference": 29904200.0,
+        "candidate": 0.000314117,
+        "pass": false,
+        "delta": -29904199.999685884,
+        "allowed": 5980840.0
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_x",
+        "reference": 1.74262,
+        "candidate": 0.287265,
+        "pass": false,
+        "delta": -1.455355,
+        "allowed": 0.522786
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_y",
+        "reference": 3.62783,
+        "candidate": 0.287328,
+        "pass": false,
+        "delta": -3.340502,
+        "allowed": 1.088349
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_FLEX_pert__main__anthropic_claude_haiku_4_5/home/instruments/TAS_Minimal/TAS_Minimal.instr",
+    "candidate_params": {
+      "kI": 1.55
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_FLEX_pert__main__anthropic_claude_haiku_4_5/artifacts/TAS_Minimal.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_FLEX_pert__main__anthropic_claude_haiku_4_5/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_FLEX_pert__main__anthropic_claude_haiku_4_5/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_FLEX_pert__main__anthropic_claude_haiku_4_5/artifacts/trace",
+    "errors": []
+  }
+}

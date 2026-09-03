@@ -1,0 +1,67 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: probe3
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 16:25:05 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* environment: [unit] 
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT probe3 (
+string environment = "Al.laz" 
+)
+
+DECLARE 
+%{
+double _dt0 = 6.4e-06;
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated probe3
+%}
+
+TRACE 
+COMPONENT samp = Isotropic_Sqw(
+ Sqw_coh = environment, radius = 0.025,
+ thickness = 0.002, yheight = 0.1,
+ verbose = 0, concentric = 1)
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT mon = Monitor_nD(
+ xwidth = 2.5, yheight = 0.4,
+ options = "energy limits=[2.47 9.88] bins=50, theta limits=[5 175] bins=150, banana, parallel")
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+FINALLY 
+%{
+// Start of finally for generated probe3
+%}
+
+END

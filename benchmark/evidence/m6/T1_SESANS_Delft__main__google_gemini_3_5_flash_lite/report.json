@@ -1,0 +1,90 @@
+{
+  "task": "T1_SESANS_Delft",
+  "episode": {
+    "model": "google/gemini-3.5-flash-lite",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 13,
+    "hit_turn_cap": false,
+    "empty_responses": 1,
+    "cost_usd": null,
+    "duration_s": 44.0,
+    "usage": {
+      "prompt_tokens": 90582,
+      "completion_tokens": 5658
+    },
+    "mcp_calls": {
+      "create_instrument": 1,
+      "add_parameter": 3,
+      "list_components": 9,
+      "describe_component": 9,
+      "add_component": 17,
+      "run_simulation": 1
+    },
+    "skill_used": true,
+    "final_answer": "I have successfully rebuilt and run the SESANS instrument in McStas with the requested parameters ($L_0 = 2.165$ \u00c5, $\\Delta\\lambda = 0.02$ \u00c5, $B_y = 0.00468$ T) using $1,000,000$ rays (`ncount=1e6`) and `seed=42`. \n\nBelow is the summary of the integrated intensity ($I$), statistical error ($\\pm \\text{err}$), and event count ($N$) for every monitor in the beamline:\n\n| Monitor Name | Component Type | Integrated Intensity ($I$) | Error ($\\pm \\text{err}$) | Event Count ($N$) |\n| :--- | :--- | :--- | :--- | :--- |\n| **`px1`** | `PolLambda_monitor` | $5.39818 \\times 10^{-7}$ | $6.53083 \\times 10^{-10}$ | $683,216$ |\n| **`px2`** | `PolLambda_monitor` | $5.39818 \\times 10^{-7}$ | $6.53083 \\times 10^{-10}$ | $683,216$ |\n| **`px3`** | `PolLambda_monitor` | $5.39818 \\times 10^{-7}$ | $6.53083 \\times 10^{-10}$ | $683,216$ |\n| **`px6`** | `PolLambda_monitor` | $5.37403 \\times 10^{-7}$ | $1.06103 \\times 10^{-9}$ | $651,210$ |\n| **`det`** | `PSD_monitor` | $1.18661 \\times 10^{-7}$ | $4.31903 \\times 10^{-10}$ | $287,012$ |\n| **`det2`** | `PSD_monitor` | $0.0$ | $0.0$ | $0$ |\n\n### Notes on Simulation Results:\n- **Monitors `px1`, `px2`, and `px3`** show identical intensities because they use `restore_neutron=1`, capturing the unperturbed beam state at different points along the upstream section before and between the magnetic flippers.\n- **Monitor `px6`** shows a slight decrease in intensity due to scattering and attenuation through the downstream sample (`sans_spheres`) and flippers.\n- **`det`** records the scattered and analyzed beam passing through the ideal analyzer with $m_x = 1$.\n- **`det2`** records zero events because the preceding `trick` component restores the neutron state for the second analyzer branch (`ana2` with $m_x = -1$), which filters out the orthogonal polarization state relative to the chosen incoming polarization."
+  },
+  "grade": {
+    "task": "T1_SESANS_Delft",
+    "pass": true,
+    "score": 1.0,
+    "checks_passed": "3/3",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "2d",
+        "observable": "intensity",
+        "reference": 5.39353e-07,
+        "candidate": 5.39353e-07,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 1.0787060000000002e-07
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_x",
+        "reference": 0.0107979,
+        "candidate": 0.0107979,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.0032393699999999997
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_y",
+        "reference": 0.0,
+        "candidate": 0.0,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.0
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__main__google_gemini_3_5_flash_lite/home/instruments/sesans_rebuild/sesans_rebuild.instr",
+    "candidate_params": {
+      "L0": 2.165,
+      "DL": 0.02,
+      "By": 0.00468
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__main__google_gemini_3_5_flash_lite/artifacts/sesans_rebuild.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__main__google_gemini_3_5_flash_lite/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__main__google_gemini_3_5_flash_lite/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__main__google_gemini_3_5_flash_lite/artifacts/trace",
+    "errors": []
+  }
+}

@@ -1,0 +1,61 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: powder_diffractometer
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 11:07:49 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* lambda: [unit] Angstrom
+* R: [unit] 1
+* R_curve: [unit] 1
+* filename: [unit] 
+* D_PHI: [unit] deg
+* SHIFT: [unit] deg
+* PACK: [unit] 1
+* Dw: [unit] 1
+* BARNS: [unit] 1
+* SPLITS: [unit] 1
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT powder_diffractometer (
+lambda = 2.5666, // Angstrom
+R = 0.87, // 1
+R_curve = 0.87, // 1
+string filename = "Na2Ca3Al2F14.laz", 
+D_PHI = 6.0, // deg
+SHIFT = 0.0, // deg
+PACK = 0.7, // 1
+Dw = 0.8, // 1
+BARNS = 1.0, // 1
+SPLITS = 58.0 // 1
+)
+
+DECLARE 
+%{
+double mono_q = 1.8734;
+double y_mono = 0.025;

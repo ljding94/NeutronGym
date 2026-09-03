@@ -1,0 +1,74 @@
+{
+  "task": "T1_RTP_DIF",
+  "episode": {
+    "model": "google/gemini-3.6-flash",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 50,
+    "hit_turn_cap": true,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 78.2,
+    "usage": {
+      "prompt_tokens": 607797,
+      "completion_tokens": 4448
+    },
+    "mcp_calls": {
+      "describe_component": 8,
+      "create_instrument": 2,
+      "add_parameter": 12,
+      "add_declare": 2,
+      "add_component": 33,
+      "get_instrument": 2,
+      "validate_instrument": 1,
+      "run_simulation": 1,
+      "load_instr_file": 2,
+      "list_instruments": 1
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_RTP_DIF",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "candidate failed to run (translate)"
+    ],
+    "diagnostics": [
+      "ERROR: syntax error at line 52.",
+      "mcstas: 1 Errors encountered during parse of /Users/ldq/Work/NeutronGym/runs/m6/T1_RTP_DIF__main__google_gemini_3_6_flash/home/instruments/powder_diffractometer/powder_diffractometer.instr.",
+      "INFO: call to /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas failed with Command '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas -t -o ./powder_diffractometer.c /Users/ldq/Work/NeutronGym/runs/m6/T1_RTP_DIF__main__google_gemini_3_6_flash/home/instruments/powder_diffractometer/powder_diffractometer.instr' returned non-zero exit status 1.",
+      "ERROR: Code generation failed for instrument /Users/ldq/Work/NeutronGym/runs/m6/T1_RTP_DIF__main__google_gemini_3_6_flash/home/instruments/powder_diffractometer/powder_diffractometer.instr using code generator /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas"
+    ],
+    "checks": [],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_RTP_DIF__main__google_gemini_3_6_flash/home/instruments/powder_diffractometer/powder_diffractometer.instr",
+    "candidate_params": {
+      "lambda": 2.36,
+      "DM": 3.355,
+      "Mono_tilt": 0.0,
+      "powder": "Na2Ca3Al2F14.laz",
+      "det_rotation": 45.0,
+      "sample_d_phi": "atan2(0.5,1)*RAD2DEG"
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_RTP_DIF__main__google_gemini_3_6_flash/artifacts/powder_diffractometer.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_RTP_DIF__main__google_gemini_3_6_flash/artifacts/params.json",
+    "diagram": null,
+    "trace": null,
+    "errors": [
+      "diagram: McStasScript reader failed (known limitation)",
+      "trace: mcdisplay-webgl failed"
+    ]
+  }
+}

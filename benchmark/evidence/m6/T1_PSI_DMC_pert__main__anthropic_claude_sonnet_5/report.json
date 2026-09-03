@@ -1,0 +1,145 @@
+{
+  "task": "T1_PSI_DMC_pert",
+  "episode": {
+    "model": "anthropic/claude-sonnet-5",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 50,
+    "hit_turn_cap": true,
+    "empty_responses": 1,
+    "cost_usd": null,
+    "duration_s": 1077.0,
+    "usage": {
+      "prompt_tokens": 2761855,
+      "completion_tokens": 92946
+    },
+    "mcp_calls": {
+      "list_examples": 1,
+      "describe_component": 14,
+      "create_instrument": 2,
+      "get_instrument": 4,
+      "add_parameter": 20,
+      "add_declare": 34,
+      "add_component": 68,
+      "validate_instrument": 3,
+      "set_parameters": 4,
+      "export_instr_file": 1,
+      "remove_component": 3,
+      "run_simulation": 2,
+      "job_status": 1,
+      "get_example": 1
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_PSI_DMC_pert",
+    "pass": true,
+    "score": 1.0,
+    "checks_passed": "6/6",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "2d",
+        "observable": "intensity",
+        "reference": 1599500000.0,
+        "candidate": 1599500000.0,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 319900000.0
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_x",
+        "reference": 0.513662,
+        "candidate": 0.513662,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.15409859999999997
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_y",
+        "reference": 3.0576,
+        "candidate": 3.0576,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.9172799999999999
+      },
+      {
+        "role": "wavelength",
+        "observable": "intensity",
+        "reference": 1599500000.0,
+        "candidate": 1599500000.0,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 399875000.0
+      },
+      {
+        "role": "wavelength",
+        "observable": "center_of_mass",
+        "reference": 2.54381,
+        "candidate": 2.54381,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.1271905
+      },
+      {
+        "role": "wavelength",
+        "observable": "fwhm",
+        "reference": 0.308103,
+        "candidate": 0.308103,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.1540515
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_PSI_DMC_pert__main__anthropic_claude_sonnet_5/home/instruments/DMC_powder2/DMC_powder2.instr",
+    "candidate_params": {
+      "lambda": "2.5666",
+      "R": "0.87",
+      "R_curve": "0.87",
+      "filename": "Na2Ca3Al2F14.laz",
+      "D_PHI": "6",
+      "SHIFT": "0",
+      "PACK": "0.7",
+      "Dw": "0.8",
+      "BARNS": "1",
+      "SPLITS": "58"
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": [
+      {
+        "tool": "list_examples",
+        "kind": "example_tool",
+        "target": "DMC",
+        "refused": true
+      },
+      {
+        "tool": "get_example",
+        "kind": "example_tool",
+        "target": "PSI_DMC",
+        "refused": true
+      }
+    ]
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_PSI_DMC_pert__main__anthropic_claude_sonnet_5/artifacts/DMC_powder2.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_PSI_DMC_pert__main__anthropic_claude_sonnet_5/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T1_PSI_DMC_pert__main__anthropic_claude_sonnet_5/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/T1_PSI_DMC_pert__main__anthropic_claude_sonnet_5/artifacts/trace",
+    "errors": []
+  }
+}

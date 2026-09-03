@@ -1,0 +1,137 @@
+{
+  "task": "T1_ILL_H10_IN8",
+  "episode": {
+    "model": "google/gemini-3.6-flash",
+    "scaffold": "plain-llm-oneshot",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 1,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 31.1,
+    "usage": {
+      "prompt_tokens": 2165,
+      "completion_tokens": 7079
+    },
+    "mcp_calls": {},
+    "skill_used": true,
+    "final_answer": "```mcstas\nDEFINE INSTRUMENT tas_instrument(\n    double KF = 5,\n    double KI = 0,\n    double QM = 0.5,\n    double EN = 0,\n    double verbose = 1,\n    double WM = 0.233,\n    double HM = 0.197,\n    double RMH = -1,\n    double RMV = -1,\n    double DM = 1.807,\n    double NHM = 15,\n    double NVM = 15,\n    double WA = 0.16,\n    double HA = 0.08,\n    double RAH = -1,\n    double RAV = -1,\n    double DA = 2.087,\n    double NHA = 15,\n    double NVA = 15,\n    double L1 = 2.3,\n    double ALF1 = 60,\n    double ALF2 = 60,\n    double ALF3 = 60,\n    double ALF4 = 60,\n    double BET1 = 120,\n    double BET2 = 120,\n    double BET3 = 120,\n    double BET4 = 120\n)\n\nDECLARE\n%{\n#ifndef DEG2RAD\n#define DEG2RAD (M_PI/180.0)\n#endif\n\nstruct {\n  double l1;\n  double ei;\n} machine_hkl;\n\nstruct {\n  double a1;\n} machine_real;\n%}\n\nINITIALIZE\n%{\n  double k2e = 2.07212465;\n  double ki_calc, kf_calc, ei_calc, ef_calc;\n\n  if (KI > 0) {\n    ki_calc = KI;\n    ei_calc = k2e * ki_calc * ki_calc;\n    ef_calc = ei_calc - EN;\n    kf_calc = sqrt(ef_calc / k2e);\n  } else {\n    kf_calc = (KF > 0) ? KF : 5.0;\n    ef_calc = k2e * kf_calc * kf_calc;\n    ei_calc = ef_calc + EN;\n    ki_calc = sqrt(ei_calc / k2e);\n  }\n\n  machine_hkl.l1 = L1;\n  machine_hkl.ei = ei_calc;\n\n  double arg = M_PI / (DM * ki_calc);\n  if (arg > 1.0) arg = 1.0;\n  if (arg < -1.0) arg = -1.0;\n  machine_real.a1 = asin(arg) * 180.0 / M_PI;\n\n  if (verbose) {\n    printf(\"TAS setup: ki = %g A^-1, kf = %g A^-1, Ei = %g meV, A1 = %g deg\\n\",\n           ki_calc, kf_calc, ei_calc, machine_real.a1);\n  }\n%}\n\nTRACE\n\nCOMPONENT Origin = Progress_bar()\n  AT (0, 0, 0) ABSOLUTE\n\nCOMPONENT Source = Source_gen(\n  radius = 0.10,\n  dist = machine_hkl.l1,\n  focus_xw = fabs(WM * sin(machine_real.a1 * DEG2RAD)),\n  focus_yh = HM,\n  E0 = machine_hkl.ei,\n  dE = machine_hkl.ei * 0.03,\n  I1 = 0.5874e+13,\n  T1 = 683.7,\n  T2 = 257.7,\n  I2 = 2.5099e+13,\n  T3 = 16.7,\n  I3 = 1.0343e+12\n)\n  AT (0, 0, 0) ABSOLUTE\n\nCOMPONENT SC1 = Collimator_linear(\n  xmin = -WM/2.0,\n  xmax = WM/2.0,\n  ymin = -HM/2.0,\n  ymax = HM/2.0,\n  length = machine_hkl.l1/2.0,\n  divergence = ALF1,\n  divergenceV = BET1\n)\n  WHEN (ALF1 && BET1)\n  AT (0, 0, machine_hkl.l1/4.0) ABSOLUTE\n\nCOMPONENT Guide_out = Arm()\n  AT (0, 0, machine_hkl.l1 - 0.2) ABSOLUTE\n\nCOMPONENT L_mon = L_monitor(\n  nL = 100,\n  xmin = -WM/2.0,\n  xmax = WM/2.0,\n  ymin = -HM/2.0,\n  ymax = HM/2.0,\n  Lmin = 0.1,\n  Lmax = 10.0,\n  filename = \"l_mon.dat\",\n  restore_neutron = 1\n)\n  AT (0, 0, 0.001) RELATIVE Guide_out\n\nCOMPONENT psd_mon = PSD_monitor(\n  nx = 100,\n  ny = 100,\n  xmin = -WM/2.0,\n  xmax = WM/2.0,\n  ymin = -HM/2.0,\n  ymax = HM/2.0,\n  filename = \"psd_mon.dat\",\n  restore_neutron = 1\n)\n  AT (0, 0, 0.002) RELATIVE Guide_out\n\nEND\n```"
+  },
+  "grade": {
+    "task": "T1_ILL_H10_IN8",
+    "pass": false,
+    "score": 0.167,
+    "checks_passed": "1/6",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "2d",
+        "observable": "intensity",
+        "reference": 932948000.0,
+        "candidate": 75031500000.0,
+        "pass": false,
+        "delta": 74098552000.0,
+        "allowed": 528550110.0
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_x",
+        "reference": 23.3513,
+        "candidate": 2.3218,
+        "pass": false,
+        "delta": -21.0295,
+        "allowed": 7.005389999999999
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_y",
+        "reference": 0.856549,
+        "candidate": 5.10227,
+        "pass": false,
+        "delta": 4.245721,
+        "allowed": 0.2569647
+      },
+      {
+        "role": "wavelength",
+        "observable": "intensity",
+        "reference": 10248400000.0,
+        "candidate": 75031500000.0,
+        "pass": false,
+        "delta": 64783100000.0,
+        "allowed": 2562100000.0
+      },
+      {
+        "role": "wavelength",
+        "observable": "center_of_mass",
+        "reference": 1.256725,
+        "candidate": 1.2385,
+        "pass": true,
+        "delta": -0.018225000000000158,
+        "allowed": 0.06283625000000001
+      },
+      {
+        "role": "wavelength",
+        "observable": "fwhm",
+        "reference": 0.037504,
+        "candidate": 0.099,
+        "pass": false,
+        "delta": 0.061496,
+        "allowed": 0.018752
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_H10_IN8__oneshot__google_gemini_3_6_flash/home/instruments/tas_instrument/tas_instrument.instr",
+    "candidate_params": {
+      "KF": "5",
+      "KI": "0",
+      "QM": "0.5",
+      "EN": "0",
+      "verbose": "1",
+      "WM": "0.233",
+      "HM": "0.197",
+      "RMH": "-1",
+      "RMV": "-1",
+      "DM": "1.807",
+      "NHM": "15",
+      "NVM": "15",
+      "WA": "0.16",
+      "HA": "0.08",
+      "RAH": "-1",
+      "RAV": "-1",
+      "DA": "2.087",
+      "NHA": "15",
+      "NVA": "15",
+      "L1": "2.3",
+      "ALF1": "60",
+      "ALF2": "60",
+      "ALF3": "60",
+      "ALF4": "60",
+      "BET1": "120",
+      "BET2": "120",
+      "BET3": "120",
+      "BET4": "120"
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_H10_IN8__oneshot__google_gemini_3_6_flash/artifacts/tas_instrument.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_H10_IN8__oneshot__google_gemini_3_6_flash/artifacts/params.json",
+    "diagram": null,
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_H10_IN8__oneshot__google_gemini_3_6_flash/artifacts/trace",
+    "errors": [
+      "diagram: McStasScript reader failed (known limitation)"
+    ]
+  }
+}

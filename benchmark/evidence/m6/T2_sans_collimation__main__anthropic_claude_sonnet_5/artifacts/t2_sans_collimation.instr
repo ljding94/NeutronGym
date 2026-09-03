@@ -1,0 +1,100 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: t2_sans_collimation
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 13:51:56 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* r_pin1: [unit] m] radius of first pinhole at 3m
+* r_pin2: [unit] m] radius of second pinhole at 6m
+* lambda0: [unit] Angstrom
+* dlambda: [unit] Angstrom
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT t2_sans_collimation (
+r_pin1 = 0.005, // m] radius of first pinhole at 3m
+r_pin2 = 0.005, // m] radius of second pinhole at 6m
+lambda0 = 6.0, // Angstrom
+dlambda = 0.05 // Angstrom
+)
+
+DECLARE 
+%{
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated t2_sans_collimation
+%}
+
+TRACE 
+COMPONENT source = Source_simple(
+ radius = 0.02, dist = 3.0,
+ focus_xw = 2*r_pin1, focus_yh = 2*r_pin1,
+ lambda0 = lambda0, dlambda = dlambda)
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT pin1 = Slit(
+ radius = r_pin1)
+AT (0.0, 0.0, 3.0) RELATIVE source
+
+COMPONENT pin2 = Slit(
+ radius = r_pin2)
+AT (0.0, 0.0, 6.0) RELATIVE source
+
+COMPONENT lambda_mon = L_monitor(
+ nL = 100, filename = "lambda_mon.dat",
+ xwidth = 0.05, yheight = 0.05,
+ Lmin = 5.0, Lmax = 7.0,
+ restore_neutron = 1)
+AT (0.0, 0.0, 0.01) RELATIVE pin2
+
+COMPONENT sample = Sans_spheres(
+ R = 100.0, Phi = 0.001,
+ Delta_rho = 0.6, sigma_abs = 0.05,
+ xwidth = 0.01, yheight = 0.01,
+ zdepth = 0.001, target_index = 2,
+ focus_r = 0.42)
+AT (0.0, 0.0, 0.05) RELATIVE pin2
+
+COMPONENT beamstop = Beamstop(
+ radius = 0.02)
+AT (0.0, 0.0, 1.0) RELATIVE sample
+
+COMPONENT detector = PSD_monitor(
+ nx = 128, ny = 128,
+ filename = "detector.dat", xwidth = 0.6,
+ yheight = 0.6, restore_neutron = 0)
+AT (0.0, 0.0, 3.0) RELATIVE sample
+
+FINALLY 
+%{
+// Start of finally for generated t2_sans_collimation
+%}
+
+END

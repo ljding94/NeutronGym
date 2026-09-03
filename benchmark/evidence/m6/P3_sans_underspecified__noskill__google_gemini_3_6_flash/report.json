@@ -1,0 +1,79 @@
+{
+  "task": "P3_sans_underspecified",
+  "episode": {
+    "model": "google/gemini-3.6-flash",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 21,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 44.9,
+    "usage": {
+      "prompt_tokens": 162068,
+      "completion_tokens": 2389
+    },
+    "mcp_calls": {
+      "list_components": 5,
+      "describe_component": 7,
+      "create_instrument": 1,
+      "add_component": 8,
+      "set_parameters": 1,
+      "validate_instrument": 1,
+      "run_simulation": 1,
+      "get_results": 1
+    },
+    "skill_used": false,
+    "final_answer": "### Instrument Design and Assumptions\n\n1. **Source Parameters**:\n   - Wavelength: $\\lambda_0 = 6.0\\text{ \\AA}$, uniform band spread $d\\lambda = 0.05\\text{ \\AA}$ (range $5.95$ to $6.05\\text{ \\AA}$).\n   - Emitting area: $4\\times4\\text{ cm}^2$ rectangular source.\n\n2. **Collimation Geometry Choices**:\n   - **First Aperture (`aperture1`)**: Placed at $z = 0\\text{ m}$ right after the source, aperture size $2.0\\times2.0\\text{ cm}^2$.\n   - **Second Aperture (`aperture2`)**: Placed at $z = 3.0\\text{ m}$ downstream from `aperture1`, aperture size $1.0\\times1.0\\text{ cm}^2$.\n   - **Sample Position**: Placed $0.2\\text{ m}$ downstream from `aperture2` ($z = 3.2\\text{ m}$ relative to source/`aperture1`).\n   - **Beamstop**: Placed $2.99\\text{ m}$ downstream of the sample ($1\\text{ cm}$ in front of detector plane), $4.0\\times4.0\\text{ cm}^2$ square absorber to block the primary direct beam shadow/divergence.\n\n3. **Sample Specifications**:\n   - Model: `Sans_spheres` (monodisperse hard spheres).\n   - Sphere radius: $R = 100\\text{ \\AA}$.\n   - Volume fraction: $\\Phi = 0.001$ ($0.1\\%$).\n   - Contrast (excess scattering length density): $\\Delta\\rho = 0.6\\text{ fm/\\AA}^3$.\n   - Geometry: $1.0\\times1.0\\text{ cm}^2$ area, $0.5\\text{ cm}$ thick ($0.005\\text{ m}$).\n\n4. **Detector & Wavelength Monitor**:\n   - **2D PSD Detector (`detector`)**: Positioned $3.0\\text{ m}$ behind the sample, $60\\times60\\text{ cm}^2$ area ($100\\times100$ pixels).\n   - **Wavelength Monitor (`wavelength_monitor`)**: Placed $1\\text{ cm}$ behind the detector plane covering range $5.5\\text{ \\AA}$ to $6.5\\text{ \\AA}$ ($100$ bins).\n\n---\n\n### Simulation Results ($10^6$ count run)\n\n- **Detector Intensity (`detector`)**:\n  - Integrated Intensity: **$2.165 \\times 10^4\\text{ neutrons/s}$** (relative error: $\\sim 5.4\\%$).\n  - Events recorded: $54,182$ SANS-scattered neutron events (direct beam successfully stopped by the central beamstop).\n\n- **Wavelength Monitor (`wavelength_monitor`)**:\n  - Integrated Intensity: **$2.165 \\times 10^4\\text{ neutrons/s}$**.\n  - Mean Wavelength Observed: **$5.998\\text{ \\AA}$** with Full Width at Half Maximum (FWHM) of **$0.097\\text{ \\AA}$**, matching the expected uniform $6.0 \\pm 0.05\\text{ \\AA}$ spectrum."
+  },
+  "grade": {
+    "task": "P3_sans_underspecified",
+    "pass": true,
+    "score": 1.0,
+    "checks_passed": "2/2",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "wavelength",
+        "observable": "center_of_mass",
+        "reference": 6.000276,
+        "candidate": 5.998712,
+        "pass": true,
+        "delta": -0.0015640000000001208,
+        "allowed": 0.12000552
+      },
+      {
+        "role": "wavelength",
+        "observable": "fwhm",
+        "reference": 0.099827,
+        "candidate": 0.093541,
+        "pass": true,
+        "delta": -0.006286,
+        "allowed": 0.0499135
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/P3_sans_underspecified__noskill__google_gemini_3_6_flash/home/instruments/pinhole_sans/pinhole_sans.instr",
+    "candidate_params": {}
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/P3_sans_underspecified__noskill__google_gemini_3_6_flash/artifacts/pinhole_sans.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/P3_sans_underspecified__noskill__google_gemini_3_6_flash/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/P3_sans_underspecified__noskill__google_gemini_3_6_flash/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/P3_sans_underspecified__noskill__google_gemini_3_6_flash/artifacts/trace",
+    "errors": []
+  }
+}

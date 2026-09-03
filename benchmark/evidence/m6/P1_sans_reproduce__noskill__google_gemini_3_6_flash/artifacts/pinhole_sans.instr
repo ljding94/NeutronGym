@@ -1,0 +1,95 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: pinhole_sans
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 14:33:16 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT pinhole_sans (
+)
+
+DECLARE 
+%{
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated pinhole_sans
+%}
+
+TRACE 
+COMPONENT origin = Progress_bar()
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT source = Source_simple(
+ radius = 0.02, dist = 3,
+ focus_xw = 0.01, focus_yh = 0.01,
+ lambda0 = 6, dlambda = 0.05,
+ flux = 100000000)
+AT (0.0, 0.0, 0.0) RELATIVE origin
+
+COMPONENT pinhole1 = Slit(
+ radius = 0.005)
+AT (0.0, 0.0, 3.0) RELATIVE origin
+
+COMPONENT pinhole2 = Slit(
+ radius = 0.005)
+AT (0.0, 0.0, 6.0) RELATIVE origin
+
+COMPONENT sample = Sans_spheres(
+ R = 100, Phi = 0.001,
+ Delta_rho = 0.6, sigma_abs = 0.5,
+ xwidth = 0.01, yheight = 0.01,
+ zdepth = 0.005, target_z = 3,
+ focus_r = 0.3)
+AT (0.0, 0.0, 0.2) RELATIVE pinhole2
+
+COMPONENT beamstop = Beamstop(
+ radius = 0.02)
+AT (0.0, 0.0, 2.9) RELATIVE sample
+
+COMPONENT detector = PSD_monitor(
+ nx = 128, ny = 128,
+ filename = "psd.dat", xwidth = 0.6,
+ yheight = 0.6)
+AT (0.0, 0.0, 3.0) RELATIVE sample
+
+COMPONENT l_mon = L_monitor(
+ nL = 100, filename = "l_mon.dat",
+ xwidth = 0.6, yheight = 0.6,
+ Lmin = 5.5, Lmax = 6.5)
+AT (0.0, 0.0, 0.0001) RELATIVE detector
+
+FINALLY 
+%{
+// Start of finally for generated pinhole_sans
+%}
+
+END

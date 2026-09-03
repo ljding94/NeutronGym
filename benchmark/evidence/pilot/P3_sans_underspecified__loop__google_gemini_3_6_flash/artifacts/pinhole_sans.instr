@@ -1,0 +1,97 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: pinhole_sans
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 16:46:43 on August 05, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT pinhole_sans (
+)
+
+DECLARE 
+%{
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated pinhole_sans
+%}
+
+TRACE 
+COMPONENT src = Source_simple(
+ radius = 0.008, dist = 3,
+ focus_xw = 0.008, focus_yh = 0.008,
+ lambda0 = 6, dlambda = 0.05,
+ gauss = 0)
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT ap1 = Slit(
+ radius = 0.004)
+AT (0.0, 0.0, 0.001) RELATIVE src
+
+COMPONENT ap2 = Slit(
+ radius = 0.003)
+AT (0.0, 0.0, 3.0) RELATIVE ap1
+
+COMPONENT mon_sample_flux = PSD_monitor(
+ filename = "sample_flux.dat", xwidth = 0.01,
+ yheight = 0.01, restore_neutron = 1)
+AT (0.0, 0.0, 0.01) RELATIVE ap2
+
+COMPONENT sample = Sans_spheres(
+ R = 100, Phi = 0.001,
+ Delta_rho = 0.6, xwidth = 0.01,
+ yheight = 0.01, zdepth = 0.005,
+ target_z = 3, focus_r = 0.3)
+AT (0.0, 0.0, 0.02) RELATIVE ap2
+
+COMPONENT bs = Beamstop(
+ radius = 0.015)
+AT (0.0, 0.0, 2.999) RELATIVE sample
+
+COMPONENT det2d = PSD_monitor(
+ nx = 100, ny = 100,
+ filename = "det2d.dat", xwidth = 0.6,
+ yheight = 0.6)
+AT (0.0, 0.0, 3.0) RELATIVE sample
+
+COMPONENT wl_mon = L_monitor(
+ nL = 50, filename = "wl.dat",
+ xwidth = 0.6, yheight = 0.6,
+ Lmin = 5.5, Lmax = 6.5,
+ restore_neutron = 1)
+AT (0.0, 0.0, 3.001) RELATIVE sample
+
+FINALLY 
+%{
+// Start of finally for generated pinhole_sans
+%}
+
+END

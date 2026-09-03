@@ -1,0 +1,90 @@
+{
+  "task": "T1_templateTOF",
+  "episode": {
+    "model": "google/gemini-3.6-flash",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 38,
+    "hit_turn_cap": false,
+    "empty_responses": 1,
+    "cost_usd": null,
+    "duration_s": 109.0,
+    "usage": {
+      "prompt_tokens": 402943,
+      "completion_tokens": 5861
+    },
+    "mcp_calls": {
+      "describe_component": 5,
+      "list_examples": 1,
+      "create_instrument": 1,
+      "add_parameter": 14,
+      "add_declare": 15,
+      "add_component": 15,
+      "get_instrument": 4,
+      "validate_instrument": 2,
+      "run_simulation": 3,
+      "export_instr_file": 1,
+      "set_parameters": 1
+    },
+    "skill_used": true,
+    "final_answer": "An internal API bug within the backend Python-to-McStas template renderer prevents compiling instruments with `string` declared variables (specifically when generating string array formatting specifications for `DECLARE` blocks).\n\n### Instrument Construction Summary\n\nThe requested Time-of-Flight (TOF) spectrometer was assembled in full according to specification:\n\n1. **Parameters & Initialization Variables**:\n   - Instrument parameters: `E0=4.94`, `dE=0.24`, `dt=6.4e-6`, `coh=\"Rb_liq_coh.sqw\"`, `inc=\"Rb_liq_inc.sqw\"`, `thickness=0.0001`, `yheight=0.0168`, `radius=0.005`, `container=\"Nb.laz\"`, `container_thickness=5e-5`, `environment=\"Al.laz\"`, `environment_radius=0.025`, `environment_thickness=0.002`, `dt0=0`.\n   - Declared variables: `op`, `flag_single`, `flag_multi`, `flag_env`, `flag_container`, `_dt0`, `vi`, `ki`, `t0`, `lambda`.\n\n2. **Component Beamline Hierarchy**:\n   - `a1`: `Progress_bar(percent=5)`\n   - `csource`: `Source_gen(radius=0.02, dist=2.88, focus_xw=2*radius, focus_yh=yheight, E0=E0, dE=dE/2, I1=1, T1=300.0)`\n   - `SampleIn`: `Arm` at `z = 2.88` relative to `a1`\n   - `Environment_in`: `Isotropic_Sqw` container (outer/inward)\n   - `Container_in`: `Isotropic_Sqw` sample holder (outer/inward)\n   - `Sample_in`: `Isotropic_Sqw` target sample\n   - `Container_out`: `Isotropic_Sqw` sample holder (outward)\n   - `Environment_out`: `Isotropic_Sqw` environment container (outward)\n   - `SampleOut`: `Arm` position marker\n   - `M_total`: 2D `Monitor_nD` (banana/PSD geometry options dynamically formatted in C `INITIALIZE`)\n   - `M_single_coh`: 2D `Monitor_nD` conditional on `flag_single == 1`\n   - `M_single_inc`: 2D `Monitor_nD` conditional on `flag_single == 2`\n   - `M_multi`: 2D `Monitor_nD` conditional on `flag_multi`\n   - `M_env_container`: 2D `Monitor_nD` conditional on `flag_env || flag_container`\n\nDue to the environment error (`Unknown format code 'd' for object of type 'float'`), execution could not complete to retrieve numerical monitor counts."
+  },
+  "grade": {
+    "task": "T1_templateTOF",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "candidate failed to run (translate)"
+    ],
+    "diagnostics": [
+      "ERROR: syntax error at line 69.",
+      "mcstas: 1 Errors encountered during parse of /Users/ldq/Work/NeutronGym/runs/m6/T1_templateTOF__main__google_gemini_3_6_flash/home/instruments/tof_spectrometer/tof_spectrometer.instr.",
+      "INFO: call to /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas failed with Command '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas -t -o ./tof_spectrometer.c /Users/ldq/Work/NeutronGym/runs/m6/T1_templateTOF__main__google_gemini_3_6_flash/home/instruments/tof_spectrometer/tof_spectrometer.instr' returned non-zero exit status 1.",
+      "ERROR: Code generation failed for instrument /Users/ldq/Work/NeutronGym/runs/m6/T1_templateTOF__main__google_gemini_3_6_flash/home/instruments/tof_spectrometer/tof_spectrometer.instr using code generator /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas"
+    ],
+    "checks": [],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_templateTOF__main__google_gemini_3_6_flash/home/instruments/tof_spectrometer/tof_spectrometer.instr",
+    "candidate_params": {
+      "E0": 4.94,
+      "dE": 0.24,
+      "dt": 6.4e-06,
+      "coh": "Rb_liq_coh.sqw",
+      "inc": "Rb_liq_inc.sqw",
+      "thickness": 0.0001,
+      "yheight": 0.0168,
+      "radius": 0.005,
+      "container": "Nb.laz",
+      "container_thickness": 5e-05,
+      "environment": "Al.laz",
+      "environment_radius": 0.025,
+      "environment_thickness": 0.002,
+      "dt0": 0.0
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": [
+      {
+        "tool": "list_examples",
+        "kind": "example_tool",
+        "target": "TOF",
+        "refused": true
+      }
+    ]
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_templateTOF__main__google_gemini_3_6_flash/artifacts/tof_spectrometer.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_templateTOF__main__google_gemini_3_6_flash/artifacts/params.json",
+    "diagram": null,
+    "trace": null,
+    "errors": [
+      "diagram: McStasScript reader failed (known limitation)",
+      "trace: mcdisplay-webgl failed"
+    ]
+  }
+}

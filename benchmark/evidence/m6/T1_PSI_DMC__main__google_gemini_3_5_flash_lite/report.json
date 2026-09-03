@@ -1,0 +1,46 @@
+{
+  "task": "T1_PSI_DMC",
+  "episode": {
+    "model": "google/gemini-3.5-flash-lite",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 44,
+    "hit_turn_cap": false,
+    "empty_responses": 3,
+    "cost_usd": null,
+    "duration_s": 77.2,
+    "usage": {
+      "prompt_tokens": 549089,
+      "completion_tokens": 6613
+    },
+    "mcp_calls": {
+      "create_instrument": 1,
+      "add_parameter": 10,
+      "add_declare": 23,
+      "list_components": 1,
+      "describe_component": 12,
+      "add_component": 33
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_PSI_DMC",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": null
+}

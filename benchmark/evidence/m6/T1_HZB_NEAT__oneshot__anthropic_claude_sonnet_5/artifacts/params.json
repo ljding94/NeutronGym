@@ -1,0 +1,9 @@
+{
+  "coh": "\"Rb_liq_coh.sqw\"",
+  "dlambda": "0.05",
+  "inc": "\"Rb_liq_inc.sqw\"",
+  "lambda": "6",
+  "rpm": "10000",
+  "tmax": "0.01826",
+  "tmin": "0.01806"
+}

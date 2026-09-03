@@ -1,0 +1,146 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: D11_SANS_v2
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 10:36:11 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* Lambda: [unit] Angstrom
+* Config: [unit] 
+* Lc: [unit] m
+* iLc: [unit] 
+* Chamfers: [unit] m
+* Waviness: [unit] rad
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT D11_SANS_v2 (
+Lambda = 4.51, // Angstrom
+string Config = "Borkron_1972", 
+Lc = 0.0, // m
+iLc = 5.0, 
+Chamfers = 0.0002, // m
+Waviness = 2.5e-05 // rad
+)
+
+DECLARE 
+%{
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated D11_SANS_v2
+%}
+
+TRACE 
+COMPONENT Source = Source_gen(
+ dist = 2.33, focus_xw = 0.038,
+ focus_yh = 0.2, I1 = 12400000000000.0,
+ yheight = 0.22, xwidth = 0.1,
+ verbose = 1, T1 = 216.8,
+ Lmin = 4.07, Lmax = 4.95,
+ T2 = 33.9, I2 = 10200000000000.0,
+ T3 = 16.7, I3 = 3042300000000.0,
+ zdepth = 0.1)
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT PSD_Sample = Monitor_nD(
+ xwidth = 0.03, yheight = 0.05,
+ options = "x y")
+AT (0.0, 0.0, 100.0) RELATIVE Source
+
+COMPONENT Guide1 = Guide_gravity(
+ w1 = 0.038, h1 = 0.2,
+ w2 = 0.032, h2 = 0.2,
+ l = 3.17, R0 = 0.995,
+ Qc = 0.0218, alpha = 4.07,
+ m = 1, W = 0.00333)
+AT (0.0, 0.0, 2.33) RELATIVE Source
+
+COMPONENT Mon_Guide1 = Monitor_nD(
+ xwidth = 0.032, yheight = 0.2,
+ options = "x y")
+AT (0.0, 0.0, 3.5) RELATIVE Source
+
+COMPONENT Guide2 = Guide_gravity(
+ w1 = 0.03, h1 = 0.2,
+ w2 = 0.03, h2 = 0.2,
+ l = 22.284, R0 = 0.995,
+ Qc = 0.0218, alpha = 4.07,
+ m = 1, W = 0.00333)
+AT (0.0, 0.0, 25.0) RELATIVE Source
+
+COMPONENT Mon_Guide2 = Monitor_nD(
+ xwidth = 0.03, yheight = 0.2,
+ options = "x y")
+AT (0.0, 0.0, 47.5) RELATIVE Source
+
+COMPONENT Guide3 = Guide_gravity(
+ w1 = 0.03, h1 = 0.2,
+ w2 = 0.03, h2 = 0.2,
+ l = 5.4, R0 = 0.995,
+ Qc = 0.0218, alpha = 4.07,
+ m = 1, W = 0.00333)
+AT (0.0, 0.0, 52.9) RELATIVE Source
+
+COMPONENT Mon_Guide3 = Monitor_nD(
+ xwidth = 0.03, yheight = 0.2,
+ options = "x y")
+AT (0.0, 0.0, 58.5) RELATIVE Source
+
+COMPONENT Selector = V_selector(
+ xwidth = 0.03, yheight = 0.05,
+ zdepth = 0.3, radius = 0.12,
+ alpha = 48.298, length = 0.25,
+ d = 0.0004, nu = 1000,
+ nslit = 72)
+AT (0.0, 0.0, 60.0) RELATIVE Source
+
+COMPONENT Mon_Selector = Monitor_nD(
+ xwidth = 0.03, yheight = 0.05,
+ options = "x y")
+AT (0.0, 0.0, 60.5) RELATIVE Source
+
+COMPONENT Collimator = Guide_gravity(
+ w1 = 0.03, h1 = 0.05,
+ w2 = 0.03, h2 = 0.05,
+ l = 8, R0 = 0.995,
+ Qc = 0.0218, alpha = 4.07,
+ m = 0.65, W = 0.00333)
+AT (0.0, 0.0, 61.0) RELATIVE Source
+
+COMPONENT SampleMonitor = Monitor_nD(
+ xwidth = 0.03, yheight = 0.05,
+ options = "x y, per cm2")
+AT (0.0, 0.0, 69.0) RELATIVE Source
+
+FINALLY 
+%{
+// Start of finally for generated D11_SANS_v2
+%}
+
+END

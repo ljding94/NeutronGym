@@ -1,0 +1,99 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: D2B
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 12:27:19 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* lambda: [unit] Angs
+* DM: [unit] 
+* Powder: [unit] 
+* RV: [unit] 
+* L1: [unit] 
+* L2: [unit] 
+* L3: [unit] 
+* verbose: [unit] 
+* ALPHA1: [unit] 
+* ALPHA2: [unit] 
+* ALPHA3: [unit] 
+* ETA: [unit] 
+* THETA_M: [unit] 
+* TILT: [unit] 
+* SM: [unit] 
+* Dheight: [unit] 
+* coating: [unit] 
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT D2B (
+lambda = 1.594, // Angs
+DM = 0, 
+string Powder = "Na2Ca3Al2F14.laz", 
+RV = -1, 
+L1 = 16.05, 
+L2 = 2.645, 
+L3 = 1.3, 
+verbose = 1, 
+ALPHA1 = 18, 
+ALPHA2 = 11, 
+ALPHA3 = 5, 
+ETA = 12, 
+THETA_M = 67.5, 
+TILT = 0, 
+SM = 1, 
+Dheight = 0.3, 
+coating = 0 
+)
+
+DECLARE 
+%{
+double L;
+double KI;
+double Vi;
+double EI;
+double U;
+double V;
+double W;
+double L0;
+string lamopts[128];
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated D2B
+%}
+
+TRACE 
+COMPONENT Origin = Progress_bar()
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+FINALLY 
+%{
+// Start of finally for generated D2B
+%}
+
+END

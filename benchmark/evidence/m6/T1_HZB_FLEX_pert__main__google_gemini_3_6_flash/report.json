@@ -1,0 +1,44 @@
+{
+  "task": "T1_HZB_FLEX_pert",
+  "episode": {
+    "model": "google/gemini-3.6-flash",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 50,
+    "hit_turn_cap": true,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 65.1,
+    "usage": {
+      "prompt_tokens": 639703,
+      "completion_tokens": 1963
+    },
+    "mcp_calls": {
+      "describe_component": 15,
+      "create_instrument": 1,
+      "add_parameter": 10,
+      "add_declare": 24
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_HZB_FLEX_pert",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": null
+}

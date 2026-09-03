@@ -1,0 +1,4 @@
+{"type": "system", "subtype": "init", "model": "anthropic/claude-sonnet-5", "scaffold": "plain-llm-oneshot", "config": {"temperature": 0.0, "skill": true}}
+{"type": "assistant", "message": {"content": [{"type": "text", "text": ""}]}, "provider": "Google"}
+{"type": "assistant", "message": {"content": [{"type": "text", "text": ""}]}, "provider": "Google"}
+{"type": "result", "result": "", "num_turns": 1, "usage": {"prompt_tokens": 4489, "completion_tokens": 64000}, "duration_ms": 758256, "total_cost_usd": null}

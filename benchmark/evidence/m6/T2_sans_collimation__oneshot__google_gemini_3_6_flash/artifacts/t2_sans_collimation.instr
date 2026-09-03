@@ -1,0 +1,66 @@
+DEFINE INSTRUMENT t2_sans_collimation(
+  r_pin1 = 0.0058,
+  r_pin2 = 0.0058
+)
+
+DECLARE
+%{
+%}
+
+INITIALIZE
+%{
+%}
+
+MCPLIB
+
+TRACE
+
+COMPONENT origin = Progress_bar()
+AT (0, 0, 0) ABSOLUTE
+
+COMPONENT source = Source_simple(
+  radius = 0.04,
+  dist = 3.0,
+  focus_r = r_pin1,
+  lambda0 = 6.0,
+  dlambda = 0.05
+)
+AT (0, 0, 0) RELATIVE origin
+
+COMPONENT pin1 = Circular_mask(
+  radius = r_pin1
+)
+AT (0, 0, 3.0) RELATIVE origin
+
+COMPONENT pin2 = Circular_mask(
+  radius = r_pin2
+)
+AT (0, 0, 6.0) RELATIVE origin
+
+COMPONENT sample = Sans_spheres(
+  R = 200,
+  p_inter = 0.0,
+  phi = 0.01,
+  delta_rho = 3.0,
+  sigma_abs = 0.5,
+  xwidth = 2*r_pin2,
+  yheight = 2*r_pin2,
+  zdepth = 0.002
+)
+AT (0, 0, 6.001) RELATIVE origin
+
+COMPONENT beamstop = Beamstop(
+  radius = 0.020
+)
+AT (0, 0, 8.99) RELATIVE origin
+
+COMPONENT detector = PSD_monitor(
+  filename = "detector.dat",
+  xwidth = 0.6,
+  yheight = 0.6,
+  nx = 128,
+  ny = 128
+)
+AT (0, 0, 9.0) RELATIVE origin
+
+END

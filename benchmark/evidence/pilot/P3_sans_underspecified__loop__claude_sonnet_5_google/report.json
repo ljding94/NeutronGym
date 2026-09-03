@@ -1,0 +1,106 @@
+{
+  "task": "P3_sans_underspecified",
+  "episode": {
+    "model": "anthropic/claude-sonnet-5",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 40,
+    "hit_turn_cap": true,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 579.4,
+    "usage": {
+      "prompt_tokens": 1258200,
+      "completion_tokens": 44980
+    },
+    "mcp_calls": {
+      "list_components": 9,
+      "list_examples": 1,
+      "describe_component": 9,
+      "create_instrument": 1,
+      "add_parameter": 7,
+      "add_component": 10,
+      "set_parameters": 2,
+      "validate_instrument": 1,
+      "run_simulation": 4,
+      "get_instrument": 2,
+      "job_status": 9,
+      "get_monitor_data": 3,
+      "get_results": 1,
+      "get_example": 1
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "P3_sans_underspecified",
+    "pass": true,
+    "score": 1.0,
+    "checks_passed": "2/2",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "wavelength",
+        "observable": "center_of_mass",
+        "reference": 6.000276,
+        "candidate": 6.000004,
+        "pass": true,
+        "delta": -0.0002720000000007161,
+        "allowed": 0.12000552
+      },
+      {
+        "role": "wavelength",
+        "observable": "fwhm",
+        "reference": 0.099827,
+        "candidate": 0.099936,
+        "pass": true,
+        "delta": 0.00010899999999999799,
+        "allowed": 0.0499135
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/pilot/P3_sans_underspecified__loop__claude_sonnet_5_google/home/instruments/pinhole_sans/pinhole_sans.instr",
+    "candidate_params": {
+      "lambda0": "6.0",
+      "dlambda": "0.05",
+      "L1": "3.0",
+      "L2": "3.0",
+      "R1": "0.01",
+      "R2": "0.005",
+      "Rbs": "0.025"
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": [
+      {
+        "tool": "list_examples",
+        "kind": "example_tool",
+        "target": "SANS",
+        "refused": true
+      },
+      {
+        "tool": "get_example",
+        "kind": "example_tool",
+        "target": "SANS_test",
+        "refused": true
+      }
+    ]
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/pilot/P3_sans_underspecified__loop__claude_sonnet_5_google/artifacts/pinhole_sans.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/pilot/P3_sans_underspecified__loop__claude_sonnet_5_google/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/pilot/P3_sans_underspecified__loop__claude_sonnet_5_google/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/pilot/P3_sans_underspecified__loop__claude_sonnet_5_google/artifacts/trace",
+    "errors": []
+  }
+}

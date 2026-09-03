@@ -1,0 +1,53 @@
+DEFINE INSTRUMENT t2_guide_divergence(
+  double w_in = 0.02,
+  double w_out = 0.02,
+  double m_coat = 3.0
+)
+
+DECLARE
+%{
+%}
+
+INITIALIZE
+%{
+%}
+
+TRACE
+
+COMPONENT origin = Progress_bar()
+AT (0, 0, 0) ABSOLUTE
+
+COMPONENT source = Source_simple(
+    xwidth = 0.1,
+    yheight = 0.1,
+    dist = 1.5,
+    focus_xw = w_in,
+    focus_yh = w_in,
+    lambda0 = 5.0,
+    dlambda = 0.5
+)
+AT (0, 0, 0) RELATIVE origin
+
+COMPONENT guide = Guide_gravity(
+    w1 = w_in,
+    h1 = w_in,
+    w2 = w_out,
+    h2 = w_out,
+    l = 10.0,
+    m = m_coat
+)
+AT (0, 0, 1.5) RELATIVE origin
+
+COMPONENT divmon = Divergence_monitor(
+    nh = 100,
+    nv = 100,
+    filename = "divmon.dat",
+    xwidth = 0.02,
+    yheight = 0.02,
+    maxhdiv = 0.5,
+    maxvdiv = 0.5,
+    restore_neutron = 1
+)
+AT (0, 0, 11.55) RELATIVE origin
+
+END

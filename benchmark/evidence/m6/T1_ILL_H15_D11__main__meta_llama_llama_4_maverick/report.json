@@ -1,0 +1,37 @@
+{
+  "task": "T1_ILL_H15_D11",
+  "episode": {
+    "model": "meta-llama/llama-4-maverick",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [],
+    "returncode": 1,
+    "error": "chat completion failed after 3 tries: HTTP 429: {\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"meta-llama/llama-4-maverick is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\",\"provider_name\":\"Google\",\"is_byok\":fals",
+    "turns": 1,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 9.6,
+    "usage": {
+      "prompt_tokens": 0,
+      "completion_tokens": 0
+    },
+    "mcp_calls": {},
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_ILL_H15_D11",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": null
+}

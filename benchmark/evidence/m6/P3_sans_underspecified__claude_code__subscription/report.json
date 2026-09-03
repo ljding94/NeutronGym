@@ -1,0 +1,87 @@
+{
+  "task": "P3_sans_underspecified",
+  "episode": {
+    "model": "claude-opus-5[1m]",
+    "returncode": 0,
+    "turns": 47,
+    "cost_usd": 2.878358,
+    "duration_s": 530.2,
+    "mcp_calls": {
+      "mcp__mcstas__list_examples": 1,
+      "mcp__mcstas__describe_component": 6,
+      "mcp__mcstas__create_instrument": 1,
+      "mcp__mcstas__add_parameter": 8,
+      "mcp__mcstas__add_component": 10,
+      "mcp__mcstas__validate_instrument": 1,
+      "mcp__mcstas__run_simulation": 3,
+      "mcp__mcstas__get_monitor_data": 4,
+      "mcp__mcstas__set_parameters": 1,
+      "mcp__mcstas__job_status": 1,
+      "mcp__mcstas__get_results": 1,
+      "mcp__mcstas__export_instr_file": 1
+    },
+    "skill_used": true,
+    "final_answer": "Done. Instrument at `pinhole_sans.instr`; production run `pinhole_sans_20260825_164037_14321_4`.\n\n## Answer: detector intensity\n\n**I = 0.177702 \u00b1 0.000082 n/s** (rel. err **0.046%**), 77,921,700 events, ncount = 1\u00d710\u2078, seed = 20260825, gravity on. No monitor flagged `low_statistics`.\n\nThat is the scattered signal on the 60\u00d760 cm PSD with the beamstop in place. Supporting chain, same run:\n\n| monitor | I [n/s] | err | events | rel_err |\n|---|---|---|---|---|\n| `psd_src` (entrance aperture) | 351.399 | 0.035 | 1.0e8 | 0.01% |\n| `psd_sample` (at sample) | 275.522 | 0.031 | 7.84e7 | 0.01% |\n| `psd_nobs` (pre-beamstop) | 0.300586 | 0.00057 | 7.84e7 | 0.19% |\n| **`detector`** | **0.177702** | **0.000082** | 7.79e7 | 0.05% |\n| `lmon_det` (behind detector) | 0.177695 | 0.000082 | 7.74e7 | 0.05% |\n\nFlux at the sample = 275.522 / (\u03c0\u00b70.5\u00b2 cm\u00b2) = **350.8 n/s/cm\u00b2**. The beamstop removes 40.9% of the scattered intensity (the Q < 0.0089 \u00c5\u207b\u00b9 core). Cross-checked against the 1\u00d710\u2076 run: 0.177272 \u00b1 0.000816, i.e. 0.53\u03c3 apart.\n\n## Collimation choices\n\n| | value | why |\n|---|---|---|\n| L\u2081 (entrance\u2192sample) | **3.0 m** | matched to the fixed L\u2082 = 3.0 m; L\u2081 = L\u2082 minimizes \u0394Q at given flux |\n| d\u2081 entrance aperture | **20 mm dia**, circular | the d\u2081 = 2d\u2082 optimum (below) |\n| d\u2082 sample aperture | **10 mm dia**, circular | fills the 1\u00d71 cm sample without spilling past its edge |\n| aperture\u2192sample gap | 10 mm | beam grows 0.07 mm across it \u2014 negligible |\n| beamstop | **25 mm radius**, circular, 2.95 m from sample | direct beam is 40 mm dia; ~5 mm radial margin |\n\nThe d\u2081 = 2d\u2082 rule is derivable, not a guess: I \u221d d\u2081\u00b2d\u2082\u00b2, and for L\u2081 = L\u2082 the geometric resolution is \u03c3_r\u00b2 = (d\u2081\u00b2 + 4d\u2082\u00b2)/16. Maximizing d\u2081\u00b2d\u2082\u00b2 at fixed \u03c3_r gives d\u2081\u00b2 = 4d\u2082\u00b2.\n\nResulting performance: \u03c3_Q \u2248 2.5\u00d710\u207b\u00b3 \u00c5\u207b\u00b9, **Q = 0.0089 \u2192 0.104 \u00c5\u207b\u00b9** (0.147 in the corners). For R = 100 \u00c5 that spans QR_g = 0.69 at the beamstop through three form-factor minima \u2014 5.6% \u0394Q/Q at the first minimum, so it is resolved rather than smeared out.\n\n## Verification\n\nFour independent checks, all passing:\n\n- **Source normalization, analytic:** 1e8 \u00d7 \u03c0(1 cm)\u00b2 \u00d7 (0.01\u00d70.01/2.99\u00b2) sr \u00d7 0.1 \u00c5 = 351.4 n/s vs 351.399 measured.\n- **Aperture transmission:** 275.522/351.399 = 0.784 = \u03c0/4 exactly (circle inscribed in the focus square). Beam rms at the sample dX = 0.2506 cm vs 0.25 cm for a uniform 10 mm disc.\n- **Direct-beam footprint:** shrinking the sample to a point exposed the unscattered beam \u2014 40 mm dia at the detector plane, vs 39.7 mm predicted from the two apertures.\n- **Sample physics:** form-factor minima land at 13 / 22 / 31 cm vs 12.9 / 22.1 / 31.2 cm predicted. Detector pattern symmetric to 0.004% (dX 5.21098, dY 5.2112). Gravity centroid Y\u2080 = \u22120.28 mm vs \u22120.31 mm predicted.\n- **Wavelength band behind the detector:** flat, non-zero only over 5.945\u20136.055 \u00c5; CoM 6.000311 \u00c5, FWHM 0.099815 \u00c5.\n\n## Assumptions\n\n**Load-bearing \u2014 the absolute number depends on these:**\n\n1. **Source brilliance 1\u00d710\u2078 n/s/cm\u00b2/st/\u00c5**, flat over the band. Nothing in the spec constrains it. **Every absolute rate above scales linearly with this** \u2014 at a real cold-source brilliance of 10\u00b9\u00b2\u201310\u00b9\u00b3 the detector rate becomes 1.8\u00d710\u00b3\u20131.8\u00d710\u2074 n/s. Treat 0.178 n/s as meaningful only relative to this choice.\n2. **R = 100 \u00c5 is the sphere radius, not diameter.** The spec says \"100 Angstrom spheres\". Ring positions confirm radius \u2014 diameter would put the first minimum at 25.7 cm, not 13 cm.\n3. **Contrast unit is fm/\u00c5\u00b3, not fm/\u00c5\u00b2.** The spec's \"0.6 fm/Angstrom^2\" is dimensionally not an SLD. I used 0.6 fm/\u00c5\u00b3 = 6\u00d710\u207b\u2076 \u00c5\u207b\u00b2, a standard contrast, which is also what `Sans_spheres` expects. Likely a typo in the spec.\n4. **Upstream beamline abstracted away.** No guide or velocity selector is modelled; the entrance aperture *is* the source, emitting the specified band uniformly. A real 6.0 \u00b1 0.05 \u00c5 band (\u0394\u03bb/\u03bb = 1.7%) needs a monochromator or a very high-resolution selector, not a standard ~10% SANS selector \u2014 that upstream cost is not captured here.\n\n**Secondary:**\n\n5. `sigma_abs` = 0.05 m\u207b\u00b9 (McStas default); spec silent on absorption.\n6. Detector 120\u00d7120 pixels (5 mm), ideal \u2014 100% efficiency, no dead time, no background.\n7. Evacuated flight path; no air scattering, sample container, solvent incoherent background, or multiple scattering.\n8. Beamstop 5 cm in front of the detector; circular.\n9. Gravity enabled (\u03bb = 6 \u00c5 > 5 \u00c5 per the checklist), though its 0.4 mm effect is negligible here.\n\n**Two caveats worth flagging:**\n\n- `Sans_spheres` forces a scattering event on every ray and weights by the scattering probability \u2014 it does **not** model the transmitted beam. So the beamstop here only cuts the small-angle scattering that defines Q_min; it is not stopping a direct beam, and a real experiment would need the sample transmission measured separately to put I(Q) on absolute scale.\n- The wavelength monitor behind the detector required `restore_neutron=1` on the detector so rays pass through it. It is a diagnostic; a real detector absorbs, so these two devices could not coexist as modelled."
+  },
+  "grade": {
+    "task": "P3_sans_underspecified",
+    "pass": true,
+    "score": 1.0,
+    "checks_passed": "2/2",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "wavelength",
+        "observable": "center_of_mass",
+        "reference": 6.000276,
+        "candidate": 6.000224,
+        "pass": true,
+        "delta": -5.200000000016303e-05,
+        "allowed": 0.12000552
+      },
+      {
+        "role": "wavelength",
+        "observable": "fwhm",
+        "reference": 0.099827,
+        "candidate": 0.099604,
+        "pass": true,
+        "delta": -0.00022300000000000098,
+        "allowed": 0.0499135
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/P3_sans_underspecified__claude_code__subscription/home/instruments/pinhole_sans/pinhole_sans.instr",
+    "candidate_params": {
+      "Lambda": 6.0,
+      "dLambda": 0.05,
+      "R1": 0.01,
+      "R2": 0.005,
+      "L1": 3.0,
+      "Rbs": 0.025,
+      "Flux": 100000000.0,
+      "Sw": 0.01
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": [
+      {
+        "tool": "mcp__mcstas__list_examples",
+        "kind": "example_tool",
+        "target": "SANS",
+        "refused": true
+      }
+    ]
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/P3_sans_underspecified__claude_code__subscription/artifacts/pinhole_sans.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/P3_sans_underspecified__claude_code__subscription/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/P3_sans_underspecified__claude_code__subscription/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/P3_sans_underspecified__claude_code__subscription/artifacts/trace",
+    "errors": []
+  }
+}

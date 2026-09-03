@@ -1,0 +1,81 @@
+{
+  "task": "T1_RTP_DIF",
+  "episode": {
+    "model": "anthropic/claude-haiku-4.5",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 50,
+    "hit_turn_cap": true,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 174.4,
+    "usage": {
+      "prompt_tokens": 1807843,
+      "completion_tokens": 23094
+    },
+    "mcp_calls": {
+      "create_instrument": 4,
+      "add_parameter": 20,
+      "add_declare": 9,
+      "describe_component": 8,
+      "add_component": 68,
+      "validate_instrument": 18,
+      "get_instrument": 3,
+      "export_instr_file": 2,
+      "remove_component": 41,
+      "set_parameters": 3,
+      "list_examples": 1
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_RTP_DIF",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "candidate failed to run (translate)"
+    ],
+    "diagnostics": [
+      "ERROR: syntax error at line 50.",
+      "mcstas: 1 Errors encountered during parse of /Users/ldq/Work/NeutronGym/runs/m6/T1_RTP_DIF__main__anthropic_claude_haiku_4_5/home/instruments/test_minimal/test_minimal.instr.",
+      "INFO: call to /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas failed with Command '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas -t -o ./test_minimal.c /Users/ldq/Work/NeutronGym/runs/m6/T1_RTP_DIF__main__anthropic_claude_haiku_4_5/home/instruments/test_minimal/test_minimal.instr' returned non-zero exit status 1.",
+      "ERROR: Code generation failed for instrument /Users/ldq/Work/NeutronGym/runs/m6/T1_RTP_DIF__main__anthropic_claude_haiku_4_5/home/instruments/test_minimal/test_minimal.instr using code generator /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas"
+    ],
+    "checks": [],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_RTP_DIF__main__anthropic_claude_haiku_4_5/home/instruments/test_minimal/test_minimal.instr",
+    "candidate_params": {
+      "lambda": 2.36,
+      "DM": 3.355,
+      "Mono_tilt": 0.0,
+      "powder": "Na2Ca3Al2F14.laz",
+      "det_rotation": 45.0
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": [
+      {
+        "tool": "list_examples",
+        "kind": "example_tool",
+        "target": "powder diffract",
+        "refused": true
+      }
+    ]
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_RTP_DIF__main__anthropic_claude_haiku_4_5/artifacts/test_minimal.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_RTP_DIF__main__anthropic_claude_haiku_4_5/artifacts/params.json",
+    "diagram": null,
+    "trace": null,
+    "errors": [
+      "diagram: McStasScript reader failed (known limitation)",
+      "trace: mcdisplay-webgl failed"
+    ]
+  }
+}

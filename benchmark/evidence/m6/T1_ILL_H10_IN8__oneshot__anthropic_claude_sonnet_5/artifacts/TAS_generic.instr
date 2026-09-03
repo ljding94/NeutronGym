@@ -1,0 +1,219 @@
+```c
+/*******************************************************************************
+* Triple-Axis Spectrometer (generic), rebuilt from specification.
+*
+* Beam order: Progress_bar -> Source_gen -> [SC1] -> Guide_out ->
+*             Monochromator (curved, focusing) -> [SC2] -> Sample
+*             (Single_crystal, e.g. V.lau standard) -> [SC3] ->
+*             Analyzer (curved, focusing) -> [SC4] -> Detector
+*             (PSD + wavelength + energy monitors)
+*
+* Kinematics (KI, KF, EN, QM) and monochromator/analyzer take-off angles
+* (A1..A6) are computed at INITIALIZE time and stored in the "machine_hkl"
+* and "machine_real" structures, exactly as referenced by the given
+* Source_gen / Collimator_linear parameter expressions.
+*******************************************************************************/
+
+DEFINE INSTRUMENT TAS_generic(
+  KF=5, KI=0, QM=0.5, EN=0, int verbose=1,
+  WM=0.233, HM=0.197, RMH=-1, RMV=-1, DM=1.807, int NHM=15, int NVM=15,
+  WA=0.16, HA=0.08, RAH=-1, RAV=-1, DA=2.087, int NHA=15, int NVA=15,
+  L1=2.3, ALF1=60, ALF2=60, ALF3=60, ALF4=60,
+  BET1=120, BET2=120, BET3=120, BET4=120,
+  string Sqw_coh="V.lau", L2=1.5, L3=1.0, L4=0.7)
+
+DECLARE
+%{
+  struct {
+    double l1, l2, l3, l4;
+    double ki, kf, ei, ef;
+    double q;
+  } machine_hkl;
+
+  struct {
+    double a1, a2, a3, a4, a5, a6;
+    double rmh, rmv, rah, rav;
+  } machine_real;
+%}
+
+INITIALIZE
+%{
+  const double K2E = 2.072142; /* meV Angs^2 : E = K2E * k^2 */
+  double ki_loc, kf_loc, ei_loc, ef_loc;
+  double lambda_i, lambda_f;
+  double a1,a2,a3,a4,a5,a6;
+  double f_mono, f_ana;
+  double rmh_use, rmv_use, rah_use, rav_use;
+  double cosA4;
+  int SM = 1, SS = -1, SA = 1; /* sense of rotation, W-type geometry */
+
+  /* --- resolve KI/KF/EN --- */
+  if (KI <= 0 && KF > 0) {
+    kf_loc = KF;
+    ef_loc = K2E*kf_loc*kf_loc;
+    ei_loc = ef_loc + EN;
+    if (ei_loc <= 0) ei_loc = ef_loc;
+    ki_loc = sqrt(ei_loc/K2E);
+  } else if (KF <= 0 && KI > 0) {
+    ki_loc = KI;
+    ei_loc = K2E*ki_loc*ki_loc;
+    ef_loc = ei_loc - EN;
+    if (ef_loc <= 0) ef_loc = ei_loc;
+    kf_loc = sqrt(ef_loc/K2E);
+  } else if (KI > 0 && KF > 0) {
+    ki_loc = KI; kf_loc = KF;
+    ei_loc = K2E*ki_loc*ki_loc;
+    ef_loc = K2E*kf_loc*kf_loc;
+  } else {
+    /* fallback */
+    ki_loc = kf_loc = 2.662;
+    ei_loc = ef_loc = K2E*ki_loc*ki_loc;
+  }
+
+  lambda_i = 2*PI/ki_loc;
+  lambda_f = 2*PI/kf_loc;
+
+  /* --- monochromator / analyzer Bragg angles --- */
+  a1 = asin(lambda_i/(2*DM)) * RAD2DEG;
+  a2 = 2*a1*SM;
+  a5 = asin(lambda_f/(2*DA)) * RAD2DEG;
+  a6 = 2*a5*SA;
+
+  /* --- sample scattering angle from Q, ki, kf (cosine rule) --- */
+  cosA4 = (ki_loc*ki_loc + kf_loc*kf_loc - QM*QM)/(2*ki_loc*kf_loc);
+  if (cosA4 < -1) cosA4 = -1;
+  if (cosA4 >  1) cosA4 =  1;
+  a4 = SS*acos(cosA4)*RAD2DEG;
+  a3 = a4/2.0; /* bisecting sample-table convention */
+
+  /* --- optimal (Rowland-type) curvature radii, if requested (-1) --- */
+  f_mono = (L1*L2)/(L1+L2);
+  f_ana  = (L3*L4)/(L3+L4);
+
+  rmh_use = (RMH == -1) ? 2*f_mono/sin(fabs(a1)*DEG2RAD) : RMH;
+  rmv_use = (RMV == -1) ? 2*f_mono*sin(fabs(a1)*DEG2RAD) : RMV;
+  rah_use = (RAH == -1) ? 2*f_ana /sin(fabs(a5)*DEG2RAD) : RAH;
+  rav_use = (RAV == -1) ? 2*f_ana *sin(fabs(a5)*DEG2RAD) : RAV;
+
+  machine_hkl.l1 = L1;
+  machine_hkl.l2 = L2;
+  machine_hkl.l3 = L3;
+  machine_hkl.l4 = L4;
+  machine_hkl.ki = ki_loc;
+  machine_hkl.kf = kf_loc;
+  machine_hkl.ei = ei_loc;
+  machine_hkl.ef = ef_loc;
+  machine_hkl.q  = QM;
+
+  machine_real.a1 = a1;
+  machine_real.a2 = a2;
+  machine_real.a3 = a3;
+  machine_real.a4 = a4;
+  machine_real.a5 = a5;
+  machine_real.a6 = a6;
+  machine_real.rmh = rmh_use;
+  machine_real.rmv = rmv_use;
+  machine_real.rah = rah_use;
+  machine_real.rav = rav_use;
+
+  if (verbose) {
+    printf("TAS_generic setup:\n");
+    printf("  KI=%.4f KF=%.4f  EI=%.4f EF=%.4f meV  EN=%.4f meV  QM=%.4f Ang-1\n",
+           ki_loc, kf_loc, ei_loc, ef_loc, EN, QM);
+    printf("  A1=%.4f A2=%.4f A3=%.4f A4=%.4f A5=%.4f A6=%.4f deg\n",
+           a1, a2, a3, a4, a5, a6);
+    printf("  RMH=%.4f RMV=%.4f RAH=%.4f RAV=%.4f m\n",
+           rmh_use, rmv_use, rah_use, rav_use);
+  }
+%}
+
+TRACE
+
+COMPONENT Origin = Progress_bar()
+AT (0, 0, 0) ABSOLUTE
+
+COMPONENT Source = Source_gen(
+    radius = 0.10,
+    dist = machine_hkl.l1,
+    focus_xw = fabs(WM*sin(machine_real.a1*DEG2RAD)),
+    focus_yh = HM,
+    E0 = machine_hkl.ei,
+    dE = machine_hkl.ei*0.03,
+    I1 = 0.5874e13, T1 = 683.7,
+    I2 = 2.5099e13, T2 = 257.7,
+    I3 = 1.0343e12, T3 = 16.7)
+AT (0, 0, 0) RELATIVE Origin
+
+COMPONENT PSD_Source = PSD_monitor(
+    xwidth = 0.30, yheight = 0.25, nx = 100, ny = 100,
+    filename = "psd_source.dat", restore_neutron = 1)
+AT (0, 0, 0.05) RELATIVE Source
+
+COMPONENT SC1 = Collimator_linear(
+    xmin = -WM/2, xmax = WM/2, ymin = -HM/2, ymax = HM/2,
+    length = machine_hkl.l1/2, divergence = ALF1, divergenceV = BET1)
+WHEN (ALF1 && BET1)
+AT (0, 0, machine_hkl.l1/4) RELATIVE Origin
+
+COMPONENT Guide_out = Arm()
+AT (0, 0, machine_hkl.l1 - 0.2) RELATIVE Origin
+
+COMPONENT PSD_before_mono = PSD_monitor(
+    xwidth = 0.30, yheight = 0.25, nx = 100, ny = 100,
+    filename = "psd_before_mono.dat", restore_neutron = 1)
+AT (0, 0, 0.1) RELATIVE Guide_out
+
+COMPONENT Mono_Cradle = Arm()
+AT (0, 0, 0.2) RELATIVE Guide_out
+ROTATED (0, machine_real.a1, 0) RELATIVE Guide_out
+
+COMPONENT Mono = Monochromator_curved(
+    width = WM, height = HM, NH = NHM, NV = NVM,
+    RH = machine_real.rmh, RV = machine_real.rmv,
+    DM = DM, mosaich = 30, mosaicv = 30, r0 = 0.7, verbose = verbose)
+AT (0, 0, 0) RELATIVE Mono_Cradle
+
+COMPONENT Mono_Out = Arm()
+AT (0, 0, 0) RELATIVE Mono_Cradle
+ROTATED (0, machine_real.a1, 0) RELATIVE Mono_Cradle
+
+COMPONENT PSD_after_mono = PSD_monitor(
+    xwidth = 0.10, yheight = 0.10, nx = 100, ny = 100,
+    filename = "psd_after_mono.dat", restore_neutron = 1)
+AT (0, 0, 0.3) RELATIVE Mono_Out
+
+COMPONENT Lambda_after_mono = L_monitor(
+    xwidth = 0.10, yheight = 0.10, Lmin = 0.2, Lmax = 6, nL = 200,
+    filename = "lambda_after_mono.dat", restore_neutron = 1)
+AT (0, 0, 0.31) RELATIVE Mono_Out
+
+COMPONENT SC2 = Collimator_linear(
+    xmin = -WM/2, xmax = WM/2, ymin = -HM/2, ymax = HM/2,
+    length = L2/2, divergence = ALF2, divergenceV = BET2)
+WHEN (ALF2 && BET2)
+AT (0, 0, L2/4) RELATIVE Mono_Out
+
+COMPONENT Sample_Cradle = Arm()
+AT (0, 0, L2) RELATIVE Mono_Out
+ROTATED (0, machine_real.a3, 0) RELATIVE Mono_Out
+
+COMPONENT PSD_before_sample = PSD_monitor(
+    xwidth = 0.05, yheight = 0.05, nx = 100, ny = 100,
+    filename = "psd_before_sample.dat", restore_neutron = 1)
+AT (0, 0, -0.05) RELATIVE Sample_Cradle
+
+COMPONENT Sample = Single_crystal(
+    reflections = Sqw_coh,
+    xwidth = 0.010, yheight = 0.020, zdepth = 0.010,
+    delta_d_d = 1e-4, mosaic = 30,
+    ax = 3.0399, ay = 0, az = 0,
+    bx = 0, by = 3.0399, bz = 0,
+    cx = 0, cy = 0, cz = 3.0399)
+AT (0, 0, 0) RELATIVE Sample_Cradle
+
+COMPONENT Sample_Out = Arm()
+AT (0, 0, 0) RELATIVE Sample_Cradle
+ROTATED (0, machine_real.a4, 0) RELATIVE Mono_Out
+
+COMPONENT PSD_after_sample = PSD_monitor(
+    xwidth = 0.20, yheight = 0.20, nx =

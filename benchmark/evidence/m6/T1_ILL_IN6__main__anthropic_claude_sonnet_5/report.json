@@ -1,0 +1,105 @@
+{
+  "task": "T1_ILL_IN6",
+  "episode": {
+    "model": "anthropic/claude-sonnet-5",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 21,
+    "hit_turn_cap": false,
+    "empty_responses": 3,
+    "cost_usd": null,
+    "duration_s": 691.7,
+    "usage": {
+      "prompt_tokens": 607150,
+      "completion_tokens": 59023
+    },
+    "mcp_calls": {
+      "list_examples": 2,
+      "describe_component": 9,
+      "create_instrument": 2,
+      "get_instrument": 11,
+      "add_declare": 5,
+      "get_example": 1,
+      "add_parameter": 18,
+      "remove_component": 1,
+      "export_instr_file": 1,
+      "add_component": 1
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_ILL_IN6",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "candidate failed to run (translate)"
+    ],
+    "diagnostics": [
+      "ERROR: syntax error at line 79.",
+      "mcstas: 1 Errors encountered during parse of /Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_IN6__main__anthropic_claude_sonnet_5/home/instruments/tof_spec/tof_spec.instr.",
+      "INFO: call to /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas failed with Command '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas -t -o ./tof_spec.c /Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_IN6__main__anthropic_claude_sonnet_5/home/instruments/tof_spec/tof_spec.instr' returned non-zero exit status 1.",
+      "ERROR: Code generation failed for instrument /Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_IN6__main__anthropic_claude_sonnet_5/home/instruments/tof_spec/tof_spec.instr using code generator /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas"
+    ],
+    "checks": [],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_IN6__main__anthropic_claude_sonnet_5/home/instruments/tof_spec/tof_spec.instr",
+    "candidate_params": {
+      "lambda": "4.14",
+      "dlambda": "0.075",
+      "SPEED": "-1",
+      "M1": "-1",
+      "M2": "-1",
+      "M3": "-1",
+      "MONITOR": "1",
+      "CHA_WIDTH": "-1",
+      "TOF_DELAY": "-1",
+      "TOF_CHA_RESOL": "128",
+      "ELPEAK": "-1",
+      "RATIO": "1",
+      "mFC": "0",
+      "PHASE": "-360",
+      "Sqw_coh": "Rb_liq_coh.sqw",
+      "Sqw_inc": "Rb_liq_inc.sqw",
+      "radius": "0.01",
+      "thickness": "0.005"
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": [
+      {
+        "tool": "list_examples",
+        "kind": "example_tool",
+        "target": "IN6",
+        "refused": true
+      },
+      {
+        "tool": "list_examples",
+        "kind": "example_tool",
+        "target": "Fermi",
+        "refused": true
+      },
+      {
+        "tool": "get_example",
+        "kind": "example_tool",
+        "target": "ILL_IN6",
+        "refused": true
+      }
+    ]
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_IN6__main__anthropic_claude_sonnet_5/artifacts/tof_spec.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_IN6__main__anthropic_claude_sonnet_5/artifacts/params.json",
+    "diagram": null,
+    "trace": null,
+    "errors": [
+      "diagram: McStasScript reader failed (known limitation)",
+      "trace: mcdisplay-webgl failed"
+    ]
+  }
+}

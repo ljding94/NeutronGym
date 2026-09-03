@@ -1,0 +1,114 @@
+{
+  "task": "T1_ISIS_SANS2d_pert",
+  "episode": {
+    "model": "anthropic/claude-sonnet-5",
+    "scaffold": "plain-llm-oneshot",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 1,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 44.1,
+    "usage": {
+      "prompt_tokens": 5799,
+      "completion_tokens": 5598
+    },
+    "mcp_calls": {},
+    "skill_used": true,
+    "final_answer": "```c\n/*******************************************************************************\n* Instrument: ISIS SANS-style beamline (bender + straight guides) reconstruction\n*\n* %Identification\n* Written for: SANS instrument rebuild from specification\n* Origin: ISIS_moderator source, benders, straight guide, apertures, monitors\n*\n* %Description\n* A SANS beamline: ISIS moderator source, 10-segment curved bender, 4 straight\n* guide sections, collimation apertures, and wavelength/PSD monitors.\n*\n* %Parameters\n* L1: [m]    Distance from aperture1 to APERTURE2\n* A1w: [m]   Aperture1 width\n* A1h: [m]   Aperture1 height\n* S6: [m]    S6 slit radius\n* A2: [m]    APERTURE2 radius\n* Lmin: [Angs] Minimum wavelength emitted by source\n* Lmax: [Angs] Maximum wavelength emitted by source\n*\n* %End\n*******************************************************************************/\n\nDEFINE INSTRUMENT sans_isis(L1=3.926, A1w=0.03, A1h=0.02, S6=0.006, A2=0.006, Lmin=1, Lmax=14)\n\nDECLARE\n%{\n%}\n\nINITIALIZE\n%{\n%}\n\nTRACE\n\nCOMPONENT Origin = Arm()\nAT (0, 0, 0) RELATIVE ABSOLUTE\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT isis_source = ISIS_moderator(\n    Face=\"E2\", Emin=-Lmax, Emax=-Lmin, dist=4.232,\n    focus_xw=0.0365, focus_yh=0.021, xwidth=-1, yheight=-1,\n    CAngle=0.0, SAC=1)\nAT (0.0, 0.0, 0.00001) RELATIVE Origin\nROTATED (0.0, 0.0, 0.0) RELATIVE Origin\n\nCOMPONENT lmon1 = L_monitor(\n    nL=140, filename=\"lmon1.dat\", xmin=-0.04, xmax=0.04,\n    ymin=-0.03, ymax=0.03, Lmin=0.0, Lmax=17.0)\nAT (0.0, 0.0, 3.698) RELATIVE isis_source\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT psd1 = PSD_monitor(\n    nx=100, ny=100, filename=\"psd1.dat\",\n    xmin=-0.05, xmax=0.05, ymin=-0.05, ymax=0.05)\nAT (0.0, 0.0, 3.699) RELATIVE isis_source\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT bender1 = Guide_gravity(\n    w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245,\n    nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0)\nAT (0, 0, 3.7) RELATIVE isis_source\nROTATED (0.0, 0.137099, 0.0) RELATIVE isis_source\n\nCOMPONENT bender2 = Guide_gravity(\n    w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245,\n    nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0)\nAT (0, 0, 0.325) RELATIVE bender1\nROTATED (0.0, 0.1375099, 0.0) RELATIVE bender1\n\nCOMPONENT bender3 = Guide_gravity(\n    w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245,\n    nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0)\nAT (0, 0, 0.325) RELATIVE bender2\nROTATED (0.0, 0.1375099, 0.0) RELATIVE bender2\n\nCOMPONENT bender4 = Guide_gravity(\n    w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245,\n    nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0)\nAT (0, 0, 0.325) RELATIVE bender3\nROTATED (0.0, 0.1375099, 0.0) RELATIVE bender3\n\nCOMPONENT bender5 = Guide_gravity(\n    w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245,\n    nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0)\nAT (0, 0, 0.325) RELATIVE bender4\nROTATED (0.0, 0.1375099, 0.0) RELATIVE bender4\n\nCOMPONENT bender6 = Guide_gravity(\n    w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245,\n    nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0)\nAT (0, 0, 0.325) RELATIVE bender5\nROTATED (0.0, 0.1375099, 0.0) RELATIVE bender5\n\nCOMPONENT bender7 = Guide_gravity(\n    w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245,\n    nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0)\nAT (0, 0, 0.325) RELATIVE bender6\nROTATED (0.0, 0.1375099, 0.0) RELATIVE bender6\n\nCOMPONENT bender8 = Guide_gravity(\n    w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245,\n    nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0)\nAT (0, 0, 0.325) RELATIVE bender7\nROTATED (0.0, 0.1375099, 0.0) RELATIVE bender7\n\nCOMPONENT bender9 = Guide_gravity(\n    w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245,\n    nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0)\nAT (0, 0, 0.325) RELATIVE bender8\nROTATED (0.0, 0.1375099, 0.0) RELATIVE bender8\n\nCOMPONENT bender10 = Guide_gravity(\n    w1=.0355, h1=.020, w2=.0355, h2=.020, l=0.3245,\n    nslit=9, d=.0005, mleft=1, mright=3, mtop=1, mbottom=1, wavy=0)\nAT (0, 0, 0.325) RELATIVE bender9\nROTATED (0.0, 0.1375099, 0.0) RELATIVE bender9\n\nCOMPONENT lmonb = L_monitor(\n    nL=140, filename=\"lmonB.dat\", xmin=-0.018, xmax=0.018,\n    ymin=-0.018, ymax=0.018, Lmin=0.0, Lmax=17.0)\nAT (0.0, 0.0, 0.326) RELATIVE bender10\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT psd2 = PSD_monitor(\n    nx=100, ny=100, filename=\"psd2.dat\",\n    xmin=-0.025, xmax=0.025, ymin=-0.025, ymax=0.025)\nAT (0.0, 0.0, 0.001) RELATIVE lmonb\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT guide_in = Slit(\n    xmin=-0.015, xmax=0.015, ymin=-.01, ymax=+.01)\nAT (0, 0, 0.2845) RELATIVE psd2\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT guide_straight1 = Guide_gravity(\n    w1=.030, h1=.020, w2=.030, h2=.020, l=1.985,\n    mleft=1, mright=1, mtop=1, mbottom=1, wavy=0)\nAT (0, 0, 0.0075) RELATIVE guide_in\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT guide_straight2 = Guide_gravity(\n    w1=.030, h1=.020, w2=.030, h2=.020, l=1.985,\n    mleft=1, mright=1, mtop=1, mbottom=1, wavy=0)\nAT (0, 0, 2.000) RELATIVE guide_straight1\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT guide_straight3 = Guide_gravity(\n    w1=.030, h1=.020, w2=.030, h2=.020, l=1.985,\n    mleft=1, mright=1, mtop=1, mbottom=1, wavy=0)\nAT (0, 0, 2.000) RELATIVE guide_straight2\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT guide_straight4 = Guide_gravity(\n    w1=.030, h1=.020, w2=.030, h2=.020, l=1.985,\n    mleft=1, mright=1, mtop=1, mbottom=1, wavy=0)\nAT (0, 0, 2.000) RELATIVE guide_straight3\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT psd3 = PSD_monitor(\n    nx=100, ny=100, filename=\"psd3.dat\",\n    xmin=-0.030, xmax=0.030, ymin=-0.030, ymax=0.030)\nAT (0.0, 0.0, 7.999) RELATIVE guide_in\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT aperture1 = Slit(xwidth=A1w, yheight=A1h)\nAT (0, 0, 8.000) RELATIVE guide_in\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT lmonitor2 = L_monitor(\n    nL=140, filename=\"lmonitor2.dat\", xmin=-0.0155, xmax=0.0155,\n    ymin=-0.0105, ymax=0.0105, Lmin=0.0, Lmax=17.0)\nAT (0.0, 0.0, 2.651) RELATIVE aperture1\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT S6 = Slit(radius=S6)\nAT (0, 0, 2.800) RELATIVE aperture1\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT APERTURE2 = Slit(radius=A2)\nAT (0, 0, L1) RELATIVE aperture1\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT lmon2 = L_monitor(\n    nL=140, filename=\"lmonitor3.dat\", xmin=-0.0075, xmax=0.0075,\n    ymin=-0.0075, ymax=0.0075, Lmin=0.0, Lmax=17.0)\nAT (0.0, 0.0, 0.285) RELATIVE APERTURE2\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT psd4 = PSD_monitor(\n    nx=100, ny=100, filename=\"psd4.dat\",\n    xmin=-0.0075, xmax=0.0075, ymin=-0.0075, ymax=0.0075)\nAT (0.0, 0.0, 0.286) RELATIVE APERTURE2\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nEND\n```"
+  },
+  "grade": {
+    "task": "T1_ISIS_SANS2d_pert",
+    "pass": true,
+    "score": 1.0,
+    "checks_passed": "6/6",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "2d",
+        "observable": "intensity",
+        "reference": 257527000.0,
+        "candidate": 257527000.0,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 51505400.0
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_x",
+        "reference": 0.969654,
+        "candidate": 0.969654,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.2908962
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_y",
+        "reference": 0.541689,
+        "candidate": 0.541689,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.16250669999999998
+      },
+      {
+        "role": "wavelength",
+        "observable": "intensity",
+        "reference": 257527000.0,
+        "candidate": 257527000.0,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 64381750.0
+      },
+      {
+        "role": "wavelength",
+        "observable": "center_of_mass",
+        "reference": 3.98881,
+        "candidate": 3.98881,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.19944050000000002
+      },
+      {
+        "role": "wavelength",
+        "observable": "fwhm",
+        "reference": 4.043045,
+        "candidate": 4.043045,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 2.0215225
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d_pert__oneshot__anthropic_claude_sonnet_5/home/instruments/sans_isis/sans_isis.instr",
+    "candidate_params": {
+      "L1": "3.926",
+      "A1w": "0.03",
+      "A1h": "0.02",
+      "S6": "0.006",
+      "A2": "0.006",
+      "Lmin": "1",
+      "Lmax": "14"
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d_pert__oneshot__anthropic_claude_sonnet_5/artifacts/sans_isis.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d_pert__oneshot__anthropic_claude_sonnet_5/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d_pert__oneshot__anthropic_claude_sonnet_5/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d_pert__oneshot__anthropic_claude_sonnet_5/artifacts/trace",
+    "errors": []
+  }
+}

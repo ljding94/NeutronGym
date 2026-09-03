@@ -1,0 +1,91 @@
+{
+  "task": "T1_SESANS_Delft",
+  "episode": {
+    "model": "google/gemini-3.6-flash",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 33,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 84.5,
+    "usage": {
+      "prompt_tokens": 254956,
+      "completion_tokens": 2945
+    },
+    "mcp_calls": {
+      "describe_component": 7,
+      "create_instrument": 1,
+      "add_parameter": 3,
+      "add_component": 17,
+      "get_instrument": 2,
+      "validate_instrument": 1,
+      "run_simulation": 1
+    },
+    "skill_used": true,
+    "final_answer": "The SESANS instrument has been successfully rebuilt according to the specification and executed with the requested parameters (`L0 = 2.165`, `DL = 0.02`, `By = 0.00468`, `ncount = 1000000`, `seed = 123456`).\n\n### Instrument Summary\n- **Instrument ID:** `sesans_rebuild`\n- **Parameters:**\n  - `L0 = 2.165` \u00c5\n  - `DL = 0.02` \u00c5\n  - `By = 0.00468` T\n- **Monitors & Optics:**\n  - Polarization monitors: `px1`, `px2`, `px3`, `px6` (`PolLambda_monitor`)\n  - 2D PSD monitors: `det`, `det2` (`PSD_monitor`)\n  - Spin manipulation & analysis: `Set_pol`, 4\u00d7 `Foil_flipper_magnet`, `SANS_spheres2`, 2\u00d7 `PolAnalyser_ideal`, and a neutron restore `trick` (`Arm`).\n\n---\n\n### Simulation Results (`ncount = 1,000,000`, `seed = 123456`)\n\n| Monitor | Type | Integrated Intensity ($I$) | Error ($\\sigma$) | Event Count ($N$) |\n| :--- | :--- | :--- | :--- | :--- |\n| **`px1`** | `PolLambda_monitor` | $5.39232 \\times 10^{-7}$ | $6.52729 \\times 10^{-10}$ | 682,475 |\n| **`px2`** | `PolLambda_monitor` | $5.39232 \\times 10^{-7}$ | $6.52729 \\times 10^{-10}$ | 682,475 |\n| **`px3`** | `PolLambda_monitor` | $5.39232 \\times 10^{-7}$ | $6.52729 \\times 10^{-10}$ | 682,475 |\n| **`px6`** | `PolLambda_monitor` | $5.34913 \\times 10^{-7}$ | $1.05812 \\times 10^{-9}$ | 649,942 |\n| **`det`** | `PSD_monitor` | $1.17669 \\times 10^{-7}$ | $4.29284 \\times 10^{-10}$ | 286,111 |\n| **`det2`** | `PSD_monitor` | $0.00000$ | $0.00000$ | 0 |"
+  },
+  "grade": {
+    "task": "T1_SESANS_Delft",
+    "pass": true,
+    "score": 1.0,
+    "checks_passed": "3/3",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "2d",
+        "observable": "intensity",
+        "reference": 5.39353e-07,
+        "candidate": 5.39353e-07,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 1.0787060000000002e-07
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_x",
+        "reference": 0.0107979,
+        "candidate": 0.0107979,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.0032393699999999997
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_y",
+        "reference": 0.0,
+        "candidate": 0.0,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.0
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__main__google_gemini_3_6_flash/home/instruments/sesans_rebuild/sesans_rebuild.instr",
+    "candidate_params": {
+      "L0": 2.165,
+      "DL": 0.02,
+      "By": 0.00468
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__main__google_gemini_3_6_flash/artifacts/sesans_rebuild.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__main__google_gemini_3_6_flash/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__main__google_gemini_3_6_flash/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__main__google_gemini_3_6_flash/artifacts/trace",
+    "errors": []
+  }
+}

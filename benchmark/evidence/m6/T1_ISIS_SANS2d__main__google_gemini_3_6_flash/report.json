@@ -1,0 +1,121 @@
+{
+  "task": "T1_ISIS_SANS2d",
+  "episode": {
+    "model": "google/gemini-3.6-flash",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 38,
+    "hit_turn_cap": false,
+    "empty_responses": 1,
+    "cost_usd": null,
+    "duration_s": 80.1,
+    "usage": {
+      "prompt_tokens": 392666,
+      "completion_tokens": 7037
+    },
+    "mcp_calls": {
+      "describe_component": 6,
+      "create_instrument": 1,
+      "add_parameter": 7,
+      "add_component": 30,
+      "validate_instrument": 1,
+      "run_simulation": 1
+    },
+    "skill_used": true,
+    "final_answer": "The SANS instrument has been reconstructed from the provided specification and successfully executed in McStas with `gravity=true`.\n\n### Instrument Setup Summary\n- **Source**: `ISIS_moderator` (Face=\"E2\", Emin=-14 meV, Emax=-1 meV, wavelength range ~1\u201314 \u00c5).\n- **Curved Guide / Bender Section**: 10 `Guide_gravity` sections rotated relative to one another to bend the beam.\n- **Straight Guide Section**: Entrance slit followed by 4 straight `Guide_gravity` sections.\n- **Collimation & Aperture System**: Slit `aperture1` ($A1w \\times A1h$), circular slit `slit_S6` ($r = S6$), and circular sample aperture `APERTURE2` ($r = A2$ at distance $L1$).\n- **Monitors**: 4 position-sensitive monitors (`psd1`, `psd2`, `psd3`, `psd4`) and 4 wavelength spectrum monitors (`lmon1`, `lmonb`, `lmonitor2`, `lmon2`). All intermediate monitors use `restore_neutron = 1`.\n\n---\n\n### Simulation Results (`ncount = 1,000,000`, `seed = 123456`)\n\nParameters used: `L1 = 3.926 m`, `A1w = 0.030 m`, `A1h = 0.020 m`, `S6 = 0.006 m`, `A2 = 0.006 m`, `Lmin = 1.0 \u00c5`, `Lmax = 14.0 \u00c5`.\n\n| Monitor Name | Type | Integrated Intensity $I$ (n/s) | Error $\\delta I$ (n/s) | Event Count $N$ |\n| :--- | :--- | :--- | :--- | :--- |\n| **`lmon1`** | Wavelength Monitor | $3.40574 \\times 10^8$ | $3.40574 \\times 10^5$ | $1,000,000$ |\n| **`psd1`** | 2D PSD Monitor | $3.40574 \\times 10^8$ | $3.40574 \\times 10^5$ | $1,000,000$ |\n| **`lmonb`** | Wavelength Monitor | $1.46798 \\times 10^8$ | $2.16837 \\times 10^5$ | $702,943$ |\n| **`psd2`** | 2D PSD Monitor | $1.46798 \\times 10^8$ | $2.16837 \\times 10^5$ | $702,943$ |\n| **`psd3`** | 2D PSD Monitor | $1.00978 \\times 10^8$ | $1.80137 \\times 10^5$ | $544,335$ |\n| **`lmonitor2`** | Wavelength Monitor | $5.00175 \\times 10^7$ | $1.27036 \\times 10^5$ | $209,483$ |\n| **`lmon2`** | Wavelength Monitor | $5.61493 \\times 10^6$ | $4.26374 \\times 10^4$ | $19,555$ |\n| **`psd4`** | 2D PSD Monitor | $5.61493 \\times 10^6$ | $4.26374 \\times 10^4$ | $19,555$ |"
+  },
+  "grade": {
+    "task": "T1_ISIS_SANS2d",
+    "pass": true,
+    "score": 1.0,
+    "checks_passed": "6/6",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "2d",
+        "observable": "intensity",
+        "reference": 340574000.0,
+        "candidate": 340574000.0,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 68114800.0
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_x",
+        "reference": 1.05959,
+        "candidate": 1.05959,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.317877
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_y",
+        "reference": 0.610729,
+        "candidate": 0.610729,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.18321869999999998
+      },
+      {
+        "role": "wavelength",
+        "observable": "intensity",
+        "reference": 340574000.0,
+        "candidate": 340574000.0,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 85143500.0
+      },
+      {
+        "role": "wavelength",
+        "observable": "center_of_mass",
+        "reference": 3.98881,
+        "candidate": 3.98881,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.19944050000000002
+      },
+      {
+        "role": "wavelength",
+        "observable": "fwhm",
+        "reference": 4.043045,
+        "candidate": 4.043045,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 2.0215225
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d__main__google_gemini_3_6_flash/home/instruments/sans_instrument/sans_instrument.instr",
+    "candidate_params": {
+      "L1": 3.926,
+      "A1w": 0.03,
+      "A1h": 0.02,
+      "S6": 0.006,
+      "A2": 0.006,
+      "Lmin": 1.0,
+      "Lmax": 14.0
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d__main__google_gemini_3_6_flash/artifacts/sans_instrument.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d__main__google_gemini_3_6_flash/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d__main__google_gemini_3_6_flash/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d__main__google_gemini_3_6_flash/artifacts/trace",
+    "errors": []
+  }
+}

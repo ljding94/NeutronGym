@@ -1,0 +1,58 @@
+{
+  "task": "T2_sans_collimation",
+  "episode": {
+    "model": "google/gemini-3.5-flash-lite",
+    "scaffold": "plain-llm-oneshot",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 1,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 3.1,
+    "usage": {
+      "prompt_tokens": 1614,
+      "completion_tokens": 721
+    },
+    "mcp_calls": {},
+    "skill_used": true,
+    "final_answer": "```c\n/*******************************************************************************\n* McStas instrument: t2_sans_collimation_optimized\n*\n* %D\n* Optimized pinhole SANS instrument focusing on maximizing scattered intensity\n* on the detector while maintaining beam divergence / pattern RMS width dX within\n* the [4.539, 5.548] cm band.\n*\n* %P\n* r_pin1: [m] Radius of the first source-defining pinhole\n* r_pin2: [m] Radius of the second sample-defining pinhole\n*\n* %L\n* <reference/literature>\n*\n* %E\n*******************************************************************************/\n\nDEFINE INSTRUMENT t2_sans_collimation_optimized(\n    r_pin1 = 0.010,\n    r_pin2 = 0.005\n)\n\nDECLARE\n%{\n%}\n\nINITIALIZE\n%{\n%}\n\nTRACE\n\nCOMPONENT Origin = Progress_bar()\n  AT (0,0,0) ABSOLUTE\n\nCOMPONENT Source = Source_simple(\n    radius = 0.02,\n    dist = 3.0,\n    focus_xw = 2.0 * r_pin1,\n    focus_yh = 2.0 * r_pin1,\n    lambda0 = 6.0,\n    dlambda = 0.05\n)\n  AT (0,0,0) ABSOLUTE\n\nCOMPONENT Pin1 = Slit(\n    radius = r_pin1\n)\n  AT (0,0,3.0) ABSOLUTE\n\nCOMPONENT Pin2 = Slit(\n    radius = r_pin2\n)\n  AT (0,0,6.0) ABSOLUTE\n\nCOMPONENT Monitor_Pin2 = PSD_monitor(\n    nx = 100, ny = 100,\n    filename = \"psd_pin2.dat\",\n    xwidth = 0.1, yheight = 0.1\n)\n  AT (0,0,6.001) ABSOLUTE\n  ROTATED (0,0,0) ABSOLUTE\n  SETTING (restore_neutron=1)\n\nCOMPONENT Sample = PowderN(\n    unit_cell_volume = 125,\n    d_spacing = 5.0,\n    sigma_abs = 10,\n    sigma_inc = 1,\n    pack = 0.5,\n    radius = 0.005,\n    yheight = 0.01\n)\n  AT (0,0,9.0) ABSOLUTE\n\nCOMPONENT Beamstop = Beamstop(\n    radius = 0.025,\n    xwidth = 0.05,\n    yheight = 0.05\n)\n  AT (0,0,11.999) ABSOLUTE\n\nCOMPONENT detector = PSD_monitor(\n    nx = 120, ny = 120,\n    filename = \"detector.dat\",\n    xwidth = 0.6, yheight = 0.6\n)\n  AT (0,0,12.0) ABSOLUTE\n\nEND\n```"
+  },
+  "grade": {
+    "task": "T2_sans_collimation",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "candidate failed to run (translate)"
+    ],
+    "diagnostics": [
+      "ERROR: syntax error at line 64.",
+      "mcstas: 1 Errors encountered during parse of /Users/ldq/Work/NeutronGym/runs/m6/T2_sans_collimation__oneshot__google_gemini_3_5_flash_lite/home/instruments/t2_sans_collimation_optimized/t2_sans_collimation_optimized.instr.",
+      "INFO: call to /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas failed with Command '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas -t -o ./t2_sans_collimation_optimized.c /Users/ldq/Work/NeutronGym/runs/m6/T2_sans_collimation__oneshot__google_gemini_3_5_flash_lite/home/instruments/t2_sans_collimation_optimized/t2_sans_collimation_optimized.instr' returned non-zero exit status 1.",
+      "ERROR: Code generation failed for instrument /Users/ldq/Work/NeutronGym/runs/m6/T2_sans_collimation__oneshot__google_gemini_3_5_flash_lite/home/instruments/t2_sans_collimation_optimized/t2_sans_collimation_optimized.instr using code generator /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas"
+    ],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T2_sans_collimation__oneshot__google_gemini_3_5_flash_lite/home/instruments/t2_sans_collimation_optimized/t2_sans_collimation_optimized.instr",
+    "candidate_params": {
+      "r_pin1": "0.010",
+      "r_pin2": "0.005"
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T2_sans_collimation__oneshot__google_gemini_3_5_flash_lite/artifacts/t2_sans_collimation_optimized.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T2_sans_collimation__oneshot__google_gemini_3_5_flash_lite/artifacts/params.json",
+    "diagram": null,
+    "trace": null,
+    "errors": [
+      "diagram: McStasScript reader failed (known limitation)",
+      "trace: mcdisplay-webgl failed"
+    ]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "task": "T1_PSI_DMC",
+  "episode": {
+    "model": "google/gemini-3.6-flash",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 50,
+    "hit_turn_cap": true,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 73.8,
+    "usage": {
+      "prompt_tokens": 579162,
+      "completion_tokens": 2228
+    },
+    "mcp_calls": {
+      "describe_component": 14,
+      "list_examples": 1,
+      "create_instrument": 1,
+      "add_parameter": 10,
+      "add_declare": 23,
+      "add_component": 1
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_PSI_DMC",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": [
+      {
+        "tool": "list_examples",
+        "kind": "example_tool",
+        "target": "Na2Ca3Al2F14",
+        "refused": true
+      }
+    ]
+  },
+  "artifacts": null
+}

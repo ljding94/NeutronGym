@@ -1,0 +1,126 @@
+{
+  "task": "T1_PSI_DMC_pert",
+  "episode": {
+    "model": "google/gemini-3.6-flash",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 45,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 108.0,
+    "usage": {
+      "prompt_tokens": 682921,
+      "completion_tokens": 7737
+    },
+    "mcp_calls": {
+      "create_instrument": 1,
+      "describe_component": 14,
+      "add_parameter": 10,
+      "add_declare": 23,
+      "add_component": 34,
+      "get_instrument": 1,
+      "validate_instrument": 1,
+      "run_simulation": 2
+    },
+    "skill_used": true,
+    "final_answer": "The powder diffractometer instrument has been successfully rebuilt in McStas from the specification, validated, and executed.\n\n### Instrument Architecture & Implementation Summary\n- **Source**: `Source_Maxwell_3` thermal source focused toward the guide entrance.\n- **Guide System**: Initial straight guide (`guide1`), curved bender (`guide2`), bunker guide (`bunker`), intermediate guide (`guide3`), and primary instrument guide (`guide4`).\n- **Monochromator**: `Monochromator_2foc` placed on double-mosaicity/focusing arms (`sma` and `msa`), calculating take-off angle $2\\theta_m$ (`TTM`) and Bragg angle $\\theta_m$ (`OMA`) based on $\\lambda = 2.5666\\text{ \\AA}$ and $Q = 1.8734\\text{ \\AA}^{-1}$.\n- **Sample & Slits**: Collimation slits (`in_slit`, `out1_slit`, `Amoin_slit`, `Bmoin_slit`, `out2_slit`) leading to a `PowderN` sample (`Na2Ca3Al2F14.laz`).\n- **Detectors & Monitors**: Position-sensitive and wavelength monitors along the beamline, ending with a curved 1D `Monitor_nD` banana detector spanning $19.9^\\circ \\le 2\\theta \\le 99.9^\\circ$.\n\n---\n\n### Simulation Results (`ncount = 1,000,000`, `seed = 12345`)\n\nBelow are the integrated intensity $I$, estimated error $\\sigma_I$, and raw event count $N$ recorded on every monitor in beam order:\n\n| Monitor | Filename | Integrated Intensity $I$ [n/s] | Error $\\sigma_I$ [n/s] | Event Count $N$ |\n| :--- | :--- | :--- | :--- | :--- |\n| `PSDbefore_guides` | `PSDbefore_guides` | $1.59942 \\times 10^{9}$ | $1.75472 \\times 10^{6}$ | 830,835 |\n| `l_mon_source` | `lmonsource.dat` | $1.59942 \\times 10^{9}$ | $1.75472 \\times 10^{6}$ | 830,835 |\n| `PSDbefore_curve` | `PSDbefore_curve` | $1.08670 \\times 10^{8}$ | $4.41651 \\times 10^{5}$ | 149,684 |\n| `PSDafter_curve` | `PSDafter_curve` | $4.56745 \\times 10^{7}$ | $2.82951 \\times 10^{5}$ | 115,638 |\n| `ydist_fluxpos` | `ydist_fluxpos.dat` | $3.41810 \\times 10^{7}$ | $2.41470 \\times 10^{5}$ | 95,224 |\n| `PSD_fluxpos` | `xdist_fluxposy.dat` | $3.41810 \\times 10^{7}$ | $2.41470 \\times 10^{5}$ | 95,224 |\n| `xdist_flux_pos` | `xdist_fluxpos.dat` | $3.41810 \\times 10^{7}$ | $2.41470 \\times 10^{5}$ | 95,224 |\n| `PSD_fluxposB` | `PSD_fluxposB.dat` | $3.13125 \\times 10^{7}$ | $2.31532 \\times 10^{5}$ | 76,336 |\n| `lambda_in` | `L_in.dat` | $3.11143 \\times 10^{7}$ | $2.30101 \\times 10^{5}$ | 76,280 |\n| `PSD_sample` | `PSD_sample.dat` | $2.43523 \\times 10^{7}$ | $6.47526 \\times 10^{4}$ | 349,950 |\n| `lambda_sample` | `L_sample.dat` | $1.74807 \\times 10^{6}$ | $1.75761 \\times 10^{4}$ | 19,320 |\n| `Detector` | `detector.dat` | $7.42548 \\times 10^{2}$ | $3.44898 \\times 10^{1}$ | 2,641 |"
+  },
+  "grade": {
+    "task": "T1_PSI_DMC_pert",
+    "pass": true,
+    "score": 1.0,
+    "checks_passed": "6/6",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "2d",
+        "observable": "intensity",
+        "reference": 1599500000.0,
+        "candidate": 1599500000.0,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 319900000.0
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_x",
+        "reference": 0.513662,
+        "candidate": 0.513662,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.15409859999999997
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_y",
+        "reference": 3.0576,
+        "candidate": 3.0576,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.9172799999999999
+      },
+      {
+        "role": "wavelength",
+        "observable": "intensity",
+        "reference": 1599500000.0,
+        "candidate": 1599500000.0,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 399875000.0
+      },
+      {
+        "role": "wavelength",
+        "observable": "center_of_mass",
+        "reference": 2.54381,
+        "candidate": 2.54381,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.1271905
+      },
+      {
+        "role": "wavelength",
+        "observable": "fwhm",
+        "reference": 0.308103,
+        "candidate": 0.308103,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.1540515
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_PSI_DMC_pert__main__google_gemini_3_6_flash/home/instruments/powder_diffractometer/powder_diffractometer.instr",
+    "candidate_params": {
+      "lambda": 2.5666,
+      "R": 0.87,
+      "R_curve": 0.87,
+      "filename": "Na2Ca3Al2F14.laz",
+      "D_PHI": 6.0,
+      "SHIFT": 0.0,
+      "PACK": 0.7,
+      "Dw": 0.8,
+      "BARNS": 1.0,
+      "SPLITS": 58.0
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_PSI_DMC_pert__main__google_gemini_3_6_flash/artifacts/powder_diffractometer.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_PSI_DMC_pert__main__google_gemini_3_6_flash/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T1_PSI_DMC_pert__main__google_gemini_3_6_flash/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/T1_PSI_DMC_pert__main__google_gemini_3_6_flash/artifacts/trace",
+    "errors": []
+  }
+}

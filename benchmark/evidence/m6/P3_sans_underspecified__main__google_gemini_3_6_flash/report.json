@@ -1,0 +1,82 @@
+{
+  "task": "P3_sans_underspecified",
+  "episode": {
+    "model": "google/gemini-3.6-flash",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 50,
+    "hit_turn_cap": true,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 159.6,
+    "usage": {
+      "prompt_tokens": 624588,
+      "completion_tokens": 2784
+    },
+    "mcp_calls": {
+      "list_components": 6,
+      "describe_component": 12,
+      "create_instrument": 1,
+      "add_parameter": 7,
+      "add_component": 13,
+      "set_parameters": 2,
+      "validate_instrument": 1,
+      "run_simulation": 2,
+      "get_instrument": 2,
+      "get_results": 1,
+      "remove_component": 2,
+      "get_example": 1
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "P3_sans_underspecified",
+    "pass": false,
+    "score": 0.0,
+    "checks_passed": "0/0",
+    "hard_failures": [
+      "role 'wavelength': only 0 events \u2014 below statistics floor, ungradable",
+      "role '2d': only 0 events \u2014 below statistics floor, ungradable"
+    ],
+    "checks": [],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/P3_sans_underspecified__main__google_gemini_3_6_flash/home/instruments/sans_instrument/sans_instrument.instr",
+    "candidate_params": {
+      "lambda0": 6.0,
+      "dlambda": 0.05,
+      "r1": 0.01,
+      "r2": 0.0035,
+      "L_coll": 4.0,
+      "L_det": 3.0,
+      "r_bs": 0.025
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": [
+      {
+        "tool": "get_example",
+        "kind": "example_tool",
+        "target": "SANS_sans",
+        "refused": true
+      }
+    ]
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/P3_sans_underspecified__main__google_gemini_3_6_flash/artifacts/sans_instrument.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/P3_sans_underspecified__main__google_gemini_3_6_flash/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/P3_sans_underspecified__main__google_gemini_3_6_flash/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/P3_sans_underspecified__main__google_gemini_3_6_flash/artifacts/trace",
+    "errors": []
+  }
+}

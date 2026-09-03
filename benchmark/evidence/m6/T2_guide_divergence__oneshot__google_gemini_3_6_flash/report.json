@@ -1,0 +1,64 @@
+{
+  "task": "T2_guide_divergence",
+  "episode": {
+    "model": "google/gemini-3.6-flash",
+    "scaffold": "plain-llm-oneshot",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 1,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 47.1,
+    "usage": {
+      "prompt_tokens": 1545,
+      "completion_tokens": 10294
+    },
+    "mcp_calls": {},
+    "skill_used": true,
+    "final_answer": "Chosen parameters:\n- `w_in = 0.02` m (2.0 cm)\n- `w_out = 0.02` m (2.0 cm)\n- `m_coat = 3.0`\n\n### Physics Rationale\n1. **Guide Cross-Section (`w_in`, `w_out`):** The target sample area measured by `divmon` is 2\u00d72 cm\u00b2 ($0.02 \\times 0.02\\text{ m}^2$) at a distance of 5 cm behind the guide exit. A straight guide of dimensions $0.02 \\times 0.02\\text{ m}^2$ ($w_{in} = w_{out} = 0.02\\text{ m}$) matches the sample spatial profile and maximizes phase-space density transmission without spatial clipping or phase-space dilution.\n2. **Supermirror Coating (`m_coat`):** Increasing $m$ from 1.5 to 3.0 increases the critical angle for total reflection $\\theta_c \\propto m \\cdot \\lambda$. At $\\lambda = 5.0\\text{ \\AA}$, $m = 3.0$ provides a critical angle of $\\theta_c \\approx 1.5^\\circ$, ensuring high specular reflectivity ($R \\approx 99\\%$) for all neutrons within the accepted divergence range ($\\pm 0.5^\\circ$).\n3. **Source Focusing:** `focus_xw` and `focus_yh` on `Source_simple` are matched to `w_in` at $z = 1.5\\text{ m}$ for ideal variance reduction.\n\n```c\nDEFINE INSTRUMENT t2_guide_divergence(\n  double w_in = 0.02,\n  double w_out = 0.02,\n  double m_coat = 3.0\n)\n\nDECLARE\n%{\n%}\n\nINITIALIZE\n%{\n%}\n\nTRACE\n\nCOMPONENT origin = Progress_bar()\nAT (0, 0, 0) ABSOLUTE\n\nCOMPONENT source = Source_simple(\n    xwidth = 0.1,\n    yheight = 0.1,\n    dist = 1.5,\n    focus_xw = w_in,\n    focus_yh = w_in,\n    lambda0 = 5.0,\n    dlambda = 0.5\n)\nAT (0, 0, 0) RELATIVE origin\n\nCOMPONENT guide = Guide_gravity(\n    w1 = w_in,\n    h1 = w_in,\n    w2 = w_out,\n    h2 = w_out,\n    l = 10.0,\n    m = m_coat\n)\nAT (0, 0, 1.5) RELATIVE origin\n\nCOMPONENT divmon = Divergence_monitor(\n    nh = 100,\n    nv = 100,\n    filename = \"divmon.dat\",\n    xwidth = 0.02,\n    yheight = 0.02,\n    maxhdiv = 0.5,\n    maxvdiv = 0.5,\n    restore_neutron = 1\n)\nAT (0, 0, 11.55) RELATIVE origin\n\nEND\n```"
+  },
+  "grade": {
+    "task": "T2_guide_divergence",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "candidate failed to run (translate)"
+    ],
+    "diagnostics": [
+      "ERROR: Unmatched actual parameter maxhdiv for component divmon=Divergence_monitor() at line /Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__google_gemini_3_6_flash/home/instruments/t2_guide_divergence/t2_guide_divergence.instr:50.Please change its name to a valid one:",
+      "  Definition parameters: ",
+      "  Setting parameters: nh nv filename xmin xmax ymin ymax nowritefile xwidth yheight maxdiv_h maxdiv_v restore_neutron nx ny nz ",
+      "ERROR: Unmatched actual parameter maxvdiv for component divmon=Divergence_monitor() at line /Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__google_gemini_3_6_flash/home/instruments/t2_guide_divergence/t2_guide_divergence.instr:50.Please change its name to a valid one:",
+      "  Definition parameters: ",
+      "  Setting parameters: nh nv filename xmin xmax ymin ymax nowritefile xwidth yheight maxdiv_h maxdiv_v restore_neutron nx ny nz ",
+      "mcstas: 2 Errors encountered during parse of /Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__google_gemini_3_6_flash/home/instruments/t2_guide_divergence/t2_guide_divergence.instr.",
+      "    INFO: call to /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas failed with Command '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas -t -o ./t2_guide_divergence.c /Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__google_gemini_3_6_flash/home/instruments/t2_guide_divergence/t2_guide_divergence.instr' returned non-zero exit status 1.",
+      "ERROR: Code generation failed for instrument /Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__google_gemini_3_6_flash/home/instruments/t2_guide_divergence/t2_guide_divergence.instr using code generator /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas"
+    ],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__google_gemini_3_6_flash/home/instruments/t2_guide_divergence/t2_guide_divergence.instr",
+    "candidate_params": {
+      "w_in": "0.02",
+      "w_out": "0.02",
+      "m_coat": "3.0"
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__google_gemini_3_6_flash/artifacts/t2_guide_divergence.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__google_gemini_3_6_flash/artifacts/params.json",
+    "diagram": null,
+    "trace": null,
+    "errors": [
+      "diagram: McStasScript reader failed (known limitation)",
+      "trace: mcdisplay-webgl failed"
+    ]
+  }
+}

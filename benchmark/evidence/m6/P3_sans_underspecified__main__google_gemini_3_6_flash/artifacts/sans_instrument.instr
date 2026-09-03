@@ -1,0 +1,122 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: sans_instrument
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 16:10:41 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* lambda0: [unit] AA] Source wavelength (Angstrom)
+* dlambda: [unit] AA] Wavelength half-width (Angstrom)
+* r1: [unit] m] Source aperture radius / half-width (m)
+* r2: [unit] m] Sample aperture radius / half-width (m)
+* L_coll: [unit] m] Collimation distance (m)
+* L_det: [unit] m] Sample-to-detector distance (m)
+* r_bs: [unit] m] Beamstop radius (m)
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT sans_instrument (
+lambda0 = 6.0, // AA] Source wavelength (Angstrom)
+dlambda = 0.05, // AA] Wavelength half-width (Angstrom)
+r1 = 0.01, // m] Source aperture radius / half-width (m)
+r2 = 0.0035, // m] Sample aperture radius / half-width (m)
+L_coll = 4.0, // m] Collimation distance (m)
+L_det = 3.0, // m] Sample-to-detector distance (m)
+r_bs = 0.025 // m] Beamstop radius (m)
+)
+
+DECLARE 
+%{
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated sans_instrument
+%}
+
+TRACE 
+COMPONENT origin = Progress_bar()
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT source = Source_gen(
+ dist = L_coll, focus_xw = 2*r2,
+ focus_yh = 2*r2, lambda0 = lambda0,
+ dlambda = dlambda, I1 = 1000000000000,
+ yheight = 2*r1, xwidth = 2*r1)
+AT (0.0, 0.0, 0.0) RELATIVE origin
+
+COMPONENT aperture1 = Slit(
+ radius = r1)
+AT (0.0, 0.0, 0.0) RELATIVE source
+
+COMPONENT aperture2 = Slit(
+ radius = r2)
+AT (0.0, 0.0, L_coll) RELATIVE source
+
+COMPONENT mon_sample_entrance = PSD_monitor(
+ nx = 100, ny = 100,
+ filename = "mon_sample_entrance.dat", xwidth = 0.02,
+ yheight = 0.02, restore_neutron = 1)
+AT (0.0, 0.0, 0.001) RELATIVE aperture2
+
+COMPONENT sample = Sans_spheres(
+ R = 100, Phi = 0.001,
+ Delta_rho = 0.6, xwidth = 0.01,
+ yheight = 0.01, zdepth = 0.005,
+ target_z = L_det, focus_xw = 0.6,
+ focus_yh = 0.6, focus_r = 0.3)
+AT (0.0, 0.0, 0.002) RELATIVE aperture2
+
+COMPONENT beamstop = Beamstop(
+ radius = r_bs)
+AT (0.0, 0.0, L_det - 0.001) RELATIVE sample
+
+COMPONENT detector_2D = PSD_monitor(
+ nx = 128, ny = 128,
+ filename = "detector_2d.dat", xwidth = 0.6,
+ yheight = 0.6, restore_neutron = 1)
+AT (0.0, 0.0, L_det) RELATIVE sample
+
+COMPONENT wavelength_monitor = L_monitor(
+ nL = 100, filename = "wavelength_mon.dat",
+ xwidth = 0.6, yheight = 0.6,
+ Lmin = 5.5, Lmax = 6.5,
+ restore_neutron = 1)
+AT (0.0, 0.0, L_det + 0.001) RELATIVE sample
+
+COMPONENT sample_pos = Arm()
+AT (0.0, 0.0, 0.0) RELATIVE aperture2
+
+COMPONENT detector_pos = Arm()
+AT (0.0, 0.0, L_det) RELATIVE sample_pos
+
+FINALLY 
+%{
+// Start of finally for generated sans_instrument
+%}
+
+END

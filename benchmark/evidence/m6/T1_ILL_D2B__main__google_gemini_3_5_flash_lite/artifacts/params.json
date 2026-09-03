@@ -1,0 +1,19 @@
+{
+  "ALPHA1": 18.0,
+  "ALPHA2": 11.0,
+  "ALPHA3": 5.0,
+  "DM": 0.0,
+  "Dheight": 0.3,
+  "ETA": 12.0,
+  "L1": 16.05,
+  "L2": 2.645,
+  "L3": 1.3,
+  "Powder": "Na2Ca3Al2F14.laz",
+  "RV": -1.0,
+  "SM": 1.0,
+  "THETA_M": 67.5,
+  "TILT": 0.0,
+  "coating": 0.0,
+  "lambda": 1.0,
+  "verbose": 1.0
+}

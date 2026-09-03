@@ -1,0 +1,78 @@
+{
+  "task": "T1_PSI_DMC_pert",
+  "episode": {
+    "model": "anthropic/claude-haiku-4.5",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 50,
+    "hit_turn_cap": true,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 168.2,
+    "usage": {
+      "prompt_tokens": 2153650,
+      "completion_tokens": 21904
+    },
+    "mcp_calls": {
+      "create_instrument": 1,
+      "add_parameter": 10,
+      "add_declare": 23,
+      "describe_component": 12,
+      "add_component": 60,
+      "validate_instrument": 14,
+      "get_instrument": 2,
+      "set_parameters": 5,
+      "remove_component": 54,
+      "export_instr_file": 1
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_PSI_DMC_pert",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "candidate failed to run (translate)"
+    ],
+    "diagnostics": [
+      "ERROR: syntax error at line 62.",
+      "mcstas: 1 Errors encountered during parse of /Users/ldq/Work/NeutronGym/runs/m6/T1_PSI_DMC_pert__main__anthropic_claude_haiku_4_5/home/instruments/powder_diffractometer/powder_diffractometer.instr.",
+      "INFO: call to /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas failed with Command '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas -t -o ./powder_diffractometer.c /Users/ldq/Work/NeutronGym/runs/m6/T1_PSI_DMC_pert__main__anthropic_claude_haiku_4_5/home/instruments/powder_diffractometer/powder_diffractometer.instr' returned non-zero exit status 1.",
+      "ERROR: Code generation failed for instrument /Users/ldq/Work/NeutronGym/runs/m6/T1_PSI_DMC_pert__main__anthropic_claude_haiku_4_5/home/instruments/powder_diffractometer/powder_diffractometer.instr using code generator /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas"
+    ],
+    "checks": [],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_PSI_DMC_pert__main__anthropic_claude_haiku_4_5/home/instruments/powder_diffractometer/powder_diffractometer.instr",
+    "candidate_params": {
+      "lambda": 2.5666,
+      "R": 0.87,
+      "R_curve": 0.87,
+      "filename": "Na2Ca3Al2F14.laz",
+      "D_PHI": 6.0,
+      "SHIFT": 0.0,
+      "PACK": 0.7,
+      "Dw": 0.8,
+      "BARNS": 1.0,
+      "SPLITS": 58.0
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_PSI_DMC_pert__main__anthropic_claude_haiku_4_5/artifacts/powder_diffractometer.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_PSI_DMC_pert__main__anthropic_claude_haiku_4_5/artifacts/params.json",
+    "diagram": null,
+    "trace": null,
+    "errors": [
+      "diagram: McStasScript reader failed (known limitation)",
+      "trace: mcdisplay-webgl failed"
+    ]
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "task": "T1_SESANS_Delft",
+  "episode": {
+    "model": "meta-llama/llama-4-maverick",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 3,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 24.2,
+    "usage": {
+      "prompt_tokens": 22332,
+      "completion_tokens": 1604
+    },
+    "mcp_calls": {
+      "create_instrument": 1,
+      "validate_instrument": 1
+    },
+    "skill_used": true,
+    "final_answer": "validate_instrument(instrument_id=\"SESANS\")"
+  },
+  "grade": {
+    "task": "T1_SESANS_Delft",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": null
+}

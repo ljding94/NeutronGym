@@ -1,0 +1,45 @@
+{
+  "task": "T1_HZB_NEAT",
+  "episode": {
+    "model": "google/gemini-3.6-flash",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 50,
+    "hit_turn_cap": true,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 80.7,
+    "usage": {
+      "prompt_tokens": 666656,
+      "completion_tokens": 4038
+    },
+    "mcp_calls": {
+      "create_instrument": 1,
+      "describe_component": 7,
+      "add_parameter": 7,
+      "add_declare": 5,
+      "add_component": 30
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_HZB_NEAT",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": null
+}

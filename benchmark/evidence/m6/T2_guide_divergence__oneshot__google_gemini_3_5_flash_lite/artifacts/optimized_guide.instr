@@ -1,0 +1,73 @@
+DEFINE INSTRUMENT optimized_guide(
+    w_in = 0.012,       // Guide entry width/height [m]
+    w_out = 0.045,      // Guide exit width/height [m]
+    m_coat = 3.0        // Supermirror m-value [-]
+)
+
+DECLARE
+%{
+%}
+
+INITIALIZE
+%{
+%}
+
+TRACE
+
+COMPONENT o = Progress_bar()
+AT (0, 0, 0) ABSOLUTE
+
+// Source: 10x10 cm source emitting lambda = 5.0 +- 0.5 Angstrom
+COMPONENT source = Source_simple(
+    radius = 0,
+    xwidth = 0.1,
+    yheight = 0.1,
+    dist = 1.5,
+    focus_xw = w_in,
+    focus_yh = w_in,
+    lambda0 = 5.0,
+    dlambda = 0.5
+)
+AT (0, 0, 0) ABSOLUTE
+
+COMPONENT m_src = L_monitor(
+    nlam = 100,
+    filename = "source_lambda.dat",
+    xwidth = 0.1,
+    yheight = 0.1,
+    Lmin = 4.0,
+    Lmax = 6.0,
+    restore_neutron = 1
+)
+AT (0, 0, 1.5) ABSOLUTE
+
+// 1.5 m from source to guide entry
+COMPONENT arm_guide_start = Arm()
+AT (0, 0, 1.5) ABSOLUTE
+
+// 10 m straight (or converging/diverging) supermirror guide
+COMPONENT guide = Guide_anyshape(
+    w1 = w_in,
+    h1 = w_in,
+    w2 = w_out,
+    h2 = w_out,
+    l = 10.0,
+    m = m_coat
+)
+AT (0, 0, 0) RELATIVE arm_guide_start
+
+// 5 cm behind guide exit to sample / divmon
+COMPONENT arm_sample = Arm()
+AT (0, 0, 10.05) RELATIVE arm_guide_start
+
+COMPONENT divmon = Divergence_monitor(
+    filename = "divmon.dat",
+    xwidth = 0.02,
+    yheight = 0.02,
+    maxdiv_h = 0.5,
+    maxdiv_v = 0.5,
+    restore_neutron = 1
+)
+AT (0, 0, 0) RELATIVE arm_sample
+
+END

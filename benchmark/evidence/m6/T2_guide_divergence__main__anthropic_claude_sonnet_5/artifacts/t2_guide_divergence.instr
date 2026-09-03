@@ -1,0 +1,79 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: t2_guide_divergence
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 13:39:59 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* w_in: [unit] m] guide entry width/height (square)
+* w_out: [unit] m] guide exit width/height (square)
+* m_coat: [unit] 1] supermirror m-value coating
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT t2_guide_divergence (
+w_in = 0.012, // m] guide entry width/height (square)
+w_out = 0.012, // m] guide exit width/height (square)
+m_coat = 1.5 // 1] supermirror m-value coating
+)
+
+DECLARE 
+%{
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated t2_guide_divergence
+%}
+
+TRACE 
+COMPONENT source = Source_gen(
+ dist = 1.5, focus_xw = w_in,
+ focus_yh = w_in, lambda0 = 5.0,
+ dlambda = 0.5, yheight = 0.1,
+ xwidth = 0.1)
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT guide = Guide_gravity(
+ w1 = w_in, h1 = w_in,
+ w2 = w_out, h2 = w_out,
+ l = 10.0, m = m_coat)
+AT (0.0, 0.0, 1.5) RELATIVE source
+
+COMPONENT divmon = Divergence_monitor(
+ nh = 20, nv = 20,
+ filename = "divmon.dat", xwidth = 0.02,
+ yheight = 0.02, maxdiv_h = 0.5,
+ maxdiv_v = 0.5, restore_neutron = 1)
+AT (0.0, 0.0, 10.05) RELATIVE guide
+
+FINALLY 
+%{
+// Start of finally for generated t2_guide_divergence
+%}
+
+END

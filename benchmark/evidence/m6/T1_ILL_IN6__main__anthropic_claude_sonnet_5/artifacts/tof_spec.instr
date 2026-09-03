@@ -1,0 +1,78 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: tof_spec
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 13:02:57 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* lambda: [unit] Angs] incident wavelength
+* dlambda: [unit] Angs
+* SPEED: [unit] 
+* M1: [unit] 
+* M2: [unit] 
+* M3: [unit] 
+* MONITOR: [unit] 
+* CHA_WIDTH: [unit] 
+* TOF_DELAY: [unit] 
+* TOF_CHA_RESOL: [unit] 
+* ELPEAK: [unit] 
+* RATIO: [unit] 
+* mFC: [unit] 
+* PHASE: [unit] 
+* Sqw_coh: [unit] 
+* Sqw_inc: [unit] 
+* radius: [unit] 
+* thickness: [unit] 
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT tof_spec (
+lambda = 4.14, // Angs] incident wavelength
+dlambda = 0.075, // Angs
+SPEED = -1, 
+M1 = -1, 
+M2 = -1, 
+M3 = -1, 
+MONITOR = 1, 
+CHA_WIDTH = -1, 
+TOF_DELAY = -1, 
+TOF_CHA_RESOL = 128, 
+ELPEAK = -1, 
+RATIO = 1, 
+mFC = 0, 
+PHASE = -360, 
+string Sqw_coh = "Rb_liq_coh.sqw", 
+string Sqw_inc = "Rb_liq_inc.sqw", 
+radius = 0.01, 
+thickness = 0.005 
+)
+
+DECLARE 
+%{
+double testvar = 1.0;
+double DM = 3.355;
+double Ki_test = 2*3.14159/lambda;

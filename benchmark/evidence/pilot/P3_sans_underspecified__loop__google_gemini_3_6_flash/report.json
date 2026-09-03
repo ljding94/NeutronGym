@@ -1,0 +1,74 @@
+{
+  "task": "P3_sans_underspecified",
+  "episode": {
+    "model": "google/gemini-3.6-flash",
+    "scaffold": "neutrongym-reference-loop",
+    "returncode": 0,
+    "turns": 21,
+    "hit_turn_cap": false,
+    "empty_responses": 1,
+    "cost_usd": null,
+    "duration_s": 106.0,
+    "usage": {
+      "prompt_tokens": 194799,
+      "completion_tokens": 14345
+    },
+    "mcp_calls": {
+      "list_components": 4,
+      "describe_component": 6,
+      "create_instrument": 1,
+      "add_component": 9,
+      "get_instrument": 1,
+      "remove_component": 1,
+      "validate_instrument": 1,
+      "run_simulation": 2
+    },
+    "skill_used": true,
+    "final_answer": "### Design Assumptions & Choices\n\nWhere specifications were silent, standard pinhole SANS design conventions were adopted to balance angular resolution and flux:\n\n1. **Collimation Geometry & Distances:**\n   - **Collimation Length ($L_1$):** Chosen to equal the sample-to-detector distance ($L_2 = 3.0\\text{ m}$), i.e., $L_1 = 3.0\\text{ m}$.\n   - **Source Aperture ($R_1$):** Circular pinhole with radius $r_1 = 4.0\\text{ mm}$ ($D_1 = 8.0\\text{ mm}$).\n   - **Sample Aperture ($R_2$):** Circular pinhole with radius $r_2 = 3.0\\text{ mm}$ ($D_2 = 6.0\\text{ mm}$).\n   - **Source:** Circular source matching the first pinhole ($r = 4.0\\text{ mm}$), uniform wavelength $\\lambda = 6.0 \\pm 0.05\\ \\text{\\AA}$.\n\n2. **Beamstop:**\n   - Circular beamstop positioned right in front of the detector plane ($z = 2.999\\text{ m}$ relative to sample).\n   - Radius $r_{\\text{bs}} = 15\\text{ mm}$ to completely shadow the direct beam spot size ($r_{\\text{direct}} \\approx r_2 + (r_1 + r_2)\\frac{L_2}{L_1} = 10\\text{ mm}$) with a safety factor to block direct transmission.\n\n3. **Sample Parameters:**\n   - Hard sphere radius $R = 100\\ \\text{\\AA}$, volume fraction $\\Phi = 0.001$ ($0.1\\%$), excess SLD $\\Delta\\rho = 0.6\\text{ fm/\\AA}^3$.\n   - Sample dimensions: $1\\times 1\\text{ cm}^2$, thickness $0.5\\text{ cm}$.\n\n---\n\n### Instrument Structure\n\nThe instrument `pinhole_sans` was constructed using standard McStas components:\n1. `src`: `Source_simple` ($r = 4\\text{ mm}$, $\\lambda = 6.0 \\pm 0.05\\ \\text{\\AA}$).\n2. `ap1`: `Slit` ($r_1 = 4\\text{ mm}$) at $z = 0\\text{ m}$.\n3. `ap2`: `Slit` ($r_2 = 3\\text{ mm}$) at $z = 3.0\\text{ m}$.\n4. `mon_sample_flux`: `PSD_monitor` ($1\\times 1\\text{ cm}^2$, `restore_neutron=1`) immediately before sample.\n5. `sample`: `Sans_spheres` ($R = 100\\ \\text{\\AA}$, $\\Phi = 0.001$, $\\Delta\\rho = 0.6\\text{ fm/\\AA}^3$, $1\\times 1\\times 0.5\\text{ cm}^3$).\n6. `bs`: `Beamstop` ($r = 15\\text{ mm}$) at $z = 2.999\\text{ m}$ past sample.\n7. `det2d`: `PSD_monitor` ($60\\times 60\\text{ cm}^2$, $100\\times 100$ pixels) at $z = 3.0\\text{ m}$ past sample.\n8. `wl_mon`: `L_monitor` ($60\\times 60\\text{ cm}^2$, $\\lambda \\in [5.5, 6.5]\\ \\text{\\AA}$) behind detector plane.\n\n---\n\n### Simulation Results\n\n- **Run Configuration:** `ncount` = $10^7$ rays, `seed` = 12345.\n- **Sample Position Monitor Intensity:** $(1.58125 \\pm 0.00015) \\times 10^{-7}$ counts/s ($N = 1,105,940$ events).\n- **2D Detector Integrated Intensity (`det2d`):** $(1.13989 \\pm 0.00039) \\times 10^{-10}$ counts/s ($N = 1,103,170$ scattered events, relative uncertainty $< 0.04\\%$).\n- **Wavelength Monitor Intensity (`wl_mon`):** $(1.13989 \\pm 0.00039) \\times 10^{-10}$ counts/s across $5.5\\ \\text{\\AA} \\le \\lambda \\le 6.5\\ \\text{\\AA}$, confirming complete spectral coverage with a flat top-hat spectrum centered at $6.0\\ \\text{\\AA}$."
+  },
+  "grade": {
+    "task": "P3_sans_underspecified",
+    "pass": true,
+    "score": 1.0,
+    "checks_passed": "2/2",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "wavelength",
+        "observable": "center_of_mass",
+        "reference": 6.000276,
+        "candidate": 6.000453,
+        "pass": true,
+        "delta": 0.0001769999999998717,
+        "allowed": 0.12000552
+      },
+      {
+        "role": "wavelength",
+        "observable": "fwhm",
+        "reference": 0.099827,
+        "candidate": 0.100451,
+        "pass": true,
+        "delta": 0.0006239999999999996,
+        "allowed": 0.0499135
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/pilot/P3_sans_underspecified__loop__google_gemini_3_6_flash/home/instruments/pinhole_sans/pinhole_sans.instr",
+    "candidate_params": {}
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/pilot/P3_sans_underspecified__loop__google_gemini_3_6_flash/artifacts/pinhole_sans.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/pilot/P3_sans_underspecified__loop__google_gemini_3_6_flash/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/pilot/P3_sans_underspecified__loop__google_gemini_3_6_flash/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/pilot/P3_sans_underspecified__loop__google_gemini_3_6_flash/artifacts/trace",
+    "errors": []
+  }
+}

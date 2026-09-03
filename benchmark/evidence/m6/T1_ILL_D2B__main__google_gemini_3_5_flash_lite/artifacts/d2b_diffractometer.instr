@@ -1,0 +1,279 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: d2b_diffractometer
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 10:03:46 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* lambda: [unit] Angs
+* DM: [unit] Angs
+* Powder: [unit] 
+* RV: [unit] m
+* L1: [unit] m
+* L2: [unit] m
+* L3: [unit] m
+* verbose: [unit] 
+* ALPHA1: [unit] min
+* ALPHA2: [unit] min
+* ALPHA3: [unit] min
+* ETA: [unit] min
+* THETA_M: [unit] deg
+* TILT: [unit] deg
+* SM: [unit] 
+* Dheight: [unit] m
+* coating: [unit] 
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT d2b_diffractometer (
+lambda = 1.0, // Angs
+DM = 0.0, // Angs
+string Powder = "Na2Ca3Al2F14.laz", 
+RV = -1.0, // m
+L1 = 16.05, // m
+L2 = 2.645, // m
+L3 = 1.3, // m
+int verbose = 1.0, 
+ALPHA1 = 18.0, // min
+ALPHA2 = 11.0, // min
+ALPHA3 = 5.0, // min
+ETA = 12.0, // min
+THETA_M = 67.5, // deg
+TILT = 0.0, // deg
+SM = 1.0, 
+Dheight = 0.3, // m
+coating = 0.0 
+)
+
+DECLARE 
+%{
+double L = 0.0;
+double KI = 0.0;
+double Vi = 0.0;
+double EI = 0.0;
+double ALPHA3_Opt = 0.0;
+double U = 0.0;
+double V = 0.0;
+double W = 0.0;
+double L0 = 0.0;
+string lamopts = lambda limits=[0, 0];
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated d2b_diffractometer
+%}
+
+TRACE 
+COMPONENT Origin = Progress_bar()
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT Source = Source_gen(
+ radius = 0.11, dist = 11,
+ focus_xw = fabs(0.05*fabs(sin(DEG2RAD*THETA_M))), focus_yh = 0.3,
+ focus_aw = 0, focus_ah = 0,
+ lambda0 = lambda, dlambda = lambda*0.01,
+ I1 = 5874000000000, T1 = 683.7,
+ T2 = 257.7, I2 = 25099000000000,
+ T3 = 16.7, I3 = 1034300000000)
+AT (0.0, 0.0, 0.0) RELATIVE Origin
+
+COMPONENT Win0 = Slit(
+ radius = 0.11)
+AT (0.0, 0.0, 2.462) RELATIVE Origin
+
+COMPONENT Oct1 = Slit(
+ xwidth = 0.15, yheight = 0.15)
+AT (0.0, 0.0, 2.512) RELATIVE Origin
+
+COMPONENT Oct2 = Slit(
+ xwidth = 0.177, yheight = 0.177)
+AT (0.0, 0.0, 2.512) RELATIVE Origin
+ROTATED (0.0, 0.0, 45.0) RELATIVE Origin
+
+COMPONENT Win1 = Slit(
+ radius = 0.0565)
+AT (0.0, 0.0, 3.5321) RELATIVE Origin
+
+COMPONENT Win2 = Slit(
+ radius = 0.0555)
+AT (0.0, 0.0, 4.0421) RELATIVE Origin
+
+COMPONENT Win3 = Slit(
+ radius = 0.0575)
+AT (0.0, 0.0, 4.087) RELATIVE Origin
+
+COMPONENT Win4 = Slit(
+ radius = 0.0575)
+AT (0.0, 0.0, 4.999) RELATIVE Origin
+
+COMPONENT Win5 = Slit(
+ radius = 0.0625)
+AT (0.0, 0.0, 5.006) RELATIVE Origin
+
+COMPONENT Win6 = Slit(
+ radius = 0.0625)
+AT (0.0, 0.0, 5.151) RELATIVE Origin
+
+COMPONENT SMguide = Guide(
+ w1 = 0.07, h1 = 0.3,
+ l = 5, m = coating)
+WHEN ((coating>0))
+AT (0.0, 0.0, 11.0) RELATIVE Origin
+
+COMPONENT Alpha_One = Collimator_linear(
+ xwidth = 0.07, yheight = 0.3,
+ length = 0.7, divergence = ALPHA1,
+ transmission = 1)
+WHEN ((ALPHA1>0))
+AT (0.0, 0.0, L1-1.045) RELATIVE Origin
+
+COMPONENT Slit_Mono = Slit(
+ xwidth = 0.05, yheight = 0.3)
+AT (0.0, 0.0, L1-0.1) RELATIVE Origin
+
+COMPONENT D2B_Mono_XY = Monitor_nD(
+ xwidth = 0.1, yheight = 0.3,
+ bins = 40, restore_neutron = 1,
+ options = "x y")
+AT (0.0, 0.0, 0.0) RELATIVE Slit_Mono
+
+COMPONENT D2B_ALPHA1_Div = Monitor_nD(
+ xwidth = 0.1, yheight = 0.3,
+ bins = 40, restore_neutron = 1,
+ options = "dx limits=[-0.5 0.5] dy limits=[-1 1]")
+AT (0.0, 0.0, 0.0) RELATIVE D2B_Mono_XY
+
+COMPONENT D2B_Mono_Lambda = Monitor_nD(
+ xwidth = 0.1, yheight = 0.3,
+ bins = 40, restore_neutron = 1,
+ options = "lambda limits=[0.5, 2.5]")
+AT (0.0, 0.0, 0.0) RELATIVE D2B_ALPHA1_Div
+
+COMPONENT mono_cradle = Arm()
+AT (0.0, 0.0, L1) RELATIVE Origin
+
+SPLIT 10 COMPONENT Monok = Monochromator_curved(
+ NH = 1, NV = 28,
+ mosaich = ETA, mosaicv = 12,
+ RV = RV, DM = DM,
+ width = 0.1, height = 0.3)
+AT (0.0, 0.0, 0.0) RELATIVE mono_cradle
+ROTATED (0.0, THETA_M+TILT, 0.0) RELATIVE mono_cradle
+
+COMPONENT sphere = PSD_monitor_4PI(
+ filename = "sphere", radius = 0.5,
+ restore_neutron = 1)
+AT (0.0, 0.0, 0.0) RELATIVE mono_cradle
+
+COMPONENT mono_out = Arm()
+AT (0.0, 0.0, 0.0) RELATIVE mono_cradle
+ROTATED (0.0, 2*THETA_M, 0.0) RELATIVE mono_cradle
+
+COMPONENT Shield_Hole = Guide_channeled(
+ w1 = 0.05, h1 = 0.274,
+ w2 = 0.044, h2 = 0.201,
+ l = 0.752, R0 = 0,
+ nslit = 1)
+AT (0.0, 0.0, 0.304) RELATIVE mono_out
+
+COMPONENT Alpha_Two = Collimator_linear(
+ xwidth = 0.05, yheight = 0.2,
+ length = 0.2, divergence = ALPHA2,
+ transmission = 1)
+WHEN ((ALPHA2>0))
+AT (0.0, 0.0, L2-0.25) RELATIVE mono_out
+
+COMPONENT Slit_Sample = Slit(
+ xwidth = 0.01, yheight = 0.05)
+AT (0.0, 0.0, L2-0.02) RELATIVE mono_out
+
+COMPONENT D2B_ALPHA2_Div = Monitor_nD(
+ xwidth = 0.02, yheight = 0.05,
+ bins = 40, restore_neutron = 1,
+ options = "dx limits=[-0.5 0.5] dy limits=[-1 1]")
+AT (0.0, 0.0, 0.0) RELATIVE Slit_Sample
+
+COMPONENT D2B_Sample_Lambda = Monitor_nD(
+ xwidth = 0.02, yheight = 0.05,
+ bins = 40, restore_neutron = 1,
+ options = "lambda limits=[0.5, 2.5]")
+AT (0.0, 0.0, 0.0) RELATIVE D2B_ALPHA2_Div
+
+SPLIT 10 COMPONENT Arm_Sample = Arm()
+AT (0.0, 0.0, L2) RELATIVE mono_out
+
+COMPONENT Container_in = PowderN(
+ reflections = "V.lau", radius = 0.00301,
+ yheight = 0.04, thickness = 0.0005,
+ d_phi = 15, p_interact = 0.1,
+ concentric = 1)
+AT (0.0, 0.0, 0.0) RELATIVE Arm_Sample
+
+COMPONENT Sample = PowderN(
+ reflections = Powder, radius = 0.0025,
+ yheight = 0.04, d_phi = 15)
+AT (0.0, 0.0, 0.0) RELATIVE Arm_Sample
+
+COMPONENT Container_out = PowderN(
+ reflections = "V.lau", radius = 0.00301,
+ yheight = 0.04, thickness = 0.0005,
+ d_phi = 15, p_interact = 0.1,
+ concentric = 1)
+AT (0.0, 0.0, 0.0) RELATIVE Arm_Sample
+
+COMPONENT collimador_radial = Collimator_radial(
+ yheight = 0.3, length = 0.3,
+ divergence = ALPHA3, theta_min = -165,
+ theta_max = -5, radius = 0.99,
+ verbose = 1, approx = 1)
+WHEN ((ALPHA3>0))
+AT (0.0, 0.0, 0.0) RELATIVE Sample
+
+COMPONENT D2B_BananaTheta = Monitor_nD(
+ yheight = 0.3, bins = 3200,
+ restore_neutron = 1, radius = 0.99,
+ options = "banana, angle limits=[5 165]")
+AT (0.0, 0.0, 0.0) RELATIVE Sample
+
+COMPONENT D2B_BananaThetaCenter = Monitor_nD(
+ yheight = 0.1, bins = 3200,
+ restore_neutron = 1, radius = 0.99,
+ options = "banana, angle limits=[5 165]")
+AT (0.0, 0.0, 0.0) RELATIVE Sample
+
+COMPONENT D2B_BananaPSD = Monitor_nD(
+ yheight = 0.3, bins = 320,
+ radius = 0.995, options = "banana, theta limits=[-165 -5] bins=320, y bins=25")
+AT (0.0, 0.0, 0.0) RELATIVE Sample
+
+FINALLY 
+%{
+// Start of finally for generated d2b_diffractometer
+%}
+
+END

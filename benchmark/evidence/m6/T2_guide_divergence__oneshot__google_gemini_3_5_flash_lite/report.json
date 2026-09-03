@@ -1,0 +1,70 @@
+{
+  "task": "T2_guide_divergence",
+  "episode": {
+    "model": "google/gemini-3.5-flash-lite",
+    "scaffold": "plain-llm-oneshot",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 1,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 3.5,
+    "usage": {
+      "prompt_tokens": 1545,
+      "completion_tokens": 614
+    },
+    "mcp_calls": {},
+    "skill_used": true,
+    "final_answer": "```mcstas\nDEFINE INSTRUMENT optimized_guide(\n    w_in = 0.012,       // Guide entry width/height [m]\n    w_out = 0.045,      // Guide exit width/height [m]\n    m_coat = 3.0        // Supermirror m-value [-]\n)\n\nDECLARE\n%{\n%}\n\nINITIALIZE\n%{\n%}\n\nTRACE\n\nCOMPONENT o = Progress_bar()\nAT (0, 0, 0) ABSOLUTE\n\n// Source: 10x10 cm source emitting lambda = 5.0 +- 0.5 Angstrom\nCOMPONENT source = Source_simple(\n    radius = 0,\n    xwidth = 0.1,\n    yheight = 0.1,\n    dist = 1.5,\n    focus_xw = w_in,\n    focus_yh = w_in,\n    lambda0 = 5.0,\n    dlambda = 0.5\n)\nAT (0, 0, 0) ABSOLUTE\n\nCOMPONENT m_src = L_monitor(\n    nlam = 100,\n    filename = \"source_lambda.dat\",\n    xwidth = 0.1,\n    yheight = 0.1,\n    Lmin = 4.0,\n    Lmax = 6.0,\n    restore_neutron = 1\n)\nAT (0, 0, 1.5) ABSOLUTE\n\n// 1.5 m from source to guide entry\nCOMPONENT arm_guide_start = Arm()\nAT (0, 0, 1.5) ABSOLUTE\n\n// 10 m straight (or converging/diverging) supermirror guide\nCOMPONENT guide = Guide_anyshape(\n    w1 = w_in,\n    h1 = w_in,\n    w2 = w_out,\n    h2 = w_out,\n    l = 10.0,\n    m = m_coat\n)\nAT (0, 0, 0) RELATIVE arm_guide_start\n\n// 5 cm behind guide exit to sample / divmon\nCOMPONENT arm_sample = Arm()\nAT (0, 0, 10.05) RELATIVE arm_guide_start\n\nCOMPONENT divmon = Divergence_monitor(\n    filename = \"divmon.dat\",\n    xwidth = 0.02,\n    yheight = 0.02,\n    maxdiv_h = 0.5,\n    maxdiv_v = 0.5,\n    restore_neutron = 1\n)\nAT (0, 0, 0) RELATIVE arm_sample\n\nEND\n```"
+  },
+  "grade": {
+    "task": "T2_guide_divergence",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "candidate failed to run (translate)"
+    ],
+    "diagnostics": [
+      "  Definition parameters: ",
+      "  Setting parameters: xwidth yheight zdepth center transmit R0 Qc alpha m W reflect geometry ",
+      "         component guide=Guide_anyshape() parameter 'W' from library but",
+      "         may be misspelled. Check component instance.",
+      "ERROR: Unmatched actual parameter h2 for component guide=Guide_anyshape() at line /Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__google_gemini_3_5_flash_lite/home/instruments/optimized_guide/optimized_guide.instr:56.Please change its name to a valid one:",
+      "  Definition parameters: ",
+      "  Setting parameters: xwidth yheight zdepth center transmit R0 Qc alpha m W reflect geometry ",
+      "ERROR: Unmatched actual parameter l for component guide=Guide_anyshape() at line /Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__google_gemini_3_5_flash_lite/home/instruments/optimized_guide/optimized_guide.instr:56.Please change its name to a valid one:",
+      "  Definition parameters: ",
+      "  Setting parameters: xwidth yheight zdepth center transmit R0 Qc alpha m W reflect geometry ",
+      "         component guide=Guide_anyshape() parameter 'alpha' from library but",
+      "         may be misspelled. Check component instance.",
+      "mcstas: 6 Errors encountered during parse of /Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__google_gemini_3_5_flash_lite/home/instruments/optimized_guide/optimized_guide.instr.",
+      "INFO: call to /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas failed with Command '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas -t -o ./optimized_guide.c /Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__google_gemini_3_5_flash_lite/home/instruments/optimized_guide/optimized_guide.instr' returned non-zero exit status 1.",
+      "ERROR: Code generation failed for instrument /Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__google_gemini_3_5_flash_lite/home/instruments/optimized_guide/optimized_guide.instr using code generator /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas"
+    ],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__google_gemini_3_5_flash_lite/home/instruments/optimized_guide/optimized_guide.instr",
+    "candidate_params": {
+      "w_in": "0.012",
+      "w_out": "0.045",
+      "m_coat": "3.0        // Supermirror m-value [-]"
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__google_gemini_3_5_flash_lite/artifacts/optimized_guide.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__google_gemini_3_5_flash_lite/artifacts/params.json",
+    "diagram": null,
+    "trace": null,
+    "errors": [
+      "diagram: McStasScript reader failed (known limitation)",
+      "trace: mcdisplay-webgl failed"
+    ]
+  }
+}

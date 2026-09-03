@@ -1,0 +1,140 @@
+DEFINE INSTRUMENT tas_instrument(
+    double KF = 5,
+    double KI = 0,
+    double QM = 0.5,
+    double EN = 0,
+    double verbose = 1,
+    double WM = 0.233,
+    double HM = 0.197,
+    double RMH = -1,
+    double RMV = -1,
+    double DM = 1.807,
+    double NHM = 15,
+    double NVM = 15,
+    double WA = 0.16,
+    double HA = 0.08,
+    double RAH = -1,
+    double RAV = -1,
+    double DA = 2.087,
+    double NHA = 15,
+    double NVA = 15,
+    double L1 = 2.3,
+    double ALF1 = 60,
+    double ALF2 = 60,
+    double ALF3 = 60,
+    double ALF4 = 60,
+    double BET1 = 120,
+    double BET2 = 120,
+    double BET3 = 120,
+    double BET4 = 120
+)
+
+DECLARE
+%{
+#ifndef DEG2RAD
+#define DEG2RAD (M_PI/180.0)
+#endif
+
+struct {
+  double l1;
+  double ei;
+} machine_hkl;
+
+struct {
+  double a1;
+} machine_real;
+%}
+
+INITIALIZE
+%{
+  double k2e = 2.07212465;
+  double ki_calc, kf_calc, ei_calc, ef_calc;
+
+  if (KI > 0) {
+    ki_calc = KI;
+    ei_calc = k2e * ki_calc * ki_calc;
+    ef_calc = ei_calc - EN;
+    kf_calc = sqrt(ef_calc / k2e);
+  } else {
+    kf_calc = (KF > 0) ? KF : 5.0;
+    ef_calc = k2e * kf_calc * kf_calc;
+    ei_calc = ef_calc + EN;
+    ki_calc = sqrt(ei_calc / k2e);
+  }
+
+  machine_hkl.l1 = L1;
+  machine_hkl.ei = ei_calc;
+
+  double arg = M_PI / (DM * ki_calc);
+  if (arg > 1.0) arg = 1.0;
+  if (arg < -1.0) arg = -1.0;
+  machine_real.a1 = asin(arg) * 180.0 / M_PI;
+
+  if (verbose) {
+    printf("TAS setup: ki = %g A^-1, kf = %g A^-1, Ei = %g meV, A1 = %g deg\n",
+           ki_calc, kf_calc, ei_calc, machine_real.a1);
+  }
+%}
+
+TRACE
+
+COMPONENT Origin = Progress_bar()
+  AT (0, 0, 0) ABSOLUTE
+
+COMPONENT Source = Source_gen(
+  radius = 0.10,
+  dist = machine_hkl.l1,
+  focus_xw = fabs(WM * sin(machine_real.a1 * DEG2RAD)),
+  focus_yh = HM,
+  E0 = machine_hkl.ei,
+  dE = machine_hkl.ei * 0.03,
+  I1 = 0.5874e+13,
+  T1 = 683.7,
+  T2 = 257.7,
+  I2 = 2.5099e+13,
+  T3 = 16.7,
+  I3 = 1.0343e+12
+)
+  AT (0, 0, 0) ABSOLUTE
+
+COMPONENT SC1 = Collimator_linear(
+  xmin = -WM/2.0,
+  xmax = WM/2.0,
+  ymin = -HM/2.0,
+  ymax = HM/2.0,
+  length = machine_hkl.l1/2.0,
+  divergence = ALF1,
+  divergenceV = BET1
+)
+  WHEN (ALF1 && BET1)
+  AT (0, 0, machine_hkl.l1/4.0) ABSOLUTE
+
+COMPONENT Guide_out = Arm()
+  AT (0, 0, machine_hkl.l1 - 0.2) ABSOLUTE
+
+COMPONENT L_mon = L_monitor(
+  nL = 100,
+  xmin = -WM/2.0,
+  xmax = WM/2.0,
+  ymin = -HM/2.0,
+  ymax = HM/2.0,
+  Lmin = 0.1,
+  Lmax = 10.0,
+  filename = "l_mon.dat",
+  restore_neutron = 1
+)
+  AT (0, 0, 0.001) RELATIVE Guide_out
+
+COMPONENT psd_mon = PSD_monitor(
+  nx = 100,
+  ny = 100,
+  xmin = -WM/2.0,
+  xmax = WM/2.0,
+  ymin = -HM/2.0,
+  ymax = HM/2.0,
+  filename = "psd_mon.dat",
+  restore_neutron = 1
+)
+  AT (0, 0, 0.002) RELATIVE Guide_out
+
+END

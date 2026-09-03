@@ -1,0 +1,116 @@
+{
+  "task": "T1_HZB_NEAT",
+  "episode": {
+    "model": "google/gemini-3.6-flash",
+    "scaffold": "plain-llm-oneshot",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 1,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 61.8,
+    "usage": {
+      "prompt_tokens": 5204,
+      "completion_tokens": 13704
+    },
+    "mcp_calls": {},
+    "skill_used": true,
+    "final_answer": "```mcstas\nDEFINE INSTRUMENT NEAT_TOF(\n    double lambda = 6,\n    double dlambda = 0.05,\n    double rpm = 10000,\n    string coh = \"Rb_liq_coh.sqw\",\n    string inc = \"Rb_liq_inc.sqw\",\n    double tmin = 0.01806,\n    double tmax = 0.01826\n)\n\nDECLARE\n%{\n  double time_elastic;\n  char detector_options[256];\n  char lmon_options[256];\n  char tmon_options[256];\n%}\n\nINITIALIZE\n%{\n  double Chopper2Detector = 11.97 + 2.143 + 0.165;\n  double KI, Vi, EI;\n  double Emin, Emax, Vmin, Vmax, Tmin, Tmax;\n  KI = 2 * PI / lambda;\n  Vi = K2V * fabs(KI);\n  EI = VS2E * Vi * Vi;\n  printf(\"%s: Detailed NEAT/TOF configuration\\n\", NAME_INSTRUMENT);\n  printf(\"* Incoming beam: lambda=%.4g [Angs] EI=%.4g [meV]  KI=%.4g [Angs-1] Vi=%g [m/s]\\n\",\n    NAME_INSTRUMENT, lambda, EI, KI, Vi);\n  time_elastic = 252.78 * Chopper2Detector * lambda * 1e-6; /* time from Chopper1 to reach Detector */\n  printf(\"  Sample: coh=%s inc=%s\\n\", coh, inc);\n  printf(\"          Elastic line time: %g [us]\\n\", time_elastic * 1e6);\n  Emin = EI - 20; if (Emin < EI / 3.0) Emin = EI / 3.0;\n  Emax = EI + 20;\n  Vmin = sqrt(Emin / VS2E);\n  Vmax = sqrt(Emax / VS2E);\n  Tmin = 2.5 / Vmax;\n  Tmax = 2.5 / Vmin;\n  sprintf(detector_options,\n    \"banana, abs angle limits=[13 136] bins=300, time limits=[%g %g] bins=256\",\n    time_elastic + Tmin, time_elastic + Tmax);\n  sprintf(lmon_options, \"lambda limits=[%g %g] bins=100\", lambda - dlambda / 2.0, lambda + dlambda / 2.0);\n  sprintf(tmon_options, \"tof limits=[%g %g] bins=100\", tmin, tmax);\n%}\n\nTRACE\n\nCOMPONENT PG = Progress_bar()\nAT (0, 0, 0) RELATIVE ABSOLUTE\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Source = Source_gen(\n    radius = 0.155,\n    focus_xw = 0.03,\n    focus_yh = 0.055,\n    lambda0 = lambda,\n    dlambda = dlambda,\n    I1 = 1.4e12,\n    T1 = 43.7,\n    T2 = 137.2,\n    I2 = 2.08e12)\nAT (0, 0, 0) RELATIVE ABSOLUTE\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Guide0 = Guide_gravity(\n    w1 = 0.03,\n    h1 = 0.055,\n    l = 2,\n    m = 1.2)\nAT (0, 0, 2) RELATIVE Source\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Guide0_copy = Guide_gravity(\n    w1 = 0.03,\n    h1 = 0.055,\n    l = 2,\n    m = 1.2)\nAT (0, 0, 2 + 1e-4) RELATIVE Guide0\nROTATED (0, 2.0 / 2500.0 * RAD2DEG, 0) RELATIVE Guide0\n\nCOMPONENT Guide0_copy_0 = Guide_gravity(\n    w1 = 0.03,\n    h1 = 0.055,\n    l = 2,\n    m = 1.2)\nAT (0, 0, 2 + 1e-4) RELATIVE Guide0_copy\nROTATED (0, 2.0 / 2500.0 * RAD2DEG, 0) RELATIVE Guide0_copy\n\nCOMPONENT Guide0_copy_1 = Guide_gravity(\n    w1 = 0.03,\n    h1 = 0.055,\n    l = 2,\n    m = 1.2)\nAT (0, 0, 2 + 1e-4) RELATIVE Guide0_copy_0\nROTATED (0, 2.0 / 2500.0 * RAD2DEG, 0) RELATIVE Guide0_copy_0\n\nCOMPONENT Guide0_copy_2 = Guide_gravity(\n    w1 = 0.03,\n    h1 = 0.055,\n    l = 2,\n    m = 1.2)\nAT (0, 0, 2 + 1e-4) RELATIVE Guide0_copy_1\nROTATED (0, 2.0 / 2500.0 * RAD2DEG, 0) RELATIVE Guide0_copy_1\n\nCOMPONENT Guide0_copy_3 = Guide_gravity(\n    w1 = 0.03,\n    h1 = 0.055,\n    l = 2,\n    m = 1.2)\nAT (0, 0, 2 + 1e-4) RELATIVE Guide0_copy_2\nROTATED (0, 2.0 / 2500.0 * RAD2DEG, 0) RELATIVE Guide0_copy_2\n\nCOMPONENT Guide0_copy_4 = Guide_gravity(\n    w1 = 0.03,\n    h1 = 0.055,\n    l = 2,\n    m = 1.2)\nAT (0, 0, 2 + 1e-4) RELATIVE Guide0_copy_3\nROTATED (0, 2.0 / 2500.0 * RAD2DEG, 0) RELATIVE Guide0_copy_3\n\nCOMPONENT Guide0_copy_5 = Guide_gravity(\n    w1 = 0.03,\n    h1 = 0.055,\n    l = 2,\n    m = 1.2)\nAT (0, 0, 2 + 1e-4) RELATIVE Guide0_copy_4\nROTATED (0, 2.0 / 2500.0 * RAD2DEG, 0) RELATIVE Guide0_copy_4\n\nCOMPONENT Guide0_copy_6 = Guide_gravity(\n    w1 = 0.03,\n    h1 = 0.055,\n    l = 2,\n    m = 1.2)\nAT (0, 0, 2 + 1e-4) RELATIVE Guide0_copy_5\nROTATED (0, 2.0 / 2500.0 * RAD2DEG, 0) RELATIVE Guide0_copy_5\n\nCOMPONENT Guide0_copy_7 = Guide_gravity(\n    w1 = 0.03,\n    h1 = 0.055,\n    l = 2,\n    m = 1.2)\nAT (0, 0, 2 + 1e-4) RELATIVE Guide0_copy_6\nROTATED (0, 2.0 / 2500.0 * RAD2DEG, 0) RELATIVE Guide0_copy_6\n\nCOMPONENT Guide0_copy_8 = Guide_gravity(\n    w1 = 0.03,\n    h1 = 0.055,\n    l = 2,\n    m = 1.2)\nAT (0, 0, 2 + 1e-4) RELATIVE Guide0_copy_7\nROTATED (0, 2.0 / 2500.0 * RAD2DEG, 0) RELATIVE Guide0_copy_7\n\nCOMPONENT Guide0_copy_9 = Guide_gravity(\n    w1 = 0.03,\n    h1 = 0.055,\n    l = 2,\n    m = 1.2)\nAT (0, 0, 2 + 1e-4) RELATIVE Guide0_copy_8\nROTATED (0, 2.0 / 2500.0 * RAD2DEG, 0) RELATIVE Guide0_copy_8\n\nCOMPONENT Guide0_copy_10 = Guide_gravity(\n    w1 = 0.03,\n    h1 = 0.055,\n    l = 2,\n    m = 1.2)\nAT (0, 0, 2 + 1e-4) RELATIVE Guide0_copy_9\nROTATED (0, 2.0 / 2500.0 * RAD2DEG, 0) RELATIVE Guide0_copy_9\n\nCOMPONENT Guide0_copy_11 = Guide_gravity(\n    w1 = 0.03,\n    h1 = 0.055,\n    l = 2,\n    m = 1.2)\nAT (0, 0, 2 + 1e-4) RELATIVE Guide0_copy_10\nROTATED (0, 2.0 / 2500.0 * RAD2DEG, 0) RELATIVE Guide0_copy_10\n\nCOMPONENT Guide0_copy_12 = Guide_gravity(\n    w1 = 0.03,\n    h1 = 0.055,\n    l = 2,\n    m = 1.2)\nAT (0, 0, 2 + 1e-4) RELATIVE Guide0_copy_11\nROTATED (0, 2.0 / 2500.0 * RAD2DEG, 0) RELATIVE Guide0_copy_11\n\nCOMPONENT Guide0_copy_13 = Guide_gravity(\n    w1 = 0.03,\n    h1 = 0.055,\n    l = 2,\n    m = 1.2)\nAT (0, 0, 2 + 1e-4) RELATIVE Guide0_copy_12\nROTATED (0, 2.0 / 2500.0 * RAD2DEG, 0) RELATIVE Guide0_copy_12\n\nCOMPONENT Guide0_copy_14 = Guide_gravity(\n    w1 = 0.03,\n    h1 = 0.055,\n    l = 2,\n    m = 1.2)\nAT (0, 0, 2 + 1e-4) RELATIVE Guide0_copy_13\nROTATED (0, 2.0 / 2500.0 * RAD2DEG, 0) RELATIVE Guide0_copy_13\n\nCOMPONENT Guide_PSD = Monitor_nD(\n    xwidth = 0.03,\n    yheight = 0.055,\n    options = \"y x\")\nAT (0, 0, 2 + 1e-4) RELATIVE Guide0_copy_14\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Guide_Lambda = Monitor_nD(\n    xwidth = 0.03,\n    yheight = 0.055,\n    options = lmon_options)\nAT (0, 0, 1e-4) RELATIVE Guide_PSD\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Chopper1 = DiskChopper(\n    radius = 0.24,\n    yheight = 0.06,\n    nu = rpm / 60.0,\n    isfirst = 1,\n    xwidth = 0.03)\nAT (0, 0, 1.2e-2 / 2.0) RELATIVE Guide_Lambda\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Guide_SGS1 = Guide_gravity(\n    w1 = 0.03,\n    h1 = 0.055,\n    l = 2,\n    m = 1.2)\nAT (0, 0, 1.2e-2) RELATIVE Guide_Lambda\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Guide_SGS2 = Guide_gravity(\n    w1 = 0.03,\n    h1 = 0.055,\n    l = 2,\n    m = 1.2)\nAT (0, 0, 2.41) RELATIVE Guide_SGS1\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Guide_SGS3 = Guide_gravity(\n    w1 = 0.03,\n    h1 = 0.055,\n    l = 2,\n    m = 1.2)\nAT (0, 0, 5.065) RELATIVE Guide_SGS2\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Guide_CGS = Guide_gravity(\n    w1 = 0.03,\n    h1 = 0.055,\n    l = 2,\n    m = 1.2)\nAT (0, 0, 2.352) RELATIVE Guide_SGS3\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Guide2_PSD = Monitor_nD(\n    xwidth = 0.03,\n    yheight = 0.055,\n    options = \"x y\")\nAT (0, 0, 2.143 - 2 * 6e-3 + 1e-4) RELATIVE Guide_CGS\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Guide2_Lambda = Monitor_nD(\n    xwidth = 0.03,\n    yheight = 0.055,\n    options = lmon_options)\nAT (0, 0, 1e-4) RELATIVE Guide2_PSD\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Guide2_dXY = Monitor_nD(\n    xwidth = 0.03,\n    yheight = 0.055,\n    options = \"dx dy\")\nAT (0, 0, 1e-4) RELATIVE Guide2_Lambda\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Chopper6 = DiskChopper(\n    radius = 0.24,\n    yheight = 0.06,\n    nu = rpm / 60.0,\n    delay = 252.78 * 11.97 * lambda * 1e-6,\n    xwidth = 0.03)\nAT (0, 0, 1.2e-2 / 2.0) RELATIVE Guide2_dXY\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Guide_time = Monitor_nD(\n    xwidth = 0.03,\n    yheight = 0.055,\n    options = \"y x\")\nAT (0, 0, 1.2e-2 / 2.0) RELATIVE Chopper6\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Guide_DGS = Guide_gravity(\n    w1 = 0.03,\n    h1 = 0.055,\n    l = 2,\n    m = 1.2)\nAT (0, 0, 2.143) RELATIVE Guide_CGS\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Sample_pos = Arm()\nAT (0, 0, 2.143 + 0.165) RELATIVE Guide_DGS\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nSPLIT 10 COMPONENT Sample = Isotropic_Sqw(\n    Sqw_coh = coh,\n    Sqw_inc = inc,\n    xwidth = 0.05,\n    yheight = 0.06,\n    zdepth = 0.002,\n    p_interact = 0.99)\nAT (0, 0, 0) RELATIVE Sample_pos\nROTATED (0, 45, 0) RELATIVE Sample_pos\nEXTEND\n%{\n  if (!SCATTERED) ABSORB;\n%}\n\nCOMPONENT Ideal_Det = Monitor_nD(\n    yheight = 2,\n    restore_neutron = 1,\n    radius = 2.5,\n    options = detector_options)\nAT (0, 0, 0) RELATIVE Sample_pos\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Detector = PSD_Detector(\n    nx = 640,\n    ny = 256,\n    radius = 2.5,\n    yheight = 2.0,\n    zdepth = 0.01,\n    threshold = 100,\n    PressureConv = 8,\n    PressureStop = 1,\n    dc = 0,\n    borderx = -1,\n    bordery = -1,\n    xChDivRelSigma = 0,\n    yChDivRelSigma = 0.0037,\n    angle = 136.0 - 13.0,\n    filename = \"NEAT.psd\",\n    FN_Conv = \"Gas_tables/He3inHe.table\",\n    FN_Stop = \"Gas_tables/He3inCF4.table\")\nAT (0, 0, 0) RELATIVE Sample_pos\nROTATED (0, (136.0 - 13.0) / 2.0 + 13.0, 0) RELATIVE Sample_pos\n\nEND\n```"
+  },
+  "grade": {
+    "task": "T1_HZB_NEAT",
+    "pass": false,
+    "score": 0.0,
+    "checks_passed": "5/6",
+    "hard_failures": [
+      "no monitor with role 'tof' in candidate"
+    ],
+    "checks": [
+      {
+        "role": "2d",
+        "observable": "intensity",
+        "reference": 80374900.0,
+        "candidate": 60634000.0,
+        "pass": false,
+        "delta": -19740900.0,
+        "allowed": 16074980.0
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_x",
+        "reference": 0.015923,
+        "candidate": 0.015915,
+        "pass": true,
+        "delta": -8.000000000001062e-06,
+        "allowed": 0.0047769
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_y",
+        "reference": 0.00865695,
+        "candidate": 0.00660118,
+        "pass": true,
+        "delta": -0.00205577,
+        "allowed": 0.002597085
+      },
+      {
+        "role": "wavelength",
+        "observable": "intensity",
+        "reference": 40042600.0,
+        "candidate": 40042600.0,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 10010650.0
+      },
+      {
+        "role": "wavelength",
+        "observable": "center_of_mass",
+        "reference": 5.999773,
+        "candidate": 5.999773,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.29998865
+      },
+      {
+        "role": "wavelength",
+        "observable": "fwhm",
+        "reference": 0.0495,
+        "candidate": 0.0495,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.02475
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_NEAT__oneshot__google_gemini_3_6_flash/home/instruments/NEAT_TOF/NEAT_TOF.instr",
+    "candidate_params": {
+      "lambda": "6",
+      "dlambda": "0.05",
+      "rpm": "10000",
+      "coh": "\"Rb_liq_coh.sqw\"",
+      "inc": "\"Rb_liq_inc.sqw\"",
+      "tmin": "0.01806",
+      "tmax": "0.01826"
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_NEAT__oneshot__google_gemini_3_6_flash/artifacts/NEAT_TOF.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_NEAT__oneshot__google_gemini_3_6_flash/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_NEAT__oneshot__google_gemini_3_6_flash/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_NEAT__oneshot__google_gemini_3_6_flash/artifacts/trace",
+    "errors": []
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "task": "T1_ILL_H10_IN8",
+  "episode": {
+    "model": "meta-llama/llama-4-maverick",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 3,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 76.6,
+    "usage": {
+      "prompt_tokens": 23003,
+      "completion_tokens": 6497
+    },
+    "mcp_calls": {
+      "get_results": 1,
+      "validate_instrument": 1
+    },
+    "skill_used": true,
+    "final_answer": "create_instrument(name=\"TAS_instrument\", description=\"Triple Axis Spectrometer Instrument\")\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"KF\", default=5)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"KI\", default=0)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"QM\", default=0.5)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"EN\", default=0)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"verbose\", default=1)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"WM\", default=0.233)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"HM\", default=0.197)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"RMH\", default=-1)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"RMV\", default=-1)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"DM\", default=1.807)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"NHM\", default=15)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"NVM\", default=15)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"WA\", default=0.16)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"HA\", default=0.08)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"RAH\", default=-1)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"RAV\", default=-1)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"DA\", default=2.087)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"NHA\", default=15)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"NVA\", default=15)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"L1\", default=2.3)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"ALF1\", default=60)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"ALF2\", default=60)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"ALF3\", default=60)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"ALF4\", default=60)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"BET1\", default=120)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"BET2\", default=120)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"BET3\", default=120)\nadd_parameter(instrument_id=\"TAS_instrument\", name=\"BET4\", default=120)\n\nadd_component(instrument_id=\"TAS_instrument\", name=\"Progress_bar\", component=\"Progress_bar\", at=[0, 0, 0], relative=\"ABSOLUTE\")\nadd_component(instrument_id=\"TAS_instrument\", name=\"Source\", component=\"Source_gen\", at=[0, 0, 0], relative=\"Progress_bar\",\n              parameters={\"radius\": 0.10, \"dist\": \"L1\", \"focus_xw\": \"fabs(WM*sin(ALF1*DEG2RAD))\", \"focus_yh\": \"HM\", \n                          \"E0\": \"70\", \"dE\": \"70*0.03\", \"I1\": 0.5874e+13, \"T1\": 683.7, \"T2\": 257.7, \"I2\": 2.5099e+13, \"T3\": 16.7, \"I3\": 1.0343e+12})\nadd_component(instrument_id=\"TAS_instrument\", name=\"SC1\", component=\"Collimator_linear\", at=[0, 0, \"L1/4\"], relative=\"Source\",\n              when=\"ALF1 && BET1\", parameters={\"xmin\": \"-WM/2\", \"xmax\": \"WM/2\", \"ymin\": \"-HM/2\", \"ymax\": \"HM/2\", \n                                               \"length\": \"L1/2\", \"divergence\": \"ALF1\", \"divergenceV\": \"BET1\"})\nadd_component(instrument_id=\"TAS_instrument\", name=\"Guide_out\", component=\"Arm\", at=[0, 0, \"L1-0.2\"], relative=\"SC1\")\nadd_component(instrument_id=\"TAS_instrument\", name=\"PSD_monitor\", component=\"PSD_monitor\", at=[0, 0, \"0.1\"], relative=\"Guide_out\",\n              parameters={\"xwidth\": 0.1, \"yheight\": 0.1, \"filename\": \"\\\"PSD.dat\\\"\", \"restore_neutron\": 1})\nadd_component(instrument_id=\"TAS_instrument\", name=\"Wavelength_monitor\", component=\"Monitor_nD\", at=[0, 0, \"0.2\"], relative=\"Guide_out\",\n              parameters={\"filename\": \"\\\"Wavelength.dat\\\"\", \"xvar\": \"lambda\", \"xmin\": 0, \"xmax\": 10, \"nx\": 100, \"restore_neutron\": 1})\n\nvalidate_instrument(instrument_id=\"TAS_instrument\")"
+  },
+  "grade": {
+    "task": "T1_ILL_H10_IN8",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": null
+}

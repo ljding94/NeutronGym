@@ -1,0 +1,63 @@
+{
+  "task": "P1_sans_reproduce",
+  "episode": {
+    "model": "claude-opus-5[1m]",
+    "returncode": 0,
+    "turns": 47,
+    "cost_usd": 2.8967375000000004,
+    "duration_s": 471.0,
+    "mcp_calls": {
+      "mcp__mcstas__list_components": 1,
+      "mcp__mcstas__describe_component": 6,
+      "mcp__mcstas__create_instrument": 1,
+      "mcp__mcstas__add_parameter": 6,
+      "mcp__mcstas__add_component": 9,
+      "mcp__mcstas__validate_instrument": 1,
+      "mcp__mcstas__run_simulation": 7,
+      "mcp__mcstas__set_parameters": 1,
+      "mcp__mcstas__get_instrument": 1,
+      "mcp__mcstas__job_status": 2,
+      "mcp__mcstas__get_results": 1,
+      "mcp__mcstas__get_monitor_data": 2,
+      "mcp__mcstas__export_instr_file": 1
+    },
+    "skill_used": true,
+    "final_answer": "## Result\n\n**Integrated intensity on the main detector: I = 0.0447 \u00b1 0.0001 n/s**\n\nPrecisely: `0.0447265 \u00b1 0.0000974` n/s (0.22% rel. err), from 3,448,460 detector events at `ncount = 1e8`, `seed = 20260825`, MPI = 4, no gravity.\n\n## Instrument\n\nSaved to `pinhole_SANS.instr`. Built in beam order, all distances from the source at z = 0:\n\n| Component | Type | z | Key settings |\n|---|---|---|---|\n| Source | `Source_simple` | 0 | radius 0.02, \u03bb 6.0 \u00b1 0.05, `gauss=0` (uniform), flux 1e8, focused on Pinhole1 |\n| Pinhole1 | `Slit` | 3.0 m | radius 0.005 |\n| Pinhole2 | `Slit` | 6.0 m | radius 0.005 |\n| PSD_presample | `PSD_monitor` | 6.19 m | diagnostic only, `restore_neutron=1` |\n| Sample | `Sans_spheres` | 6.2 m | R=100, Phi=0.001, Delta_rho=0.6, sigma_abs=0.5, 0.01 \u00d7 0.01 \u00d7 0.005 m |\n| Beamstop | `Beamstop` | 9.1 m | radius 0.02 |\n| Detector | `PSD_monitor` | 9.2 m | 0.6 \u00d7 0.6 m, 128 \u00d7 128 |\n| Lmon | `L_monitor` | 9.201 m | 0.6 \u00d7 0.6 m, Lmin 5.5, Lmax 6.5 |\n\nWavelength monitor: `I = 0.0447263 \u00b1 0.0000974` n/s, CoM = 6.0002 \u00c5, FWHM = 0.0998 \u00c5 \u2014 matches the 6.0 \u00b1 0.05 \u00c5 uniform band exactly.\n\n## Verification\n\n- **Beam on sample matches theory.** Pre-sample monitor reads `68.5346 \u00b1 0.0309` n/s vs. the analytic pinhole-camera value \u03a6\u00b7\u0394\u03bb\u00b7A\u2081\u00b7A\u2082/L\u2081\u2082\u00b2 = 1e8 \u00d7 0.1 \u00d7 \u03c0(0.5)\u00b2 \u00d7 \u03c0(0.5)\u00b2/300\u00b2 = **68.5 n/s**. Beam RMS 0.267 cm \u21d2 ~1.13 cm diameter, consistent with the two-pinhole geometry.\n- **Ring positions match the hard-sphere form factor.** First minimum predicted at qR = 4.493 \u21d2 q = 0.0449 \u00c5\u207b\u00b9 \u21d2 r = 12.9 cm on the detector; measured minimum at \u00b112.4\u201312.9 cm. Pattern is centred (X0 = 0.00016 cm, Y0 = \u22120.0020 cm) and the beamstop shadow is ~2.07 cm as expected.\n- **Variance reduction is unbiased.** The sample scatters into 4\u03c0 by default, which puts only 166 events on the detector at 1e6 (28% error) \u2014 nowhere near the precision bar. I made the sample's focusing a run-time parameter and cross-checked at 1e8, same seed:\n\n| Configuration | I (n/s) | events | agreement |\n|---|---|---|---|\n| Focused, 0.7 m rect (quoted) | 0.0447265 \u00b1 0.0000974 | 3.45e6 | \u2014 |\n| Unfocused, isotropic 4\u03c0 | 0.0447825 \u00b1 0.0014646 | 14,647 | 0.04\u03c3 |\n| Focused, 1.2 m rect | 0.0447846 \u00b1 0.0001670 | 1.17e6 | 0.30\u03c3 |\n\n  The result is independent of the focusing choice, so the 15\u00d7 precision gain costs nothing in accuracy. Refactoring focusing into a parameter was separately confirmed behaviour-neutral (identical I and N at fixed seed).\n\n## Two caveats on the spec\n\nBoth concern units, and I could not read the component source to settle them (the sandbox blocks filesystem access outside the working directory), so I went with the introspected metadata:\n\n1. **\u0394\u03c1**: spec says `0.6 fm/\u00c5\u00b2`; the component declares `fm/\u00c5\u00b3` (scattering length *density*, which is dimensionally the right quantity). I used the value 0.6 as given. Intensity scales as \u0394\u03c1\u00b2, so a genuine unit error here would matter a lot.\n2. **\u03c3_abs**: spec says `0.5 barns` (microscopic cross-section); the component's parameter is a *macroscopic* absorption coefficient in m\u207b\u00b9. I entered 0.5. This one is not load-bearing \u2014 re-running with 0.05 gives `0.0450634 \u00b1 0.0000981` n/s, only +0.75% higher, matching the analytic single-pass attenuation exp(\u2212\u03c3\u00b72200/v\u00b7d) over the 0.5 cm thickness.\n\nOne geometry note: the beam at the sample (~1.13 cm diameter) is slightly wider than the 1 \u00d7 1 cm sample, so a small fraction bypasses the sample. Those neutrons travel straight to the detector centre and are fully absorbed by the 2 cm beamstop, so they do not contaminate the quoted number."
+  },
+  "grade": {
+    "task": "P1_sans_reproduce",
+    "pass": false,
+    "score": 0.0,
+    "checks_passed": "0/0",
+    "hard_failures": [
+      "role '2d': only 166 events \u2014 below statistics floor, ungradable",
+      "role 'wavelength': only 166 events \u2014 below statistics floor, ungradable"
+    ],
+    "checks": [],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/P1_sans_reproduce__claude_code__subscription/home/instruments/pinhole_SANS/pinhole_SANS.instr",
+    "candidate_params": {
+      "lambda0": 6.0,
+      "dlambda": 0.05,
+      "sigma_abs": 0.5,
+      "fxw": 0.0,
+      "fyh": 0.0,
+      "tz": 0.0
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/P1_sans_reproduce__claude_code__subscription/artifacts/pinhole_SANS.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/P1_sans_reproduce__claude_code__subscription/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/P1_sans_reproduce__claude_code__subscription/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/P1_sans_reproduce__claude_code__subscription/artifacts/trace",
+    "errors": []
+  }
+}

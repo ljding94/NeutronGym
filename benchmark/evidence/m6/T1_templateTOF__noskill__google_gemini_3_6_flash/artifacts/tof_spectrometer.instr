@@ -1,0 +1,190 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: tof_spectrometer
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 14:32:12 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* E0: [unit] meV] Initial neutron energy [meV
+* dE: [unit] meV] Energy width [meV
+* dt: [unit] s] Time resolution/pulse width [s
+* coh: [unit] Coherent S(q,w) sample file
+* inc: [unit] Incoherent S(q,w) sample file
+* thickness: [unit] m] Sample thickness [m
+* yheight: [unit] m] Sample height [m
+* radius: [unit] m] Sample radius [m
+* container: [unit] Container material laz file
+* container_thickness: [unit] m] Container thickness [m
+* environment: [unit] Environment material laz file
+* environment_radius: [unit] m] Environment radius [m
+* environment_thickness: [unit] m] Environment thickness [m
+* dt0: [unit] s] Time offset / pulse width internal
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT tof_spectrometer (
+E0 = 4.94, // meV] Initial neutron energy [meV
+dE = 0.24, // meV] Energy width [meV
+dt = 6.4e-06, // s] Time resolution/pulse width [s
+string coh = "Rb_liq_coh.sqw", // Coherent S(q,w) sample file
+string inc = "Rb_liq_inc.sqw", // Incoherent S(q,w) sample file
+thickness = 0.0001, // m] Sample thickness [m
+yheight = 0.0168, // m] Sample height [m
+radius = 0.005, // m] Sample radius [m
+string container = "Nb.laz", // Container material laz file
+container_thickness = 5e-05, // m] Container thickness [m
+string environment = "Al.laz", // Environment material laz file
+environment_radius = 0.025, // m] Environment radius [m
+environment_thickness = 0.002, // m] Environment thickness [m
+dt0 = 0.0 // s] Time offset / pulse width internal
+)
+
+DECLARE 
+%{
+int flag_single;
+int flag_multi;
+int flag_env;
+int flag_container;
+double vi;
+double _dt0;
+string op[256];
+double focus_yh_val;
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated tof_spectrometer
+%}
+
+TRACE 
+COMPONENT a1 = Progress_bar(
+ percent = 5)
+AT (0.0, 0.0, 0.0) ABSOLUTE
+EXTEND %{
+flag_single=flag_multi=flag_env=flag_container=0;
+%}
+
+COMPONENT csource = Source_gen(
+ radius = 0.02, dist = 2.88,
+ focus_xw = 2*radius, focus_yh = yheight,
+ E0 = E0, dE = dE/2,
+ I1 = 1, T1 = 300)
+AT (0.0, 0.0, 0.0) RELATIVE a1
+
+COMPONENT SampleIn = Arm()
+AT (0.0, 0.0, 2.88) RELATIVE a1
+
+COMPONENT Environment_in = Isotropic_Sqw(
+ Sqw_coh = environment, radius = environment_radius,
+ thickness = environment_thickness, yheight = 0.1,
+ verbose = 0, concentric = 1)
+WHEN (environment_thickness > 0)
+AT (0.0, 0.0, 0.0) RELATIVE SampleIn
+EXTEND %{
+if (SCATTERED) flag_env=1;
+%}
+
+COMPONENT Container_in = Isotropic_Sqw(
+ Sqw_coh = container, radius = radius+0.0001+container_thickness,
+ thickness = container_thickness, yheight = yheight,
+ verbose = 0, concentric = 1)
+WHEN (yheight && container_thickness > 0)
+AT (0.0, 0.0, 0.0) RELATIVE SampleIn
+EXTEND %{
+if (SCATTERED) flag_container=1;
+%}
+
+COMPONENT Sample_in = Isotropic_Sqw(
+ Sqw_coh = coh, Sqw_inc = inc,
+ radius = radius, thickness = thickness,
+ yheight = yheight, p_interact = 0.9)
+AT (0.0, 0.0, 0.0) RELATIVE SampleIn
+EXTEND %{
+if      (SCATTERED == 1) flag_single=(type == 'c' ? 1 : 2);
+else if (SCATTERED >  1) flag_multi =(type == 'c' ? 1 : 2);
+else                     flag_multi =flag_single=0;
+t = randtriangle()*2*_dt0;
+%}
+
+COMPONENT Container_out = Isotropic_Sqw(
+ Sqw_coh = container, radius = radius+0.0001+container_thickness,
+ thickness = container_thickness, yheight = yheight,
+ verbose = 0, concentric = 1)
+WHEN (yheight && container_thickness)
+AT (0.0, 0.0, 0.0) RELATIVE SampleIn
+EXTEND %{
+if (SCATTERED) flag_container=1;
+%}
+
+COMPONENT Environment_out = Isotropic_Sqw(
+ Sqw_coh = environment, radius = environment_radius,
+ thickness = environment_thickness, yheight = 0.1,
+ verbose = 0, concentric = 1)
+WHEN (environment_thickness > 0)
+AT (0.0, 0.0, 0.0) RELATIVE SampleIn
+EXTEND %{
+if (SCATTERED) flag_env=1;
+%}
+
+COMPONENT SampleOut = Arm()
+AT (0.0, 0.0, 0.0) RELATIVE SampleIn
+
+COMPONENT M_total = Monitor_nD(
+ xwidth = 2.5, yheight = 0.4,
+ options = op)
+AT (0.0, 0.0, 0.0) RELATIVE SampleOut
+
+COMPONENT M_single_coh = Monitor_nD(
+ xwidth = 2.5, yheight = 0.4,
+ options = op)
+WHEN (flag_single == 1)
+AT (0.0, 0.0, 0.0) RELATIVE SampleOut
+
+COMPONENT M_single_inc = Monitor_nD(
+ xwidth = 2.5, yheight = 0.4,
+ options = op)
+WHEN (flag_single == 2)
+AT (0.0, 0.0, 0.0) RELATIVE SampleOut
+
+COMPONENT M_multi = Monitor_nD(
+ xwidth = 2.5, yheight = 0.4,
+ options = op)
+WHEN (flag_multi)
+AT (0.0, 0.0, 0.0) RELATIVE SampleOut
+
+COMPONENT M_env_container = Monitor_nD(
+ xwidth = 2.5, yheight = 0.4,
+ options = op)
+WHEN (flag_env || flag_container)
+AT (0.0, 0.0, 0.0) RELATIVE SampleOut
+
+FINALLY 
+%{
+// Start of finally for generated tof_spectrometer
+%}
+
+END

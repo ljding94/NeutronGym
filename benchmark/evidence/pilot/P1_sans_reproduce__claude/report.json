@@ -1,0 +1,90 @@
+{
+  "task": "P1_sans_reproduce",
+  "episode": {
+    "model": "claude-fable-5",
+    "returncode": 0,
+    "turns": 24,
+    "cost_usd": 2.488993,
+    "duration_s": 246.3,
+    "mcp_calls": {
+      "mcp__mcstas__create_instrument": 1,
+      "mcp__mcstas__describe_component": 6,
+      "mcp__mcstas__add_component": 7,
+      "mcp__mcstas__validate_instrument": 1,
+      "mcp__mcstas__run_simulation": 3,
+      "mcp__mcstas__get_monitor_data": 1
+    },
+    "skill_used": true,
+    "final_answer": "Gravity makes no measurable difference (0.04453 \u00b1 0.00008 vs 0.04461 \u00b1 0.00008 n/s, within 1\u03c3), so the result is robust. The task is complete.\n\n## Result\n\n**Integrated intensity on the main detector: I = 0.0446 \u00b1 0.0001 n/s** (sum over all 128\u00d7128 pixels), from 4.70\u00d710\u2076 detector events at ncount = 1\u00d710\u2078, seed = 12345, rel. error 0.19%. The wavelength monitor behind the detector plane records the same 0.0446 n/s, entirely inside 5.9\u20136.1 \u00c5 \u2014 confirming the 6.0 \u00b1 0.05 \u00c5 band arrives intact.\n\n## Instrument as built\n\nAll positions on the beam axis (z), per the spec:\n\n| Component | McStas type | Position | Key parameters |\n|---|---|---|---|\n| source | `Source_simple` | z = 0 | radius 2 cm, \u03bb = 6.0 \u00b1 0.05 \u00c5 flat, flux 1e8 n/s/cm\u00b2/st/\u00c5 |\n| pinhole 1 | `Slit` | z = 3.0 m | radius 5 mm |\n| pinhole 2 | `Slit` | z = 6.0 m | radius 5 mm |\n| sample | `Sans_spheres` | z = 6.2 m | R = 100 \u00c5, \u03a6 = 0.001, \u0394\u03c1 = 0.6 fm/\u00c5\u00b2, \u03c3_abs = 0.5, 1\u00d71 cm \u00d7 0.5 cm thick |\n| beamstop | `Beamstop` | z = 9.1 m | radius 2 cm |\n| detector | `PSD_monitor` | z = 9.2 m | 60\u00d760 cm, 128\u00d7128 pixels |\n| \u03bb monitor | `L_monitor` | z = 9.201 m | 60\u00d760 cm, 5.5\u20136.5 \u00c5 |\n\nSource focusing (variance reduction only) targets a 1 cm square matched to the first pinhole; the sample's scattering focus covers the 60\u00d760 cm detector.\n\n## Verification\n\n- The direct-beam penumbra through the two pinholes is at most ~1.6 cm radius at the detector plane, so the 2 cm beamstop fully shadows it \u2014 the quoted intensity is pure sample scattering, with the beamstop shadow visible as a clean hole in the image.\n- The 2D pattern is isotropic with concentric form-factor minima at ~13, 21, and 29 cm radius, matching the analytic sphere-form-factor zeros (qR = 4.49, 7.73, 10.9) for R = 100 \u00c5 at this wavelength and 3 m camera length.\n- The low-statistics run (1e6 rays) gave the same integral (0.0446 \u00b1 0.0008), and turning gravity on shifts it by less than 1\u03c3.\n\nThe generated instrument file is at `home/instruments/pinhole_sans/pinhole_sans.instr`, and the production output (including `PSD.dat` and the detector image) is in `home/instruments/pinhole_sans/pinhole_sans_20260724_140450_83194_3/`."
+  },
+  "grade": {
+    "task": "P1_sans_reproduce",
+    "pass": true,
+    "score": 1.0,
+    "checks_passed": "6/6",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "2d",
+        "observable": "intensity",
+        "reference": 0.0451716,
+        "candidate": 0.0452797,
+        "pass": true,
+        "delta": 0.00010809999999999986,
+        "allowed": 0.00903432
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_x",
+        "reference": 5.04341,
+        "candidate": 5.05582,
+        "pass": true,
+        "delta": 0.012410000000000032,
+        "allowed": 1.5130229999999998
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_y",
+        "reference": 5.05123,
+        "candidate": 5.05769,
+        "pass": true,
+        "delta": 0.006459999999999688,
+        "allowed": 1.515369
+      },
+      {
+        "role": "wavelength",
+        "observable": "intensity",
+        "reference": 0.0451701,
+        "candidate": 0.0452796,
+        "pass": true,
+        "delta": 0.00010950000000000543,
+        "allowed": 0.011292525
+      },
+      {
+        "role": "wavelength",
+        "observable": "center_of_mass",
+        "reference": 6.000276,
+        "candidate": 6.000414,
+        "pass": true,
+        "delta": 0.00013799999999974943,
+        "allowed": 0.12000552
+      },
+      {
+        "role": "wavelength",
+        "observable": "fwhm",
+        "reference": 0.099827,
+        "candidate": 0.09862,
+        "pass": true,
+        "delta": -0.0012069999999999997,
+        "allowed": 0.0499135
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/McStasBench/runs/pilot/P1_sans_reproduce__claude/home/instruments/pinhole_sans/pinhole_sans.instr",
+    "candidate_params": {}
+  }
+}

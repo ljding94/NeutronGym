@@ -1,0 +1,80 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: t2_focus_check
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 16:56:38 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* w_in: [unit] m
+* w_out: [unit] m
+* m_coat: [unit] 1
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT t2_focus_check (
+w_in = 0.012, // m
+w_out = 0.012, // m
+m_coat = 1.5 // 1
+)
+
+DECLARE 
+%{
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated t2_focus_check
+%}
+
+TRACE 
+COMPONENT src = Source_simple(
+ yheight = 0.1, xwidth = 0.1,
+ dist = 1.5, focus_xw = 0.09,
+ focus_yh = 0.09, lambda0 = 5,
+ dlambda = 0.5, flux = 1,
+ gauss = 0)
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT guide = Guide(
+ w1 = w_in, h1 = w_in,
+ w2 = w_out, h2 = w_out,
+ l = 10, m = m_coat)
+AT (0.0, 0.0, 1.5) RELATIVE src
+
+COMPONENT divmon = Divergence_monitor(
+ nh = 40, nv = 40,
+ filename = "divmon.dat", xwidth = 0.02,
+ yheight = 0.02, maxdiv_h = 0.5,
+ maxdiv_v = 0.5, restore_neutron = 1)
+AT (0.0, 0.0, 10.05) RELATIVE guide
+
+FINALLY 
+%{
+// Start of finally for generated t2_focus_check
+%}
+
+END

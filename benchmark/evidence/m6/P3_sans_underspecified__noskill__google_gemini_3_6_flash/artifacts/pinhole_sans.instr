@@ -1,0 +1,96 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: pinhole_sans
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 14:34:07 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT pinhole_sans (
+)
+
+DECLARE 
+%{
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated pinhole_sans
+%}
+
+TRACE 
+COMPONENT progress = Progress_bar()
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT source = Source_gen(
+ dist = 3, focus_xw = 0.02,
+ focus_yh = 0.02, lambda0 = 6,
+ dlambda = 0.05, I1 = 1000000000000,
+ yheight = 0.04, xwidth = 0.04,
+ target_index = 1)
+AT (0.0, 0.0, 0.0) RELATIVE progress
+
+COMPONENT aperture1 = Slit(
+ xwidth = 0.02, yheight = 0.02)
+AT (0.0, 0.0, 0.0) RELATIVE source
+
+COMPONENT aperture2 = Slit(
+ xwidth = 0.01, yheight = 0.01)
+AT (0.0, 0.0, 3.0) RELATIVE aperture1
+
+COMPONENT sample = Sans_spheres(
+ R = 100, Phi = 0.001,
+ Delta_rho = 0.6, xwidth = 0.01,
+ yheight = 0.01, zdepth = 0.005,
+ target_z = 3, focus_xw = 0.6,
+ focus_yh = 0.6)
+AT (0.0, 0.0, 0.2) RELATIVE aperture2
+
+COMPONENT beamstop = Beamstop(
+ xwidth = 0.04, yheight = 0.04)
+AT (0.0, 0.0, 2.99) RELATIVE sample
+
+COMPONENT detector = PSD_monitor(
+ nx = 100, ny = 100,
+ filename = "psd.dat", xwidth = 0.6,
+ yheight = 0.6)
+AT (0.0, 0.0, 3.0) RELATIVE sample
+
+COMPONENT wavelength_monitor = L_monitor(
+ nL = 100, filename = "l_mon.dat",
+ xwidth = 0.6, yheight = 0.6,
+ Lmin = 5.5, Lmax = 6.5)
+AT (0.0, 0.0, 0.01) RELATIVE detector
+
+FINALLY 
+%{
+// Start of finally for generated pinhole_sans
+%}
+
+END

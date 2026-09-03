@@ -1,0 +1,100 @@
+{
+  "task": "T1_SESANS_Delft",
+  "episode": {
+    "model": "anthropic/claude-sonnet-5",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 9,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 214.3,
+    "usage": {
+      "prompt_tokens": 179192,
+      "completion_tokens": 11924
+    },
+    "mcp_calls": {
+      "describe_component": 9,
+      "create_instrument": 1,
+      "add_parameter": 3,
+      "add_component": 17,
+      "validate_instrument": 1,
+      "run_simulation": 2,
+      "get_monitor_data": 1,
+      "get_results": 1,
+      "get_example": 1
+    },
+    "skill_used": true,
+    "final_answer": "## Summary\n\nI rebuilt the SESANS instrument exactly per the specification: `Progress_bar` \u2192 `Source_simple` (Gaussian \u03bb source, \u03bb\u2080=L0, \u0394\u03bb=DL) \u2192 `Set_pol` (initializes px=1) \u2192 `PolLambda_monitor` (px1) \u2192 `Foil_flipper_magnet` (f1, By=By) \u2192 `PolLambda_monitor` (px2) \u2192 `Foil_flipper_magnet` (f2) \u2192 `PolLambda_monitor` (px3) \u2192 `SANS_spheres2` sample \u2192 `Foil_flipper_magnet` (f3) \u2192 `Foil_flipper_magnet` (f4) \u2192 `PolLambda_monitor` (px6) \u2192 `PolAnalyser_ideal` (ana, mx=+1) \u2192 `PSD_monitor` (det) \u2192 `Arm` (trick, with `RESTORE_NEUTRON` EXTEND to rewind to the pre-analyser state) \u2192 `PolAnalyser_ideal` (ana2, mx=\u22121) \u2192 `PSD_monitor` (det2). All positions/rotations, foil-flipper geometry (0.1\u00d70.1\u00d70.3 m, \u03c6=0.095993 rad, foilthick=3 \u00b5m, Bx=Bz=0), and SANS-sphere sample parameters (R=10000 \u00c5, \u03c6=0.015, Qmind/Qmaxd, sc_aim/sans_aim) match the spec, and the WHEN(1==1) condition on the sample is included (a no-op but faithfully reproduced).\n\nValidation (`validate_instrument`) passed (translate/compile/1-ray run OK).\n\n## Run conditions\n- Parameters: L0=2.165 \u00c5, DL=0.02 \u00c5, By=4.68\u00d710\u207b\u00b3 T\n- ncount = 2\u00d710\u2077, seed = 12345, single-core, gravity off (short beamline, thermal-ish \u03bb, gravity effect negligible over 4.5 m at 2.17 \u00c5)\n\n## Integrated intensity per monitor (I \u00b1 err [n/s], event count N)\n\n| Monitor | Description | Intensity I | Error | Events N |\n|---|---|---|---|---|\n| px1 | Pol-\u03bb monitor, after Set_pol/before f1 | 5.3943\u00d710\u207b\u2077 | 1.460\u00d710\u207b\u00b9\u2070 | 1.365\u00d710\u2077 |\n| px2 | Pol-\u03bb monitor, after f1 | 5.3943\u00d710\u207b\u2077 | 1.460\u00d710\u207b\u00b9\u2070 | 1.365\u00d710\u2077 |\n| px3 | Pol-\u03bb monitor, after f2 | 5.3943\u00d710\u207b\u2077 | 1.460\u00d710\u207b\u00b9\u2070 | 1.365\u00d710\u2077 |\n| px6 | Pol-\u03bb monitor, after f4 (post-sample) | 5.3685\u00d710\u207b\u2077 | 1.309\u00d710\u207b\u2079 | 1.301\u00d710\u2077 |\n| det | PSD, after ana (mx=+1, \"spin-up\"/non-flip channel) | 1.1823\u00d710\u207b\u2077 | 9.633\u00d710\u207b\u00b9\u00b9 | 5.736\u00d710\u2076 |\n| det2 | PSD, after ana2 (mx=\u22121, \"spin-down\"/flip channel), via RESTORE_NEUTRON trick | 0 | 0 | 0 |\n\n## Interpretation / sanity checks\n- **Transmission chain is intact**: px1\u2192px2\u2192px3 show essentially unchanged intensity (no loss through the two upstream flippers with foil_in=1 and this small By), and px6 (after both f3/f4 and the SANS sample) is only ~0.5% lower \u2014 the sample introduces a small amount of scattering/incoherent loss as expected for a dilute (\u03c6=0.015) sphere suspension.\n- The `Set_pol` + ideal `PolAnalyser_ideal` combination shows the beam remains essentially **fully polarized along +x** through the whole flipper chain at this low field (By=4.68 mT, \u03c6=0.095993 rad): the \"spin-up\" channel (det, mx=+1) picks up ~22% of the source flux (loss dominated by the PolAnalyser projecting an already-polarized beam plus the SANS-sample geometric/scattering losses and beam divergence outside the 1.1 cm detector aperture), while the **complementary \"spin-flip\" channel (det2, mx=\u22121) is statistically consistent with zero** even at 2\u00d710\u2077 rays \u2014 i.e. the polarization vector reaching the analyser plane is essentially +1 along x, so an ideal analyser set to mx=\u22121 transmits essentially nothing. This is flagged by the tool as `low_statistics` (0 events) and is physically the expected behavior of a two-flipper (f1,f2)/two-flipper (f3,f4) symmetric spin-echo arrangement operated near its null/echo condition with this particular By, phi combination, rather than a simulation bug \u2014 the RESTORE_NEUTRON `trick` Arm correctly rewinds the neutron state to before `ana` so `ana2`/`det2` sees the identical (fully +x-polarized) pre-analysis ensemble.\n- Because det2 has 0 events, per the statistics-floor rule I do **not** draw any quantitative conclusion from it beyond \"consistent with zero within this ncount\"; a much larger ncount (or a deliberately depolarizing/finite-field variant) would be needed to resolve a nonzero spin-flip signal if one is physically expected at a different By.\n\nAll numbers above are seed-fixed (12345) and ncount-fixed (2\u00d710\u2077) for reproducibility; relative errors are <1% for every monitor with nonzero counts."
+  },
+  "grade": {
+    "task": "T1_SESANS_Delft",
+    "pass": true,
+    "score": 1.0,
+    "checks_passed": "3/3",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "2d",
+        "observable": "intensity",
+        "reference": 5.39353e-07,
+        "candidate": 5.39353e-07,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 1.0787060000000002e-07
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_x",
+        "reference": 0.0107979,
+        "candidate": 0.0107979,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.0032393699999999997
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_y",
+        "reference": 0.0,
+        "candidate": 0.0,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.0
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__main__anthropic_claude_sonnet_5/home/instruments/sesans/sesans.instr",
+    "candidate_params": {
+      "L0": "2.165",
+      "DL": "0.02",
+      "By": "0.00468"
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": [
+      {
+        "tool": "get_example",
+        "kind": "example_tool",
+        "target": "PolAnalyser_ideal",
+        "refused": true
+      }
+    ]
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__main__anthropic_claude_sonnet_5/artifacts/sesans.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__main__anthropic_claude_sonnet_5/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__main__anthropic_claude_sonnet_5/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__main__anthropic_claude_sonnet_5/artifacts/trace",
+    "errors": []
+  }
+}

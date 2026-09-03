@@ -1,0 +1,197 @@
+```instr
+/*******************************************************************************
+* Instrument: D11_SANS  (ILL D11 - H15@ILL, after Farhi 10/08/2003)
+* Faithful reconstruction from a component-level textual specification.
+*******************************************************************************/
+DEFINE INSTRUMENT D11_SANS(Lambda=4.51, string Config="Borkron_1972", Lc=0, iLc=5, Chamfers=0.0002, Waviness=2.5e-5)
+
+DECLARE
+%{
+#include <string.h>
+#include <stdlib.h>
+#include <math.h>
+
+#define VERSION "H15_D11@ILL Farhi 10/08/2003"
+
+#ifndef RAD2DEG
+#define RAD2DEG (180.0/PI)
+#endif
+
+double sT1, sI1, sT2, sI2, sT3, sI3;
+double sH, sW;
+double gInputWidth, gObtWidth, gGuideHeight1, gGuideHeight2;
+double gSourceInput, gGuideWidth, gLength1, gCurvatureRadius;
+double gLength2, gLength3, gToSampleLength, gElementGap;
+double mInPile, mGuide1, mGuide2, mAlpha, mQc, mR0, mW;
+double microGap;
+double sDeltaLambdaPercent, sDeltaLambda, sLambda;
+double gElmtLength1, gElmtRot1, gElmtLength2, gElmtLength3;
+double Vrpm;
+double Config_l[17], Config_n[17], Config_g[2];
+double Borkron_1972_l[17], Borkron_1972_n[17], Borkron_1972_g[2];
+double Borkron_2003_l[17], Borkron_2003_n[17], Borkron_2003_g[2];
+double Borofloat_2001_l[17], Borofloat_2001_n[17], Borofloat_2001_g[2];
+double Length_Lc[12];
+char xlmonopts[256];
+%}
+
+INITIALIZE
+%{
+  double PhiC, GammaC, ThetaC, LambdaC, LStar, Zc;
+  double Ki;
+  int i;
+  double sum_length=0, n_elements=0;
+
+  double B1972_l[17]={20.0,0.0,0.0,0.0,0.0,4.0,3.0,3.0,2.5,0.0,2.5,0.0,1.5,0.0,1.5,0.0,0.0};
+  double B2003_l[17]={6.5,0.0,6.0,7.5,0.0,4.0,3.0,3.0,2.5,0.0,2.5,0.0,1.5,0.0,1.5,0.0,1.0};
+  double Bf2001_l[17]={0.5,6.0,6.0,0.5,7.0,4.0,3.0,3.0,2.0,0.5,2.0,0.5,0.5,1.0,0.5,1.0,1.0};
+  double B1972_n[17]={40.0,0.0,0.0,0.0,0.0,8.0,6.0,6.0,5.0,0.0,5.0,0.0,3.0,0.0,3.0,0.0,0.0};
+  double B2003_n[17]={13.0,0.0,12.0,15.0,0.0,8.0,6.0,6.0,5.0,0.0,5.0,0.0,3.0,0.0,3.0,0.0,2.0};
+  double Bf2001_n[17]={1.0,6.0,6.0,1.0,7.0,4.0,3.0,3.0,2.0,1.0,2.0,1.0,1.0,1.0,1.0,1.0,1.0};
+  double B1972_g[2]={0.0,0.0};
+  double B2003_g[2]={0.002,0.002};
+  double Bf2001_g[2]={0.002,0.002};
+  double LLc[12]={1.5,2.5,4.0,5.5,8.0,10.5,13.5,16.5,20.5,28.0,34.0,40.5};
+
+  for (i=0;i<17;i++){
+    Borkron_1972_l[i]=B1972_l[i]; Borkron_1972_n[i]=B1972_n[i];
+    Borkron_2003_l[i]=B2003_l[i]; Borkron_2003_n[i]=B2003_n[i];
+    Borofloat_2001_l[i]=Bf2001_l[i]; Borofloat_2001_n[i]=Bf2001_n[i];
+  }
+  for (i=0;i<2;i++){
+    Borkron_1972_g[i]=B1972_g[i];
+    Borkron_2003_g[i]=B2003_g[i];
+    Borofloat_2001_g[i]=Bf2001_g[i];
+  }
+  for (i=0;i<12;i++) Length_Lc[i]=LLc[i];
+
+  /* constants */
+  sT1=216.8; sI1=1.24e13;
+  sT2=33.9;  sI2=1.02e13;
+  sT3=16.7;  sI3=3.0423e12;
+  sH=0.22; sW=0.1;
+  gInputWidth=0.038; gObtWidth=0.032;
+  gGuideHeight1=0.2; gGuideHeight2=0.05;
+  gSourceInput=2.33; gGuideWidth=0.03;
+  gLength1=25.5; gCurvatureRadius=2700;
+  gLength2=22.284; gLength3=5.4;
+  gToSampleLength=1.5; gElementGap=0.004;
+  mInPile=1; mGuide1=1; mGuide2=0.65;
+  mAlpha=4.07; mQc=0.0218; mR0=0.995; mW=1.0/300.0;
+  microGap=0.0001;
+  sDeltaLambdaPercent=0.08;
+
+  gElmtLength1 = fabs(gLength1)/25;
+  gElmtRot1    = gElmtLength1/gCurvatureRadius*180/PI;
+  gElmtLength2 = fabs(gLength2)/22;
+  gElmtLength3 = fabs(gLength3)/5;
+
+  printf("Simulation : %s\n", VERSION);
+
+  sLambda = Lambda;
+  sDeltaLambda = sDeltaLambdaPercent * sLambda / 2;
+  PhiC    = sqrt(2*fabs(gGuideWidth/gCurvatureRadius));
+  GammaC  = mGuide1*mQc/4/PI;
+  ThetaC  = sLambda*GammaC;
+  LambdaC = PhiC/GammaC;
+  LStar   = sqrt(8*fabs(gGuideWidth*gCurvatureRadius));
+  Zc      = gGuideWidth*(0.5-ThetaC*ThetaC/PhiC/PhiC);
+  printf("Guide: L=%.4f m, rho=%.4f m, m=%.2f\n", gLength1, gCurvatureRadius, mGuide1);
+  printf("Guide: L*=%.2f m, Phi_c=%.2f deg, Gamma_c=%.2f deg/Angs\n", LStar, PhiC*RAD2DEG, GammaC*RAD2DEG);
+  printf("Guide: Zc=%.4f m, Lambda_c=%.2f Angs\n", Zc, LambdaC);
+  if (sLambda < LambdaC) printf("Guide: Garland reflections only\n");
+  else printf("Guide: Garland and Zig-Zag reflections\n");
+  if (gLength1 < LStar) printf("Guide: Guide is too short\n");
+
+  if (Lambda < 0.12) exit(printf("** D11 Error: Unreachable wavelength for D11: %.4g\n", Lambda));
+  Ki   = 2*PI/Lambda;
+  Vrpm = 124270/(Lambda-0.11832);
+  if (Vrpm < 3100 || Vrpm > 28300) exit(printf("D11 Error: Unreachable V_selector speed for D11: %.4g\n", Vrpm));
+  if (Vrpm > 9000 && Vrpm < 11900) printf("D11 Warning: Resonance V_selector speed for D11: %.4g\n", Vrpm);
+  printf("D11: Ki=%.4g [Angs-1], Lambda=%.4g [Angs], V_Dolores=%.4g [rpm]\n", Ki, Lambda, Vrpm);
+
+  if (!strlen(Config)) exit(printf("** D11 Error: No movable guide configuration selected for D11\n"));
+
+  i=0;
+  if (strstr(Config, "Borkron_1972")) {
+    for (i=0;i<17;i++){ Config_l[i]=Borkron_1972_l[i]; Config_n[i]=Borkron_1972_n[i]; if(i<2) Config_g[i]=Borkron_1972_g[i]; }
+  }
+  if (strstr(Config, "Borkron_2003")) {
+    for (i=0;i<17;i++){ Config_l[i]=Borkron_2003_l[i]; Config_n[i]=Borkron_2003_n[i]; if(i<2) Config_g[i]=Borkron_2003_g[i]; }
+  }
+  if (strstr(Config, "Borofloat_2001")) {
+    for (i=0;i<17;i++){ Config_l[i]=Borofloat_2001_l[i]; Config_n[i]=Borofloat_2001_n[i]; if(i<2) Config_g[i]=Borofloat_2001_g[i]; }
+  }
+  if (strstr(Config, "Borofloat_2003")) {
+    for (i=0;i<17;i++){ Config_l[i]=Borofloat_2001_l[i]; Config_n[i]=Borofloat_2001_n[i]; if(i<2) Config_g[i]=Borofloat_2001_g[i]; }
+  }
+  if (!i) exit(printf("** D11 Error: No movable guide configuration selected for D11\n"));
+  if (strstr(Config,"nogap")) for (i=0;i<2;i++) Config_g[i]=0;
+
+  if (Lc == 0) {
+    if (iLc >= 0 && iLc < 12) Lc = Length_Lc[(int)iLc];
+    else exit(printf("** D11 Error: invalid collimator length specification for D11\n"));
+  }
+
+  sum_length=0; n_elements=0;
+  for (i=0;i<17;i++) {
+    if (40.5 - Lc <= sum_length) Config_n[i]=0;
+    else { sum_length += Config_l[i]; n_elements += Config_n[i]; }
+  }
+  printf("D11: Coll. L_c=%8.3g [m], Configuration='%s'\n", Lc, Config);
+  printf("D11: Length L_g=%8.3g [m], n_elements=%8.2g\n", sum_length, n_elements);
+  printf("D11: Chamfers =%8.3g [m], Waviness =%8.3g [rad] (%.3g [deg])\n", Chamfers, Waviness, Waviness*RAD2DEG);
+  Waviness *= RAD2DEG;
+
+  sprintf(xlmonopts,"x bins=100 lambda limits=[%g %g] bins=100", sLambda-sDeltaLambda, sLambda+sDeltaLambda);
+%}
+
+TRACE
+
+COMPONENT PG = Progress_bar()
+AT (0,0,0) RELATIVE ABSOLUTE
+ROTATED (0,0,0) RELATIVE ABSOLUTE
+
+COMPONENT Source = Source_gen(dist=gSourceInput, focus_xw=gInputWidth, focus_yh=gGuideHeight1,
+  I1=sI1, yheight=sH, xwidth=sW, verbose=1, T1=sT1, Lmin=sLambda-sDeltaLambda, Lmax=sLambda+sDeltaLambda,
+  T2=sT2, I2=sI2, T3=sT3, I3=sI3, zdepth=0.1)
+AT (0,0,0) RELATIVE ABSOLUTE
+ROTATED (0,0,0) RELATIVE ABSOLUTE
+
+COMPONENT AlWindow1 = Al_window(thickness=0.002)
+AT (0,0,gSourceInput-0.01) RELATIVE Source
+ROTATED (0,0,0) RELATIVE ABSOLUTE
+
+COMPONENT PinkCarter = Guide_gravity(w1=gInputWidth, h1=gGuideHeight1, w2=gObtWidth, h2=gGuideHeight1,
+  l=3.170, R0=mR0, Qc=mQc, alpha=mAlpha, m=mInPile, W=mW)
+AT (0,0,gSourceInput) RELATIVE Source
+ROTATED (0,0,0) RELATIVE ABSOLUTE
+
+COMPONENT AlWindow2 = Al_window(thickness=0.002)
+AT (0,0,gSourceInput+3.522+0.001) RELATIVE Source
+ROTATED (0,0,0) RELATIVE ABSOLUTE
+
+COMPONENT LeadShutter = Guide_gravity(w1=gObtWidth, h1=gGuideHeight1, w2=gObtWidth, h2=gGuideHeight1,
+  l=0.228, R0=mR0, Qc=mQc, alpha=mAlpha, m=mInPile, W=mW)
+AT (0,0,gSourceInput+3.522+0.01) RELATIVE Source
+ROTATED (0,0,0) RELATIVE ABSOLUTE
+
+COMPONENT AlWindow3 = Al_window(thickness=0.002)
+AT (0,0,gSourceInput+3.522+0.01+0.228+0.005) RELATIVE Source
+ROTATED (0,0,0) RELATIVE ABSOLUTE
+
+COMPONENT CurvedGuideStart = Arm()
+AT (0,0,gSourceInput+3.522+0.01+0.228+0.08) RELATIVE Source
+ROTATED (0,0,0) RELATIVE ABSOLUTE
+
+COMPONENT cg1 = Guide_gravity(w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1,
+  l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW)
+AT (0,0,0) RELATIVE CurvedGuideStart
+ROTATED (0,gElmtRot1,0) RELATIVE CurvedGuideStart
+
+COMPONENT cg2 = Guide_gravity(w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideWidth, h2=gGuideHeight1,
+  l=(gElmtLength1-gElementGap), R0=mR0, Qc=mQc, alpha=mAlpha, m=mGuide1, W=mW)
+AT (0,0,gElmtLength1) RELATIVE cg1
+ROTATED (0,gElmtRot1,0) RELATIVE cg1
+
+COMPONENT cg3 = Guide_gravity(w1=gGuideWidth, h1=gGuideHeight1, w2=gGuideW

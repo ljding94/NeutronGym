@@ -1,0 +1,93 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: t2_sans_collimation
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 11:04:53 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* lambda: [unit] Angstrom] Neutron wavelength
+* dlambda: [unit] Angstrom] Wavelength spread (FWHM)
+* r_pin1: [unit] m] Radius of first pinhole (at 3 m)
+* r_pin2: [unit] m] Radius of second pinhole (at 6 m)
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT t2_sans_collimation (
+lambda = 6.0, // Angstrom] Neutron wavelength
+dlambda = 0.05, // Angstrom] Wavelength spread (FWHM)
+r_pin1 = 0.005, // m] Radius of first pinhole (at 3 m)
+r_pin2 = 0.005 // m] Radius of second pinhole (at 6 m)
+)
+
+DECLARE 
+%{
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated t2_sans_collimation
+%}
+
+TRACE 
+COMPONENT source = Source_simple(
+ focus_xw = 0.02, focus_yh = 0.02,
+ lambda0 = lambda, dlambda = dlambda,
+ flux = 10000000000000.0)
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT pinhole1 = Slit(
+ radius = 0.02)
+AT (0.0, 0.0, 3.0) ABSOLUTE
+
+COMPONENT pinhole2 = Slit(
+ radius = 0.014532473038921006)
+AT (0.0, 0.0, 6.0) ABSOLUTE
+
+COMPONENT sample = SANSSpheres(
+ R = 100, dR = 0,
+ Concentration = 0.01, DeltaRho = 1e-14,
+ xwidth = 0.01, yheight = 0.01,
+ zdepth = 0.01, SampleToDetectorDistance = 3,
+ DetectorRadius = 0.3)
+AT (0.0, 0.0, 9.0) ABSOLUTE
+
+COMPONENT beamstop = Beamstop(
+ radius = 0.02)
+AT (0.0, 0.0, 12.0) ABSOLUTE
+
+COMPONENT detector = PSD_monitor(
+ nx = 120, ny = 120,
+ filename = "detector", xwidth = 0.6,
+ yheight = 0.6, restore_neutron = 0)
+AT (0.0, 0.0, 12.0) ABSOLUTE
+
+FINALLY 
+%{
+// Start of finally for generated t2_sans_collimation
+%}
+
+END

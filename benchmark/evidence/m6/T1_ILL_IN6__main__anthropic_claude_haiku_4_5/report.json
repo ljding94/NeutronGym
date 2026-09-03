@@ -1,0 +1,105 @@
+{
+  "task": "T1_ILL_IN6",
+  "episode": {
+    "model": "anthropic/claude-haiku-4.5",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 50,
+    "hit_turn_cap": true,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 323.6,
+    "usage": {
+      "prompt_tokens": 2475430,
+      "completion_tokens": 49419
+    },
+    "mcp_calls": {
+      "create_instrument": 5,
+      "add_parameter": 74,
+      "add_declare": 132,
+      "describe_component": 6,
+      "add_component": 129,
+      "validate_instrument": 5,
+      "get_instrument": 2,
+      "export_instr_file": 1,
+      "list_examples": 1,
+      "run_simulation": 4,
+      "remove_component": 1,
+      "list_instruments": 1
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_ILL_IN6",
+    "pass": false,
+    "score": 0.0,
+    "checks_passed": "3/3",
+    "hard_failures": [
+      "role '2d': only 0 events \u2014 below statistics floor, ungradable",
+      "role 'tof': only 0 events \u2014 below statistics floor, ungradable"
+    ],
+    "checks": [
+      {
+        "role": "wavelength",
+        "observable": "intensity",
+        "reference": 7685020000.0,
+        "candidate": 8762130000.0,
+        "pass": true,
+        "delta": 1077110000.0,
+        "allowed": 1921255000.0
+      },
+      {
+        "role": "wavelength",
+        "observable": "center_of_mass",
+        "reference": 4.134654,
+        "candidate": 4.139316,
+        "pass": true,
+        "delta": 0.004661999999999722,
+        "allowed": 0.20673270000000002
+      },
+      {
+        "role": "wavelength",
+        "observable": "fwhm",
+        "reference": 0.127215,
+        "candidate": 0.149644,
+        "pass": true,
+        "delta": 0.022429000000000004,
+        "allowed": 0.0636075
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_IN6__main__anthropic_claude_haiku_4_5/home/instruments/TOSCA_Minimal/TOSCA_Minimal.instr",
+    "candidate_params": {
+      "lambda": 4.14,
+      "dlambda": 0.075
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": [
+      {
+        "tool": "list_examples",
+        "kind": "example_tool",
+        "target": "TOSCA",
+        "refused": true
+      }
+    ]
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_IN6__main__anthropic_claude_haiku_4_5/artifacts/TOSCA_Minimal.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_IN6__main__anthropic_claude_haiku_4_5/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_IN6__main__anthropic_claude_haiku_4_5/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_IN6__main__anthropic_claude_haiku_4_5/artifacts/trace",
+    "errors": []
+  }
+}

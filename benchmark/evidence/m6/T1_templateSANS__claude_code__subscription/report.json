@@ -1,0 +1,112 @@
+{
+  "task": "T1_templateSANS",
+  "episode": {
+    "model": "claude-opus-5[1m]",
+    "returncode": 0,
+    "turns": 43,
+    "cost_usd": 2.1026409999999993,
+    "duration_s": 181.0,
+    "mcp_calls": {
+      "mcp__mcstas__describe_component": 8,
+      "mcp__mcstas__create_instrument": 1,
+      "mcp__mcstas__add_parameter": 6,
+      "mcp__mcstas__add_component": 10,
+      "mcp__mcstas__get_instrument": 1,
+      "mcp__mcstas__validate_instrument": 1,
+      "mcp__mcstas__run_simulation": 2,
+      "mcp__mcstas__get_monitor_data": 2,
+      "mcp__mcstas__job_status": 3,
+      "mcp__mcstas__get_results": 2
+    },
+    "skill_used": true,
+    "final_answer": "The radial curve confirms the physics: sharp cutoff at r = 0.02 m (the beamstop radius), first minimum at \u22480.132 m and second at \u22480.226 m, matching the hard-sphere predictions of 0.129 m and 0.221 m.\n\n## Result\n\nInstrument rebuilt from the spec and run at the requested parameters. `.instr` file:\n`.../instruments/templateSANS_rebuild/templateSANS_rebuild.instr`\n\n**Run conditions:** `ncount = 1e8`, `seed = 1`, single process, gravity off, `lambda=6, dlambda=0.05, r=100, PHI=1e-3, Delta_Rho=0.6, sigma_abs=0.5`\n\n### Integrated intensity per monitor\n\n| Monitor | Component | File | I | error | events |\n|---|---|---|---|---|---|\n| `detector` | PSD_monitor (128\u00d7128, 0.6\u00d70.6 m) | `PSD.dat` | 0.0445987 | 2.63456e-05 | 46963400 |\n| `Ldetector` | L_monitor (1000 ch, 5.5\u20136.5 \u00c5) | `Edet.dat` | 0.0445972 | 2.63456e-05 | 46654800 |\n| `PSDrad` (radial sum) | PSD_monitor_rad, rmax 0.3 m | `psd2.dat` | 0.0445416 | 2.63456e-05 | 36365500 |\n| `PSDrad` (radial average) | PSD_monitor_rad, rmax 0.3 m | `psd2_av.dat` | 48.6956 | 0.0378887 | 36365500 |\n\nIntensities are in n/s; the radial average is n/s/m\u00b2. `PSD_monitor_rad` writes two datasets, so both are listed. Every monitor has rel_err \u2264 0.08% and none was flagged `low_statistics`.\n\n### Verification\n- **Transmission chain is consistent.** The three intensities agree to 0.13%. `Ldetector` sits 1 cm downstream of `detector` and `PSDrad` 2 cm further with a circular `rmax=0.3` inscribed in the square 0.6\u00d70.6 detector \u2014 so the small monotonic decrease (and the lower event count on `PSDrad`, which drops the square's corners) is geometry, not a bug.\n- **Wavelength band correct.** `Ldetector` CoM = 6.0003 \u00c5, FWHM = 0.0999 \u00c5 \u2014 matches the source's flat 5.95\u20136.05 \u00c5 band.\n- **Beam centered.** X0 = \u22120.0013 cm, Y0 = \u22120.0036 cm.\n- **Converged.** A 1e6 scouting run gave 0.0446563 \u00b1 0.000264 on `detector`, within 1\u03c3 of the 1e8 value.\n- **Physics matches theory** (independent check, not just self-consistency): hard-sphere form-factor minima at qR = 4.493 and 7.725 predict detector radii of 12.9 cm and 22.1 cm; the simulation shows them at \u224813.2 cm and \u224822.6 cm.\n\nTwo notes on fidelity to the spec: the generated file writes `ROTATED (0,0,0) RELATIVE arm` where the spec says `RELATIVE ABSOLUTE` \u2014 numerically identical here since every rotation in the beamline is zero and `arm` itself is unrotated at the origin. I also left `restore_neutron` unset, as the spec lists it on no monitor; this is harmless because McStas monitors record without absorbing, so the three stacked detectors do not perturb each other."
+  },
+  "grade": {
+    "task": "T1_templateSANS",
+    "pass": true,
+    "score": 1.0,
+    "checks_passed": "6/6",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "2d",
+        "observable": "intensity",
+        "reference": 0.0451716,
+        "candidate": 0.0451716,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.00903432
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_x",
+        "reference": 5.04341,
+        "candidate": 5.04341,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 1.5130229999999998
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_y",
+        "reference": 5.05123,
+        "candidate": 5.05123,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 1.515369
+      },
+      {
+        "role": "wavelength",
+        "observable": "intensity",
+        "reference": 0.0451701,
+        "candidate": 0.0451701,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.011292525
+      },
+      {
+        "role": "wavelength",
+        "observable": "center_of_mass",
+        "reference": 6.000276,
+        "candidate": 6.000276,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.30001380000000005
+      },
+      {
+        "role": "wavelength",
+        "observable": "fwhm",
+        "reference": 0.099827,
+        "candidate": 0.099827,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.0499135
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_templateSANS__claude_code__subscription/home/instruments/templateSANS_rebuild/templateSANS_rebuild.instr",
+    "candidate_params": {
+      "lambda": 6.0,
+      "dlambda": 0.05,
+      "r": 100.0,
+      "PHI": 0.001,
+      "Delta_Rho": 0.6,
+      "sigma_abs": 0.5
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_templateSANS__claude_code__subscription/artifacts/templateSANS_rebuild.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_templateSANS__claude_code__subscription/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T1_templateSANS__claude_code__subscription/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/T1_templateSANS__claude_code__subscription/artifacts/trace",
+    "errors": []
+  }
+}

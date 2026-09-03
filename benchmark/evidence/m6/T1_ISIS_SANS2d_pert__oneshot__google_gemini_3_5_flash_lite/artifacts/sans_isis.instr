@@ -1,0 +1,398 @@
+DEFINE INSTRUMENT sans_isis (
+    double L1 = 3.926,
+    double A1w = 0.03,
+    double A1h = 0.02,
+    double S6 = 0.006,
+    double A2 = 0.006,
+    double Lmin = 1.0,
+    double Lmax = 14.0
+)
+
+DECLARE
+%{
+%}
+
+INITIALIZE
+%{
+%}
+
+TRACE
+
+COMPONENT Origin = Arm()
+AT (0, 0, 0) RELATIVE ABSOLUTE
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+COMPONENT isis_source = ISIS_moderator(
+    Face = "E2",
+    Emin = -Lmax,
+    Emax = -Lmin,
+    dist = 4.232,
+    focus_xw = 0.0365,
+    focus_yh = 0.021,
+    xwidth = -1,
+    yheight = -1,
+    CAngle = 0.0,
+    SAC = 1
+)
+AT (0.0, 0.0, 0.00001) RELATIVE Origin
+ROTATED (0.0, 0.0, 0.0) RELATIVE Origin
+
+COMPONENT lmon1 = L_monitor(
+    nL = 140,
+    filename = "lmon1.dat",
+    xmin = -0.04,
+    xmax = 0.04,
+    ymin = -0.03,
+    ymax = 0.03,
+    Lmin = 0.0,
+    Lmax = 17.0
+)
+AT (0.0, 0.0, 3.698) RELATIVE isis_source
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+COMPONENT psd1 = PSD_monitor(
+    nx = 100,
+    ny = 100,
+    filename = "psd1.dat",
+    xmin = -0.05,
+    xmax = 0.05,
+    ymin = -0.05,
+    ymax = 0.05
+)
+AT (0.0, 0.0, 3.699) RELATIVE isis_source
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+COMPONENT bender1 = Guide_gravity(
+    w1 = 0.0355,
+    h1 = 0.020,
+    w2 = 0.0355,
+    h2 = 0.020,
+    l = 0.3245,
+    nslit = 9,
+    d = 0.0005,
+    mleft = 1,
+    mright = 3,
+    mtop = 1,
+    mbottom = 1,
+    wavy = 0
+)
+AT (0, 0, 3.7) RELATIVE isis_source
+ROTATED (0.0, 0.137099, 0.0) RELATIVE isis_source
+
+COMPONENT bender2 = Guide_gravity(
+    w1 = 0.0355,
+    h1 = 0.020,
+    w2 = 0.0355,
+    h2 = 0.020,
+    l = 0.3245,
+    nslit = 9,
+    d = 0.0005,
+    mleft = 1,
+    mright = 3,
+    mtop = 1,
+    mbottom = 1,
+    wavy = 0
+)
+AT (0, 0, 0.325) RELATIVE bender1
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender1
+
+COMPONENT bender3 = Guide_gravity(
+    w1 = 0.0355,
+    h1 = 0.020,
+    w2 = 0.0355,
+    h2 = 0.020,
+    l = 0.3245,
+    nslit = 9,
+    d = 0.0005,
+    mleft = 1,
+    mright = 3,
+    mtop = 1,
+    mbottom = 1,
+    wavy = 0
+)
+AT (0, 0, 0.325) RELATIVE bender2
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender2
+
+COMPONENT bender4 = Guide_gravity(
+    w1 = 0.0355,
+    h1 = 0.020,
+    w2 = 0.0355,
+    h2 = 0.020,
+    l = 0.3245,
+    nslit = 9,
+    d = 0.0005,
+    mleft = 1,
+    mright = 3,
+    mtop = 1,
+    mbottom = 1,
+    wavy = 0
+)
+AT (0, 0, 0.325) RELATIVE bender3
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender3
+
+COMPONENT bender5 = Guide_gravity(
+    w1 = 0.0355,
+    h1 = 0.020,
+    w2 = 0.0355,
+    h2 = 0.020,
+    l = 0.3245,
+    nslit = 9,
+    d = 0.0005,
+    mleft = 1,
+    mright = 3,
+    mtop = 1,
+    mbottom = 1,
+    wavy = 0
+)
+AT (0, 0, 0.325) RELATIVE bender4
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender4
+
+COMPONENT bender6 = Guide_gravity(
+    w1 = 0.0355,
+    h1 = 0.020,
+    w2 = 0.0355,
+    h2 = 0.020,
+    l = 0.3245,
+    nslit = 9,
+    d = 0.0005,
+    mleft = 1,
+    mright = 3,
+    mtop = 1,
+    mbottom = 1,
+    wavy = 0
+)
+AT (0, 0, 0.325) RELATIVE bender5
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender5
+
+COMPONENT bender7 = Guide_gravity(
+    w1 = 0.0355,
+    h1 = 0.020,
+    w2 = 0.0355,
+    h2 = 0.020,
+    l = 0.3245,
+    nslit = 9,
+    d = 0.0005,
+    mleft = 1,
+    mright = 3,
+    mtop = 1,
+    mbottom = 1,
+    wavy = 0
+)
+AT (0, 0, 0.325) RELATIVE bender6
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender6
+
+COMPONENT bender8 = Guide_gravity(
+    w1 = 0.0355,
+    h1 = 0.020,
+    w2 = 0.0355,
+    h2 = 0.020,
+    l = 0.3245,
+    nslit = 9,
+    d = 0.0005,
+    mleft = 1,
+    mright = 3,
+    mtop = 1,
+    mbottom = 1,
+    wavy = 0
+)
+AT (0, 0, 0.325) RELATIVE bender7
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender7
+
+COMPONENT bender9 = Guide_gravity(
+    w1 = 0.0355,
+    h1 = 0.020,
+    w2 = 0.0355,
+    h2 = 0.020,
+    l = 0.3245,
+    nslit = 9,
+    d = 0.0005,
+    mleft = 1,
+    mright = 3,
+    mtop = 1,
+    mbottom = 1,
+    wavy = 0
+)
+AT (0, 0, 0.325) RELATIVE bender8
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender8
+
+COMPONENT bender10 = Guide_gravity(
+    w1 = 0.0355,
+    h1 = 0.020,
+    w2 = 0.0355,
+    h2 = 0.020,
+    l = 0.3245,
+    nslit = 9,
+    d = 0.0005,
+    mleft = 1,
+    mright = 3,
+    mtop = 1,
+    mbottom = 1,
+    wavy = 0
+)
+AT (0, 0, 0.325) RELATIVE bender9
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender9
+
+COMPONENT lmonb = L_monitor(
+    nL = 140,
+    filename = "lmonB.dat",
+    xmin = -0.018,
+    xmax = 0.018,
+    ymin = -0.018,
+    ymax = 0.018,
+    Lmin = 0.0,
+    Lmax = 17.0
+)
+AT (0.0, 0.0, 0.326) RELATIVE bender10
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+COMPONENT psd2 = PSD_monitor(
+    nx = 100,
+    ny = 100,
+    filename = "psd2.dat",
+    xmin = -0.025,
+    xmax = 0.025,
+    ymin = -0.025,
+    ymax = 0.025
+)
+AT (0.0, 0.0, 0.001) RELATIVE lmonb
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+COMPONENT guide_in = Slit(
+    xmin = -0.015,
+    xmax = 0.015,
+    ymin = -0.01,
+    ymax = 0.01
+)
+AT (0, 0, 0.2845) RELATIVE psd2
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+COMPONENT guide_straight1 = Guide_gravity(
+    w1 = 0.030,
+    h1 = 0.020,
+    w2 = 0.030,
+    h2 = 0.020,
+    l = 1.985,
+    mleft = 1,
+    mright = 1,
+    mtop = 1,
+    mbottom = 1,
+    wavy = 0
+)
+AT (0, 0, 0.0075) RELATIVE guide_in
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+COMPONENT guide_straight2 = Guide_gravity(
+    w1 = 0.030,
+    h1 = 0.020,
+    w2 = 0.030,
+    h2 = 0.020,
+    l = 1.985,
+    mleft = 1,
+    mright = 1,
+    mtop = 1,
+    mbottom = 1,
+    wavy = 0
+)
+AT (0, 0, 2.000) RELATIVE guide_straight1
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+COMPONENT guide_straight3 = Guide_gravity(
+    w1 = 0.030,
+    h1 = 0.020,
+    w2 = 0.030,
+    h2 = 0.020,
+    l = 1.985,
+    mleft = 1,
+    mright = 1,
+    mtop = 1,
+    mbottom = 1,
+    wavy = 0
+)
+AT (0, 0, 2.000) RELATIVE guide_straight2
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+COMPONENT guide_straight4 = Guide_gravity(
+    w1 = 0.030,
+    h1 = 0.020,
+    w2 = 0.030,
+    h2 = 0.020,
+    l = 1.985,
+    mleft = 1,
+    mright = 1,
+    mtop = 1,
+    mbottom = 1,
+    wavy = 0
+)
+AT (0, 0, 2.000) RELATIVE guide_straight3
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+COMPONENT psd3 = PSD_monitor(
+    nx = 100,
+    ny = 100,
+    filename = "psd3.dat",
+    xmin = -0.030,
+    xmax = 0.030,
+    ymin = -0.030,
+    ymax = 0.030
+)
+AT (0.0, 0.0, 7.999) RELATIVE guide_in
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+COMPONENT aperture1 = Slit(
+    xwidth = A1w,
+    yheight = A1h
+)
+AT (0, 0, 8.000) RELATIVE guide_in
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+COMPONENT lmonitor2 = L_monitor(
+    nL = 140,
+    filename = "lmonitor2.dat",
+    xmin = -0.0155,
+    xmax = 0.0155,
+    ymin = -0.0105,
+    ymax = 0.0105,
+    Lmin = 0.0,
+    Lmax = 17.0
+)
+AT (0.0, 0.0, 2.651) RELATIVE aperture1
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+COMPONENT S6 = Slit(
+    radius = S6
+)
+AT (0, 0, 2.800) RELATIVE aperture1
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+COMPONENT APERTURE2 = Slit(
+    radius = A2
+)
+AT (0, 0, L1) RELATIVE aperture1
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+COMPONENT lmon2 = L_monitor(
+    nL = 140,
+    filename = "lmonitor3.dat",
+    xmin = -0.0075,
+    xmax = 0.0075,
+    ymin = -0.0075,
+    ymax = 0.0075,
+    Lmin = 0.0,
+    Lmax = 17.0
+)
+AT (0.0, 0.0, 0.285) RELATIVE APERTURE2
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+COMPONENT psd4 = PSD_monitor(
+    nx = 100,
+    ny = 100,
+    filename = "psd4.dat",
+    xmin = -0.0075,
+    xmax = 0.0075,
+    ymin = -0.0075,
+    ymax = 0.0075
+)
+AT (0.0, 0.0, 0.286) RELATIVE APERTURE2
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+END

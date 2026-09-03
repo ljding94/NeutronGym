@@ -1,0 +1,124 @@
+{
+  "task": "T1_ISIS_SANS2d_pert",
+  "episode": {
+    "model": "anthropic/claude-haiku-4.5",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 17,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 85.1,
+    "usage": {
+      "prompt_tokens": 344160,
+      "completion_tokens": 11637
+    },
+    "mcp_calls": {
+      "create_instrument": 1,
+      "add_parameter": 7,
+      "describe_component": 5,
+      "add_component": 33,
+      "remove_component": 5,
+      "validate_instrument": 1,
+      "run_simulation": 1,
+      "get_results": 1,
+      "get_instrument": 1
+    },
+    "skill_used": true,
+    "final_answer": "Perfect! Now let me compile a comprehensive summary of the instrument and results:\n\n## SANS Instrument Rebuild Summary\n\nI have successfully rebuilt the ISIS SANS2d beamline in McStas from the specification and executed a simulation with **1,000,000 neutrons** at **seed=42** with gravity enabled.\n\n### **Instrument Architecture**\n\nThe instrument consists of:\n\n1. **ISIS E2 Moderator** (Face=\"E2\", Emin=-14 meV, Emax=-1 meV)\n   - Focused to 36.5 mm \u00d7 21 mm at 4.232 m\n   - Wavelength range: 1\u201314 \u00c5\n\n2. **Bender Guide System** (10 sections)\n   - Each section: 32.45 cm long, 35.5 mm \u00d7 20 mm aperture\n   - 9 vertical channels with supermirror coatings (m=1 left, m=3 right, m=1 top/bottom)\n   - Cumulative bend angle: ~1.38 radians\n   - Total length: ~3.25 m\n\n3. **Straight Guide System** (4 sections)\n   - Each section: 1.985 m long, 30 mm \u00d7 20 mm aperture\n   - m=1 on all sides (Ni coating)\n   - Total length: ~7.94 m\n\n4. **Collimation & Sample Region**\n   - Aperture 1: 30 mm \u00d7 20 mm (parametric: A1w, A1h)\n   - S6 slit: 6 mm radius (parametric: S6)\n   - Aperture 2: 6 mm radius (parametric: A2)\n   - Sample-to-detector distance: 3.926 m (parametric: L1)\n\n5. **Diagnostic Monitors** (8 total)\n   - 4 wavelength monitors (L_monitor, 140 bins each)\n   - 4 position-sensitive detectors (PSD_monitor, 100\u00d7100 pixels each)\n   - All intermediate monitors have `restore_neutron=1` to avoid perturbing downstream physics\n\n---\n\n### **Integrated Intensity Results**\n\n**Run Parameters:** L1=3.926 m, A1w=0.03 m, A1h=0.02 m, S6=0.006 m, A2=0.006 m, Lmin=1 \u00c5, Lmax=14 \u00c5  \n**ncount:** 1,000,000 neutrons | **seed:** 42 | **gravity:** enabled\n\n| Monitor | Component | Position (m) | Intensity (counts) | Error (counts) | Events | Rel. Error | Type |\n|---------|-----------|--------------|-------------------|----------------|--------|-----------|------|\n| **lmon1** | L_monitor | z=3.698 (after source) | 2.575 \u00d7 10\u2078 | 2.575 \u00d7 10\u2075 | 1.000 \u00d7 10\u2076 | 0.10% | Wavelength |\n| **psd1** | PSD_monitor | z=3.699 (after source) | 2.575 \u00d7 10\u2078 | 2.575 \u00d7 10\u2075 | 1.000 \u00d7 10\u2076 | 0.10% | 2D Position |\n| **lmonb** | L_monitor | z=6.951 (after bender) | 1.256 \u00d7 10\u2078 | 1.745 \u00d7 10\u2075 | 7.494 \u00d7 10\u2075 | 0.14% | Wavelength |\n| **psd2** | PSD_monitor | z=6.952 (after bender) | 1.256 \u00d7 10\u2078 | 1.745 \u00d7 10\u2075 | 7.494 \u00d7 10\u2075 | 0.14% | 2D Position |\n| **psd3** | PSD_monitor | z=15.233 (after straight guides) | 9.065 \u00d7 10\u2077 | 1.485 \u00d7 10\u2075 | 6.201 \u00d7 10\u2075 | 0.16% | 2D Position |\n| **lmonitor2** | L_monitor | z=17.884 (after aperture1) | 4.687 \u00d7 10\u2077 | 1.070 \u00d7 10\u2075 | 2.561 \u00d7 10\u2075 | 0.23% | Wavelength |\n| **lmon2** | L_monitor | z=19.444 (after APERTURE2) | 5.488 \u00d7 10\u2076 | 3.665 \u00d7 10\u2074 | 2.523 \u00d7 10\u2074 | 0.67% | Wavelength |\n| **psd4** | PSD_monitor | z=19.445 (detector plane) | 5.488 \u00d7 10\u2076 | 3.665 \u00d7 10\u2074 | 2.523 \u00d7 10\u2074 | 0.67% | 2D Position |\n\n---\n\n### **Key Observables**\n\n**Transmission Chain:**\n- Source \u2192 lmon1: 100% (baseline)\n- lmon1 \u2192 lmonb (after bender): 48.8% transmission\n- lmonb \u2192 psd3 (after straight guides): 72.1% transmission\n- psd3 \u2192 lmonitor2 (after aperture1): 51.7% transmission\n- lmonitor2 \u2192 lmon2 (after APERTURE2): 11.7% transmission\n- **Overall source-to-detector:** 2.13% (5.488 \u00d7 10\u2076 / 2.575 \u00d7 10\u2078)\n\n**Wavelength Distribution:**\n- **lmon1 (source):** \u03bb_center = 3.99 \u00c5, FWHM = 4.01 \u00c5\n- **lmonb (after bender):** \u03bb_center = 4.68 \u00c5, FWHM = 3.45 \u00c5\n- **lmonitor2 (after aperture1):** \u03bb_center = 4.59 \u00c5, FWHM = 3.13 \u00c5\n- **lmon2 (detector plane):** \u03bb_center = 4.31 \u00c5, FWHM = 3.05 \u00c5\n\n**Beam Geometry:**\n- **psd1 (source):** X\u2080 = \u22121.1 mm, Y\u2080 = \u22128.6 mm; dX = 97 mm, dY = 54 mm\n- **psd2 (after bender):** X\u2080 = \u22120.45 mm, Y\u2080 = \u22124.9 mm; dX = 97 mm, dY = 58 mm\n- **psd3 (after guides):** X\u2080 = \u221215.4 mm, Y\u2080 = \u22127.4 mm; dX = 87 mm, dY = 58 mm\n- **psd4 (detector):** X\u2080 = 3.6 mm, Y\u2080 = \u22121.8 mm; dX = 32 mm, dY = 31 mm\n\n---\n\n### **Validation Notes**\n\n\u2713 **All monitors have >1000 events** (lowest: psd4 with 25,230 events)  \n\u2713 **Relative errors <1%** on all monitors (highest: 0.67% on final detector)  \n\u2713 **Transmission is physically reasonable** for a SANS beamline with multiple apertures  \n\u2713 **Wavelength distribution** is consistent across the beamline (no anomalies)  \n\u2713 **Beam centering** is stable (no large offsets)  \n\u2713 **Gravity effects** included (cold neutrons, long instrument)  \n\nThe instrument is **fully functional and ready for SANS experiments** at the specified configuration."
+  },
+  "grade": {
+    "task": "T1_ISIS_SANS2d_pert",
+    "pass": true,
+    "score": 1.0,
+    "checks_passed": "6/6",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "2d",
+        "observable": "intensity",
+        "reference": 257527000.0,
+        "candidate": 257527000.0,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 51505400.0
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_x",
+        "reference": 0.969654,
+        "candidate": 0.969654,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.2908962
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_y",
+        "reference": 0.541689,
+        "candidate": 0.541689,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.16250669999999998
+      },
+      {
+        "role": "wavelength",
+        "observable": "intensity",
+        "reference": 257527000.0,
+        "candidate": 257527000.0,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 64381750.0
+      },
+      {
+        "role": "wavelength",
+        "observable": "center_of_mass",
+        "reference": 3.98881,
+        "candidate": 3.98881,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.19944050000000002
+      },
+      {
+        "role": "wavelength",
+        "observable": "fwhm",
+        "reference": 4.043045,
+        "candidate": 4.043045,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 2.0215225
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d_pert__main__anthropic_claude_haiku_4_5/home/instruments/SANS_instrument/SANS_instrument.instr",
+    "candidate_params": {
+      "L1": 3.926,
+      "A1w": 0.03,
+      "A1h": 0.02,
+      "S6": 0.006,
+      "A2": 0.006,
+      "Lmin": 1.0,
+      "Lmax": 14.0
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d_pert__main__anthropic_claude_haiku_4_5/artifacts/SANS_instrument.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d_pert__main__anthropic_claude_haiku_4_5/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d_pert__main__anthropic_claude_haiku_4_5/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d_pert__main__anthropic_claude_haiku_4_5/artifacts/trace",
+    "errors": []
+  }
+}

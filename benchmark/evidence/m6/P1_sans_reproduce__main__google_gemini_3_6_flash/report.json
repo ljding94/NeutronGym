@@ -1,0 +1,113 @@
+{
+  "task": "P1_sans_reproduce",
+  "episode": {
+    "model": "google/gemini-3.6-flash",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 28,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 80.7,
+    "usage": {
+      "prompt_tokens": 263535,
+      "completion_tokens": 2467
+    },
+    "mcp_calls": {
+      "list_components": 6,
+      "describe_component": 7,
+      "create_instrument": 1,
+      "add_component": 9,
+      "validate_instrument": 1,
+      "run_simulation": 3
+    },
+    "skill_used": true,
+    "final_answer": "### Summary of Instrument Design & Simulation Results\n\nA pinhole Small-Angle Neutron Scattering (SANS) instrument was constructed and simulated in McStas according to the provided specification.\n\n---\n\n### Instrument Architecture\n\n1. **Source (`Source_gen`)**:\n   - Shape: Circular, radius $r = 0.02\\text{ m}$ (2 cm)\n   - Wavelength: Uniform distribution $\\lambda = 6.0 \\pm 0.05\\text{ \u00c5}$ ($L_{\\text{min}} = 5.95\\text{ \u00c5}, L_{\\text{max}} = 6.05\\text{ \u00c5}$)\n   - Brightness: $I_1 = 10^8\\text{ n/s/cm}^2/\\text{sr/\u00c5}$\n   - Targeted variance reduction targeting window matching pinhole aperture downstream ($1\\times1\\text{ cm}^2$).\n\n2. **Collimation System (`Slit`)**:\n   - Pinhole 1: Circular aperture, $r = 0.005\\text{ m}$ (5 mm), located at $z = 3.0\\text{ m}$ from source.\n   - Pinhole 2: Circular aperture, $r = 0.005\\text{ m}$ (5 mm), located at $z = 6.0\\text{ m}$ from source (3.0 m from Pinhole 1).\n\n3. **Sample (`Sans_spheres`)**:\n   - Position: $z = 6.2\\text{ m}$ (0.2 m downstream of Pinhole 2).\n   - Dimensions: Box shape, $1\\times1\\text{ cm}^2$ front area ($x_{\\text{width}} = y_{\\text{height}} = 0.01\\text{ m}$), $0.5\\text{ cm}$ thick ($z_{\\text{depth}} = 0.005\\text{ m}$).\n   - Material parameters:\n     - Hard sphere radius $R = 100\\text{ \u00c5}$\n     - Volume fraction $\\Phi = 0.001$ (0.1%)\n     - Scattering contrast $\\Delta\\rho = 0.6\\text{ fm/\u00c5}^3$\n     - Absorption cross-section density $\\sigma_{\\text{abs}} = 0.5\\text{ m}^{-1}$ at $2200\\text{ m/s}$\n   - Aiming: Focused scattering across the detector plane radius ($r = 0.3\\text{ m}$ at $3.0\\text{ m}$).\n\n4. **Beamstop (`Beamstop`)**:\n   - Position: $z = 9.1\\text{ m}$ (2.9 m behind sample, 0.1 m in front of detector plane).\n   - Shape: Circular, $r = 0.02\\text{ m}$ (2 cm). Blocks the unscattered direct beam.\n\n5. **Detectors**:\n   - **2D PSD Detector (`PSD_monitor`)**:\n     - Position: $z = 9.2\\text{ m}$ (3.0 m behind sample).\n     - Dimensions: $60\\times60\\text{ cm}^2$, resolution $128\\times128$ pixels.\n   - **Wavelength Monitor (`L_monitor`)**:\n     - Position: $z = 9.20001\\text{ m}$ (just behind main detector plane).\n     - Dimensions: $60\\times60\\text{ cm}^2$, covering range $\\lambda \\in [5.5, 6.5]\\text{ \u00c5}$ in 100 bins.\n\n---\n\n### Simulation Results\n\n- **Primary Run Setup**:\n  - $N_{\\text{count}} = 100,000,000$ ($10^8$ rays)\n  - Seed: `12345`\n\n- **Detector Observables**:\n  1. **Main 2D Detector (`detector`)**:\n     - **Integrated Intensity**: $(4.4471 \\pm 0.0007) \\times 10^{-2}\\text{ n/s}$ (relative error: $\\sim 0.16\\%$)\n     - **Detected Scattering Events**: $4,687,800$ events\n  2. **Wavelength Detector (`l_mon`)**:\n     - **Integrated Intensity**: $(4.4471 \\pm 0.0007) \\times 10^{-2}\\text{ n/s}$\n     - Spectrum confirmed centered in the band $5.95 - 6.05\\text{ \u00c5}$."
+  },
+  "grade": {
+    "task": "P1_sans_reproduce",
+    "pass": true,
+    "score": 1.0,
+    "checks_passed": "6/6",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "2d",
+        "observable": "intensity",
+        "reference": 0.0451716,
+        "candidate": 0.0455001,
+        "pass": true,
+        "delta": 0.0003285000000000024,
+        "allowed": 0.00903432
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_x",
+        "reference": 5.04341,
+        "candidate": 4.93965,
+        "pass": true,
+        "delta": -0.10375999999999941,
+        "allowed": 1.5130229999999998
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_y",
+        "reference": 5.05123,
+        "candidate": 4.95334,
+        "pass": true,
+        "delta": -0.09789000000000048,
+        "allowed": 1.515369
+      },
+      {
+        "role": "wavelength",
+        "observable": "intensity",
+        "reference": 0.0451701,
+        "candidate": 0.0455001,
+        "pass": true,
+        "delta": 0.0003300000000000039,
+        "allowed": 0.011292525
+      },
+      {
+        "role": "wavelength",
+        "observable": "center_of_mass",
+        "reference": 6.000276,
+        "candidate": 5.999398,
+        "pass": true,
+        "delta": -0.0008780000000001564,
+        "allowed": 0.12000552
+      },
+      {
+        "role": "wavelength",
+        "observable": "fwhm",
+        "reference": 0.099827,
+        "candidate": 0.099863,
+        "pass": true,
+        "delta": 3.599999999999437e-05,
+        "allowed": 0.0499135
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/P1_sans_reproduce__main__google_gemini_3_6_flash/home/instruments/pinhole_sans/pinhole_sans.instr",
+    "candidate_params": {}
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/P1_sans_reproduce__main__google_gemini_3_6_flash/artifacts/pinhole_sans.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/P1_sans_reproduce__main__google_gemini_3_6_flash/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/P1_sans_reproduce__main__google_gemini_3_6_flash/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/P1_sans_reproduce__main__google_gemini_3_6_flash/artifacts/trace",
+    "errors": []
+  }
+}

@@ -1,0 +1,81 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: TAS1
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 14:20:15 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* kI: [unit] 
+* kF: [unit] 
+* wVS: [unit] 
+* tilt: [unit] 
+* SA: [unit] 
+* A3: [unit] 
+* A4: [unit] 
+* L3: [unit] 
+* L4: [unit] 
+* Mono_flatswitch: [unit] 
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT TAS1 (
+kI = 1.55, 
+kF = 1.55, 
+wVS = 0.03, 
+tilt = 0, 
+SA = -1, 
+A3 = 0, 
+A4 = 70, 
+L3 = 1, 
+L4 = 1, 
+Mono_flatswitch = 0 
+)
+
+DECLARE 
+%{
+double A1;
+double testval = 0;
+double mytest2 = "asin(0.5)";
+double mytest3 = 3.14;
+double mytest4 = "3.14";
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated TAS1
+%}
+
+TRACE 
+COMPONENT Origin = Progress_bar()
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+FINALLY 
+%{
+// Start of finally for generated TAS1
+%}
+
+END

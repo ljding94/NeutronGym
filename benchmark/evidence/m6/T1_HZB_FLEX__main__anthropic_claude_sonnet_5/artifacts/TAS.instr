@@ -1,0 +1,107 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: TAS
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 11:58:23 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* kI: [unit] 
+* kF: [unit] 
+* wVS: [unit] 
+* tilt: [unit] 
+* SA: [unit] 
+* A3: [unit] 
+* A4: [unit] 
+* L3: [unit] 
+* L4: [unit] 
+* Mono_flatswitch: [unit] 
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT TAS (
+kI = 1.55, 
+kF = 1.55, 
+wVS = 0.03, 
+tilt = 0, 
+SA = -1, 
+A3 = 0, 
+A4 = 70, 
+L3 = 1, 
+L4 = 1, 
+Mono_flatswitch = 0 
+)
+
+DECLARE 
+%{
+double A1 = 99;
+double test_expr = 2*kI;
+double MGUIDE = 3.2;
+double W_para = 0.0025;
+double R0_para = 0.99;
+double Qc_para = 0.0217;
+double alpha_para = 3.9;
+double LGUIDE_1 = 18.65;
+double LGUIDE_2 = 17.8;
+double rho_AV = 1.23;
+double L1 = 1.75;
+double L2 = 2.2;
+double A2;
+double A5;
+double A6;
+double RMH;
+double RMV;
+double RAH;
+double RAV;
+double lambdaI;
+double EI;
+double SelFreq;
+double dlambdaI;
+double l_min;
+double l_max;
+double e_min;
+double e_max;
+double beta_guide_1;
+double beta_guide_2;
+double s_guide_1;
+double s_guide_2;
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated TAS
+%}
+
+TRACE 
+COMPONENT Origin = Progress_bar()
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+FINALLY 
+%{
+// Start of finally for generated TAS
+%}
+
+END

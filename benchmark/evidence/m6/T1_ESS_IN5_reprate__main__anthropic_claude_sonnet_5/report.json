@@ -1,0 +1,136 @@
+{
+  "task": "T1_ESS_IN5_reprate",
+  "episode": {
+    "model": "anthropic/claude-sonnet-5",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 24,
+    "hit_turn_cap": false,
+    "empty_responses": 3,
+    "cost_usd": null,
+    "duration_s": 560.3,
+    "usage": {
+      "prompt_tokens": 1084581,
+      "completion_tokens": 57691
+    },
+    "mcp_calls": {
+      "list_examples": 2,
+      "describe_component": 11,
+      "create_instrument": 1,
+      "add_parameter": 46,
+      "get_instrument": 3,
+      "add_declare": 13,
+      "add_component": 51,
+      "remove_component": 1,
+      "validate_instrument": 1
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_ESS_IN5_reprate",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "candidate failed to run (compile)"
+    ],
+    "diagnostics": [
+      " 16188 | t_sample = (Length+SAMPLE_DIST)*lambda0/(2*PI*K2V) + t_offset;",
+      "       |             ^",
+      "./ESS_ToF_Spectrometer.c:16188:20: error: use of undeclared identifier 'SAMPLE_DIST'",
+      " 16188 | t_sample = (Length+SAMPLE_DIST)*lambda0/(2*PI*K2V) + t_offset;",
+      "       |                    ^",
+      "./ESS_ToF_Spectrometer.c:16188:33: error: use of undeclared identifier 'lambda0'",
+      " 16188 | t_sample = (Length+SAMPLE_DIST)*lambda0/(2*PI*K2V) + t_offset;",
+      "       |                                 ^",
+      "./ESS_ToF_Spectrometer.c:16189:15: error: use of undeclared identifier 'Length'",
+      " 16189 | t_detector = (Length+SAMPLE_DIST+DETECTOR_DIST)*lambda0/(2*PI*K2V) + t_offset;",
+      "       |               ^",
+      "fatal error: too many errors emitted, stopping now [-ferror-limit=]",
+      "20 errors generated.",
+      "INFO: call to /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/arm64-apple-darwin20.0.0-clang failed with Command '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/arm64-apple-darwin20.0.0-clang -o ./ESS_ToF_Spectrometer.out ./ESS_ToF_Spectrometer.c -lm -Wl,-headerpad_max_install_names -Wl,-dead_strip_dylibs -Wl,-rpath,/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/lib -L/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/lib -ftree-vectorize -fPIC -fstack-protector-strong -O2 -pipe -isystem /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/include -headerpad_max_install_names -ftree-vectorize -fPIC -fstack-protector-strong -O2 -pipe -isystem /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/include -fdebug-prefix-map=/Users/runner/miniforge3/conda-bld/mcstas-suite_1783460247618/work=/usr/local/src/conda/mcstas-core-3.7.12 -fdebug-prefix-map=/opt/homebrew/Caskroom/miniconda/base/envs/mcstas=/usr/local/src/conda-prefix -O2 -g -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -D_DARWIN_C_SOURCE -I/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/include -Wl,-rpath,/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/lib -L/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/lib -fno-PIC -fPIE -flto -O3 -march=native -fno-math-errno -ftree-vectorize -g -DNDEBUG -D_POSIX_SOURCE -std=c99 -lm' returned non-zero exit status 1.",
+      "ERROR: Compilation failed for ./ESS_ToF_Spectrometer.c using compiler /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/arm64-apple-darwin20.0.0-clang"
+    ],
+    "checks": [],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ESS_IN5_reprate__main__anthropic_claude_sonnet_5/home/instruments/ESS_ToF_Spectrometer/ESS_ToF_Spectrometer.instr",
+    "candidate_params": {
+      "Lmin": "4.9",
+      "Lmax": "5.1",
+      "lambda0": "5",
+      "Pulse_width": "0.002857",
+      "Num_pulses": "1",
+      "GUI_start": "2",
+      "FO1_DIST": "6",
+      "L_ballistic_begin": "19.5",
+      "L_ballistic_end": "17",
+      "Length": "100",
+      "SAMPLE_DIST": "1.2",
+      "DETECTOR_DIST": "4",
+      "GUI_h": "0.105",
+      "GUI_w": "0.1",
+      "GUI_GAP": "0.05",
+      "H1": "0.167",
+      "W1": "0.116",
+      "H2": "0.185",
+      "W2": "0.15",
+      "H3": "0.19",
+      "W3": "0.15",
+      "H4": "0.213",
+      "W4": "0.14",
+      "H_chop": "0.075",
+      "W_chop": "0.03",
+      "H_end": "0.042",
+      "W_end": "0.0215",
+      "ALPHA": "3.4",
+      "M": "3.5",
+      "F_slow1": "16.6667",
+      "F_slow2": "0",
+      "F_fast1": "0",
+      "F_fast2": "200",
+      "N_fast": "1",
+      "SLOW1_THETA": "120",
+      "FO3": "1",
+      "THETA_fast1": "180",
+      "FAST_THETA": "5",
+      "Gamma": "0",
+      "Etun": "1",
+      "V_HOLE": "0",
+      "FRAC_QUASIEL": "0",
+      "FRAC_TUNNEL": "0",
+      "TT": "50",
+      "RES_DE": "0.5",
+      "cold": "0.95"
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": [
+      {
+        "tool": "list_examples",
+        "kind": "example_tool",
+        "target": "reprate",
+        "refused": true
+      },
+      {
+        "tool": "list_examples",
+        "kind": "example_tool",
+        "target": "butterfly",
+        "refused": true
+      }
+    ]
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ESS_IN5_reprate__main__anthropic_claude_sonnet_5/artifacts/ESS_ToF_Spectrometer.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ESS_IN5_reprate__main__anthropic_claude_sonnet_5/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ESS_IN5_reprate__main__anthropic_claude_sonnet_5/artifacts/diagram.png",
+    "trace": null,
+    "errors": [
+      "trace: mcdisplay-webgl failed"
+    ]
+  }
+}

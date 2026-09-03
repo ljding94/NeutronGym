@@ -1,0 +1,45 @@
+{
+  "task": "T1_ILL_IN6",
+  "episode": {
+    "model": "google/gemini-3.6-flash",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 50,
+    "hit_turn_cap": true,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 73.4,
+    "usage": {
+      "prompt_tokens": 607209,
+      "completion_tokens": 1833
+    },
+    "mcp_calls": {
+      "list_components": 1,
+      "describe_component": 6,
+      "create_instrument": 1,
+      "add_parameter": 18,
+      "add_declare": 24
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_ILL_IN6",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": null
+}

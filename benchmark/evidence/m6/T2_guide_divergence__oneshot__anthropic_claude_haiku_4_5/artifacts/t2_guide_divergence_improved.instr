@@ -1,0 +1,82 @@
+DEFINE INSTRUMENT t2_guide_divergence_improved(
+  w_in = 0.045,
+  w_out = 0.025,
+  m_coat = 2.8
+)
+
+DECLARATION %{
+%}
+
+INITIALIZE %{
+%}
+
+TRACE
+
+COMPONENT origin = Progress_bar()
+AT (0, 0, 0) ABSOLUTE
+
+COMPONENT source = Source_simple(
+  radius = 0.05,
+  dist = 1.5,
+  focus_xw = w_in,
+  focus_yh = w_in,
+  lambda0 = 5.0,
+  dlambda = 0.5,
+  flux = 1e13
+)
+AT (0, 0, 0) ABSOLUTE
+
+COMPONENT source_monitor = Monitor_nD(
+  xwidth = 0.15,
+  yheight = 0.15,
+  options = "x y",
+  restore_neutron = 1
+)
+AT (0, 0, 0.01) ABSOLUTE
+
+COMPONENT guide_entrance = Slit(
+  xwidth = w_in,
+  yheight = w_in
+)
+AT (0, 0, 1.5) ABSOLUTE
+
+COMPONENT guide = Guide_gravity(
+  w1 = w_in,
+  h1 = w_in,
+  w2 = w_out,
+  h2 = w_out,
+  l = 10.0,
+  R0 = 0.99,
+  Qc = 0.0219,
+  alpha = 6.07,
+  m = m_coat,
+  W = 0.003
+)
+AT (0, 0, 1.5) ABSOLUTE
+
+COMPONENT guide_exit_monitor = Monitor_nD(
+  xwidth = 0.1,
+  yheight = 0.1,
+  options = "x y",
+  restore_neutron = 1
+)
+AT (0, 0, 11.5) ABSOLUTE
+
+COMPONENT sample_position = Slit(
+  xwidth = 0.02,
+  yheight = 0.02
+)
+AT (0, 0, 11.55) ABSOLUTE
+
+COMPONENT divmon = Divergence_monitor(
+  nh = 100,
+  nv = 100,
+  filename = "divmon.dat",
+  xwidth = 0.02,
+  yheight = 0.02,
+  maxdiv_h = 0.5,
+  maxdiv_v = 0.5
+)
+AT (0, 0, 11.6) ABSOLUTE
+
+END INSTRUMENT

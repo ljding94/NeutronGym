@@ -1,0 +1,91 @@
+/*******************************************************************************
+* McStas instrument: t2_sans_collimation_optimized
+*
+* %D
+* Optimized pinhole SANS instrument focusing on maximizing scattered intensity
+* on the detector while maintaining beam divergence / pattern RMS width dX within
+* the [4.539, 5.548] cm band.
+*
+* %P
+* r_pin1: [m] Radius of the first source-defining pinhole
+* r_pin2: [m] Radius of the second sample-defining pinhole
+*
+* %L
+* <reference/literature>
+*
+* %E
+*******************************************************************************/
+
+DEFINE INSTRUMENT t2_sans_collimation_optimized(
+    r_pin1 = 0.010,
+    r_pin2 = 0.005
+)
+
+DECLARE
+%{
+%}
+
+INITIALIZE
+%{
+%}
+
+TRACE
+
+COMPONENT Origin = Progress_bar()
+  AT (0,0,0) ABSOLUTE
+
+COMPONENT Source = Source_simple(
+    radius = 0.02,
+    dist = 3.0,
+    focus_xw = 2.0 * r_pin1,
+    focus_yh = 2.0 * r_pin1,
+    lambda0 = 6.0,
+    dlambda = 0.05
+)
+  AT (0,0,0) ABSOLUTE
+
+COMPONENT Pin1 = Slit(
+    radius = r_pin1
+)
+  AT (0,0,3.0) ABSOLUTE
+
+COMPONENT Pin2 = Slit(
+    radius = r_pin2
+)
+  AT (0,0,6.0) ABSOLUTE
+
+COMPONENT Monitor_Pin2 = PSD_monitor(
+    nx = 100, ny = 100,
+    filename = "psd_pin2.dat",
+    xwidth = 0.1, yheight = 0.1
+)
+  AT (0,0,6.001) ABSOLUTE
+  ROTATED (0,0,0) ABSOLUTE
+  SETTING (restore_neutron=1)
+
+COMPONENT Sample = PowderN(
+    unit_cell_volume = 125,
+    d_spacing = 5.0,
+    sigma_abs = 10,
+    sigma_inc = 1,
+    pack = 0.5,
+    radius = 0.005,
+    yheight = 0.01
+)
+  AT (0,0,9.0) ABSOLUTE
+
+COMPONENT Beamstop = Beamstop(
+    radius = 0.025,
+    xwidth = 0.05,
+    yheight = 0.05
+)
+  AT (0,0,11.999) ABSOLUTE
+
+COMPONENT detector = PSD_monitor(
+    nx = 120, ny = 120,
+    filename = "detector.dat",
+    xwidth = 0.6, yheight = 0.6
+)
+  AT (0,0,12.0) ABSOLUTE
+
+END

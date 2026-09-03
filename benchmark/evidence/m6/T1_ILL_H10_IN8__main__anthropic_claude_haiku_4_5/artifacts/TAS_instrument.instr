@@ -1,0 +1,189 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: TAS_instrument
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 10:31:32 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* KF: [unit] Å^-1] Final wave vector
+* KI: [unit] Å^-1] Initial wave vector (0 = auto from KF)
+* QM: [unit] Å^-1] Momentum transfer magnitude
+* EN: [unit] meV] Energy transfer
+* verbose: [unit] Verbosity flag
+* WM: [unit] m] Monochromator width
+* HM: [unit] m] Monochromator height
+* RMH: [unit] m] Monochromator horizontal radius (-1 = flat)
+* RMV: [unit] m] Monochromator vertical radius (-1 = flat)
+* DM: [unit] Å] Monochromator d-spacing
+* NHM: [unit] Monochromator horizontal mosaic
+* NVM: [unit] Monochromator vertical mosaic
+* WA: [unit] m] Analyzer width
+* HA: [unit] m] Analyzer height
+* RAH: [unit] m] Analyzer horizontal radius (-1 = flat)
+* RAV: [unit] m] Analyzer vertical radius (-1 = flat)
+* DA: [unit] Å] Analyzer d-spacing
+* NHA: [unit] Analyzer horizontal mosaic
+* NVA: [unit] Analyzer vertical mosaic
+* L1: [unit] m] Source to monochromator distance
+* ALF1: [unit] arcmin] Collimation before monochromator
+* ALF2: [unit] arcmin] Collimation between monochromator and sample
+* ALF3: [unit] arcmin] Collimation between sample and analyzer
+* ALF4: [unit] arcmin] Collimation after analyzer
+* BET1: [unit] arcmin] Vertical collimation before monochromator
+* BET2: [unit] arcmin] Vertical collimation between monochromator and sample
+* BET3: [unit] arcmin] Vertical collimation between sample and analyzer
+* BET4: [unit] arcmin] Vertical collimation after analyzer
+* Sqw_coh: [unit] Sample structure factor file
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT TAS_instrument (
+KF = 5.0, // Å^-1] Final wave vector
+KI = 0.0, // Å^-1] Initial wave vector (0 = auto from KF)
+QM = 0.5, // Å^-1] Momentum transfer magnitude
+EN = 0.0, // meV] Energy transfer
+verbose = 1.0, // Verbosity flag
+WM = 0.233, // m] Monochromator width
+HM = 0.197, // m] Monochromator height
+RMH = -1.0, // m] Monochromator horizontal radius (-1 = flat)
+RMV = -1.0, // m] Monochromator vertical radius (-1 = flat)
+DM = 1.807, // Å] Monochromator d-spacing
+NHM = 15.0, // Monochromator horizontal mosaic
+NVM = 15.0, // Monochromator vertical mosaic
+WA = 0.16, // m] Analyzer width
+HA = 0.08, // m] Analyzer height
+RAH = -1.0, // m] Analyzer horizontal radius (-1 = flat)
+RAV = -1.0, // m] Analyzer vertical radius (-1 = flat)
+DA = 2.087, // Å] Analyzer d-spacing
+NHA = 15.0, // Analyzer horizontal mosaic
+NVA = 15.0, // Analyzer vertical mosaic
+L1 = 2.3, // m] Source to monochromator distance
+ALF1 = 60.0, // arcmin] Collimation before monochromator
+ALF2 = 60.0, // arcmin] Collimation between monochromator and sample
+ALF3 = 60.0, // arcmin] Collimation between sample and analyzer
+ALF4 = 60.0, // arcmin] Collimation after analyzer
+BET1 = 120.0, // arcmin] Vertical collimation before monochromator
+BET2 = 120.0, // arcmin] Vertical collimation between monochromator and sample
+BET3 = 120.0, // arcmin] Vertical collimation between sample and analyzer
+BET4 = 120.0, // arcmin] Vertical collimation after analyzer
+string Sqw_coh = "V.lau" // Sample structure factor file
+)
+
+DECLARE 
+%{
+double ei = 0.0;
+double ef = 0.0;
+double a1 = 0.0;
+double a3 = 0.0;
+double a4 = 0.0;
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated TAS_instrument
+%}
+
+TRACE 
+COMPONENT Origin = Progress_bar()
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT Source = Source_gen(
+ radius = 0.1, dist = L1,
+ focus_xw = 0.05, focus_yh = HM,
+ E0 = ei, dE = ei*0.03,
+ lambda0 = 2*PI/KF, dlambda = 2*PI/KF*0.03,
+ I1 = 5874000000000, T1 = 683.7,
+ T2 = 257.7, I2 = 25099000000000,
+ T3 = 16.7, I3 = 1034300000000)
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT L_mon_source = L_monitor(
+ nL = 100, xwidth = WM,
+ yheight = HM, Lmin = 0.5,
+ Lmax = 10, restore_neutron = 1)
+AT (0.0, 0.0, L1-0.2) ABSOLUTE
+
+COMPONENT PSD_mon_source = PSD_monitor(
+ nx = 100, ny = 100,
+ xwidth = WM, yheight = HM,
+ restore_neutron = 1)
+AT (0.0, 0.0, L1-0.15) ABSOLUTE
+
+COMPONENT SC1 = Collimator_linear(
+ xmin = -WM/2, xmax = WM/2,
+ ymin = -HM/2, ymax = HM/2,
+ length = L1/2, divergence = ALF1,
+ divergenceV = BET1)
+WHEN (ALF1 && BET1)
+AT (0.0, 0.0, L1/4) ABSOLUTE
+
+COMPONENT Guide_out = Arm()
+AT (0.0, 0.0, L1-0.2) ABSOLUTE
+
+COMPONENT Monochromator = Monochromator_curved(
+ NH = 15, NV = 15,
+ mosaich = NHM, mosaicv = NVM,
+ RV = RMV, RH = RMH,
+ DM = DM, width = WM,
+ height = HM)
+AT (0.0, 0.0, 0.0) RELATIVE Guide_out
+
+COMPONENT Sample = Powder1(
+ radius = 0.01, yheight = 0.05,
+ q = QM)
+AT (0.0, 0.0, 0.5) RELATIVE Monochromator
+
+COMPONENT Analyzer = Monochromator_curved(
+ NH = 15, NV = 15,
+ mosaich = NHA, mosaicv = NVA,
+ RV = RAV, RH = RAH,
+ DM = DA, width = WA,
+ height = HA)
+AT (0.0, 0.0, 0.5) RELATIVE Sample
+
+COMPONENT L_mon_analyzer = L_monitor(
+ nL = 100, xwidth = WA,
+ yheight = HA, Lmin = 0.5,
+ Lmax = 10, restore_neutron = 1)
+AT (0.0, 0.0, 0.1) RELATIVE Analyzer
+
+COMPONENT PSD_mon_analyzer = PSD_monitor(
+ nx = 100, ny = 100,
+ xwidth = WA, yheight = HA,
+ restore_neutron = 1)
+AT (0.0, 0.0, 0.15) RELATIVE Analyzer
+
+COMPONENT Detector = Monitor(
+ xwidth = WA, yheight = HA)
+AT (0.0, 0.0, 0.2) RELATIVE Analyzer
+
+FINALLY 
+%{
+// Start of finally for generated TAS_instrument
+%}
+
+END

@@ -1,0 +1,71 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: D11_SANS
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 12:45:57 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* Lambda: [unit] Angs
+* Config: [unit] 
+* Lc: [unit] 
+* iLc: [unit] 
+* Chamfers: [unit] 
+* Waviness: [unit] 
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT D11_SANS (
+Lambda = 4.51, // Angs
+string Config = "Borkron_1972", 
+Lc = 0, 
+iLc = 5, 
+Chamfers = 0.0002, 
+Waviness = 2.5e-5 
+)
+
+DECLARE 
+%{
+double test_var = 1.0;
+double TestArr[17] = "{20.0,0.0,0.0,0.0,0.0,4.0,3.0,3.0,2.5,0.0,2.5,0.0,1.5,0.0,1.5,0.0,0.0}";
+double test_scalar = sqrt(2);
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated D11_SANS
+%}
+
+TRACE 
+COMPONENT PG = Progress_bar()
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+FINALLY 
+%{
+// Start of finally for generated D11_SANS
+%}
+
+END

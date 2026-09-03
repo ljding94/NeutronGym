@@ -1,0 +1,206 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: TOSCA_Minimal
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 10:47:15 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* lambda: [unit] 
+* dlambda: [unit] 
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT TOSCA_Minimal (
+lambda = 4.14, 
+dlambda = 0.075 
+)
+
+DECLARE 
+%{
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated TOSCA_Minimal
+%}
+
+TRACE 
+COMPONENT Origin = Progress_bar()
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT VCS = Source_gen(
+ focus_xw = 0.03, focus_yh = 0.2,
+ lambda0 = lambda, dlambda = dlambda,
+ I1 = 12400000000000, yheight = 0.2,
+ xwidth = 0.03, verbose = 1,
+ T1 = 216.8, T2 = 33.9,
+ I2 = 10200000000000, T3 = 16.7,
+ I3 = 3042300000000)
+AT (0.0, 0.0, 0.0) RELATIVE Origin
+
+COMPONENT SourceTarget = Arm()
+AT (0.0, 0.0, 2.55) RELATIVE VCS
+
+SPLIT 10 COMPONENT Cradle = Arm()
+AT (0.0, 0.0, 0.15) RELATIVE SourceTarget
+
+COMPONENT Mono1 = Monochromator_curved(
+ reflect = "HOPG.rfl", transmit = "HOPG.trm",
+ zwidth = 0.054, yheight = 0.029,
+ gap = 0.001, NH = 1,
+ NV = 7, r0 = 1,
+ t0 = 1, RV = 3,
+ DM = 3.355, mosaic = 40)
+AT (0.0, 0.0, -0.03) RELATIVE Cradle
+ROTATED (0.0, 0.0, 0.0) RELATIVE Cradle
+
+COMPONENT Mono2 = Monochromator_curved(
+ reflect = "HOPG.rfl", transmit = "HOPG.trm",
+ zwidth = 0.054, yheight = 0.029,
+ gap = 0.001, NH = 1,
+ NV = 7, r0 = 1,
+ t0 = 1, RV = 3,
+ DM = 3.355, mosaic = 40)
+AT (0.0, 0.0, 0.0) RELATIVE Cradle
+ROTATED (0.0, 0.0, 0.0) RELATIVE Cradle
+
+COMPONENT Mono3 = Monochromator_curved(
+ reflect = "HOPG.rfl", transmit = "HOPG.trm",
+ zwidth = 0.054, yheight = 0.029,
+ gap = 0.001, NH = 1,
+ NV = 7, r0 = 1,
+ t0 = 1, RV = 3,
+ DM = 3.355, mosaic = 40)
+AT (0.0, 0.0, +0.03) RELATIVE Cradle
+ROTATED (0.0, 0.0, 0.0) RELATIVE Cradle
+
+COMPONENT mono_out = Arm()
+AT (0.0, 0.0, 0.0) RELATIVE Cradle
+
+COMPONENT SuppPos = Arm()
+AT (0.0, 0.0, 1.305) RELATIVE mono_out
+
+COMPONENT Mon_SuppInL = Monitor_nD(
+ xwidth = 0.052, yheight = 0.098,
+ restore_neutron = 1, options = "lambda limits=[3.89 4.39] bins=50")
+AT (0.0, 0.0, -0.072) RELATIVE SuppPos
+
+COMPONENT Mon_SuppInT = Monitor_nD(
+ xwidth = 0.052, yheight = 0.098,
+ bins = 128, restore_neutron = 1,
+ options = "t slit limits=[-700e-6 700e-6]")
+AT (0.0, 0.0, -0.071) RELATIVE SuppPos
+
+COMPONENT Suppressor = FermiChopper(
+ phase = 0, radius = 0.07,
+ nu = 166.67, nslit = 1,
+ R0 = 0, length = 0.012,
+ eff = 1, xwidth = 0.052,
+ verbose = 1, yheight = 0.098)
+AT (0.0, 0.0, 0.0) RELATIVE SuppPos
+
+COMPONENT Mon_SuppOutT = Monitor_nD(
+ xwidth = 0.052, yheight = 0.098,
+ bins = 128, restore_neutron = 1,
+ options = "t slit limits=[-700e-6 700e-6]")
+AT (0.0, 0.0, +0.071) RELATIVE SuppPos
+
+COMPONENT SlitFC = Slit(
+ xwidth = 0.0441, yheight = 0.0641)
+AT (0.0, 0.0, 1.659) RELATIVE mono_out
+
+COMPONENT FermiPos = Arm()
+AT (0.0, 0.0, 1.705) RELATIVE mono_out
+
+COMPONENT FermiM = FermiChopper(
+ phase = 0, radius = 0.04,
+ nu = 166.67, nslit = 200,
+ R0 = 0.99, Qc = 0.02176,
+ alpha = 2.33, m = 0,
+ length = 0.012, eff = 1,
+ xwidth = 0.044, verbose = 1,
+ yheight = 0.064)
+AT (0.0, 0.0, 0.0) RELATIVE FermiPos
+
+COMPONENT Mon_FermiOutdT = Monitor_nD(
+ xwidth = 0.044, yheight = 0.064,
+ bins = 128, restore_neutron = 1,
+ options = "t slit limits=[180e-6 365e-6]")
+AT (0.0, 0.0, +0.061) RELATIVE FermiPos
+
+COMPONENT MonokMonitor = Monitor_nD(
+ xwidth = 0.2, yheight = 0.2,
+ restore_neutron = 1, options = "lambda limits=[4.0326 4.2474] bins=20, square, per cm2")
+AT (0.0, 0.0, +0.062) RELATIVE FermiPos
+
+COMPONENT Mon_SampleInT = Monitor_nD(
+ xwidth = 0.05, yheight = 0.05,
+ bins = 128, restore_neutron = 1,
+ options = "t limits=[255e-6 425e-6] parallel, per cm2")
+AT (0.0, 0.0, 1.827) RELATIVE mono_out
+
+COMPONENT Mon_SampleInXY = Monitor_nD(
+ xwidth = 0.06, yheight = 0.1,
+ restore_neutron = 1, options = "x y parallel,per cm2 bins=50")
+AT (0.0, 0.0, 0.0) RELATIVE Mon_SampleInT
+
+COMPONENT sample_pos = Arm()
+AT (0.0, 0.0, 2.1) RELATIVE mono_out
+
+SPLIT 10 COMPONENT Sample = Isotropic_Sqw(
+ Sqw_coh = "Rb_liq_coh.sqw", Sqw_inc = "Rb_liq_inc.sqw",
+ radius = 0.01, thickness = 0.005,
+ yheight = 0.055, p_interact = 0.9)
+AT (0.0, 0.0, 0.0) RELATIVE sample_pos
+EXTEND %{
+if (!SCATTERED) ABSORB;
+%}
+
+COMPONENT Out = PSD_monitor_4PI(
+ filename = "out")
+AT (0.0, 0.0, 0.0) RELATIVE sample_pos
+
+COMPONENT M_theta_t_all = Monitor_nD(
+ xwidth = 2.5, yheight = 1,
+ bins = 100, restore_neutron = 1,
+ options = "angle limits=[0 180] bins=180, energy limits=[-20 20] bins=40, banana, parallel")
+AT (0.0, 0.0, 0.0) RELATIVE sample_pos
+
+COMPONENT Detector_nM = Sqw_monitor(
+ qmin = 0, qmax = 6,
+ Emin = -20, Emax = 20,
+ nq = 100, nE = 100,
+ filename = "Detector_nM", radius = 1.3,
+ yheight = 1)
+AT (0.0, 0.0, 0.0) RELATIVE M_theta_t_all
+
+FINALLY 
+%{
+// Start of finally for generated TOSCA_Minimal
+%}
+
+END

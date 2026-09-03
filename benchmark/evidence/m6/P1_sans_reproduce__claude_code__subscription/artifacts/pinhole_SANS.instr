@@ -1,0 +1,114 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: pinhole_SANS
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 16:33:44 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* lambda0: [unit] AA] Mean wavelength
+* dlambda: [unit] AA] Wavelength half-spread (uniform)
+* sigma_abs: [unit] m^-1] Sample absorption cross-section density at 2200 m/s
+* fxw: [unit] m] Sample focus rect width (0 = isotropic 4pi)
+* fyh: [unit] m] Sample focus rect height (0 = isotropic 4pi)
+* tz: [unit] m] Sample focus target z (detector plane when focusing)
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT pinhole_SANS (
+lambda0 = 6.0, // AA] Mean wavelength
+dlambda = 0.05, // AA] Wavelength half-spread (uniform)
+sigma_abs = 0.5, // m^-1] Sample absorption cross-section density at 2200 m/s
+fxw = 0.0, // m] Sample focus rect width (0 = isotropic 4pi)
+fyh = 0.0, // m] Sample focus rect height (0 = isotropic 4pi)
+tz = 0.0 // m] Sample focus target z (detector plane when focusing)
+)
+
+DECLARE 
+%{
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated pinhole_SANS
+%}
+
+TRACE 
+COMPONENT Origin = Progress_bar()
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT Source = Source_simple(
+ radius = 0.02, dist = 3,
+ focus_xw = 0.01, focus_yh = 0.01,
+ lambda0 = lambda0, dlambda = dlambda,
+ flux = 100000000, gauss = 0)
+AT (0.0, 0.0, 0.0) RELATIVE Origin
+
+COMPONENT Pinhole1 = Slit(
+ radius = 0.005)
+AT (0.0, 0.0, 3.0) RELATIVE Source
+
+COMPONENT Pinhole2 = Slit(
+ radius = 0.005)
+AT (0.0, 0.0, 6.0) RELATIVE Source
+
+COMPONENT PSD_presample = PSD_monitor(
+ nx = 100, ny = 100,
+ filename = "psd_presample.dat", xwidth = 0.05,
+ yheight = 0.05, restore_neutron = 1)
+AT (0.0, 0.0, 0.19) RELATIVE Pinhole2
+
+COMPONENT Sample = Sans_spheres(
+ R = 100, Phi = 0.001,
+ Delta_rho = 0.6, sigma_abs = sigma_abs,
+ xwidth = 0.01, yheight = 0.01,
+ zdepth = 0.005, target_z = tz,
+ focus_xw = fxw, focus_yh = fyh)
+AT (0.0, 0.0, 0.2) RELATIVE Pinhole2
+
+COMPONENT Beamstop = Beamstop(
+ radius = 0.02)
+AT (0.0, 0.0, 2.9) RELATIVE Sample
+
+COMPONENT Detector = PSD_monitor(
+ nx = 128, ny = 128,
+ filename = "psd_detector.dat", xwidth = 0.6,
+ yheight = 0.6, restore_neutron = 1)
+AT (0.0, 0.0, 3.0) RELATIVE Sample
+
+COMPONENT Lmon = L_monitor(
+ nL = 100, filename = "lmon.dat",
+ xwidth = 0.6, yheight = 0.6,
+ Lmin = 5.5, Lmax = 6.5,
+ restore_neutron = 1)
+AT (0.0, 0.0, 3.001) RELATIVE Sample
+
+FINALLY 
+%{
+// Start of finally for generated pinhole_SANS
+%}
+
+END

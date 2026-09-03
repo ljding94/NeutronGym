@@ -1,0 +1,84 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: NEAT_ToF2
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 12:18:36 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* lambda: [unit] Angs
+* dlambda: [unit] Angs
+* rpm: [unit] 
+* coh: [unit] 
+* inc: [unit] 
+* tmin: [unit] 
+* tmax: [unit] 
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT NEAT_ToF2 (
+lambda = 6, // Angs
+dlambda = 0.05, // Angs
+rpm = 10000, 
+string coh = "Rb_liq_coh.sqw", 
+string inc = "Rb_liq_inc.sqw", 
+tmin = 0.01806, 
+tmax = 0.01826 
+)
+
+DECLARE 
+%{
+double Chopper2Detector;
+double KI;
+double Vi;
+double EI;
+double Emin;
+double Emax;
+double Vmin;
+double Vmax;
+double Tmin_v;
+double Tmax_v;
+double time_elastic;
+string detector_options;
+string lmon_options;
+string tmon_options;
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated NEAT_ToF2
+%}
+
+TRACE 
+COMPONENT PG = Progress_bar()
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+FINALLY 
+%{
+// Start of finally for generated NEAT_ToF2
+%}
+
+END

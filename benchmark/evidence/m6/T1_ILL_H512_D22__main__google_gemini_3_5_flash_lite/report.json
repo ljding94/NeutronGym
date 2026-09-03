@@ -1,0 +1,78 @@
+{
+  "task": "T1_ILL_H512_D22",
+  "episode": {
+    "model": "google/gemini-3.5-flash-lite",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 16,
+    "hit_turn_cap": false,
+    "empty_responses": 3,
+    "cost_usd": null,
+    "duration_s": 52.6,
+    "usage": {
+      "prompt_tokens": 264797,
+      "completion_tokens": 10587
+    },
+    "mcp_calls": {
+      "create_instrument": 1,
+      "add_parameter": 4,
+      "add_declare": 14,
+      "describe_component": 8,
+      "add_component": 55,
+      "list_examples": 1,
+      "get_instrument": 2,
+      "run_simulation": 1,
+      "load_instr_file": 1
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_ILL_H512_D22",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "candidate failed to run (translate)"
+    ],
+    "diagnostics": [
+      "ERROR: syntax error at line 48.",
+      "mcstas: 1 Errors encountered during parse of /Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_H512_D22__main__google_gemini_3_5_flash_lite/home/instruments/d22_sans/d22_sans.instr.",
+      "INFO: call to /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas failed with Command '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas -t -o ./d22_sans.c /Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_H512_D22__main__google_gemini_3_5_flash_lite/home/instruments/d22_sans/d22_sans.instr' returned non-zero exit status 1.",
+      "ERROR: Code generation failed for instrument /Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_H512_D22__main__google_gemini_3_5_flash_lite/home/instruments/d22_sans/d22_sans.instr using code generator /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas"
+    ],
+    "checks": [],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_H512_D22__main__google_gemini_3_5_flash_lite/home/instruments/d22_sans/d22_sans.instr",
+    "candidate_params": {
+      "lambda": 4.5,
+      "dlambda": 0.45,
+      "D22_collimation": 2.0,
+      "D22_sample": "H2O_liq.qSq"
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": [
+      {
+        "tool": "list_examples",
+        "kind": "example_tool",
+        "target": "sans",
+        "refused": true
+      }
+    ]
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_H512_D22__main__google_gemini_3_5_flash_lite/artifacts/d22_sans.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_H512_D22__main__google_gemini_3_5_flash_lite/artifacts/params.json",
+    "diagram": null,
+    "trace": null,
+    "errors": [
+      "diagram: McStasScript reader failed (known limitation)",
+      "trace: mcdisplay-webgl failed"
+    ]
+  }
+}

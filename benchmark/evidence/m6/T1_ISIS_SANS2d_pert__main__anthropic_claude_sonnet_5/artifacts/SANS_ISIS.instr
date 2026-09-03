@@ -1,0 +1,301 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: SANS_ISIS
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 14:13:54 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* L1: [unit] m
+* A1w: [unit] m
+* A1h: [unit] m
+* S6: [unit] m
+* A2: [unit] m
+* Lmin: [unit] Angstrom
+* Lmax: [unit] Angstrom
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT SANS_ISIS (
+L1 = 3.926, // m
+A1w = 0.03, // m
+A1h = 0.02, // m
+S6 = 0.006, // m
+A2 = 0.006, // m
+Lmin = 1, // Angstrom
+Lmax = 14 // Angstrom
+)
+
+DECLARE 
+%{
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated SANS_ISIS
+%}
+
+TRACE 
+COMPONENT Origin = Arm()
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT isis_source = ISIS_moderator(
+ Face = "E2", Emin = -Lmax,
+ Emax = -Lmin, dist = 4.232,
+ focus_xw = 0.0365, focus_yh = 0.021,
+ xwidth = -1, yheight = -1,
+ CAngle = 0.0, SAC = 1)
+AT (0.0, 0.0, 1e-05) RELATIVE Origin
+
+COMPONENT lmon1 = L_monitor(
+ nL = 140, filename = "lmon1.dat",
+ xmin = -0.04, xmax = 0.04,
+ ymin = -0.03, ymax = 0.03,
+ Lmin = 0.0, Lmax = 17.0,
+ restore_neutron = 1)
+AT (0.0, 0.0, 3.698) RELATIVE isis_source
+
+COMPONENT psd1 = PSD_monitor(
+ nx = 100, ny = 100,
+ filename = "psd1.dat", xmin = -0.05,
+ xmax = 0.05, ymin = -0.05,
+ ymax = 0.05, restore_neutron = 1)
+AT (0.0, 0.0, 3.699) RELATIVE isis_source
+
+COMPONENT bender1 = Guide_gravity(
+ w1 = 0.0355, h1 = 0.02,
+ w2 = 0.0355, h2 = 0.02,
+ l = 0.3245, nslit = 9,
+ d = 0.0005, mleft = 1,
+ mright = 3, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 3.7) RELATIVE isis_source
+ROTATED (0.0, 0.137099, 0.0) RELATIVE isis_source
+
+COMPONENT bender2 = Guide_gravity(
+ w1 = 0.0355, h1 = 0.02,
+ w2 = 0.0355, h2 = 0.02,
+ l = 0.3245, nslit = 9,
+ d = 0.0005, mleft = 1,
+ mright = 3, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 0.325) RELATIVE bender1
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender1
+
+COMPONENT bender3 = Guide_gravity(
+ w1 = 0.0355, h1 = 0.02,
+ w2 = 0.0355, h2 = 0.02,
+ l = 0.3245, nslit = 9,
+ d = 0.0005, mleft = 1,
+ mright = 3, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 0.325) RELATIVE bender2
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender2
+
+COMPONENT bender4 = Guide_gravity(
+ w1 = 0.0355, h1 = 0.02,
+ w2 = 0.0355, h2 = 0.02,
+ l = 0.3245, nslit = 9,
+ d = 0.0005, mleft = 1,
+ mright = 3, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 0.325) RELATIVE bender3
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender3
+
+COMPONENT bender5 = Guide_gravity(
+ w1 = 0.0355, h1 = 0.02,
+ w2 = 0.0355, h2 = 0.02,
+ l = 0.3245, nslit = 9,
+ d = 0.0005, mleft = 1,
+ mright = 3, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 0.325) RELATIVE bender4
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender4
+
+COMPONENT bender6 = Guide_gravity(
+ w1 = 0.0355, h1 = 0.02,
+ w2 = 0.0355, h2 = 0.02,
+ l = 0.3245, nslit = 9,
+ d = 0.0005, mleft = 1,
+ mright = 3, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 0.325) RELATIVE bender5
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender5
+
+COMPONENT bender7 = Guide_gravity(
+ w1 = 0.0355, h1 = 0.02,
+ w2 = 0.0355, h2 = 0.02,
+ l = 0.3245, nslit = 9,
+ d = 0.0005, mleft = 1,
+ mright = 3, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 0.325) RELATIVE bender6
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender6
+
+COMPONENT bender8 = Guide_gravity(
+ w1 = 0.0355, h1 = 0.02,
+ w2 = 0.0355, h2 = 0.02,
+ l = 0.3245, nslit = 9,
+ d = 0.0005, mleft = 1,
+ mright = 3, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 0.325) RELATIVE bender7
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender7
+
+COMPONENT bender9 = Guide_gravity(
+ w1 = 0.0355, h1 = 0.02,
+ w2 = 0.0355, h2 = 0.02,
+ l = 0.3245, nslit = 9,
+ d = 0.0005, mleft = 1,
+ mright = 3, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 0.325) RELATIVE bender8
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender8
+
+COMPONENT bender10 = Guide_gravity(
+ w1 = 0.0355, h1 = 0.02,
+ w2 = 0.0355, h2 = 0.02,
+ l = 0.3245, nslit = 9,
+ d = 0.0005, mleft = 1,
+ mright = 3, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 0.325) RELATIVE bender9
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender9
+
+COMPONENT lmonb = L_monitor(
+ nL = 140, filename = "lmonB.dat",
+ xmin = -0.018, xmax = 0.018,
+ ymin = -0.018, ymax = 0.018,
+ Lmin = 0, Lmax = 17,
+ restore_neutron = 1)
+AT (0.0, 0.0, 0.326) RELATIVE bender10
+ROTATED (0.0, 0.0, 0.0) RELATIVE bender10
+
+COMPONENT psd2 = PSD_monitor(
+ nx = 100, ny = 100,
+ filename = "psd2.dat", xmin = -0.025,
+ xmax = 0.025, ymin = -0.025,
+ ymax = 0.025, restore_neutron = 1)
+AT (0.0, 0.0, 0.001) RELATIVE lmonb
+ROTATED (0.0, 0.0, 0.0) RELATIVE lmonb
+
+COMPONENT guide_in = Slit(
+ xmin = -0.015, xmax = 0.015,
+ ymin = -0.01, ymax = 0.01)
+AT (0.0, 0.0, 0.2845) RELATIVE psd2
+ROTATED (0.0, 0.0, 0.0) RELATIVE psd2
+
+COMPONENT guide_straight1 = Guide_gravity(
+ w1 = 0.03, h1 = 0.02,
+ w2 = 0.03, h2 = 0.02,
+ l = 1.985, mleft = 1,
+ mright = 1, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 0.0075) RELATIVE guide_in
+ROTATED (0.0, 0.0, 0.0) RELATIVE guide_in
+
+COMPONENT guide_straight2 = Guide_gravity(
+ w1 = 0.03, h1 = 0.02,
+ w2 = 0.03, h2 = 0.02,
+ l = 1.985, mleft = 1,
+ mright = 1, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 2.0) RELATIVE guide_straight1
+ROTATED (0.0, 0.0, 0.0) RELATIVE guide_straight1
+
+COMPONENT guide_straight3 = Guide_gravity(
+ w1 = 0.03, h1 = 0.02,
+ w2 = 0.03, h2 = 0.02,
+ l = 1.985, mleft = 1,
+ mright = 1, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 2.0) RELATIVE guide_straight2
+ROTATED (0.0, 0.0, 0.0) RELATIVE guide_straight2
+
+COMPONENT guide_straight4 = Guide_gravity(
+ w1 = 0.03, h1 = 0.02,
+ w2 = 0.03, h2 = 0.02,
+ l = 1.985, mleft = 1,
+ mright = 1, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 2.0) RELATIVE guide_straight3
+ROTATED (0.0, 0.0, 0.0) RELATIVE guide_straight3
+
+COMPONENT psd3 = PSD_monitor(
+ nx = 100, ny = 100,
+ filename = "psd3.dat", xmin = -0.03,
+ xmax = 0.03, ymin = -0.03,
+ ymax = 0.03, restore_neutron = 1)
+AT (0.0, 0.0, 7.999) RELATIVE guide_in
+ROTATED (0.0, 0.0, 0.0) RELATIVE guide_in
+
+COMPONENT aperture1 = Slit(
+ xwidth = A1w, yheight = A1h)
+AT (0.0, 0.0, 8.0) RELATIVE guide_in
+ROTATED (0.0, 0.0, 0.0) RELATIVE guide_in
+
+COMPONENT lmonitor2 = L_monitor(
+ nL = 140, filename = "lmonitor2.dat",
+ xmin = -0.0155, xmax = 0.0155,
+ ymin = -0.0105, ymax = 0.0105,
+ Lmin = 0, Lmax = 17,
+ restore_neutron = 1)
+AT (0.0, 0.0, 2.651) RELATIVE aperture1
+ROTATED (0.0, 0.0, 0.0) RELATIVE aperture1
+
+COMPONENT S6slit = Slit(
+ radius = S6)
+AT (0.0, 0.0, 2.8) RELATIVE aperture1
+ROTATED (0.0, 0.0, 0.0) RELATIVE aperture1
+
+COMPONENT APERTURE2 = Slit(
+ radius = A2)
+AT (0.0, 0.0, L1) RELATIVE aperture1
+ROTATED (0.0, 0.0, 0.0) RELATIVE aperture1
+
+COMPONENT lmon2 = L_monitor(
+ nL = 140, filename = "lmonitor3.dat",
+ xmin = -0.0075, xmax = 0.0075,
+ ymin = -0.0075, ymax = 0.0075,
+ Lmin = 0, Lmax = 17,
+ restore_neutron = 1)
+AT (0.0, 0.0, 0.285) RELATIVE APERTURE2
+ROTATED (0.0, 0.0, 0.0) RELATIVE APERTURE2
+
+COMPONENT psd4 = PSD_monitor(
+ nx = 100, ny = 100,
+ filename = "psd4.dat", xmin = -0.0075,
+ xmax = 0.0075, ymin = -0.0075,
+ ymax = 0.0075, restore_neutron = 1)
+AT (0.0, 0.0, 0.286) RELATIVE APERTURE2
+ROTATED (0.0, 0.0, 0.0) RELATIVE APERTURE2
+
+FINALLY 
+%{
+// Start of finally for generated SANS_ISIS
+%}
+
+END

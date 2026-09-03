@@ -1,0 +1,57 @@
+DEFINE INSTRUMENT SANS_Pinhole()
+
+TRACE
+
+COMPONENT Origin = Progress_bar()
+AT (0, 0, 0) ABSOLUTE
+
+COMPONENT Source = Source_simple(
+    radius = 0.02,
+    dist = 3.0,
+    focus_r = 0.005,
+    lambda0 = 6.0,
+    dlambda = 0.05,
+    flux = 1e8)
+AT (0, 0, 0) RELATIVE Origin
+
+COMPONENT Pinhole1 = Aperture(
+    radius = 0.005)
+AT (0, 0, 3.0) RELATIVE Origin
+
+COMPONENT Pinhole2 = Aperture(
+    radius = 0.005)
+AT (0, 0, 6.0) RELATIVE Origin
+
+COMPONENT Sample = Sans_spheres(
+    r = 100,
+    phi = 0.001,
+    drho = 0.6,
+    sigma_abs = 0.5,
+    xwidth = 0.01,
+    yheight = 0.01,
+    zdepth = 0.005)
+AT (0, 0, 6.2) RELATIVE Origin
+
+COMPONENT Beamstop1 = Beamstop(
+    r = 0.02)
+AT (0, 0, 9.1) RELATIVE Origin
+
+COMPONENT Detector = PSD_monitor(
+    nx = 128,
+    ny = 128,
+    xwidth = 0.6,
+    yheight = 0.6,
+    filename = "psd_detector.dat")
+AT (0, 0, 9.2) RELATIVE Origin
+
+COMPONENT L_mon = L_monitor(
+    nchan = 100,
+    xwidth = 0.6,
+    yheight = 0.6,
+    Lmin = 5.5,
+    Lmax = 6.5,
+    filename = "l_monitor.dat",
+    restore_neutron = 1)
+AT (0, 0, 9.201) RELATIVE Origin
+
+END

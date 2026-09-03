@@ -1,0 +1,92 @@
+{
+  "task": "P3_sans_underspecified",
+  "episode": {
+    "model": "anthropic/claude-sonnet-5",
+    "scaffold": "neutrongym-reference-loop",
+    "returncode": 0,
+    "error": null,
+    "turns": 19,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 401.7,
+    "usage": {
+      "prompt_tokens": 474776,
+      "completion_tokens": 31629
+    },
+    "mcp_calls": {
+      "list_components": 7,
+      "list_examples": 1,
+      "describe_component": 7,
+      "create_instrument": 1,
+      "add_parameter": 6,
+      "add_component": 10,
+      "set_parameters": 1,
+      "validate_instrument": 1,
+      "run_simulation": 2,
+      "get_results": 2,
+      "get_monitor_data": 4
+    },
+    "skill_used": true,
+    "final_answer": "All monitors show good statistics (rel_err \u2264 0.44%, no low_statistics flags), beam is well-centered (X0,Y0 \u2248 0 everywhere), and the wavelength band is exactly 6.0 \u00b1 0.05 \u00c5 at both pre-sample and detector planes as required.\n\n## Summary\n\n**Instrument built:** `pinhole_sans` \u2014 a pinhole SANS beamline in McStas.\n\n### Beam-order layout\n| # | Component | Position (z) | Role |\n|---|---|---|---|\n| 1 | `Source_gen` | 0 | Circular source, r=10mm, \u03bb=6.0\u00b10.05 \u00c5 uniform, focused onto sample aperture |\n| 2 | `psd_after_source_ap` | 0.001 | diagnostic PSD |\n| 3 | `sample_aperture` (Slit) | 3.0 m (=L1) | circular, r=5 mm |\n| 4 | `psd_before_sample`, `lambda_before_sample` | +1\u20132 mm | diagnostics |\n| 5 | `sample` (Sans_spheres) | +10 mm | 1\u00d71 cm \u00d7 0.5 cm thick, R=100 \u00c5, \u03a6=0.001, \u0394\u03c1=0.6 fm/\u00c5\u00b2 |\n| 6 | `psd_after_sample` | +10 mm | diagnostic |\n| 7 | `beamstop` | L2\u22120.05 m from sample | circular, r=25 mm, 5 cm upstream of detector |\n| 8 | `detector` (PSD_monitor) | L2 = 3.0 m from sample | 60\u00d760 cm, 128\u00d7128 px |\n| 9 | `lambda_detector` (L_monitor) | +1 cm behind detector | 5.5\u20136.5 \u00c5, 100 bins |\n\n### Assumptions made (collimation unspecified in task)\n- **L1 (source\u2192sample aperture) = L2 = 3.0 m**, following the standard pinhole-SANS rule of matching collimation length to sample-detector distance for balanced resolution and flux (also keeps \u0394q/q from geometry comparable on both legs).\n- **Source aperture (A1) diameter = 20 mm**; **sample aperture (A2) diameter = 10 mm** (matched to the 1\u00d71 cm sample), giving A1/A2 \u2248 2, a common pinhole-SANS ratio that limits geometric penumbra at the detector to roughly the beamstop size.\n- **Beamstop**: circular, 50 mm diameter, mounted 5 cm in front of the detector (position not given, so placed close to the detector plane as typical).\n- Source spectral brightness (`I1` in Source_gen) is an arbitrary placeholder (1\u00d710\u00b9\u00b3 1/(s\u00b7cm\u00b2\u00b7sr\u00b7\u00c5)) since no facility/source brightness was specified \u2014 **all reported intensities scale linearly with this unstated assumption and are not absolute facility flux predictions.**\n- Sample absorption cross-section left at `Sans_spheres` default (\u03c3_abs = 0.05 m\u207b\u00b9 at 2200 m/s), since not specified.\n- Detector pixelation 128\u00d7128 for the 60\u00d760 cm active area (not specified).\n- No guide/collimation optics between apertures (open-beam pinhole geometry), consistent with \"collimation geometry not specified\" meaning simple aperture-defined collimation rather than neutron guides.\n\n### Key simulated observables (ncount=2\u00d710\u2077, seed=42)\n- **Detector total intensity: I = 17663 \u00b1 18** (rel. err 0.10%, 1.56\u00d710\u2077 events) in Source_gen arbitrary units (\u221d n/s, scale set by the assumed I1 above).\n- Wavelength band confirmed at both pre-sample and post-detector monitors: center-of-mass 6.000 \u00c5, FWHM \u2248 0.0998 \u00c5 (i.e. \u00b10.05 \u00c5 half-width, uniform), matching the \u00b10.05 \u00c5 spec exactly.\n- Transmission chain: source-aperture PSD \u2192 sample-aperture PSD retains 78.5% (pure geometric 1/r\u00b2 + aperture clipping, as expected for L1=3m/A1=10mm\u2192A2=5mm); post-sample intensity drops to ~0.12% of incident (consistent with dilute \u03a6=0.1% suspension using McStas's forced-scattering variance reduction, reweighted by true scattering probability); detector (after beamstop) retains ~54% of the post-sample scattered flux, the rest absorbed by the r=25mm beamstop covering the strong forward-transmitted beam.\n- Detector radial profile (from 2D array) shows the expected pinhole-SANS signature: near-zero counts in the beamstop shadow (r\u22722.5 cm), rising steeply to a broad scattering ring peaking near r\u22483 cm off-center, then falling \u2014 consistent with the first form-factor lobe of monodisperse 100 \u00c5 hard spheres at q ~ 4\u03c0 sin(\u03b8/2)/\u03bb for this geometry (\u03b8\u2248r/L2).\n- Beam remained centered (X0,Y0 \u2248 0 \u00b1 <0.1 mm) at every monitor, confirming correct alignment/no rotation errors.\n\nAll quoted numbers reproducible with **seed=42, ncount=2\u00d710\u2077** on this instrument definition."
+  },
+  "grade": {
+    "task": "P3_sans_underspecified",
+    "pass": true,
+    "score": 1.0,
+    "checks_passed": "2/2",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "wavelength",
+        "observable": "center_of_mass",
+        "reference": 6.000276,
+        "candidate": 5.99997,
+        "pass": true,
+        "delta": -0.0003060000000001395,
+        "allowed": 0.12000552
+      },
+      {
+        "role": "wavelength",
+        "observable": "fwhm",
+        "reference": 0.099827,
+        "candidate": 0.099939,
+        "pass": true,
+        "delta": 0.00011200000000000099,
+        "allowed": 0.0499135
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/pilot/P3_sans_underspecified__loop__anthropic_claude_sonnet_5/home/instruments/pinhole_sans/pinhole_sans.instr",
+    "candidate_params": {
+      "lambda0": "6.0",
+      "dlambda": "0.05",
+      "L1": "3.0",
+      "L2": "3.0",
+      "A1_radius": "0.010",
+      "A2_radius": "0.005"
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": [
+      {
+        "tool": "list_examples",
+        "kind": "example_tool",
+        "target": "SANS",
+        "refused": true
+      }
+    ]
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/pilot/P3_sans_underspecified__loop__anthropic_claude_sonnet_5/artifacts/pinhole_sans.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/pilot/P3_sans_underspecified__loop__anthropic_claude_sonnet_5/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/pilot/P3_sans_underspecified__loop__anthropic_claude_sonnet_5/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/pilot/P3_sans_underspecified__loop__anthropic_claude_sonnet_5/artifacts/trace",
+    "errors": []
+  }
+}

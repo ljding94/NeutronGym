@@ -1,0 +1,26 @@
+{
+  "task": "P3_sans_underspecified",
+  "episode": {
+    "model": "google/gemini-3.6-flash",
+    "returncode": 1,
+    "turns": 9,
+    "cost_usd": 0.55398425,
+    "duration_s": 33.0,
+    "mcp_calls": {
+      "mcp__mcstas__list_components": 1,
+      "mcp__mcstas__describe_component": 6,
+      "mcp__mcstas__create_instrument": 1
+    },
+    "skill_used": false,
+    "final_answer": "API Error: stream closed before completion"
+  },
+  "grade": {
+    "task": "P3_sans_underspecified",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  }
+}

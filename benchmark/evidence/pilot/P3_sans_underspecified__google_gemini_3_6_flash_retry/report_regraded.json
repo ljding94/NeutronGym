@@ -1,0 +1,28 @@
+{
+  "grade": {
+    "task": "P3_sans_underspecified",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "candidate failed to run (run)"
+    ],
+    "diagnostics": [
+      "    ^^^^^^^^^^^^",
+      "  File \"/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/tools/Python/mcrun/mccode.py\", line 406, in run",
+      "    return self.runMPI(args, pipe, override_mpi)",
+      "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+      "  File \"/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/tools/Python/mcrun/mccode.py\", line 461, in runMPI",
+      "    return Process(binpath).run(args, pipe=pipe)",
+      "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+      "  File \"/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/tools/Python/mcrun/mccode.py\", line 78, in run",
+      "    raise err",
+      "  File \"/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/tools/Python/mcrun/mccode.py\", line 74, in run",
+      "    proc = run(command, shell=True, check=True, text=True, capture_output=pipe)",
+      "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+      "  File \"/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/lib/python3.11/subprocess.py\", line 571, in run",
+      "    raise CalledProcessError(retcode, process.args,",
+      "subprocess.CalledProcessError: Command './my_sans.out --trace=0 --seed=1234 --ncount=1000000.0 --dir=/Users/ldq/Work/McStasBench/runs/pilot/P3_sans_underspecified__google_gemini_3_6_flash_retry/grade_work2/cand_20260724_142023_87604_1 --format=McCode --bufsiz=10000000' returned non-zero exit status 1."
+    ],
+    "checks": []
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "task": "T1_HZB_FLEX",
+  "episode": {
+    "model": "anthropic/claude-haiku-4.5",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 50,
+    "hit_turn_cap": true,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 195.9,
+    "usage": {
+      "prompt_tokens": 2333329,
+      "completion_tokens": 23623
+    },
+    "mcp_calls": {
+      "create_instrument": 1,
+      "add_parameter": 10,
+      "add_declare": 38,
+      "describe_component": 13,
+      "add_component": 38,
+      "list_components": 2,
+      "validate_instrument": 12,
+      "get_instrument": 1,
+      "set_parameters": 19,
+      "remove_component": 10,
+      "export_instr_file": 1,
+      "run_simulation": 1
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_HZB_FLEX",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "candidate failed to run (translate)"
+    ],
+    "diagnostics": [
+      "ERROR: syntax error at line 74.",
+      "mcstas: 1 Errors encountered during parse of /Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_FLEX__main__anthropic_claude_haiku_4_5/home/instruments/TAS_Instrument/TAS_Instrument.instr.",
+      "INFO: call to /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas failed with Command '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas -t -o ./TAS_Instrument.c /Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_FLEX__main__anthropic_claude_haiku_4_5/home/instruments/TAS_Instrument/TAS_Instrument.instr' returned non-zero exit status 1.",
+      "ERROR: Code generation failed for instrument /Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_FLEX__main__anthropic_claude_haiku_4_5/home/instruments/TAS_Instrument/TAS_Instrument.instr using code generator /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas"
+    ],
+    "checks": [],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_FLEX__main__anthropic_claude_haiku_4_5/home/instruments/TAS_Instrument/TAS_Instrument.instr",
+    "candidate_params": {
+      "kI": 1.55,
+      "kF": 1.55,
+      "wVS": 0.03,
+      "tilt": 0.0,
+      "SA": -1.0,
+      "A3": 0.0,
+      "A4": 70.0,
+      "L3": 1.0,
+      "L4": 1.0,
+      "Mono_flatswitch": 0.0
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_FLEX__main__anthropic_claude_haiku_4_5/artifacts/TAS_Instrument.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_FLEX__main__anthropic_claude_haiku_4_5/artifacts/params.json",
+    "diagram": null,
+    "trace": null,
+    "errors": [
+      "diagram: McStasScript reader failed (known limitation)",
+      "trace: mcdisplay-webgl failed"
+    ]
+  }
+}

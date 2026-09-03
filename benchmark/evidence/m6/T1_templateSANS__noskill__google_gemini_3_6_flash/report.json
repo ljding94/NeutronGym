@@ -1,0 +1,121 @@
+{
+  "task": "T1_templateSANS",
+  "episode": {
+    "model": "google/gemini-3.6-flash",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 9,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 248.2,
+    "usage": {
+      "prompt_tokens": 48193,
+      "completion_tokens": 2520
+    },
+    "mcp_calls": {
+      "describe_component": 8,
+      "create_instrument": 1,
+      "add_parameter": 6,
+      "add_component": 10,
+      "validate_instrument": 1,
+      "run_simulation": 1,
+      "get_results": 1
+    },
+    "skill_used": false,
+    "final_answer": "The SANS instrument has been built according to the specifications provided, run, and validated.\n\n### Instrument Architecture\n1. **`a1`**: `Progress_bar` at origin `[0, 0, 0]`.\n2. **`arm`**: `Arm` at origin `[0, 0, 0]`.\n3. **`source`**: `Source_simple` at `[0, 0, 0]` relative to `arm` ($\\lambda = 6$ \u00c5, $\\Delta\\lambda = 0.05$ \u00c5, radius = 0.02 m, dist = 3 m, target $0.01\\times0.01$ $\\text{m}^2$).\n4. **`coll1`**: `Slit` at `[0, 0, 3]` relative to `arm` (radius = 0.005 m).\n5. **`coll2`**: `Slit` at `[0, 0, 6]` relative to `arm` (radius = 0.005 m).\n6. **`sample`**: `Sans_spheres` at `[0, 0, 0.2]` relative to `coll2` ($R = 100$ \u00c5, $\\Phi = 0.001$, $\\Delta\\rho = 0.6$, $\\sigma_\\text{abs} = 0.5$, size $0.01\\times0.01\\times0.005$ $\\text{m}^3$, `SPLIT 10`).\n7. **`STOP`**: `Beamstop` at `[0, 0, 2.9]` relative to `sample` (radius = 0.02 m).\n8. **`detector`**: `PSD_monitor` at `[0, 0, 3]` relative to `sample` ($128 \\times 128$ pixels, extent $\\pm 0.3$ m).\n9. **`Ldetector`**: `L_monitor` at `[0, 0, 3.01]` relative to `sample` ($1000$ bins, range $5.5$ to $6.5$ \u00c5).\n10. **`PSDrad`**: `PSD_monitor_rad` at `[0, 0, 3.02]` relative to `sample` ($r_\\text{max} = 0.3$ m).\n\n---\n\n### Simulation Results ($N = 1,000,000$ events)\n\n| Monitor | Output File | Integrated Intensity | Error | Event Count |\n| :--- | :--- | :--- | :--- | :--- |\n| **`detector`** (`PSD_monitor`) | `PSD.dat` | **$4.44015 \\times 10^{-2}$** | **$2.62556 \\times 10^{-4}$** | 467,232 |\n| **`Ldetector`** (`L_monitor`) | `Edet.dat` | **$4.44000 \\times 10^{-2}$** | **$2.62556 \\times 10^{-4}$** | 464,163 |\n| **`PSDrad`** (Radial sum) | `psd2.dat` | **$4.43443 \\times 10^{-2}$** | **$2.62556 \\times 10^{-4}$** | 361,498 |\n| **`PSDrad`** (Radial average) | `psd2_av.dat` | **$4.83958 \\times 10^{1}$** | **$3.76712 \\times 10^{-1}$** | 361,498 |"
+  },
+  "grade": {
+    "task": "T1_templateSANS",
+    "pass": true,
+    "score": 1.0,
+    "checks_passed": "6/6",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "2d",
+        "observable": "intensity",
+        "reference": 0.0451716,
+        "candidate": 0.0451716,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.00903432
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_x",
+        "reference": 5.04341,
+        "candidate": 5.04341,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 1.5130229999999998
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_y",
+        "reference": 5.05123,
+        "candidate": 5.05123,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 1.515369
+      },
+      {
+        "role": "wavelength",
+        "observable": "intensity",
+        "reference": 0.0451701,
+        "candidate": 0.0451701,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.011292525
+      },
+      {
+        "role": "wavelength",
+        "observable": "center_of_mass",
+        "reference": 6.000276,
+        "candidate": 6.000276,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.30001380000000005
+      },
+      {
+        "role": "wavelength",
+        "observable": "fwhm",
+        "reference": 0.099827,
+        "candidate": 0.099827,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.0499135
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_templateSANS__noskill__google_gemini_3_6_flash/home/instruments/sans_instrument/sans_instrument.instr",
+    "candidate_params": {
+      "lambda": 6.0,
+      "dlambda": 0.05,
+      "r": 100.0,
+      "PHI": 0.001,
+      "Delta_Rho": 0.6,
+      "sigma_abs": 0.5
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_templateSANS__noskill__google_gemini_3_6_flash/artifacts/sans_instrument.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_templateSANS__noskill__google_gemini_3_6_flash/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T1_templateSANS__noskill__google_gemini_3_6_flash/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/T1_templateSANS__noskill__google_gemini_3_6_flash/artifacts/trace",
+    "errors": []
+  }
+}

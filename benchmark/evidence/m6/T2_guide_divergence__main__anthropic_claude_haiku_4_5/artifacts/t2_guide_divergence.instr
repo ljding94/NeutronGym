@@ -1,0 +1,85 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: t2_guide_divergence
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 11:01:13 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* w_in: [unit] m] Guide entrance width/height (square)
+* w_out: [unit] m] Guide exit width/height (square)
+* m_coat: [unit] 1] Supermirror m-value
+* lambda0: [unit] Angstrom] Source central wavelength
+* dlambda: [unit] Angstrom] Source wavelength spread (±)
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT t2_guide_divergence (
+w_in = 0.012, // m] Guide entrance width/height (square)
+w_out = 0.012, // m] Guide exit width/height (square)
+m_coat = 1.5, // 1] Supermirror m-value
+lambda0 = 5.0, // Angstrom] Source central wavelength
+dlambda = 0.5 // Angstrom] Source wavelength spread (±)
+)
+
+DECLARE 
+%{
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated t2_guide_divergence
+%}
+
+TRACE 
+COMPONENT source = Source_simple(
+ yheight = 0.1, xwidth = 0.1,
+ dist = 1.5, focus_xw = w_in,
+ focus_yh = w_in, lambda0 = lambda0,
+ dlambda = dlambda, flux = 1.0)
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT guide = Guide_gravity(
+ w1 = w_in, h1 = w_in,
+ w2 = w_out, h2 = w_out,
+ l = 10, R0 = 0.995,
+ Qc = 0.0218, alpha = 4.38,
+ m = m_coat, W = 0.003)
+AT (0.0, 0.0, 1.5) ABSOLUTE
+
+COMPONENT divmon = Divergence_monitor(
+ nh = 20, nv = 20,
+ filename = "divmon.dat", xwidth = 0.02,
+ yheight = 0.02, maxdiv_h = 0.5,
+ maxdiv_v = 0.5, restore_neutron = 1)
+AT (0.0, 0.0, 11.55) ABSOLUTE
+
+FINALLY 
+%{
+// Start of finally for generated t2_guide_divergence
+%}
+
+END

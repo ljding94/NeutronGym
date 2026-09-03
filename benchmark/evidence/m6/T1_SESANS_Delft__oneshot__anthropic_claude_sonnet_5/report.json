@@ -1,0 +1,83 @@
+{
+  "task": "T1_SESANS_Delft",
+  "episode": {
+    "model": "anthropic/claude-sonnet-5",
+    "scaffold": "plain-llm-oneshot",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 1,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 38.1,
+    "usage": {
+      "prompt_tokens": 4048,
+      "completion_tokens": 4463
+    },
+    "mcp_calls": {},
+    "skill_used": true,
+    "final_answer": "```c\n/*******************************************************************************\n* Instrument: SESANS_test\n*\n* A SESANS (Spin-Echo Small-Angle Neutron Scattering) test instrument built\n* from a monochromatic polarised source, three Foil_flipper_magnet spin-echo\n* elements, a SANS_spheres2 sample, and two analyser/detector arms used to\n* reconstruct the polarisation (spin-echo signal) after the sample.\n*******************************************************************************/\n\nDEFINE INSTRUMENT SESANS_test(L0=2.165, DL=0.02, By=0.00468)\n\nDECLARE\n%{\n%}\n\nINITIALIZE\n%{\n%}\n\nTRACE\n\nCOMPONENT origin = Progress_bar()\nAT (0, 0, 0) RELATIVE ABSOLUTE\nROTATED (0, 0, 0) ABSOLUTE\n\nCOMPONENT src = Source_simple(\n    yheight=0.01, xwidth=0.01, dist=2.25,\n    focus_xw=0.01, focus_yh=0.01,\n    lambda0=L0, dlambda=DL, gauss=1)\nAT (0, 0, 0) RELATIVE origin\nROTATED (0, 0, 0) ABSOLUTE\n\nCOMPONENT set_pol = Set_pol(px=1)\nAT (0, 0, 0.1) RELATIVE src\nROTATED (0, 0, 0) ABSOLUTE\n\nCOMPONENT px1 = PolLambda_monitor(\n    nL=501, restore_neutron=1, filename=\"pxAfterAnalyser\",\n    mx=1, Lmin=L0-DL, Lmax=L0+DL)\nAT (0, 0, 0.01) RELATIVE set_pol\nROTATED (0, 0, 0) ABSOLUTE\n\nCOMPONENT f1 = Foil_flipper_magnet(\n    xwidth=0.1, yheight=0.1, zdepth=0.3, phi=0.095993,\n    foilthick=3.0, Bx=0, By=By, Bz=0, foil_in=1, verbose=0)\nAT (0, 0, 0.5) RELATIVE src\nROTATED (0, 0, 0) ABSOLUTE\n\nCOMPONENT px2 = PolLambda_monitor(\n    nL=501, restore_neutron=1, filename=\"pxAfterAnalyser\",\n    mx=1, Lmin=L0-DL, Lmax=L0+DL)\nAT (0, 0, 0.16) RELATIVE f1\nROTATED (0, 0, 0) ABSOLUTE\n\nCOMPONENT f2 = Foil_flipper_magnet(\n    xwidth=0.1, yheight=0.1, zdepth=0.3, phi=0.095993,\n    foilthick=3.0, Bx=0, By=By, Bz=0, foil_in=1, verbose=0)\nAT (0, 0, 2.0) RELATIVE src\nROTATED (0, 0, 0) ABSOLUTE\n\nCOMPONENT px3 = PolLambda_monitor(\n    nL=501, restore_neutron=1, filename=\"pxAfterAnalyser\",\n    mx=1, Lmin=L0-DL, Lmax=L0+DL)\nAT (0, 0, 0.16) RELATIVE f2\nROTATED (0, 0, 0) ABSOLUTE\n\nCOMPONENT sans_spheres = SANS_spheres2(\n    xwidth=0.02, yheight=0.02, zthick=0.001,\n    dsdw_inc=0.0, sc_aim=0.8, sans_aim=0.95,\n    R=10000, phi=0.015, singlesp=0,\n    Qmind=0.00003, Qmaxd=0.001)\nWHEN (1==1)\nAT (0, 0, 2.25) RELATIVE src\nROTATED (0, 0, 0) ABSOLUTE\n\nCOMPONENT f3 = Foil_flipper_magnet(\n    xwidth=0.1, yheight=0.1, zdepth=0.3, phi=0.095993,\n    foilthick=3.0, Bx=0, By=By, Bz=0, foil_in=1, verbose=0)\nAT (0, 0, 2.5) RELATIVE src\nROTATED (0, 0, 0) ABSOLUTE\n\nCOMPONENT f4 = Foil_flipper_magnet(\n    xwidth=0.1, yheight=0.1, zdepth=0.3, phi=0.095993,\n    foilthick=3.0, Bx=0, By=By, Bz=0, foil_in=1, verbose=0)\nAT (0, 0, 4.0) RELATIVE src\nROTATED (0, 0, 0) ABSOLUTE\n\nCOMPONENT px6 = PolLambda_monitor(\n    nL=501, restore_neutron=1, filename=\"pxAfterAnalyser\",\n    mx=1, Lmin=L0-DL, Lmax=L0+DL)\nAT (0, 0, 0.16) RELATIVE f4\nROTATED (0, 0, 0) ABSOLUTE\n\nCOMPONENT ana = PolAnalyser_ideal(mx=1)\nAT (0, 0, 4.4) RELATIVE src\nROTATED (0, 0, 0) ABSOLUTE\n\nCOMPONENT det = PSD_monitor(\n    nx=101, ny=101, filename=\"det\",\n    xwidth=0.011, yheight=0.011)\nAT (0, 0, 4.5) RELATIVE src\nROTATED (0, 0, 0) ABSOLUTE\n\nCOMPONENT trick = Arm()\nAT (0, 0, 4.4) RELATIVE src\nROTATED (0, 0, 0) ABSOLUTE\nEXTEND %{\n  RESTORE_NEUTRON(INDEX_CURRENT_COMP-2,x,y,z,vx,vy,vz,t,sx,sy,sz,p);\n%}\n\nCOMPONENT ana2 = PolAnalyser_ideal(mx=-1)\nAT (0, 0, 4.4) RELATIVE src\nROTATED (0, 0, 0) ABSOLUTE\n\nCOMPONENT det2 = PSD_monitor(\n    nx=101, ny=101, filename=\"det2\",\n    xwidth=0.011, yheight=0.011)\nAT (0, 0, 4.5) RELATIVE src\nROTATED (0, 0, 0) ABSOLUTE\n\nFINALLY\n%{\n%}\n\nEND\n```"
+  },
+  "grade": {
+    "task": "T1_SESANS_Delft",
+    "pass": true,
+    "score": 1.0,
+    "checks_passed": "3/3",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "2d",
+        "observable": "intensity",
+        "reference": 5.39353e-07,
+        "candidate": 5.39353e-07,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 1.0787060000000002e-07
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_x",
+        "reference": 0.0107979,
+        "candidate": 0.0107979,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.0032393699999999997
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_y",
+        "reference": 0.0,
+        "candidate": 0.0,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.0
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__oneshot__anthropic_claude_sonnet_5/home/instruments/SESANS_test/SESANS_test.instr",
+    "candidate_params": {
+      "L0": "2.165",
+      "DL": "0.02",
+      "By": "0.00468"
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__oneshot__anthropic_claude_sonnet_5/artifacts/SESANS_test.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__oneshot__anthropic_claude_sonnet_5/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__oneshot__anthropic_claude_sonnet_5/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/T1_SESANS_Delft__oneshot__anthropic_claude_sonnet_5/artifacts/trace",
+    "errors": []
+  }
+}

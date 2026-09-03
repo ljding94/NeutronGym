@@ -1,0 +1,47 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: d22_sans
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 10:07:16 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* lambda: [unit] 
+* dlambda: [unit] 
+* D22_collimation: [unit] 
+* D22_sample: [unit] 
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT d22_sans (
+lambda = 4.5, 
+dlambda = 0.45, 
+D22_collimation = 2.0, 
+string D22_sample = "H2O_liq.qSq" 
+)
+
+DECLARE 
+%{

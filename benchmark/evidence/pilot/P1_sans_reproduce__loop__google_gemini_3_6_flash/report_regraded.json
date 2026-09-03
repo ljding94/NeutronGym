@@ -1,0 +1,68 @@
+{
+  "task": "P1_sans_reproduce",
+  "pass": true,
+  "score": 1.0,
+  "checks_passed": "6/6",
+  "hard_failures": [],
+  "checks": [
+    {
+      "role": "2d",
+      "observable": "intensity",
+      "reference": 0.0451716,
+      "candidate": 0.0452365,
+      "pass": true,
+      "delta": 6.489999999999968e-05,
+      "allowed": 0.00903432
+    },
+    {
+      "role": "2d",
+      "observable": "beam_width_x",
+      "reference": 5.04341,
+      "candidate": 4.99869,
+      "pass": true,
+      "delta": -0.04471999999999987,
+      "allowed": 1.5130229999999998
+    },
+    {
+      "role": "2d",
+      "observable": "beam_width_y",
+      "reference": 5.05123,
+      "candidate": 4.95976,
+      "pass": true,
+      "delta": -0.09147000000000016,
+      "allowed": 1.515369
+    },
+    {
+      "role": "wavelength",
+      "observable": "intensity",
+      "reference": 0.0451701,
+      "candidate": 0.0452365,
+      "pass": true,
+      "delta": 6.640000000000118e-05,
+      "allowed": 0.011292525
+    },
+    {
+      "role": "wavelength",
+      "observable": "center_of_mass",
+      "reference": 6.000276,
+      "candidate": 6.000533,
+      "pass": true,
+      "delta": 0.0002569999999995076,
+      "allowed": 0.12000552
+    },
+    {
+      "role": "wavelength",
+      "observable": "fwhm",
+      "reference": 0.099827,
+      "candidate": 0.098682,
+      "pass": true,
+      "delta": -0.0011449999999999932,
+      "allowed": 0.0499135
+    }
+  ],
+  "protocol": {
+    "ncount": 1000000.0,
+    "seed": 1234,
+    "timeout": 900
+  }
+}

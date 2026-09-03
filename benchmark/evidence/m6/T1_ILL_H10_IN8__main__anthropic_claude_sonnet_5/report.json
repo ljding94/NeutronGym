@@ -1,0 +1,49 @@
+{
+  "task": "T1_ILL_H10_IN8",
+  "episode": {
+    "model": "anthropic/claude-sonnet-5",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 5,
+    "hit_turn_cap": false,
+    "empty_responses": 3,
+    "cost_usd": null,
+    "duration_s": 377.8,
+    "usage": {
+      "prompt_tokens": 50669,
+      "completion_tokens": 32232
+    },
+    "mcp_calls": {
+      "list_examples": 1,
+      "describe_component": 5
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_ILL_H10_IN8",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": [
+      {
+        "tool": "list_examples",
+        "kind": "example_tool",
+        "target": "TAS",
+        "refused": true
+      }
+    ]
+  },
+  "artifacts": null
+}

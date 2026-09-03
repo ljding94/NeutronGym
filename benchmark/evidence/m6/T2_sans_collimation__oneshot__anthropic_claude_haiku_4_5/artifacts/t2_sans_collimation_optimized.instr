@@ -1,0 +1,104 @@
+/*
+ * SANS Collimation Optimization Instrument
+ * Two-pinhole collimator with optimizable apertures
+ * Goal: maximize scattered intensity while preserving pattern integrity
+ */
+
+DEFINE INSTRUMENT t2_sans_collimation_optimized(
+    r_pin1 = 0.005,
+    r_pin2 = 0.005
+)
+
+TRACE
+
+COMPONENT origin = Progress_bar()
+AT (0, 0, 0) RELATIVE ABSOLUTE
+
+/* Neutron source: cold neutron moderator spectrum */
+COMPONENT source = Source_simple(
+    radius = 0.01,
+    dist = 3.0,
+    focus_xw = 2*r_pin1,
+    focus_yh = 2*r_pin1,
+    lambda0 = 6.0,
+    dlambda = 0.05,
+    flux = 1e13
+)
+AT (0, 0, 0) RELATIVE origin
+
+/* First pinhole at 3 m */
+COMPONENT pinhole1 = Slit(
+    xwidth = 2*r_pin1,
+    yheight = 2*r_pin1
+)
+AT (0, 0, 3.0) RELATIVE origin
+
+/* Monitor after first pinhole */
+COMPONENT mon_pin1 = Monitor_nD(
+    xwidth = 0.05,
+    yheight = 0.05,
+    options = "x y",
+    filename = "mon_pin1.dat",
+    restore_neutron = 1
+)
+AT (0, 0, 3.01) RELATIVE origin
+
+/* Second pinhole at 6 m */
+COMPONENT pinhole2 = Slit(
+    xwidth = 2*r_pin2,
+    yheight = 2*r_pin2
+)
+AT (0, 0, 6.0) RELATIVE origin
+
+/* Monitor after second pinhole */
+COMPONENT mon_pin2 = Monitor_nD(
+    xwidth = 0.05,
+    yheight = 0.05,
+    options = "x y",
+    filename = "mon_pin2.dat",
+    restore_neutron = 1
+)
+AT (0, 0, 6.01) RELATIVE origin
+
+/* Sample position at 9 m (3 m after second pinhole) */
+COMPONENT sample = SANS_spheres(
+    xwidth = 0.01,
+    yheight = 0.01,
+    zthick = 0.001,
+    dradius = 100e-9,
+    phi = 0.1,
+    sld = 1e-6,
+    sld_solvent = 0,
+    absorbtion = 0.0,
+    incoherent = 0.0
+)
+AT (0, 0, 9.0) RELATIVE origin
+
+/* Monitor before detector (check beam center and width) */
+COMPONENT mon_sample = Monitor_nD(
+    xwidth = 0.6,
+    yheight = 0.6,
+    options = "x y",
+    filename = "mon_sample.dat",
+    restore_neutron = 1
+)
+AT (0, 0, 9.01) RELATIVE origin
+
+/* Beamstop: 2 cm diameter disk at 12 m (3 m behind sample) */
+COMPONENT beamstop = Beamstop(
+    xwidth = 0.02,
+    yheight = 0.02
+)
+AT (0, 0, 12.0) RELATIVE origin
+
+/* 2D Detector: 60 x 60 cm at 12 m (3 m behind sample) */
+COMPONENT detector = Monitor_nD(
+    xwidth = 0.6,
+    yheight = 0.6,
+    options = "x y",
+    filename = "detector.dat",
+    restore_neutron = 0
+)
+AT (0, 0, 12.0) RELATIVE origin
+
+END

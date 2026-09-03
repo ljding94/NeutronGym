@@ -1,0 +1,128 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: pinhole_sans
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 18:07:06 on August 05, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* lambda0: [unit] Angs] central wavelength
+* dlambda: [unit] Angs] half-width of wavelength band
+* L1: [unit] m] source-aperture to sample-aperture collimation length (chosen = L2 for optimal pinhole resolution)
+* L2: [unit] m] sample to detector distance (given)
+* R1: [unit] m] source (collimation) aperture radius
+* R2: [unit] m] sample-defining aperture radius (matches 1cm sample)
+* Rbs: [unit] m] beamstop radius, sized to cover direct-beam penumbra with margin
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT pinhole_sans (
+lambda0 = 6.0, // Angs] central wavelength
+dlambda = 0.05, // Angs] half-width of wavelength band
+L1 = 3.0, // m] source-aperture to sample-aperture collimation length (chosen = L2 for optimal pinhole resolution)
+L2 = 3.0, // m] sample to detector distance (given)
+R1 = 0.01, // m] source (collimation) aperture radius
+R2 = 0.005, // m] sample-defining aperture radius (matches 1cm sample)
+Rbs = 0.025 // m] beamstop radius, sized to cover direct-beam penumbra with margin
+)
+
+DECLARE 
+%{
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated pinhole_sans
+%}
+
+TRACE 
+COMPONENT source = Source_simple(
+ radius = R1, dist = L1,
+ focus_xw = 2*R2, focus_yh = 2*R2,
+ lambda0 = lambda0, dlambda = dlambda,
+ flux = 100000000.0)
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT source_ap_mon = PSD_monitor(
+ nx = 100, ny = 100,
+ filename = "source_ap.dat", xwidth = 2*R1*1.2,
+ yheight = 2*R1*1.2, restore_neutron = 1)
+AT (0.0, 0.0, 0.001) RELATIVE source
+
+COMPONENT sample_ap = Slit(
+ radius = R2)
+AT (0.0, 0.0, L1) RELATIVE source
+
+COMPONENT sample_ap_mon = PSD_monitor(
+ nx = 100, ny = 100,
+ filename = "sample_ap.dat", xwidth = 2*R2*1.5,
+ yheight = 2*R2*1.5, restore_neutron = 1)
+AT (0.0, 0.0, 0.001) RELATIVE sample_ap
+
+COMPONENT lambda_in_mon = L_monitor(
+ nL = 100, filename = "lambda_in.dat",
+ xwidth = 0.02, yheight = 0.02,
+ Lmin = 5.5, Lmax = 6.5,
+ restore_neutron = 1)
+AT (0.0, 0.0, 0.001) RELATIVE sample_ap
+
+COMPONENT sample = Sans_spheres(
+ R = 100, Phi = 0.001,
+ Delta_rho = 0.6, xwidth = 0.01,
+ yheight = 0.01, zdepth = 0.005,
+ target_index = 3, focus_xw = 0.6,
+ focus_yh = 0.6)
+AT (0.0, 0.0, 0.001) RELATIVE sample_ap
+
+COMPONENT post_sample_mon = PSD_monitor(
+ nx = 200, ny = 200,
+ filename = "post_sample.dat", xwidth = 0.6,
+ yheight = 0.6, restore_neutron = 1)
+AT (0.0, 0.0, 0.01) RELATIVE sample
+
+COMPONENT beamstop = Beamstop(
+ radius = Rbs)
+AT (0.0, 0.0, L2-0.01) RELATIVE sample
+
+COMPONENT detector = PSD_monitor(
+ nx = 200, ny = 200,
+ filename = "detector.dat", xwidth = 0.6,
+ yheight = 0.6, restore_neutron = 1)
+AT (0.0, 0.0, L2) RELATIVE sample
+
+COMPONENT lambda_out_mon = L_monitor(
+ nL = 100, filename = "lambda_out.dat",
+ xwidth = 0.6, yheight = 0.6,
+ Lmin = 5.5, Lmax = 6.5,
+ restore_neutron = 1)
+AT (0.0, 0.0, 0.01) RELATIVE detector
+
+FINALLY 
+%{
+// Start of finally for generated pinhole_sans
+%}
+
+END

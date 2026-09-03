@@ -1,0 +1,98 @@
+{
+  "task": "T2_sans_collimation",
+  "episode": {
+    "model": "anthropic/claude-haiku-4.5",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 50,
+    "hit_turn_cap": true,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 209.2,
+    "usage": {
+      "prompt_tokens": 1183110,
+      "completion_tokens": 15116
+    },
+    "mcp_calls": {
+      "list_instruments": 2,
+      "list_examples": 1,
+      "create_instrument": 1,
+      "add_parameter": 4,
+      "describe_component": 6,
+      "add_component": 6,
+      "validate_instrument": 1,
+      "run_simulation": 12,
+      "get_results": 12,
+      "get_monitor_data": 3,
+      "optimize": 1,
+      "set_parameters": 20,
+      "get_instrument": 1,
+      "scan_parameter": 2
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T2_sans_collimation",
+    "pass": false,
+    "score": 0.5,
+    "checks_passed": "1/2",
+    "hard_failures": [],
+    "checks": [
+      {
+        "check": "fom>=target",
+        "fom": 235607000.0,
+        "err": 1813660.0,
+        "target": 0.061714240000000004,
+        "pass": true
+      },
+      {
+        "check": "2d.beam_width_x in band",
+        "value": 2.73464,
+        "min": 4.539069,
+        "max": 5.547751,
+        "pass": false
+      }
+    ],
+    "context": {
+      "baseline_fom": 0.0451716,
+      "optimizer_fom": 721.168,
+      "random_search_fom": 0.0663015
+    },
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T2_sans_collimation__main__anthropic_claude_haiku_4_5/home/instruments/t2_sans_collimation/t2_sans_collimation.instr",
+    "candidate_params": {
+      "lambda": 6.0,
+      "dlambda": 0.05,
+      "r_pin1": 0.005,
+      "r_pin2": 0.005
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": [
+      {
+        "tool": "list_examples",
+        "kind": "example_tool",
+        "target": "SANS",
+        "refused": true
+      }
+    ]
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T2_sans_collimation__main__anthropic_claude_haiku_4_5/artifacts/t2_sans_collimation.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T2_sans_collimation__main__anthropic_claude_haiku_4_5/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T2_sans_collimation__main__anthropic_claude_haiku_4_5/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/T2_sans_collimation__main__anthropic_claude_haiku_4_5/artifacts/trace",
+    "errors": []
+  }
+}

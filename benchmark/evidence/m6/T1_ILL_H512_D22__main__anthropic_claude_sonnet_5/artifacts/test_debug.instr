@@ -1,0 +1,110 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: test_debug
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 12:53:42 on August 25, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* D22_sample: [unit] 
+* lambda: [unit] 
+* dlambda: [unit] 
+* D22_collimation: [unit] m
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT test_debug (
+string D22_sample = "H2O_liq.qSq", 
+lambda = 4.5, 
+dlambda = 0.45, 
+D22_collimation = 2 // m
+)
+
+DECLARE 
+%{
+double sT3 = 413.5;
+int testarr[3];
+double sI3 = 1.022e13;
+double sT2 = 145.8;
+double sI2 = 3.44e13;
+double sT1 = 40.1;
+double sI1 = 2.78e13;
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated test_debug
+%}
+
+TRACE 
+COMPONENT Origin = Progress_bar()
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT HCS = Source_gen(
+ radius = 0.21/2, dist = 2.155,
+ focus_xw = 0.123, focus_yh = 0.12,
+ lambda0 = 4.5, dlambda = 0.45,
+ I1 = 27800000000000.0, verbose = 1,
+ T1 = 40.1, T2 = 145.8,
+ I2 = 34400000000000.0, T3 = 413.5,
+ I3 = 10220000000000.0, zdepth = 0.15)
+AT (0.0, 0.0, 0.0) RELATIVE Origin
+
+COMPONENT HCS2 = Arm()
+AT (0.0, 0.0, 0.0) RELATIVE HCS
+EXTEND %{
+printf("test %g\n", 1.0);
+%}
+
+COMPONENT HCS3 = Arm()
+AT (0.0, 0.0, 0.0) RELATIVE HCS2
+EXTEND %{
+printf("sample=%s\n", D22_sample);
+%}
+
+COMPONENT HCS4 = Arm()
+AT (0.0, 0.0, 0.0) RELATIVE HCS3
+EXTEND %{
+D22_nu = 3956*48.3*DEG2RAD/2/PI/lambda/0.25;
+printf("ILL_H512_D22: D22:  nu=%g [rpm] lambda=%g [Angs] sample=%s\n", D22_nu*60, lambda, D22_sample);
+%}
+
+COMPONENT HCS5 = Source_gen(
+ radius = 0.21/2, dist = 2.155,
+ focus_xw = 0.123, focus_yh = 0.12,
+ lambda0 = lambda, dlambda = dlambda,
+ I1 = sI1, verbose = 1,
+ T1 = sT1, T2 = sT2,
+ I2 = sI2, T3 = sT3,
+ I3 = sI3, zdepth = 0.15)
+AT (0.0, 0.0, 0.0) RELATIVE HCS4
+
+FINALLY 
+%{
+// Start of finally for generated test_debug
+%}
+
+END
