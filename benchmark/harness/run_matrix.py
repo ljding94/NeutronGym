@@ -42,6 +42,19 @@ def task_ids(cfg, names):
     return out
 
 
+def model_base_url(cfg, model):
+    """Resolve a local model's endpoint; 'env:VAR' comes from the
+    environment (the pinned config stays machine-independent).
+    Returns (base_url, available)."""
+    raw = (cfg["models"].get(model) or {}).get("base_url")
+    if not raw:
+        return None, True  # OpenRouter model — always routable
+    if raw.startswith("env:"):
+        url = os.environ.get(raw[4:], "")
+        return (url or None), bool(url)
+    return raw, True
+
+
 def enumerate_episodes(cfg, only_priority=None, only_model=None):
     """[(priority, arm_name, model_id_or_None, task_id, episode_dir)] —
     held-out tasks are structurally unreachable here (config keeps them in
@@ -50,12 +63,13 @@ def enumerate_episodes(cfg, only_priority=None, only_model=None):
     for entry in cfg["priorities"]:
         if only_priority and entry["p"] != only_priority:
             continue
-        arm = cfg["arms"][entry["arm"]]
         models = (list(cfg["models"]) if entry["models"] == "all"
                   else entry["models"])
         for model in models:
             if model and cfg["models"][model].get("reserve"):
                 continue  # final-pass reserve never enters the matrix
+            if model and not model_base_url(cfg, model)[1]:
+                continue  # local endpoint not up (env var unset) — skip
             if only_model and model != only_model:
                 continue
             tasks = task_ids(cfg, entry["tasks"])
@@ -97,8 +111,12 @@ def run_one(cfg, arm_name, model, task, ep_dir):
            task, "--scaffold", arm["scaffold"], "--episode-dir", ep_dir,
            "--max-turns", str(cfg["protocol"]["max_turns"])]
     if model:
-        cmd += ["--model", model,
-                "--provider", cfg["models"][model]["pin"]]
+        cmd += ["--model", model]
+        url, _ = model_base_url(cfg, model)
+        if url:
+            cmd += ["--base-url", url, "--provider", ""]
+        else:
+            cmd += ["--provider", cfg["models"][model]["pin"]]
     if not arm["skill"]:
         cmd += ["--no-skill"]
     t0 = time.time()

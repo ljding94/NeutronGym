@@ -112,6 +112,28 @@
       ],
       "tier": "frontier",
       "reserve": "final-pass only, budget permitting"
+    },
+    "qwen3-8b": {
+      "pin": null,
+      "price": [
+        0.0,
+        0.0
+      ],
+      "tier": "open-weights",
+      "base_url": "env:NEUTRONGYM_VLLM_URL",
+      "_": "Served from the 7xA100 via vLLM (OpenAI-compatible, $0). The model id here is a CONTRACT: the serving side must pass --served-model-name to match it exactly. Endpoint comes from the NEUTRONGYM_VLLM_URL env var (e.g. http://host:8000/v1) so this pinned file stays machine-independent; matrix runs skip these models while the var is unset. Added 2026-09-07.",
+      "role": "M8 training family baseline (untrained 7-8B) \u2014 REQUIRED"
+    },
+    "qwen3-32b": {
+      "pin": null,
+      "price": [
+        0.0,
+        0.0
+      ],
+      "tier": "open-weights",
+      "base_url": "env:NEUTRONGYM_VLLM_URL",
+      "_": "Served from the 7xA100 via vLLM (OpenAI-compatible, $0). The model id here is a CONTRACT: the serving side must pass --served-model-name to match it exactly. Endpoint comes from the NEUTRONGYM_VLLM_URL env var (e.g. http://host:8000/v1) so this pinned file stays machine-independent; matrix runs skip these models while the var is unset. Added 2026-09-07.",
+      "role": "larger untrained comparator for the RL claim bar \u2014 REQUIRED"
     }
   },
   "arms": {
