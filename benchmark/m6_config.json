@@ -120,8 +120,8 @@
         0.0
       ],
       "tier": "open-weights",
-      "base_url": "env:NEUTRONGYM_VLLM_URL",
-      "_": "Served from the 7xA100 via vLLM (OpenAI-compatible, $0). The model id here is a CONTRACT: the serving side must pass --served-model-name to match it exactly. Endpoint comes from the NEUTRONGYM_VLLM_URL env var (e.g. http://host:8000/v1) so this pinned file stays machine-independent; matrix runs skip these models while the var is unset. Added 2026-09-07.",
+      "base_url": "env:NEUTRONGYM_VLLM_URL_8B",
+      "_": "Served via vLLM (OpenAI-compatible, $0). Endpoint from NEUTRONGYM_VLLM_URL_8B \u2014 PER-MODEL env vars (fix 2026-09-07 after peer review: vllm serve is one model per process; a shared URL made the plain matrix run 404 whichever model wasn't loaded). Serve concurrently on different ports or sequentially \u2014 either now works; unset vars skip their model independently. --served-model-name must match this id exactly. Serving guidance: note/vllm-serving-runbook-2026-09-07.md",
       "role": "M8 training family baseline (untrained 7-8B) \u2014 REQUIRED"
     },
     "qwen3-32b": {
@@ -131,8 +131,8 @@
         0.0
       ],
       "tier": "open-weights",
-      "base_url": "env:NEUTRONGYM_VLLM_URL",
-      "_": "Served from the 7xA100 via vLLM (OpenAI-compatible, $0). The model id here is a CONTRACT: the serving side must pass --served-model-name to match it exactly. Endpoint comes from the NEUTRONGYM_VLLM_URL env var (e.g. http://host:8000/v1) so this pinned file stays machine-independent; matrix runs skip these models while the var is unset. Added 2026-09-07.",
+      "base_url": "env:NEUTRONGYM_VLLM_URL_32B",
+      "_": "Served via vLLM (OpenAI-compatible, $0). Endpoint from NEUTRONGYM_VLLM_URL_32B \u2014 PER-MODEL env vars (fix 2026-09-07 after peer review: vllm serve is one model per process; a shared URL made the plain matrix run 404 whichever model wasn't loaded). Serve concurrently on different ports or sequentially \u2014 either now works; unset vars skip their model independently. --served-model-name must match this id exactly. Serving guidance: note/vllm-serving-runbook-2026-09-07.md",
       "role": "larger untrained comparator for the RL claim bar \u2014 REQUIRED"
     }
   },
