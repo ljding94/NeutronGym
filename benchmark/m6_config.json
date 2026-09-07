@@ -219,5 +219,18 @@
     "warn_at_usd": 120,
     "hard_stop_usd": 170,
     "_": "hard stop leaves headroom for the Sep 8-10 final pass (held-out + opus reserve + M8-trained model)"
+  },
+  "final_pass": {
+    "_": "The ONE coordinated touch of the held-out axis (Sep 8-10). Run ONLY via run_matrix.py --final-pass --confirm-heldout, AFTER the qwen3-8b arms exist. Models: every runnable roster model (cut/reserve models excluded unless listed in include_reserves). Arms: main + oneshot (the two headline arms). Episodes land in runs/m6_final/ and are preserved via preserve_evidence.py.",
+    "tasks": [
+      "T1_BOYA_CARR",
+      "T1_VENUS_SNS"
+    ],
+    "arms": [
+      "main",
+      "oneshot"
+    ],
+    "include_reserves": [],
+    "_reserves_note": "add 'anthropic/claude-opus-5' here if the user approves spending part of the remaining ~$80"
   }
 }

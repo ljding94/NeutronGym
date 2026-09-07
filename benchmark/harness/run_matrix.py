@@ -222,6 +222,29 @@ def cmd_report(cfg):
     print(f"-> {os.path.relpath(os.path.join(OUT, 'summary.json'), REPO)}")
 
 
+def enumerate_final_pass(cfg):
+    """The ONE coordinated touch of the held-out axis — deliberately a
+    separate path from the matrix enumerator (which cannot reach held-out
+    by construction). Guarded behind --final-pass --confirm-heldout."""
+    fp = cfg["final_pass"]
+    out = os.path.join(REPO, "runs", "m6_final")
+    eps = []
+    for arm in fp["arms"]:
+        for model in list(cfg["models"]):
+            m = cfg["models"][model]
+            if (m.get("cut") or m.get("reserve")) \
+                    and model not in fp.get("include_reserves", []):
+                continue
+            if not model_base_url(cfg, model)[1]:
+                continue
+            for t in fp["tasks"]:
+                tag = model.replace("/", "_").replace("-", "_").replace(
+                    ".", "_")
+                eps.append((0, arm, model, t,
+                            os.path.join(out, f"{t}__{arm}__{tag}")))
+    return eps
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
@@ -229,8 +252,47 @@ def main():
     ap.add_argument("--priority", type=int, default=None)
     ap.add_argument("--model", default=None)
     ap.add_argument("--limit", type=int, default=None)
+    ap.add_argument("--final-pass", action="store_true",
+                    help="the ONE touch of the held-out axis (Sep 8-10); "
+                         "requires --confirm-heldout")
+    ap.add_argument("--confirm-heldout", action="store_true")
     args = ap.parse_args()
     cfg = load_config()
+    if args.final_pass:
+        if not args.confirm_heldout and not args.dry_run:
+            raise SystemExit(
+                "REFUSED: the final pass burns the once-only held-out axis "
+                "(T1_BOYA_CARR, T1_VENUS_SNS). Re-run with --confirm-heldout "
+                "only when every intended model arm (incl. qwen3-8b) is "
+                "ready — models added later can never touch these tasks.")
+        eps = enumerate_final_pass(cfg)
+        if args.model:
+            eps = [e for e in eps if e[2] == args.model]
+        if args.dry_run:
+            for _, arm, model, t, ep in eps:
+                done = os.path.isfile(os.path.join(ep, "report.json"))
+                print(f"  final {arm:8} {model:34} {t:14}"
+                      f"{' (done)' if done else ''}")
+            print(f"{len(eps)} final-pass episodes")
+            return
+        led = ledger_total()
+        for _, arm, model, t, ep_dir in eps:
+            if os.path.isfile(os.path.join(ep_dir, "report.json")):
+                continue
+            print(f"[final] {t} / {arm} / {model} ...", flush=True)
+            res = run_one(cfg, arm, model, t, ep_dir)
+            cost = episode_cost(os.path.join(ep_dir, "report.json"), cfg,
+                                model) if res["ok"] else 0.0
+            led["episodes"].append({"task": t, "arm": arm, "model": model,
+                                    "usd": round(cost, 4), "final": True,
+                                    "wall_s": res["wall_s"],
+                                    "ok": res["ok"]})
+            led["total_usd"] = round(led["total_usd"] + cost, 4)
+            with open(LEDGER, "w") as f:
+                json.dump(led, f, indent=1)
+            print(f"    -> {'ok' if res['ok'] else 'FAILED'} ${cost:.2f} "
+                  f"ledger ${led['total_usd']:.2f} | {res['tail']}")
+        return
     if args.report:
         cmd_report(cfg)
     elif args.dry_run:
