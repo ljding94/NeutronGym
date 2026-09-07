@@ -217,7 +217,12 @@ async def _run(task_prompt, model, episode_dir, home_dir, server_cwd,
                 providers_seen.add(resp.get("provider") or "?")
                 tr.event({"type": "assistant", "message": {"content": blocks},
                           "finish_reason": choice.get("finish_reason"),
-                          "provider": resp.get("provider")})
+                          "provider": resp.get("provider"),
+                          # per-request usage: peak single-request context
+                          # is a first-class observable (report.json only
+                          # holds the cumulative sum — peer-review gap,
+                          # 2026-09-07)
+                          "usage": resp.get("usage")})
                 messages.append({k: v for k, v in msg.items()
                                  if k in ("role", "content", "tool_calls")})
                 if not calls:

@@ -23,9 +23,10 @@ vars at one server.
 ## Serving commands (adjust HF paths to what's on the host)
 
 ```bash
-# 8B: single GPU
+# 8B: single GPU. 96k, NOT 128k — 131072 does not fit at TP1 on a 40 GB
+# card (arithmetic in note 1). Use TP2 if you want the full 128k here.
 vllm serve <hf-path-qwen3-8b>  --served-model-name qwen3-8b  --port 8000 \
-    --tensor-parallel-size 1 --max-model-len 131072 \
+    --tensor-parallel-size 1 --max-model-len 98304 \
     --enable-auto-tool-choice --tool-call-parser hermes
 
 # 32B: TP4 (TP7 impossible — TP must divide attention heads; TP2 on 40 GB
@@ -37,12 +38,37 @@ vllm serve <hf-path-qwen3-32b> --served-model-name qwen3-32b --port 8001 \
 
 Key choices (decide deliberately, they touch measurement validity):
 
-1. **Context length**: the protocol is 50 turns with MCP tool results
-   accumulating in-context; Qwen3's native 32k WILL overrun on long
-   episodes and the failures would masquerade as capability differences.
-   Serve with `--max-model-len` ≥ 128k (YaRN rope scaling). Overruns that
-   still occur are recorded as infra-errors in the episode meta (`error`
-   field) — M7 must report them separately from capability failures.
+1. **Context length — now measured, not guessed** (peer session, 185 M6
+   evidence episodes). Worst observed loop episode: `T1_HZB_NEAT` /
+   sonnet-5, 50 turns, 235,318 bytes of final conversation +
+   ~10k tokens of static prefix (skill + 22 tool schemas, resent every
+   turn) → **peak single-request context ≈ 67–77k tokens**. Cross-check:
+   the reconstructed per-turn sum matches that episode's recorded
+   3,827,672 cumulative prompt tokens, so the profile is sound.
+   Consequences:
+   - Qwen3's native 32k **WILL** overrun — confirmed, not hypothetical.
+   - 64k is **marginal** (clips the worst episodes); do not use it.
+   - **96k is the sweet spot**: covers the measured worst case with
+     headroom, and fits at TP1 on one 40 GB card.
+   - KV-cache arithmetic (why 128k does not fit the 8B at TP1): Qwen3-8B
+     is 36 layers × 8 KV heads × 128 head_dim, i.e. ~144 KiB/token.
+     At 131072 tokens that is ~18.9 GB of KV on top of ~16.4 GB of bf16
+     weights = ~35.3 GB, which will not allocate under vLLM's default
+     0.90 memory utilization on a 40 GB A100. At 98304 it is ~14.2 GB
+     KV → ~30.6 GB total, comfortable. The 32B at TP4 is unaffected
+     (~16 GB weights + ~8.4 GB KV per card at 128k = ~24.4 GB) — keep
+     131072 there.
+   Overruns that still occur are recorded as infra-errors in the episode
+   meta (`error` field) — M7 must report them separately from capability
+   failures.
+1b. **M7 comparability flag (peer review)**: serving 8B@96k and 32B@128k
+   means the two open-weights arms do NOT have identical context budgets.
+   At the measured 77k ceiling neither should clip, so in practice this
+   should not bite — but if ANY qwen episode records a context overrun in
+   its meta `error` field, the arms are not strictly comparable and M7
+   must state that rather than quietly averaging. (Per-request usage is
+   now recorded on every assistant transcript event, so peak context is
+   directly observable — no reconstruction needed for the qwen arms.)
 2. **Thinking mode**: the protocol pins temperature 0.0, where Qwen3
    thinking mode is prone to repetition loops (the loop's empty-turn
    nudge does not fix a repetition loop). **Baseline arms serve in
