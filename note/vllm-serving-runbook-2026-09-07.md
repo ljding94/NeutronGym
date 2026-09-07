@@ -60,9 +60,18 @@ vars at one server.
 ```bash
 # 8B: single GPU. 96k, NOT 128k — 131072 does not fit at TP1 on a 40 GB
 # card (arithmetic in note 1). Use TP2 if you want the full 128k here.
-vllm serve <hf-path-qwen3-8b>  --served-model-name qwen3-8b  --port 8000 \
+# YaRN REQUIRED (host verification 2026-09-08): Qwen3-8B's native
+# max_position_embeddings is 40960 — vLLM REFUSES a larger --max-model-len
+# without explicit rope scaling. Port must NOT be 8000 (taken on the host).
+vllm serve <hf-path-qwen3-8b>  --served-model-name qwen3-8b  --port 8010 \
     --tensor-parallel-size 1 --max-model-len 98304 \
+    --hf-overrides '{"rope_scaling": {"rope_type": "yarn", "factor": 4.0, "original_max_position_embeddings": 40960}}' \
     --enable-auto-tool-choice --tool-call-parser hermes
+# MEASUREMENT-CONFIG NOTE: YaRN is a documented Qwen3 long-context mode
+# but it ALTERS the model versus stock (and static YaRN affects short
+# requests too). It is pinned in m6_config.json for the qwen3-8b arm and
+# MUST be stated in M7. The alternative — native 40960 — would silently
+# truncate long episodes into fake capability failures.
 
 # 32B: TP4 (TP7 impossible — TP must divide attention heads; TP2 on 40 GB
 # cards is tight once KV cache is added)

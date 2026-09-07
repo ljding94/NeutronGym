@@ -122,7 +122,19 @@
       "tier": "open-weights",
       "base_url": "env:NEUTRONGYM_VLLM_URL_8B",
       "_": "Served via vLLM (OpenAI-compatible, $0). Endpoint from NEUTRONGYM_VLLM_URL_8B \u2014 PER-MODEL env vars (fix 2026-09-07 after peer review: vllm serve is one model per process; a shared URL made the plain matrix run 404 whichever model wasn't loaded). Serve concurrently on different ports or sequentially \u2014 either now works; unset vars skip their model independently. --served-model-name must match this id exactly. Serving guidance: note/vllm-serving-runbook-2026-09-07.md",
-      "role": "M8 training family baseline (untrained 7-8B) \u2014 REQUIRED"
+      "role": "M8 training family baseline (untrained 7-8B) \u2014 REQUIRED",
+      "serving": {
+        "engine": "vLLM 0.28.0",
+        "tp": 1,
+        "max_model_len": 98304,
+        "rope_scaling": {
+          "rope_type": "yarn",
+          "factor": 4.0,
+          "original_max_position_embeddings": 40960
+        },
+        "thinking": false,
+        "m7_statement_required": "YaRN long-context mode alters the model vs stock (native ctx 40960 < measured 77k peak; static YaRN also affects short requests) \u2014 state in the M7 measurement-config section"
+      }
     },
     "qwen3-32b": {
       "pin": null,
