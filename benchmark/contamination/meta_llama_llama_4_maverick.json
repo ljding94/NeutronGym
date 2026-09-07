@@ -1,0 +1,7 @@
+{
+ "model": "meta-llama/llama-4-maverick",
+ "status": "PROBE INCOMPLETE at the 2026-09-07 pre-freeze re-sweep",
+ "detail": "Intermittent HTTP 404 from the Google-pinned route killed the 16-reference batch twice (single completions succeed). Not retried further: maverick's matrix result is 0/17 with ZERO tool calls in every episode \u2014 it built no instrument, so reference memorization cannot have contributed to any scored number. Re-probe if maverick ever produces a nonzero row.",
+ "memorized": null,
+ "references": {}
+}

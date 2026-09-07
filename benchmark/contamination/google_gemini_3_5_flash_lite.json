@@ -1,115 +1,115 @@
 {
- "model": "anthropic/claude-sonnet-5",
+ "model": "google/gemini-3.5-flash-lite",
  "thresholds": {
   "similarity_memorized": 0.5,
   "keyfact_memorized": 0.7
  },
  "references": {
   "boya_channel": {
-   "similarity": 0.045,
-   "keyfact_recall": 0.0,
+   "similarity": 0.118,
+   "keyfact_recall": 0.091,
    "reference_components": 11,
-   "answer_components": 1,
+   "answer_components": 11,
    "memorized": false,
    "tasks": [
     "T1_BOYA_CARR"
    ]
   },
   "ESS_IN5_reprate": {
-   "similarity": 0.058,
-   "keyfact_recall": 0.16,
+   "similarity": 0.065,
+   "keyfact_recall": 0.08,
    "reference_components": 50,
-   "answer_components": 20,
+   "answer_components": 9,
    "memorized": false,
    "tasks": [
     "T1_ESS_IN5_reprate"
    ]
   },
   "HZB_FLEX": {
-   "similarity": 0.038,
-   "keyfact_recall": 0.2,
+   "similarity": 0.103,
+   "keyfact_recall": 0.125,
    "reference_components": 40,
-   "answer_components": 16,
+   "answer_components": 12,
    "memorized": false,
    "tasks": [
     "T1_HZB_FLEX"
    ]
   },
   "HZB_NEAT": {
-   "similarity": 0.032,
-   "keyfact_recall": 0.3,
+   "similarity": 0.03,
+   "keyfact_recall": 0.05,
    "reference_components": 20,
-   "answer_components": 15,
+   "answer_components": 8,
    "memorized": false,
    "tasks": [
     "T1_HZB_NEAT"
    ]
   },
   "ILL_D2B": {
-   "similarity": 0.12,
-   "keyfact_recall": 0.265,
+   "similarity": 0.058,
+   "keyfact_recall": 0.088,
    "reference_components": 34,
-   "answer_components": 10,
+   "answer_components": 6,
    "memorized": false,
    "tasks": [
     "T1_ILL_D2B"
    ]
   },
   "ILL_H10_IN8": {
-   "similarity": 0.118,
-   "keyfact_recall": 0.75,
+   "similarity": 0.035,
+   "keyfact_recall": 0.25,
    "reference_components": 4,
-   "answer_components": 16,
-   "memorized": true,
+   "answer_components": 18,
+   "memorized": false,
    "tasks": [
     "T1_ILL_H10_IN8"
    ]
   },
   "ILL_H15_D11": {
-   "similarity": 0.052,
-   "keyfact_recall": 0.049,
+   "similarity": 0.033,
+   "keyfact_recall": 0.029,
    "reference_components": 102,
-   "answer_components": 18,
+   "answer_components": 12,
    "memorized": false,
    "tasks": [
     "T1_ILL_H15_D11"
    ]
   },
   "ILL_H512_D22": {
-   "similarity": 0.096,
+   "similarity": 0.032,
    "keyfact_recall": 0.156,
    "reference_components": 32,
-   "answer_components": 11,
+   "answer_components": 16,
    "memorized": false,
    "tasks": [
     "T1_ILL_H512_D22"
    ]
   },
   "ILL_IN6": {
-   "similarity": 0.031,
-   "keyfact_recall": 0.36,
+   "similarity": 0.039,
+   "keyfact_recall": 0.12,
    "reference_components": 25,
-   "answer_components": 13,
+   "answer_components": 7,
    "memorized": false,
    "tasks": [
     "T1_ILL_IN6"
    ]
   },
   "ISIS_SANS2d": {
-   "similarity": 0.108,
-   "keyfact_recall": 0.107,
+   "similarity": 0.015,
+   "keyfact_recall": 0.071,
    "reference_components": 28,
-   "answer_components": 10,
+   "answer_components": 11,
    "memorized": false,
    "tasks": [
     "T1_ISIS_SANS2d"
    ]
   },
   "PSI_DMC": {
-   "similarity": 0.156,
-   "keyfact_recall": 0.219,
+   "similarity": 0.076,
+   "keyfact_recall": 0.188,
    "reference_components": 32,
-   "answer_components": 18,
+   "answer_components": 9,
    "memorized": false,
    "tasks": [
     "T1_PSI_DMC"
@@ -117,57 +117,54 @@
   },
   "RTP_DIF": {
    "similarity": 0.018,
-   "keyfact_recall": 0.292,
+   "keyfact_recall": 0.042,
    "reference_components": 24,
-   "answer_components": 12,
+   "answer_components": 7,
    "memorized": false,
    "tasks": [
     "T1_RTP_DIF"
    ]
   },
   "SESANS_Delft": {
-   "similarity": 0.039,
-   "keyfact_recall": 0.16,
+   "similarity": 0.118,
+   "keyfact_recall": 0.04,
    "reference_components": 25,
-   "answer_components": 7,
+   "answer_components": 9,
    "memorized": false,
    "tasks": [
     "T1_SESANS_Delft"
    ]
   },
   "venus_imaging": {
-   "similarity": 0.138,
-   "keyfact_recall": 0.667,
+   "similarity": 0.178,
+   "keyfact_recall": 0.333,
    "reference_components": 6,
-   "answer_components": 17,
+   "answer_components": 9,
    "memorized": false,
    "tasks": [
     "T1_VENUS_SNS"
    ]
   },
   "templateSANS": {
-   "similarity": 0.282,
-   "keyfact_recall": 0.7,
+   "similarity": 0.234,
+   "keyfact_recall": 0.2,
    "reference_components": 10,
-   "answer_components": 10,
-   "memorized": true,
+   "answer_components": 5,
+   "memorized": false,
    "tasks": [
     "T1_templateSANS"
    ]
   },
   "templateTOF": {
-   "similarity": 0.045,
-   "keyfact_recall": 0.286,
+   "similarity": 0.044,
+   "keyfact_recall": 0.071,
    "reference_components": 14,
-   "answer_components": 16,
+   "answer_components": 6,
    "memorized": false,
    "tasks": [
     "T1_templateTOF"
    ]
   }
  },
- "memorized": [
-  "ILL_H10_IN8",
-  "templateSANS"
- ]
+ "memorized": []
 }
