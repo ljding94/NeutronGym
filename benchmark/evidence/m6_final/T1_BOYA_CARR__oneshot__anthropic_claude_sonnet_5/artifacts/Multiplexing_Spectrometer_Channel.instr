@@ -1,0 +1,101 @@
+/*******************************************************************************
+* Instrument: Multiplexing_Spectrometer_Channel
+*
+* %Identification
+* Written for: McStas 3.x
+* Date: 2024
+* Origin: Generated from specification
+*
+* %Description
+* A single channel of a multiplexing triple-axis-like spectrometer:
+* source -> guide -> monochromator -> sample position -> analyzer -> detector.
+*
+* %Parameters
+* lam: [Angstrom] Central wavelength
+* A1:  [deg] Monochromator rotation angle
+* A2:  [deg] Monochromator take-off (scattering) angle
+*
+* %End
+*******************************************************************************/
+
+DEFINE INSTRUMENT Multiplexing_Spectrometer_Channel(lam=4.05, A1=37.14, A2=74.28)
+
+DECLARE
+%{
+%}
+
+INITIALIZE
+%{
+%}
+
+TRACE
+
+COMPONENT src = Source_simple(
+    yheight = 0.12, xwidth = 0.03, dist = 1.0,
+    focus_xw = 0.03, focus_yh = 0.12,
+    lambda0 = lam, dlambda = 0.4,
+    flux = 1000000000000.0)
+AT (0, 0, 0) RELATIVE ABSOLUTE
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+COMPONENT guide = Guide(
+    w1 = 0.03, h1 = 0.12, w2 = 0.03, h2 = 0.12,
+    l = 20.0, m = 2.0)
+AT (0, 0, 1.0) RELATIVE src
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+COMPONENT mono_arm = Arm()
+AT (0, 0, 21.2) RELATIVE src
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+COMPONENT mono = Monochromator_flat(
+    zwidth = 0.15, yheight = 0.12,
+    mosaich = 40, mosaicv = 40, DM = 3.355)
+AT (0, 0, 0) RELATIVE mono_arm
+ROTATED (0, A1, 0) RELATIVE mono_arm
+
+COMPONENT out_arm = Arm()
+AT (0, 0, 0) RELATIVE mono_arm
+ROTATED (0, A2, 0) RELATIVE mono_arm
+
+COMPONENT mono_lam = L_monitor(
+    nL = 200, filename = "mono_lam.dat",
+    xwidth = 0.06, yheight = 0.12,
+    Lmin = lam - 1, Lmax = lam + 1,
+    restore_neutron = 1)
+AT (0, 0, 0.8) RELATIVE out_arm
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+COMPONENT sample_psd = PSD_monitor(
+    nx = 60, ny = 60, filename = "sample_psd.dat",
+    xwidth = 0.05, yheight = 0.1,
+    restore_neutron = 1)
+AT (0, 0, 1.5) RELATIVE out_arm
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+COMPONENT ana_arm = Arm()
+AT (0, 0, 2.5) RELATIVE out_arm
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+COMPONENT ana = Monochromator_flat(
+    zwidth = 0.12, yheight = 0.12,
+    mosaich = 40, mosaicv = 40, DM = 3.355)
+AT (0, 0, 0) RELATIVE ana_arm
+ROTATED (0, -A1, 0) RELATIVE ana_arm
+
+COMPONENT det_arm = Arm()
+AT (0, 0, 0) RELATIVE ana_arm
+ROTATED (0, -A2, 0) RELATIVE ana_arm
+
+COMPONENT det = PSD_monitor(
+    nx = 60, ny = 60, filename = "det.dat",
+    xwidth = 0.06, yheight = 0.12,
+    restore_neutron = 1)
+AT (0, 0, 0.8) RELATIVE det_arm
+ROTATED (0, 0, 0) RELATIVE ABSOLUTE
+
+FINALLY
+%{
+%}
+
+END

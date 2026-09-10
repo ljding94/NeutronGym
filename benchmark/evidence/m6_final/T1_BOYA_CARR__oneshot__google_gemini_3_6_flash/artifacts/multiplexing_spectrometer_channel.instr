@@ -1,0 +1,81 @@
+DEFINE INSTRUMENT multiplexing_spectrometer_channel(double lam = 4.05, double A1 = 37.14, double A2 = 74.28)
+
+TRACE
+
+COMPONENT src = Source_simple(
+    xwidth = 0.03, yheight = 0.12,
+    dist = 1.0, focus_xw = 0.03, focus_yh = 0.12,
+    lambda0 = lam, dlambda = 0.4,
+    flux = 1e12
+)
+AT (0, 0, 0) ABSOLUTE
+ROTATED (0, 0, 0) ABSOLUTE
+
+COMPONENT guide = Guide(
+    w1 = 0.03, h1 = 0.12,
+    w2 = 0.03, h2 = 0.12,
+    l = 20.0, m = 2.0
+)
+AT (0, 0, 1.0) RELATIVE src
+ROTATED (0, 0, 0) ABSOLUTE
+
+COMPONENT mono_arm = Arm()
+AT (0, 0, 21.2) RELATIVE src
+ROTATED (0, 0, 0) ABSOLUTE
+
+COMPONENT mono = Monochromator_flat(
+    zwidth = 0.15, yheight = 0.12,
+    mosaich = 40.0, mosaicv = 40.0,
+    DM = 3.355
+)
+AT (0, 0, 0) RELATIVE mono_arm
+ROTATED (0, A1, 0) RELATIVE mono_arm
+
+COMPONENT out_arm = Arm()
+AT (0, 0, 0) RELATIVE mono_arm
+ROTATED (0, A2, 0) RELATIVE mono_arm
+
+COMPONENT mono_lam = L_monitor(
+    xwidth = 0.06, yheight = 0.12,
+    nL = 200, Lmin = lam - 1.0, Lmax = lam + 1.0,
+    filename = "mono_lam.dat",
+    restore_neutron = 1
+)
+AT (0, 0, 0.8) RELATIVE out_arm
+ROTATED (0, 0, 0) ABSOLUTE
+
+COMPONENT sample_psd = PSD_monitor(
+    xwidth = 0.05, yheight = 0.1,
+    nx = 60, ny = 60,
+    filename = "sample_psd.dat",
+    restore_neutron = 1
+)
+AT (0, 0, 1.5) RELATIVE out_arm
+ROTATED (0, 0, 0) ABSOLUTE
+
+COMPONENT ana_arm = Arm()
+AT (0, 0, 2.5) RELATIVE out_arm
+ROTATED (0, 0, 0) ABSOLUTE
+
+COMPONENT ana = Monochromator_flat(
+    zwidth = 0.12, yheight = 0.12,
+    mosaich = 40.0, mosaicv = 40.0,
+    DM = 3.355
+)
+AT (0, 0, 0) RELATIVE ana_arm
+ROTATED (0, -A1, 0) RELATIVE ana_arm
+
+COMPONENT det_arm = Arm()
+AT (0, 0, 0) RELATIVE ana_arm
+ROTATED (0, -A2, 0) RELATIVE ana_arm
+
+COMPONENT det = PSD_monitor(
+    xwidth = 0.06, yheight = 0.12,
+    nx = 60, ny = 60,
+    filename = "det.dat",
+    restore_neutron = 1
+)
+AT (0, 0, 0.8) RELATIVE det_arm
+ROTATED (0, 0, 0) ABSOLUTE
+
+END

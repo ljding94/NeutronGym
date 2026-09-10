@@ -1,0 +1,110 @@
+{
+  "task": "T1_VENUS_SNS",
+  "episode": {
+    "model": "anthropic/claude-sonnet-5",
+    "scaffold": "plain-llm-oneshot",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 1,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 12.2,
+    "usage": {
+      "prompt_tokens": 2739,
+      "completion_tokens": 1431
+    },
+    "mcp_calls": {},
+    "skill_used": true,
+    "final_answer": "```c\n/*******************************************************************************\n* Instrument: TOF_Imaging_Beamline\n*\n* %Identification\n* Written for: TOF imaging beamline rebuild\n* Date: 2024\n* Origin: McStas skill exercise\n*\n* %Description\n* A simple time-of-flight imaging beamline: a simple source, a pinhole\n* aperture, a beam-scraper slit, a field-of-view PSD monitor, a detector\n* PSD monitor, and a wavelength monitor at the detector plane.\n*\n* %Parameters\n* lam: [Ang]   Central wavelength of the source\n* dlam: [Ang]  Half-width of wavelength distribution\n* ap_D: [m]    Aperture diameter (defines focusing and pinhole radius)\n*\n* %End\n*******************************************************************************/\n\nDEFINE INSTRUMENT TOF_Imaging_Beamline(lam=3.5, dlam=1.3, ap_D=0.016)\n\nDECLARE\n%{\n%}\n\nINITIALIZE\n%{\n%}\n\nTRACE\n\nCOMPONENT origin = Arm()\nAT (0, 0, 0) ABSOLUTE\n\nCOMPONENT src = Source_simple(\n    yheight = 0.12,\n    xwidth = 0.1,\n    dist = 1.0,\n    focus_xw = ap_D,\n    focus_yh = ap_D,\n    lambda0 = lam,\n    dlambda = dlam,\n    flux = 1e13)\nAT (0, 0, 0) RELATIVE ABSOLUTE\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT aperture = Slit(\n    radius = 0.5*ap_D)\nAT (0, 0, 1.0) RELATIVE src\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT scraper = Slit(\n    xwidth = 0.3,\n    yheight = 0.3)\nAT (0, 0, 10.0) RELATIVE src\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT fov_mon = PSD_monitor(\n    nx = 128,\n    ny = 128,\n    filename = \"fov.dat\",\n    xwidth = 0.28,\n    yheight = 0.28,\n    restore_neutron = 1)\nAT (0, 0, 20.0) RELATIVE src\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT det = PSD_monitor(\n    nx = 256,\n    ny = 256,\n    filename = \"det.dat\",\n    xwidth = 0.2,\n    yheight = 0.2,\n    restore_neutron = 1)\nAT (0, 0, 25.0) RELATIVE src\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT det_lam = L_monitor(\n    nL = 200,\n    filename = \"det_lam.dat\",\n    xwidth = 0.2,\n    yheight = 0.2,\n    Lmin = lam - 2*dlam,\n    Lmax = lam + 2*dlam,\n    restore_neutron = 1)\nAT (0, 0, 25.01) RELATIVE src\nROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nEND\n```"
+  },
+  "grade": {
+    "task": "T1_VENUS_SNS",
+    "pass": true,
+    "score": 1.0,
+    "checks_passed": "6/6",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "2d",
+        "observable": "intensity",
+        "reference": 11321800000.0,
+        "candidate": 11321800000.0,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 2264360000.0
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_x",
+        "reference": 8.07984,
+        "candidate": 8.07984,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 2.4239520000000003
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_y",
+        "reference": 8.12718,
+        "candidate": 8.12718,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 2.4381539999999995
+      },
+      {
+        "role": "wavelength",
+        "observable": "intensity",
+        "reference": 3583770000.0,
+        "candidate": 3583770000.0,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 895942500.0
+      },
+      {
+        "role": "wavelength",
+        "observable": "center_of_mass",
+        "reference": 3.503746,
+        "candidate": 3.503746,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.17518730000000002
+      },
+      {
+        "role": "wavelength",
+        "observable": "fwhm",
+        "reference": 2.586978,
+        "candidate": 2.586978,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 1.293489
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6_final/T1_VENUS_SNS__oneshot__anthropic_claude_sonnet_5/home/instruments/TOF_Imaging_Beamline/TOF_Imaging_Beamline.instr",
+    "candidate_params": {
+      "lam": "3.5",
+      "dlam": "1.3",
+      "ap_D": "0.016"
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6_final/T1_VENUS_SNS__oneshot__anthropic_claude_sonnet_5/artifacts/TOF_Imaging_Beamline.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6_final/T1_VENUS_SNS__oneshot__anthropic_claude_sonnet_5/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6_final/T1_VENUS_SNS__oneshot__anthropic_claude_sonnet_5/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6_final/T1_VENUS_SNS__oneshot__anthropic_claude_sonnet_5/artifacts/trace",
+    "errors": []
+  }
+}

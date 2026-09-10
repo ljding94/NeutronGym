@@ -1,0 +1,118 @@
+{
+  "task": "T1_VENUS_SNS",
+  "episode": {
+    "model": "anthropic/claude-sonnet-5",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 9,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 72.9,
+    "usage": {
+      "prompt_tokens": 121765,
+      "completion_tokens": 4638
+    },
+    "mcp_calls": {
+      "describe_component": 4,
+      "create_instrument": 1,
+      "add_parameter": 3,
+      "add_component": 6,
+      "validate_instrument": 1,
+      "run_simulation": 2,
+      "get_results": 2
+    },
+    "skill_used": true,
+    "final_answer": "## Summary\n\n**Instrument built:** `tof_imaging` \u2014 a straight-line TOF imaging beamline:\n\n| # | Component | Type | z (m, from src) | Key params |\n|---|---|---|---|---|\n| 1 | src | Source_simple | 0 | yheight=0.12, xwidth=0.1, dist=1.0, focus_xw/yh=ap_D, \u03bb\u2080=lam, d\u03bb=dlam, flux=1e13 |\n| 2 | aperture | Slit (circular) | 1.0 | radius=0.5\u00b7ap_D |\n| 3 | scraper | Slit (rect) | 10.0 | xwidth=yheight=0.3 |\n| 4 | fov_mon | PSD_monitor | 20.0 | 128\u00d7128, 0.28\u00d70.28 m, restore_neutron=1 |\n| 5 | det | PSD_monitor | 25.0 | 256\u00d7256, 0.2\u00d70.2 m, restore_neutron=1 |\n| 6 | det_lam | L_monitor | 25.01 | 200 bins, Lmin=lam\u22122\u00b7dlam, Lmax=lam+2\u00b7dlam, restore_neutron=1 |\n\nParameters: lam=3.5 \u00c5, dlam=1.3 \u00c5, ap_D=0.016 m (all as instrument parameters, used exactly as specified with expressions like `0.5*ap_D`, `lam-2*dlam`, etc.)\n\n**Run conditions:** seed=12345, gravity off (short 25 m path at 3.5 \u00c5 thermal-ish neutrons \u2014 gravity drop negligible over this range, consistent with archetype guidance but noted as a simplifying assumption).\n\n**Final results (ncount=1\u00d710\u2078, seed=12345) \u2014 cross-checked against a 1\u00d710\u2076-ray run with same seed, consistent within statistics:**\n\n| Monitor | Integrated Intensity I (n/s) | Error \u00b1 | Events (N) | Rel. err |\n|---|---|---|---|---|\n| fov_mon (PSD @ 20 m) | 1.1356\u00d710\u00b9\u2070 | 9.52\u00d710\u2076 | 1,421,820 | 0.08% |\n| det (PSD @ 25 m) | 3.6336\u00d710\u2079 | 5.39\u00d710\u2076 | 454,943 | 0.15% |\n| det_lam (\u03bb-monitor @ 25.01 m) | 3.6305\u00d710\u2079 | 5.38\u00d710\u2076 | 454,546 | 0.15% |\n\nAll monitors have >>1000 events and rel_err well below the 5% floor.\n\n**Observations / sanity checks:**\n- Beam is well-centered on all monitors (X0, Y0 \u2248 0, within a few mm \u2014 consistent with straight, unrotated geometry).\n- Intensity drops ~3.1\u00d7 between fov_mon (20 m) and det (25 m), consistent with the aperture-defined cone continuing to expand beyond the field-of-view monitor's larger acceptance (0.28 m) vs the detector's smaller area (0.2 m) \u2014 no anomalous >10\u00d7 unexplained loss, so the transmission chain is geometrically sound.\n- det and det_lam intensities agree to <0.1%, as expected since det_lam sits essentially at the same z (25.01 m) with the same aperture (0.2\u00d70.2 m) and only records/filters by wavelength.\n- det_lam wavelength distribution: center of mass = 3.500 \u00c5, FWHM \u2248 2.60 \u00c5, matching the specified lam=3.5 \u00c5 source with dlam=1.3 \u00c5 (flat distribution half-width, full width 2.6 \u00c5) \u2014 confirms correct source/monitor wavelength binding.\n\n**Assumptions disclosed:** flux value (1\u00d710\u00b9\u00b3 n/s/cm\u00b2/sr/\u00c5) taken directly from the spec (arbitrary Source_simple normalization \u2014 absolute intensities scale linearly with this choice). No gravity applied since path (25 m) and wavelength (3.5 \u00c5) are modest; if longer flight paths or colder neutrons were introduced, gravity should be re-enabled and rechecked."
+  },
+  "grade": {
+    "task": "T1_VENUS_SNS",
+    "pass": true,
+    "score": 1.0,
+    "checks_passed": "6/6",
+    "hard_failures": [],
+    "checks": [
+      {
+        "role": "2d",
+        "observable": "intensity",
+        "reference": 11321800000.0,
+        "candidate": 11321800000.0,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 2264360000.0
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_x",
+        "reference": 8.07984,
+        "candidate": 8.07984,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 2.4239520000000003
+      },
+      {
+        "role": "2d",
+        "observable": "beam_width_y",
+        "reference": 8.12718,
+        "candidate": 8.12718,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 2.4381539999999995
+      },
+      {
+        "role": "wavelength",
+        "observable": "intensity",
+        "reference": 3583770000.0,
+        "candidate": 3583770000.0,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 895942500.0
+      },
+      {
+        "role": "wavelength",
+        "observable": "center_of_mass",
+        "reference": 3.503746,
+        "candidate": 3.503746,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 0.17518730000000002
+      },
+      {
+        "role": "wavelength",
+        "observable": "fwhm",
+        "reference": 2.586978,
+        "candidate": 2.586978,
+        "pass": true,
+        "delta": 0.0,
+        "allowed": 1.293489
+      }
+    ],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6_final/T1_VENUS_SNS__main__anthropic_claude_sonnet_5/home/instruments/tof_imaging/tof_imaging.instr",
+    "candidate_params": {
+      "lam": "3.5",
+      "dlam": "1.3",
+      "ap_D": "0.016"
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6_final/T1_VENUS_SNS__main__anthropic_claude_sonnet_5/artifacts/tof_imaging.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6_final/T1_VENUS_SNS__main__anthropic_claude_sonnet_5/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6_final/T1_VENUS_SNS__main__anthropic_claude_sonnet_5/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6_final/T1_VENUS_SNS__main__anthropic_claude_sonnet_5/artifacts/trace",
+    "errors": []
+  }
+}

@@ -15,7 +15,8 @@ import os
 import shutil
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-SETS = {"m6": "runs/m6", "pilot": "runs/pilot"}
+SETS = {"m6": "runs/m6", "pilot": "runs/pilot",
+        "m6_final": "runs/m6_final"}  # the once-only held-out pass
 DEST = os.path.join(REPO, "benchmark", "evidence")
 
 KEEP_TOP = {"report.json", "transcript.jsonl", "report_regraded.json",

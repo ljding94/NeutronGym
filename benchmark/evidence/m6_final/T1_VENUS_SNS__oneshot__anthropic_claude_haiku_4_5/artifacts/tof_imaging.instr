@@ -1,0 +1,81 @@
+/*
+ * TOF Imaging Beamline
+ * McStas 3.x instrument
+ * 
+ * Specification:
+ * - Source_simple with focusing to aperture
+ * - Circular aperture (radius = 0.5*ap_D)
+ * - Scraper aperture (0.3 x 0.3 m)
+ * - FOV monitor at 20 m (128x128, 0.28x0.28 m)
+ * - Detector at 25 m (256x256, 0.2x0.2 m)
+ * - Wavelength monitor at 25.01 m (200 bins)
+ * 
+ * Parameters:
+ * - lam: central wavelength (Å)
+ * - dlam: wavelength spread (Å)
+ * - ap_D: aperture diameter parameter (m)
+ */
+
+DEFINE INSTRUMENT tof_imaging(
+    lam = 3.5,
+    dlam = 1.3,
+    ap_D = 0.016
+)
+
+TRACE
+
+COMPONENT src = Source_simple(
+    yheight = 0.12,
+    xwidth = 0.1,
+    dist = 1.0,
+    focus_xw = ap_D,
+    focus_yh = ap_D,
+    lambda0 = lam,
+    dlambda = dlam,
+    flux = 1e13
+)
+AT [0, 0, 0] ABSOLUTE
+
+COMPONENT aperture = Slit(
+    radius = 0.5 * ap_D
+)
+AT [0, 0, 1.0] RELATIVE src
+
+COMPONENT scraper = Slit(
+    xwidth = 0.3,
+    yheight = 0.3
+)
+AT [0, 0, 10.0] RELATIVE src
+
+COMPONENT fov_mon = PSD_monitor(
+    nx = 128,
+    ny = 128,
+    filename = "fov.dat",
+    xwidth = 0.28,
+    yheight = 0.28,
+    restore_neutron = 1
+)
+AT [0, 0, 20.0] RELATIVE src
+
+COMPONENT det = PSD_monitor(
+    nx = 256,
+    ny = 256,
+    filename = "det.dat",
+    xwidth = 0.2,
+    yheight = 0.2,
+    restore_neutron = 1
+)
+AT [0, 0, 25.0] RELATIVE src
+
+COMPONENT det_lam = L_monitor(
+    nL = 200,
+    filename = "det_lam.dat",
+    xwidth = 0.2,
+    yheight = 0.2,
+    Lmin = lam - 2*dlam,
+    Lmax = lam + 2*dlam,
+    restore_neutron = 1
+)
+AT [0, 0, 25.01] RELATIVE src
+
+END INSTRUMENT

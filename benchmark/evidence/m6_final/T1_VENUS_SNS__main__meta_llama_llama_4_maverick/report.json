@@ -1,0 +1,39 @@
+{
+  "task": "T1_VENUS_SNS",
+  "episode": {
+    "model": "meta-llama/llama-4-maverick",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": "Google",
+    "providers_seen": [
+      "Google"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 1,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 310.0,
+    "usage": {
+      "prompt_tokens": 4564,
+      "completion_tokens": 776
+    },
+    "mcp_calls": {},
+    "skill_used": true,
+    "final_answer": "### Step 1: Create a new instrument\nI will start by creating a new McStas instrument named \"tof_imaging_beamline\".\n\n```python\ncreate_instrument(name=\"tof_imaging_beamline\")\n```\n\n### Step 2: Add instrument parameters\nThe instrument parameters are lam, dlam, and ap_D. I will add them to the instrument.\n\n```python\nadd_parameter(instrument_id=\"tof_imaging_beamline\", name=\"lam\", default=3.5, unit=\"AA\")\nadd_parameter(instrument_id=\"tof_imaging_beamline\", name=\"dlam\", default=1.3, unit=\"AA\")\nadd_parameter(instrument_id=\"tof_imaging_beamline\", name=\"ap_D\", default=0.016, unit=\"m\")\n```\n\n### Step 3: Describe the components\nBefore adding the components, I will describe them to ensure I use the correct parameters.\n\n```python\ndescribe_component(name=\"Source_simple\")\ndescribe_component(name=\"Slit\")\ndescribe_component(name=\"PSD_monitor\")\ndescribe_component(name=\"L_monitor\")\n```\n\n### Step 4: Add components to the instrument\nNow, I will add the components to the instrument in the specified order.\n\n```python\nadd_component(instrument_id=\"tof_imaging_beamline\", name=\"src\", component=\"Source_simple\", at=[0, 0, 0], relative=\"ABSOLUTE\", parameters={\"yheight\": 0.12, \"xwidth\": 0.1, \"dist\": 1.0, \"focus_xw\": \"ap_D\", \"focus_yh\": \"ap_D\", \"lambda0\": \"lam\", \"dlambda\": \"dlam\", \"flux\": 1e13})\nadd_component(instrument_id=\"tof_imaging_beamline\", name=\"aperture\", component=\"Slit\", at=[0, 0, 1.0], relative=\"src\", parameters={\"radius\": \"0.5*ap_D\"})\nadd_component(instrument_id=\"tof_imaging_beamline\", name=\"scraper\", component=\"Slit\", at=[0, 0, 10.0], relative=\"src\", parameters={\"xwidth\": 0.3, \"yheight\": 0.3})\nadd_component(instrument_id=\"tof_imaging_beamline\", name=\"fov_mon\", component=\"PSD_monitor\", at=[0, 0, 20.0], relative=\"src\", parameters={\"nx\": 128, \"ny\": 128, \"filename\": '\"fov.dat\"', \"xwidth\": 0.28, \"yheight\": 0.28, \"restore_neutron\": 1})\nadd_component(instrument_id=\"tof_imaging_beamline\", name=\"det\", component=\"PSD_monitor\", at=[0, 0, 25.0], relative=\"src\", parameters={\"nx\": 256, \"ny\": 256, \"filename\": '\"det.dat\"', \"xwidth\": 0.2, \"yheight\": 0.2, \"restore_neutron\": 1})\nadd_component(instrument_id=\"tof_imaging_beamline\", name=\"det_lam\", component=\"L_monitor\", at=[0, 0, 25.01], relative=\"src\", parameters={\"nL\": 200, \"filename\": '\"det_lam.dat\"', \"xwidth\": 0.2, \"yheight\": 0.2, \"Lmin\": \"lam-2*dlam\", \"Lmax\": \"lam+2*dlam\", \"restore_neutron\": 1})\n```\n\n### Step 5: Validate the instrument\nBefore running the simulation, I will validate the instrument to ensure there are no syntax errors.\n\n```python\nvalidate_instrument(instrument_id=\"tof_imaging_beamline\")\n```\n\n### Step 6: Run the simulation\nNow, I will run the simulation with the specified parameters.\n\n```python\nrun_simulation(instrument_id=\"tof_imaging_beamline\", ncount=1e6, seed=42, parameters={\"lam\": 3.5, \"dlam\": 1.3, \"ap_D\": 0.016})\n```\n\n### Step 7: Get the results\nAfter the simulation is complete, I will retrieve the results.\n\n```python\njob_id = run_simulation(instrument_id=\"tof_imaging_beamline\", ncount=1e6, seed=42, parameters={\"lam\": 3.5, \"dlam\": 1.3, \"ap_D\": 0.016}, wait_s="
+  },
+  "grade": {
+    "task": "T1_VENUS_SNS",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": null
+}
