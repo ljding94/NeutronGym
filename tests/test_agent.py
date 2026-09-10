@@ -220,6 +220,31 @@ def test_provider_pin_lands_in_payload_and_meta(tmp_path):
     assert "provider" not in captured
 
 
+def test_chat_extra_lands_in_payload_for_local_models():
+    """The pinned non-thinking Qwen3 config (m6_config serving blocks) —
+    the harness sends the per-request opt-out for base-url models."""
+    captured = {}
+
+    class FakeHttp:
+        def post(self, url, headers=None, json=None, timeout=None):
+            captured.update(json)
+            return type("R", (), {"status_code": 200, "json": lambda s: {
+                "choices": [{"message": {"role": "assistant",
+                                         "content": "ok"}}]}})()
+
+    agent.chat_completion(
+        FakeHttp(), "http://gpu:8137/v1", "EMPTY", "qwen3-8b", [], [], 0.0,
+        chat_extra={"chat_template_kwargs": {"enable_thinking": False}})
+    assert captured["chat_template_kwargs"] == {"enable_thinking": False}
+
+    import importlib
+    import run_episode
+    importlib.reload(run_episode)
+    assert run_episode._local_chat_extra("http://gpu:8137/v1") == \
+        {"chat_template_kwargs": {"enable_thinking": False}}
+    assert run_episode._local_chat_extra(None) is None  # API models: nothing
+
+
 def test_chat_completion_retries_network_errors(monkeypatch):
     import httpx
 

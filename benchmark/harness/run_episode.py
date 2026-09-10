@@ -48,6 +48,16 @@ MAX_TURNS = 60
 TIMEOUT_S = 1800
 
 
+def _local_chat_extra(base_url: str | None) -> dict | None:
+    """Base-url-served (vLLM) models run the PINNED non-thinking baseline
+    config (m6_config serving blocks; runbook 2026-09-07): Qwen3 thinking
+    mode is a per-request opt-out in vLLM 0.28, so the harness sends it.
+    API models get nothing extra — providers may reject unknown fields."""
+    if not base_url:
+        return None
+    return {"chat_template_kwargs": {"enable_thinking": False}}
+
+
 def resolve_task(arg: str) -> str:
     """Accept a task id (resolved against benchmark/tasks/) or a path."""
     if os.path.isfile(arg):
@@ -105,6 +115,7 @@ def run_agent_loop(task: dict, model: str | None, ep: str,
         server_cwd=os.path.join(ep, "cwd"),
         skill_text=skill_text, exempt=task_exempt_paths(task),
         provider_pin=provider or None, base_url=base_url,
+        chat_extra=_local_chat_extra(base_url),
         max_turns=max_turns or agent.DEFAULT_MAX_TURNS)
 
 
@@ -123,7 +134,8 @@ def run_agent_oneshot(task: dict, model: str | None, ep: str,
     skill_text = neutrongym.skill_text() if use_skill else None
     episode = agent.run_oneshot(
         task["prompt"], model, episode_dir=ep, skill_text=skill_text,
-        provider_pin=provider or None, base_url=base_url)
+        provider_pin=provider or None, base_url=base_url,
+        chat_extra=_local_chat_extra(base_url))
     src = agent.extract_instr(episode.get("final_answer") or "")
     if src:
         import re as _re

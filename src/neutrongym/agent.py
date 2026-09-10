@@ -85,10 +85,16 @@ def _truncate(text: str, cap: int = TOOL_RESULT_CAP) -> str:
 def chat_completion(http: httpx.Client, base_url: str, api_key: str,
                     model: str, messages: list, tools: list,
                     temperature: float, provider_pin: str | None = None,
-                    max_tokens: int = 8192) -> dict:
+                    max_tokens: int = 8192,
+                    chat_extra: dict | None = None) -> dict:
     payload = {"model": model, "messages": messages,
                "tool_choice": "auto", "temperature": temperature,
                "max_tokens": max_tokens}  # explicit: providers can truncate
+    if chat_extra:
+        # extra request-body fields (e.g. Qwen3's chat_template_kwargs
+        # enable_thinking=false — the pinned non-thinking baseline config;
+        # vLLM 0.28 has no server-side flag, per-request only)
+        payload.update(chat_extra)
     if tools:
         payload["tools"] = tools
     else:
@@ -141,7 +147,8 @@ class Transcript:
 
 async def _run(task_prompt, model, episode_dir, home_dir, server_cwd,
                skill_text, base_url, api_key, max_turns, temperature,
-               benchmark_mode, exempt, provider_pin, chat_fn) -> dict:
+               benchmark_mode, exempt, provider_pin, chat_extra,
+               chat_fn) -> dict:
     from fastmcp import Client
     from fastmcp.client.transports import StdioTransport
 
@@ -185,7 +192,8 @@ async def _run(task_prompt, model, episode_dir, home_dir, server_cwd,
 
                 def call_model(msgs, tls):
                     return chat_completion(http, b_url, key, model, msgs,
-                                           tls, temperature, provider_pin)
+                                           tls, temperature, provider_pin,
+                                           chat_extra=chat_extra)
             else:
                 call_model = chat_fn
 
@@ -291,7 +299,8 @@ ONESHOT_SYSTEM = (
 def run_oneshot(task_prompt: str, model: str, episode_dir: str,
                 skill_text: str | None = None, base_url: str | None = None,
                 api_key: str | None = None, temperature: float = 0.0,
-                provider_pin: str | None = None, chat_fn=None) -> dict:
+                provider_pin: str | None = None,
+                chat_extra: dict | None = None, chat_fn=None) -> dict:
     """The plain-LLM baseline arm (M6): ONE chat completion, no tools —
     anchors what the env/tooling infrastructure adds over raw generation.
     Writes the same stream-json-shaped transcript; the harness grades the
@@ -318,7 +327,8 @@ def run_oneshot(task_prompt: str, model: str, episode_dir: str,
                     # of pure reasoning in the shakedown -> empty answer)
                     resp = chat_completion(http, b_url, key, model,
                                            messages, [], temperature,
-                                           provider_pin, max_tokens=32000)
+                                           provider_pin, max_tokens=32000,
+                                           chat_extra=chat_extra)
             else:
                 resp = chat_fn(messages, [])
             for k in usage:
@@ -374,7 +384,7 @@ def run_episode(task_prompt: str, model: str, episode_dir: str,
                 max_turns: int = DEFAULT_MAX_TURNS,
                 temperature: float = 0.0, benchmark_mode: bool = True,
                 exempt=(), provider_pin: str | None = None,
-                chat_fn=None) -> dict:
+                chat_extra: dict | None = None, chat_fn=None) -> dict:
     """Run one reference-loop episode; returns the episode meta dict and
     writes transcript.jsonl into episode_dir. provider_pin routes every
     request through one OpenRouter provider (no fallbacks) — the
@@ -383,4 +393,5 @@ def run_episode(task_prompt: str, model: str, episode_dir: str,
     return asyncio.run(_run(task_prompt, model, episode_dir, home_dir,
                             server_cwd, skill_text, base_url, api_key,
                             max_turns, temperature, benchmark_mode,
-                            tuple(exempt), provider_pin, chat_fn))
+                            tuple(exempt), provider_pin, chat_extra,
+                            chat_fn))
