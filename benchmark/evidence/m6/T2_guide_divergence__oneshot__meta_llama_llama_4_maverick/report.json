@@ -3,35 +3,69 @@
   "episode": {
     "model": "meta-llama/llama-4-maverick",
     "scaffold": "plain-llm-oneshot",
-    "provider_pin": "Google",
-    "providers_seen": [],
-    "returncode": 1,
-    "error": "chat completion failed after 3 tries: HTTP 404: {\"error\":{\"message\":\"No endpoints found for meta-llama/llama-4-maverick.\",\"code\":404},\"user_id\":\"user_30FVER8hBKuhcpVyzAo04yjOnzX\"}",
+    "provider_pin": "DigitalOcean",
+    "providers_seen": [
+      "DigitalOcean"
+    ],
+    "returncode": 0,
+    "error": null,
     "turns": 1,
     "hit_turn_cap": false,
     "empty_responses": 0,
     "cost_usd": null,
-    "duration_s": 0.3,
+    "duration_s": 33.1,
     "usage": {
-      "prompt_tokens": 0,
-      "completion_tokens": 0
+      "prompt_tokens": 1446,
+      "completion_tokens": 375
     },
     "mcp_calls": {},
     "skill_used": true,
-    "final_answer": ""
+    "final_answer": "```instr\nDEFINE INSTRUMENT improved_guide(w_in=0.03, w_out=0.02, m_coat=2.5, ncount=1e6, seed=12345)\nDECLARE\n  TRACE\nCOMPONENT origin = Progress_bar() AT (0,0,0) ABSOLUTE\nCOMPONENT source = Source_simple(xwidth=0.1, yheight=0.1, dist=1.5, \n                                  focus_xw=0.03, focus_yh=0.03, \n                                  E0=81.81/5.0^2, dE=81.81*(1/(5.0-0.5)^2 - 1/(5.0+0.5)^2)/2) \n  AT (0, 0, 0) ABSOLUTE\nCOMPONENT guide = Guide(w1=w_in, h1=w_in, w2=w_out, h2=w_out, l=10, m=m_coat) \n  AT (0, 0, 1.5) ABSOLUTE\nCOMPONENT divmon = Divergence_monitor(xwidth=0.02, yheight=0.02, ndiv=100, \n                                      xmin=-0.5, xmax=0.5, ymin=-0.5, ymax=0.5, \n                                      Lmin=4.5, Lmax=5.5, restore_neutron=1) \n  AT (0, 0, guide.z + 0.05) ABSOLUTE\nCOMPONENT sample_monitor = Monitor_nD(xwidth=0.02, yheight=0.02, \n                                      options=\"lambda x y\", restore_neutron=1) \n  AT (0, 0, guide.z + 0.05) ABSOLUTE\nEND\n```"
   },
   "grade": {
     "task": "T2_guide_divergence",
     "pass": false,
     "score": 0.0,
     "hard_failures": [
-      "agent left no built instrument in the episode registry"
+      "candidate failed to run (translate)"
     ],
-    "checks": []
+    "diagnostics": [
+      "WARNING: Full-path compiler \"${CONDA_PREFIX}/bin/arm64-apple-darwin20.0.0-clang\" not found!!",
+      "WARNING: Attempting replacement by \"arm64-apple-darwin20.0.0-clang\"",
+      "ERROR: Unmatched actual parameter ndiv for component divmon=Divergence_monitor() at line /Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__meta_llama_llama_4_maverick/home/instruments/improved_guide/improved_guide.instr:13.Please change its name to a valid one:",
+      "  Definition parameters: ",
+      "  Setting parameters: nh nv filename xmin xmax ymin ymax nowritefile xwidth yheight maxdiv_h maxdiv_v restore_neutron nx ny nz ",
+      "ERROR: Unmatched actual parameter Lmin for component divmon=Divergence_monitor() at line /Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__meta_llama_llama_4_maverick/home/instruments/improved_guide/improved_guide.instr:13.Please change its name to a valid one:",
+      "  Definition parameters: ",
+      "  Setting parameters: nh nv filename xmin xmax ymin ymax nowritefile xwidth yheight maxdiv_h maxdiv_v restore_neutron nx ny nz ",
+      "ERROR: Unmatched actual parameter Lmax for component divmon=Divergence_monitor() at line /Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__meta_llama_llama_4_maverick/home/instruments/improved_guide/improved_guide.instr:13.Please change its name to a valid one:",
+      "  Definition parameters: ",
+      "  Setting parameters: nh nv filename xmin xmax ymin ymax nowritefile xwidth yheight maxdiv_h maxdiv_v restore_neutron nx ny nz ",
+      "mcstas: 3 Errors encountered during parse of /Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__meta_llama_llama_4_maverick/home/instruments/improved_guide/improved_guide.instr.",
+      "      INFO: call to /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas failed with Command '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas -t -o ./improved_guide.c /Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__meta_llama_llama_4_maverick/home/instruments/improved_guide/improved_guide.instr' returned non-zero exit status 1.",
+      "ERROR: Code generation failed for instrument /Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__meta_llama_llama_4_maverick/home/instruments/improved_guide/improved_guide.instr using code generator /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas"
+    ],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__meta_llama_llama_4_maverick/home/instruments/improved_guide/improved_guide.instr",
+    "candidate_params": {
+      "w_in": "0.03",
+      "w_out": "0.02",
+      "m_coat": "2.5",
+      "ncount": "1e6",
+      "seed": "12345"
+    }
   },
   "reference_leak": {
     "leaked": false,
     "events": []
   },
-  "artifacts": null
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__meta_llama_llama_4_maverick/artifacts/improved_guide.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__oneshot__meta_llama_llama_4_maverick/artifacts/params.json",
+    "diagram": null,
+    "trace": null,
+    "errors": [
+      "diagram: McStasScript reader failed (known limitation)",
+      "trace: mcdisplay-webgl failed"
+    ]
+  }
 }

@@ -1,0 +1,18 @@
+DEFINE INSTRUMENT improved_guide(w_in=0.03, w_out=0.02, m_coat=2.5, ncount=1e6, seed=12345)
+DECLARE
+  TRACE
+COMPONENT origin = Progress_bar() AT (0,0,0) ABSOLUTE
+COMPONENT source = Source_simple(xwidth=0.1, yheight=0.1, dist=1.5, 
+                                  focus_xw=0.03, focus_yh=0.03, 
+                                  E0=81.81/5.0^2, dE=81.81*(1/(5.0-0.5)^2 - 1/(5.0+0.5)^2)/2) 
+  AT (0, 0, 0) ABSOLUTE
+COMPONENT guide = Guide(w1=w_in, h1=w_in, w2=w_out, h2=w_out, l=10, m=m_coat) 
+  AT (0, 0, 1.5) ABSOLUTE
+COMPONENT divmon = Divergence_monitor(xwidth=0.02, yheight=0.02, ndiv=100, 
+                                      xmin=-0.5, xmax=0.5, ymin=-0.5, ymax=0.5, 
+                                      Lmin=4.5, Lmax=5.5, restore_neutron=1) 
+  AT (0, 0, guide.z + 0.05) ABSOLUTE
+COMPONENT sample_monitor = Monitor_nD(xwidth=0.02, yheight=0.02, 
+                                      options="lambda x y", restore_neutron=1) 
+  AT (0, 0, guide.z + 0.05) ABSOLUTE
+END

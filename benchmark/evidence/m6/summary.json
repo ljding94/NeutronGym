@@ -1406,6 +1406,57 @@
   ]
  },
  {
+  "model": "meta_llama_llama_4_maverick",
+  "arm": "oneshot",
+  "n_valid": 5,
+  "pass": 0,
+  "mean_score": 0.0,
+  "infra_excluded": 0,
+  "leaks": 0,
+  "tasks": [
+   {
+    "task": "T1_ESS_IN5_reprate",
+    "pass": false,
+    "score": 0.0,
+    "level": "L1",
+    "infra": false,
+    "leaked": false
+   },
+   {
+    "task": "T1_HZB_FLEX",
+    "pass": false,
+    "score": 0.0,
+    "level": "L1",
+    "infra": false,
+    "leaked": false
+   },
+   {
+    "task": "T1_HZB_NEAT",
+    "pass": false,
+    "score": 0.0,
+    "level": "L1",
+    "infra": false,
+    "leaked": false
+   },
+   {
+    "task": "T1_ILL_D2B",
+    "pass": false,
+    "score": 0.0,
+    "level": "L1",
+    "infra": false,
+    "leaked": false
+   },
+   {
+    "task": "T1_ILL_H10_IN8",
+    "pass": false,
+    "score": 0.0,
+    "level": "L1",
+    "infra": false,
+    "leaked": false
+   }
+  ]
+ },
+ {
   "model": "openai_gpt_5_2_pro",
   "arm": "main",
   "n_valid": 1,

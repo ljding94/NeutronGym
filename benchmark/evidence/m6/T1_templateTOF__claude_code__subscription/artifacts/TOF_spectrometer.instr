@@ -1,0 +1,226 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: TOF_spectrometer
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 15:23:18 on September 10, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* E0: [unit] meV] Incident neutron energy
+* dE: [unit] meV] Incident energy spread; the source is given dE/2 as half width
+* dt: [unit] s] Time spread of the pulse at the sample
+* coh: [unit] Sample coherent S(q,w) file
+* inc: [unit] Sample incoherent S(q,w) file
+* thickness: [unit] m] Sample wall thickness (hollow when non-zero)
+* yheight: [unit] m] Sample height (0 selects spherical geometry)
+* radius: [unit] m] Sample outer radius
+* container: [unit] Container material
+* container_thickness: [unit] m] Container wall thickness
+* environment: [unit] Sample environment material
+* environment_radius: [unit] m] Sample environment outer radius
+* environment_thickness: [unit] m] Sample environment wall thickness (0 = no environment)
+* dt0: [unit] s] Time spread applied at the sample; overwritten with dt at startup
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT TOF_spectrometer (
+E0 = 4.94, // meV] Incident neutron energy
+dE = 0.24, // meV] Incident energy spread; the source is given dE/2 as half width
+dt = 6.4e-06, // s] Time spread of the pulse at the sample
+string coh = "Rb_liq_coh.sqw", // Sample coherent S(q,w) file
+string inc = "Rb_liq_inc.sqw", // Sample incoherent S(q,w) file
+thickness = 0.0001, // m] Sample wall thickness (hollow when non-zero)
+yheight = 0.0168, // m] Sample height (0 selects spherical geometry)
+radius = 0.005, // m] Sample outer radius
+string container = "Nb.laz", // Container material
+container_thickness = 5e-05, // m] Container wall thickness
+string environment = "Al.laz", // Sample environment material
+environment_radius = 0.025, // m] Sample environment outer radius
+environment_thickness = 0.002, // m] Sample environment wall thickness (0 = no environment)
+dt0 = 0.0 // s] Time spread applied at the sample; overwritten with dt at startup
+)
+
+DECLARE 
+%{
+double vi;
+int flag_single;
+int flag_multi;
+int flag_env;
+int flag_container;
+int started;
+double _dt0 = 0;
+#pragma acc declare create(_dt0)
+char op[256];
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated TOF_spectrometer
+%}
+
+TRACE 
+COMPONENT a1 = Progress_bar(
+ percent = 5)
+AT (0.0, 0.0, 0.0) ABSOLUTE
+ROTATED (0.0, 0.0, 0.0) ABSOLUTE
+EXTEND %{
+flag_single=flag_multi=flag_env=flag_container=0;
+if (!started) {
+  /* Startup block: the specification's INITIALIZE section.  This build path
+     offers no INITIALIZE hook, so it runs once, on the first neutron, from
+     the first component of the beamline -- ahead of every other component in
+     the ray path, so _dt0 is set before Sample_in reads it. */
+  double ki, t0, lambda;
+  started=1;
+  vi=SE2V*sqrt(E0);
+  ki=V2K*vi;
+  t0=1.25/vi;
+  lambda=2*PI/ki;
+  sprintf(op,   "energy limits=[%g %g] bins=50, theta limits=[5 175] bins=150, banana, parallel", 0.5*E0, 2*E0);
+  printf("templateTOF: lambda=%g [Angs], k=%g [Angs-1], v=%g [m/s], E=%g [meV]. Time=[%g %g %g]\n",
+    lambda,ki,vi, E0, t0*.75, t0, t0*1.5);
+  printf("templateTOF: sample is %s, with %s%s geometry.\n",
+    coh, thickness ? "hollow " : "", yheight ? "cylindrical" : "spherical");
+  if (yheight && container_thickness)
+    printf("templateTOF: container is %s (outer cylinder)\n", container);
+  if (environment_thickness > 0)
+    printf("templateTOF: external environment is %s\n", environment);
+  /* The monitors receive this option string as a literal, because a component
+     string parameter cannot reference a DECLARE buffer on this build path.
+     Print it so the run log shows the two agree. */
+  printf("templateTOF: monitor options = \"%s\"\n", op);
+  dt0=dt;
+  if (environment_thickness > 0 && radius > environment_radius-environment_thickness)
+    exit(printf("templateTOF: sample radius %g is larger than sample environment %g\n",
+      radius, environment_radius-environment_thickness));
+  if (container_thickness > 0 && environment_thickness > 0 && yheight > 0
+      && radius+container_thickness+0.0001 > environment_radius-environment_thickness)
+    exit(printf("templateTOF: sample container radius %g is larger than sample environment %g\n",
+      radius+container_thickness+0.0001, environment_radius-environment_thickness));
+  _dt0=dt0;
+}
+%}
+
+COMPONENT csource = Source_gen(
+ radius = 0.02, dist = 2.88,
+ focus_xw = 2*radius, focus_yh = yheight + (!yheight)*2*radius,
+ E0 = E0, dE = dE/2,
+ I1 = 1, T1 = 300)
+AT (0.0, 0.0, 0.0) RELATIVE a1
+
+COMPONENT SampleIn = Arm()
+AT (0.0, 0.0, 2.88) RELATIVE a1
+
+COMPONENT Environment_in = Isotropic_Sqw(
+ Sqw_coh = environment, radius = environment_radius,
+ thickness = environment_thickness, yheight = 0.1,
+ verbose = 0, concentric = 1)
+WHEN (environment_thickness > 0)
+AT (0.0, 0.0, 0.0) RELATIVE SampleIn
+EXTEND %{
+if (SCATTERED) flag_env=1;
+%}
+
+COMPONENT Container_in = Isotropic_Sqw(
+ Sqw_coh = container, radius = radius+0.0001+container_thickness,
+ thickness = container_thickness, yheight = yheight,
+ verbose = 0, concentric = 1)
+WHEN (yheight && container_thickness > 0)
+AT (0.0, 0.0, 0.0) RELATIVE SampleIn
+EXTEND %{
+if (SCATTERED) flag_container=1;
+%}
+
+COMPONENT Sample_in = Isotropic_Sqw(
+ Sqw_coh = coh, Sqw_inc = inc,
+ radius = radius, thickness = thickness,
+ yheight = yheight, p_interact = 0.9)
+AT (0.0, 0.0, 0.0) RELATIVE SampleIn
+EXTEND %{
+if      (SCATTERED == 1) flag_single=(type == 'c' ? 1 : 2);
+else if (SCATTERED >  1) flag_multi =(type == 'c' ? 1 : 2);
+else                     flag_multi =flag_single=0;
+t = randtriangle()*2*_dt0;
+%}
+
+COMPONENT Container_out = Isotropic_Sqw(
+ Sqw_coh = container, radius = radius+0.0001+container_thickness,
+ thickness = container_thickness, yheight = yheight,
+ verbose = 0, concentric = 1)
+WHEN (yheight && container_thickness)
+AT (0.0, 0.0, 0.0) RELATIVE SampleIn
+EXTEND %{
+if (SCATTERED) flag_container=1;
+%}
+
+COMPONENT Environment_out = Isotropic_Sqw(
+ Sqw_coh = environment, radius = environment_radius,
+ thickness = environment_thickness, yheight = 0.1,
+ verbose = 0, concentric = 1)
+WHEN (environment_thickness > 0)
+AT (0.0, 0.0, 0.0) RELATIVE SampleIn
+EXTEND %{
+if (SCATTERED) flag_env=1;
+%}
+
+COMPONENT SampleOut = Arm()
+AT (0.0, 0.0, 0.0) RELATIVE SampleIn
+
+COMPONENT M_total = Monitor_nD(
+ xwidth = 2.5, yheight = 0.4,
+ options = "energy limits=[2.47 9.88] bins=50, theta limits=[5 175] bins=150, banana, parallel")
+AT (0.0, 0.0, 0.0) RELATIVE SampleOut
+
+COMPONENT M_single_coh = Monitor_nD(
+ xwidth = 2.5, yheight = 0.4,
+ options = "energy limits=[2.47 9.88] bins=50, theta limits=[5 175] bins=150, banana, parallel")
+WHEN (flag_single == 1)
+AT (0.0, 0.0, 0.0) RELATIVE SampleOut
+
+COMPONENT M_single_inc = Monitor_nD(
+ xwidth = 2.5, yheight = 0.4,
+ options = "energy limits=[2.47 9.88] bins=50, theta limits=[5 175] bins=150, banana, parallel")
+WHEN (flag_single == 2)
+AT (0.0, 0.0, 0.0) RELATIVE SampleOut
+
+COMPONENT M_multi = Monitor_nD(
+ xwidth = 2.5, yheight = 0.4,
+ options = "energy limits=[2.47 9.88] bins=50, theta limits=[5 175] bins=150, banana, parallel")
+WHEN (flag_multi)
+AT (0.0, 0.0, 0.0) RELATIVE SampleOut
+
+COMPONENT M_env_container = Monitor_nD(
+ xwidth = 2.5, yheight = 0.4,
+ options = "energy limits=[2.47 9.88] bins=50, theta limits=[5 175] bins=150, banana, parallel")
+WHEN (flag_env || flag_container)
+AT (0.0, 0.0, 0.0) RELATIVE SampleOut
+
+FINALLY 
+%{
+// Start of finally for generated TOF_spectrometer
+%}
+
+END

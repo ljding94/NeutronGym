@@ -1,0 +1,81 @@
+DEFINE INSTRUMENT improved_sans_collimation(lambda0=6, dlambda=0.05)
+TRACE
+
+COMPONENT source = Source_simple(
+  radius = 0.03,
+  dist = 3,
+  focus_xw = 0.01,
+  focus_yh = 0.01,
+  lambda0 = lambda0,
+  dlambda = dlambda,
+  flux = 1e13
+) AT (0, 0, 0) ABSOLUTE
+
+COMPONENT pin1 = Slit(
+  radius = r_pin1,
+  xwidth = 2*r_pin1,
+  yheight = 2*r_pin1
+) AT (0, 0, 3) RELATIVE source
+
+COMPONENT monitor1 = PSD_monitor(
+  xwidth = 0.02,
+  yheight = 0.02,
+  nx = 100,
+  ny = 100,
+  restore_neutron = 1
+) AT (0, 0, 3.01) RELATIVE source
+
+COMPONENT pin2 = Slit(
+  radius = r_pin2,
+  xwidth = 2*r_pin2,
+  yheight = 2*r_pin2
+) AT (0, 0, 6) RELATIVE source
+
+COMPONENT monitor2 = PSD_monitor(
+  xwidth = 0.02,
+  yheight = 0.02,
+  nx = 100,
+  ny = 100,
+  restore_neutron = 1
+) AT (0, 0, 6.01) RELATIVE source
+
+COMPONENT sample = Isotropic_Scatterer_sphere(
+  radius = 0.005,
+  xwidth = 0.01,
+  yheight = 0.01,
+  focus_xw = 0.06,
+  focus_yh = 0.06,
+  target_index = 1,
+  target_x = 0,
+  target_y = 0,
+  target_z = 3,
+  Sample_D = 1.0
+) AT (0, 0, 6) RELATIVE source
+
+COMPONENT beamstop = Beamstop(
+  xwidth = 0.06,
+  yheight = 0.06,
+  radius = 0.03
+) AT (0, 0, 0.01) RELATIVE sample
+
+COMPONENT detector = PSD_monitor(
+  xwidth = 0.6,
+  yheight = 0.6,
+  nx = 300,
+  ny = 300
+) AT (0, 0, 3) RELATIVE sample
+
+COMPONENT monitor_scattered = Monitor(
+  xwidth = 0.6,
+  yheight = 0.6,
+  nx = 1,
+  ny = 1
+) AT (0, 0, 3) RELATIVE sample
+
+PARAMETER r_pin1 = 0.01
+PARAMETER r_pin2 = 0.01
+
+SET ncount = 1e6
+SET seed = 12345
+
+END

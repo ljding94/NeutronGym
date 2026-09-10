@@ -1,0 +1,95 @@
+DEFINE INSTRUMENT RTP_DIF(lambda=2.36, DM=3.355, Mono_tilt=0, powder="Na2Ca3Al2F14.laz", det_rotation=45)
+
+DECLARE
+%{
+  double mono_takeoff_angle;
+%}
+
+INITIALIZE
+%{
+  mono_takeoff_angle = 2*asin(lambda/2/DM)*180/M_PI;
+  printf("RTP_DIF: Monochromator take-off angle=%g [deg]\n", mono_takeoff_angle);
+%}
+
+COMPONENT Origin = Progress_bar() AT (0, 0, 0) ABSOLUTE
+
+COMPONENT source = Source_gen(radius=.154/2, dist=1.16+1.50, focus_xw=.11, focus_yh=.03, 
+                              lambda0=lambda, dlambda=.2, I1=2.79e12/4/M_PI, T1=300) 
+                   AT (0, 0, 0) RELATIVE Origin ROTATED (0, 0, 0) ABSOLUTE
+
+COMPONENT CoarseCollimator1 = Guide(w1=.154, h1=.154, l=1.16125, m=0) 
+                              AT (0, 0, .01) RELATIVE source
+
+COMPONENT CoarseCollimator2 = Guide(w1=.11, h1=.11, l=1.5, m=0) 
+                              AT (0, 0, 1.16125+0.003) RELATIVE CoarseCollimator1
+
+COMPONENT lmon = Monitor_nD(xwidth=.11, yheight=.11, bins=50, options="slit disk, auto wavelength", restore_neutron=1) 
+                 AT (0, 0, 1.5+0.01) RELATIVE CoarseCollimator2
+
+COMPONENT Be_Position = Arm() AT (0, 0, .147+.15/2) RELATIVE lmon
+
+COMPONENT mono_cradle = Arm() AT (0, 0, .145+.15/2+.176) RELATIVE Be_Position  SPLIT 10
+
+COMPONENT mono_rotation = Arm() AT (0, 0, 0) RELATIVE mono_cradle ROTATED (0, -mono_takeoff_angle/2, 0) RELATIVE mono_cradle
+EXTEND %{
+  double mono_index=0;
+%}
+
+COMPONENT mono1 = Monochromator_curved(reflect="HOPG.rfl", transmit="HOPG.trm", NH=1, NV=1, mosaich=48, mosaicv=48, 
+                                       RV=0, RH=0, DM=DM, width=.11, height=.03) 
+                  AT (-.01, 0, 0) RELATIVE mono_rotation ROTATED (0, Mono_tilt, 0) RELATIVE mono_rotation
+EXTEND %{
+  if (SCATTERED) mono_index=1;
+%}
+
+COMPONENT mono2 = Monochromator_curved(reflect="HOPG.rfl", transmit="HOPG.trm", NH=1, NV=1, mosaich=48, mosaicv=48, 
+                                       RV=0, RH=0, DM=DM, width=.11, height=.03) 
+                  AT (0, 0, 0) RELATIVE mono_rotation
+EXTEND %{
+  if (SCATTERED) mono_index=2;
+%}
+
+COMPONENT mono3 = Monochromator_curved(reflect="HOPG.rfl", transmit="HOPG.trm", NH=1, NV=1, mosaich=48, mosaicv=48, 
+                                       RV=0, RH=0, DM=DM, width=.11, height=.03) 
+                  AT (0.01, 0, 0) RELATIVE mono_rotation ROTATED (0, -Mono_tilt, 0) RELATIVE mono_rotation
+EXTEND %{
+  if (SCATTERED) mono_index=3;
+%}
+
+COMPONENT mono_takeoff = Arm() AT (0, 0, 0) RELATIVE mono_cradle ROTATED (0, -mono_takeoff_angle, 0) RELATIVE mono_cradle
+
+COMPONENT psd_transmit = Monitor_nD(xwidth=.12, yheight=.12, bins=50, options="x y", restore_neutron=1) 
+                         AT (0, 0, 0.25) RELATIVE mono_cradle
+
+COMPONENT psd_reflect = Monitor_nD(xwidth=.12, yheight=.12, bins=50, options="x y", restore_neutron=1) 
+                        AT (0, 0, 0.574) RELATIVE mono_takeoff
+
+COMPONENT sample_psd = Monitor_nD(xwidth=.02, yheight=.02, bins=50, options="disk slit, x y", restore_neutron=1) 
+                       AT (0, 0, 0.575+.50) RELATIVE mono_takeoff
+
+COMPONENT sample_position = Arm() AT (0, 0, .575+.5+.01) RELATIVE mono_takeoff  SPLIT 100
+
+COMPONENT container_in = PowderN(reflections="V.lau", radius=0.01/2, yheight=0.04, thickness=-50e-6, p_transmit=.95, d_phi=50, concentric=1) 
+                          AT (0, 0, 0) RELATIVE sample_position
+
+COMPONENT sample = PowderN(reflections=powder, radius=0.01/2, yheight=0.04, d_phi=atan2(0.5,1)*180/M_PI) 
+                   AT (0, 0, 0) RELATIVE sample_position
+EXTEND %{
+  if (!SCATTERED) ABSORB;
+%}
+
+COMPONENT container_out = PowderN(reflections="V.lau", radius=0.01/2, yheight=0.04, thickness=-50e-6, p_transmit=.95, d_phi=50, concentric=1) 
+                           AT (0, 0, 0) RELATIVE sample_position
+
+COMPONENT sample_out = Arm() AT (0, 0, 0) RELATIVE sample_position ROTATED (0, det_rotation, 0) RELATIVE sample_position
+
+COMPONENT det_big = Monitor_nD(yheight=.5, radius=1, options="banana theta limits=[-150 150] bins=300, y bins=64") 
+                    AT (0, 0, 0) RELATIVE sample_position
+
+COMPONENT det = Monitor_nD(xwidth=.5, yheight=.0254, bins=25, options="x") 
+                AT (0, 0, 1) RELATIVE sample_out
+
+COMPONENT reactor = Shape(radius=.7/2, yheight=.4) 
+                    AT (0, 0, -.35) RELATIVE Origin
+
+END

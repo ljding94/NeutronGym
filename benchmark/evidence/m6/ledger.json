@@ -2293,366 +2293,278 @@
    "ok": true
   },
   {
-   "task": "T1_ILL_IN6",
-   "arm": "oneshot",
-   "model": "qwen3-8b",
-   "usd": 0.0,
-   "wall_s": 69.1,
-   "ok": true
-  },
-  {
-   "task": "T1_ISIS_SANS2d",
-   "arm": "oneshot",
-   "model": "qwen3-8b",
-   "usd": 0.0,
-   "wall_s": 50.7,
-   "ok": true
-  },
-  {
-   "task": "T1_PSI_DMC",
-   "arm": "oneshot",
-   "model": "qwen3-8b",
-   "usd": 0.0,
-   "wall_s": 907.7,
-   "ok": true
-  },
-  {
-   "task": "T1_RTP_DIF",
-   "arm": "oneshot",
-   "model": "qwen3-8b",
-   "usd": 0.0,
-   "wall_s": 30.0,
-   "ok": true
-  },
-  {
-   "task": "T1_SESANS_Delft",
-   "arm": "oneshot",
-   "model": "qwen3-8b",
-   "usd": 0.0,
-   "wall_s": 35.2,
-   "ok": true
-  },
-  {
-   "task": "T2_guide_divergence",
-   "arm": "oneshot",
-   "model": "qwen3-8b",
-   "usd": 0.0,
-   "wall_s": 8.8,
-   "ok": true
-  },
-  {
-   "task": "T2_sans_collimation",
-   "arm": "oneshot",
-   "model": "qwen3-8b",
-   "usd": 0.0,
-   "wall_s": 11.5,
-   "ok": true
-  },
-  {
-   "task": "T1_PSI_DMC_pert",
-   "arm": "oneshot",
-   "model": "qwen3-8b",
-   "usd": 0.0,
-   "wall_s": 56.2,
-   "ok": true
-  },
-  {
-   "task": "T1_ISIS_SANS2d_pert",
-   "arm": "oneshot",
-   "model": "qwen3-8b",
-   "usd": 0.0,
-   "wall_s": 53.0,
-   "ok": true
-  },
-  {
-   "task": "T1_HZB_FLEX_pert",
-   "arm": "oneshot",
-   "model": "qwen3-8b",
-   "usd": 0.0,
-   "wall_s": 46.8,
-   "ok": true
-  },
-  {
    "task": "T1_ESS_IN5_reprate",
    "arm": "main",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 67.9,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0046,
+   "wall_s": 196.3,
    "ok": true
   },
   {
    "task": "T1_HZB_FLEX",
    "arm": "main",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 65.4,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0059,
+   "wall_s": 330.0,
    "ok": true
   },
   {
    "task": "T1_HZB_NEAT",
    "arm": "main",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 105.9,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0058,
+   "wall_s": 365.1,
    "ok": true
   },
   {
    "task": "T1_ILL_D2B",
    "arm": "main",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 103.0,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0044,
+   "wall_s": 247.9,
    "ok": true
   },
   {
    "task": "T1_ILL_H10_IN8",
    "arm": "main",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 43.9,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0043,
+   "wall_s": 204.9,
    "ok": true
   },
   {
    "task": "T1_ILL_H15_D11",
    "arm": "main",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 76.8,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0057,
+   "wall_s": 162.0,
    "ok": true
   },
   {
    "task": "T1_ILL_H512_D22",
    "arm": "main",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 72.6,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0037,
+   "wall_s": 78.0,
    "ok": true
   },
   {
    "task": "T1_ILL_IN6",
    "arm": "main",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 78.8,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0075,
+   "wall_s": 365.0,
    "ok": true
   },
   {
    "task": "T1_ISIS_SANS2d",
    "arm": "main",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 151.0,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0051,
+   "wall_s": 241.5,
    "ok": true
   },
   {
    "task": "T1_PSI_DMC",
    "arm": "main",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 81.3,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0033,
+   "wall_s": 119.8,
    "ok": true
   },
   {
    "task": "T1_RTP_DIF",
    "arm": "main",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 16.6,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0039,
+   "wall_s": 170.3,
    "ok": true
   },
   {
    "task": "T1_SESANS_Delft",
    "arm": "main",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 90.0,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0034,
+   "wall_s": 187.4,
    "ok": true
   },
   {
    "task": "T2_guide_divergence",
    "arm": "main",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 287.1,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0022,
+   "wall_s": 95.5,
    "ok": true
   },
   {
    "task": "T2_sans_collimation",
    "arm": "main",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 154.7,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.002,
+   "wall_s": 68.7,
    "ok": true
   },
   {
    "task": "T1_PSI_DMC_pert",
    "arm": "main",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 86.4,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0056,
+   "wall_s": 387.3,
    "ok": true
   },
   {
    "task": "T1_ISIS_SANS2d_pert",
    "arm": "main",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 147.7,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0051,
+   "wall_s": 357.9,
    "ok": true
   },
   {
    "task": "T1_HZB_FLEX_pert",
    "arm": "main",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 78.7,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.006,
+   "wall_s": 498.4,
    "ok": true
   },
   {
    "task": "T1_ESS_IN5_reprate",
    "arm": "oneshot",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 106.5,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0058,
+   "wall_s": 541.0,
    "ok": true
   },
   {
    "task": "T1_HZB_FLEX",
    "arm": "oneshot",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 122.7,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0044,
+   "wall_s": 325.2,
    "ok": true
   },
   {
    "task": "T1_HZB_NEAT",
    "arm": "oneshot",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 74.5,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0037,
+   "wall_s": 294.1,
    "ok": true
   },
   {
    "task": "T1_ILL_D2B",
    "arm": "oneshot",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 71.7,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0034,
+   "wall_s": 289.8,
    "ok": true
   },
   {
    "task": "T1_ILL_H10_IN8",
    "arm": "oneshot",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 19.4,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0011,
+   "wall_s": 86.0,
    "ok": true
   },
   {
    "task": "T1_ILL_H15_D11",
    "arm": "oneshot",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 270.2,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0063,
+   "wall_s": 425.7,
    "ok": true
   },
   {
    "task": "T1_ILL_H512_D22",
    "arm": "oneshot",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 120.3,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0073,
+   "wall_s": 592.5,
    "ok": true
   },
   {
    "task": "T1_ILL_IN6",
    "arm": "oneshot",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 104.6,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0047,
+   "wall_s": 494.7,
    "ok": true
   },
   {
    "task": "T1_ISIS_SANS2d",
    "arm": "oneshot",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 70.6,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0028,
+   "wall_s": 300.7,
    "ok": true
   },
   {
    "task": "T1_PSI_DMC",
    "arm": "oneshot",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 69.4,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0028,
+   "wall_s": 293.0,
    "ok": true
   },
   {
    "task": "T1_RTP_DIF",
    "arm": "oneshot",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 45.1,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0018,
+   "wall_s": 154.6,
    "ok": true
   },
   {
    "task": "T1_SESANS_Delft",
    "arm": "oneshot",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 53.8,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0016,
+   "wall_s": 126.3,
    "ok": true
   },
   {
    "task": "T2_guide_divergence",
    "arm": "oneshot",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 7.4,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0006,
+   "wall_s": 37.2,
    "ok": true
   },
   {
    "task": "T2_sans_collimation",
    "arm": "oneshot",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 12.6,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0008,
+   "wall_s": 53.5,
    "ok": true
   },
   {
    "task": "T1_PSI_DMC_pert",
    "arm": "oneshot",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 71.2,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.003,
+   "wall_s": 225.4,
    "ok": true
   },
   {
    "task": "T1_ISIS_SANS2d_pert",
    "arm": "oneshot",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 64.8,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0028,
+   "wall_s": 200.7,
    "ok": true
   },
   {
    "task": "T1_HZB_FLEX_pert",
    "arm": "oneshot",
-   "model": "qwen3-32b",
-   "usd": 0.0,
-   "wall_s": 107.8,
-   "ok": true
-  },
-  {
-   "task": "T1_PSI_DMC",
-   "arm": "oneshot",
-   "model": "qwen3-8b",
-   "usd": 0.0,
-   "wall_s": 908.1,
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0041,
+   "wall_s": 417.1,
    "ok": true
   }
  ],
- "total_usd": 121.1676,
+ "total_usd": 121.3031,
  "_note": "187 entries = 185 final episodes on disk + 2 failed attempts (maverick T1_RTP_DIF and T2_sans_collimation, harness bugs fixed in 15cafb9, both re-run to completion). Failed attempts keep their cost \u2014 honest accounting. Explanation recorded 2026-09-02 after external review."
 }

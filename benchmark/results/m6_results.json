@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-10 14:51",
+ "generated": "2026-09-10 15:40",
  "provenance": {
   "config": "benchmark/m6_config.json (pinned: models, provider pins, protocol, arms, budget)",
   "evidence": "benchmark/evidence/{m6,m6_final,pilot}/ (committed per-episode reports, transcripts, artifacts)",
@@ -180,18 +180,18 @@
   {
    "model": "meta_llama_llama_4_maverick",
    "arm": "oneshot",
-   "valid_episodes": 3,
-   "passes": 0,
-   "pass_rate": 0.0,
+   "valid_episodes": 17,
+   "passes": 2,
+   "pass_rate": 0.1176,
    "levels": {
-    "PASS": 0,
+    "PASS": 2,
     "L4": 0,
     "L3": 0,
     "L2": 0,
-    "L1": 3,
+    "L1": 15,
     "L0": 0
    },
-   "infra_excluded": 14,
+   "infra_excluded": 0,
    "leak_invalid": 0
   },
   {
@@ -265,7 +265,7 @@
   {
    "model": "qwen3_8b",
    "arm": "oneshot",
-   "valid_episodes": 16,
+   "valid_episodes": 17,
    "passes": 0,
    "pass_rate": 0.0,
    "levels": {
@@ -274,26 +274,26 @@
     "L3": 0,
     "L2": 0,
     "L1": 0,
-    "L0": 16
+    "L0": 17
    },
-   "infra_excluded": 1,
+   "infra_excluded": 0,
    "leak_invalid": 0
   },
   {
    "model": "subscription",
    "arm": "claude_code",
-   "valid_episodes": 4,
+   "valid_episodes": 5,
    "passes": 2,
-   "pass_rate": 0.5,
+   "pass_rate": 0.4,
    "levels": {
     "PASS": 2,
     "L4": 1,
     "L3": 1,
     "L2": 0,
-    "L1": 0,
+    "L1": 1,
     "L0": 0
    },
-   "infra_excluded": 1,
+   "infra_excluded": 0,
    "leak_invalid": 0
   }
  ],
@@ -539,8 +539,8 @@
  ],
  "failure_kinds": {
   "matrix": {
-   "physics": 96,
-   "format": 96
+   "physics": 109,
+   "format": 97
   },
   "held_out": {
    "format": 3,
@@ -548,8 +548,8 @@
   }
  },
  "spend": {
-  "total_usd": 121.2708,
-  "ledger_entries": 306
+  "total_usd": 121.3031,
+  "ledger_entries": 317
  },
  "contamination_probes": {
   "anthropic/claude-haiku-4.5": {

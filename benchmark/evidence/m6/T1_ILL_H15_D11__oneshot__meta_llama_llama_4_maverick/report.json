@@ -3,35 +3,63 @@
   "episode": {
     "model": "meta-llama/llama-4-maverick",
     "scaffold": "plain-llm-oneshot",
-    "provider_pin": "Google",
-    "providers_seen": [],
-    "returncode": 1,
-    "error": "chat completion failed after 3 tries: HTTP 404: {\"error\":{\"message\":\"No endpoints found for meta-llama/llama-4-maverick.\",\"code\":404},\"user_id\":\"user_30FVER8hBKuhcpVyzAo04yjOnzX\"}",
+    "provider_pin": "DigitalOcean",
+    "providers_seen": [
+      "DigitalOcean"
+    ],
+    "returncode": 0,
+    "error": null,
     "turns": 1,
     "hit_turn_cap": false,
     "empty_responses": 0,
     "cost_usd": null,
-    "duration_s": 0.2,
+    "duration_s": 421.2,
     "usage": {
-      "prompt_tokens": 0,
-      "completion_tokens": 0
+      "prompt_tokens": 13591,
+      "completion_tokens": 4524
     },
     "mcp_calls": {},
     "skill_used": true,
-    "final_answer": ""
+    "final_answer": "```c\nDEFINE INSTRUMENT D11_SANS(Lambda = 4.51, Config = \"Borkron_1972\", Lc = 0, iLc = 5, Chamfers = 0.0002, Waviness = 2.5e-5)\nDECLARE %{\n  double sLambda, sDeltaLambda, sDeltaLambdaPercent, sT1, sI1, sT2, sI2, sT3, sI3;\n  double sH, sW, gInputWidth, gObtWidth, gGuideHeight1, gGuideHeight2, gSourceInput;\n  double gGuideWidth, gLength1, gCurvatureRadius, gLength2, gLength3, gToSampleLength;\n  double gElementGap, mInPile, mGuide1, mGuide2, mAlpha, mQc, mR0, mW;\n  double gElmtLength1, gElmtLength2, gElmtLength3, gElmtRot1;\n  double Borkron_1972_l[17], Borkron_2003_l[17], Borofloat_2001_l[17];\n  double Borkron_1972_n[17], Borkron_2003_n[17], Borofloat_2001_n[17];\n  double Borkron_1972_g[2], Borkron_2003_g[2], Borofloat_2001_g[2];\n  double Config_l[17], Config_n[17], Config_g[2];\n  double Length_Lc[12], microGap;\n  char xlmonopts[200];\n%}\n\nINITIALIZE %{\n  sLambda = 4;\n  sDeltaLambdaPercent = 0.08;\n  sT1 = 216.8;\n  sI1 = 1.24e+13;\n  sT2 = 33.9;\n  sI2 = 1.02e+13;\n  sT3 = 16.7;\n  sI3 = 3.0423e+12;\n  sH = 0.22;\n  sW = 0.1;\n  gInputWidth = 0.038;\n  gObtWidth = 0.032;\n  gGuideHeight1 = 0.2;\n  gGuideHeight2 = 0.05;\n  gSourceInput = 2.33;\n  gGuideWidth = 0.03;\n  gLength1 = 25.5;\n  gCurvatureRadius = 2700;\n  gLength2 = 22.284;\n  gLength3 = 5.4;\n  gToSampleLength = 1.5;\n  gElementGap = 0.004;\n  mInPile = 1;\n  mGuide1 = 1;\n  mGuide2 = 0.65;\n  mAlpha = 4.07;\n  mQc = 0.0218;\n  mR0 = 0.995;\n  mW = 1.0/300.0;\n\n  for (int i = 0; i < 17; i++) {\n    Borkron_1972_l[i] = (i==0)?20.0:((i<5)?0.0:(i<9)?4.0:(i<11)?3.0:(i<13)?2.5:(i<15)?1.5:0.0);\n    Borkron_2003_l[i] = (i==0)?6.5:((i==2)?6.0:(i==3)?7.5:(i<6)?0.0:(i<9)?4.0:(i<11)?3.0:(i<13)?2.5:(i<15)?1.5:1.0);\n    Borofloat_2001_l[i] = (i==0)?0.5:((i==1||i==2)?6.0:(i==3)?0.5:(i==4)?7.0:(i<9)?3.0:(i<11)?2.0:(i<13||i==15)?0.5:1.0);\n    Borkron_1972_n[i] = (i==0)?40.0:((i<5)?0.0:(i<9)?8.0:(i<11)?6.0:(i<13)?5.0:(i<15)?3.0:0.0);\n    Borkron_2003_n[i] = (i==0)?13.0:((i==2)?12.0:(i==3)?15.0:(i<6)?0.0:(i<9)?8.0:(i<11)?6.0:(i<13)?5.0:(i<15)?3.0:2.0);\n    Borofloat_2001_n[i] = (i==0||i==3||i==9||i==11)?1.0:((i==1||i==2||i==4)?6.0:(i<9)?3.0:(i<13)?2.0:1.0);\n    if (i < 2) {\n      Borkron_1972_g[i] = 0.0;\n      Borkron_2003_g[i] = 0.002;\n      Borofloat_2001_g[i] = 0.002;\n    }\n  }\n\n  Length_Lc[0] = 1.5; Length_Lc[1] = 2.5; Length_Lc[2] = 4.0; Length_Lc[3] = 5.5;\n  Length_Lc[4] = 8.0; Length_Lc[5] = 10.5; Length_Lc[6] = 13.5; Length_Lc[7] = 16.5;\n  Length_Lc[8] = 20.5; Length_Lc[9] = 28.0; Length_Lc[10] = 34.0; Length_Lc[11] = 40.5;\n  microGap = 0.0001;\n\n  sDeltaLambda = sDeltaLambdaPercent * sLambda / 2;\n  gElmtLength1 = fabs(gLength1)/25;\n  gElmtRot1    = gElmtLength1/gCurvatureRadius*180/PI;\n  gElmtLength2 = fabs(gLength2)/22;\n  gElmtLength3 = fabs(gLength3)/5;\n\n  if (!strstr(Config, \"Borkron_1972\") && !strstr(Config, \"Borkron_2003\") && !strstr(Config, \"Borofloat_2001\")) {\n    printf(\"** D11 Error: No movable guide configuration selected for D11\\n\");\n    exit(1);\n  }\n\n  if (strstr(Config, \"Borkron_1972\")) {\n    for (int i=0; i<17; i++) {\n      Config_l[i] = Borkron_1972_l[i];\n      Config_n[i] = Borkron_1972_n[i];\n      if (i<2) Config_g[i] = Borkron_1972_g[i];\n    }\n  } else if (strstr(Config, \"Borkron_2003\")) {\n    for (int i=0; i<17; i++) {\n      Config_l[i] = Borkron_2003_l[i];\n      Config_n[i] = Borkron_2003_n[i];\n      if (i<2) Config_g[i] = Borkron_2003_g[i];\n    }\n  } else if (strstr(Config, \"Borofloat_2001\")) {\n    for (int i=0; i<17; i++) {\n      Config_l[i] = Borofloat_2001_l[i];\n      Config_n[i] = Borofloat_2001_n[i];\n      if (i<2) Config_g[i] = Borofloat_2001_g[i];\n    }\n  }\n\n  if (Lc == 0)\n    if (iLc >= 0 && iLc < 12)\n      Lc = Length_Lc[(int)iLc];\n    else {\n      printf(\"** D11 Error: invalid collimator length specification for D11\\n\");\n      exit(1);\n    }\n\n  double sum_length = 0;\n  double n_elements = 0;\n  for (int i=0; i< 17; i++) { \n    if (40.5 - Lc <= sum_length) Config_n[i]=0;\n    else {\n      sum_length += Config_l[i];\n      n_elements += Config_n[i];\n    }\n  }\n\n  sprintf(xlmonopts,\"x bins=100 lambda limits=[%g %g] bins=100\",sLambda-sDeltaLambda,sLambda+sDeltaLambda);\n%}\n\nTRACE\n\nCOMPONENT Source = Source_gen(\n  dist = gSourceInput, focus_xw = gInputWidth, focus_yh = gGuideHeight1,\n  I1 = sI1, yheight = sH, xwidth = sW, verbose = 1, T1 = sT1,\n  Lmin = sLambda-sDeltaLambda, Lmax = sLambda+sDeltaLambda,\n  T2 = sT2, I2 = sI2, T3 = sT3, I3 = sI3, zdepth = 0.1)\nAT (0, 0, 0) ABSOLUTE\n\nCOMPONENT AlWindow1 = Al_window(thickness = 0.002)\nAT (0, 0, gSourceInput-0.01) RELATIVE Source\n\nCOMPONENT Mon1 = Monitor_nD(\n  xwidth = gInputWidth, yheight = gGuideHeight1,\n  options = \"x y, restore_neutron=1\")\nAT (0, 0, gSourceInput) RELATIVE Source\n\nCOMPONENT PinkCarter = Guide_gravity(\n  w1 = gInputWidth, h1 = gGuideHeight1, w2 = gObtWidth, h2 = gGuideHeight1,\n  l = 3.170, R0 = mR0, Qc = mQc, alpha = mAlpha, m = mInPile, W = mW)\nAT (0, 0, gSourceInput) RELATIVE Source\n\nCOMPONENT AlWindow2 = Al_window(thickness = 0.002)\nAT (0, 0, gSourceInput+3.522+0.001) RELATIVE Source\n\nCOMPONENT LeadShutter = Guide_gravity(\n  w1 = gObtWidth, h1 = gGuideHeight1, w2 = gObtWidth, h2 = gGuideHeight1,\n  l = 0.228, R0 = mR0, Qc = mQc, alpha = mAlpha, m = mInPile, W = mW)\nAT (0, 0, gSourceInput+3.522+0.01) RELATIVE Source\n\nCOMPONENT AlWindow3 = Al_window(thickness = 0.002)\nAT (0, 0, gSourceInput+3.522+0.01+0.228+0.005) RELATIVE Source\n\nCOMPONENT CurvedGuideStart = Arm()\nAT (0, 0, gSourceInput+3.522+0.01+0.228+0.08) RELATIVE Source\n\nCOMPONENT cg1 = Guide_gravity(\n  w1 = gGuideWidth, h1 = gGuideHeight1, w2 = gGuideWidth, h2 = gGuideHeight1,\n  l = (gElmtLength1-gElementGap), R0 = mR0, Qc = mQc, alpha = mAlpha, m = mGuide1, W = mW)\nAT (0, 0, 0) RELATIVE CurvedGuideStart ROTATED (0, gElmtRot1, 0) RELATIVE CurvedGuideStart\n\nCOMPONENT cg25 = Guide_gravity(\n  w1 = gGuideWidth, h1 = gGuideHeight1, w2 = gGuideWidth, h2 = gGuideHeight1,\n  l = (gElmtLength1-gElementGap), R0 = mR0, Qc = mQc, alpha = mAlpha, m = mGuide1, W = mW)\nAT (0, 0, 24*gElmtLength1) RELATIVE cg1 ROTATED (0, 24*gElmtRot1, 0) RELATIVE cg1\n\nCOMPONENT AlWindow4 = Al_window(thickness = 0.002)\nAT (0, 0, gElmtLength1+0.001) RELATIVE cg25\n\nCOMPONENT PSD_VTE = Monitor_nD(\n  xwidth = gGuideWidth, yheight = gGuideHeight1,\n  options = \"x y, restore_neutron=1\")\nAT (0, 0, gElmtLength1+0.13) RELATIVE cg25\n\nCOMPONENT VTEtoIN6GuideStart = Arm()\nAT (0, 0, gElmtLength2+0.001) RELATIVE cg25\n\nCOMPONENT sg1 = Guide_gravity(\n  w1 = gGuideWidth, h1 = gGuideHeight1, w2 = gGuideWidth, h2 = gGuideHeight1,\n  l = (gElmtLength2-gElementGap), R0 = mR0, Qc = mQc, alpha = mAlpha, m = mGuide1, W = mW)\nAT (0, 0, 0) RELATIVE VTEtoIN6GuideStart\n\nCOMPONENT sg22 = Guide_gravity(\n  w1 = gGuideWidth, h1 = gGuideHeight1, w2 = gGuideWidth, h2 = gGuideHeight1,\n  l = (gElmtLength2-gElementGap), R0 = mR0, Qc = mQc, alpha = mAlpha, m = mGuide1, W = mW)\nAT (0, 0, 21*gElmtLength2) RELATIVE sg1 ROTATED (0, 21*0, 0) RELATIVE sg1\n\nCOMPONENT AlWindow6 = Al_window(thickness = 0.002)\nAT (0, 0, gElmtLength2+0.001) RELATIVE sg22\n\nCOMPONENT PSD_IN6 = Monitor_nD(\n  xwidth = gGuideWidth, yheight = gGuideHeight1,\n  options = \"x y, restore_neutron=1\")\nAT (0, 0, gElmtLength2+0.15) RELATIVE sg22\n\nCOMPONENT IN6toD7GuideStart = Arm()\nAT (0, 0, gElmtLength2+0.30) RELATIVE sg22\n\nCOMPONENT sg23 = Guide_gravity(\n  w1 = gGuideWidth, h1 = gGuideHeight1, w2 = gGuideWidth, h2 = gGuideHeight1,\n  l = (gElmtLength3-gElementGap), R0 = mR0, Qc = mQc, alpha = mAlpha, m = mGuide1, W = mW)\nAT (0, 0, 0) RELATIVE IN6toD7GuideStart\n\nCOMPONENT sg27 = Guide_gravity(\n  w1 = gGuideWidth, h1 = gGuideHeight1, w2 = gGuideWidth, h2 = gGuideHeight1,\n  l = (gElmtLength3-gElementGap), R0 = mR0, Qc = mQc, alpha = mAlpha, m = mGuide1, W = mW)\nAT (0, 0, 4*gElmtLength3) RELATIVE sg23 ROTATED (0, 4*0, 0) RELATIVE sg23\n\nCOMPONENT AlWindow8 = Al_window(thickness = 0.002)\nAT (0, 0, gElmtLength3+0.001) RELATIVE sg27\n\nCOMPONENT PSD_D7 = Monitor_nD(\n  xwidth = gGuideWidth, yheight = gGuideHeight1,\n  options = \"x y, restore_neutron=1\")\nAT (0, 0, gElmtLength3+0.15) RELATIVE sg27\n\nCOMPONENT D7toD11GuideStart = Arm()\nAT (0, -.065, gElmtLength3+0.30) RELATIVE sg27\n\nCOMPONENT sg28 = Guide_gravity(\n  w1 = gGuideWidth, h1 = gGuideHeight2, w2 = gGuideWidth, h2 = gGuideHeight2,\n  l = (1.25-gElementGap), R0 = mR0, Qc = mQc, alpha = mAlpha, m = mGuide2, W = mW)\nAT (0, 0, 0) RELATIVE D7toD11GuideStart\n\nCOMPONENT sg29 = Guide_gravity(\n  w1 = gGuideWidth, h1 = gGuideHeight2, w2 = gGuideWidth, h2 = gGuideHeight2,\n  l = (0.5-gElementGap), R0 = mR0, Qc = mQc, alpha = mAlpha, m = mGuide2, W = mW)\nAT (0, 0, 1.25) RELATIVE sg28\n\nCOMPONENT AlWindow10 = Al_window(thickness = 0.004)\nAT (0, 0, 0.5+0.001) RELATIVE sg29\n\nCOMPONENT Mon_D11_In = Monitor_nD(\n  xwidth = gGuideWidth, yheight = gGuideHeight2,\n  options = xlmonopts)\nAT (0, 0, 0.5+0.01) RELATIVE sg29\n\nCOMPONENT Dolores = V_selector(\n  xwidth = 0.03, yheight = 0.05, zdepth = 0.30, radius = 0.12,\n  alpha = 48.298, length = 0.250, d = 0.0004, nu = 124270/(Lambda-0.11832)/60,\n  nslit = 72)\nAT (0, 0, 0.5+0.025+0.30/2) RELATIVE sg29\n\nCOMPONENT AlWindow11 = Al_window(thickness = 0.004)\nAT (0, 0, 0.15+0.01) RELATIVE Dolores\n\nCOMPONENT sg30 = Guide_gravity(\n  w1 = gGuideWidth, h1 = gGuideHeight2, w2 = gGuideWidth, h2 = gGuideHeight2,\n  l = (0.5-gElementGap), R0 = mR0, Qc = mQc, alpha = mAlpha, m = mGuide2, W = mW)\nAT (0, 0, 0.15+0.02) RELATIVE Dolores\n\nCOMPONENT AlWindow12 = Al_window(thickness = 0.002)\nAT (0, 0, 0.5+0.001) RELATIVE sg30\n\nCOMPONENT Mon_D11_Out = Monitor_nD(\n  xwidth = gGuideWidth, yheight = gGuideHeight2,\n  options = xlmonopts)\nAT (0, 0, 0.5+0.01) RELATIVE sg30\n\nCOMPONENT MovableGuideStart = Arm()\nAT (0, 0, 0.66) RELATIVE sg30\n\nCOMPONENT mg0 = Guide_gravity(\n  w1 = gGuideWidth, h1 = gGuideHeight2, w2 = gGuideWidth, h2 = gGuideHeight2,\n  l = (Config_l[0]), alpha = mAlpha, m = mGuide2, W = mW,\n  wavy = Waviness, chamfers_z = Chamfers, chamfers_tb = Chamfers, nelements = Config_n[0])\nAT (0, 0, 0) RELATIVE MovableGuideStart\n\nCOMPONENT mg16 = Guide_gravity(\n  w1 = gGuideWidth, h1 = gGuideHeight2, w2 = gGuideWidth, h2 = gGuideHeight2,\n  l = (Config_l[16]), alpha = mAlpha, m = mGuide2, W = mW,\n  wavy = Waviness, chamfers_z = Chamfers, chamfers_tb = Chamfers, nelements = Config_n[16])\nAT (0, 0, sum(Config_l[0:16]) + 16*microGap) RELATIVE mg0\n\nCOMPONENT SampleF = Monitor_nD(\n  xwidth = gGuideWidth, yheight = gGuideHeight2,\n  options = \"x y, per cm2, restore_neutron=1\")\nAT (0, 0, (Config_l[15]+2.5)) RELATIVE mg15\n\nCOMPONENT SampleC = Monitor_nD(\n  xwidth = gGuideWidth, yheight = gGuideHeight2,\n  options = \"x y, capture, per cm2\")\nAT (0, 0, 0.001) RELATIVE SampleF\n\nEND\n```"
   },
   "grade": {
     "task": "T1_ILL_H15_D11",
     "pass": false,
     "score": 0.0,
     "hard_failures": [
-      "agent left no built instrument in the episode registry"
+      "candidate failed to run (translate)"
     ],
-    "checks": []
+    "diagnostics": [
+      "WARNING: Full-path compiler \"${CONDA_PREFIX}/bin/arm64-apple-darwin20.0.0-clang\" not found!!",
+      "WARNING: Attempting replacement by \"arm64-apple-darwin20.0.0-clang\"",
+      "ERROR: Reference to undefined component instance mg15 at line /Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_H15_D11__oneshot__meta_llama_llama_4_maverick/home/instruments/D11_SANS/D11_SANS.instr:275.",
+      "mcstas: 1 Errors encountered during parse of /Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_H15_D11__oneshot__meta_llama_llama_4_maverick/home/instruments/D11_SANS/D11_SANS.instr.",
+      "          INFO: call to /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas failed with Command '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas -t -o ./D11_SANS.c /Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_H15_D11__oneshot__meta_llama_llama_4_maverick/home/instruments/D11_SANS/D11_SANS.instr' returned non-zero exit status 1.",
+      "ERROR: Code generation failed for instrument /Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_H15_D11__oneshot__meta_llama_llama_4_maverick/home/instruments/D11_SANS/D11_SANS.instr using code generator /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas"
+    ],
+    "checks": [],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_H15_D11__oneshot__meta_llama_llama_4_maverick/home/instruments/D11_SANS/D11_SANS.instr",
+    "candidate_params": {
+      "Lambda": "4.51",
+      "Config": "\"Borkron_1972\"",
+      "Lc": "0",
+      "iLc": "5",
+      "Chamfers": "0.0002",
+      "Waviness": "2.5e-5"
+    }
   },
   "reference_leak": {
     "leaked": false,
     "events": []
   },
-  "artifacts": null
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_H15_D11__oneshot__meta_llama_llama_4_maverick/artifacts/D11_SANS.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_H15_D11__oneshot__meta_llama_llama_4_maverick/artifacts/params.json",
+    "diagram": null,
+    "trace": null,
+    "errors": [
+      "diagram: McStasScript reader failed (known limitation)",
+      "trace: mcdisplay-webgl failed"
+    ]
+  }
 }

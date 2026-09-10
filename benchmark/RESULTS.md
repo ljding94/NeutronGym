@@ -1,10 +1,10 @@
 # NeutronGym — results of record
 
-*Generated 2026-09-10 14:51 by `benchmark/harness/results_report.py` from the committed evidence in `benchmark/evidence/`. **These are the numbers the manuscript cites.** Regenerate after any re-run; diff the JSON to see what moved.*
+*Generated 2026-09-10 15:40 by `benchmark/harness/results_report.py` from the committed evidence in `benchmark/evidence/`. **These are the numbers the manuscript cites.** Regenerate after any re-run; diff the JSON to see what moved.*
 
 **Validity rule:** INFRA (endpoint/provider/harness failures) and LEAK episodes are excluded from every rate and reported separately. This is not cosmetic — on 2026-09-10 an unnoticed dead SSH tunnel put 77 infra failures into the tables as capability zeros, which invalidated an entire model row until caught and re-run.
 
-**Totals:** 237 valid matrix episodes · 18 valid held-out episodes · 26 infra-excluded · 0 leak-invalid (zero leaks across the whole campaign) · $121.27 OpenRouter spend.
+**Totals:** 253 valid matrix episodes · 18 valid held-out episodes · 10 infra-excluded · 0 leak-invalid (zero leaks across the whole campaign) · $121.30 OpenRouter spend.
 
 ### Table 1 — Main matrix (seen-tier scored set)
 
@@ -22,13 +22,13 @@
 | `google_gemini_3_6_flash` | noskill | 5 | 3 | 0.60 | 1 | 0 | 0 | 1 | 0 | 0 |
 | `google_gemini_3_6_flash` | oneshot | 17 | 6 | 0.35 | 1 | 1 | 2 | 7 | 0 | 0 |
 | `meta_llama_llama_4_maverick` | main | 17 | 0 | 0.00 | 0 | 0 | 0 | 0 | 17 | 0 |
-| `meta_llama_llama_4_maverick` | oneshot | 3 | 0 | 0.00 | 0 | 0 | 0 | 3 | 0 | 14 |
+| `meta_llama_llama_4_maverick` | oneshot | 17 | 2 | 0.12 | 0 | 0 | 0 | 15 | 0 | 0 |
 | `openai_gpt_5_2_pro` | main | 1 | 1 | 1.00 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `qwen3_32b` | main | 17 | 3 | 0.18 | 0 | 1 | 0 | 0 | 13 | 0 |
 | `qwen3_32b` | oneshot | 17 | 0 | 0.00 | 0 | 0 | 0 | 0 | 17 | 0 |
 | `qwen3_8b` | main | 17 | 1 | 0.06 | 0 | 2 | 1 | 0 | 13 | 0 |
-| `qwen3_8b` | oneshot | 16 | 0 | 0.00 | 0 | 0 | 0 | 0 | 16 | 1 |
-| `subscription` | claude_code | 4 | 2 | 0.50 | 1 | 1 | 0 | 0 | 0 | 1 |
+| `qwen3_8b` | oneshot | 17 | 0 | 0.00 | 0 | 0 | 0 | 0 | 17 | 0 |
+| `subscription` | claude_code | 5 | 2 | 0.40 | 1 | 1 | 0 | 1 | 0 | 0 |
 
 
 ### Table 2 — Held-out final pass (once-only touch)
@@ -57,7 +57,7 @@ Instruments with no public `.instr` (BOYA, VENUS), authored for this benchmark. 
 
 | set | format (tool/protocol mechanics) | physics (wrong instrument) |
 |---|---:|---:|
-| matrix | 96 | 96 |
+| matrix | 97 | 109 |
 | held-out | 3 | 6 |
 
 ### Table 4 — Contamination probes (per model, temperature 0, provider-pinned)

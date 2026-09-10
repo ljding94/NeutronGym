@@ -3,35 +3,60 @@
   "episode": {
     "model": "meta-llama/llama-4-maverick",
     "scaffold": "plain-llm-oneshot",
-    "provider_pin": "Google",
-    "providers_seen": [],
-    "returncode": 1,
-    "error": "chat completion failed after 3 tries: HTTP 404: {\"error\":{\"message\":\"No endpoints found for meta-llama/llama-4-maverick.\",\"code\":404},\"user_id\":\"user_30FVER8hBKuhcpVyzAo04yjOnzX\"}",
+    "provider_pin": "DigitalOcean",
+    "providers_seen": [
+      "DigitalOcean"
+    ],
+    "returncode": 0,
+    "error": null,
     "turns": 1,
     "hit_turn_cap": false,
     "empty_responses": 0,
     "cost_usd": null,
-    "duration_s": 0.2,
+    "duration_s": 49.1,
     "usage": {
-      "prompt_tokens": 0,
-      "completion_tokens": 0
+      "prompt_tokens": 1508,
+      "completion_tokens": 630
     },
     "mcp_calls": {},
     "skill_used": true,
-    "final_answer": ""
+    "final_answer": "```instr\nDEFINE INSTRUMENT improved_sans_collimation(lambda0=6, dlambda=0.05)\nTRACE\n\nCOMPONENT source = Source_simple(\n  radius = 0.03,\n  dist = 3,\n  focus_xw = 0.01,\n  focus_yh = 0.01,\n  lambda0 = lambda0,\n  dlambda = dlambda,\n  flux = 1e13\n) AT (0, 0, 0) ABSOLUTE\n\nCOMPONENT pin1 = Slit(\n  radius = r_pin1,\n  xwidth = 2*r_pin1,\n  yheight = 2*r_pin1\n) AT (0, 0, 3) RELATIVE source\n\nCOMPONENT monitor1 = PSD_monitor(\n  xwidth = 0.02,\n  yheight = 0.02,\n  nx = 100,\n  ny = 100,\n  restore_neutron = 1\n) AT (0, 0, 3.01) RELATIVE source\n\nCOMPONENT pin2 = Slit(\n  radius = r_pin2,\n  xwidth = 2*r_pin2,\n  yheight = 2*r_pin2\n) AT (0, 0, 6) RELATIVE source\n\nCOMPONENT monitor2 = PSD_monitor(\n  xwidth = 0.02,\n  yheight = 0.02,\n  nx = 100,\n  ny = 100,\n  restore_neutron = 1\n) AT (0, 0, 6.01) RELATIVE source\n\nCOMPONENT sample = Isotropic_Scatterer_sphere(\n  radius = 0.005,\n  xwidth = 0.01,\n  yheight = 0.01,\n  focus_xw = 0.06,\n  focus_yh = 0.06,\n  target_index = 1,\n  target_x = 0,\n  target_y = 0,\n  target_z = 3,\n  Sample_D = 1.0\n) AT (0, 0, 6) RELATIVE source\n\nCOMPONENT beamstop = Beamstop(\n  xwidth = 0.06,\n  yheight = 0.06,\n  radius = 0.03\n) AT (0, 0, 0.01) RELATIVE sample\n\nCOMPONENT detector = PSD_monitor(\n  xwidth = 0.6,\n  yheight = 0.6,\n  nx = 300,\n  ny = 300\n) AT (0, 0, 3) RELATIVE sample\n\nCOMPONENT monitor_scattered = Monitor(\n  xwidth = 0.6,\n  yheight = 0.6,\n  nx = 1,\n  ny = 1\n) AT (0, 0, 3) RELATIVE sample\n\nPARAMETER r_pin1 = 0.01\nPARAMETER r_pin2 = 0.01\n\nSET ncount = 1e6\nSET seed = 12345\n\nEND\n```"
   },
   "grade": {
     "task": "T2_sans_collimation",
     "pass": false,
     "score": 0.0,
     "hard_failures": [
-      "agent left no built instrument in the episode registry"
+      "candidate failed to run (translate)"
     ],
-    "checks": []
+    "diagnostics": [
+      "WARNING: Full-path compiler \"${CONDA_PREFIX}/bin/arm64-apple-darwin20.0.0-clang\" not found!!",
+      "WARNING: Attempting replacement by \"arm64-apple-darwin20.0.0-clang\"",
+      "ERROR: Cannot find file containing definition of component 'Isotropic_Scatterer_sphere'.",
+      "  Check the MCSTAS library installation and environment variable",
+      "  or copy the component definition file locally.",
+      "  Current library search path: /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/resources",
+      "INFO: call to /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas failed with Command '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas -t -o ./improved_sans_collimation.c /Users/ldq/Work/NeutronGym/runs/m6/T2_sans_collimation__oneshot__meta_llama_llama_4_maverick/home/instruments/improved_sans_collimation/improved_sans_collimation.instr' died with <Signals.SIGSEGV: 11>.",
+      "ERROR: Code generation failed for instrument /Users/ldq/Work/NeutronGym/runs/m6/T2_sans_collimation__oneshot__meta_llama_llama_4_maverick/home/instruments/improved_sans_collimation/improved_sans_collimation.instr using code generator /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas"
+    ],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T2_sans_collimation__oneshot__meta_llama_llama_4_maverick/home/instruments/improved_sans_collimation/improved_sans_collimation.instr",
+    "candidate_params": {
+      "lambda0": "6",
+      "dlambda": "0.05"
+    }
   },
   "reference_leak": {
     "leaked": false,
     "events": []
   },
-  "artifacts": null
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T2_sans_collimation__oneshot__meta_llama_llama_4_maverick/artifacts/improved_sans_collimation.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T2_sans_collimation__oneshot__meta_llama_llama_4_maverick/artifacts/params.json",
+    "diagram": null,
+    "trace": null,
+    "errors": [
+      "diagram: McStasScript reader failed (known limitation)",
+      "trace: mcdisplay-webgl failed"
+    ]
+  }
 }

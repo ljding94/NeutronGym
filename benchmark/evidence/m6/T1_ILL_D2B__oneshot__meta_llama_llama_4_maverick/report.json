@@ -3,35 +3,74 @@
   "episode": {
     "model": "meta-llama/llama-4-maverick",
     "scaffold": "plain-llm-oneshot",
-    "provider_pin": "Google",
-    "providers_seen": [],
-    "returncode": 1,
-    "error": "chat completion failed after 3 tries: HTTP 404: {\"error\":{\"message\":\"No endpoints found for meta-llama/llama-4-maverick.\",\"code\":404},\"user_id\":\"user_30FVER8hBKuhcpVyzAo04yjOnzX\"}",
+    "provider_pin": "DigitalOcean",
+    "providers_seen": [
+      "DigitalOcean"
+    ],
+    "returncode": 0,
+    "error": null,
     "turns": 1,
     "hit_turn_cap": false,
     "empty_responses": 0,
     "cost_usd": null,
-    "duration_s": 0.2,
+    "duration_s": 285.7,
     "usage": {
-      "prompt_tokens": 0,
-      "completion_tokens": 0
+      "prompt_tokens": 4844,
+      "completion_tokens": 3073
     },
     "mcp_calls": {},
     "skill_used": true,
-    "final_answer": ""
+    "final_answer": "```c\nDEFINE INSTRUMENT D2B(\n  double lambda=1.594,\n  double DM=0,\n  char* Powder=\"Na2Ca3Al2F14.laz\",\n  double RV=-1,\n  double L1=16.05,\n  double L2=2.645,\n  double L3=1.3,\n  int verbose=1,\n  double ALPHA1=18,\n  double ALPHA2=11,\n  double ALPHA3=5,\n  double ETA=12,\n  double THETA_M=67.5,\n  double TILT=0,\n  double SM=1,\n  double Dheight=0.3,\n  double coating=0)\nTRACE\n\n  // Constants and derived quantities\n  double DEG2RAD = 4*atan(1)/180;\n  double RAD2DEG = 180/(4*atan(1));\n  double K2V = 1.58825e-3;  // k[A-1] to v[m/s]\n  double VS2E = 5.227e-6;  // (v[m/s])^2 to E[meV]\n  double PI = 4*atan(1);\n  double L, KI, Vi, EI, U, V, W, L0, ALPHA3_Opt;\n  double THETA_M_rad = THETA_M * DEG2RAD;\n  char lamopts[200];\n\n  if (!THETA_M && lambda && DM)\n    THETA_M = asin(lambda/(2*DM))*RAD2DEG;\n  else if (THETA_M && !lambda && DM)\n    lambda = fabs(sin(THETA_M*DEG2RAD))*2*DM;\n  else if (THETA_M && lambda)\n    DM = fabs(lambda/sin(DEG2RAD*THETA_M)/2.0);\n  THETA_M *= SM; /* take-off direction left or right */\n  if (!THETA_M || !DM || !lambda) ABORT(\"ILL_D2B: ERROR: Monochromator take-off, d-spacing or wavelength is null (THETA_M=%g, DM=%g, lambda=%g). Abort.\\n\", THETA_M, DM, lambda);\n  if (!L1)    L = L2;\n  else        L = 1/(1/L1+1/L2);\n  if (RV < 0) RV=2*L*sin(THETA_M_rad);\n  KI = 2*PI/lambda;\n  Vi = K2V*fabs(KI);\n  EI = VS2E*Vi*Vi;\n  if (ALPHA1<0)  ALPHA1=600;\n  if (ALPHA2<0)  ALPHA2=600;\n  if (ALPHA3<0)  ALPHA3=600;\n  if (ETA<=0)    ETA   =30;\n  U = 4*(ALPHA1*ALPHA1 * ALPHA2*ALPHA2 + ALPHA1*ALPHA1 * ETA*ETA + ALPHA2*ALPHA2 * ETA*ETA)\n       /(tan(THETA_M_rad)*tan(THETA_M_rad) * (ALPHA1*ALPHA1 + ALPHA2*ALPHA2 + 4*ETA*ETA));\n  V = 4*ALPHA2*ALPHA2*(ALPHA1*ALPHA1 +2*ETA*ETA)\n       /(tan(THETA_M_rad) * (ALPHA1*ALPHA1 + ALPHA2*ALPHA2 + 4*ETA*ETA));\n  W = ALPHA3*ALPHA3+(ALPHA1*ALPHA1 * ALPHA2*ALPHA2 + 4*ALPHA2*ALPHA2 * ETA*ETA)\n                   /(ALPHA1*ALPHA1 + ALPHA2*ALPHA2 + 4*ETA*ETA);\n  L0 = (ALPHA1*ETA*ALPHA2*ALPHA3/tan(fabs(THETA_M)*DEG2RAD))\n     / sqrt(ALPHA1*ALPHA1 + ALPHA2*ALPHA2 + 4*ETA*ETA);\n  ALPHA3_Opt = 1/sqrt(1/ALPHA1/ALPHA1+1/ALPHA2/ALPHA2+1/ETA/ETA);\n  if (verbose) {\n    printf(\"ILL_D2B: Detailed DIF configuration\\n\");\n    printf(\"* Incoming beam: lambda=%.4g [Angs] EI=%.4g [meV]  KI=%.4g [Angs-1] Vi=%g [m/s]\\n\",\n      lambda, EI, KI, Vi);\n    printf(\"* Monochromator:  DM=%.4g [Angs] RV=%.4g [m] %s, take-off 2*THETA_M=%.4g [deg]\\n\",\n      DM, RV, (!RV ? \"flat\" : \"curved\"), THETA_M*2);\n    printf(\"* Resolution:     Caglioti              U=%g V=%g W=%g [deg^2]\\n\", U/60/60, V/60/60, W/60/60);\n    printf(\"                  Optimal          ALPHA3=%g [min]\\n\",  ALPHA3_Opt);\n    printf(\"                  Optimal resolution A1/2=%g [min]\\n\",  ALPHA3_Opt/sqrt(2));\n    printf(\"                  Normalized Intensity L0=%g [min^3]\\n\", L0);\n  }\n  RV = fabs(RV)*SM;\n  sprintf(lamopts, \"lambda limits=[%g %g] bins=100\",lambda*0.99, lambda*1.01);\n\n  COMPONENT Origin = Progress_bar() AT (0, 0, 0) ABSOLUTE\n\n  COMPONENT Source = Source_gen(\n    radius=0.11, dist=11, focus_xw=fabs(0.05*fabs(sin(DEG2RAD*THETA_M))),\n    focus_yh=0.3, lambda0=lambda, dlambda=lambda*0.01,\n    I1=0.5874e+13, T1=683.7, T2=257.7, I2=2.5099e+13, T3=16.7, I3=1.0343e+12)\n  AT (0, 0, 0) RELATIVE Origin\n\n  COMPONENT Win0 = Slit(radius=0.11) AT (0, 0, 2.462) RELATIVE Origin\n  COMPONENT Oct1 = Slit(xwidth=0.15, yheight=0.15) AT (0, 0, 2.512) RELATIVE Origin\n  COMPONENT Oct2 = Slit(xwidth=0.177, yheight=0.177) AT (0, 0, 2.512) RELATIVE Origin ROTATED (0, 0, 45) RELATIVE Origin\n  COMPONENT Win1 = Slit(radius=0.0565) AT (0, 0, 3.5321) RELATIVE Origin\n  COMPONENT Win2 = Slit(radius=0.0555) AT (0, 0, 4.0421) RELATIVE Origin\n  COMPONENT Win3 = Slit(radius=0.0575) AT (0, 0, 4.087) RELATIVE Origin\n  COMPONENT Win4 = Slit(radius=0.0575) AT (0, 0, 4.999) RELATIVE Origin\n  COMPONENT Win5 = Slit(radius=0.0625) AT (0, 0, 5.006) RELATIVE Origin\n  COMPONENT Win6 = Slit(radius=0.0625) AT (0, 0, 5.151) RELATIVE Origin\n\n  COMPONENT SMguide = Guide(w1=0.07, h1=0.3, l=5, m=coating)\n  AT (0, 0, 11) RELATIVE Origin WHEN (coating>0)\n\n  COMPONENT Alpha_One = Collimator_linear(\n    xwidth=0.07, yheight=0.30, length=0.70, divergence=ALPHA1, transmission=1.0)\n  AT (0, 0, L1-1.045) RELATIVE Origin WHEN (ALPHA1>0)\n\n  COMPONENT Slit_Mono = Slit(xwidth=0.05, yheight=0.3) AT (0, 0, L1-0.1) RELATIVE Origin\n\n  COMPONENT D2B_Mono_XY = Monitor_nD(\n    xwidth=0.1, yheight=0.3, options=\"x y\", bins=100, restore_neutron=1)\n  AT (0, 0, 0) RELATIVE Slit_Mono\n\n  COMPONENT D2B_ALPHA1_Div = Monitor_nD(\n    xwidth=0.1, yheight=0.3, options=\"dx dy\", bins=100, restore_neutron=1)\n  AT (0, 0, 0) RELATIVE D2B_Mono_XY\n\n  COMPONENT D2B_Mono_Lambda = Monitor_nD(\n    xwidth=0.1, yheight=0.3, options=lamopts, restore_neutron=1)\n  AT (0, 0, 0) RELATIVE D2B_ALPHA1_Div\n\n  COMPONENT mono_cradle = Arm() AT (0, 0, L1) RELATIVE Origin\n\n  COMPONENT Monok = Monochromator_curved(\n    NH=1, NV=28, mosaich=ETA, mosaicv=12, RV=RV, DM=DM, width=0.1, height=0.3)\n  AT (0, 0, 0) RELATIVE mono_cradle ROTATED (0, THETA_M+TILT, 0) RELATIVE mono_cradle SPLIT 10\n\n  COMPONENT sphere = PSD_monitor_4PI(filename=\"sphere\", radius=0.5, restore_neutron=1)\n  AT (0, 0, 0) RELATIVE mono_cradle\n\n  COMPONENT mono_out = Arm() AT (0, 0, 0) RELATIVE mono_cradle ROTATED (0, 2*THETA_M, 0) RELATIVE mono_cradle\n\n  COMPONENT Shield_Hole = Guide_channeled(\n    w1=0.05, h1=0.274, w2=0.044, h2=0.201, l=0.752, R0=0, nslit=1)\n  AT (0, 0, 0.304) RELATIVE mono_out\n\n  COMPONENT Alpha_Two = Collimator_linear(\n    xwidth=0.05, yheight=0.2, length=0.2, divergence=ALPHA2, transmission=1.0)\n  AT (0, 0, L2-0.25) RELATIVE mono_out WHEN (ALPHA2>0)\n\n  COMPONENT Slit_Sample = Slit(xwidth=0.01, yheight=0.05) AT (0, 0, L2-0.02) RELATIVE mono_out\n\n  COMPONENT D2B_ALPHA2_Div = Monitor_nD(\n    xwidth=0.02, yheight=0.05, options=\"dx dy\", bins=100, restore_neutron=1)\n  AT (0, 0, 0) RELATIVE Slit_Sample\n\n  COMPONENT D2B_Sample_Lambda = Monitor_nD(\n    xwidth=0.02, yheight=0.05, options=lamopts, restore_neutron=1)\n  AT (0, 0, 0) RELATIVE D2B_ALPHA2_Div\n\n  COMPONENT Arm_Sample = Arm() AT (0, 0, L2) RELATIVE mono_out SPLIT 10\n\n  COMPONENT Container_in = PowderN(\n    reflections=\"V.lau\", radius=0.0025+0.00051, yheight=0.04, thickness=0.0005,\n    d_phi=RAD2DEG*atan2(Dheight+0.05,L3), p_interact=0.1, concentric=1)\n  AT (0, 0, 0) RELATIVE Arm_Sample\n\n  COMPONENT Sample = PowderN(\n    reflections=Powder, radius=0.0025, yheight=0.04,\n    d_phi=RAD2DEG*atan2(Dheight+0.05,L3))\n  AT (0, 0, 0) RELATIVE Arm_Sample\n\n  COMPONENT Container_out = PowderN(\n    reflections=\"V.lau\", radius=0.0025+0.00051, yheight=0.04, thickness=0.0005,\n    d_phi=RAD2DEG*atan2(Dheight+0.05,L3), p_interact=0.1, concentric=1)\n  AT (0, 0, 0) RELATIVE Arm_Sample\n\n  COMPONENT collimador_radial = Collimator_radial(\n    yheight=Dheight, length=.30, divergence=ALPHA3, theta_min=-165, theta_max=-5,\n    radius=L3-0.3-0.01, verbose=1, approx=1)\n  AT (0, 0, 0) RELATIVE Sample WHEN (ALPHA3>0)\n\n  COMPONENT D2B_BananaTheta = Monitor_nD(\n    yheight=Dheight, radius=L3, options=\"banana, angle limits=[5 165], bins=3200\", restore_neutron=1)\n  AT (0, 0, 0) RELATIVE Sample\n\n  COMPONENT D2B_BananaThetaCenter = Monitor_nD(\n    yheight=0.1, radius=L3, options=\"banana, angle limits=[5 165], bins=3200\", restore_neutron=1)\n  AT (0, 0, 0) RELATIVE Sample\n\n  COMPONENT D2B_BananaPSD = Monitor_nD(\n    yheight=Dheight, radius=L3*1.005, options=\"banana, theta limits=[-165 -5] bins=320, y bins=25\")\n  AT (0, 0, 0) RELATIVE Sample\n\nEND\n```"
   },
   "grade": {
     "task": "T1_ILL_D2B",
     "pass": false,
     "score": 0.0,
     "hard_failures": [
-      "agent left no built instrument in the episode registry"
+      "candidate failed to run (translate)"
     ],
-    "checks": []
+    "diagnostics": [
+      "WARNING: Full-path compiler \"${CONDA_PREFIX}/bin/arm64-apple-darwin20.0.0-clang\" not found!!",
+      "WARNING: Attempting replacement by \"arm64-apple-darwin20.0.0-clang\"",
+      "ERROR: syntax error at line 22.",
+      "mcstas: 1 Errors encountered during parse of /Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_D2B__oneshot__meta_llama_llama_4_maverick/home/instruments/D2B/D2B.instr.",
+      "INFO: call to /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas failed with Command '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas -t -o ./D2B.c /Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_D2B__oneshot__meta_llama_llama_4_maverick/home/instruments/D2B/D2B.instr' returned non-zero exit status 1.",
+      "ERROR: Code generation failed for instrument /Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_D2B__oneshot__meta_llama_llama_4_maverick/home/instruments/D2B/D2B.instr using code generator /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas"
+    ],
+    "checks": [],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_D2B__oneshot__meta_llama_llama_4_maverick/home/instruments/D2B/D2B.instr",
+    "candidate_params": {
+      "lambda": "1.594",
+      "DM": "0",
+      "Powder": "\"Na2Ca3Al2F14.laz\"",
+      "RV": "-1",
+      "L1": "16.05",
+      "L2": "2.645",
+      "L3": "1.3",
+      "verbose": "1",
+      "ALPHA1": "18",
+      "ALPHA2": "11",
+      "ALPHA3": "5",
+      "ETA": "12",
+      "THETA_M": "67.5",
+      "TILT": "0",
+      "SM": "1",
+      "Dheight": "0.3",
+      "coating": "0"
+    }
   },
   "reference_leak": {
     "leaked": false,
     "events": []
   },
-  "artifacts": null
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_D2B__oneshot__meta_llama_llama_4_maverick/artifacts/D2B.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ILL_D2B__oneshot__meta_llama_llama_4_maverick/artifacts/params.json",
+    "diagram": null,
+    "trace": null,
+    "errors": [
+      "diagram: McStasScript reader failed (known limitation)",
+      "trace: mcdisplay-webgl failed"
+    ]
+  }
 }
