@@ -81,6 +81,20 @@ def mcp_tools_to_openai(tools) -> list:
             for t in tools]
 
 
+def parse_tool_args(raw: str):
+    """(args, error). Models emit malformed/truncated JSON in tool-call
+    arguments — maverick did once it started calling tools at all, and the
+    unguarded json.loads killed the whole episode (2026-09-10). Bad
+    arguments must become a tool RESULT the model can see and correct, not
+    a crash: that is the difference between a data point and a lost run."""
+    try:
+        val = json.loads(raw or "{}")
+        return (val, None) if isinstance(val, dict) else (
+            {}, f"arguments must be a JSON object, got {type(val).__name__}")
+    except json.JSONDecodeError as e:
+        return {}, f"malformed JSON in tool arguments: {e}"
+
+
 def _truncate(text: str, cap: int = TOOL_RESULT_CAP) -> str:
     if len(text) <= cap:
         return text
@@ -227,10 +241,11 @@ async def _run(task_prompt, model, episode_dir, home_dir, server_cwd,
                 calls = msg.get("tool_calls") or []
                 blocks = ([{"type": "text", "text": msg["content"]}]
                           if msg.get("content") else [])
+                parsed = {c["id"]: parse_tool_args(c["function"]["arguments"])
+                          for c in calls}
                 blocks += [{"type": "tool_use", "id": c["id"],
                             "name": c["function"]["name"],
-                            "input": json.loads(
-                                c["function"]["arguments"] or "{}")}
+                            "input": parsed[c["id"]][0]}
                            for c in calls]
                 providers_seen.add(resp.get("provider") or "?")
                 tr.event({"type": "assistant", "message": {"content": blocks},
@@ -282,8 +297,10 @@ async def _run(task_prompt, model, episode_dir, home_dir, server_cwd,
                 for c in calls:
                     name = c["function"]["name"]
                     tool_counts[name] = tool_counts.get(name, 0) + 1
+                    args, arg_err = parsed[c["id"]]
                     try:
-                        args = json.loads(c["function"]["arguments"] or "{}")
+                        if arg_err:
+                            raise ValueError(arg_err)
                         out = await mcp.call_tool(name, args,
                                                   raise_on_error=False)
                         text = "\n".join(b.text for b in out.content

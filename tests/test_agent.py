@@ -198,6 +198,40 @@ def test_empty_response_nudged_not_accepted(tmp_path):
     assert meta["empty_responses"] == 3 and meta["turns"] == 3
 
 
+def test_parse_tool_args_never_raises():
+    """Malformed tool arguments must become feedback, not a dead episode
+    (2026-09-10: an unguarded json.loads killed 5 of 17 episodes the
+    moment a model started emitting truncated arguments)."""
+    assert agent.parse_tool_args('{"a": 1}') == ({"a": 1}, None)
+    assert agent.parse_tool_args("") == ({}, None)
+    args, err = agent.parse_tool_args('{"a": "unterminated')
+    assert args == {} and "malformed JSON" in err
+    args, err = agent.parse_tool_args("[1,2]")
+    assert args == {} and "JSON object" in err
+
+
+@pytest.mark.slow
+def test_malformed_tool_args_are_fed_back_not_fatal(tmp_path):
+    bad = {"choices": [{"message": {
+        "role": "assistant", "content": None,
+        "tool_calls": [{"id": "b1", "type": "function",
+                        "function": {"name": "describe_component",
+                                     "arguments": '{"name": "PSD'}}]}}],
+        "usage": {}}
+    done = {"choices": [{"message": {"role": "assistant",
+                                     "content": "Recovered."}}], "usage": {}}
+    meta = agent.run_episode("plumbing", model="scripted/model",
+                             episode_dir=str(tmp_path),
+                             chat_fn=scripted_model([bad, done]))
+    assert meta["returncode"] == 0 and meta["final_answer"] == "Recovered."
+    events = [json.loads(x) for x in
+              open(os.path.join(str(tmp_path), "transcript.jsonl"))]
+    results = [b for e in events if e["type"] == "user"
+               for b in e["message"]["content"]]
+    assert results[0]["is_error"] and "malformed JSON" in \
+        results[0]["content"][0]["text"]
+
+
 @pytest.mark.slow
 def test_prose_without_tools_is_nudged_not_accepted(tmp_path):
     """SYMMETRY (2026-09-10 peer review): a model answering in prose having
