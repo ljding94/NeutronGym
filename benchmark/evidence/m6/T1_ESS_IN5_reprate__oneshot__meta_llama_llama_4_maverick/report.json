@@ -3,35 +3,111 @@
   "episode": {
     "model": "meta-llama/llama-4-maverick",
     "scaffold": "plain-llm-oneshot",
-    "provider_pin": "Google",
-    "providers_seen": [],
-    "returncode": 1,
-    "error": "chat completion failed after 3 tries: HTTP 404: {\"error\":{\"message\":\"No endpoints found for meta-llama/llama-4-maverick.\",\"code\":404},\"user_id\":\"user_30FVER8hBKuhcpVyzAo04yjOnzX\"}",
+    "provider_pin": "DigitalOcean",
+    "providers_seen": [
+      "DigitalOcean"
+    ],
+    "returncode": 0,
+    "error": null,
     "turns": 1,
     "hit_turn_cap": false,
     "empty_responses": 0,
     "cost_usd": null,
-    "duration_s": 0.3,
+    "duration_s": 534.9,
     "usage": {
-      "prompt_tokens": 0,
-      "completion_tokens": 0
+      "prompt_tokens": 6720,
+      "completion_tokens": 5559
     },
     "mcp_calls": {},
     "skill_used": true,
-    "final_answer": ""
+    "final_answer": "```c\nDEFINE INSTRUMENT ToF_Spectrometer(\n    Lmin = 4.9,\n    Lmax = 5.1,\n    lambda0 = 5,\n    Pulse_width = 2.857e-3,\n    Num_pulses = 1,\n    GUI_start = 2.0,\n    FO1_DIST = 6,\n    L_ballistic_begin = 19.5,\n    L_ballistic_end = 17,\n    Length = 100,\n    SAMPLE_DIST = 1.2,\n    DETECTOR_DIST = 4,\n    GUI_h = 0.105,\n    GUI_w = 0.1,\n    GUI_GAP = 0.05,\n    H1 = 0.167,\n    W1 = 0.116,\n    H2 = 0.185,\n    W2 = 0.15,\n    H3 = 0.19,\n    W3 = 0.15,\n    H4 = 0.213,\n    W4 = 0.14,\n    H_chop = 0.075,\n    W_chop = 0.03,\n    H_end = 0.042,\n    W_end = 0.0215,\n    ALPHA = 3.4,\n    M = 3.5,\n    F_slow1 = 16.6667,\n    F_slow2 = 0,\n    F_fast1 = 0,\n    F_fast2 = 200,\n    N_fast = 1,\n    SLOW1_THETA = 120,\n    FO3 = 1,\n    THETA_fast1 = 180,\n    FAST_THETA = 5,\n    Gamma = 0,\n    Etun = 1,\n    V_HOLE = 0,\n    FRAC_QUASIEL = 0,\n    FRAC_TUNNEL = 0,\n    TT = 50,\n    RES_DE = 0.5,\n    cold = 0.95\n)\nDECLARE\n%{\n  double ESS_SOURCE_FREQUENCY = 14.0; // Hz\n  double K2V = 3956; // m/s / \u00c5\n  double VS2E = 5.227e-6; // eV to meV\n  double t_offset, t_FO1, t_FO2, t_fast1, t_fast2, t_fast2a, t_fast3, t_sample, t_detector, tmin_zoom, tmax_zoom, E_target;\n%}\n\nINITIALIZE\n%{\n  t_offset = Pulse_width / 2.0 + 170e-6;\n  t_FO1 = FO1_DIST * lambda0 / (2 * M_PI * K2V) + t_offset;\n  t_FO2 = Length / 2 * lambda0 / (2 * M_PI * K2V) + t_offset;\n  t_fast1 = (Length / 2 + 0.1) * lambda0 / (2 * M_PI * K2V) + t_offset;\n  t_fast2 = Length * lambda0 / (2 * M_PI * K2V) + t_offset;\n  t_fast2a = (Length + GUI_GAP) * lambda0 / (2 * M_PI * K2V) + t_offset;\n  t_fast3 = (Length + 2 * GUI_GAP) * lambda0 / (2 * M_PI * K2V) + t_offset;\n  t_sample = (Length + SAMPLE_DIST) * lambda0 / (2 * M_PI * K2V) + t_offset;\n  t_detector = (Length + SAMPLE_DIST + DETECTOR_DIST) * lambda0 / (2 * M_PI * K2V) + t_offset;\n  tmin_zoom = t_fast2 * 1e6 - 1e3;\n  tmax_zoom = t_fast2 * 1e6 + 1e3;\n  E_target = VS2E * pow(K2V * 2 * M_PI / lambda0, 2);\n%}\n\nTRACE\nCOMPONENT Origin = Progress_bar() AT (0, 0, 0) RELATIVE ABSOLUTE ROTATED (0, 0, 0) RELATIVE ABSOLUTE\nCOMPONENT source = ESS_butterfly(\n    sector = \"W\",\n    beamline = 5,\n    cold_frac = cold,\n    target_index = 6,\n    dist = GUI_start,\n    focus_xw = GUI_w,\n    focus_yh = GUI_h,\n    Lmin = Lmin,\n    Lmax = Lmax,\n    n_pulses = Num_pulses\n) AT (0, 0, -0.1) RELATIVE Origin ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT TOFmoderator_zoom = TOF_monitor(\n    nt = 1000,\n    filename = \"TOFmoderator_zoom.dat\",\n    xwidth = 0.12,\n    yheight = 0.12,\n    tmin = 0,\n    tmax = 5000,\n    restore_neutron = 1\n) AT (0, 0, 1E-6) RELATIVE Origin ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT TOFmoderator = TOF_monitor(\n    nt = 1000,\n    filename = \"TOFmoderator.dat\",\n    xwidth = 0.12,\n    yheight = 0.12,\n    tmin = 0,\n    tmax = 3.0e5,\n    restore_neutron = 1\n) AT (0, 0, 1E-6) RELATIVE Origin ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Lmon_guistart = L_monitor(\n    nL = 1000,\n    filename = \"Lmon_guistart.dat\",\n    xwidth = GUI_w + 0.01,\n    yheight = GUI_h + 0.01,\n    Lmin = 0,\n    Lmax = Lmax + 1\n) AT (0, 0, GUI_start - 2e-6) RELATIVE Origin ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Guide1 = Guide(\n    w1 = GUI_w,\n    h1 = GUI_h,\n    w2 = W1,\n    h2 = H1,\n    l = FO1_DIST - GUI_start - GUI_GAP / 2,\n    R0 = 1,\n    alpha = ALPHA,\n    m = M,\n    W = 0.003\n) AT (0, 0, GUI_start) RELATIVE Origin ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Lmonslow1 = L_monitor(\n    nL = 200,\n    filename = \"Lmonslow1.dat\",\n    xwidth = 0.06,\n    yheight = 0.21,\n    Lmin = 0,\n    Lmax = Lmax + 1\n) AT (0, 0, FO1_DIST - 2e-6) RELATIVE Origin ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT PSDslow1 = PSD_monitor(\n    filename = \"PSDslow1.dat\",\n    xwidth = 0.1,\n    yheight = 0.25\n) AT (0, 0, FO1_DIST - 1e-6) RELATIVE Origin ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT FOchop1 = DiskChopper(\n    theta_0 = SLOW1_THETA,\n    radius = 0.6,\n    yheight = 0.20,\n    nu = F_slow1,\n    nslit = 1,\n    delay = t_FO1\n) AT (0, 0, FO1_DIST) RELATIVE Origin ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT TOFLmon1 = TOFLambda_monitor(\n    nL = 200,\n    nt = 200,\n    tmin = 0,\n    tmax = 3e5,\n    filename = \"TOFLmon1.dat\",\n    xwidth = 0.05,\n    yheight = 0.21,\n    Lmin = 0,\n    Lmax = Lmax + 1\n) AT (0, 0, 1e-6) RELATIVE FOchop1 ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Lmon_afterslow1 = L_monitor(\n    nL = 200,\n    filename = \"Lmon_afterslow1.dat\",\n    xwidth = 0.06,\n    yheight = 0.21,\n    Lmin = 0,\n    Lmax = Lmax + 1\n) AT (0, 0, 2e-6) RELATIVE FOchop1 ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT PSD_afterslow1 = PSD_monitor(\n    filename = \"PSD_afterslow1.dat\",\n    xwidth = 0.1,\n    yheight = 0.25\n) AT (0, 0, 3e-6) RELATIVE FOchop1 ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Guidelong1 = Guide(\n    w1 = W1,\n    h1 = H1,\n    w2 = W2,\n    h2 = H2,\n    l = L_ballistic_begin + GUI_start - FO1_DIST - GUI_GAP / 2,\n    R0 = 1,\n    alpha = ALPHA,\n    m = M,\n    W = 0.003\n) AT (0, 0, GUI_GAP / 2) RELATIVE FOchop1 ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Guidelong1b = Guide(\n    w1 = W2,\n    h1 = H2,\n    w2 = W3,\n    h2 = H3,\n    l = Length / 2 - L_ballistic_begin - GUI_start - GUI_GAP / 2,\n    R0 = 1,\n    alpha = ALPHA,\n    m = M,\n    W = 0.003\n) AT (0, 0, L_ballistic_begin + GUI_start) RELATIVE Origin ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Lmon_slow2 = L_monitor(\n    nL = 200,\n    filename = \"Lmon_slow2.dat\",\n    xwidth = 0.06,\n    yheight = 0.21,\n    Lmin = 0,\n    Lmax = Lmax + 1\n) AT (0, 0, Length / 2 - 1e-6) RELATIVE Origin ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT FOchop2 = DiskChopper(\n    theta_0 = 155,\n    radius = 0.6,\n    yheight = 0.6,\n    nu = F_slow2,\n    nslit = 1,\n    delay = t_FO2\n) AT (0, 0.1, Length / 2) RELATIVE Origin ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Fastchop1 = DiskChopper(\n    theta_0 = THETA_fast1,\n    radius = 0.5,\n    yheight = 0.5,\n    nu = F_fast1,\n    nslit = N_fast,\n    delay = t_fast1\n) AT (0, 0.1, Length / 2 + GUI_GAP) RELATIVE Origin ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT PSD_afterslow2 = PSD_monitor(\n    filename = \"PSD_afterslow2.dat\",\n    xwidth = 0.1,\n    yheight = 0.25\n) AT (0, -0.1, 1e-6) RELATIVE Fastchop1 ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Lmon_afterslow2 = L_monitor(\n    nL = 200,\n    filename = \"Lmon_afterslow2.dat\",\n    xwidth = 0.06,\n    yheight = 0.21,\n    Lmin = 0,\n    Lmax = Lmax + 1\n) AT (0, 0, 1e-6) RELATIVE PSD_afterslow2 ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT TOFL_afterslow2 = TOFLambda_monitor(\n    nL = 200,\n    nt = 200,\n    tmin = 0,\n    tmax = 3.0e5,\n    filename = \"TOFL_afterslow2.dat\",\n    xwidth = 0.05,\n    yheight = 0.21,\n    Lmin = 0,\n    Lmax = Lmax + 1\n) AT (0, 0, 1e-6) RELATIVE Lmon_afterslow2 ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Guidelong2 = Guide(\n    w1 = W3,\n    h1 = H3,\n    w2 = W4,\n    h2 = H4,\n    l = Length / 2 - 2 * GUI_GAP - L_ballistic_end,\n    R0 = 1,\n    alpha = ALPHA,\n    m = M,\n    W = 0.003\n) AT (0, -0.1, GUI_GAP / 2) RELATIVE Fastchop1 ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Lmon_beforeballistic = L_monitor(\n    nL = 200,\n    filename = \"Lmon_before_ballistic.dat\",\n    xwidth = 0.06,\n    yheight = 0.18,\n    Lmin = 0,\n    Lmax = Lmax + 1\n) AT (0, 0, Length / 2 - 2 * GUI_GAP - L_ballistic_end + 1e-6) RELATIVE Guidelong2 ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT PSD_beforeballistic = PSD_monitor(\n    filename = \"PSD_beforeballistic.dat\",\n    xwidth = 0.1,\n    yheight = 0.25\n) AT (0, 0, 1e-6) RELATIVE Lmon_beforeballistic ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Guidelong2a = Guide(\n    w1 = W4,\n    h1 = H4,\n    w2 = W_chop,\n    h2 = H_chop,\n    l = L_ballistic_end,\n    R0 = 1,\n    alpha = ALPHA,\n    m = M,\n    W = 0.003\n) AT (0, 0, 1e-6) RELATIVE PSD_beforeballistic ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Lmonfast2 = L_monitor(\n    nL = 200,\n    filename = \"Lmonfast2.dat\",\n    xwidth = 0.06,\n    yheight = 0.18,\n    Lmin = 0,\n    Lmax = Lmax + 1\n) AT (0, 0, L_ballistic_end + 1e-6) RELATIVE Guidelong2a ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT TOFLfast2 = TOFLambda_monitor(\n    nL = 200,\n    nt = 200,\n    tmin = 0,\n    tmax = 3.0e5,\n    filename = \"TOFLfast2.dat\",\n    xwidth = 0.05,\n    yheight = 0.12,\n    Lmin = 0,\n    Lmax = Lmax + 1\n) AT (0, 0, 1e-6) RELATIVE Lmonfast2 ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT TOFLfast2zoom = TOFLambda_monitor(\n    nL = 200,\n    nt = 200,\n    tmin = tmin_zoom,\n    tmax = tmax_zoom,\n    filename = \"TOFLfast2_zoom.dat\",\n    xwidth = 0.05,\n    yheight = 0.12,\n    Lmin = lambda0 - 0.2,\n    Lmax = lambda0 + 0.2\n) AT (0, 0, 1e-6) RELATIVE TOFLfast2 ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT PSDfast2 = PSD_monitor(\n    filename = \"PSDfast2.dat\",\n    xwidth = 0.1,\n    yheight = 0.25\n) AT (0, 0, 1e-6) RELATIVE TOFLfast2zoom ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Fastchop2 = DiskChopper(\n    theta_0 = FAST_THETA,\n    radius = 0.35,\n    yheight = 0.35,\n    nu = F_fast2,\n    nslit = N_fast,\n    delay = t_fast2\n) AT (0, 0.04, Length) RELATIVE Origin ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Fastchop2counter = DiskChopper(\n    theta_0 = FAST_THETA,\n    radius = 0.35,\n    yheight = 0.35,\n    nu = -F_fast2,\n    nslit = N_fast,\n    delay = -t_fast2a\n) AT (0, 0.04, Length + GUI_GAP) RELATIVE Origin ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT FOchop3 = DiskChopper(\n    theta_0 = 2 * FAST_THETA,\n    radius = 0.35,\n    yheight = 0.35,\n    nu = F_fast2 / FO3,\n    nslit = N_fast,\n    delay = t_fast3\n) AT (0, 0.04, Length + 2 * GUI_GAP) RELATIVE Origin ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT TOFfast2_zoom = TOF_monitor(\n    nt = 100,\n    filename = \"TOF_fast2.dat\",\n    xwidth = 1.1,\n    yheight = 1.2,\n    tmin = 1e6 * t_fast3 - 2e2,\n    tmax = 1e6 * t_fast3 + 2e2\n) AT (0, -0.04, 1e-6) RELATIVE FOchop3 ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Lmon_afterfast2 = L_monitor(\n    nL = 500,\n    filename = \"Lmon_afterfast2.dat\",\n    xwidth = 0.06,\n    yheight = 0.18,\n    Lmin = 0,\n    Lmax = Lmax + 1\n) AT (0, 0, 1e-6) RELATIVE TOFfast2_zoom ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT TOFL_afterfast2 = TOFLambda_monitor(\n    nL = 200,\n    nt = 200,\n    tmin = 0,\n    tmax = 3.0e5,\n    filename = \"TOF_afterfast2.dat\",\n    xwidth = 0.05,\n    yheight = 0.12,\n    Lmin = 0,\n    Lmax = Lmax + 1\n) AT (0, 0, 1e-6) RELATIVE Lmon_afterfast2 ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT TOFL_afterfast2_zoom = TOFLambda_monitor(\n    nL = 200,\n    nt = 200,\n    tmin = tmin_zoom,\n    tmax = tmax_zoom,\n    filename = \"TOFL_afterfast2_zoom.dat\",\n    xwidth = 0.05,\n    yheight = 0.12,\n    Lmin = lambda0 - 0.2,\n    Lmax = lambda0 + 0.2\n) AT (0, 0, 1e-6) RELATIVE TOFL_afterfast2 ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT PSD_afterfast2 = PSD_monitor(\n    filename = \"PSD_afterfast2.dat\",\n    xwidth = 0.1,\n    yheight = 0.25\n) AT (0, 0, 1e-6) RELATIVE TOFL_afterfast2_zoom ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Guidesample = Guide(\n    w1 = W_chop,\n    h1 = H_chop,\n    w2 = W_end,\n    h2 = H_end,\n    l = SAMPLE_DIST - 4 * GUI_GAP,\n    R0 = 1,\n    alpha = ALPHA,\n    m = M,\n    W = 0.003\n) AT (0, 0, GUI_GAP / 2) RELATIVE PSD_afterfast2 ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT Lmon_guideend = L_monitor(\n    nL = 1000,\n    filename = \"Lmon_guideend.dat\",\n    xwidth = W_end + 0.01,\n    yheight = H_end + 0.01,\n    Lmin = 0,\n    Lmax = Lmax + 1\n) AT (0, 0, SAMPLE_DIST - 4 * GUI_GAP + 1e-6) RELATIVE Guidesample ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT PSDsample = PSD_monitor(\n    filename = \"PSDsample.dat\",\n    xwidth = 0.1,\n    yheight = 0.25\n) AT (0, 0, SAMPLE_DIST - 3 * GUI_GAP + 1e-6) RELATIVE Lmon_guideend ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT TOFsample_zoom = TOF_monitor(\n    nt = 500,\n    filename = \"TOF_sample.dat\",\n    xwidth = 0.02,\n    yheight = 0.04,\n    tmin = 1e6 * t_sample - 5e4,\n    tmax = 1e6 * t_sample + 5e4\n) AT (0, 0, 1e-6) RELATIVE PSDsample ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT sample = Tunneling_sample(\n    thickness = 0.01 - V_HOLE,\n    radius = 0.01,\n    p_interact = 1,\n    f_QE = FRAC_QUASIEL,\n    f_tun = FRAC_TUNNEL,\n    gamma = Gamma,\n    E_tun = Etun,\n    focus_xw = 0.015,\n    focus_yh = 0.015,\n    yheight = 0.04,\n    target_index = 2\n) AT (0, -0.04, SAMPLE_DIST) RELATIVE Fastchop2 ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT detectorarm = Arm() AT (0, 0, 0) RELATIVE sample ROTATED (0, TT, 0) RELATIVE sample\n\nCOMPONENT TOFdetector = TOF_monitor(\n    nt = 512,\n    filename = \"TOF.dat\",\n    xwidth = 0.015,\n    yheight = 0.015,\n    tmin = 0,\n    tmax = 2e5\n) AT (0, 0, DETECTOR_DIST) RELATIVE detectorarm ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT TOFdetector_zoom = TOF_monitor(\n    nt = 100,\n    filename = \"TOF_zoom.dat\",\n    xwidth = 0.015,\n    yheight = 0.015,\n    tmin = 1e6 * t_detector - 10e2,\n    tmax = 1e6 * t_detector + 10e2\n) AT (0, 0, 1e-6) RELATIVE TOFdetector ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT PSD_monitor_final = PSD_monitor(\n    filename = \"PSD_monitor_final.dat\",\n    xwidth = 0.1,\n    yheight = 0.1\n) AT (0, 0, 1e-6) RELATIVE TOFdetector_zoom ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT L_monitor_final = L_monitor(\n    nL = 1000,\n    filename = \"L_monitor_final.dat\",\n    xwidth = 0.1,\n    yheight = 0.1,\n    Lmin = 0,\n    Lmax = 20\n) AT (0, 0, 1e-6) RELATIVE PSD_monitor_final ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT TOF_monitor_final = TOF_monitor(\n    nt = 1000,\n    filename = \"TOF_monitor_final.dat\",\n    xwidth = 0.1,\n    yheight = 0.1,\n    tmin = 0,\n    tmax = 3e5\n) AT (0, 0, 1e-6) RELATIVE L_monitor_final ROTATED (0, 0, 0) RELATIVE ABSOLUTE\n\nEND\n```"
   },
   "grade": {
     "task": "T1_ESS_IN5_reprate",
     "pass": false,
     "score": 0.0,
     "hard_failures": [
-      "agent left no built instrument in the episode registry"
+      "candidate failed to run (compile)"
     ],
-    "checks": []
+    "diagnostics": [
+      "./ToF_Spectrometer.c:1268:18: note: expanded from macro 'K2V'",
+      " 1268 | #define K2V      AA2MS",
+      "      |                  ^",
+      "./ToF_Spectrometer.c:1266:18: note: expanded from macro 'AA2MS'",
+      " 1266 | #define AA2MS    629.622368        /* Convert k[1/AA] to v[m/s] */",
+      "      |                  ^",
+      "./ToF_Spectrometer.c:10291:10: error: expected identifier or '('",
+      " 10291 |   double VS2E = 5.227e-6; // eV to meV",
+      "       |          ^",
+      "./ToF_Spectrometer.c:1273:18: note: expanded from macro 'VS2E'",
+      " 1273 | #define VS2E     5.22703725e-6     /* Convert (v[m/s])**2 to E[meV] */",
+      "      |                  ^",
+      "3 errors generated.",
+      "INFO: call to arm64-apple-darwin20.0.0-clang failed with Command 'arm64-apple-darwin20.0.0-clang -o ./ToF_Spectrometer.out ./ToF_Spectrometer.c -lm -headerpad_max_install_names -ftree-vectorize -fPIC -fstack-protector-strong -O2 -pipe -isystem /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/include -fdebug-prefix-map=/Users/runner/miniforge3/conda-bld/mcstas-suite_1783460247618/work=/usr/local/src/conda/mcstas-core-3.7.12 -fdebug-prefix-map=/opt/homebrew/Caskroom/miniconda/base/envs/mcstas=/usr/local/src/conda-prefix -O2 -g -DNDEBUG -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -D_DARWIN_C_SOURCE '-I${CONDA_PREFIX}/include' '-Wl,-rpath,${CONDA_PREFIX}/lib' '-L${CONDA_PREFIX}/lib' -fno-PIC -fPIE -flto -O3 -march=native -fno-math-errno -ftree-vectorize -g -DNDEBUG -D_POSIX_SOURCE -std=c99 -lm' returned non-zero exit status 1.",
+      "ERROR: Compilation failed for ./ToF_Spectrometer.c using compiler arm64-apple-darwin20.0.0-clang"
+    ],
+    "checks": [],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ESS_IN5_reprate__oneshot__meta_llama_llama_4_maverick/home/instruments/ToF_Spectrometer/ToF_Spectrometer.instr",
+    "candidate_params": {
+      "Lmin": "4.9",
+      "Lmax": "5.1",
+      "lambda0": "5",
+      "Pulse_width": "2.857e-3",
+      "Num_pulses": "1",
+      "GUI_start": "2.0",
+      "FO1_DIST": "6",
+      "L_ballistic_begin": "19.5",
+      "L_ballistic_end": "17",
+      "Length": "100",
+      "SAMPLE_DIST": "1.2",
+      "DETECTOR_DIST": "4",
+      "GUI_h": "0.105",
+      "GUI_w": "0.1",
+      "GUI_GAP": "0.05",
+      "H1": "0.167",
+      "W1": "0.116",
+      "H2": "0.185",
+      "W2": "0.15",
+      "H3": "0.19",
+      "W3": "0.15",
+      "H4": "0.213",
+      "W4": "0.14",
+      "H_chop": "0.075",
+      "W_chop": "0.03",
+      "H_end": "0.042",
+      "W_end": "0.0215",
+      "ALPHA": "3.4",
+      "M": "3.5",
+      "F_slow1": "16.6667",
+      "F_slow2": "0",
+      "F_fast1": "0",
+      "F_fast2": "200",
+      "N_fast": "1",
+      "SLOW1_THETA": "120",
+      "FO3": "1",
+      "THETA_fast1": "180",
+      "FAST_THETA": "5",
+      "Gamma": "0",
+      "Etun": "1",
+      "V_HOLE": "0",
+      "FRAC_QUASIEL": "0",
+      "FRAC_TUNNEL": "0",
+      "TT": "50",
+      "RES_DE": "0.5",
+      "cold": "0.95"
+    }
   },
   "reference_leak": {
     "leaked": false,
     "events": []
   },
-  "artifacts": null
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ESS_IN5_reprate__oneshot__meta_llama_llama_4_maverick/artifacts/ToF_Spectrometer.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ESS_IN5_reprate__oneshot__meta_llama_llama_4_maverick/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ESS_IN5_reprate__oneshot__meta_llama_llama_4_maverick/artifacts/diagram.png",
+    "trace": null,
+    "errors": [
+      "trace: mcdisplay-webgl failed"
+    ]
+  }
 }

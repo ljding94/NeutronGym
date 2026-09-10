@@ -2291,6 +2291,366 @@
    "final": true,
    "wall_s": 19.2,
    "ok": true
+  },
+  {
+   "task": "T1_ILL_IN6",
+   "arm": "oneshot",
+   "model": "qwen3-8b",
+   "usd": 0.0,
+   "wall_s": 69.1,
+   "ok": true
+  },
+  {
+   "task": "T1_ISIS_SANS2d",
+   "arm": "oneshot",
+   "model": "qwen3-8b",
+   "usd": 0.0,
+   "wall_s": 50.7,
+   "ok": true
+  },
+  {
+   "task": "T1_PSI_DMC",
+   "arm": "oneshot",
+   "model": "qwen3-8b",
+   "usd": 0.0,
+   "wall_s": 907.7,
+   "ok": true
+  },
+  {
+   "task": "T1_RTP_DIF",
+   "arm": "oneshot",
+   "model": "qwen3-8b",
+   "usd": 0.0,
+   "wall_s": 30.0,
+   "ok": true
+  },
+  {
+   "task": "T1_SESANS_Delft",
+   "arm": "oneshot",
+   "model": "qwen3-8b",
+   "usd": 0.0,
+   "wall_s": 35.2,
+   "ok": true
+  },
+  {
+   "task": "T2_guide_divergence",
+   "arm": "oneshot",
+   "model": "qwen3-8b",
+   "usd": 0.0,
+   "wall_s": 8.8,
+   "ok": true
+  },
+  {
+   "task": "T2_sans_collimation",
+   "arm": "oneshot",
+   "model": "qwen3-8b",
+   "usd": 0.0,
+   "wall_s": 11.5,
+   "ok": true
+  },
+  {
+   "task": "T1_PSI_DMC_pert",
+   "arm": "oneshot",
+   "model": "qwen3-8b",
+   "usd": 0.0,
+   "wall_s": 56.2,
+   "ok": true
+  },
+  {
+   "task": "T1_ISIS_SANS2d_pert",
+   "arm": "oneshot",
+   "model": "qwen3-8b",
+   "usd": 0.0,
+   "wall_s": 53.0,
+   "ok": true
+  },
+  {
+   "task": "T1_HZB_FLEX_pert",
+   "arm": "oneshot",
+   "model": "qwen3-8b",
+   "usd": 0.0,
+   "wall_s": 46.8,
+   "ok": true
+  },
+  {
+   "task": "T1_ESS_IN5_reprate",
+   "arm": "main",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 67.9,
+   "ok": true
+  },
+  {
+   "task": "T1_HZB_FLEX",
+   "arm": "main",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 65.4,
+   "ok": true
+  },
+  {
+   "task": "T1_HZB_NEAT",
+   "arm": "main",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 105.9,
+   "ok": true
+  },
+  {
+   "task": "T1_ILL_D2B",
+   "arm": "main",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 103.0,
+   "ok": true
+  },
+  {
+   "task": "T1_ILL_H10_IN8",
+   "arm": "main",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 43.9,
+   "ok": true
+  },
+  {
+   "task": "T1_ILL_H15_D11",
+   "arm": "main",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 76.8,
+   "ok": true
+  },
+  {
+   "task": "T1_ILL_H512_D22",
+   "arm": "main",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 72.6,
+   "ok": true
+  },
+  {
+   "task": "T1_ILL_IN6",
+   "arm": "main",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 78.8,
+   "ok": true
+  },
+  {
+   "task": "T1_ISIS_SANS2d",
+   "arm": "main",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 151.0,
+   "ok": true
+  },
+  {
+   "task": "T1_PSI_DMC",
+   "arm": "main",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 81.3,
+   "ok": true
+  },
+  {
+   "task": "T1_RTP_DIF",
+   "arm": "main",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 16.6,
+   "ok": true
+  },
+  {
+   "task": "T1_SESANS_Delft",
+   "arm": "main",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 90.0,
+   "ok": true
+  },
+  {
+   "task": "T2_guide_divergence",
+   "arm": "main",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 287.1,
+   "ok": true
+  },
+  {
+   "task": "T2_sans_collimation",
+   "arm": "main",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 154.7,
+   "ok": true
+  },
+  {
+   "task": "T1_PSI_DMC_pert",
+   "arm": "main",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 86.4,
+   "ok": true
+  },
+  {
+   "task": "T1_ISIS_SANS2d_pert",
+   "arm": "main",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 147.7,
+   "ok": true
+  },
+  {
+   "task": "T1_HZB_FLEX_pert",
+   "arm": "main",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 78.7,
+   "ok": true
+  },
+  {
+   "task": "T1_ESS_IN5_reprate",
+   "arm": "oneshot",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 106.5,
+   "ok": true
+  },
+  {
+   "task": "T1_HZB_FLEX",
+   "arm": "oneshot",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 122.7,
+   "ok": true
+  },
+  {
+   "task": "T1_HZB_NEAT",
+   "arm": "oneshot",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 74.5,
+   "ok": true
+  },
+  {
+   "task": "T1_ILL_D2B",
+   "arm": "oneshot",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 71.7,
+   "ok": true
+  },
+  {
+   "task": "T1_ILL_H10_IN8",
+   "arm": "oneshot",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 19.4,
+   "ok": true
+  },
+  {
+   "task": "T1_ILL_H15_D11",
+   "arm": "oneshot",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 270.2,
+   "ok": true
+  },
+  {
+   "task": "T1_ILL_H512_D22",
+   "arm": "oneshot",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 120.3,
+   "ok": true
+  },
+  {
+   "task": "T1_ILL_IN6",
+   "arm": "oneshot",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 104.6,
+   "ok": true
+  },
+  {
+   "task": "T1_ISIS_SANS2d",
+   "arm": "oneshot",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 70.6,
+   "ok": true
+  },
+  {
+   "task": "T1_PSI_DMC",
+   "arm": "oneshot",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 69.4,
+   "ok": true
+  },
+  {
+   "task": "T1_RTP_DIF",
+   "arm": "oneshot",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 45.1,
+   "ok": true
+  },
+  {
+   "task": "T1_SESANS_Delft",
+   "arm": "oneshot",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 53.8,
+   "ok": true
+  },
+  {
+   "task": "T2_guide_divergence",
+   "arm": "oneshot",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 7.4,
+   "ok": true
+  },
+  {
+   "task": "T2_sans_collimation",
+   "arm": "oneshot",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 12.6,
+   "ok": true
+  },
+  {
+   "task": "T1_PSI_DMC_pert",
+   "arm": "oneshot",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 71.2,
+   "ok": true
+  },
+  {
+   "task": "T1_ISIS_SANS2d_pert",
+   "arm": "oneshot",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 64.8,
+   "ok": true
+  },
+  {
+   "task": "T1_HZB_FLEX_pert",
+   "arm": "oneshot",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "wall_s": 107.8,
+   "ok": true
+  },
+  {
+   "task": "T1_PSI_DMC",
+   "arm": "oneshot",
+   "model": "qwen3-8b",
+   "usd": 0.0,
+   "wall_s": 908.1,
+   "ok": true
   }
  ],
  "total_usd": 121.1676,

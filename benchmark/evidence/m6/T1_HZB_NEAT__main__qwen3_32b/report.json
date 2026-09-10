@@ -4,19 +4,26 @@
     "model": "qwen3-32b",
     "scaffold": "neutrongym-reference-loop",
     "provider_pin": null,
-    "providers_seen": [],
-    "returncode": 1,
-    "error": "chat completion failed after 3 tries: ConnectError: [Errno 61] Connection refused",
-    "turns": 1,
-    "hit_turn_cap": false,
+    "providers_seen": [
+      "?"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 50,
+    "hit_turn_cap": true,
     "empty_responses": 0,
     "cost_usd": null,
-    "duration_s": 8.7,
+    "duration_s": 104.5,
     "usage": {
-      "prompt_tokens": 0,
-      "completion_tokens": 0
+      "prompt_tokens": 582673,
+      "completion_tokens": 5154
     },
-    "mcp_calls": {},
+    "mcp_calls": {
+      "create_instrument": 1,
+      "add_parameter": 7,
+      "add_declare": 11,
+      "add_component": 31
+    },
     "skill_used": true,
     "final_answer": ""
   },

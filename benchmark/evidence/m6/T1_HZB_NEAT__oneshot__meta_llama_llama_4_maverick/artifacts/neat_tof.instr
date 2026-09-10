@@ -1,0 +1,316 @@
+DEFINE INSTRUMENT neat_tof(
+  lambda = 6,
+  dlambda = 0.05,
+  rpm = 10000,
+  coh = "Rb_liq_coh.sqw",
+  inc = "Rb_liq_inc.sqw",
+  tmin = 0.01806,
+  tmax = 0.01826
+)
+
+DECLARE
+%{
+  double Chopper2Detector = 11.97+2.143+0.165;
+  double KI, Vi, EI;
+  double Emin, Emax, Vmin, Vmax, Tmin, Tmax;
+  double time_elastic;
+  char detector_options[1024];
+  char lmon_options[256];
+  char tmon_options[256];
+%}
+
+INITIALIZE
+%{
+  KI= 2*M_PI/lambda;
+  Vi = 3956*fabs(KI);
+  EI = 81.81*Vi*Vi/1e6;
+  printf("%s: Detailed NEAT/TOF configuration\n", NAME_INSTRUMENT);
+  printf("* Incoming beam: lambda=%.4g [Angs] EI=%.4g [meV]  KI=%.4g [Angs-1] Vi=%g [m/s]\n",
+    lambda, EI, KI, Vi);
+  time_elastic = 252.78*Chopper2Detector*lambda*1e-6; /* time from Chopper1 to reach Detector */
+  printf("  Sample: coh=%s inc=%s\n", coh, inc);
+  printf("          Elastic line time: %g [us]\n", time_elastic*1e6);
+  Emin = EI-20; if (Emin < EI/3) Emin=EI/3;
+  Emax = EI+20;
+  Vmin = sqrt(Emin/81.81);
+  Vmax = sqrt(Emax/81.81)*1e3;
+  Tmin = 2.5/Vmax;
+  Tmax = 2.5/Vmin;
+  sprintf(detector_options,
+    "banana, abs angle limits=[13 136] bins=300, time limits=[%g %g] bins=256",
+    time_elastic+Tmin, time_elastic+Tmax);
+  sprintf(lmon_options,"lambda limits=[%g %g] bins=100",lambda-dlambda/2.0,lambda+dlambda/2.0);
+  sprintf(tmon_options,"tof limits=[%g %g] bins=100",tmin,tmax);
+%}
+
+TRACE
+
+COMPONENT PG = Progress_bar() AT (0, 0, 0) ABSOLUTE
+
+COMPONENT Source = Source_gen(
+  radius = 0.155,
+  focus_xw = 0.03,
+  focus_yh = 0.055,
+  lambda0 = lambda,
+  dlambda = dlambda,
+  I1 = 1.4e12,
+  T1 = 43.7,
+  T2 = 137.2,
+  I2 = 2.08e12
+) AT (0, 0, 0) RELATIVE PG
+
+COMPONENT Guide0 = Guide_gravity(
+  w1 = 0.03,
+  h1 = 0.055,
+  l = 2,
+  m = 1.2
+) AT (0, 0, 2) RELATIVE Source
+
+COMPONENT Guide0_copy = Guide_gravity(
+  w1 = 0.03,
+  h1 = 0.055,
+  l = 2,
+  m = 1.2
+) AT (0, 0, 2+1e-4) RELATIVE Guide0 ROTATED (0, 2.0/2500, 0) RELATIVE Guide0
+
+COMPONENT Guide0_copy_0 = Guide_gravity(
+  w1 = 0.03,
+  h1 = 0.055,
+  l = 2,
+  m = 1.2
+) AT (0, 0, 2+1e-4) RELATIVE Guide0_copy ROTATED (0, 2.0/2500, 0) RELATIVE Guide0_copy
+
+COMPONENT Guide0_copy_1 = Guide_gravity(
+  w1 = 0.03,
+  h1 = 0.055,
+  l = 2,
+  m = 1.2
+) AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_0 ROTATED (0, 2.0/2500, 0) RELATIVE Guide0_copy_0
+
+COMPONENT Guide0_copy_2 = Guide_gravity(
+  w1 = 0.03,
+  h1 = 0.055,
+  l = 2,
+  m = 1.2
+) AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_1 ROTATED (0, 2.0/2500, 0) RELATIVE Guide0_copy_1
+
+COMPONENT Guide0_copy_3 = Guide_gravity(
+  w1 = 0.03,
+  h1 = 0.055,
+  l = 2,
+  m = 1.2
+) AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_2 ROTATED (0, 2.0/2500, 0) RELATIVE Guide0_copy_2
+
+COMPONENT Guide0_copy_4 = Guide_gravity(
+  w1 = 0.03,
+  h1 = 0.055,
+  l = 2,
+  m = 1.2
+) AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_3 ROTATED (0, 2.0/2500, 0) RELATIVE Guide0_copy_3
+
+COMPONENT Guide0_copy_5 = Guide_gravity(
+  w1 = 0.03,
+  h1 = 0.055,
+  l = 2,
+  m = 1.2
+) AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_4 ROTATED (0, 2.0/2500, 0) RELATIVE Guide0_copy_4
+
+COMPONENT Guide0_copy_6 = Guide_gravity(
+  w1 = 0.03,
+  h1 = 0.055,
+  l = 2,
+  m = 1.2
+) AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_5 ROTATED (0, 2.0/2500, 0) RELATIVE Guide0_copy_5
+
+COMPONENT Guide0_copy_7 = Guide_gravity(
+  w1 = 0.03,
+  h1 = 0.055,
+  l = 2,
+  m = 1.2
+) AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_6 ROTATED (0, 2.0/2500, 0) RELATIVE Guide0_copy_6
+
+COMPONENT Guide0_copy_8 = Guide_gravity(
+  w1 = 0.03,
+  h1 = 0.055,
+  l = 2,
+  m = 1.2
+) AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_7 ROTATED (0, 2.0/2500, 0) RELATIVE Guide0_copy_7
+
+COMPONENT Guide0_copy_9 = Guide_gravity(
+  w1 = 0.03,
+  h1 = 0.055,
+  l = 2,
+  m = 1.2
+) AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_8 ROTATED (0, 2.0/2500, 0) RELATIVE Guide0_copy_8
+
+COMPONENT Guide0_copy_10 = Guide_gravity(
+  w1 = 0.03,
+  h1 = 0.055,
+  l = 2,
+  m = 1.2
+) AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_9 ROTATED (0, 2.0/2500, 0) RELATIVE Guide0_copy_9
+
+COMPONENT Guide0_copy_11 = Guide_gravity(
+  w1 = 0.03,
+  h1 = 0.055,
+  l = 2,
+  m = 1.2
+) AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_10 ROTATED (0, 2.0/2500, 0) RELATIVE Guide0_copy_10
+
+COMPONENT Guide0_copy_12 = Guide_gravity(
+  w1 = 0.03,
+  h1 = 0.055,
+  l = 2,
+  m = 1.2
+) AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_11 ROTATED (0, 2.0/2500, 0) RELATIVE Guide0_copy_11
+
+COMPONENT Guide0_copy_13 = Guide_gravity(
+  w1 = 0.03,
+  h1 = 0.055,
+  l = 2,
+  m = 1.2
+) AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_12 ROTATED (0, 2.0/2500, 0) RELATIVE Guide0_copy_12
+
+COMPONENT Guide0_copy_14 = Guide_gravity(
+  w1 = 0.03,
+  h1 = 0.055,
+  l = 2,
+  m = 1.2
+) AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_13 ROTATED (0, 2.0/2500, 0) RELATIVE Guide0_copy_13
+
+COMPONENT Guide_PSD = Monitor_nD(
+  xwidth = 0.03,
+  yheight = 0.055,
+  options = "y x",
+  restore_neutron = 1
+) AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_14
+
+COMPONENT Guide_Lambda = Monitor_nD(
+  xwidth = 0.03,
+  yheight = 0.055,
+  options = lmon_options,
+  restore_neutron = 1
+) AT (0, 0, 1e-4) RELATIVE Guide_PSD
+
+COMPONENT Chopper1 = DiskChopper(
+  radius = 0.24,
+  yheight = 0.06,
+  nu = rpm/60,
+  isfirst = 1,
+  xwidth = 0.03
+) AT (0, 0, 1.2e-2/2) RELATIVE Guide_Lambda
+
+COMPONENT Guide_SGS1 = Guide_gravity(
+  w1 = 0.03,
+  h1 = 0.055,
+  l = 2,
+  m = 1.2
+) AT (0, 0, 1.2e-2) RELATIVE Chopper1
+
+COMPONENT Guide_SGS2 = Guide_gravity(
+  w1 = 0.03,
+  h1 = 0.055,
+  l = 2.41,
+  m = 1.2
+) AT (0, 0, 2.41) RELATIVE Guide_SGS1
+
+COMPONENT Guide_SGS3 = Guide_gravity(
+  w1 = 0.03,
+  h1 = 0.055,
+  l = 5.065,
+  m = 1.2
+) AT (0, 0, 5.065) RELATIVE Guide_SGS2
+
+COMPONENT Guide_CGS = Guide_gravity(
+  w1 = 0.03,
+  h1 = 0.055,
+  l = 2.352,
+  m = 1.2
+) AT (0, 0, 2.352) RELATIVE Guide_SGS3
+
+COMPONENT Guide2_PSD = Monitor_nD(
+  xwidth = 0.03,
+  yheight = 0.055,
+  options = "x y",
+  restore_neutron = 1
+) AT (0, 0, 2.143-2*6e-3+1e-4) RELATIVE Guide_CGS
+
+COMPONENT Guide2_Lambda = Monitor_nD(
+  xwidth = 0.03,
+  yheight = 0.055,
+  options = lmon_options,
+  restore_neutron = 1
+) AT (0, 0, 1e-4) RELATIVE Guide2_PSD
+
+COMPONENT Guide2_dXY = Monitor_nD(
+  xwidth = 0.03,
+  yheight = 0.055,
+  options = "dx dy",
+  restore_neutron = 1
+) AT (0, 0, 1e-4) RELATIVE Guide2_Lambda
+
+COMPONENT Chopper6 = DiskChopper(
+  radius = 0.24,
+  yheight = 0.06,
+  nu = rpm/60,
+  delay = 252.78*11.97*lambda*1e-6,
+  xwidth = 0.03
+) AT (0, 0, 1.2e-2/2) RELATIVE Guide2_dXY
+
+COMPONENT Guide_time = Monitor_nD(
+  xwidth = 0.03,
+  yheight = 0.055,
+  options = tmon_options,
+  restore_neutron = 1
+) AT (0, 0, 1.2e-2/2) RELATIVE Chopper6
+
+COMPONENT Guide_DGS = Guide_gravity(
+  w1 = 0.03,
+  h1 = 0.055,
+  l = 2.143,
+  m = 1.2
+) AT (0, 0, 2.143) RELATIVE Guide_CGS
+
+COMPONENT Sample_pos = Arm() AT (0, 0, 2.143+0.165) RELATIVE Guide_DGS
+
+COMPONENT Sample = Isotropic_Sqw(
+  Sqw_coh = coh,
+  Sqw_inc = inc,
+  xwidth = 0.05,
+  yheight = 0.06,
+  zdepth = 0.002,
+  p_interact = 0.99
+) AT (0, 0, 0) RELATIVE Sample_pos ROTATED (0, 45, 0) RELATIVE Sample_pos SPLIT 10
+EXTEND
+%{
+  if (!SCATTERED) ABSORB;
+%}
+
+COMPONENT Ideal_Det = Monitor_nD(
+  yheight = 2,
+  radius = 2.5,
+  options = detector_options,
+  restore_neutron = 1
+) AT (0, 0, 0) RELATIVE Sample_pos
+
+COMPONENT Detector = PSD_Detector(
+  nx = 640,
+  ny = 256,
+  radius = 2.5,
+  yheight = 2.0,
+  zdepth = 0.01,
+  threshold = 100,
+  PressureConv = 8,
+  PressureStop = 1,
+  dc = 0,
+  borderx = -1,
+  bordery = -1,
+  xChDivRelSigma = 0,
+  yChDivRelSigma = 0.0037,
+  angle = 136-13,
+  filename = "NEAT.psd",
+  FN_Conv = "Gas_tables/He3inHe.table",
+  FN_Stop = "Gas_tables/He3inCF4.table"
+) AT (0, 0, 0) RELATIVE Sample_pos ROTATED (0, (136-13)/2+13, 0) RELATIVE Sample_pos
+
+END

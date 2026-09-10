@@ -1,0 +1,79 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: guide_optimization
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 13:51:34 on September 10, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* w_in: [unit] m] Guide entrance width
+* w_out: [unit] m] Guide exit width
+* m_coat: [unit] dimensionless] Guide coating m-value
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT guide_optimization (
+w_in = 0.012, // m] Guide entrance width
+w_out = 0.012, // m] Guide exit width
+m_coat = 1.5 // dimensionless] Guide coating m-value
+)
+
+DECLARE 
+%{
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated guide_optimization
+%}
+
+TRACE 
+COMPONENT source = Source_simple(
+ yheight = 0.1, xwidth = 0.1,
+ dist = 1.5, focus_xw = 0.012,
+ focus_yh = 0.012, lambda0 = 5.0,
+ dlambda = 0.5)
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT guide = Guide_gravity(
+ w1 = w_in, h1 = w_in,
+ l = 10.0, m = m_coat,
+ G = 9.81)
+AT (0.0, 0.0, 1.5) RELATIVE source
+
+COMPONENT divmon = Divergence_monitor(
+ nh = 100, nv = 100,
+ xwidth = w_out, yheight = w_out,
+ maxdiv_h = 0.5, maxdiv_v = 0.5,
+ restore_neutron = 1)
+AT (0.0, 0.0, 0.05) RELATIVE guide
+
+FINALLY 
+%{
+// Start of finally for generated guide_optimization
+%}
+
+END
