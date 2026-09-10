@@ -230,6 +230,26 @@ def test_missing_result_counts_as_leak(tmp_path):
     assert _audit(t, tmp_path)["leaked"]
 
 
+def test_audit_survives_odd_transcript_shapes(tmp_path):
+    """Claude Code emits `message` as a STRING on some events; a crash
+    here killed an entire episode's report (2026-09-10). The mandatory
+    audit must never be the thing that loses an episode."""
+    p = tmp_path / "transcript.jsonl"
+    p.write_text("\n".join(json.dumps(x) for x in [
+        {"type": "assistant", "message": "a bare string"},
+        {"type": "user", "message": {"content": "also a string"}},
+        {"type": "system", "message": {"content": ["not a dict", 42]}},
+        {"type": "assistant", "message": {"content": [
+            {"type": "tool_use", "id": "c1",
+             "name": "mcp__mcstas__get_example",
+             "input": {"name": "templateSANS"}}]}},
+        {"type": "result", "result": "done"},
+    ]) + "\n")
+    audit = _audit(str(p), tmp_path)
+    assert audit["leaked"]  # the real call is still detected
+    assert audit["events"][0]["target"] == "templateSANS"
+
+
 def test_clean_transcript_stamps_clean(tmp_path):
     t = _transcript(tmp_path,
                     ({"name": "mcp__mcstas__describe_component",

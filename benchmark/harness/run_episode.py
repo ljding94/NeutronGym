@@ -291,6 +291,11 @@ def main():
     ap.add_argument("--max-turns", type=int, default=None,
                     help="loop turn cap (M6 protocol pins 50 via "
                          "benchmark/m6_config.json; default = loop default)")
+    ap.add_argument("--regrade", action="store_true",
+                    help="skip the agent: re-run grading/audit/artifacts on "
+                         "an EXISTING episode dir (for harness bugs that hit "
+                         "after an expensive run — the agent's work is "
+                         "already on disk and must not be paid for twice)")
     ap.add_argument("--base-url", default=None,
                     help="OpenAI-compatible endpoint for local/vLLM models "
                          "(e.g. http://a100-host:8000/v1); use with "
@@ -307,10 +312,20 @@ def main():
     # MCSTAS_MCP_HOME reaches the MCP server via env and the server runs with
     # a different cwd — a relative episode dir would scatter the registry
     ep = os.path.abspath(ep)
-    shutil.rmtree(ep, ignore_errors=True)
-    os.makedirs(ep)
+    if args.regrade:
+        if not os.path.isdir(os.path.join(ep, "home")):
+            raise SystemExit(f"error: --regrade needs an existing episode "
+                             f"dir with home/; {ep} has none")
+        episode = {"regraded": True, "note": "agent not re-run; grading, "
+                   "leak audit and artifacts recomputed from the episode "
+                   "on disk"}
+    else:
+        shutil.rmtree(ep, ignore_errors=True)
+        os.makedirs(ep)
 
-    if args.scaffold == "loop":
+    if args.regrade:
+        pass  # episode meta set above; agent deliberately not re-run
+    elif args.scaffold == "loop":
         episode = run_agent_loop(task, args.model, ep,
                                  use_skill=not args.no_skill,
                                  provider=args.provider,

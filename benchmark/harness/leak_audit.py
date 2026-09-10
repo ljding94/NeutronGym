@@ -90,7 +90,18 @@ def audit_transcript(transcript_path: str, allowed_roots, forbidden_trees,
                 ev = json.loads(line)
             except json.JSONDecodeError:
                 continue
-            for b in (ev.get("message") or {}).get("content", []) or []:
+            # transcript shapes vary: Claude Code emits `message` as a
+            # STRING on some events, and `content` can be a string too.
+            # A crash here previously killed the whole episode report
+            # (2026-09-10) — the mandatory audit must never be the thing
+            # that loses an episode.
+            msg = ev.get("message")
+            if not isinstance(msg, dict):
+                continue
+            content = msg.get("content")
+            if not isinstance(content, list):
+                continue
+            for b in content:
                 if not isinstance(b, dict):
                     continue
                 if ev.get("type") == "assistant" and b.get("type") == "tool_use":
