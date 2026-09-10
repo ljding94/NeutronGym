@@ -245,6 +245,25 @@ async def _run(task_prompt, model, episode_dir, home_dir, server_cwd,
                                  if k in ("role", "content", "tool_calls")})
                 if not calls:
                     final = msg.get("content") or ""
+                    # SYMMETRY FIX (2026-09-10, peer review): a model that
+                    # answers in PROSE having never touched a tool has not
+                    # attempted the task — it must be nudged exactly like an
+                    # empty turn. Previously prose-without-tools ended the
+                    # episode on turn 1 unnudged, which scored such models
+                    # L0 "never called a tool" without ever asking twice
+                    # (maverick: all 17 loop episodes, turns=1). Text AFTER
+                    # tools have been used is a legitimate final answer.
+                    if final.strip() and not tool_counts:
+                        empties += 1
+                        if empties < 3:
+                            messages.append({
+                                "role": "user",
+                                "content": "You have not used any tools yet. "
+                                           "You must build the instrument "
+                                           "with the provided tools — "
+                                           "describing it in text does not "
+                                           "count. Call a tool now."})
+                            continue
                     if not final.strip():
                         # reasoning-only / truncated turn (seen with Gemini
                         # via OpenRouter): nudge instead of accepting an
@@ -346,10 +365,16 @@ def run_oneshot(task_prompt: str, model: str, episode_dir: str,
             for k in usage:
                 usage[k] += (resp.get("usage") or {}).get(k) or 0
             providers.add(resp.get("provider") or "?")
-            answer = resp["choices"][0]["message"].get("content") or ""
+            choice0 = resp["choices"][0]
+            answer = choice0["message"].get("content") or ""
             tr.event({"type": "assistant",
                       "message": {"content": [{"type": "text",
                                                "text": answer}]},
+                      # finish_reason was missing on the one-shot path, so
+                      # truncation could not be ruled out by inspection
+                      # (peer review 2026-09-10) — needed before M8.
+                      "finish_reason": choice0.get("finish_reason"),
+                      "usage": resp.get("usage"),
                       "provider": resp.get("provider")})
             if answer.strip():
                 break

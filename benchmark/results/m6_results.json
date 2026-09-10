@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-10 15:40",
+ "generated": "2026-09-10 15:52",
  "provenance": {
   "config": "benchmark/m6_config.json (pinned: models, provider pins, protocol, arms, budget)",
   "evidence": "benchmark/evidence/{m6,m6_final,pilot}/ (committed per-episode reports, transcripts, artifacts)",
@@ -10,12 +10,12 @@
   {
    "model": "anthropic_claude_haiku_4_5",
    "arm": "main",
-   "valid_episodes": 17,
+   "valid_episodes": 16,
    "passes": 4,
-   "pass_rate": 0.2353,
+   "pass_rate": 0.25,
    "levels": {
     "PASS": 4,
-    "L4": 5,
+    "L4": 4,
     "L3": 2,
     "L2": 2,
     "L1": 4,
@@ -27,15 +27,15 @@
   {
    "model": "anthropic_claude_haiku_4_5",
    "arm": "oneshot",
-   "valid_episodes": 17,
+   "valid_episodes": 16,
    "passes": 4,
-   "pass_rate": 0.2353,
+   "pass_rate": 0.25,
    "levels": {
     "PASS": 4,
     "L4": 0,
     "L3": 0,
     "L2": 0,
-    "L1": 13,
+    "L1": 12,
     "L0": 0
    },
    "infra_excluded": 0,
@@ -44,12 +44,12 @@
   {
    "model": "anthropic_claude_sonnet_5",
    "arm": "main",
-   "valid_episodes": 17,
+   "valid_episodes": 16,
    "passes": 5,
-   "pass_rate": 0.2941,
+   "pass_rate": 0.3125,
    "levels": {
     "PASS": 5,
-    "L4": 2,
+    "L4": 1,
     "L3": 0,
     "L2": 0,
     "L1": 9,
@@ -61,16 +61,16 @@
   {
    "model": "anthropic_claude_sonnet_5",
    "arm": "oneshot",
-   "valid_episodes": 17,
+   "valid_episodes": 16,
    "passes": 7,
-   "pass_rate": 0.4118,
+   "pass_rate": 0.4375,
    "levels": {
     "PASS": 7,
     "L4": 0,
     "L3": 1,
     "L2": 2,
     "L1": 6,
-    "L0": 1
+    "L0": 0
    },
    "infra_excluded": 0,
    "leak_invalid": 0
@@ -78,16 +78,16 @@
   {
    "model": "google_gemini_3_5_flash_lite",
    "arm": "main",
-   "valid_episodes": 17,
+   "valid_episodes": 16,
    "passes": 2,
-   "pass_rate": 0.1176,
+   "pass_rate": 0.125,
    "levels": {
     "PASS": 2,
     "L4": 1,
     "L3": 0,
     "L2": 1,
     "L1": 5,
-    "L0": 8
+    "L0": 7
    },
    "infra_excluded": 0,
    "leak_invalid": 0
@@ -95,15 +95,15 @@
   {
    "model": "google_gemini_3_5_flash_lite",
    "arm": "oneshot",
-   "valid_episodes": 17,
+   "valid_episodes": 16,
    "passes": 1,
-   "pass_rate": 0.0588,
+   "pass_rate": 0.0625,
    "levels": {
     "PASS": 1,
     "L4": 0,
     "L3": 0,
     "L2": 0,
-    "L1": 16,
+    "L1": 15,
     "L0": 0
    },
    "infra_excluded": 0,
@@ -112,15 +112,15 @@
   {
    "model": "google_gemini_3_6_flash",
    "arm": "main",
-   "valid_episodes": 21,
-   "passes": 6,
-   "pass_rate": 0.2857,
+   "valid_episodes": 16,
+   "passes": 4,
+   "pass_rate": 0.25,
    "levels": {
-    "PASS": 6,
-    "L4": 1,
-    "L3": 2,
+    "PASS": 4,
+    "L4": 0,
+    "L3": 1,
     "L2": 0,
-    "L1": 2,
+    "L1": 1,
     "L0": 10
    },
    "infra_excluded": 0,
@@ -128,33 +128,16 @@
   },
   {
    "model": "google_gemini_3_6_flash",
-   "arm": "noskill",
-   "valid_episodes": 5,
-   "passes": 3,
-   "pass_rate": 0.6,
-   "levels": {
-    "PASS": 3,
-    "L4": 1,
-    "L3": 0,
-    "L2": 0,
-    "L1": 1,
-    "L0": 0
-   },
-   "infra_excluded": 0,
-   "leak_invalid": 0
-  },
-  {
-   "model": "google_gemini_3_6_flash",
    "arm": "oneshot",
-   "valid_episodes": 17,
+   "valid_episodes": 16,
    "passes": 6,
-   "pass_rate": 0.3529,
+   "pass_rate": 0.375,
    "levels": {
     "PASS": 6,
     "L4": 1,
     "L3": 1,
     "L2": 2,
-    "L1": 7,
+    "L1": 6,
     "L0": 0
    },
    "infra_excluded": 0,
@@ -163,7 +146,7 @@
   {
    "model": "meta_llama_llama_4_maverick",
    "arm": "main",
-   "valid_episodes": 17,
+   "valid_episodes": 16,
    "passes": 0,
    "pass_rate": 0.0,
    "levels": {
@@ -172,7 +155,7 @@
     "L3": 0,
     "L2": 0,
     "L1": 0,
-    "L0": 17
+    "L0": 16
    },
    "infra_excluded": 0,
    "leak_invalid": 0
@@ -180,15 +163,15 @@
   {
    "model": "meta_llama_llama_4_maverick",
    "arm": "oneshot",
-   "valid_episodes": 17,
+   "valid_episodes": 16,
    "passes": 2,
-   "pass_rate": 0.1176,
+   "pass_rate": 0.125,
    "levels": {
     "PASS": 2,
     "L4": 0,
     "L3": 0,
     "L2": 0,
-    "L1": 15,
+    "L1": 14,
     "L0": 0
    },
    "infra_excluded": 0,
@@ -214,13 +197,13 @@
   {
    "model": "qwen3_32b",
    "arm": "main",
-   "valid_episodes": 17,
+   "valid_episodes": 16,
    "passes": 3,
-   "pass_rate": 0.1765,
+   "pass_rate": 0.1875,
    "levels": {
     "PASS": 3,
     "L4": 0,
-    "L3": 1,
+    "L3": 0,
     "L2": 0,
     "L1": 0,
     "L0": 13
@@ -231,7 +214,7 @@
   {
    "model": "qwen3_32b",
    "arm": "oneshot",
-   "valid_episodes": 17,
+   "valid_episodes": 16,
    "passes": 0,
    "pass_rate": 0.0,
    "levels": {
@@ -240,7 +223,7 @@
     "L3": 0,
     "L2": 0,
     "L1": 0,
-    "L0": 17
+    "L0": 16
    },
    "infra_excluded": 0,
    "leak_invalid": 0
@@ -248,13 +231,13 @@
   {
    "model": "qwen3_8b",
    "arm": "main",
-   "valid_episodes": 17,
+   "valid_episodes": 16,
    "passes": 1,
-   "pass_rate": 0.0588,
+   "pass_rate": 0.0625,
    "levels": {
     "PASS": 1,
     "L4": 0,
-    "L3": 2,
+    "L3": 1,
     "L2": 1,
     "L1": 0,
     "L0": 13
@@ -265,7 +248,7 @@
   {
    "model": "qwen3_8b",
    "arm": "oneshot",
-   "valid_episodes": 17,
+   "valid_episodes": 16,
    "passes": 0,
    "pass_rate": 0.0,
    "levels": {
@@ -274,24 +257,7 @@
     "L3": 0,
     "L2": 0,
     "L1": 0,
-    "L0": 17
-   },
-   "infra_excluded": 0,
-   "leak_invalid": 0
-  },
-  {
-   "model": "subscription",
-   "arm": "claude_code",
-   "valid_episodes": 5,
-   "passes": 2,
-   "pass_rate": 0.4,
-   "levels": {
-    "PASS": 2,
-    "L4": 1,
-    "L3": 1,
-    "L2": 0,
-    "L1": 1,
-    "L0": 0
+    "L0": 16
    },
    "infra_excluded": 0,
    "leak_invalid": 0
@@ -539,17 +505,19 @@
  ],
  "failure_kinds": {
   "matrix": {
-   "physics": 109,
-   "format": 97
+   "physics": 93,
+   "incomplete": 43,
+   "format": 49
   },
   "held_out": {
-   "format": 3,
-   "physics": 6
+   "incomplete": 2,
+   "physics": 6,
+   "format": 1
   }
  },
  "spend": {
-  "total_usd": 121.3031,
-  "ledger_entries": 317
+  "total_usd": 121.2744,
+  "ledger_entries": 311
  },
  "contamination_probes": {
   "anthropic/claude-haiku-4.5": {

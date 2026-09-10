@@ -8,6 +8,9 @@ record already carries. Levels mirror `neutrongym.reward`:
           NOT a capability datapoint. MUST be excluded from pass rates.
   LEAK    reference_leak.leaked — invalid regardless of score.
   L0      no artifact: the agent left no built instrument at all.
+          kind: "format" if the agent never engaged the tools (or emitted
+          no parseable file one-shot); "incomplete" if it used tools but
+          never finished — those are NOT protocol-mechanics failures.
   L1      syntax/compile: an .instr exists but does not translate/compile.
   L2      runtime: compiles, dies during the simulation run.
   L3      structural: runs, but a graded monitor role is missing or below
@@ -54,14 +57,19 @@ def classify(report: dict) -> dict:
     if "no built instrument" in hard:
         engaged = bool(ep.get("mcp_calls"))
         scaffold = ep.get("scaffold") or ""
+        # KIND FIX (2026-09-10, peer review): every L0 path used to return
+        # "format", which made the format-vs-physics split a relabelling of
+        # L0-vs-L1..L4 rather than a real cross-cut. An episode that made 50
+        # validated tool calls and still finished no instrument is NOT a
+        # tool/protocol-mechanics failure — it is an incomplete construction.
         if "oneshot" in scaffold:
             kind, reason = "format", "no parseable .instr in the answer"
         elif not engaged:
             kind, reason = "format", "never called a tool"
         elif ep.get("hit_turn_cap"):
-            kind, reason = "format", "turn cap reached before completion"
+            kind, reason = "incomplete", "turn cap reached mid-construction"
         else:
-            kind, reason = "format", "tools used but no instrument built"
+            kind, reason = "incomplete", "tools used but no instrument built"
         return {"level": "L0", "kind": kind, "reason": reason}
     if "(translate)" in hard or "(compile)" in hard:
         return {"level": "L1", "kind": "physics",

@@ -16,9 +16,36 @@ Usage: python3 benchmark/harness/results_report.py
 
 import glob
 import json
+import math
 import os
 import sys
 from datetime import datetime
+
+
+def fisher_exact_p(a, b, c, d):
+    """Two-sided Fisher exact p for [[a,b],[c,d]] — stdlib only (report
+    generators run under plain python3, no scipy)."""
+    n = a + b + c + d
+    if n == 0:
+        return 1.0
+
+    def prob(x):
+        return (math.comb(a + b, x) * math.comb(c + d, a + c - x)
+                / math.comb(n, a + c))
+
+    lo = max(0, a + c - (c + d))
+    hi = min(a + b, a + c)
+    obs = prob(a)
+    return min(1.0, sum(prob(x) for x in range(lo, hi + 1)
+                        if prob(x) <= obs * (1 + 1e-9)))
+
+
+def _rate(rows, arm, models=None, tasks=None):
+    sel = [r for r in rows if r["arm"] == arm
+           and r["level"] not in ("INFRA", "LEAK")
+           and (models is None or r["model"] in models)
+           and (tasks is None or r["task"] in tasks)]
+    return sum(1 for r in sel if r["level"] == "PASS"), len(sel)
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.join(REPO, "benchmark", "harness"))
@@ -28,8 +55,26 @@ OUT_DIR = os.path.join(REPO, "benchmark", "results")
 LEVELS = ["PASS", "L4", "L3", "L2", "L1", "L0"]
 
 
-def _rows(sets):
-    return taxonomy.collect(sets)
+DEV_SPLIT = None
+
+
+def _dev_split():
+    """Dev-split task ids (debugging set) — must not be mixed into scored
+    rows: gemini's main row carried 5 dev tasks while its one-shot row
+    carried none, so the arms were not compared like-for-like (peer review
+    2026-09-10)."""
+    global DEV_SPLIT
+    if DEV_SPLIT is None:
+        with open(os.path.join(REPO, "benchmark", "m6_config.json")) as f:
+            DEV_SPLIT = set(json.load(f).get("dev_split") or [])
+    return DEV_SPLIT
+
+
+def _rows(sets, scored_only=True):
+    rows = taxonomy.collect(sets)
+    if scored_only:
+        rows = [r for r in rows if r["task"] not in _dev_split()]
+    return rows
 
 
 def _table(rows):
@@ -149,24 +194,43 @@ def main():
         f"(zero leaks across the whole campaign) · "
         f"${(spend or {}).get('total_usd', 0):.2f} OpenRouter spend.",
         "",
-        _md_table(matrix, "Table 1 — Main matrix (seen-tier scored set)",
+        _md_table([r for r in matrix if r["valid_episodes"] >= 5],
+                  "Table 1 — Main matrix (seen-tier scored set)",
                   "`main` = reference loop with MCP + skill · `oneshot` = "
                   "plain-LLM, no tools · `noskill` = loop without the design "
-                  "skill · `claude_code` = production-harness comparison arm."),
+                  "skill · `claude_code` = production-harness comparison "
+                  "arm. Dev-split tasks are EXCLUDED so every arm is scored "
+                  "on the same 17 tasks. Rows with fewer than 5 valid "
+                  "episodes are omitted as uninformative — notably "
+                  "`openai/gpt-5.2-pro`, which ran a single episode "
+                  "(a PASS) before being cut on cost at $29.21/episode; "
+                  "n=1 is a footnote, not a 100% pass rate."),
         "",
         _md_table(final, "Table 2 — Held-out final pass (once-only touch)",
                   "Instruments with no public `.instr` (BOYA, VENUS), "
-                  "authored for this benchmark. **The seen-tier one-shot "
-                  "advantage reverses here: the tool loop dominates.**"),
+                  "authored for this benchmark and touched exactly once. "
+                  "The tool loop outscores one-shot here (paired, 4 models: "
+                  "7/8 vs 2/8, Fisher p=0.041) — **but see the statistical "
+                  "note below: these instruments are significantly EASIER "
+                  "than the seen-tier set (p<0.001), which is an unexcluded "
+                  "alternative explanation for the reversal.**"),
         "",
         "### Table 3 — Failure kinds (valid failures only)",
         "",
-        "| set | format (tool/protocol mechanics) | physics (wrong "
-        "instrument) |",
-        "|---|---:|---:|",
+        "*`format` = never engaged the tools, or emitted no parseable file "
+        "one-shot · `incomplete` = used the tools but finished no "
+        "instrument · `physics` = built something that compiles, runs, or "
+        "scores wrongly. The format/incomplete split matters: an episode "
+        "with 50 validated tool calls and no finished instrument is not a "
+        "protocol-mechanics failure.*",
+        "",
+        "| set | format | incomplete | physics |",
+        "|---|---:|---:|---:|",
         f"| matrix | {record['failure_kinds']['matrix'].get('format', 0)} | "
+        f"{record['failure_kinds']['matrix'].get('incomplete', 0)} | "
         f"{record['failure_kinds']['matrix'].get('physics', 0)} |",
         f"| held-out | {record['failure_kinds']['held_out'].get('format', 0)} "
+        f"| {record['failure_kinds']['held_out'].get('incomplete', 0)} "
         f"| {record['failure_kinds']['held_out'].get('physics', 0)} |",
         "",
         "### Table 4 — Contamination probes (per model, temperature 0, "
@@ -179,7 +243,66 @@ def main():
         mem = ("probe incomplete" if c["memorized"] is None
                else ", ".join(c["memorized"]) or "none")
         md.append(f"| `{m}` | {mem} | {c['n_references']} |")
-    md += ["", "### Table 5 — T2 classical baselines "
+    # --- statistical power: the section the peer review forced ---
+    api = [m for m in {r["model"] for r in matrix_rows}
+           if not m.startswith("qwen") and "maverick" not in m
+           and "gpt" not in m and m != "subscription"]
+    md += ["", "### Statistical power — read this before quoting any "
+           "arm-vs-arm difference", "",
+           "Two-sided Fisher exact on the pass counts. **At n=17 tasks per "
+           "cell, seen-tier differences between arms are NOT resolvable**, "
+           "and the one difference that is significant argues against the "
+           "headline reading rather than for it.", "",
+           "| comparison | counts | p | reading |", "|---|---|---:|---|"]
+    for m in sorted(api):
+        lp, ln = _rate(matrix_rows, "main", {m})
+        op, on = _rate(matrix_rows, "oneshot", {m})
+        if not (ln and on):
+            continue
+        p = fisher_exact_p(lp, ln - lp, op, on - op)
+        md.append(f"| seen: `{m}` loop vs one-shot | {lp}/{ln} vs {op}/{on} "
+                  f"| {p:.3f} | not resolvable |")
+    hlp, hln = _rate(final_rows, "main")
+    hop, hon = _rate(final_rows, "oneshot")
+    # paired = models with VALID episodes in BOTH arms (a model whose
+    # one-shot cells were all INFRA is not a pair — that mistake turns the
+    # paired figure back into the pooled one)
+    def _has(arm, m):
+        return _rate(final_rows, arm, {m})[1] > 0
+
+    paired = sorted(m for m in {r["model"] for r in final_rows}
+                    if _has("main", m) and _has("oneshot", m))
+    plp, pln = _rate(final_rows, "main", set(paired))
+    pop, pon = _rate(final_rows, "oneshot", set(paired))
+    p_paired = fisher_exact_p(plp, pln - plp, pop, pon - pop)
+    smp, smn = _rate(matrix_rows, "main")
+    p_diff = fisher_exact_p(hlp, hln - hlp, smp, smn - smp)
+    q8p, q8n = _rate(matrix_rows, "main", {"qwen3_8b"})
+    q32p, q32n = _rate(matrix_rows, "main", {"qwen3_32b"})
+    md += [
+        f"| held-out: loop vs one-shot (paired, {len(paired)} models) | "
+        f"{plp}/{pln} vs {pop}/{pon} | {p_paired:.3f} | suggestive, n small, "
+        "unadjusted |",
+        f"| **held-out vs seen difficulty (loop arm)** | {hlp}/{hln} vs "
+        f"{smp}/{smn} | **{p_diff:.4f}** | **held-out tasks are EASIER — "
+        "a confound for the row above** |",
+        f"| RL ladder: 8B vs 32B (loop) | {q8p}/{q8n} vs {q32p}/{q32n} | "
+        f"{fisher_exact_p(q8p, q8n - q8p, q32p, q32n - q32p):.3f} | ordering "
+        "holds as a strict pass-set superset; rate difference underpowered |",
+        "",
+        "**What this means for the manuscript.** The defensible claims are "
+        "the ones that do not rest on small pass-rate differences: zero "
+        "reference leaks across the whole campaign; T2 unsolved by every "
+        "model in every arm; the untrained open-weights floor and its "
+        "strict-superset ordering; and the *distributional* failure "
+        "structure of Table 3 (one-shot dies at L1, the loop dies at L0). "
+        "Arm-vs-arm superiority on the seen tier is **not** supported, and "
+        "the held-out reversal cannot be attributed to novelty while the "
+        "difficulty difference is uncontrolled — controlling it needs "
+        "held-out instruments matched to seen-tier complexity, which is "
+        "future work, not a claim this data can carry.",
+        "",
+        "### Table 5 — T2 classical baselines "
            f"({(t2 or {}).get('verify_ncount', 0):.0e} rays, fresh seed "
            f"{(t2 or {}).get('fresh_seed', '—')})",
            "",

@@ -186,15 +186,39 @@ def test_transcript_parses_like_stream_json(episode):
 def test_empty_response_nudged_not_accepted(tmp_path):
     empty = {"choices": [{"message": {"role": "assistant", "content": ""},
                           "finish_reason": "stop"}], "usage": {}}
-    script = [empty,
-              {"choices": [{"message": {"role": "assistant",
-                                        "content": "Recovered summary."}}],
-               "usage": {}}]
+    # a model that has used NO tools is nudged for prose too (symmetry fix),
+    # so reaching a final answer without tools takes the full nudge budget
+    prose = {"choices": [{"message": {"role": "assistant",
+                                      "content": "Recovered summary."}}],
+             "usage": {}}
     meta = agent.run_episode("plumbing", model="scripted/model",
                              episode_dir=str(tmp_path),
-                             chat_fn=scripted_model(script))
+                             chat_fn=scripted_model([empty, prose, prose]))
     assert meta["final_answer"] == "Recovered summary."
-    assert meta["empty_responses"] == 1 and meta["turns"] == 2
+    assert meta["empty_responses"] == 3 and meta["turns"] == 3
+
+
+@pytest.mark.slow
+def test_prose_without_tools_is_nudged_not_accepted(tmp_path):
+    """SYMMETRY (2026-09-10 peer review): a model answering in prose having
+    never touched a tool has not attempted the task and must be nudged, the
+    same as an empty turn. Previously it ended the episode on turn 1, which
+    scored such models L0 'never called a tool' without ever asking twice."""
+    prose = {"choices": [{"message": {"role": "assistant",
+                                      "content": "I would build a guide."}}],
+             "usage": {}}
+    tool_turn = {"choices": [{"message": {
+        "role": "assistant", "content": None,
+        "tool_calls": [_tool_call("t1", "describe_component",
+                                  {"name": "PSD_monitor"})]}}], "usage": {}}
+    done = {"choices": [{"message": {"role": "assistant",
+                                     "content": "Built it."}}], "usage": {}}
+    meta = agent.run_episode("plumbing", model="scripted/model",
+                             episode_dir=str(tmp_path),
+                             chat_fn=scripted_model([prose, tool_turn, done]))
+    # nudged once, then it engaged the tools, then prose was accepted as final
+    assert meta["turns"] == 3 and meta["mcp_calls"] == {"describe_component": 1}
+    assert meta["final_answer"] == "Built it."
 
 
 def test_provider_pin_lands_in_payload_and_meta(tmp_path):
