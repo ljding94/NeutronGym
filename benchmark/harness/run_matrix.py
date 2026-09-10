@@ -189,32 +189,42 @@ def cmd_dry_run(cfg, args):
 
 
 def cmd_report(cfg):
+    """Pass rates over VALID episodes only. Infra failures (dead endpoint,
+    provider error) are NOT capability datapoints — counting them as
+    failures understates models and silently invalidated the qwen and
+    maverick rows once already (caught 2026-09-10)."""
+    import taxonomy
+
     rows = {}
     for d in sorted(os.listdir(OUT)) if os.path.isdir(OUT) else []:
         rp = os.path.join(OUT, d, "report.json")
         if not os.path.isfile(rp):
             continue
         r = json.load(open(rp))
-        task = r["task"]
+        cls = taxonomy.classify(r)
         arm, model = d.split("__")[1], d.split("__", 2)[2]
-        g = r["grade"]
-        leak = (r.get("reference_leak") or {}).get("leaked")
-        key = (model, arm)
-        rows.setdefault(key, []).append(
-            {"task": task, "pass": bool(g["pass"]) and not leak,
-             "score": g["score"], "leaked": leak})
-    print(f"{'model':38} {'arm':10} {'n':>3} {'pass':>5} {'mean':>6} "
-          f"{'leaks':>5}")
+        rows.setdefault((model, arm), []).append(
+            {"task": r["task"], "pass": cls["level"] == "PASS",
+             "score": r["grade"]["score"], "level": cls["level"],
+             "infra": cls["level"] == "INFRA",
+             "leaked": cls["level"] == "LEAK"})
+    print(f"{'model':38} {'arm':10} {'valid':>5} {'pass':>7} {'mean':>6} "
+          f"{'INFRA':>6} {'leaks':>5}")
     summary = []
     for (model, arm), rs in sorted(rows.items()):
-        n = len(rs)
-        npass = sum(r["pass"] for r in rs)
-        mean = sum(r["score"] for r in rs) / n
+        valid = [r for r in rs if not r["infra"] and not r["leaked"]]
+        infra = sum(1 for r in rs if r["infra"])
         leaks = sum(1 for r in rs if r["leaked"])
-        print(f"{model:38} {arm:10} {n:>3} {npass:>3}/{n:<3} {mean:6.2f} "
-              f"{leaks:>5}")
-        summary.append({"model": model, "arm": arm, "n": n, "pass": npass,
-                        "mean_score": round(mean, 3), "leaks": leaks,
+        n = len(valid)
+        npass = sum(r["pass"] for r in valid)
+        mean = (sum(r["score"] for r in valid) / n) if n else 0.0
+        flag = "  <-- INVALID ROW" if n == 0 else (
+            "  <-- partial" if infra else "")
+        print(f"{model:38} {arm:10} {n:>5} {npass:>3}/{n:<3} {mean:6.2f} "
+              f"{infra:>6} {leaks:>5}{flag}")
+        summary.append({"model": model, "arm": arm, "n_valid": n,
+                        "pass": npass, "mean_score": round(mean, 3),
+                        "infra_excluded": infra, "leaks": leaks,
                         "tasks": rs})
     os.makedirs(OUT, exist_ok=True)
     with open(os.path.join(OUT, "summary.json"), "w") as f:
