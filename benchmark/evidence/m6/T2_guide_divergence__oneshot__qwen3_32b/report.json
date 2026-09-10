@@ -1,0 +1,37 @@
+{
+  "task": "T2_guide_divergence",
+  "episode": {
+    "model": "qwen3-32b",
+    "scaffold": "plain-llm-oneshot",
+    "provider_pin": null,
+    "providers_seen": [],
+    "returncode": 1,
+    "error": "chat completion failed after 3 tries: ConnectError: [Errno 61] Connection refused",
+    "turns": 1,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 7.1,
+    "usage": {
+      "prompt_tokens": 0,
+      "completion_tokens": 0
+    },
+    "mcp_calls": {},
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T2_guide_divergence",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": null
+}

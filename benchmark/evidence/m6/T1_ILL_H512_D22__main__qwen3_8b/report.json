@@ -1,0 +1,44 @@
+{
+  "task": "T1_ILL_H512_D22",
+  "episode": {
+    "model": "qwen3-8b",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": null,
+    "providers_seen": [
+      "?"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 35,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 68.3,
+    "usage": {
+      "prompt_tokens": 485697,
+      "completion_tokens": 4000
+    },
+    "mcp_calls": {
+      "create_instrument": 1,
+      "add_parameter": 4,
+      "add_declare": 12,
+      "add_component": 17
+    },
+    "skill_used": true,
+    "final_answer": "It seems there's an error because the component `H51_S78_copy_1` does not exist in the current instrument. Let's continue building the instrument step by step, ensuring all components are properly added in the correct order. I'll add the missing components and then proceed to add the rest.\n\nFirst, I'll add the components that are referenced but missing:\n\n1. `H51_S78`\n2. `H51_S78_copy`\n3. `H51_S78_copy_0`\n4. `H51_S78_copy_1`\n5. `HCS_Al_copy_6`\n6. `H512_S11`\n7. `HCS_Al_copy_7`\n8. `D22_PreV`\n9. `D22_Vselector`\n10. `D22_Collimation`\n11. `D22_Sample_Pos`\n12. `H51_D22_Sample_Div`\n13. `H51_D22_Sample_XY`\n14. `H51_D22_Sample_L`\n15. `HCS_Al_H512`\n16. `H51_D22_Sample_Div`\n17. `H51_D22_Sample_XY`\n18. `H51_D22_Sample_L`\n19. `D22_Detector`\n\nLet's start by adding these components one by one. I'll begin with `H51_S78` and `H51_S78_copy`."
+  },
+  "grade": {
+    "task": "T1_ILL_H512_D22",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": null
+}

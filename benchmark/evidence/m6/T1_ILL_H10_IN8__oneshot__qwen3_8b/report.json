@@ -1,0 +1,39 @@
+{
+  "task": "T1_ILL_H10_IN8",
+  "episode": {
+    "model": "qwen3-8b",
+    "scaffold": "plain-llm-oneshot",
+    "provider_pin": null,
+    "providers_seen": [
+      "?"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 1,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 16.0,
+    "usage": {
+      "prompt_tokens": 2073,
+      "completion_tokens": 1169
+    },
+    "mcp_calls": {},
+    "skill_used": true,
+    "final_answer": "```mcstas\n# McStas instrument file for the specified TAS setup\n\n# Define the instrument\ninstrument my_tas_instrument\n\n# Set global parameters\nset KF = 5\nset KI = 0\nset QM = 1\nset EN = 0\nset verbose = 1\nset WM = 0.233\nset HM = 0.197\nset RMH = -1\nset RMV = -1\nset DM = 1.807\nset NHM = 15\nset NVM = 15\nset WA = 0.16\nset HA = 0.08\nset RAH = -1\nset RAV = -1\nset DA = 2.087\nset NHA = 15\nset NVA = 15\nset L1 = 2.3\nset ALF1 = 60\nset ALF2 = 60\nset ALF3 = 60\nset ALF4 = 60\nset BET1 = 120\nset BET2 = 120\nset BET3 = 120\nset BET4 = 120\nset Sqw_coh = V.lau\n\n# Define components\ncomponent Progress_bar\n    type = monitor\n    xwidth = 0.5\n    yheight = 0.5\n    zwidth = 0.5\n    position = [0, 0, 0]\n    restore_neutron = 1\n    verbose = 1\nend\n\ncomponent Source_gen\n    type = source\n    radius = 0.10\n    dist = machine_hkl.l1\n    focus_xw = fabs(WM*sin(machine_real.a1*DEG2RAD))\n    focus_yh = HM\n    E0 = machine_hkl.ei\n    dE = machine_hkl.ei*0.03\n    I1 = 0.5874e+13\n    T1 = 683.7\n    T2 = 257.7\n    I2 = 2.5099e+13\n    T3 = 16.7\n    I3 = 1.0343e+12\nend\n\ncomponent Collimator_linear\n    type = collimator\n    xmin = -WM/2\n    xmax = WM/2\n    ymin = -HM/2\n    ymax = HM/2\n    length = machine_hkl.l1/2\n    divergence = ALF1\n    divergenceV = BET1\n    when = (ALF1 && BET1)\nend\n\ncomponent Arm\n    type = guide\n    position = [0, 0, machine_hkl.l1-0.2]\n    rotation = [0, 0, 0]\n    length = 0.2\n    radius = 0.1\n    divergence = ALF1\n    divergenceV = BET1\nend\n\ncomponent Wavelength_monitor\n    type = monitor\n    xwidth = 0.5\n    yheight = 0.5\n    zwidth = 0.5\n    position = [0, 0, machine_hkl.l1]\n    restore_neutron = 1\n    verbose = 1\nend\n\ncomponent Position_sensitive_monitor\n    type = monitor\n    xwidth = 0.5\n    yheight = 0.5\n    zwidth = 0.5\n    position = [0, 0, machine_hkl.l1 + 0.2]\n    restore_neutron = 1\n    verbose = 1\nend\n\n# Define the beamline\nsource Source_gen\n    position = [0, 0, 0]\n    rotation = [0, 0, 0]\n    output = [Progress_bar]\n\ncollimator Collimator_linear\n    position = [0, 0, machine_hkl.l1/4]\n    rotation = [0, 0, 0]\n    input = Source_gen\n    output = [Progress_bar]\n\nguide Arm\n    position = [0, 0, machine_hkl.l1-0.2]\n    rotation = [0, 0, 0]\n    input = Collimator_linear\n    output = [Progress_bar]\n\nmonitor Wavelength_monitor\n    position = [0, 0, machine_hkl.l1]\n    rotation = [0, 0, 0]\n    input = Arm\n    output = [Progress_bar]\n\nmonitor Position_sensitive_monitor\n    position = [0, 0, machine_hkl.l1 + 0.2]\n    rotation = [0, 0, 0]\n    input = Arm\n    output = [Progress_bar]\n\n# End of instrument\nend\n\n# Run the instrument\nrun\n    ncount = 1e6\n    seed = 123456789\n    verbose = 1\nend\n\n# Output the results\nprint\n    monitor = Wavelength_monitor\n    format = \"Integrated intensity on Wavelength monitor: I = %f \u00b1 %f (events = %d, ncount = %d, seed = %d)\"\nend\n\nprint\n    monitor = Position_sensitive_monitor\n    format = \"Integrated intensity on Position-sensitive monitor: I = %f \u00b1 %f (events = %d, ncount = %d, seed = %d)\"\nend\n```"
+  },
+  "grade": {
+    "task": "T1_ILL_H10_IN8",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": null
+}

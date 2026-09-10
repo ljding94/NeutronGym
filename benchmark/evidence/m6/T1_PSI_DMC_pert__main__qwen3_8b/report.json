@@ -1,0 +1,43 @@
+{
+  "task": "T1_PSI_DMC_pert",
+  "episode": {
+    "model": "qwen3-8b",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": null,
+    "providers_seen": [
+      "?"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 15,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 14.5,
+    "usage": {
+      "prompt_tokens": 126777,
+      "completion_tokens": 806
+    },
+    "mcp_calls": {
+      "create_instrument": 1,
+      "add_parameter": 10,
+      "add_declare": 3
+    },
+    "skill_used": true,
+    "final_answer": "<tool_call>\n{\"name\": \"add_declare\", \"arguments\": {\"instrument_id\": \"powder_diffractometer\", \"type\": \"double\", \"name\": \"sample_radius\", \"value\": 0.008/2}}\n</tool_call>"
+  },
+  "grade": {
+    "task": "T1_PSI_DMC_pert",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": null
+}

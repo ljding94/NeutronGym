@@ -1,0 +1,45 @@
+{
+  "task": "T1_ILL_H10_IN8",
+  "episode": {
+    "model": "qwen3-8b",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": null,
+    "providers_seen": [
+      "?"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 50,
+    "hit_turn_cap": true,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 70.5,
+    "usage": {
+      "prompt_tokens": 475615,
+      "completion_tokens": 4154
+    },
+    "mcp_calls": {
+      "list_components": 2,
+      "describe_component": 2,
+      "create_instrument": 1,
+      "add_parameter": 34,
+      "add_component": 11
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_ILL_H10_IN8",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": null
+}

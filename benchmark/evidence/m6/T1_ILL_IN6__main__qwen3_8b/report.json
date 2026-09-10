@@ -1,0 +1,45 @@
+{
+  "task": "T1_ILL_IN6",
+  "episode": {
+    "model": "qwen3-8b",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": null,
+    "providers_seen": [
+      "?"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 27,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 31.5,
+    "usage": {
+      "prompt_tokens": 282944,
+      "completion_tokens": 1675
+    },
+    "mcp_calls": {
+      "create_instrument": 1,
+      "add_parameter": 18,
+      "add_declare": 2,
+      "add_component": 4,
+      "describe_component": 1
+    },
+    "skill_used": true,
+    "final_answer": "The `Arm` component does not have a `split` parameter. I will remove the `split` parameter from the `Cradle` component and proceed with the rest of the setup. Let's continue with the next component."
+  },
+  "grade": {
+    "task": "T1_ILL_IN6",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": null
+}

@@ -1,0 +1,44 @@
+{
+  "task": "T1_HZB_FLEX_pert",
+  "episode": {
+    "model": "qwen3-8b",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": null,
+    "providers_seen": [
+      "?"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 40,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 50.0,
+    "usage": {
+      "prompt_tokens": 420160,
+      "completion_tokens": 2802
+    },
+    "mcp_calls": {
+      "create_instrument": 1,
+      "add_parameter": 10,
+      "add_declare": 20,
+      "add_component": 8
+    },
+    "skill_used": true,
+    "final_answer": "<tool_call>\n{\"name\": \"add_component\", \"arguments\": {\"instrument_id\": \"tas_instrument\", \"name\": \"Arm4\", \"component\": \"Arm\", \"at\": [-\"s_guide_1\", 0, \"LGUIDE_1\"], \"relative\": \"Guide3\", \"rotated\": [0, -\"beta_guide_1\", 0], \"rotated_relative\": \"Guide3\"}}\n</tool_call>"
+  },
+  "grade": {
+    "task": "T1_HZB_FLEX_pert",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": null
+}

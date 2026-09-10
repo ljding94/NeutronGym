@@ -1,0 +1,45 @@
+{
+  "task": "P1_sans_reproduce",
+  "episode": {
+    "model": "qwen3-8b",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": null,
+    "providers_seen": [
+      "?"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 15,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 18.4,
+    "usage": {
+      "prompt_tokens": 95869,
+      "completion_tokens": 961
+    },
+    "mcp_calls": {
+      "list_components": 3,
+      "describe_component": 3,
+      "create_instrument": 1,
+      "add_parameter": 2,
+      "add_component": 5
+    },
+    "skill_used": true,
+    "final_answer": "<tool_call>\n{\"name\": \"add_component\", \"arguments\": {\"instrument_id\": \"pinhole_SANS\", \"name\": \"sample\", \"component\": \"Sample\", \"at\": [0.0, 0.0, 6.0 + 0.2], \"parameters\": {\"xwidth\": 0.01, \"yheight\": 0.01, \"radius\": 0.01, \"lambda0\": \"lambda0\", \"dlambda\": \"dlambda\", \"Delta_rho\": 0.6, \"absorption\": 0.5, \"volume_fraction\": 0.001, \"sphere_radius\": 0.1}}}\n</tool_call>"
+  },
+  "grade": {
+    "task": "P1_sans_reproduce",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": null
+}

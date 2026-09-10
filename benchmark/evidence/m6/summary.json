@@ -1200,6 +1200,454 @@
   ]
  },
  {
+  "model": "qwen3_32b",
+  "arm": "main",
+  "n": 17,
+  "pass": 0,
+  "mean_score": 0.0,
+  "leaks": 0,
+  "tasks": [
+   {
+    "task": "T1_ESS_IN5_reprate",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_HZB_FLEX",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_HZB_FLEX_pert",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_HZB_NEAT",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ILL_D2B",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ILL_H10_IN8",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ILL_H15_D11",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ILL_H512_D22",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ILL_IN6",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ISIS_SANS2d",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ISIS_SANS2d_pert",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_PSI_DMC",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_PSI_DMC_pert",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_RTP_DIF",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_SESANS_Delft",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T2_guide_divergence",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T2_sans_collimation",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   }
+  ]
+ },
+ {
+  "model": "qwen3_32b",
+  "arm": "oneshot",
+  "n": 17,
+  "pass": 0,
+  "mean_score": 0.0,
+  "leaks": 0,
+  "tasks": [
+   {
+    "task": "T1_ESS_IN5_reprate",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_HZB_FLEX",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_HZB_FLEX_pert",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_HZB_NEAT",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ILL_D2B",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ILL_H10_IN8",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ILL_H15_D11",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ILL_H512_D22",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ILL_IN6",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ISIS_SANS2d",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ISIS_SANS2d_pert",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_PSI_DMC",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_PSI_DMC_pert",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_RTP_DIF",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_SESANS_Delft",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T2_guide_divergence",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T2_sans_collimation",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   }
+  ]
+ },
+ {
+  "model": "qwen3_8b",
+  "arm": "main",
+  "n": 17,
+  "pass": 1,
+  "mean_score": 0.059,
+  "leaks": 0,
+  "tasks": [
+   {
+    "task": "T1_ESS_IN5_reprate",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_HZB_FLEX",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_HZB_FLEX_pert",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_HZB_NEAT",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ILL_D2B",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ILL_H10_IN8",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ILL_H15_D11",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ILL_H512_D22",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ILL_IN6",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ISIS_SANS2d",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ISIS_SANS2d_pert",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_PSI_DMC",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_PSI_DMC_pert",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_RTP_DIF",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_SESANS_Delft",
+    "pass": true,
+    "score": 1.0,
+    "leaked": false
+   },
+   {
+    "task": "T2_guide_divergence",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T2_sans_collimation",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   }
+  ]
+ },
+ {
+  "model": "qwen3_8b",
+  "arm": "oneshot",
+  "n": 17,
+  "pass": 0,
+  "mean_score": 0.0,
+  "leaks": 0,
+  "tasks": [
+   {
+    "task": "T1_ESS_IN5_reprate",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_HZB_FLEX",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_HZB_FLEX_pert",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_HZB_NEAT",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ILL_D2B",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ILL_H10_IN8",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ILL_H15_D11",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ILL_H512_D22",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ILL_IN6",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ISIS_SANS2d",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_ISIS_SANS2d_pert",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_PSI_DMC",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_PSI_DMC_pert",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_RTP_DIF",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T1_SESANS_Delft",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T2_guide_divergence",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   },
+   {
+    "task": "T2_sans_collimation",
+    "pass": false,
+    "score": 0.0,
+    "leaked": false
+   }
+  ]
+ },
+ {
   "model": "subscription",
   "arm": "claude_code",
   "n": 5,

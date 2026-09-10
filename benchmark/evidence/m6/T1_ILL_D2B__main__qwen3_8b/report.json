@@ -1,0 +1,44 @@
+{
+  "task": "T1_ILL_D2B",
+  "episode": {
+    "model": "qwen3-8b",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": null,
+    "providers_seen": [
+      "?"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 50,
+    "hit_turn_cap": true,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 74.8,
+    "usage": {
+      "prompt_tokens": 546690,
+      "completion_tokens": 4399
+    },
+    "mcp_calls": {
+      "create_instrument": 1,
+      "add_parameter": 17,
+      "add_declare": 5,
+      "add_component": 27
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_ILL_D2B",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": null
+}

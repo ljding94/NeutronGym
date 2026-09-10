@@ -1,0 +1,236 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: ToF_Spectrometer
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 08:35:42 on September 10, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* lambda: [unit] Angs] Wavelength of the incoming beam
+* dlambda: [unit] Angs] Energy spread of the incoming beam
+* rpm: [unit] rpm] Rotation speed of the chopper
+* coh: [unit] Coherent scattering file
+* inc: [unit] Incoherent scattering file
+* tmin: [unit] s] Minimum time-of-flight for the detector
+* tmax: [unit] s] Maximum time-of-flight for the detector
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT ToF_Spectrometer (
+lambda = 6.0, // Angs] Wavelength of the incoming beam
+dlambda = 0.05, // Angs] Energy spread of the incoming beam
+rpm = 10000.0, // rpm] Rotation speed of the chopper
+string coh = "Rb_liq_coh.sqw", // Coherent scattering file
+string inc = "Rb_liq_inc.sqw", // Incoherent scattering file
+tmin = 0.01806, // s] Minimum time-of-flight for the detector
+tmax = 0.01826 // s] Maximum time-of-flight for the detector
+)
+
+DECLARE 
+%{
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated ToF_Spectrometer
+%}
+
+TRACE 
+COMPONENT PG = Progress_bar(
+ percent = 10.0, flag_save = 0.0)
+AT (0, 0, 0) ABSOLUTE
+ROTATED (0, 0, 0) ABSOLUTE
+
+COMPONENT Source = Source_gen(
+ radius = .155, focus_xw = 0.03,
+ focus_yh = 0.055, lambda0 = lambda,
+ dlambda = dlambda, I1 = 1.4e12,
+ T1 = 43.7, T2 = 137.2,
+ I2 = 2.08e12)
+AT (0, 0, 0) ABSOLUTE
+ROTATED (0, 0, 0) ABSOLUTE
+
+COMPONENT Guide0 = Guide_gravity(
+ w1 = 0.03, h1 = 0.055,
+ l = 2, m = 1.2)
+AT (0, 0, 2) RELATIVE Source
+ROTATED (0, 0, 0) RELATIVE Source
+
+COMPONENT Guide0_copy = Guide_gravity(
+ w1 = 0.03, h1 = 0.055,
+ l = 2, m = 1.2)
+AT (0, 0, 2+1e-4) RELATIVE Guide0
+ROTATED (0, 2.0/2500*RAD2DEG, 0) RELATIVE Guide0
+
+COMPONENT Guide0_copy_0 = Guide_gravity(
+ w1 = 0.03, h1 = 0.055,
+ l = 2, m = 1.2)
+AT (0, 0, 2+1e-4) RELATIVE Guide0_copy
+ROTATED (0, 2.0/2500*RAD2DEG, 0) RELATIVE Guide0_copy
+
+COMPONENT Guide0_copy_1 = Guide_gravity(
+ w1 = 0.03, h1 = 0.055,
+ l = 2, m = 1.2)
+AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_0
+ROTATED (0, 2.0/2500*RAD2DEG, 0) RELATIVE Guide0_copy_0
+
+COMPONENT Guide0_copy_2 = Guide_gravity(
+ w1 = 0.03, h1 = 0.055,
+ l = 2, m = 1.2)
+AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_1
+ROTATED (0, 2.0/2500*RAD2DEG, 0) RELATIVE Guide0_copy_1
+
+COMPONENT Guide0_copy_3 = Guide_gravity(
+ w1 = 0.03, h1 = 0.055,
+ l = 2, m = 1.2)
+AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_2
+ROTATED (0, 2.0/2500*RAD2DEG, 0) RELATIVE Guide0_copy_2
+
+COMPONENT Guide0_copy_4 = Guide_gravity(
+ w1 = 0.03, h1 = 0.055,
+ l = 2, m = 1.2)
+AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_3
+ROTATED (0, 2.0/2500*RAD2DEG, 0) RELATIVE Guide0_copy_3
+
+COMPONENT Guide0_copy_5 = Guide_gravity(
+ w1 = 0.03, h1 = 0.055,
+ l = 2, m = 1.2)
+AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_4
+ROTATED (0, 2.0/2500*RAD2DEG, 0) RELATIVE Guide0_copy_4
+
+COMPONENT Guide0_copy_6 = Guide_gravity(
+ w1 = 0.03, h1 = 0.055,
+ l = 2, m = 1.2)
+AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_5
+ROTATED (0, 2.0/2500*RAD2DEG, 0) RELATIVE Guide0_copy_5
+
+COMPONENT Guide0_copy_7 = Guide_gravity(
+ w1 = 0.03, h1 = 0.055,
+ l = 2, m = 1.2)
+AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_6
+ROTATED (0, 2.0/2500*RAD2DEG, 0) RELATIVE Guide0_copy_6
+
+COMPONENT Guide0_copy_8 = Guide_gravity(
+ w1 = 0.03, h1 = 0.055,
+ l = 2, m = 1.2)
+AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_7
+ROTATED (0, 2.0/2500*RAD2DEG, 0) RELATIVE Guide0_copy_7
+
+COMPONENT Guide_PSD = Monitor_nD(
+ xwidth = 0.03, yheight = 0.055,
+ options = "y x")
+AT (0, 0, 2+1e-4) RELATIVE Guide0_copy_8
+ROTATED (0, 0, 0) RELATIVE Guide0_copy_8
+
+COMPONENT Guide_Lambda = Monitor_nD(
+ xwidth = 0.03, yheight = 0.055,
+ options = "lmon_options")
+AT (0, 0, 1e-4) RELATIVE Guide_PSD
+ROTATED (0, 0, 0) RELATIVE Guide_PSD
+
+COMPONENT Guide_SGS1 = Guide_gravity(
+ w1 = 0.03, h1 = 0.055,
+ l = 2, m = 1.2)
+AT (0, 0, 1.2e-2) RELATIVE Guide_Lambda
+ROTATED (0, 0, 0) RELATIVE Guide_Lambda
+
+COMPONENT Guide_SGS2 = Guide_gravity(
+ w1 = 0.03, h1 = 0.055,
+ l = 2, m = 1.2)
+AT (0, 0, 2.41) RELATIVE Guide_SGS1
+ROTATED (0, 0, 0) RELATIVE Guide_SGS1
+
+COMPONENT Guide_SGS3 = Guide_gravity(
+ w1 = 0.03, h1 = 0.055,
+ l = 2, m = 1.2)
+AT (0, 0, 5.065) RELATIVE Guide_SGS2
+ROTATED (0, 0, 0) RELATIVE Guide_SGS2
+
+COMPONENT Guide_CGS = Guide_gravity(
+ w1 = 0.03, h1 = 0.055,
+ l = 2, m = 1.2)
+AT (0, 0, 2.352) RELATIVE Guide_SGS3
+ROTATED (0, 0, 0) RELATIVE Guide_SGS3
+
+COMPONENT Guide2_PSD = Monitor_nD(
+ xwidth = 0.03, yheight = 0.055,
+ options = "x y")
+AT (0, 0, 2.143-2*6e-3+1e-4) RELATIVE Guide_CGS
+ROTATED (0, 0, 0) RELATIVE Guide_CGS
+
+COMPONENT Guide2_Lambda = Monitor_nD(
+ xwidth = 0.03, yheight = 0.055,
+ options = "lmon_options")
+AT (0, 0, 1e-4) RELATIVE Guide2_PSD
+ROTATED (0, 0, 0) RELATIVE Guide2_PSD
+
+COMPONENT Guide2_dXY = Monitor_nD(
+ xwidth = 0.03, yheight = 0.055,
+ options = "dx dy")
+AT (0, 0, 1e-4) RELATIVE Guide2_Lambda
+ROTATED (0, 0, 0) RELATIVE Guide2_Lambda
+
+COMPONENT Chopper6 = DiskChopper(
+ radius = 0.24, yheight = 0.06,
+ nu = rpm/60, delay = 252.78*11.97*lambda*1e-6,
+ xwidth = 0.03)
+AT (0, 0, 1.2e-2/2) RELATIVE Guide2_dXY
+ROTATED (0, 0, 0) RELATIVE Guide2_dXY
+
+COMPONENT Guide_time = Monitor_nD(
+ xwidth = 0.03, yheight = 0.055,
+ options = "y x")
+AT (0, 0, 0) RELATIVE Chopper6
+ROTATED (0, 0, 0) RELATIVE Chopper6
+
+COMPONENT Guide_DGS = Guide_gravity(
+ w1 = 0.03, h1 = 0.055,
+ l = 2, m = 1.2)
+AT (0, 0, 2.143) RELATIVE Guide_CGS
+ROTATED (0, 0, 0) RELATIVE Guide_CGS
+
+COMPONENT Sample = Isotropic_Sqw(
+ Sqw_coh = coh, Sqw_inc = inc,
+ xwidth = 0.05, yheight = 0.06,
+ zdepth = 0.002, p_interact = 0.99)
+AT (0, 0, 0) RELATIVE Guide_DGS
+ROTATED (0, 45, 0) RELATIVE Guide_DGS
+EXTEND %{
+if (!SCATTERED) ABSORB;
+%}
+
+COMPONENT Ideal_Det = Monitor_nD(
+ yheight = 2, restore_neutron = 1,
+ radius = 2.5, options = "detector_options")
+AT (0, 0, 0) RELATIVE Sample
+ROTATED (0, 0, 0) RELATIVE Sample
+
+FINALLY 
+%{
+// Start of finally for generated ToF_Spectrometer
+%}
+
+END

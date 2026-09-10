@@ -1,0 +1,45 @@
+{
+  "task": "T1_ISIS_SANS2d",
+  "episode": {
+    "model": "qwen3-8b",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": null,
+    "providers_seen": [
+      "?"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 50,
+    "hit_turn_cap": true,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 118.1,
+    "usage": {
+      "prompt_tokens": 681539,
+      "completion_tokens": 7186
+    },
+    "mcp_calls": {
+      "create_instrument": 1,
+      "add_parameter": 7,
+      "add_component": 39,
+      "list_components": 1,
+      "describe_component": 2
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_ISIS_SANS2d",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": null
+}

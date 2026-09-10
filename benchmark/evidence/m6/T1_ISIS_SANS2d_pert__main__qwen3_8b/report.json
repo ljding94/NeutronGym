@@ -1,0 +1,84 @@
+{
+  "task": "T1_ISIS_SANS2d_pert",
+  "episode": {
+    "model": "qwen3-8b",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": null,
+    "providers_seen": [
+      "?"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 50,
+    "hit_turn_cap": true,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 124.7,
+    "usage": {
+      "prompt_tokens": 650850,
+      "completion_tokens": 6754
+    },
+    "mcp_calls": {
+      "create_instrument": 1,
+      "add_parameter": 7,
+      "add_component": 30,
+      "list_components": 2,
+      "describe_component": 2,
+      "validate_instrument": 1,
+      "run_simulation": 3,
+      "cancel_job": 2,
+      "set_parameters": 2
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T1_ISIS_SANS2d_pert",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "candidate failed to run (run)"
+    ],
+    "diagnostics": [
+      "    ^^^^^^^^^^^^",
+      "  File \"/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/tools/Python/mcrun/mccode.py\", line 406, in run",
+      "    return self.runMPI(args, pipe, override_mpi)",
+      "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+      "  File \"/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/tools/Python/mcrun/mccode.py\", line 461, in runMPI",
+      "    return Process(binpath).run(args, pipe=pipe)",
+      "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+      "  File \"/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/tools/Python/mcrun/mccode.py\", line 78, in run",
+      "    raise err",
+      "  File \"/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/share/mcstas/tools/Python/mcrun/mccode.py\", line 74, in run",
+      "    proc = run(command, shell=True, check=True, text=True, capture_output=pipe)",
+      "           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+      "  File \"/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/lib/python3.11/subprocess.py\", line 571, in run",
+      "    raise CalledProcessError(retcode, process.args,",
+      "subprocess.CalledProcessError: Command './SANS_instrument.out --trace=0 --seed=1234 --ncount=1000000.0 --dir=/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d_pert__main__qwen3_8b/grade_work/cand_20260910_085405_30035_1 --format=McCode --bufsiz=10000000 L1=3.926 A1w=0.03 A1h=0.02 S6=0.006 A2=0.006 Lmin=1.0 Lmax=14.0' returned non-zero exit status 255."
+    ],
+    "checks": [],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d_pert__main__qwen3_8b/home/instruments/SANS_instrument/SANS_instrument.instr",
+    "candidate_params": {
+      "L1": 3.926,
+      "A1w": 0.03,
+      "A1h": 0.02,
+      "S6": 0.006,
+      "A2": 0.006,
+      "Lmin": 1.0,
+      "Lmax": 14.0
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d_pert__main__qwen3_8b/artifacts/SANS_instrument.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d_pert__main__qwen3_8b/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T1_ISIS_SANS2d_pert__main__qwen3_8b/artifacts/diagram.png",
+    "trace": null,
+    "errors": [
+      "trace: mcdisplay-webgl failed"
+    ]
+  }
+}

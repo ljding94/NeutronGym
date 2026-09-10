@@ -1,0 +1,53 @@
+{
+  "task": "P3_sans_underspecified",
+  "episode": {
+    "model": "qwen3-8b",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": null,
+    "providers_seen": [
+      "?"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 40,
+    "hit_turn_cap": true,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 47.9,
+    "usage": {
+      "prompt_tokens": 314693,
+      "completion_tokens": 2737
+    },
+    "mcp_calls": {
+      "list_components": 7,
+      "list_examples": 1,
+      "create_instrument": 1,
+      "add_parameter": 15,
+      "add_component": 14,
+      "describe_component": 2
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "P3_sans_underspecified",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "agent left no built instrument in the episode registry"
+    ],
+    "checks": []
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": [
+      {
+        "tool": "list_examples",
+        "kind": "example_tool",
+        "target": "SANS",
+        "refused": true
+      }
+    ]
+  },
+  "artifacts": null
+}

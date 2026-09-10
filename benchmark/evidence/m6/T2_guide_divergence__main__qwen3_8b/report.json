@@ -1,0 +1,61 @@
+{
+  "task": "T2_guide_divergence",
+  "episode": {
+    "model": "qwen3-8b",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": null,
+    "providers_seen": [
+      "?"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 50,
+    "hit_turn_cap": true,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 116.5,
+    "usage": {
+      "prompt_tokens": 722858,
+      "completion_tokens": 3673
+    },
+    "mcp_calls": {
+      "get_instrument": 1,
+      "create_instrument": 1,
+      "list_components": 2,
+      "describe_component": 3,
+      "add_parameter": 3,
+      "add_component": 14,
+      "validate_instrument": 1,
+      "run_simulation": 12,
+      "get_results": 12,
+      "optimize": 1
+    },
+    "skill_used": true,
+    "final_answer": ""
+  },
+  "grade": {
+    "task": "T2_guide_divergence",
+    "pass": false,
+    "score": 0.0,
+    "hard_failures": [
+      "FOM monitor has 0 events \u2014 below statistics floor"
+    ],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__main__qwen3_8b/home/instruments/t2_guide_divergence/t2_guide_divergence.instr",
+    "candidate_params": {
+      "w_in": 0.012,
+      "w_out": 0.012,
+      "m_coat": 1.5
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__main__qwen3_8b/artifacts/t2_guide_divergence.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__main__qwen3_8b/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__main__qwen3_8b/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/T2_guide_divergence__main__qwen3_8b/artifacts/trace",
+    "errors": []
+  }
+}

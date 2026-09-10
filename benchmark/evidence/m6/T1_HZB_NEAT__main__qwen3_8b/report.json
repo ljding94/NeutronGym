@@ -1,0 +1,73 @@
+{
+  "task": "T1_HZB_NEAT",
+  "episode": {
+    "model": "qwen3-8b",
+    "scaffold": "neutrongym-reference-loop",
+    "provider_pin": null,
+    "providers_seen": [
+      "?"
+    ],
+    "returncode": 0,
+    "error": null,
+    "turns": 46,
+    "hit_turn_cap": false,
+    "empty_responses": 0,
+    "cost_usd": null,
+    "duration_s": 97.7,
+    "usage": {
+      "prompt_tokens": 563935,
+      "completion_tokens": 5012
+    },
+    "mcp_calls": {
+      "create_instrument": 1,
+      "add_parameter": 7,
+      "add_component": 31,
+      "describe_component": 1,
+      "remove_component": 1,
+      "validate_instrument": 1,
+      "run_simulation": 1,
+      "get_results": 1,
+      "get_monitor_data": 1
+    },
+    "skill_used": true,
+    "final_answer": "The error suggests that the `Ideal_Det` monitor might not be properly configured or the data might not be available in the expected format. Let's first check the configuration of the `Ideal_Det` monitor and ensure it is set up correctly for the data to be available. If it's not, we might need to adjust the setup or re-run the simulation with the correct parameters. If it is, we can proceed to retrieve the data. Let's first verify the setup of the `Ideal_Det` monitor."
+  },
+  "grade": {
+    "task": "T1_HZB_NEAT",
+    "pass": false,
+    "score": 0.0,
+    "checks_passed": "0/0",
+    "hard_failures": [
+      "role '2d': only 843 events \u2014 below statistics floor, ungradable",
+      "no monitor with role 'wavelength' in candidate",
+      "no monitor with role 'tof' in candidate"
+    ],
+    "checks": [],
+    "protocol": {
+      "ncount": 1000000.0,
+      "seed": 1234,
+      "timeout": 900
+    },
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_NEAT__main__qwen3_8b/home/instruments/ToF_Spectrometer/ToF_Spectrometer.instr",
+    "candidate_params": {
+      "lambda": 6.0,
+      "dlambda": 0.05,
+      "rpm": 10000.0,
+      "coh": "Rb_liq_coh.sqw",
+      "inc": "Rb_liq_inc.sqw",
+      "tmin": 0.01806,
+      "tmax": 0.01826
+    }
+  },
+  "reference_leak": {
+    "leaked": false,
+    "events": []
+  },
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_NEAT__main__qwen3_8b/artifacts/ToF_Spectrometer.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_NEAT__main__qwen3_8b/artifacts/params.json",
+    "diagram": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_NEAT__main__qwen3_8b/artifacts/diagram.png",
+    "trace": "/Users/ldq/Work/NeutronGym/runs/m6/T1_HZB_NEAT__main__qwen3_8b/artifacts/trace",
+    "errors": []
+  }
+}

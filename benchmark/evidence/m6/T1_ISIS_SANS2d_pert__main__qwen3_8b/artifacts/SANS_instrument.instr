@@ -1,0 +1,294 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: SANS_instrument
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 08:54:03 on September 10, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* L1: [unit] m] Length of the first guide section
+* A1w: [unit] m] Width of the first aperture
+* A1h: [unit] m] Height of the first aperture
+* S6: [unit] m] Radius of the S6 slit
+* A2: [unit] m] Radius of the second aperture
+* Lmin: [unit] m] Minimum length for L_monitor
+* Lmax: [unit] m] Maximum length for L_monitor
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT SANS_instrument (
+L1 = 3.926, // m] Length of the first guide section
+A1w = 0.03, // m] Width of the first aperture
+A1h = 0.02, // m] Height of the first aperture
+S6 = 0.006, // m] Radius of the S6 slit
+A2 = 0.006, // m] Radius of the second aperture
+Lmin = 1.0, // m] Minimum length for L_monitor
+Lmax = 14.0 // m] Maximum length for L_monitor
+)
+
+DECLARE 
+%{
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated SANS_instrument
+%}
+
+TRACE 
+COMPONENT Origin = Arm()
+AT (0.0, 0.0, 0.0) ABSOLUTE
+ROTATED (0.0, 0.0, 0.0) ABSOLUTE
+GROUP source
+
+COMPONENT isis_source = Moderator(
+ Emin = -14.0, Emax = -1.0,
+ dist = 4.232, focus_xw = 0.0365,
+ focus_yh = 0.021)
+AT (0.0, 0.0, 1e-05) RELATIVE Origin
+ROTATED (0.0, 0.0, 0.0) RELATIVE Origin
+GROUP source
+
+COMPONENT lmon1 = L_monitor(
+ nL = 140, filename = "lmon1.dat",
+ xmin = -0.04, xmax = 0.04,
+ ymin = -0.03, ymax = 0.03,
+ Lmin = 0.0, Lmax = 17.0)
+AT (0.0, 0.0, 3.698) RELATIVE isis_source
+ROTATED (0.0, 0.0, 0.0) RELATIVE isis_source
+GROUP monitor
+
+COMPONENT psd1 = PSD_monitor(
+ nx = 100, ny = 100,
+ filename = "psd1.dat", xmin = -0.05,
+ xmax = 0.05, ymin = -0.05,
+ ymax = 0.05)
+AT (0.0, 0.0, 3.699) RELATIVE isis_source
+ROTATED (0.0, 0.0, 0.0) RELATIVE isis_source
+GROUP monitor
+
+COMPONENT bender1 = Guide_gravity(
+ w1 = 0.0355, h1 = 0.02,
+ w2 = 0.0355, h2 = 0.02,
+ l = 0.3245, nslit = 9,
+ d = 0.0005, mleft = 1,
+ mright = 3, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 3.7) RELATIVE isis_source
+ROTATED (0.0, 0.137099, 0.0) RELATIVE isis_source
+GROUP optics
+
+COMPONENT bender2 = Guide_gravity(
+ w1 = 0.0355, h1 = 0.02,
+ w2 = 0.0355, h2 = 0.02,
+ l = 0.3245, nslit = 9,
+ d = 0.0005, mleft = 1,
+ mright = 3, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 0.325) RELATIVE bender1
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender1
+GROUP optics
+
+COMPONENT bender3 = Guide_gravity(
+ w1 = 0.0355, h1 = 0.02,
+ w2 = 0.0355, h2 = 0.02,
+ l = 0.3245, nslit = 9,
+ d = 0.0005, mleft = 1,
+ mright = 3, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 0.325) RELATIVE bender2
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender2
+GROUP optics
+
+COMPONENT bender4 = Guide_gravity(
+ w1 = 0.0355, h1 = 0.02,
+ w2 = 0.0355, h2 = 0.02,
+ l = 0.3245, nslit = 9,
+ d = 0.0005, mleft = 1,
+ mright = 3, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 0.325) RELATIVE bender3
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender3
+GROUP optics
+
+COMPONENT bender5 = Guide_gravity(
+ w1 = 0.0355, h1 = 0.02,
+ w2 = 0.0355, h2 = 0.02,
+ l = 0.3245, nslit = 9,
+ d = 0.0005, mleft = 1,
+ mright = 3, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 0.325) RELATIVE bender4
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender4
+GROUP optics
+
+COMPONENT bender6 = Guide_gravity(
+ w1 = 0.0355, h1 = 0.02,
+ w2 = 0.0355, h2 = 0.02,
+ l = 0.3245, nslit = 9,
+ d = 0.0005, mleft = 1,
+ mright = 3, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 0.325) RELATIVE bender5
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender5
+GROUP optics
+
+COMPONENT bender7 = Guide_gravity(
+ w1 = 0.0355, h1 = 0.02,
+ w2 = 0.0355, h2 = 0.02,
+ l = 0.3245, nslit = 9,
+ d = 0.0005, mleft = 1,
+ mright = 3, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 0.325) RELATIVE bender6
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender6
+GROUP optics
+
+COMPONENT bender8 = Guide_gravity(
+ w1 = 0.0355, h1 = 0.02,
+ w2 = 0.0355, h2 = 0.02,
+ l = 0.3245, nslit = 9,
+ d = 0.0005, mleft = 1,
+ mright = 3, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 0.325) RELATIVE bender7
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender7
+GROUP optics
+
+COMPONENT bender9 = Guide_gravity(
+ w1 = 0.0355, h1 = 0.02,
+ w2 = 0.0355, h2 = 0.02,
+ l = 0.3245, nslit = 9,
+ d = 0.0005, mleft = 1,
+ mright = 3, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 0.325) RELATIVE bender8
+ROTATED (0.0, 0.1375099, 0.0) RELATIVE bender8
+GROUP optics
+
+COMPONENT lmonb = L_monitor(
+ nL = 140, filename = "lmonB.dat",
+ xmin = -0.018, xmax = 0.018,
+ ymin = -0.018, ymax = 0.018,
+ Lmin = 0.0, Lmax = 17.0)
+AT (0.0, 0.0, 0.326) RELATIVE bender9
+ROTATED (0.0, 0.0, 0.0) RELATIVE bender9
+GROUP monitor
+
+COMPONENT psd2 = PSD_monitor(
+ nx = 100, ny = 100,
+ filename = "psd2.dat", xmin = -0.025,
+ xmax = 0.025, ymin = -0.025,
+ ymax = 0.025)
+AT (0.0, 0.0, 0.001) RELATIVE lmonb
+ROTATED (0.0, 0.0, 0.0) RELATIVE lmonb
+GROUP monitor
+
+COMPONENT guide_in = Slit(
+ xwidth = A1w, yheight = A1h)
+AT (0.0, 0.0, 8.0) RELATIVE psd2
+ROTATED (0.0, 0.0, 0.0) RELATIVE psd2
+GROUP optics
+
+COMPONENT guide_straight1 = Guide_gravity(
+ w1 = 0.03, h1 = 0.02,
+ w2 = 0.03, h2 = 0.02,
+ l = 1.985, mleft = 1,
+ mright = 1, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 0.0075) RELATIVE guide_in
+ROTATED (0.0, 0.0, 0.0) RELATIVE guide_in
+GROUP optics
+
+COMPONENT guide_straight2 = Guide_gravity(
+ w1 = 0.03, h1 = 0.02,
+ w2 = 0.03, h2 = 0.02,
+ l = 1.985, mleft = 1,
+ mright = 1, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 2.0) RELATIVE guide_straight1
+ROTATED (0.0, 0.0, 0.0) RELATIVE guide_straight1
+GROUP optics
+
+COMPONENT guide_straight3 = Guide_gravity(
+ w1 = 0.03, h1 = 0.02,
+ w2 = 0.03, h2 = 0.02,
+ l = 1.985, mleft = 1,
+ mright = 1, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 2.0) RELATIVE guide_straight2
+ROTATED (0.0, 0.0, 0.0) RELATIVE guide_straight2
+GROUP optics
+
+COMPONENT guide_straight4 = Guide_gravity(
+ w1 = 0.03, h1 = 0.02,
+ w2 = 0.03, h2 = 0.02,
+ l = 1.985, mleft = 1,
+ mright = 1, mtop = 1,
+ mbottom = 1, wavy = 0)
+AT (0.0, 0.0, 2.0) RELATIVE guide_straight3
+ROTATED (0.0, 0.0, 0.0) RELATIVE guide_straight3
+GROUP optics
+
+COMPONENT psd3 = PSD_monitor(
+ nx = 100, ny = 100,
+ filename = "psd3.dat", xmin = -0.03,
+ xmax = 0.03, ymin = -0.03,
+ ymax = 0.03)
+AT (0.0, 0.0, 8.001) RELATIVE guide_in
+ROTATED (0.0, 0.0, 0.0) RELATIVE guide_in
+GROUP monitor
+
+COMPONENT aperture1 = Slit(
+ radius = S6)
+AT (0.0, 0.0, 8.0) RELATIVE guide_in
+ROTATED (0.0, 0.0, 0.0) RELATIVE guide_in
+GROUP optics
+
+COMPONENT lmonitor2 = L_monitor(
+ nL = 140, filename = "lmonitor2.dat",
+ xmin = -0.0075, xmax = 0.0075,
+ ymin = -0.0075, ymax = 0.0075,
+ Lmin = 0.0, Lmax = 17.0)
+AT (0.0, 0.0, 2.651) RELATIVE aperture1
+ROTATED (0.0, 0.0, 0.0) RELATIVE aperture1
+GROUP monitor
+
+COMPONENT psd4 = PSD_monitor(
+ nx = 100, ny = 100,
+ filename = "psd4.dat", xmin = -0.0075,
+ xmax = 0.0075, ymin = -0.0075,
+ ymax = 0.0075)
+AT (0.0, 0.0, 2.652) RELATIVE lmonitor2
+ROTATED (0.0, 0.0, 0.0) RELATIVE lmonitor2
+GROUP monitor
+
+FINALLY 
+%{
+// Start of finally for generated SANS_instrument
+%}
+
+END
