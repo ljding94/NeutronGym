@@ -90,7 +90,7 @@ growth beyond the current 14 (already cut-by-default as of 2026-07-29 — the
 
 ## Anchors
 
-- **Venue: ICLR 2027, committed** — abstract 2026-09-19, full paper 2026-09-24
+- **Venue: ICLR 2027, committed** — abstract 2026-09-18, full paper 2026-09-25
   AoE; NeurIPS 2027 D&B is the fallback, not a co-target.
 - **Hardware/budget:** Apple Silicon Mac (env/eval) · 7×A100-40G (~3 generation
   / ~4 training) · ~$200 OpenRouter + subscription Claude.

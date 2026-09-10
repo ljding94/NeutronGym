@@ -133,7 +133,8 @@
           "original_max_position_embeddings": 40960
         },
         "thinking": false,
-        "m7_statement_required": "YaRN long-context mode alters the model vs stock (native ctx 40960 < measured 77k peak; static YaRN also affects short requests) \u2014 state in the M7 measurement-config section"
+        "m7_statement_required": "YaRN long-context mode alters the model vs stock (native ctx 40960 < measured 77k peak; static YaRN also affects short requests) \u2014 state in the M7 measurement-config section",
+        "_": "2026-09-10: both open-weights arms serve at 98304 with identical YaRN settings \u2014 comparability caveat retired"
       }
     },
     "qwen3-32b": {
@@ -145,7 +146,19 @@
       "tier": "open-weights",
       "base_url": "env:NEUTRONGYM_VLLM_URL_32B",
       "_": "Served via vLLM (OpenAI-compatible, $0). Endpoint from NEUTRONGYM_VLLM_URL_32B \u2014 PER-MODEL env vars (fix 2026-09-07 after peer review: vllm serve is one model per process; a shared URL made the plain matrix run 404 whichever model wasn't loaded). Serve concurrently on different ports or sequentially \u2014 either now works; unset vars skip their model independently. --served-model-name must match this id exactly. Serving guidance: note/vllm-serving-runbook-2026-09-07.md",
-      "role": "larger untrained comparator for the RL claim bar \u2014 REQUIRED"
+      "role": "larger untrained comparator for the RL claim bar \u2014 REQUIRED",
+      "serving": {
+        "engine": "vLLM (venv2, uv CPython 3.12.14)",
+        "tp": 4,
+        "max_model_len": 98304,
+        "rope_scaling": {
+          "rope_type": "yarn",
+          "factor": 4.0,
+          "original_max_position_embeddings": 40960
+        },
+        "thinking": false,
+        "_": "2026-09-10: served at 98304 like the 8B \u2014 identical context budgets across both open-weights arms retire the comparability caveat (runbook note 1b); native ctx is 40960 for the 32B too, so YaRN is required and must be stated in M7 for BOTH arms"
+      }
     }
   },
   "arms": {

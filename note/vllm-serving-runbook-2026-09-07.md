@@ -74,9 +74,16 @@ vllm serve <hf-path-qwen3-8b>  --served-model-name qwen3-8b  --port 8010 \
 # truncate long episodes into fake capability failures.
 
 # 32B: TP4 (TP7 impossible — TP must divide attention heads; TP2 on 40 GB
-# cards is tight once KV cache is added)
-vllm serve <hf-path-qwen3-32b> --served-model-name qwen3-32b --port 8001 \
-    --tensor-parallel-size 4 --max-model-len 131072 \
+# cards is tight once KV cache is added).
+# CORRECTED 2026-09-10: Qwen3-32B's native max_position_embeddings is ALSO
+# 40960 — YaRN required here too, and it serves at 98304 (NOT 131072):
+# identical context budgets across both open-weights arms RETIRES the
+# note-1b comparability caveat. Live ports: 8B on 8137 (GPU 0), 32B on
+# 8138 (GPUs 1-4); env at /netdisk/ldq/vllm-env2 (uv CPython 3.12.14 —
+# the system python lacked dev headers and Triton could not compile).
+vllm serve <hf-path-qwen3-32b> --served-model-name qwen3-32b --port 8138 \
+    --tensor-parallel-size 4 --max-model-len 98304 \
+    --hf-overrides '{"rope_scaling": {"rope_type": "yarn", "factor": 4.0, "original_max_position_embeddings": 40960}}' \
     --enable-auto-tool-choice --tool-call-parser hermes
 ```
 
