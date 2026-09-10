@@ -35,6 +35,11 @@ import httpx
 DEFAULT_MAX_TURNS = 40
 TOOL_RESULT_CAP = 50_000
 REQUEST_TIMEOUT_S = 300
+# Locally served small models generate long files far slower than APIs:
+# a 32k-token one-shot on an 8B at single-stream speed is 5-10 min, which
+# blew the 300 s ceiling as a ReadTimeout and scored as INFRA (2026-09-10).
+# M8 rollouts would hit the same wall.
+LOCAL_REQUEST_TIMEOUT_S = 1200
 RETRIES = 3
 
 SYSTEM_PROMPT = (
@@ -86,7 +91,8 @@ def chat_completion(http: httpx.Client, base_url: str, api_key: str,
                     model: str, messages: list, tools: list,
                     temperature: float, provider_pin: str | None = None,
                     max_tokens: int = 8192,
-                    chat_extra: dict | None = None) -> dict:
+                    chat_extra: dict | None = None,
+                    timeout: int = REQUEST_TIMEOUT_S) -> dict:
     payload = {"model": model, "messages": messages,
                "tool_choice": "auto", "temperature": temperature,
                "max_tokens": max_tokens}  # explicit: providers can truncate
@@ -110,7 +116,7 @@ def chat_completion(http: httpx.Client, base_url: str, api_key: str,
         try:
             resp = http.post(f"{base_url}/chat/completions",
                              headers={"Authorization": f"Bearer {api_key}"},
-                             json=payload, timeout=REQUEST_TIMEOUT_S)
+                             json=payload, timeout=timeout)
         except httpx.HTTPError as e:  # timeouts, resets — retry, never raise raw
             last = f"{type(e).__name__}: {e}"
             time.sleep(2 ** attempt)
@@ -190,10 +196,14 @@ async def _run(task_prompt, model, episode_dir, home_dir, server_cwd,
             if chat_fn is None:
                 b_url, key = resolve_backend(model, base_url, api_key)
 
+                req_timeout = (LOCAL_REQUEST_TIMEOUT_S if base_url
+                               else REQUEST_TIMEOUT_S)
+
                 def call_model(msgs, tls):
                     return chat_completion(http, b_url, key, model, msgs,
                                            tls, temperature, provider_pin,
-                                           chat_extra=chat_extra)
+                                           chat_extra=chat_extra,
+                                           timeout=req_timeout)
             else:
                 call_model = chat_fn
 
@@ -325,10 +335,12 @@ def run_oneshot(task_prompt: str, model: str, episode_dir: str,
                     # generous budget: reasoning models spend heavily on
                     # thinking BEFORE the file (sonnet-5 burned 8192 tokens
                     # of pure reasoning in the shakedown -> empty answer)
-                    resp = chat_completion(http, b_url, key, model,
-                                           messages, [], temperature,
-                                           provider_pin, max_tokens=32000,
-                                           chat_extra=chat_extra)
+                    resp = chat_completion(
+                        http, b_url, key, model, messages, [], temperature,
+                        provider_pin, max_tokens=32000,
+                        chat_extra=chat_extra,
+                        timeout=(LOCAL_REQUEST_TIMEOUT_S if base_url
+                                 else REQUEST_TIMEOUT_S))
             else:
                 resp = chat_fn(messages, [])
             for k in usage:
