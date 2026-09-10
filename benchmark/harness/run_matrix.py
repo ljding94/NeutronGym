@@ -104,6 +104,20 @@ def ledger_total():
         return {"episodes": [], "total_usd": 0.0}
 
 
+def endpoint_alive(base_url: str, timeout: int = 8) -> bool:
+    """Pre-flight probe for locally served models. A campaign must ABORT on
+    a dead endpoint, never grind through episodes that get scored as
+    capability failures (2026-09-10: a dropped tunnel silently invalidated
+    52 qwen episodes exactly that way). Also guards M8 rollouts."""
+    import urllib.request
+    try:
+        req = urllib.request.Request(base_url.rstrip("/") + "/models")
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            return r.status == 200
+    except Exception:  # noqa: BLE001 — any failure means "do not run"
+        return False
+
+
 def run_one(cfg, arm_name, model, task, ep_dir):
     arm = cfg["arms"][arm_name]
     cmd = [sys.executable, os.path.join(REPO, "benchmark", "harness",
@@ -141,6 +155,13 @@ def cmd_run(cfg, args):
         if led["total_usd"] >= cfg["budget"]["hard_stop_usd"]:
             print(f"HARD STOP: ledger ${led['total_usd']:.2f} >= "
                   f"${cfg['budget']['hard_stop_usd']}")
+            break
+        url = model_base_url(cfg, model)[0] if model else None
+        if url and not endpoint_alive(url):
+            print(f"ABORT: {model}'s endpoint {url} is not answering — "
+                  "episodes would be scored as capability failures. "
+                  "Restore the endpoint and re-run (resume skips finished "
+                  "episodes).")
             break
         print(f"[p{p}] {task} / {arm} / {model or 'subscription'} ...",
               flush=True)
@@ -289,6 +310,12 @@ def main():
         for _, arm, model, t, ep_dir in eps:
             if os.path.isfile(os.path.join(ep_dir, "report.json")):
                 continue
+            url = model_base_url(cfg, model)[0] if model else None
+            if url and not endpoint_alive(url):
+                print(f"ABORT: {model}'s endpoint {url} is not answering — "
+                      "the held-out axis must not be spent on infra "
+                      "failures.")
+                break
             print(f"[final] {t} / {arm} / {model} ...", flush=True)
             res = run_one(cfg, arm, model, t, ep_dir)
             cost = episode_cost(os.path.join(ep_dir, "report.json"), cfg,

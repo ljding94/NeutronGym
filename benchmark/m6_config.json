@@ -85,12 +85,24 @@
       "tier": "small"
     },
     "meta-llama/llama-4-maverick": {
-      "pin": "Google",
+      "pin": "DigitalOcean",
       "price": [
         0.2,
         0.8
       ],
-      "tier": "small"
+      "tier": "small",
+      "pin_history": [
+        {
+          "pin": "Google",
+          "used": "2026-08-23 matrix + 09-10 final pass",
+          "outcome": "route WITHDRAWN by 2026-09-10 ('No endpoints found'); the Aug-23 row measured on it showed zero tool calls (all L0) and its one-shot arm 404'd entirely"
+        },
+        {
+          "pin": "DigitalOcean",
+          "since": "2026-09-10",
+          "why": "Google withdrew the model; DigitalOcean serves it with VERIFIED working tool-calls (128k ctx > our 77k measured peak). NOTE FOR M7: the same model tool-calls correctly here but did not on Vertex \u2014 serving-level variance is a measurement confound, and this is the project's concrete evidence for the provider-pinning discipline. The Google-served episodes are kept in evidence/ as the comparison point."
+        }
+      ]
     },
     "openai/gpt-5.2-pro": {
       "pin": "OpenAI",
