@@ -1,0 +1,69 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: SESANS_instrument
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 19:56:00 on September 10, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* L0: [unit] Å
+* DL: [unit] Å
+* By: [unit] T
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT SESANS_instrument (
+L0 = 2.165, // Å
+DL = 0.02, // Å
+By = 0.00468 // T
+)
+
+DECLARE 
+%{
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated SESANS_instrument
+%}
+
+TRACE 
+COMPONENT origin = Progress_bar()
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT src = Source_simple(
+ yheight = 0.01, xwidth = 0.01,
+ dist = 2.25, focus_xw = 0.01,
+ focus_yh = 0.01, lambda0 = L0,
+ dlambda = DL, gauss = 1)
+AT (0.0, 0.0, 0.0) RELATIVE origin
+
+FINALLY 
+%{
+// Start of finally for generated SESANS_instrument
+%}
+
+END

@@ -2469,83 +2469,35 @@
    "ok": true
   },
   {
-   "task": "T1_ILL_H15_D11",
-   "arm": "oneshot",
-   "model": "meta-llama/llama-4-maverick",
-   "usd": 0.0063,
-   "wall_s": 425.7,
-   "ok": true
-  },
-  {
-   "task": "T1_ILL_H512_D22",
-   "arm": "oneshot",
-   "model": "meta-llama/llama-4-maverick",
-   "usd": 0.0073,
-   "wall_s": 592.5,
-   "ok": true
-  },
-  {
-   "task": "T1_ILL_IN6",
-   "arm": "oneshot",
-   "model": "meta-llama/llama-4-maverick",
-   "usd": 0.0047,
-   "wall_s": 494.7,
-   "ok": true
-  },
-  {
-   "task": "T1_ISIS_SANS2d",
-   "arm": "oneshot",
-   "model": "meta-llama/llama-4-maverick",
-   "usd": 0.0028,
-   "wall_s": 300.7,
-   "ok": true
-  },
-  {
    "task": "T1_PSI_DMC",
    "arm": "oneshot",
-   "model": "meta-llama/llama-4-maverick",
-   "usd": 0.0028,
-   "wall_s": 293.0,
+   "model": "qwen3-8b",
+   "usd": 0.0,
+   "wall_s": 491.3,
    "ok": true
   },
   {
-   "task": "T1_RTP_DIF",
-   "arm": "oneshot",
-   "model": "meta-llama/llama-4-maverick",
-   "usd": 0.0018,
-   "wall_s": 154.6,
-   "ok": true
+   "task": "T1_templateTOF",
+   "arm": "claude_code",
+   "model": null,
+   "usd": 0.0,
+   "wall_s": 556.1,
+   "ok": false
   },
   {
-   "task": "T1_SESANS_Delft",
-   "arm": "oneshot",
-   "model": "meta-llama/llama-4-maverick",
-   "usd": 0.0016,
-   "wall_s": 126.3,
-   "ok": true
-  },
-  {
-   "task": "T2_guide_divergence",
-   "arm": "oneshot",
-   "model": "meta-llama/llama-4-maverick",
-   "usd": 0.0006,
-   "wall_s": 37.2,
-   "ok": true
-  },
-  {
-   "task": "T2_sans_collimation",
-   "arm": "oneshot",
-   "model": "meta-llama/llama-4-maverick",
-   "usd": 0.0008,
-   "wall_s": 53.5,
-   "ok": true
+   "task": "T1_templateTOF",
+   "arm": "claude_code",
+   "model": null,
+   "usd": 0.0,
+   "wall_s": 1191.2,
+   "ok": false
   },
   {
    "task": "T1_PSI_DMC_pert",
    "arm": "oneshot",
    "model": "meta-llama/llama-4-maverick",
    "usd": 0.003,
-   "wall_s": 225.4,
+   "wall_s": 217.8,
    "ok": true
   },
   {
@@ -2553,7 +2505,7 @@
    "arm": "oneshot",
    "model": "meta-llama/llama-4-maverick",
    "usd": 0.0028,
-   "wall_s": 200.7,
+   "wall_s": 223.6,
    "ok": true
   },
   {
@@ -2561,10 +2513,314 @@
    "arm": "oneshot",
    "model": "meta-llama/llama-4-maverick",
    "usd": 0.0041,
-   "wall_s": 417.1,
+   "wall_s": 411.0,
+   "ok": true
+  },
+  {
+   "task": "T1_ESS_IN5_reprate",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0,
+   "wall_s": 422.0,
+   "ok": false
+  },
+  {
+   "task": "T1_HZB_FLEX",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0121,
+   "wall_s": 370.8,
+   "ok": true
+  },
+  {
+   "task": "T1_HZB_NEAT",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.024,
+   "wall_s": 293.8,
+   "ok": true
+  },
+  {
+   "task": "T1_ILL_D2B",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0129,
+   "wall_s": 452.7,
+   "ok": true
+  },
+  {
+   "task": "T1_ILL_H10_IN8",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0238,
+   "wall_s": 369.2,
+   "ok": true
+  },
+  {
+   "task": "T1_ILL_H15_D11",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0,
+   "wall_s": 542.5,
+   "ok": false
+  },
+  {
+   "task": "T1_ILL_H512_D22",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0791,
+   "wall_s": 234.3,
+   "ok": true
+  },
+  {
+   "task": "T1_ILL_IN6",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0089,
+   "wall_s": 176.3,
+   "ok": true
+  },
+  {
+   "task": "T1_ISIS_SANS2d",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0,
+   "wall_s": 440.5,
+   "ok": false
+  },
+  {
+   "task": "T1_PSI_DMC",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0206,
+   "wall_s": 451.0,
+   "ok": true
+  },
+  {
+   "task": "T1_RTP_DIF",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0,
+   "wall_s": 540.4,
+   "ok": false
+  },
+  {
+   "task": "T1_SESANS_Delft",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0211,
+   "wall_s": 446.8,
+   "ok": true
+  },
+  {
+   "task": "T2_guide_divergence",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0065,
+   "wall_s": 69.3,
+   "ok": true
+  },
+  {
+   "task": "T2_sans_collimation",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.004,
+   "wall_s": 12.1,
+   "ok": true
+  },
+  {
+   "task": "T1_PSI_DMC_pert",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0315,
+   "wall_s": 2409.3,
+   "ok": true
+  },
+  {
+   "task": "T1_ISIS_SANS2d_pert",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0,
+   "wall_s": 303.0,
+   "ok": false
+  },
+  {
+   "task": "T1_HZB_FLEX_pert",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.011,
+   "wall_s": 311.6,
+   "ok": true
+  },
+  {
+   "task": "T1_ESS_IN5_reprate",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.023,
+   "wall_s": 516.2,
+   "ok": true
+  },
+  {
+   "task": "T1_HZB_FLEX",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.01,
+   "wall_s": 450.5,
+   "ok": true
+  },
+  {
+   "task": "T1_HZB_NEAT",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0243,
+   "wall_s": 566.3,
+   "ok": true
+  },
+  {
+   "task": "T1_ILL_D2B",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0461,
+   "wall_s": 883.3,
+   "ok": true
+  },
+  {
+   "task": "T1_ILL_H10_IN8",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0075,
+   "wall_s": 321.6,
+   "ok": true
+  },
+  {
+   "task": "T1_ILL_H15_D11",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0316,
+   "wall_s": 379.0,
+   "ok": true
+  },
+  {
+   "task": "T1_ILL_H512_D22",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0741,
+   "wall_s": 368.8,
+   "ok": true
+  },
+  {
+   "task": "T1_ILL_IN6",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0105,
+   "wall_s": 385.7,
+   "ok": true
+  },
+  {
+   "task": "T1_ISIS_SANS2d",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0351,
+   "wall_s": 475.8,
+   "ok": true
+  },
+  {
+   "task": "T1_PSI_DMC",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0102,
+   "wall_s": 472.0,
+   "ok": true
+  },
+  {
+   "task": "T1_RTP_DIF",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0462,
+   "wall_s": 854.4,
+   "ok": true
+  },
+  {
+   "task": "T1_SESANS_Delft",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0418,
+   "wall_s": 653.6,
+   "ok": true
+  },
+  {
+   "task": "T2_guide_divergence",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0067,
+   "wall_s": 185.2,
+   "ok": true
+  },
+  {
+   "task": "T2_sans_collimation",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0049,
+   "wall_s": 112.3,
+   "ok": true
+  },
+  {
+   "task": "T1_PSI_DMC_pert",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0115,
+   "wall_s": 509.4,
+   "ok": true
+  },
+  {
+   "task": "T1_ISIS_SANS2d_pert",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.035,
+   "wall_s": 481.2,
+   "ok": true
+  },
+  {
+   "task": "T1_HZB_FLEX_pert",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0127,
+   "wall_s": 551.2,
+   "ok": true
+  },
+  {
+   "task": "T1_ESS_IN5_reprate",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0366,
+   "wall_s": 721.7,
+   "ok": true
+  },
+  {
+   "task": "T1_ILL_H10_IN8",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0074,
+   "wall_s": 357.7,
+   "ok": true
+  },
+  {
+   "task": "T1_ISIS_SANS2d",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0351,
+   "wall_s": 550.2,
+   "ok": true
+  },
+  {
+   "task": "T1_ISIS_SANS2d_pert",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0322,
+   "wall_s": 596.1,
    "ok": true
   }
  ],
- "total_usd": 121.3031,
+ "total_usd": 122.0724,
  "_note": "187 entries = 185 final episodes on disk + 2 failed attempts (maverick T1_RTP_DIF and T2_sans_collimation, harness bugs fixed in 15cafb9, both re-run to completion). Failed attempts keep their cost \u2014 honest accounting. Explanation recorded 2026-09-02 after external review."
 }

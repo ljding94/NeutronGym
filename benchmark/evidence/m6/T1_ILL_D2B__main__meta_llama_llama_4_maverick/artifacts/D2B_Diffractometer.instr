@@ -1,0 +1,66 @@
+/********************************************************************************
+* 
+* McStas, neutron ray-tracing package
+*         Copyright (C) 1997-2008, All rights reserved
+*         Risoe National Laboratory, Roskilde, Denmark
+*         Institut Laue Langevin, Grenoble, France
+* 
+* This file was written by McStasScript, which is a 
+* python based McStas instrument generator written by 
+* Mads Bertelsen in 2019 while employed at the 
+* European Spallation Source Data Management and 
+* Software Centre
+* 
+* Instrument: D2B_Diffractometer
+* 
+* %Identification
+* Written by: Python McStas Instrument Generator
+* Date: 18:53:34 on September 10, 2026
+* Origin: ESS DMSC
+* %INSTRUMENT_SITE: Generated_instruments
+* 
+* !!Please write a short instrument description (1 line) here!!
+* 
+* %Description
+* Please write a longer instrument description here!
+* 
+* 
+* %Parameters
+* lambda: [unit] angstrom
+* DM: [unit] 
+* Powder: [unit] 
+* 
+* %Link 
+* 
+* %End 
+********************************************************************************/
+
+DEFINE INSTRUMENT D2B_Diffractometer (
+lambda = 1.594, // angstrom
+DM = 0.0, 
+string Powder = "Na2Ca3Al2F14.laz" 
+)
+
+DECLARE 
+%{
+double L;
+%}
+
+INITIALIZE 
+%{
+// Start of initialize for generated D2B_Diffractometer
+%}
+
+TRACE 
+COMPONENT Progress_bar = Progress_bar()
+AT (0.0, 0.0, 0.0) ABSOLUTE
+
+COMPONENT Origin = Arm()
+AT (0.0, 0.0, 0.0) RELATIVE Progress_bar
+
+FINALLY 
+%{
+// Start of finally for generated D2B_Diffractometer
+%}
+
+END

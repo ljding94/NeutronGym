@@ -256,8 +256,22 @@ async def _run(task_prompt, model, episode_dir, home_dir, server_cwd,
                           # holds the cumulative sum — peer-review gap,
                           # 2026-09-07)
                           "usage": resp.get("usage")})
-                messages.append({k: v for k, v in msg.items()
-                                 if k in ("role", "content", "tool_calls")})
+                # Store a SANITIZED copy: if the model emitted unparseable
+                # tool arguments, echoing them back makes the PROVIDER 400
+                # on our next request (DigitalOcean did, killing 3 episodes
+                # mid-run at turn 13 with work already done). Replace bad
+                # arguments with the parsed value so history stays
+                # well-formed; the model still sees the error in the tool
+                # result and can correct itself.
+                hist = {k: v for k, v in msg.items()
+                        if k in ("role", "content", "tool_calls")}
+                if calls and any(err for _, err in parsed.values()):
+                    hist["tool_calls"] = [
+                        {**c, "function": {**c["function"],
+                                           "arguments": json.dumps(
+                                               parsed[c["id"]][0])}}
+                        for c in calls]
+                messages.append(hist)
                 if not calls:
                     final = msg.get("content") or ""
                     # SYMMETRY FIX (2026-09-10, peer review): a model that

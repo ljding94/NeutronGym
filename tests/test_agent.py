@@ -233,6 +233,34 @@ def test_malformed_tool_args_are_fed_back_not_fatal(tmp_path):
 
 
 @pytest.mark.slow
+def test_malformed_args_are_not_echoed_back_to_the_provider(tmp_path):
+    """Echoing unparseable arguments makes the PROVIDER reject our next
+    request (DigitalOcean 400'd three episodes at turn 13, discarding work
+    already done). History must carry sanitized arguments."""
+    seen = []
+
+    def chat_fn(messages, tools):
+        seen.append([m for m in messages if m.get("tool_calls")])
+        if len(seen) == 1:
+            return {"choices": [{"message": {
+                "role": "assistant", "content": None,
+                "tool_calls": [{"id": "b1", "type": "function",
+                                "function": {"name": "describe_component",
+                                             "arguments": '{"name": "PSD'}}]}}],
+                "usage": {}}
+        return {"choices": [{"message": {"role": "assistant",
+                                         "content": "done"}}], "usage": {}}
+
+    agent.run_episode("plumbing", model="scripted/model",
+                      episode_dir=str(tmp_path), chat_fn=chat_fn)
+    echoed = seen[-1]
+    assert echoed, "the assistant turn should be in history"
+    for m in echoed:
+        for c in m["tool_calls"]:
+            json.loads(c["function"]["arguments"])  # must be valid JSON
+
+
+@pytest.mark.slow
 def test_prose_without_tools_is_nudged_not_accepted(tmp_path):
     """SYMMETRY (2026-09-10 peer review): a model answering in prose having
     never touched a tool has not attempted the task and must be nudged, the
