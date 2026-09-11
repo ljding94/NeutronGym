@@ -1,10 +1,10 @@
 # NeutronGym — results of record
 
-*Generated 2026-09-10 21:07 by `benchmark/harness/results_report.py` from the committed evidence in `benchmark/evidence/`. **These are the numbers the manuscript cites.** Regenerate after any re-run; diff the JSON to see what moved.*
+*Generated 2026-09-10 21:36 by `benchmark/harness/results_report.py` from the committed evidence in `benchmark/evidence/`. **These are the numbers the manuscript cites.** Regenerate after any re-run; diff the JSON to see what moved.*
 
 **Validity rule:** INFRA (endpoint/provider/harness failures) and LEAK episodes are excluded from every rate and reported separately. This is not cosmetic — on 2026-09-10 an unnoticed dead SSH tunnel put 77 infra failures into the tables as capability zeros, which invalidated an entire model row until caught and re-run.
 
-**Totals:** 222 valid matrix episodes · 18 valid held-out episodes · 13 infra-excluded · 0 leak-invalid (zero leaks across the whole campaign) · $122.07 OpenRouter spend.
+**Totals:** 225 valid matrix episodes · 18 valid held-out episodes · 10 infra-excluded · 0 leak-invalid (zero leaks across the whole campaign) · $122.16 OpenRouter spend.
 
 ### Table 1 — Main matrix (seen-tier scored set)
 
@@ -20,7 +20,7 @@
 | `google_gemini_3_5_flash_lite` | oneshot | 16 | 1 | 0.06 | 0 | 0 | 0 | 15 | 0 | 0 |
 | `google_gemini_3_6_flash` | main | 16 | 4 | 0.25 | 0 | 1 | 0 | 1 | 10 | 0 |
 | `google_gemini_3_6_flash` | oneshot | 16 | 6 | 0.38 | 1 | 1 | 2 | 6 | 0 | 0 |
-| `meta_llama_llama_4_maverick` | main | 13 | 0 | 0.00 | 0 | 2 | 0 | 1 | 10 | 3 |
+| `meta_llama_llama_4_maverick` | main | 16 | 0 | 0.00 | 0 | 2 | 0 | 1 | 13 | 0 |
 | `meta_llama_llama_4_maverick` | oneshot | 16 | 2 | 0.12 | 0 | 0 | 0 | 14 | 0 | 0 |
 | `qwen3_32b` | main | 16 | 3 | 0.19 | 0 | 0 | 0 | 0 | 13 | 0 |
 | `qwen3_32b` | oneshot | 16 | 0 | 0.00 | 0 | 0 | 0 | 0 | 16 | 0 |
@@ -56,7 +56,7 @@ Instruments with no public `.instr` (BOYA, VENUS), authored for this benchmark a
 
 | set | format | incomplete | physics |
 |---|---:|---:|---:|
-| matrix | 38 | 48 | 96 |
+| matrix | 38 | 51 | 96 |
 | held-out | 1 | 2 | 6 |
 
 ### Table 4 — Contamination probes (per model, temperature 0, provider-pinned)
@@ -80,7 +80,7 @@ Two-sided Fisher exact on the pass counts. **At n=17 tasks per cell, seen-tier d
 | seen: `google_gemini_3_5_flash_lite` loop vs one-shot | 2/16 vs 1/16 | 1.000 | not resolvable |
 | seen: `google_gemini_3_6_flash` loop vs one-shot | 4/16 vs 6/16 | 0.704 | not resolvable |
 | held-out: loop vs one-shot (paired, 4 models) | 7/8 vs 2/8 | 0.041 | suggestive, n small, unadjusted |
-| **held-out vs seen difficulty (loop arm)** | 7/10 vs 20/110 | **0.0011** | **held-out tasks are EASIER — a confound for the row above** |
+| **held-out vs seen difficulty (loop arm)** | 7/10 vs 20/113 | **0.0009** | **held-out tasks are EASIER — a confound for the row above** |
 | RL ladder: 8B vs 32B (loop) | 1/16 vs 3/16 | 0.600 | ordering holds as a strict pass-set superset; rate difference underpowered |
 
 **What this means for the manuscript.** The defensible claims are the ones that do not rest on small pass-rate differences: zero reference leaks across the whole campaign; T2 unsolved by every model in every arm; the untrained open-weights floor and its strict-superset ordering; and the *distributional* failure structure of Table 3 (one-shot dies at L1, the loop dies at L0). Arm-vs-arm superiority on the seen tier is **not** supported, and the held-out reversal cannot be attributed to novelty while the difficulty difference is uncontrolled — controlling it needs held-out instruments matched to seen-tier complexity, which is future work, not a claim this data can carry.

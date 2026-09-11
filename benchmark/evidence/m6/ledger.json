@@ -2819,8 +2819,32 @@
    "usd": 0.0322,
    "wall_s": 596.1,
    "ok": true
+  },
+  {
+   "task": "T1_ILL_H10_IN8",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0094,
+   "wall_s": 349.8,
+   "ok": true
+  },
+  {
+   "task": "T1_ISIS_SANS2d",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.038,
+   "wall_s": 624.9,
+   "ok": true
+  },
+  {
+   "task": "T1_ISIS_SANS2d_pert",
+   "arm": "main",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0353,
+   "wall_s": 658.0,
+   "ok": true
   }
  ],
- "total_usd": 122.0724,
+ "total_usd": 122.1551,
  "_note": "187 entries = 185 final episodes on disk + 2 failed attempts (maverick T1_RTP_DIF and T2_sans_collimation, harness bugs fixed in 15cafb9, both re-run to completion). Failed attempts keep their cost \u2014 honest accounting. Explanation recorded 2026-09-02 after external review."
 }
