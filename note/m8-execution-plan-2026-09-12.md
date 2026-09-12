@@ -1,155 +1,151 @@
-# M8 execution plan — SFT trainability result (2026-09-12, FOR REVIEW)
+# M8 execution plan — SFT trainability result (rev 2 · 2026-09-12)
 
-**Status: proposed, not started. Awaiting user approval.**
+**Status: revised after peer review, still NOT started. Awaiting approval.**
 Deadlines: **abstract Sep 18 (6 days) · full paper Sep 25 (13 days).**
-Budget: **$77.84** of the $200 OpenRouter ceiling remains. A100s: 8 free
-as of Sep 10 (re-verify). Both vLLM endpoints alive and supervised.
+Budget: **$77.84** left. Host verified: GPU 7 fully free; GPUs 0–4 are our
+own vLLM (8B on 0, 32B TP4 on 1–4); 5–6 hold another user's job; `/netdisk`
+94T free, root still 100% full.
+
+**Rev 2 changes the design in three substantial ways.** The review found a
+confound that would have sunk the result at review time, a framing problem
+about *what* we are training, and a possible vacuity in the claim bar that
+must be tested before any money is spent. All three are addressed below.
 
 ---
 
-## 1. The claim we are trying to earn
+## 1. The claim, narrowed on purpose
 
-Standing bar, verbatim: *7B + training beats the 7B baseline, approaching
-a larger untrained model. The delta validates the environment, not a
-frontier agent.*
+Standing bar: *7B + training beats the 7B baseline, approaching a larger
+untrained model.*
 
-**Primary readout is level migration, not just pass rate.** Both untrained
-baselines are L0-dominated on the benchmark (tools engaged, instrument
-never completed). If filtered SFT works, L0 should convert into
-L1–L4/PASS. That is measurable even if pass counts move little, and it
-directly tests "does physics-verifiable reward teach task completion?"
+**Committed framing (rev 2): this is an ENVIRONMENT-TRAINABILITY result —
+evidence that the physics-verifiable reward signal is learnable — NOT an
+instrument-design-capability result.** The distinction is forced by our own
+architecture: `CLAUDE.md` delegates continuous-parameter optimization to
+scipy and reserves the agent for topology, and `RESULTS.md` Table 5 shows
+classical random search already reaching 2.95× and 1.47× at 628σ/510σ,
+unbeaten by any agent. Training an LLM to do the job we gave scipy is only
+defensible as a statement about the *reward*, so:
 
-## 2. Design decisions — these are what I most want reviewed
+- **The classical reference appears in the headline comparison**, not as an
+  afterthought. A trained 8B far below classical is the honest context.
+- The paper says plainly that this is not a claim that LLMs should replace
+  the optimizer.
 
-### 2.1 Train and evaluate on the PROCEDURAL axis (not the T1 benchmark)
+## 2. Data generation: SELF-GENERATED (RAFT), not distillation
 
-Training data will be env-dialogue rollouts (JSON parameter actions on
-procedural instances). The M6 benchmark is MCP tool-loop *construction* of
-T1 instruments. Those differ in both interaction format and skill, so
-training on one and claiming on the other would be a train/test mismatch
-that most likely shows nothing — and we would burn the window learning it.
+**Rev-2 change, and the most important one.** The original plan sampled
+from claude-sonnet-5 and gemini-3.6-flash, filtered by reward, and trained
+the 8B on the survivors. That is **knowledge distillation from frontier
+models with the reward acting only as a selector over someone else's
+behaviour** — and the obvious null ("imitating sonnet teaches completion")
+cannot be separated from our claim, because the reward never generated
+anything. A reviewer says this in one line.
 
-**Proposal:** the headline claim lives on **held-out procedural regimes**
-(the generalization axis: context parameters drawn from intervals disjoint
-from training — `L_guide` 12.5–16 m vs train 6–12 m; `L_coll` 4.5–6 m vs
-train 2–4 m). T1 benchmark numbers are reported as a **transfer check**,
-with the format mismatch stated, never as the headline.
+**New primary path: sample from the untrained 8B itself, keep
+reward ≥ threshold, train on its own successes (RAFT).** This isolates the
+reward's contribution, and it runs on our own vLLM at **$0**.
 
-*Why this is defensible:* research question 3 is "does physics-verifiable
-reward train?" — the procedural core IS the trainable object; McStasBench
-is the held-out slice for questions 1–2. The scaffold decision requires
-only that trained-model evaluation runs through the reference loop, which
-it will.
+- Blocker found by review and **now fixed**: `rollouts.collect()` could not
+  reach local models (`resolve_backend` rejects a bare id without
+  `base_url`). Plumbed through, with the non-thinking flag and the local
+  timeout, in this commit.
+- **Fallback if self-generated data is too thin:** seed from frontier
+  models, but then run the ablation that separates the hypotheses —
+  **train on UNFILTERED vs REWARD-FILTERED data from the same source.**
+  Filtered > unfiltered is the evidence that the reward does work. The
+  second training run is free and local.
 
-### 2.2 This axis gives us the statistical power M6 lacked
+## 3. Phase 0 is now a HARD GATE, before any spend
 
-M6's arm comparisons died at n=17 (all p ≥ 0.70). **Procedural instances
-are free, deterministic, and unlimited** — 0.03 s/rollout, $0 API. We can
-run **n = 200 instances per condition**, which resolves a 10-point pass-rate
-difference comfortably. This is a genuine methodological advantage of the
-environment and should be stated as such in the paper.
+Three stop conditions, all measured on **held-out procedural instances**,
+all free:
 
-### 2.3 Baselines must be measured on the SAME axis, before training
-
-**Gap in my earlier recommendation:** the M6 baselines (8B 1/17, 32B 3/17)
-are benchmark numbers. They are NOT baselines for a procedural-axis claim.
-So phase 1 includes measuring **untrained 8B and untrained 32B on the same
-held-out procedural instances** the trained model will face. Free, local,
-~1 h. Without this there is no denominator.
-
----
-
-## 3. Phases
-
-| # | Phase | When | Cost | Blocking? |
-|---|---|---|---|---|
-| 0 | Prereqs + baselines on the procedural axis | Sep 12 | $0 | yes |
-| 1 | Rejection sampling (data generation) | Sep 12–13 | ~$25 | yes |
-| 2 | SFT training (LoRA, Qwen3-8B) | Sep 13–15 | $0 | yes |
-| 3 | Evaluation + level-migration analysis | Sep 15–16 | $0 | yes |
-| 4 | Freeze, write into paper | Sep 17 | — | — |
-| — | **ABSTRACT DUE** | **Sep 18** | | |
-| 5 | GRPO go/no-go (explicit gate, see §6) | Sep 17 | — | no |
-| — | **PAPER DUE** | **Sep 25** | | |
-
-### Phase 0 — prereqs (Sep 12, ~2 h, $0.05)
-- Re-run the 10 infra'd **held-out benchmark cells** (needs your OK).
-- **Measure untrained 8B + 32B on 200 held-out procedural instances each**
-  via `rollouts.py` scoring only (no training) → the real baselines.
-- Verify A100 availability and `/netdisk` space for a training env.
-- Confirm the serving chat template matches what training will assume
-  (non-thinking, the pinned config).
-
-### Phase 1 — rejection sampling (Sep 12–13, ~$25)
-- Generators: **claude-sonnet-5** (best M6 scorer) + **gemini-3.6-flash**
-  (cheap breadth). Both already pinned and verified.
-- Target: **~1500 rollouts across both families, train split only**, at
-  temperature 0.7 for diversity; keep episodes whose best step reaches
-  **reward ≥ 1.0** (structurally valid + improvement).
-- Expected keep rate 30–60% → **~500–900 SFT examples**. Enough for LoRA.
-- Held-out regimes are NEVER sampled for training data.
-- Cost estimate: env-dialogue episodes are small (~3–6k tokens each);
-  1500 × ~5k ≈ 7.5M tokens ≈ $15–30 at the pinned prices.
-
-### Phase 2 — SFT (Sep 13–15, $0)
-- **Qwen3-8B + LoRA r=32–64 on ALL linear projections** (standing decision
-  — attention-only low-rank is where "LoRA underperforms" comes from).
-- Framework: TRL `SFTTrainer` + peft, installed to **/netdisk** (root FS
-  is full; reuse the vllm-env2 pattern with `HF_HOME` relocated).
-- Masked loss on assistant turns only; chat template identical to serving.
-- Small sweep if time permits: 1–3 epochs, LR 1e-4/2e-4. Otherwise one run.
-- Checkpoint served via vLLM (adapter or merged) for evaluation.
-
-### Phase 3 — evaluation (Sep 15–16, $0)
-Four conditions on the **same 200 held-out procedural instances**:
-1. untrained 8B (baseline)
-2. **trained 8B (the claim)**
-3. untrained 32B (comparator)
-4. random/classical reference (already have the machinery)
-
-Outputs: pass rate with Fisher CIs, **level histogram migration
-(L0→L1–L4/PASS)**, FOM-ratio distributions, and a T1 benchmark transfer
-check (17 tasks, secondary, mismatch stated).
-
----
-
-## 4. Risk register
-
-| Risk | Likelihood | Mitigation |
+| Check | Stop condition | Why |
 |---|---|---|
-| Training-stack install repeats the vLLM saga (full root FS, no sudo) | **high** | reuse the proven `/netdisk` + uv pattern; **timebox to 3 h**, then fall back to a CPU-free alternative or abort to env+eval-only |
-| A100s reoccupied by other users | medium | check first; LoRA on 8B needs 1–2 cards, not 8 |
-| Keep rate too low → thin SFT set | medium | raise rollout count (cheap); or lower threshold to ≥0.75 (structurally valid) and report the relaxation |
-| Trained model regresses (catastrophic forgetting of tool format) | medium | LoRA (low LR), eval checkpoints, keep untrained as control |
-| No delta at all | **real** | report honestly — a null result on a physics-verifiable reward IS a finding, and the ladder drops to env+eval-only |
-| Any single failure eats the margin | high | hard abort gate, §6 |
+| **32B vacuity** | if untrained 32B ≈ untrained 8B | "approaching a larger untrained model" has no target — the bar cannot be evaluated. Redefine the readout (level migration / FOM distribution) BEFORE generating data |
+| **8B keep rate** | if self-generated keep rate ≈ 0 | RAFT has nothing to train on; decide seed-vs-abort with evidence, not hope |
+| **Baselines exist** | — | M6's 1/17 and 3/17 are BENCHMARK numbers and are not denominators for a procedural claim |
 
-## 5. What this does NOT include
+Phase 0 doubles as the feasibility test for phase 1: **if the 8B's keep
+rate is healthy we may not need to spend anything at all.**
 
-- **GRPO**: cannot fit 13 days with any margin (needs days/run plus
-  analysis). Treated as a gated stretch, §6 — not planned content.
-- **T3 rubric**, T1 growth: already cut.
+## 4. Statistics — pre-registered before data exists
 
-## 6. Decision gates (dates are hard)
+- **Primary endpoint, named now:** level migration on held-out procedural
+  instances, trained vs untrained 8B, tested with **Cochran–Armitage
+  trend** (or Mann–Whitney on level rank). Ordinal, one test, no
+  multiple-comparison harvesting. Everything else is descriptive.
+- **Pre-registered effect size:** a pass-rate claim requires **≥10 points
+  absolute** improvement, or exceeding the untrained 32B's rate — not
+  merely p<0.05. With a ~0 baseline, n=200 makes 4–5 successes
+  "significant", which would reduce the claim to *any success at all*.
+- **Stated honestly:** intervals are over the procedural generator's
+  distribution, not over neutron instrument design. The unlimited-n
+  advantage buys precision about a narrower population than "instrument
+  design" implies.
+- **T1 transfer check is load-bearing even though secondary:** a null
+  transfer result gets stated prominently, not buried — otherwise the
+  contribution reads as "training on X improves X".
 
-- **Sep 14 EOD** — if no training run has *started*, abandon SFT and write
-  env+eval-only. (Protects the paper over the result.)
-- **Sep 16 EOD** — if no trained checkpoint has been *evaluated*, freeze
-  what exists; abstract claims env+eval-only.
-- **Sep 17** — RL numbers frozen, fresh-seed re-verified, whatever they say.
-- **Sep 17** — GRPO go/no-go: **my recommendation is NO**, unless SFT
-  finished early AND shows a delta AND ≥5 clear days remain.
+## 5. SFT mechanics — traps named by the serving side
 
-## 7. What I need from you
+1. **Chat template identity.** Serving is non-thinking ONLY because the
+   client sends `chat_template_kwargs {"enable_thinking": false}`
+   per-request (vLLM 0.28 has no server flag). **Qwen3's tokenizer template
+   defaults to THINKING**, so TRL would render thinking-formatted targets
+   while we serve non-thinking. Render with `enable_thinking=False` and
+   **assert the rendered string matches what the server produces for the
+   same messages.**
+2. **YaRN.** Both endpoints serve with YaRN factor 4.0 for the 98304
+   benchmark context; training uses the stock config. Fix: **serve the
+   trained model WITHOUT YaRN at `max-model-len ≤ 40960` for the procedural
+   eval** — rollouts are ~6 short steps, nothing needs long context, and
+   train/serve then match exactly.
+3. **Mask loss on EVERY assistant turn** (multi-turn dialogues; the common
+   bug masks only the first).
+4. **All seven projections** (q,k,v,o,gate,up,down), LoRA r=32–64.
+5. **MERGE the adapter for evaluation** — vLLM's `--max-lora-rank` defaults
+   to 16 and merged weights remove adapter-runtime numerical differences
+   from a number we intend to freeze.
 
-1. **Approve the procedural-axis design** (§2.1) — the single most
-   consequential choice here.
-2. **Approve the 10 held-out benchmark cells** re-run (§ phase 0).
-3. **Confirm ~$25–30 of the remaining $77.84** for generation.
-4. **Confirm the A100s are free for training** (or tell me who to ask).
-5. Note the gates in §6 — I will hold them rather than let the paper slip.
+## 6. Phases
 
-## 8. Running in parallel regardless (no approval needed)
+| # | Phase | When | Cost | Gate |
+|---|---|---|---|---|
+| 0 | Baselines + vacuity + keep-rate on held-out procedural (8B, 32B) | Sep 12 | $0 | **hard, §3** |
+| 1 | RAFT self-generated sampling (train split) | Sep 12–13 | **$0** | 20-episode probe first |
+| 1b | *(only if needed)* frontier seed + filtered-vs-unfiltered ablation | Sep 13 | ~$25 | keep-rate evidence |
+| 2 | LoRA SFT on GPU 7 (stop 32B server if more cards needed) | Sep 13–15 | $0 | install timebox |
+| 3 | Eval: trained vs untrained 8B vs 32B **vs classical** | Sep 15–16 | $0 | — |
+| 4 | Freeze + write | Sep 17 | — | — |
 
-Figure 1 and the paper skeleton, per the Figure-1-first discipline. These
-do not depend on M8 and the abstract is due in 6 days either way.
+## 7. Gates (hard dates)
+
+- **Sep 13 EOD** — phase-1 keep rate/spend outside bounds → stop before
+  training (the discipline that saved $145 on gpt-5.2-pro).
+- **Sep 14 EOD** — no training run started → abandon SFT, write
+  env+eval-only.
+- **Sep 16 EOD** — no trained checkpoint evaluated → freeze; abstract
+  claims env+eval-only.
+- **Sep 17** — numbers frozen, fresh-seed re-verified.
+- **GRPO: NO** (reviewer agrees unreservedly).
+- Install timebox 3 h is optimistic — vLLM failed three times on this host
+  (no python3-venv, missing `Python.h`, ninja off PATH). Reusing
+  `vllm-env2`'s managed Python removes the header trap; the abort stays.
+
+## 8. What I need from you
+
+1. **Approve the RAFT redesign** (§2) — self-generated, $0, isolates the
+   reward. This replaces the $25–30 generation spend.
+2. **Approve the narrowed framing** (§1) — environment-trainability, with
+   the classical reference in the headline.
+3. **Approve the phase-0 hard gate** (§3), including that we may stop and
+   redefine the readout before spending anything.
+4. **Approve the 10 held-out benchmark cells** (still outstanding, ~$0.05).
+5. Note: no new endpoint needed; GPU 7 is free and sufficient for LoRA.
+
+## 9. Running regardless
+
+Figure 1 + paper skeleton (`paper/OUTLINE.md`, committed) — the abstract is
+due in 6 days whatever M8 yields.

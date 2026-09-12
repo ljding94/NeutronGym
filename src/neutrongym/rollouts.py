@@ -96,25 +96,39 @@ def collect(model: str, n_instances: int, out_path: str,
             family: str = "guide_divergence", split: str = "train",
             reward_threshold: float = 1.0, max_steps: int = 6,
             temperature: float = 0.7, provider_pin: str | None = "Google",
+            base_url: str | None = None, api_key: str | None = None,
             chat_fn=None) -> dict:
     """Rejection-sampled SFT set: keep episodes with best_reward >=
     threshold (default 1.0 = reached L3-valid with full structural pass;
     1.0+ means improved). Sampling temperature deliberately > 0 — diversity
     is the point; kept episodes are re-validated by their recorded rewards,
     not by sampling settings. chat_fn injectable for tests."""
-    from .agent import chat_completion, resolve_backend
+    from .agent import (LOCAL_REQUEST_TIMEOUT_S, REQUEST_TIMEOUT_S,
+                        chat_completion, resolve_backend)
     import httpx
 
     env = NeutronGym(family=family, split=split, max_steps=max_steps)
     if chat_fn is not None:
         call_model = chat_fn
     else:
-        b_url, key = resolve_backend(model)
+        # base_url routes to a LOCALLY served model — required for
+        # self-generated (RAFT) sampling, which is both free and the only
+        # design that isolates the reward's contribution from distillation
+        # (peer review 2026-09-12). Without it resolve_backend rejects a
+        # bare id like "qwen3-8b".
+        b_url, key = resolve_backend(model, base_url, api_key)
+        local = bool(base_url)
+        # local models serve non-thinking ONLY via this per-request field
+        extra = ({"chat_template_kwargs": {"enable_thinking": False}}
+                 if local else None)
         http = httpx.Client()
 
         def call_model(msgs):
-            resp = chat_completion(http, b_url, key, model, msgs, [],
-                                   temperature, provider_pin)
+            resp = chat_completion(
+                http, b_url, key, model, msgs, [], temperature,
+                None if local else provider_pin, chat_extra=extra,
+                timeout=(LOCAL_REQUEST_TIMEOUT_S if local
+                         else REQUEST_TIMEOUT_S))
             return resp["choices"][0]["message"].get("content") or ""
 
     os.makedirs(os.path.dirname(os.path.abspath(out_path)), exist_ok=True)
@@ -131,7 +145,9 @@ def collect(model: str, n_instances: int, out_path: str,
                     "model": model, "best_reward": ep["best_reward"],
                     "best_level": ep["best_level"],
                     "messages": ep["messages"]}) + "\n")
-    return {"model": model, "family": family, "split": split,
+    return {"model": model, "base_url": base_url,
+            "self_generated": bool(base_url),
+            "family": family, "split": split,
             "instances": total, "kept": kept,
             "keep_rate": round(kept / total, 3) if total else 0.0,
             "reward_threshold": reward_threshold,
