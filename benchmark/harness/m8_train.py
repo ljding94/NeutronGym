@@ -48,6 +48,30 @@ TEMPLATE_KWARGS = {"enable_thinking": False}
 IGNORE = -100
 
 
+def token_ids(encoded) -> list:
+    """Plain token-id list from whatever apply_chat_template returned.
+
+    transformers 5 returns a BatchEncoding for tokenize=True — a UserDict,
+    NOT a dict — so an isinstance(x, dict) test misses it and list(x) yields
+    its KEYS ("input_ids", "attention_mask"). That silently turned every
+    prompt into two tokens until the server identity check caught it on
+    2026-09-13. Handle mappings by key, and unwrap a batch of one.
+    """
+    if hasattr(encoded, "keys") and "input_ids" in encoded.keys():
+        encoded = encoded["input_ids"]
+    if hasattr(encoded, "tolist"):
+        encoded = encoded.tolist()
+    ids = list(encoded)
+    if ids and isinstance(ids[0], (list, tuple)):
+        if len(ids) != 1:
+            raise ValueError(f"expected one sequence, got a batch of {len(ids)}")
+        ids = list(ids[0])
+    if not all(isinstance(t, int) for t in ids):
+        raise TypeError("token ids must be ints — got "
+                        f"{type(ids[0]).__name__ if ids else 'nothing'}")
+    return ids
+
+
 def turn_pairs(messages: list) -> list:
     """One (prompt_messages, completion_text) pair per assistant turn."""
     pairs = []
@@ -61,12 +85,11 @@ def encode_pair(tok, prompt_messages: list, completion: str,
                 max_len: int, eos_text: str = "<|im_end|>") -> dict | None:
     """-> {input_ids, labels} with the prompt masked; None if it cannot fit
     without truncating the completion (never train on a clipped answer)."""
-    prompt_ids = tok.apply_chat_template(
+    prompt_ids = token_ids(tok.apply_chat_template(
         prompt_messages, add_generation_prompt=True, tokenize=True,
-        **TEMPLATE_KWARGS)
-    if isinstance(prompt_ids, dict):
-        prompt_ids = prompt_ids["input_ids"]
-    comp_ids = tok(completion + eos_text, add_special_tokens=False)["input_ids"]
+        **TEMPLATE_KWARGS))
+    comp_ids = token_ids(tok(completion + eos_text,
+                             add_special_tokens=False))
     if len(prompt_ids) + len(comp_ids) > max_len:
         return None
     return {"input_ids": list(prompt_ids) + list(comp_ids),
@@ -96,11 +119,9 @@ def check_server(tok, url: str, records: list, n: int = 5) -> None:
     checked = 0
     for rec in records:
         for prompt_messages, _ in turn_pairs(rec["messages"]):
-            ours = tok.apply_chat_template(
+            ours = token_ids(tok.apply_chat_template(
                 prompt_messages, add_generation_prompt=True, tokenize=True,
-                **TEMPLATE_KWARGS)
-            if isinstance(ours, dict):
-                ours = ours["input_ids"]
+                **TEMPLATE_KWARGS))
             resp = httpx.post(f"{base}/tokenize", timeout=60, json={
                 "model": model, "messages": prompt_messages,
                 "add_generation_prompt": True,
@@ -137,12 +158,12 @@ def main():
                     help="build examples + template check, no training")
     args = ap.parse_args()
 
-    import torch
-    from peft import LoraConfig, get_peft_model
-    from transformers import AutoModelForCausalLM, AutoTokenizer
+    # tokenizer-only until the dry-run exits: the template check needs just
+    # transformers + httpx, so it runs in the serving env before the
+    # training env (torch/peft) exists
+    from transformers import AutoTokenizer
 
     random.seed(args.seed)
-    torch.manual_seed(args.seed)
     with open(args.data) as f:
         records = [json.loads(line) for line in f if line.strip()]
     tok = AutoTokenizer.from_pretrained(args.base)
@@ -156,6 +177,11 @@ def main():
     if args.dry_run or not examples:
         return
 
+    import torch
+    from peft import LoraConfig, get_peft_model
+    from transformers import AutoModelForCausalLM
+
+    torch.manual_seed(args.seed)
     model = AutoModelForCausalLM.from_pretrained(
         args.base, dtype=torch.bfloat16, device_map={"": 0})
     model.gradient_checkpointing_enable()

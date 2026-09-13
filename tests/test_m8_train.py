@@ -112,3 +112,49 @@ def test_lora_targets_all_seven_projections():
     assert set(m8_train.TARGET_MODULES) == {
         "q_proj", "k_proj", "v_proj", "o_proj",
         "gate_proj", "up_proj", "down_proj"}
+
+
+class BatchEncodingLike(__import__("collections").UserDict):
+    """transformers 5's BatchEncoding: a UserDict (NOT a dict) holding
+    input_ids and attention_mask."""
+
+
+class HFShapedTok(FakeTok):
+    def apply_chat_template(self, messages, add_generation_prompt=False,
+                            tokenize=True, **kw):
+        ids = super().apply_chat_template(messages, add_generation_prompt,
+                                          tokenize, **kw)
+        return BatchEncodingLike(input_ids=ids,
+                                 attention_mask=[1] * len(ids))
+
+    def __call__(self, text, add_special_tokens=False):
+        ids = [ord(c) for c in text]
+        return BatchEncodingLike(input_ids=ids, attention_mask=[1] * len(ids))
+
+
+def test_batchencoding_return_is_unwrapped_not_listed_by_keys():
+    """Regression for the 2026-09-13 bug: list(BatchEncoding) is its keys,
+    which made every prompt two tokens long."""
+    enc = BatchEncodingLike(input_ids=[5, 6, 7], attention_mask=[1, 1, 1])
+    assert not isinstance(enc, dict)
+    assert m8_train.token_ids(enc) == [5, 6, 7]
+
+
+def test_encode_pair_with_hf_shaped_tokenizer_masks_the_real_prompt():
+    prompt, completion = m8_train.turn_pairs(DIALOGUE)[1]
+    ex = m8_train.encode_pair(HFShapedTok(), prompt, completion,
+                              max_len=10_000)
+    n_masked = sum(1 for t in ex["labels"] if t == m8_train.IGNORE)
+    assert n_masked > 50, "prompt collapsed to a handful of tokens"
+    assert _decode(ex["input_ids"][:n_masked]).endswith(GEN)
+    assert _decode([t for t in ex["labels"] if t != m8_train.IGNORE]) == \
+        "A2<|im_end|>"
+
+
+def test_token_ids_unwraps_a_batch_of_one_and_rejects_real_batches():
+    import pytest
+    assert m8_train.token_ids([[1, 2, 3]]) == [1, 2, 3]
+    with pytest.raises(ValueError):
+        m8_train.token_ids([[1, 2], [3, 4]])
+    with pytest.raises(TypeError):
+        m8_train.token_ids(["input_ids", "attention_mask"])
