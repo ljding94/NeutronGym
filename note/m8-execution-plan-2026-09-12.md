@@ -23,8 +23,9 @@
 > This is the peer review's finding B confirmed empirically: we would have
 > been training the job the architecture delegates to scipy. Dense
 > per-step FOM feedback turns the parametric task into hill-climbing that
-> any competent small model solves; classical search still beats every
-> model (RESULTS.md Table 5, 628/510 sigma).
+> any competent small model solves, while the T2 improvement tier that
+> classical search DOES crack (2.95×/1.47×) remains unsolved by every
+> agent in every arm (RESULTS.md Table 5).
 >
 > **Prior (uncalibrated) measurement, kept as the "before" record:** 8B
 > 80%, 32B 93% — an outright ceiling. Calibration (targets at 0.8x the
@@ -57,8 +58,10 @@ evidence that the physics-verifiable reward signal is learnable — NOT an
 instrument-design-capability result.** The distinction is forced by our own
 architecture: `CLAUDE.md` delegates continuous-parameter optimization to
 scipy and reserves the agent for topology, and `RESULTS.md` Table 5 shows
-classical random search already reaching 2.95× and 1.47× at 628σ/510σ,
-unbeaten by any agent. Training an LLM to do the job we gave scipy is only
+classical random search already reaching 2.95× and 1.47× improvement
+(628.6σ/510.3σ vs the INITIAL configuration — the sigmas measure the
+improvement's significance, not a margin over the models), and neither T2
+target beaten by any agent in any arm. Training an LLM to do the job we gave scipy is only
 defensible as a statement about the *reward*, so:
 
 - **The classical reference appears in the headline comparison**, not as an

@@ -88,6 +88,17 @@ def main():
                     help="instances per family per model per difficulty")
     ap.add_argument("--fractions", default="0.8,1.0,1.2,1.4",
                     help="target fractions of the classical optimum")
+    ap.add_argument("--max-steps", type=int, default=6,
+                    help="feedback budget per episode. This is a SECOND "
+                         "difficulty axis and arguably the more diagnostic "
+                         "one: with 6 steps of dense per-step FOM feedback "
+                         "the task is hill-climbing, which is exactly the "
+                         "job the architecture delegates to scipy and which "
+                         "both models already do well. At --max-steps 1 "
+                         "there is no feedback to climb, so the model must "
+                         "predict good parameters from the physics alone. "
+                         "If scale matters for reasoning rather than "
+                         "search, it should show up here.")
     ap.add_argument("--out", default=os.path.join(REPO, "runs", "m8",
                                                   "sweep.json"))
     args = ap.parse_args()
@@ -99,6 +110,7 @@ def main():
     fractions = [float(x) for x in args.fractions.split(",")]
     families = list(generate.FAMILIES)
     record = {"n_per_family": args.n, "fractions": fractions,
+              "max_steps": args.max_steps,
               "families": families, "separation_threshold":
               SEPARATION_THRESHOLD, "cells": {}, "curve": [],
               # raw per-episode rows, keyed so m8_paired.py can read this
@@ -109,6 +121,9 @@ def main():
               # of one.
               "rows_by_fraction": {}}
 
+    print(f"feedback budget: {args.max_steps} step(s) per episode"
+          + ("  [ONE-SHOT: no feedback to hill-climb on]"
+             if args.max_steps == 1 else ""))
     for frac in fractions:
         print(f"\n=== target = {frac:.2f}x classical optimum ===")
         per_model = {}
@@ -118,7 +133,7 @@ def main():
                 r = rollouts.evaluate(
                     model, args.n, fam, "heldout",
                     base_url=os.environ[MODELS[model]], temperature=0.0,
-                    target_fraction=frac)
+                    target_fraction=frac, max_steps=args.max_steps)
                 rows += r["rows"]
                 record["rows_by_fraction"].setdefault(
                     str(frac), {}).setdefault(model, {})[fam] = {
