@@ -137,10 +137,17 @@ def evaluate(model: str, n_instances: int, family: str, split: str,
             continue
         best_fom = max((s.get("levels", {}).get("L4", {}).get("fom_ratio")
                         or 0) for s in ep["episode"]) if ep["episode"] else 0
+        # the action that first cleared L4 — needed to audit HOW a pass was
+        # earned (e.g. the SANS direct-beam leak, 2026-09-13), which a pass
+        # rate or a FOM ratio alone cannot show
+        passing = next((s for s in ep["episode"] if s.get("level") == 4),
+                       None)
         rows.append({"instance": i, "instance_id": ep["instance_id"],
                      "best_level": ep["best_level"],
                      "best_reward": ep["best_reward"],
                      "best_fom_ratio": best_fom,
+                     "pass_action": (dict(passing["action"])
+                                     if passing else None),
                      "steps": len(ep["episode"])})
     hist = {lv: sum(1 for r in rows if r["best_level"] == lv)
             for lv in range(5)}

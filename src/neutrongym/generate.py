@@ -147,6 +147,35 @@ FAMILIES = {
 
 PROTOCOL = {"ncount_cheap": 1e4, "ncount": 1e5, "statistics_floor": 500}
 
+# geometry of SANS_INSTR, kept next to it so a change to the instrument text
+# is a change here too
+SANS_SOURCE_TO_COLL1 = 3.0
+SANS_FOCUS_HALF_DIAG = (0.01 / 2) * 2 ** 0.5   # focus_xw = focus_yh = 0.01
+SANS_COLL2_TO_SAMPLE = 0.2
+SANS_STOP_BEFORE_DETECTOR = 0.1
+SANS_STOP_RADIUS = 0.02
+
+
+def sans_direct_beam_radius(context: dict, action: dict) -> float:
+    """Largest radius of the UNSCATTERED beam at the SANS beamstop plane.
+
+    Straight-line penumbra through the two pinholes. The source only aims at
+    a 1 cm focus window at pinhole 1, so pinhole 1's effective radius is
+    capped at that window's half-diagonal. Anything above SANS_STOP_RADIUS
+    lands on the detector as direct beam, which the total-intensity FOM
+    counts as scattering (note/sans-direct-beam-exploit-2026-09-13.md).
+    Geometric, so approximate: it ignores gravity and slit edge scattering.
+    """
+    r1 = min(float(action["r_pin1"]), SANS_FOCUS_HALF_DIAG)
+    r2 = float(action["r_pin2"])
+    d = (SANS_COLL2_TO_SAMPLE + float(context["det_dist"])
+         - SANS_STOP_BEFORE_DETECTOR)
+    return r2 + (r1 + r2) * d / float(context["L_coll"])
+
+
+def sans_direct_beam_leaks(context: dict, action: dict) -> bool:
+    return sans_direct_beam_radius(context, action) > SANS_STOP_RADIUS
+
 
 def family_instr(family: str, workdir: str) -> str:
     """Materialize the family's .instr (stable content — the executor's

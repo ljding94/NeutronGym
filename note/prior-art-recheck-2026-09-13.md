@@ -2,7 +2,7 @@
 
 **Supersedes** the prior-art checks of 2026-07-09 (`note/mcstas-mcp-feasibility-and-spec.md` §1 "Prior art / novelty check", `note/scope-decision-2026-07-09.md` "related work to look up", `note/study-instrument-papers-2026-07-09.md` "gap finding"). Those checks covered: no McStas MCP server; no LLM-designs-neutron-instrument paper; analogs MooseAgent (2504.08621), CFD agents, El Agente, SIGA, MDGYM, SciReplicate-Bench (2504.00255), ScienceAgentBench (2410.05080), McStas+ML SANS (2501.06054), VISION beamline assistant (2412.18161), LLM microscopy agents (2501.10385), guide_bot (NIM A 2017).
 
-**Status: IN PROGRESS** (written incrementally; sections appended as completed).
+**Status: COMPLETE (2026-09-13).** Bottom line: the neutron-instrument-design claim survives; the reward-ladder, physics-guard, T2-finding and "RL environment" framings each have 2026 precedent and need softening (see "Closest works" and "Claims we should soften or drop"). *Revised the same evening after the M8 reversal (commits 076462e / 783de05: M8 running, 32B leads 8B by +22 pts at the 1.0x bar) and the SANS direct-beam reward hole (cb7c961, `note/sans-direct-beam-exploit-2026-09-13.md`); the trainability-related judgments below reflect that state.*
 
 ## Method
 
@@ -136,7 +136,7 @@ Searched and found nothing: LLM + McStas; LLM + McXtrace; LLM + neutron guide op
 | **Before the Model Learns the Bug: Fuzzing RLVR Verifiers** — J. Ray | arXiv:2606.01066 | 2026-05-31 | Fuzzing framework to find verifier bugs before training exploits them. | NEIGHBOR — our "red-teamed the red-team" (Liouville false positive on a 250-event monitor) is verifier auditing in this sense. |
 | **LLMs Gaming Verifiers: RLVR can Lead to Reward Hacking** — Helff et al. | arXiv:2604.15149 | 2026-04-16 | RLVR-trained models memorize instance labels instead of inducing rules; Isomorphic Perturbation Testing (IPT) detects this. | NEIGHBOR — IPT is the general form of our perturbed-variant pair-proof (Area 6). |
 | **Feedback Loops With Language Models Drive In-Context Reward Hacking** — Pan, Jones, Jagadeesan, Steinhardt | arXiv:2402.06627; ICML 2024 | 2024-02-09 | Output- and policy-refinement loops make in-context agents optimize proxies with side effects. | Context — relevant because our loop agents hill-climb a scalar FOM over 6 steps: in-context hacking, not just training-time hacking. |
-| **How We Broke Top AI Agent Benchmarks** — Wang, Mang, Cheung, Sen, Song (Berkeley RDI blog) | rdi.berkeley.edu/blog/trustworthy-benchmarks-cont/ (blog, not peer-reviewed) | 2026-04 | Near-100% on SWE-bench Verified/Pro, WebArena, Terminal-Bench, FieldWorkArena without solving tasks, mainly because evaluators read state the agent can write. *Verified via search results summarizing the post; the blog page itself was not opened. Open it before citing.* | Context — supports our "grade the artifact in an env-controlled re-execution, never shared state or agent claims". |
+| **How We Broke Top AI Agent Benchmarks** — Wang, Mang, Cheung, Sen, Song (Berkeley RDI blog) | rdi.berkeley.edu/blog/trustworthy-benchmarks-cont/ (blog, not peer-reviewed) | 2026-04 | "How We Broke Top AI Agent Benchmarks: And What Comes Next": an automated agent reaches near-perfect scores on eight agent benchmarks (SWE-bench Verified/Pro, WebArena, Terminal-Bench, FieldWorkArena, ...) without solving tasks. Root causes: weak agent/evaluator isolation, reference answers exposed to agents, unsafe evaluation, weak validation. *Blog page opened and verified.* | Context — supports our "grade the artifact in an env-controlled re-execution, never shared state or agent claims". |
 | Physics-domain safeguards: **GRACE** (conservation consistency: detected ≤ produced photons, linearity, 2x anomaly flag), **OPTIAGENT** (lexicographic gating so high-order reward can't be earned by invalid designs), **Stargazer** (astrophysical constraints; good fit ≠ right physics), **LLMs for Physics Instrument Design** (projection to feasible set, full audit log) | see Areas 1–2 | 2026 | — | Must cite together in the red-team section: the idea that physical laws police the reward is shared. Our contribution is the Liouville bound specifically (reference-free, ungameable by matching), the statistics-floor gating of the gate, and five documented exploits caught before scoring. |
 
 Searched and found nothing: Liouville theorem / brilliance transfer / phase-space density bound as a reward or anti-hacking check in any ML paper.
@@ -163,7 +163,7 @@ Not found: a science-agent benchmark that authors never-public reference instrum
 
 ## Area 7 — Rejection-sampling fine-tuning (RAFT / STaR / ReST / expert iteration) for agentic, tool-use or scientific tasks with small open models
 
-**Headline: the recipe is standard, and 2026 has several positive small-model results on scientific verifiable environments.** Our M8 stopped at a pre-registered gate (8B ≡ 32B on calibrated procedural instances), so there is no training delta to compare. Reviewers will read these neighbors as "it works elsewhere; why not here?" §6 must answer that directly.
+**Headline: the recipe is standard, and 2026 has several positive small-model results on scientific verifiable environments.** Our M8 is running as of 2026-09-13 evening: self-generated RAFT with strict-L4 keepers on the train split at the 1.0x bar, LoRA SFT, and eval against untrained 8B (0.36) and 32B (0.58). Numbers freeze 2026-09-17. Whatever it yields, reviewers will compare it to these neighbors.
 
 | Paper | Venue / ID | Date | Summary | Relation to us |
 |---|---|---|---|---|
@@ -181,5 +181,103 @@ Not found: a science-agent benchmark that authors never-public reference instrum
 | **GenEnv** — Guo et al. | arXiv:2512.19682 | 2025-12-22 | Difficulty-aligned co-evolving env; 7B gains up to 40%, matching larger models. | Context. |
 | **AnalogAgent: Self-Improving Analog Circuit Design Automation with LLM Agents** — Bao et al. | arXiv:2603.23910 | 2026-03-25 | Training-free multi-agent + memory; +48.8% Pass@1 on Qwen-8B-class models. | Context (small-model design gains without weight updates; a cheap baseline reviewers may ask for). |
 
-What distinguishes our situation (and must be said explicitly in §6): in every positive neighbor, a larger or frontier model clearly outperforms the small base model, so there is a target to distill or train toward. Our pre-registered gate found no 8B/32B ordering on the parametric axis at calibrated difficulty (4–4 discordant, McNemar p=1.0). That is a property of the task axis, and it is exactly the precondition those papers satisfy implicitly. Keep this framing. Do not imply RFT "fails" on NeutronGym, since it was never run.
+Positioning for §6: (a) the *method* is not new. Self-generated filter-then-fine-tune is STaR / ReST-EM / RAFT, and the agentic form is SWE-Gym and ReST-meets-ReAct, so cite them as the recipe and claim only the substrate and the reward. (b) A positive delta will read as "expected" next to SciAgentGym (8B beats 235B), D3-Gym, MDAgent2 and RLVP. The distinguishing content is the verifier: physics-grounded, calibrated per instance, red-teamed, and the delta measured against a larger untrained model at an explicit difficulty bar with level migration as the primary endpoint. (c) The SANS direct-beam hole (a constant all-max policy passes 8/25 held-out SANS instances at the 1.0x bar) must be closed or excluded before any SANS training result is reported; otherwise a reviewer who knows the reward-hacking literature (Area 5) will discount the whole delta. Collection already stops at the guide→SANS boundary, per PLAN. (d) If no delta: a null against a real, gated target is still reportable, but the "RL environment" headline then carries no training evidence (Claims #1).
 
+---
+
+## Closest works — the five most dangerous to novelty
+
+1. **OPTIAGENT (arXiv:2602.23761, 2026-02).** Qwen3-4B trained with DrGRPO under a four-level gated reward: format → structure → ray tracing → RMS image quality.
+   *How NeutronGym differs:* it is a multi-turn, tool-using environment. The agent builds instruments from components in a stochastic Monte Carlo simulator, per-instance targets are calibrated to a re-verified classical optimum, and a held-out, contamination-controlled benchmark slice plus a conservation-law hack gate come with it. OPTIAGENT trains single-turn lens-prescription generation against deterministic paraxial ray tracing.
+   *Honest verdict:* the gated L1→L4 reward ladder as a concept does **not** differ enough to be claimed. Cite it as precedent.
+2. **Large Language Models for Physics Instrument Design (arXiv:2601.07580, 2026-01).** Prompted LLMs propose detector designs against the same simulator reward used by RL; RL wins.
+   *How NeutronGym differs:* our agents construct and optimize full instruments from natural-language specs through validated tools, graded on a level-resolved ladder, with a released environment and held-out slice. Theirs pick parameter vectors for two HEP detector tasks with no tools, benchmark, contamination controls or training.
+   *Honest verdict:* our T2 headline (classical search beats every agent on parametric design) **replicates their finding** in a new domain. Present it as corroboration, not discovery.
+3. **GRACE (arXiv:2602.15039, 2026-01).** An agent reproduces detector setups from prompts or papers in Geant4 and proposes improvements, guarded by conservation-style physics checks and a fair-date knowledge cutoff.
+   *How NeutronGym differs:* it is a cross-model, programmatically graded benchmark (19 T1 + 2 T2 curated tasks plus unlimited procedural instances, 271 scored episodes) with a trainable env and a red-teamed reward. GRACE is a single-model system demo on four cases.
+   *Honest verdict:* "reproduce an apparatus from its paper with the simulator in the loop, with physics consistency checks" was demonstrated there first (particle detectors). Our T1 task type is not new in kind.
+4. **Frontier-Eng (arXiv:2604.12290, 2026-04).** Agents iteratively improve feasible engineering designs under simulator feedback, hard constraints and interaction budgets across 47 tasks, 10 of them optics. The evaluator is isolated.
+   *How NeutronGym differs:* one substrate in depth, with classical-optimizer baselines under identical constraints, fresh-seed re-verification of any claimed best, per-instance calibration, a paper-reproduction tier and a training interface. Frontier-Eng has none of these.
+   *Honest verdict:* the T2 *task format* is not new. Only its calibration and verification discipline are.
+5. **MDAgent2 (arXiv:2601.02075, 2026-01), read together with RLVP (arXiv:2607.10474, 2026-07).** Qwen3-8B post-trained with simulator-outcome GRPO for LAMMPS, and small models post-trained with GRPO under a physics verifier that beat prompted frontier models.
+   *How NeutronGym differs:* they report training deltas on script/solver generation without calibrated per-instance design targets, disjoint held-out context regimes, or a reward red-team. Our M8 (running, freeze Sep 17) measures a self-generated RAFT delta against an untrained larger model at an explicit calibrated bar.
+   *Honest verdict:* "physics-verifiable simulator reward can train a Qwen3-8B-class model" is **not** a novel claim after MDAgent2 and RLVP. Only the design-environment setting, calibration and anti-hacking discipline are ours. If M8 yields no delta and "RL environment" stays the headline, these papers show that the evidence reviewers expect from that category exists elsewhere and not in NeutronGym. **This is the largest positioning risk in the paper.**
+
+Runners-up, cite and distinguish: MDGYM (arXiv:2605.08941; simulator-domain benchmark template, benchmark only); Stargazer (arXiv:2604.15664; scalable, tiered, physics-constrained env "usable for training"); SciAgentGym (arXiv:2602.12984; "Gym" + 8B SFT beats 235B); SIGA (arXiv:2606.09774; tool-call validation and validation-gated termination, the McStasAgent pattern on GEOS/OpenFOAM/LAMMPS).
+
+---
+
+## Claims we should soften or drop
+
+1. **"Prove it works as both an evaluation and a training substrate" / RQ3 / "RL environment" as the headline descriptor** (SCOPE.md Goal and RQ3; neutrongym-vision digest). M8 is running (freeze Sep 17), and the abstract is due Sep 18, one day after freeze. SciAgentGym, D3-Gym, MDAgent2, RLVP and OPTIAGENT already show training gains on scientific verifiable environments, so the category's expected evidence is a training delta. Recommendation: draft the abstract so the descriptor degrades cleanly. "An executable, physically verifiable environment and benchmark for neutron instrument design" is safe either way; "RL environment" goes in the title/abstract only if the M8 delta clears its pre-registered bar on the guide family (SANS excluded until the direct-beam hole is closed). With no delta, keep §6 as a null against a real target and describe the RL interface as ready but not yet validated.
+2. **Reward ladder as a contribution** (OUTLINE §2, Figure 1). Cite OPTIAGENT (gated format→structure→ray-tracing→quality) and RLVP (execution gate → continuous physics reward). Claim the ladder as a level-resolved *measurement instrument* (deepest-level-reached as a first-class field feeding the failure taxonomy) plus the neutron-specific L3 structural checks, not hierarchical reward design.
+3. **"Liouville/brilliance-transfer ≤ 1 as physics-native hack detection" as a structural advantage** (SCOPE.md). Keep the specific bound: no ML use of a Liouville or brilliance bound was found. Drop any implication that physics-grounded reward guards are new; cite GRACE's conservation checks, OPTIAGENT's gating, Stargazer's constraints and the feasible-set projection in 2601.07580. **Also narrow the claim's scope:** the bound is sharp only for the guide family. For SANS it is deliberately loose (`note/reward-red-team-2026-08-05.md`), and the 2026-09-13 direct-beam hole passed the full ladder (one instance at 11,992x the target). Say "sharp for guides, loose for SANS". OUTLINE §4's "five findings" becomes six, and this one is a recurrence of finding #1 (beamstop leakage) in the procedural family. That recurrence is itself honest paper material, in line with Hack-Verifiable Environments / verifier-fuzzing (Area 5): run constant-policy probes on every family before training.
+4. **T2 "unsolved by every model" and "classical search reaches 2.95x / 1.47x"** (OUTLINE §5–6). Fine as data. Must cite 2601.07580 (RL > LLM proposals on instrument design) and 2606.21641 (budget-matched classical search ≥ LLM advisor) and frame the result as replication in a new substrate.
+5. **"The dense reward makes it search, not reasoning" / no 8B-32B ordering.** **Already RETRACTED** in the current OUTLINE claim inventory (n=25 sweep: 32B +14–22 pts). The literature agrees with the retraction: OPT-BENCH (2605.08904; 19 LLMs, 3B–235B) finds stronger models exploit iterative feedback better. Don't revive it. If the feedback-budget sweep still runs, a scrambled-feedback control (precedent: 2603.26177) is the clean design.
+6. **"Uncalibrated reward ladders manufacture ceilings" and "a small-n gate can reverse" as methods lessons** (OUTLINE §6, claim inventory "solid"). The calibration evidence (80%/93% at target_ratio 1.0 → calibrated difficulty-response curve) stands, but the lesson belongs to the known difficulty-alignment problem (RLVE, ICML 2026; GenEnv). Soften to "a concrete, measured instance of difficulty misalignment" and cite them. The small-n reversal is a statistics point, not a contribution; one sentence in limitations/methods, not a headline.
+7. **T1 paper reproduction and the contamination architecture as novel** (OUTLINE §3). Reproduction-from-paper exists (GRACE, Collider-Bench, SciReplicate-Bench); procedural/perturbation contamination resistance exists (BeyondBench ICLR 2026, IPT 2604.15149, InfiniteScienceGym). Present ours as rigorous application; the never-public held-out references plus committed pair-proofs are a modest, defensible distinction.
+8. **Validating tools as a McStasAgent design contribution** (spec §4, M1 design). SIGA (2606.09774) ships the same pattern for three simulators. Cite it; don't claim it.
+9. **"The first executable environment for neutron instrument design"** (SCOPE, OUTLINE §1). **Survives.** Write "to our knowledge (literature search through 2026-09-13)". Do not widen it to "first LLM work with McStas" or "first AI-designed neutron instrument": McStas core developers are visibly using AI agents on McCode (PR #2620, merged 2026-09-07), and a preprint could appear during review.
+10. **Double-blind hygiene.** SasAgent (Ding & Do) and EQSANS-CLI (Do) are the author's and a collaborator's work. Cite in the third person; no "our prior SasAgent".
+
+**Survived the check (keep, with citations for contrast):** no LLM judge anywhere in T1/T2 grading (contrast Collider-Bench, DiscoverPhysics); the Liouville bound; the red-team record, now six findings including the 2026-09-13 SANS direct-beam hole caught before training (in the context of RHB, Hack-Verifiable Environments and verifier fuzzing); sandbox plus post-hoc leak audit with zero leaks in 271 scored episodes (in the context of Berkeley RDI's evaluator-isolation failures); per-instance targets at 0.8x a constraint-filtered, Liouville-checked, fresh-seed-re-verified classical optimum (not found in this form); the neutron substrate.
+
+---
+
+## Must-cite list (bibliography-ready; every entry opened during this check unless marked)
+
+**Instrument / experiment design with LLMs**
+- Zoccheddu, S., Qasim, S. R., Owen, P., Serra, N. "Large Language Models for Physics Instrument Design." arXiv:2601.07580, 2026.
+- Hill, J., Ryoo, H. J. "GRACE: an Agentic AI for Particle Physics Experiment Design and Simulation." arXiv:2602.15039, 2026.
+- Chung, W., Liu, Q., Wu, L., Gonski, J. "Agentic-AI Detector Co-design and Optimization in Vertically-Integrated Differentiable Full Simulations." arXiv:2604.21804, 2026.
+- Geng, Y., Sun, L., Gao, Y., Hu, X., Yi, Z., Qian, X., Hu, W., Bai, J., Wang, K. "OPTIAGENT: A Physics-Driven Agentic Framework for Automated Optical Design." arXiv:2602.23761, 2026.
+- Kharel, P., Khavasi, A., Chen, X., Hughes, T. W. "Autonomous agentic design for photonics." arXiv:2606.00915, 2026.
+- Qasim, S. R., Owen, P., Serra, N. "Physics Instrument Design with Reinforcement Learning." arXiv:2412.10237, 2024.
+- Gandhi, K., Li, M. Y., Goodyear, L., Bhatia, A., Li, L., Bhaskar, A., Zaman, M., Goodman, N. D. "BoxingGym: Benchmarking Progress in Automated Experimental Design and Model Discovery." arXiv:2501.01540, 2025 (NeurIPS 2025 per search listing; confirm).
+- Bertelsen, M., Lefmann, K. "The automatic neutron guide optimizer guide_bot." Nucl. Instrum. Methods A (2017), doi:10.1016/j.nima.2017.06.012. *(from 07-09 note; not re-opened)*
+
+**Environments and benchmarks on scientific simulators**
+- Kumar, V., Rajput, S., Mausam, Krishnan, N. M. A. "MDGYM: Benchmarking AI Agents on Molecular Simulations." arXiv:2605.08941, 2026.
+- Shi, Z., et al. "MDAgent2: Large Language Model for Code Generation and Knowledge Q&A in Molecular Dynamics." arXiv:2601.02075, 2026.
+- Cai, P., Utkarsh, U., Edelman, A., Rackauckas, C. V., Gómez-Bombarelli, R. "Reinforcement Learning with Verifiable Physics: Post-training LLMs with Continuous Rewards." arXiv:2607.10474, 2026.
+- Shen, Y., et al. "SciAgentGym: Benchmarking Multi-Step Scientific Tool-use in LLM Agents." arXiv:2602.12984, 2026.
+- Moussa, H. N., et al. "D3-Gym: Constructing Real-World Verifiable Environments for Data-Driven Discovery." arXiv:2604.27977, 2026.
+- Liu, X., Zhang, T. J., Schölkopf, B., Jin, Z., Menou, K. "Stargazer: A Scalable Model-Fitting Benchmark Environment for AI Agents under Astrophysical Constraints." arXiv:2604.15664, 2026.
+- Ho, M., Liu, B., Chen, J., Wang, A., Qin, L. "Auto-Configuring Scientific Simulators with Lightweight Coding-Agent Adapters." arXiv:2606.09774, 2026.
+- Chi, Y., et al. "Frontier-Eng: Benchmarking Self-Evolving Agents on Real-World Engineering Tasks with Generative Optimization." arXiv:2604.12290, 2026.
+- Guo, X., Li, Y., Kong, X., et al. "Toward Engineering AGI: Benchmarking the Engineering Design Capabilities of LLMs." NeurIPS 2025 Datasets & Benchmarks; arXiv:2509.16204.
+- Zeng, Z., et al. "RLVE: Scaling Up Reinforcement Learning for Language Models with Adaptive Verifiable Environments." ICML 2026; arXiv:2511.07317.
+- Liu, Z., et al. "GEM: A Gym for Agentic LLMs." arXiv:2510.01051, 2025.
+- Chen, Z., et al. "ScienceAgentBench: Toward Rigorous Assessment of Language Agents for Data-Driven Scientific Discovery." ICLR 2025; arXiv:2410.05080.
+- Faroughy, D. A., Palacios Schweitzer, S., Pang, I., Mishra-Sharma, S., Shih, D. "Collider-Bench: Benchmarking AI Agents with Particle Physics Analysis Reproduction." arXiv:2605.13950, 2026.
+- Li, X., Chen, J., Fang, X., Ding, S., Duan, H., Liu, Q., Chen, K. "OPT-BENCH: Evaluating the Iterative Self-Optimization of LLM Agents in Large-Scale Search Spaces." arXiv:2605.08904, 2026.
+- Rodrigues, C., Vas, O., DCosta, I. A., Prabhakaran, N. K. "When Is an LLM Worth It for Hyperparameter Optimization? A Budget-Matched Study on Tabular Data Finds the Warm-Start Is a Default Configuration, Not the Model." arXiv:2606.21641, 2026.
+- Zou, Y., et al. "El Agente: An Autonomous Agent for Quantum Chemistry." Matter (2025), doi:10.1016/j.matt.2025.102263; arXiv:2505.02484.
+- Zhang, T., Liu, Z., Xin, Y., Jiao, Y. "MooseAgent: A LLM Based Multi-agent Framework for Automating Moose Simulation." arXiv:2504.08621, 2025.
+
+**Scattering facilities + LLMs (to position "operate/analyze, not design")**
+- Chen, Z., et al. "An agentic artificially intelligent X-ray scientist." Nature Machine Intelligence 8, 1075 (2026), doi:10.1038/s42256-026-01261-5. *(verified via phys.org + search metadata; publisher page login-walled)*
+- van der Vleuten, N., Flores, A., Mathur, S., Rakitin, M., Hopkins, T., Yager, K. G., Tsai, E. H. R. "EnvTrace: Simulation-Based Semantic Evaluation of LLM Code via Execution Trace Alignment — Demonstrated at Synchrotron Beamlines." arXiv:2511.09964, 2025.
+- Li, Q., et al. "Rongzai agent: A Large Language Model-Based Autonomous Assistant for Rietveld Refinement of Neutron Diffraction Data." arXiv:2605.13911, 2026.
+- Xiao, Z., et al. "NeuDiff Agent: A Governed AI Workflow for Single-Crystal Neutron Crystallography." arXiv:2602.16812, 2026.
+- Ding, L., Do, C. "SasAgent: Multi-Agent AI System for Small-Angle Scattering Data Analysis." arXiv:2509.05363, 2025. *(third-person citation; J. Appl. Cryst. version not opened)*
+- Robledo, J. I., Lieutenant, K., Willendrup, P. "Small Angle Neutron Scattering in McStas: optimization for high throughput virtual experiments." arXiv:2501.06054, 2025. *(from 07-09 note; first-author initials not re-checked)*
+
+**Reward hacking and contamination**
+- Thaman, K. "Reward Hacking Benchmark: Measuring Exploits in LLM Agents with Tool Use." ICML 2026; arXiv:2605.02964.
+- Roth, A., Samanta, A., Halevy, M., Levine, Y., Efroni, Y. "Hack-Verifiable Environments: Towards Evaluating Reward Hacking at Scale." arXiv:2605.20744, 2026.
+- Helff, L., et al. "LLMs Gaming Verifiers: RLVR can Lead to Reward Hacking." arXiv:2604.15149, 2026.
+- Ray, J. "Before the Model Learns the Bug: Fuzzing RLVR Verifiers." arXiv:2606.01066, 2026.
+- Pan, A., Jones, E., Jagadeesan, M., Steinhardt, J. "Feedback Loops With Language Models Drive In-Context Reward Hacking." ICML 2024; arXiv:2402.06627.
+- Wang, H., Mang, Q., Cheung, A., Sen, K., Song, D. "How We Broke Top AI Agent Benchmarks: And What Comes Next." Berkeley RDI blog, April 2026. https://rdi.berkeley.edu/blog/trustworthy-benchmarks-cont/
+- Srivastava, G., Hussain, A., Bi, Z., Roy, S., Pitre, P., Lu, M., Ziyadi, M., Wang, X. "BeyondBench: Contamination-Resistant Evaluation of Reasoning in Language Models." ICLR 2026; arXiv:2509.24210.
+- Bentham, O., Srikumar, V. "InfiniteScienceGym: An Unbounded, Procedurally-Generated Benchmark for Scientific Analysis." COLM 2026; arXiv:2604.13201.
+
+**Rejection-sampling / self-training**
+- Dong, H., Xiong, W., Goyal, D., Zhang, Y., Chow, W., Pan, R., Diao, S., Zhang, J., Shum, K., Zhang, T. "RAFT: Reward rAnked FineTuning for Generative Foundation Model Alignment." TMLR, 2023; arXiv:2304.06767.
+- Zelikman, E., Wu, Y., Mu, J., Goodman, N. D. "STaR: Bootstrapping Reasoning With Reasoning." arXiv:2203.14465, 2022 (NeurIPS 2022; confirm venue).
+- Singh, A., Co-Reyes, J. D., Agarwal, R., et al. "Beyond Human Data: Scaling Self-Training for Problem-Solving with Language Models." TMLR; arXiv:2312.06585.
+- Aksitov, R., et al. "ReST meets ReAct: Self-Improvement for Multi-Step Reasoning LLM Agent." arXiv:2312.10003, 2023.
+- Pan, J., Wang, X., Neubig, G., Jaitly, N., Ji, H., Suhr, A., Zhang, Y. "Training Software Engineering Agents and Verifiers with SWE-Gym." ICML 2025; arXiv:2412.21139.
+
+**Recommended re-check before camera-ready:** set arXiv alerts for "McStas", "neutron instrument" + "agent"/"LLM", and new versions of 2601.07580 and 2602.15039, whose authors signal follow-up work (an LLM meta-planner for RL design studies; a multi-agent GRACE extension).
