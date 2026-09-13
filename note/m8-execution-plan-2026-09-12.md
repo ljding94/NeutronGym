@@ -1,5 +1,28 @@
 # M8 execution plan — SFT trainability result (rev 2 · 2026-09-12)
 
+> ## ✅ SUPERSEDED THE SAME EVENING (2026-09-13): M8 PROCEEDS
+>
+> The "phase-0 gate failed" block below was an artifact, and is kept only as
+> history. Two defects, both pushing toward cancelling M8:
+>
+> 1. **Underpowered vacuity read.** n=10 instances per family gave 8B 0.70 vs
+>    32B 0.70. The difficulty sweep at n=25 per family, same generator and
+>    bar, gives **0.60 vs 0.76 (+16) at 0.8×** (re-run: +14) and **0.36 vs
+>    0.58 (+22) at 1.0×**; 1.2× puts the 8B at the floor (0.06).
+> 2. **Broken RAFT check.** `keeps >= 20` from 20 rollouts demanded a 100% keep
+>    rate. Fixed to a rate test (≥ 0.15) plus instances-needed; the observed
+>    0.5 is healthy and instances are free.
+>
+> **Decisions taken:** training/eval bar **1.0×** the classical optimum;
+> self-generated RAFT collection started on the train split
+> (`benchmark/harness/m8_collect.py`, strict-L4 keepers); LoRA SFT via
+> `benchmark/harness/m8_train.py` (per-turn pairs, server template check) in a
+> separate DGX env `/netdisk/ldq/sft-env`; trained model served by
+> `/netdisk/ldq/serve-m8-trained.sh` with the base 8B's exact flags (YaRN 4.0,
+> 98304 ctx — this replaces §5.2's "serve without YaRN", which would have made
+> trained-vs-untrained differ in serving config, not just weights); eval via
+> `benchmark/harness/m8_eval.py`. §10's options A–D are moot.
+
 > ## ⛔ PHASE-0 GATE RESULT (2026-09-13): DO NOT PROCEED AS DESIGNED
 >
 > The gate ran before any spend and **failed on vacuity**. On held-out

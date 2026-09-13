@@ -91,50 +91,34 @@ false positive → floor-gating. Source: `note/reward-red-team-2026-08-05.md`.
 - Failure taxonomy: one-shot dies at L1 (won't compile), the loop dies at
   L0 (never completes). 42 format / 118 physics.
 
-### 6. What the environment can and cannot train (M8 — the plan's own
-gate stopped it, and the stop is the result)
+### 6. Trainability (M8 — running; numbers frozen Sep 17)
 
-The planned section was: filtered SFT on procedural env-dialogue, n=200 per
-condition, level migration as the primary readout, ladder untrained 8B →
-trained 8B → untrained 32B. **A pre-registered phase-0 gate ran first, and
-failed.** Report the gate, not the training run.
-
-- **The bar has no target.** "Approaching a larger untrained model"
-  presumes the larger model is ahead. On held-out procedural instances at
-  the calibrated difficulty, untrained Qwen3-8B and Qwen3-32B both score
-  **0.70**. A 4× parameter increase buys nothing.
-- **The paired view is the actual finding, and it is stronger than the
-  tie.** The two models agree on only 60% of instances; the 8 disagreements
-  split **exactly 4–4** (exact McNemar p = 1.0), and per family the
-  directions oppose (guide 3–0 to the 8B, SANS 1–4 to the 32B). This is not
-  a small gap — it is **no ordering**, so more data would only sharpen an
-  estimate of zero. Marginal pass rates alone would have reported "the
-  models are equivalent", which is a different and wrong claim.
-- **Why: the dense reward makes it search, not reasoning.** Six steps of
-  per-step FOM feedback turn parametric optimization into hill-climbing —
-  precisely the job this architecture delegates to scipy (CLAUDE.md), and
-  the one where classical constraint-filtered random search reaches 2.95×
-  and 1.47× on the T2 tasks while no agent in any arm beats either target.
-- **Calibration is part of the finding, not a footnote.** The first
-  measurement (8B 80% / 32B 93%) was a ceiling artifact: procedural
-  instances shipped with `target_ratio = 1.0`, so L4 meant beating a
-  deliberately undersized baseline. `calibrate.py` now sets per-instance
-  targets at 0.8× a constraint-filtered, Liouville-checked,
-  fresh-seed-re-verified classical optimum — the same discipline as T2.
-  **An environment whose reward ladder is not calibrated per instance will
-  report a trainability signal that is really a ceiling.** That is a
-  transferable lesson for anyone building executable science environments.
-- **Difficulty-response and feedback-budget sweeps** distinguish "the bar
-  was too low" from "the task does not discriminate at any bar", and test
-  whether removing the hill-climbing signal (one-shot, no feedback)
-  restores a scale effect.
-- **Honest framing:** this is a negative result about *the task*, not about
-  the environment or the reward. The reward verifies physics correctly; it
-  simply does not separate model scale on the parametric axis. The
-  construction axis, where M6 does show scale separation (8B 1/17 vs 32B
-  3/17, both dominated by L0), is the right training target — and the
-  arithmetic says it needs ~3400 episodes for ~200 RAFT keepers, i.e.
-  50–280 h. Future work, stated as such.
+- **The claim bar has a target.** On held-out procedural instances with
+  calibrated targets (n=25 per family per model), the untrained Qwen3-32B
+  leads the untrained Qwen3-8B by **+14 to +16 points at 0.8× the classical
+  optimum and +22 at 1.0×**; at 1.2× the 8B is at the floor. Training bar:
+  **1.0×** (both mid-range, largest gap: 8B 0.36 → 32B 0.58).
+- **Design (plan rev 2):** self-generated RAFT — sample the untrained 8B on
+  TRAIN-split instances (context regimes disjoint from held-out), keep strict
+  L4 passes, LoRA SFT on its own successes (r=32, all seven projections,
+  loss on every assistant turn via per-turn pairs rendered exactly as served,
+  template identity checked against the live server). Isolates the reward's
+  contribution from distillation.
+- **Eval:** trained vs untrained 8B vs untrained 32B, same `evaluate()`
+  primitive, same instances and bar, trained model served with the base
+  8B's exact vLLM flags. Primary endpoint level migration (Cochran–Armitage);
+  pass-rate claim needs ≥10 pts absolute or beating the 32B; paired McNemar;
+  fraction of the 8B→32B gap closed; classical optimum as context.
+- **Methods lessons that stand regardless of the SFT outcome:**
+  (1) *uncalibrated reward ladders manufacture ceilings* — `target_ratio =
+  1.0` put the untrained 8B at 80% and 32B at 93%; per-instance calibration
+  against a constraint-filtered, fresh-seed-verified classical optimum fixed
+  it. (2) *a small-n gate can reverse* — at n=10 per family the gate read
+  0.70 vs 0.70 and a keep-rate check demanded 100%; both would have
+  cancelled M8 on an artifact. Report the difficulty-response curve, not a
+  single operating point.
+- **If no delta:** reported as a null result against a real target, with the
+  gate history above.
 
 ### 7. Limitations (write this honestly, it is short and load-bearing)
 - n=17 curated tasks cannot resolve scaffold differences.
@@ -145,9 +129,7 @@ failed.** Report the gate, not the training run.
 - **Three of this project's own claims were retracted after review** —
   infra-as-capability, a scaffold-superiority claim that died on
   statistics, and a "tool-surface" claim that was our own harness. Say so.
-- **The trainability result is a stopped experiment, not a trained model.**
-  We report why the axis cannot carry the claim; we do not report an SFT
-  delta, null or otherwise.
+- Temperature-0 serving is not bit-deterministic under vLLM batching: the same 0.8× sweep cell read +16 then +14 points on two runs. Report intervals, not point estimates.
 - The 8B/32B equivalence is measured at temperature 0, one episode per
   instance, so a per-instance disagreement cannot be decomposed into
   capability versus luck without resampling.
@@ -170,7 +152,7 @@ committed per-episode evidence (1081 files) so every number is auditable.
 | Loop > one-shot on held-out | **suggestive, confounded** — always with p=0.041 AND the difficulty p=0.0009 |
 | One-shot > loop on seen tier | **RETRACTED** (all p ≥ 0.70) |
 | Tool-surface size defeats weak models | **RETRACTED** (was our harness) |
-| Trainability delta | **not claimed** — the phase-0 gate found no 8B/32B ordering to train toward |
-| 8B ≡ 32B on calibrated procedural instances | **solid** (0.70 vs 0.70; paired 4–4 discordant, McNemar p=1.0) |
+| Trainability delta (RAFT SFT, 8B toward 32B) | **pending M8** — target exists: 32B leads 8B by +22 pts at the 1.0× bar |
+| 32B > 8B on calibrated procedural instances | **supported at n=25/family** (+14–16 at 0.8×, +22 at 1.0×); paired McNemar from `sweep.json` pending. The n=10 "tie" is RETRACTED |
 | Uncalibrated reward ladders manufacture ceilings | **solid** (80%/93% → 70%/70% after per-instance calibration) |
-| Dense per-step FOM feedback makes the task non-discriminating | **argued, not proven** — consistent with the data; the feedback-budget sweep is the direct test |
+| Dense per-step FOM feedback makes the task non-discriminating | **RETRACTED** — the task discriminates at n=25; the idea came from an underpowered read |
