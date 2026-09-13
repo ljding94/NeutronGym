@@ -1,6 +1,36 @@
 # M8 execution plan — SFT trainability result (rev 2 · 2026-09-12)
 
-**Status: revised after peer review, still NOT started. Awaiting approval.**
+> ## ⛔ PHASE-0 GATE RESULT (2026-09-13): DO NOT PROCEED AS DESIGNED
+>
+> The gate ran before any spend and **failed on vacuity**. On held-out
+> procedural instances with calibrated targets:
+>
+> | readout | untrained 8B | untrained 32B | discriminates? |
+> |---|---|---|---|
+> | pass rate (n=20 ea.) | **0.70** | **0.70** | **no — identical** |
+> | steps to success (median) | 3.5 | 2.0 | directionally, underpowered |
+> | FOM ratio (median/max) | 1.12 / 1.36 | 1.19 / 3.58 | directionally |
+>
+> **A 4x parameter increase buys nothing on this task.** "Approaching a
+> larger untrained model" is therefore VACUOUS on this axis — there is no
+> gap to approach — and a task insensitive to a 4x scale difference is
+> unlikely to show an interpretable SFT delta either.
+>
+> This is the peer review's finding B confirmed empirically: we would have
+> been training the job the architecture delegates to scipy. Dense
+> per-step FOM feedback turns the parametric task into hill-climbing that
+> any competent small model solves; classical search still beats every
+> model (RESULTS.md Table 5, 628/510 sigma).
+>
+> **Prior (uncalibrated) measurement, kept as the "before" record:** 8B
+> 80%, 32B 93% — an outright ceiling. Calibration (targets at 0.8x the
+> constraint-filtered, fresh-seed-verified classical best) lowered both to
+> 70% but did not create discrimination.
+>
+> **Status: awaiting user decision between the options in §10.** No data
+> generated, no GPU time spent, ~$78 budget intact.
+
+**Status: revised after peer review, then STOPPED BY ITS OWN GATE.**
 Deadlines: **abstract Sep 18 (6 days) · full paper Sep 25 (13 days).**
 Budget: **$77.84** left. Host verified: GPU 7 fully free; GPUs 0–4 are our
 own vLLM (8B on 0, 32B TP4 on 1–4); 5–6 hold another user's job; `/netdisk`
@@ -149,3 +179,44 @@ rate is healthy we may not need to spend anything at all.**
 
 Figure 1 + paper skeleton (`paper/OUTLINE.md`, committed) — the abstract is
 due in 6 days whatever M8 yields.
+
+
+---
+
+## 10. Decision point (2026-09-13) — the gate says stop; what now?
+
+**Option A — accept env+eval-only, and report the negative result as a
+methods finding.** *(my recommendation)*
+Cost: 0 days. The paper keeps everything already earned — the environment,
+271 leak-free episodes, the red-team section, the failure taxonomy, T2
+unsolved by all — and ADDS a measured contribution that is genuinely
+useful to anyone building executable environments: **dense-feedback
+parametric optimization is not a discriminating training task.** A 4x
+model-scale increase changes nothing, so the task cannot support a
+trainability claim regardless of training method. Stating that with data
+is worth more than a null SFT result nobody can interpret.
+
+**Option B — spend ~1 day testing whether EFFICIENCY discriminates.**
+Raise n to 100/condition (free, local) on steps-to-success and FOM
+quality. If the 32B's 2.0-vs-3.5-step advantage holds up, SFT could target
+convergence efficiency. Risk: even if it works, "the trained model
+converges in fewer steps" is a much weaker claim than the standing bar,
+and it is still the scipy-delegated task. Gate: Sep 14 EOD.
+
+**Option C — pivot to the CONSTRUCTION axis, where scale does
+discriminate** (M6: 8B 1/17 vs 32B 3/17, huge headroom). Honest
+arithmetic: self-generated RAFT needs ~17 episodes per keeper at the 8B's
+~6% success rate, so ~200 keepers means ~3400 MCP episodes at minutes
+each — **50-280 hours. Not feasible before Sep 25.** Correct target for
+the follow-up paper, not this one.
+
+**Option D — redesign the reward feedback** (remove per-step FOM, forcing
+physics reasoning over hill-climbing). Genuinely interesting, plausibly
+restores discrimination — but it is an environment redesign 5 days before
+the abstract with an unknown outcome, and everything measured so far would
+need re-measuring against the new signal.
+
+**What does not change under any option:** M6 is complete and defensible,
+the environment ships, and the paper has a full evaluation story. The RL
+track degrades along the pre-agreed ladder to env+eval-only, which was
+always the stated fallback.
