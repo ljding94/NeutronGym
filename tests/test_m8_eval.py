@@ -81,3 +81,15 @@ def test_empty_arm_is_untestable_not_significant():
 def test_single_level_everywhere_is_degenerate_not_a_crash():
     got = cochran_armitage(h(L4=10), h(L4=12))
     assert got["p"] == pytest.approx(1.0)
+
+
+def test_eval_defaults_exclude_sans_and_rejects_unknown_families():
+    import argparse
+    import m8_eval
+    assert m8_eval.parse_families("guide_divergence") == ["guide_divergence"]
+    assert m8_eval.parse_families(" guide_divergence , sans_collimation ") == [
+        "guide_divergence", "sans_collimation"]
+    with pytest.raises(SystemExit):
+        m8_eval.parse_families("guide_divergence,not_a_family")
+    with pytest.raises(SystemExit):
+        m8_eval.parse_families(" , ")

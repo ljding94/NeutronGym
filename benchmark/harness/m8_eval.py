@@ -44,6 +44,15 @@ ARMS = {  # arm name -> (served model id, env var holding its base URL)
 CLAIM_POINTS = 0.10
 
 
+def parse_families(spec: str) -> list:
+    fams = [f.strip() for f in spec.split(",") if f.strip()]
+    unknown = [f for f in fams if f not in generate.FAMILIES]
+    if unknown or not fams:
+        raise SystemExit(f"unknown or empty families {unknown or spec!r}; "
+                         f"have {sorted(generate.FAMILIES)}")
+    return fams
+
+
 def cochran_armitage(hist_a: dict, hist_b: dict) -> dict:
     """Two-sided Cochran–Armitage trend test for a 2 x K ordinal table.
 
@@ -80,6 +89,12 @@ def main():
     ap.add_argument("--target-fraction", type=float, required=True)
     ap.add_argument("--max-steps", type=int, default=6)
     ap.add_argument("--arms", default=",".join(ARMS))
+    ap.add_argument("--families", default="guide_divergence",
+                    help="comma-separated; defaults to guide only because "
+                         "SANS has an open direct-beam reward hole "
+                         "(note/sans-direct-beam-exploit-2026-09-13.md) — "
+                         "most SANS passes are leakage, so a SANS number "
+                         "would measure the exploit, not the model")
     ap.add_argument("--out", default=os.path.join(REPO, "runs", "m8",
                                                   "eval.json"))
     args = ap.parse_args()
@@ -88,8 +103,9 @@ def main():
         if not os.environ.get(ARMS[arm][1]):
             raise SystemExit(f"{ARMS[arm][1]} not set for arm {arm}")
 
-    families = list(generate.FAMILIES)
+    families = parse_families(args.families)
     record = {"target_fraction": args.target_fraction, "n_per_family": args.n,
+              "families": families,
               "max_steps": args.max_steps, "split": "heldout",
               "temperature": 0.0, "arms": {}, "heldout": {}}
     for arm in arms:
