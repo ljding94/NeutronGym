@@ -1,0 +1,74 @@
+{
+ "models": [
+  "qwen3-8b",
+  "qwen3-32b"
+ ],
+ "n_paired": 20,
+ "both_pass": 10,
+ "only_qwen3-8b": 4,
+ "only_qwen3-32b": 4,
+ "neither": 2,
+ "agreement": 0.6,
+ "discordant": 8,
+ "mcnemar_p": 1.0,
+ "ordering_supported": false,
+ "balanced": true,
+ "leader": null,
+ "n_discordant_for_significance": 6,
+ "per_family": {
+  "guide_divergence": {
+   "only_a": 3,
+   "only_b": 0,
+   "both": 6,
+   "neither": 1
+  },
+  "sans_collimation": {
+   "only_a": 1,
+   "only_b": 4,
+   "both": 4,
+   "neither": 1
+  }
+ },
+ "discordant_instances": [
+  {
+   "family": "guide_divergence",
+   "instance": 1,
+   "winner": "qwen3-8b"
+  },
+  {
+   "family": "guide_divergence",
+   "instance": 2,
+   "winner": "qwen3-8b"
+  },
+  {
+   "family": "guide_divergence",
+   "instance": 8,
+   "winner": "qwen3-8b"
+  },
+  {
+   "family": "sans_collimation",
+   "instance": 0,
+   "winner": "qwen3-32b"
+  },
+  {
+   "family": "sans_collimation",
+   "instance": 2,
+   "winner": "qwen3-32b"
+  },
+  {
+   "family": "sans_collimation",
+   "instance": 4,
+   "winner": "qwen3-8b"
+  },
+  {
+   "family": "sans_collimation",
+   "instance": 7,
+   "winner": "qwen3-32b"
+  },
+  {
+   "family": "sans_collimation",
+   "instance": 8,
+   "winner": "qwen3-32b"
+  }
+ ]
+}

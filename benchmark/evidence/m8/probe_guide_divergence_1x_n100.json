@@ -1,0 +1,2606 @@
+{
+ "family": "guide_divergence",
+ "fraction": 1.0,
+ "n": 100,
+ "split": "heldout",
+ "temperature": 0.0,
+ "max_steps": 6,
+ "heldout": {
+  "qwen3-8b": {
+   "guide_divergence": {
+    "rows": [
+     {
+      "instance": 0,
+      "instance_id": "guide_divergence-heldout-000000",
+      "best_level": 3,
+      "best_reward": 0.993561,
+      "best_fom_ratio": 0.974243,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 1,
+      "instance_id": "guide_divergence-heldout-000001",
+      "best_level": 3,
+      "best_reward": 0.980947,
+      "best_fom_ratio": 0.923787,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 2,
+      "instance_id": "guide_divergence-heldout-000002",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 3,
+      "instance_id": "guide_divergence-heldout-000003",
+      "best_level": 4,
+      "best_reward": 1.005332,
+      "best_fom_ratio": 1.021329,
+      "pass_action": {
+       "w_in": 0.06,
+       "w_out": 0.07,
+       "m_coat": 2.9
+      },
+      "steps": 4,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 4,
+      "instance_id": "guide_divergence-heldout-000004",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 5,
+      "instance_id": "guide_divergence-heldout-000005",
+      "best_level": 4,
+      "best_reward": 1.021995,
+      "best_fom_ratio": 1.087979,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 1,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 6,
+      "instance_id": "guide_divergence-heldout-000006",
+      "best_level": 4,
+      "best_reward": 1.011435,
+      "best_fom_ratio": 1.045739,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.07,
+       "m_coat": 2.8
+      },
+      "steps": 6,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 7,
+      "instance_id": "guide_divergence-heldout-000007",
+      "best_level": 3,
+      "best_reward": 0.994024,
+      "best_fom_ratio": 0.976095,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 8,
+      "instance_id": "guide_divergence-heldout-000008",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 9,
+      "instance_id": "guide_divergence-heldout-000009",
+      "best_level": 3,
+      "best_reward": 0.998471,
+      "best_fom_ratio": 0.993885,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 10,
+      "instance_id": "guide_divergence-heldout-000010",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 11,
+      "instance_id": "guide_divergence-heldout-000011",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 12,
+      "instance_id": "guide_divergence-heldout-000012",
+      "best_level": 3,
+      "best_reward": 0.925114,
+      "best_fom_ratio": 0.700456,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 13,
+      "instance_id": "guide_divergence-heldout-000013",
+      "best_level": 3,
+      "best_reward": 0.989754,
+      "best_fom_ratio": 0.959016,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 14,
+      "instance_id": "guide_divergence-heldout-000014",
+      "best_level": 4,
+      "best_reward": 1.015744,
+      "best_fom_ratio": 1.062975,
+      "pass_action": {
+       "w_in": 0.07,
+       "w_out": 0.07,
+       "m_coat": 2.5
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 15,
+      "instance_id": "guide_divergence-heldout-000015",
+      "best_level": 4,
+      "best_reward": 1.000116,
+      "best_fom_ratio": 1.000465,
+      "pass_action": {
+       "w_in": 0.06,
+       "w_out": 0.06,
+       "m_coat": 2.9
+      },
+      "steps": 4,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 16,
+      "instance_id": "guide_divergence-heldout-000016",
+      "best_level": 4,
+      "best_reward": 1.001126,
+      "best_fom_ratio": 1.004505,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.07,
+       "m_coat": 2.5
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 17,
+      "instance_id": "guide_divergence-heldout-000017",
+      "best_level": 4,
+      "best_reward": 1.01442,
+      "best_fom_ratio": 1.057682,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 1,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 18,
+      "instance_id": "guide_divergence-heldout-000018",
+      "best_level": 3,
+      "best_reward": 0.953491,
+      "best_fom_ratio": 0.813964,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 19,
+      "instance_id": "guide_divergence-heldout-000019",
+      "best_level": 3,
+      "best_reward": 0.771643,
+      "best_fom_ratio": 0.086573,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 20,
+      "instance_id": "guide_divergence-heldout-000020",
+      "best_level": 3,
+      "best_reward": 0.976619,
+      "best_fom_ratio": 0.906475,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 21,
+      "instance_id": "guide_divergence-heldout-000021",
+      "best_level": 3,
+      "best_reward": 0.993308,
+      "best_fom_ratio": 0.973231,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 22,
+      "instance_id": "guide_divergence-heldout-000022",
+      "best_level": 4,
+      "best_reward": 1.017027,
+      "best_fom_ratio": 1.068108,
+      "pass_action": {
+       "w_in": 0.04,
+       "w_out": 0.05,
+       "m_coat": 2.5
+      },
+      "steps": 2,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 23,
+      "instance_id": "guide_divergence-heldout-000023",
+      "best_level": 3,
+      "best_reward": 0.950558,
+      "best_fom_ratio": 0.802232,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 24,
+      "instance_id": "guide_divergence-heldout-000024",
+      "best_level": 3,
+      "best_reward": 0.988279,
+      "best_fom_ratio": 0.953117,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 25,
+      "instance_id": "guide_divergence-heldout-000025",
+      "best_level": 4,
+      "best_reward": 1.011498,
+      "best_fom_ratio": 1.045992,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 1,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 26,
+      "instance_id": "guide_divergence-heldout-000026",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 27,
+      "instance_id": "guide_divergence-heldout-000027",
+      "best_level": 3,
+      "best_reward": 0.990467,
+      "best_fom_ratio": 0.96187,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 28,
+      "instance_id": "guide_divergence-heldout-000028",
+      "best_level": 3,
+      "best_reward": 0.8717,
+      "best_fom_ratio": 0.4868,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 29,
+      "instance_id": "guide_divergence-heldout-000029",
+      "best_level": 3,
+      "best_reward": 0.989533,
+      "best_fom_ratio": 0.958132,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 30,
+      "instance_id": "guide_divergence-heldout-000030",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 31,
+      "instance_id": "guide_divergence-heldout-000031",
+      "best_level": 3,
+      "best_reward": 0.776886,
+      "best_fom_ratio": 0.107544,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 32,
+      "instance_id": "guide_divergence-heldout-000032",
+      "best_level": 4,
+      "best_reward": 1.002366,
+      "best_fom_ratio": 1.009465,
+      "pass_action": {
+       "w_in": 0.03,
+       "w_out": 0.04,
+       "m_coat": 2.5
+      },
+      "steps": 2,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 33,
+      "instance_id": "guide_divergence-heldout-000033",
+      "best_level": 4,
+      "best_reward": 1.010163,
+      "best_fom_ratio": 1.040653,
+      "pass_action": {
+       "w_in": 0.04,
+       "w_out": 0.05,
+       "m_coat": 2.5
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 34,
+      "instance_id": "guide_divergence-heldout-000034",
+      "best_level": 4,
+      "best_reward": 1.007673,
+      "best_fom_ratio": 1.030692,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 6,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 35,
+      "instance_id": "guide_divergence-heldout-000035",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 36,
+      "instance_id": "guide_divergence-heldout-000036",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 37,
+      "instance_id": "guide_divergence-heldout-000037",
+      "best_level": 3,
+      "best_reward": 0.871156,
+      "best_fom_ratio": 0.484626,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 38,
+      "instance_id": "guide_divergence-heldout-000038",
+      "best_level": 4,
+      "best_reward": 1.002703,
+      "best_fom_ratio": 1.010813,
+      "pass_action": {
+       "w_in": 0.04,
+       "w_out": 0.05,
+       "m_coat": 2.5
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 39,
+      "instance_id": "guide_divergence-heldout-000039",
+      "best_level": 4,
+      "best_reward": 1.002991,
+      "best_fom_ratio": 1.011964,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 1,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 40,
+      "instance_id": "guide_divergence-heldout-000040",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 41,
+      "instance_id": "guide_divergence-heldout-000041",
+      "best_level": 4,
+      "best_reward": 1.00514,
+      "best_fom_ratio": 1.020558,
+      "pass_action": {
+       "w_in": 0.06,
+       "w_out": 0.05,
+       "m_coat": 2.5
+      },
+      "steps": 4,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 42,
+      "instance_id": "guide_divergence-heldout-000042",
+      "best_level": 4,
+      "best_reward": 1.00098,
+      "best_fom_ratio": 1.003919,
+      "pass_action": {
+       "w_in": 0.07,
+       "w_out": 0.07,
+       "m_coat": 2.5
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 43,
+      "instance_id": "guide_divergence-heldout-000043",
+      "best_level": 4,
+      "best_reward": 1.004521,
+      "best_fom_ratio": 1.018084,
+      "pass_action": {
+       "w_in": 0.03,
+       "w_out": 0.04,
+       "m_coat": 2.5
+      },
+      "steps": 2,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 44,
+      "instance_id": "guide_divergence-heldout-000044",
+      "best_level": 4,
+      "best_reward": 1.002323,
+      "best_fom_ratio": 1.009292,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.06,
+       "m_coat": 2.8
+      },
+      "steps": 6,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 45,
+      "instance_id": "guide_divergence-heldout-000045",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 46,
+      "instance_id": "guide_divergence-heldout-000046",
+      "best_level": 4,
+      "best_reward": 1.010241,
+      "best_fom_ratio": 1.040963,
+      "pass_action": {
+       "w_in": 0.07,
+       "w_out": 0.04,
+       "m_coat": 2.5
+      },
+      "steps": 2,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 47,
+      "instance_id": "guide_divergence-heldout-000047",
+      "best_level": 4,
+      "best_reward": 1.009739,
+      "best_fom_ratio": 1.038956,
+      "pass_action": {
+       "w_in": 0.09,
+       "w_out": 0.03,
+       "m_coat": 3.0
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 48,
+      "instance_id": "guide_divergence-heldout-000048",
+      "best_level": 4,
+      "best_reward": 1.004071,
+      "best_fom_ratio": 1.016285,
+      "pass_action": {
+       "w_in": 0.09,
+       "w_out": 0.03,
+       "m_coat": 3.0
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 49,
+      "instance_id": "guide_divergence-heldout-000049",
+      "best_level": 3,
+      "best_reward": 0.989035,
+      "best_fom_ratio": 0.956138,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 50,
+      "instance_id": "guide_divergence-heldout-000050",
+      "best_level": 4,
+      "best_reward": 1.006419,
+      "best_fom_ratio": 1.025676,
+      "pass_action": {
+       "w_in": 0.07,
+       "w_out": 0.09,
+       "m_coat": 2.5
+      },
+      "steps": 4,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 51,
+      "instance_id": "guide_divergence-heldout-000051",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 52,
+      "instance_id": "guide_divergence-heldout-000052",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 53,
+      "instance_id": "guide_divergence-heldout-000053",
+      "best_level": 3,
+      "best_reward": 0.8529,
+      "best_fom_ratio": 0.411602,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 54,
+      "instance_id": "guide_divergence-heldout-000054",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 55,
+      "instance_id": "guide_divergence-heldout-000055",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 56,
+      "instance_id": "guide_divergence-heldout-000056",
+      "best_level": 3,
+      "best_reward": 0.966885,
+      "best_fom_ratio": 0.86754,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 57,
+      "instance_id": "guide_divergence-heldout-000057",
+      "best_level": 4,
+      "best_reward": 1.006527,
+      "best_fom_ratio": 1.026109,
+      "pass_action": {
+       "w_in": 0.07,
+       "w_out": 0.05,
+       "m_coat": 2.5
+      },
+      "steps": 4,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 58,
+      "instance_id": "guide_divergence-heldout-000058",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 59,
+      "instance_id": "guide_divergence-heldout-000059",
+      "best_level": 3,
+      "best_reward": 0.997219,
+      "best_fom_ratio": 0.988877,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 60,
+      "instance_id": "guide_divergence-heldout-000060",
+      "best_level": 4,
+      "best_reward": 1.005087,
+      "best_fom_ratio": 1.020347,
+      "pass_action": {
+       "w_in": 0.04,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 6,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 61,
+      "instance_id": "guide_divergence-heldout-000061",
+      "best_level": 4,
+      "best_reward": 1.011011,
+      "best_fom_ratio": 1.044046,
+      "pass_action": {
+       "w_in": 0.07,
+       "w_out": 0.08,
+       "m_coat": 2.5
+      },
+      "steps": 6,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 62,
+      "instance_id": "guide_divergence-heldout-000062",
+      "best_level": 4,
+      "best_reward": 1.000315,
+      "best_fom_ratio": 1.00126,
+      "pass_action": {
+       "w_in": 0.09,
+       "w_out": 0.09,
+       "m_coat": 3.0
+      },
+      "steps": 1,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 63,
+      "instance_id": "guide_divergence-heldout-000063",
+      "best_level": 4,
+      "best_reward": 1.015956,
+      "best_fom_ratio": 1.063825,
+      "pass_action": {
+       "w_in": 0.065,
+       "w_out": 0.075,
+       "m_coat": 2.6
+      },
+      "steps": 6,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 64,
+      "instance_id": "guide_divergence-heldout-000064",
+      "best_level": 4,
+      "best_reward": 1.014406,
+      "best_fom_ratio": 1.057623,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.07,
+       "m_coat": 2.5
+      },
+      "steps": 4,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 65,
+      "instance_id": "guide_divergence-heldout-000065",
+      "best_level": 3,
+      "best_reward": 0.982914,
+      "best_fom_ratio": 0.931655,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 66,
+      "instance_id": "guide_divergence-heldout-000066",
+      "best_level": 4,
+      "best_reward": 1.010826,
+      "best_fom_ratio": 1.043302,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.08,
+       "m_coat": 2.9
+      },
+      "steps": 5,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 67,
+      "instance_id": "guide_divergence-heldout-000067",
+      "best_level": 3,
+      "best_reward": 0.990261,
+      "best_fom_ratio": 0.961045,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 68,
+      "instance_id": "guide_divergence-heldout-000068",
+      "best_level": 3,
+      "best_reward": 0.963818,
+      "best_fom_ratio": 0.855271,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 69,
+      "instance_id": "guide_divergence-heldout-000069",
+      "best_level": 4,
+      "best_reward": 1.001799,
+      "best_fom_ratio": 1.007197,
+      "pass_action": {
+       "w_in": 0.07,
+       "w_out": 0.08,
+       "m_coat": 2.8
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 70,
+      "instance_id": "guide_divergence-heldout-000070",
+      "best_level": 4,
+      "best_reward": 1.001407,
+      "best_fom_ratio": 1.005629,
+      "pass_action": {
+       "w_in": 0.04,
+       "w_out": 0.05,
+       "m_coat": 2.5
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 71,
+      "instance_id": "guide_divergence-heldout-000071",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 72,
+      "instance_id": "guide_divergence-heldout-000072",
+      "best_level": 3,
+      "best_reward": 0.996289,
+      "best_fom_ratio": 0.985155,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 73,
+      "instance_id": "guide_divergence-heldout-000073",
+      "best_level": 3,
+      "best_reward": 0.988869,
+      "best_fom_ratio": 0.955476,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 74,
+      "instance_id": "guide_divergence-heldout-000074",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 75,
+      "instance_id": "guide_divergence-heldout-000075",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 76,
+      "instance_id": "guide_divergence-heldout-000076",
+      "best_level": 4,
+      "best_reward": 1.006894,
+      "best_fom_ratio": 1.027575,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.07,
+       "m_coat": 2.5
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 77,
+      "instance_id": "guide_divergence-heldout-000077",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 78,
+      "instance_id": "guide_divergence-heldout-000078",
+      "best_level": 3,
+      "best_reward": 0.995344,
+      "best_fom_ratio": 0.981378,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 79,
+      "instance_id": "guide_divergence-heldout-000079",
+      "best_level": 3,
+      "best_reward": 0.999691,
+      "best_fom_ratio": 0.998764,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 80,
+      "instance_id": "guide_divergence-heldout-000080",
+      "best_level": 3,
+      "best_reward": 0.993611,
+      "best_fom_ratio": 0.974446,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 81,
+      "instance_id": "guide_divergence-heldout-000081",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 82,
+      "instance_id": "guide_divergence-heldout-000082",
+      "best_level": 4,
+      "best_reward": 1.014948,
+      "best_fom_ratio": 1.059794,
+      "pass_action": {
+       "w_in": 0.09,
+       "w_out": 0.03,
+       "m_coat": 3.0
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 83,
+      "instance_id": "guide_divergence-heldout-000083",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 84,
+      "instance_id": "guide_divergence-heldout-000084",
+      "best_level": 4,
+      "best_reward": 1.132313,
+      "best_fom_ratio": 1.529252,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 1,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 85,
+      "instance_id": "guide_divergence-heldout-000085",
+      "best_level": 4,
+      "best_reward": 1.006655,
+      "best_fom_ratio": 1.026619,
+      "pass_action": {
+       "w_in": 0.07,
+       "w_out": 0.05,
+       "m_coat": 2.8
+      },
+      "steps": 4,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 86,
+      "instance_id": "guide_divergence-heldout-000086",
+      "best_level": 3,
+      "best_reward": 0.789728,
+      "best_fom_ratio": 0.158911,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 87,
+      "instance_id": "guide_divergence-heldout-000087",
+      "best_level": 3,
+      "best_reward": 0.99197,
+      "best_fom_ratio": 0.96788,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 88,
+      "instance_id": "guide_divergence-heldout-000088",
+      "best_level": 4,
+      "best_reward": 1.006531,
+      "best_fom_ratio": 1.026123,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 5,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 89,
+      "instance_id": "guide_divergence-heldout-000089",
+      "best_level": 3,
+      "best_reward": 0.907121,
+      "best_fom_ratio": 0.628483,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 90,
+      "instance_id": "guide_divergence-heldout-000090",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 91,
+      "instance_id": "guide_divergence-heldout-000091",
+      "best_level": 3,
+      "best_reward": 0.983668,
+      "best_fom_ratio": 0.934673,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 92,
+      "instance_id": "guide_divergence-heldout-000092",
+      "best_level": 3,
+      "best_reward": 0.998095,
+      "best_fom_ratio": 0.992381,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 93,
+      "instance_id": "guide_divergence-heldout-000093",
+      "best_level": 4,
+      "best_reward": 1.004689,
+      "best_fom_ratio": 1.018755,
+      "pass_action": {
+       "w_in": 0.04,
+       "w_out": 0.04,
+       "m_coat": 2.5
+      },
+      "steps": 5,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 94,
+      "instance_id": "guide_divergence-heldout-000094",
+      "best_level": 4,
+      "best_reward": 1.007751,
+      "best_fom_ratio": 1.031005,
+      "pass_action": {
+       "w_in": 0.04,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 95,
+      "instance_id": "guide_divergence-heldout-000095",
+      "best_level": 4,
+      "best_reward": 1.009752,
+      "best_fom_ratio": 1.039009,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 1,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 96,
+      "instance_id": "guide_divergence-heldout-000096",
+      "best_level": 3,
+      "best_reward": 0.985783,
+      "best_fom_ratio": 0.943134,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 97,
+      "instance_id": "guide_divergence-heldout-000097",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 98,
+      "instance_id": "guide_divergence-heldout-000098",
+      "best_level": 4,
+      "best_reward": 1.003317,
+      "best_fom_ratio": 1.013269,
+      "pass_action": {
+       "w_in": 0.04,
+       "w_out": 0.03,
+       "m_coat": 1.8
+      },
+      "steps": 6,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 99,
+      "instance_id": "guide_divergence-heldout-000099",
+      "best_level": 3,
+      "best_reward": 0.842711,
+      "best_fom_ratio": 0.370844,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     }
+    ]
+   }
+  },
+  "qwen3-32b": {
+   "guide_divergence": {
+    "rows": [
+     {
+      "instance": 0,
+      "instance_id": "guide_divergence-heldout-000000",
+      "best_level": 4,
+      "best_reward": 1.004895,
+      "best_fom_ratio": 1.019579,
+      "pass_action": {
+       "w_in": 0.07,
+       "w_out": 0.02,
+       "m_coat": 2.8
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 1,
+      "instance_id": "guide_divergence-heldout-000001",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 2,
+      "instance_id": "guide_divergence-heldout-000002",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 3,
+      "instance_id": "guide_divergence-heldout-000003",
+      "best_level": 4,
+      "best_reward": 1.000725,
+      "best_fom_ratio": 1.002899,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 2,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 4,
+      "instance_id": "guide_divergence-heldout-000004",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 5,
+      "instance_id": "guide_divergence-heldout-000005",
+      "best_level": 3,
+      "best_reward": 0.894194,
+      "best_fom_ratio": 0.576778,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 6,
+      "instance_id": "guide_divergence-heldout-000006",
+      "best_level": 3,
+      "best_reward": 0.963601,
+      "best_fom_ratio": 0.854405,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 7,
+      "instance_id": "guide_divergence-heldout-000007",
+      "best_level": 3,
+      "best_reward": 0.994756,
+      "best_fom_ratio": 0.979025,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 8,
+      "instance_id": "guide_divergence-heldout-000008",
+      "best_level": 4,
+      "best_reward": 1.005657,
+      "best_fom_ratio": 1.022628,
+      "pass_action": {
+       "w_in": 0.04,
+       "w_out": 0.02,
+       "m_coat": 2.3
+      },
+      "steps": 6,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 9,
+      "instance_id": "guide_divergence-heldout-000009",
+      "best_level": 4,
+      "best_reward": 1.003457,
+      "best_fom_ratio": 1.013827,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.05,
+       "m_coat": 3.0
+      },
+      "steps": 4,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 10,
+      "instance_id": "guide_divergence-heldout-000010",
+      "best_level": 4,
+      "best_reward": 1.011167,
+      "best_fom_ratio": 1.044668,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 1,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 11,
+      "instance_id": "guide_divergence-heldout-000011",
+      "best_level": 3,
+      "best_reward": 0.99602,
+      "best_fom_ratio": 0.98408,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 12,
+      "instance_id": "guide_divergence-heldout-000012",
+      "best_level": 3,
+      "best_reward": 0.852952,
+      "best_fom_ratio": 0.411808,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 13,
+      "instance_id": "guide_divergence-heldout-000013",
+      "best_level": 3,
+      "best_reward": 0.999477,
+      "best_fom_ratio": 0.997908,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 14,
+      "instance_id": "guide_divergence-heldout-000014",
+      "best_level": 4,
+      "best_reward": 1.009299,
+      "best_fom_ratio": 1.037196,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 2,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 15,
+      "instance_id": "guide_divergence-heldout-000015",
+      "best_level": 4,
+      "best_reward": 1.012103,
+      "best_fom_ratio": 1.048411,
+      "pass_action": {
+       "w_in": 0.065,
+       "w_out": 0.03,
+       "m_coat": 2.2
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 16,
+      "instance_id": "guide_divergence-heldout-000016",
+      "best_level": 4,
+      "best_reward": 1.01892,
+      "best_fom_ratio": 1.075682,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 2,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 17,
+      "instance_id": "guide_divergence-heldout-000017",
+      "best_level": 3,
+      "best_reward": 0.835687,
+      "best_fom_ratio": 0.342747,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 18,
+      "instance_id": "guide_divergence-heldout-000018",
+      "best_level": 4,
+      "best_reward": 1.016092,
+      "best_fom_ratio": 1.064368,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 2,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 19,
+      "instance_id": "guide_divergence-heldout-000019",
+      "best_level": 3,
+      "best_reward": 0.985375,
+      "best_fom_ratio": 0.941501,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 20,
+      "instance_id": "guide_divergence-heldout-000020",
+      "best_level": 3,
+      "best_reward": 0.987418,
+      "best_fom_ratio": 0.949672,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 21,
+      "instance_id": "guide_divergence-heldout-000021",
+      "best_level": 4,
+      "best_reward": 1.002991,
+      "best_fom_ratio": 1.011965,
+      "pass_action": {
+       "w_in": 0.04,
+       "w_out": 0.045,
+       "m_coat": 2.3
+      },
+      "steps": 6,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 22,
+      "instance_id": "guide_divergence-heldout-000022",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 23,
+      "instance_id": "guide_divergence-heldout-000023",
+      "best_level": 4,
+      "best_reward": 1.007362,
+      "best_fom_ratio": 1.02945,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 2,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 24,
+      "instance_id": "guide_divergence-heldout-000024",
+      "best_level": 4,
+      "best_reward": 1.002149,
+      "best_fom_ratio": 1.008598,
+      "pass_action": {
+       "w_in": 0.06,
+       "w_out": 0.025,
+       "m_coat": 2.7
+      },
+      "steps": 4,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 25,
+      "instance_id": "guide_divergence-heldout-000025",
+      "best_level": 3,
+      "best_reward": 0.95768,
+      "best_fom_ratio": 0.83072,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 26,
+      "instance_id": "guide_divergence-heldout-000026",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 27,
+      "instance_id": "guide_divergence-heldout-000027",
+      "best_level": 3,
+      "best_reward": 0.986406,
+      "best_fom_ratio": 0.945622,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 28,
+      "instance_id": "guide_divergence-heldout-000028",
+      "best_level": 3,
+      "best_reward": 0.99305,
+      "best_fom_ratio": 0.972201,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 29,
+      "instance_id": "guide_divergence-heldout-000029",
+      "best_level": 4,
+      "best_reward": 1.008474,
+      "best_fom_ratio": 1.033897,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 2,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 30,
+      "instance_id": "guide_divergence-heldout-000030",
+      "best_level": 4,
+      "best_reward": 1.001475,
+      "best_fom_ratio": 1.005902,
+      "pass_action": {
+       "w_in": 0.052,
+       "w_out": 0.033,
+       "m_coat": 2.5
+      },
+      "steps": 6,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 31,
+      "instance_id": "guide_divergence-heldout-000031",
+      "best_level": 4,
+      "best_reward": 1.007284,
+      "best_fom_ratio": 1.029134,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 2,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 32,
+      "instance_id": "guide_divergence-heldout-000032",
+      "best_level": 4,
+      "best_reward": 1.020282,
+      "best_fom_ratio": 1.081127,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 1,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 33,
+      "instance_id": "guide_divergence-heldout-000033",
+      "best_level": 4,
+      "best_reward": 1.036052,
+      "best_fom_ratio": 1.144208,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 2,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 34,
+      "instance_id": "guide_divergence-heldout-000034",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 35,
+      "instance_id": "guide_divergence-heldout-000035",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 36,
+      "instance_id": "guide_divergence-heldout-000036",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 37,
+      "instance_id": "guide_divergence-heldout-000037",
+      "best_level": 3,
+      "best_reward": 0.81871,
+      "best_fom_ratio": 0.27484,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 38,
+      "instance_id": "guide_divergence-heldout-000038",
+      "best_level": 3,
+      "best_reward": 0.995626,
+      "best_fom_ratio": 0.982505,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 39,
+      "instance_id": "guide_divergence-heldout-000039",
+      "best_level": 4,
+      "best_reward": 1.002991,
+      "best_fom_ratio": 1.011964,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 2,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 40,
+      "instance_id": "guide_divergence-heldout-000040",
+      "best_level": 3,
+      "best_reward": 0.809043,
+      "best_fom_ratio": 0.236172,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 41,
+      "instance_id": "guide_divergence-heldout-000041",
+      "best_level": 4,
+      "best_reward": 1.011776,
+      "best_fom_ratio": 1.047104,
+      "pass_action": {
+       "w_in": 0.06,
+       "w_out": 0.03,
+       "m_coat": 2.2
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 42,
+      "instance_id": "guide_divergence-heldout-000042",
+      "best_level": 4,
+      "best_reward": 1.001621,
+      "best_fom_ratio": 1.006483,
+      "pass_action": {
+       "w_in": 0.07,
+       "w_out": 0.025,
+       "m_coat": 2.5
+      },
+      "steps": 2,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 43,
+      "instance_id": "guide_divergence-heldout-000043",
+      "best_level": 3,
+      "best_reward": 0.939483,
+      "best_fom_ratio": 0.757933,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 44,
+      "instance_id": "guide_divergence-heldout-000044",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 45,
+      "instance_id": "guide_divergence-heldout-000045",
+      "best_level": 3,
+      "best_reward": 0.990895,
+      "best_fom_ratio": 0.963579,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 46,
+      "instance_id": "guide_divergence-heldout-000046",
+      "best_level": 3,
+      "best_reward": 0.995114,
+      "best_fom_ratio": 0.980455,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 47,
+      "instance_id": "guide_divergence-heldout-000047",
+      "best_level": 3,
+      "best_reward": 0.999826,
+      "best_fom_ratio": 0.999306,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 48,
+      "instance_id": "guide_divergence-heldout-000048",
+      "best_level": 4,
+      "best_reward": 1.006798,
+      "best_fom_ratio": 1.027191,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 1,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 49,
+      "instance_id": "guide_divergence-heldout-000049",
+      "best_level": 3,
+      "best_reward": 0.918972,
+      "best_fom_ratio": 0.67589,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 50,
+      "instance_id": "guide_divergence-heldout-000050",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 51,
+      "instance_id": "guide_divergence-heldout-000051",
+      "best_level": 3,
+      "best_reward": 0.996159,
+      "best_fom_ratio": 0.984635,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 52,
+      "instance_id": "guide_divergence-heldout-000052",
+      "best_level": 4,
+      "best_reward": 1.00322,
+      "best_fom_ratio": 1.01288,
+      "pass_action": {
+       "w_in": 0.06,
+       "w_out": 0.025,
+       "m_coat": 2.8
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 53,
+      "instance_id": "guide_divergence-heldout-000053",
+      "best_level": 3,
+      "best_reward": 0.830136,
+      "best_fom_ratio": 0.320542,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 54,
+      "instance_id": "guide_divergence-heldout-000054",
+      "best_level": 3,
+      "best_reward": 0.855021,
+      "best_fom_ratio": 0.420083,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 55,
+      "instance_id": "guide_divergence-heldout-000055",
+      "best_level": 4,
+      "best_reward": 1.000102,
+      "best_fom_ratio": 1.000408,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.035,
+       "m_coat": 2.0
+      },
+      "steps": 4,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 56,
+      "instance_id": "guide_divergence-heldout-000056",
+      "best_level": 3,
+      "best_reward": 0.881397,
+      "best_fom_ratio": 0.525587,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 57,
+      "instance_id": "guide_divergence-heldout-000057",
+      "best_level": 4,
+      "best_reward": 1.011083,
+      "best_fom_ratio": 1.044332,
+      "pass_action": {
+       "w_in": 0.07,
+       "w_out": 0.035,
+       "m_coat": 2.7
+      },
+      "steps": 4,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 58,
+      "instance_id": "guide_divergence-heldout-000058",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 59,
+      "instance_id": "guide_divergence-heldout-000059",
+      "best_level": 4,
+      "best_reward": 1.006049,
+      "best_fom_ratio": 1.024197,
+      "pass_action": {
+       "w_in": 0.06,
+       "w_out": 0.02,
+       "m_coat": 2.8
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 60,
+      "instance_id": "guide_divergence-heldout-000060",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 61,
+      "instance_id": "guide_divergence-heldout-000061",
+      "best_level": 4,
+      "best_reward": 1.018504,
+      "best_fom_ratio": 1.074015,
+      "pass_action": {
+       "w_in": 0.065,
+       "w_out": 0.03,
+       "m_coat": 2.2
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 62,
+      "instance_id": "guide_divergence-heldout-000062",
+      "best_level": 3,
+      "best_reward": 0.995148,
+      "best_fom_ratio": 0.98059,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 63,
+      "instance_id": "guide_divergence-heldout-000063",
+      "best_level": 4,
+      "best_reward": 1.004191,
+      "best_fom_ratio": 1.016764,
+      "pass_action": {
+       "w_in": 0.055,
+       "w_out": 0.04,
+       "m_coat": 2.1
+      },
+      "steps": 5,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 64,
+      "instance_id": "guide_divergence-heldout-000064",
+      "best_level": 4,
+      "best_reward": 1.000402,
+      "best_fom_ratio": 1.001608,
+      "pass_action": {
+       "w_in": 0.055,
+       "w_out": 0.03,
+       "m_coat": 2.7
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 65,
+      "instance_id": "guide_divergence-heldout-000065",
+      "best_level": 4,
+      "best_reward": 1.000364,
+      "best_fom_ratio": 1.001458,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 1,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 66,
+      "instance_id": "guide_divergence-heldout-000066",
+      "best_level": 4,
+      "best_reward": 1.02342,
+      "best_fom_ratio": 1.09368,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.05,
+       "m_coat": 2.5
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 67,
+      "instance_id": "guide_divergence-heldout-000067",
+      "best_level": 4,
+      "best_reward": 1.00258,
+      "best_fom_ratio": 1.010319,
+      "pass_action": {
+       "w_in": 0.06,
+       "w_out": 0.02,
+       "m_coat": 2.8
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 68,
+      "instance_id": "guide_divergence-heldout-000068",
+      "best_level": 4,
+      "best_reward": 1.00515,
+      "best_fom_ratio": 1.020599,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 1,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 69,
+      "instance_id": "guide_divergence-heldout-000069",
+      "best_level": 4,
+      "best_reward": 1.017632,
+      "best_fom_ratio": 1.070526,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 2,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 70,
+      "instance_id": "guide_divergence-heldout-000070",
+      "best_level": 3,
+      "best_reward": 0.956405,
+      "best_fom_ratio": 0.825619,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 71,
+      "instance_id": "guide_divergence-heldout-000071",
+      "best_level": 4,
+      "best_reward": 1.015031,
+      "best_fom_ratio": 1.060122,
+      "pass_action": {
+       "w_in": 0.04,
+       "w_out": 0.02,
+       "m_coat": 2.0
+      },
+      "steps": 6,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 72,
+      "instance_id": "guide_divergence-heldout-000072",
+      "best_level": 3,
+      "best_reward": 0.998531,
+      "best_fom_ratio": 0.994124,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 73,
+      "instance_id": "guide_divergence-heldout-000073",
+      "best_level": 3,
+      "best_reward": 0.860294,
+      "best_fom_ratio": 0.441174,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 74,
+      "instance_id": "guide_divergence-heldout-000074",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 75,
+      "instance_id": "guide_divergence-heldout-000075",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 76,
+      "instance_id": "guide_divergence-heldout-000076",
+      "best_level": 4,
+      "best_reward": 1.000574,
+      "best_fom_ratio": 1.002298,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 1,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 77,
+      "instance_id": "guide_divergence-heldout-000077",
+      "best_level": 4,
+      "best_reward": 1.005663,
+      "best_fom_ratio": 1.022651,
+      "pass_action": {
+       "w_in": 0.055,
+       "w_out": 0.032,
+       "m_coat": 2.3
+      },
+      "steps": 4,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 78,
+      "instance_id": "guide_divergence-heldout-000078",
+      "best_level": 3,
+      "best_reward": 0.999718,
+      "best_fom_ratio": 0.998871,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 79,
+      "instance_id": "guide_divergence-heldout-000079",
+      "best_level": 3,
+      "best_reward": 0.830831,
+      "best_fom_ratio": 0.323322,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 80,
+      "instance_id": "guide_divergence-heldout-000080",
+      "best_level": 4,
+      "best_reward": 1.000717,
+      "best_fom_ratio": 1.00287,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 2,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 81,
+      "instance_id": "guide_divergence-heldout-000081",
+      "best_level": 3,
+      "best_reward": 0.975831,
+      "best_fom_ratio": 0.903323,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 82,
+      "instance_id": "guide_divergence-heldout-000082",
+      "best_level": 4,
+      "best_reward": 1.001568,
+      "best_fom_ratio": 1.006273,
+      "pass_action": {
+       "w_in": 0.055,
+       "w_out": 0.028,
+       "m_coat": 2.7
+      },
+      "steps": 4,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 83,
+      "instance_id": "guide_divergence-heldout-000083",
+      "best_level": 4,
+      "best_reward": 1.00523,
+      "best_fom_ratio": 1.020919,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 2,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 84,
+      "instance_id": "guide_divergence-heldout-000084",
+      "best_level": 4,
+      "best_reward": 1.104503,
+      "best_fom_ratio": 1.418014,
+      "pass_action": {
+       "w_in": 0.06,
+       "w_out": 0.03,
+       "m_coat": 2.2
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 85,
+      "instance_id": "guide_divergence-heldout-000085",
+      "best_level": 4,
+      "best_reward": 1.006003,
+      "best_fom_ratio": 1.024013,
+      "pass_action": {
+       "w_in": 0.055,
+       "w_out": 0.038,
+       "m_coat": 2.7
+      },
+      "steps": 6,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 86,
+      "instance_id": "guide_divergence-heldout-000086",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 87,
+      "instance_id": "guide_divergence-heldout-000087",
+      "best_level": 3,
+      "best_reward": 0.95483,
+      "best_fom_ratio": 0.819318,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 88,
+      "instance_id": "guide_divergence-heldout-000088",
+      "best_level": 4,
+      "best_reward": 1.005039,
+      "best_fom_ratio": 1.020157,
+      "pass_action": {
+       "w_in": 0.055,
+       "w_out": 0.032,
+       "m_coat": 2.3
+      },
+      "steps": 4,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 89,
+      "instance_id": "guide_divergence-heldout-000089",
+      "best_level": 3,
+      "best_reward": 0.983798,
+      "best_fom_ratio": 0.93519,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 90,
+      "instance_id": "guide_divergence-heldout-000090",
+      "best_level": 3,
+      "best_reward": 0.98291,
+      "best_fom_ratio": 0.931641,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 91,
+      "instance_id": "guide_divergence-heldout-000091",
+      "best_level": 4,
+      "best_reward": 1.007102,
+      "best_fom_ratio": 1.028406,
+      "pass_action": {
+       "w_in": 0.06,
+       "w_out": 0.025,
+       "m_coat": 2.8
+      },
+      "steps": 2,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 92,
+      "instance_id": "guide_divergence-heldout-000092",
+      "best_level": 4,
+      "best_reward": 1.007567,
+      "best_fom_ratio": 1.030268,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 1,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 93,
+      "instance_id": "guide_divergence-heldout-000093",
+      "best_level": 3,
+      "best_reward": 0.979805,
+      "best_fom_ratio": 0.919218,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 94,
+      "instance_id": "guide_divergence-heldout-000094",
+      "best_level": 4,
+      "best_reward": 1.010246,
+      "best_fom_ratio": 1.040983,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 2,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 95,
+      "instance_id": "guide_divergence-heldout-000095",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 96,
+      "instance_id": "guide_divergence-heldout-000096",
+      "best_level": 3,
+      "best_reward": 0.982295,
+      "best_fom_ratio": 0.929181,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 97,
+      "instance_id": "guide_divergence-heldout-000097",
+      "best_level": 4,
+      "best_reward": 1.017938,
+      "best_fom_ratio": 1.071752,
+      "pass_action": {
+       "w_in": 0.05,
+       "w_out": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 2,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 98,
+      "instance_id": "guide_divergence-heldout-000098",
+      "best_level": 4,
+      "best_reward": 1.009229,
+      "best_fom_ratio": 1.036918,
+      "pass_action": {
+       "w_in": 0.06,
+       "w_out": 0.03,
+       "m_coat": 2.2
+      },
+      "steps": 3,
+      "leak": null,
+      "clean_pass": true
+     },
+     {
+      "instance": 99,
+      "instance_id": "guide_divergence-heldout-000099",
+      "best_level": 3,
+      "best_reward": 0.99793,
+      "best_fom_ratio": 0.991718,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     }
+    ]
+   }
+  }
+ },
+ "summary": {
+  "qwen3-8b": {
+   "n_valid": 100,
+   "passes": 40,
+   "leaking_passes": 0,
+   "clean_passes": 40,
+   "pass_rate": 0.4,
+   "clean_pass_rate": 0.4
+  },
+  "qwen3-32b": {
+   "n_valid": 100,
+   "passes": 47,
+   "leaking_passes": 0,
+   "clean_passes": 47,
+   "pass_rate": 0.47,
+   "clean_pass_rate": 0.47
+  }
+ },
+ "paired_raw": {
+  "only_qwen3-8b": 17,
+  "only_qwen3-32b": 24,
+  "mcnemar_p": 0.348889,
+  "agreement": 0.59,
+  "ordering_supported": false,
+  "balanced": false,
+  "leader": "qwen3-32b"
+ },
+ "paired_clean": {
+  "only_qwen3-8b": 17,
+  "only_qwen3-32b": 24,
+  "mcnemar_p": 0.348889,
+  "agreement": 0.59,
+  "ordering_supported": false,
+  "balanced": false,
+  "leader": "qwen3-32b"
+ }
+}

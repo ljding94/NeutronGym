@@ -1,0 +1,897 @@
+{
+ "n_per_family": 15,
+ "families": [
+  "guide_divergence",
+  "sans_collimation"
+ ],
+ "heldout": {
+  "qwen3-8b": {
+   "guide_divergence": {
+    "model": "qwen3-8b",
+    "family": "guide_divergence",
+    "split": "heldout",
+    "n": 15,
+    "n_valid": 15,
+    "errors": 0,
+    "level_histogram": {
+     "0": 0,
+     "1": 0,
+     "2": 0,
+     "3": 6,
+     "4": 9
+    },
+    "pass_rate": 0.6,
+    "mean_best_reward": 1.059,
+    "wall_s": 34.2,
+    "rows": [
+     {
+      "instance": 0,
+      "instance_id": "guide_divergence-heldout-000000",
+      "best_level": 3,
+      "best_reward": 0.938535,
+      "best_fom_ratio": 0.754138,
+      "steps": 6
+     },
+     {
+      "instance": 1,
+      "instance_id": "guide_divergence-heldout-000001",
+      "best_level": 4,
+      "best_reward": 1.042036,
+      "best_fom_ratio": 1.168142,
+      "steps": 2
+     },
+     {
+      "instance": 2,
+      "instance_id": "guide_divergence-heldout-000002",
+      "best_level": 4,
+      "best_reward": 1.126013,
+      "best_fom_ratio": 1.504051,
+      "steps": 2
+     },
+     {
+      "instance": 3,
+      "instance_id": "guide_divergence-heldout-000003",
+      "best_level": 3,
+      "best_reward": 0.880291,
+      "best_fom_ratio": 0.521165,
+      "steps": 6
+     },
+     {
+      "instance": 4,
+      "instance_id": "guide_divergence-heldout-000004",
+      "best_level": 4,
+      "best_reward": 1.102013,
+      "best_fom_ratio": 1.408052,
+      "steps": 2
+     },
+     {
+      "instance": 5,
+      "instance_id": "guide_divergence-heldout-000005",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.321055,
+      "steps": 4
+     },
+     {
+      "instance": 6,
+      "instance_id": "guide_divergence-heldout-000006",
+      "best_level": 3,
+      "best_reward": 0.919936,
+      "best_fom_ratio": 0.679745,
+      "steps": 6
+     },
+     {
+      "instance": 7,
+      "instance_id": "guide_divergence-heldout-000007",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.675603,
+      "steps": 2
+     },
+     {
+      "instance": 8,
+      "instance_id": "guide_divergence-heldout-000008",
+      "best_level": 3,
+      "best_reward": 0.919678,
+      "best_fom_ratio": 0.678713,
+      "steps": 6
+     },
+     {
+      "instance": 9,
+      "instance_id": "guide_divergence-heldout-000009",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.251203,
+      "steps": 2
+     },
+     {
+      "instance": 10,
+      "instance_id": "guide_divergence-heldout-000010",
+      "best_level": 3,
+      "best_reward": 0.92219,
+      "best_fom_ratio": 0.688759,
+      "steps": 6
+     },
+     {
+      "instance": 11,
+      "instance_id": "guide_divergence-heldout-000011",
+      "best_level": 4,
+      "best_reward": 1.230397,
+      "best_fom_ratio": 1.921589,
+      "steps": 2
+     },
+     {
+      "instance": 12,
+      "instance_id": "guide_divergence-heldout-000012",
+      "best_level": 4,
+      "best_reward": 1.164707,
+      "best_fom_ratio": 1.658829,
+      "steps": 2
+     },
+     {
+      "instance": 13,
+      "instance_id": "guide_divergence-heldout-000013",
+      "best_level": 4,
+      "best_reward": 1.01178,
+      "best_fom_ratio": 1.047118,
+      "steps": 2
+     },
+     {
+      "instance": 14,
+      "instance_id": "guide_divergence-heldout-000014",
+      "best_level": 3,
+      "best_reward": 0.87787,
+      "best_fom_ratio": 0.511479,
+      "steps": 6
+     }
+    ]
+   },
+   "sans_collimation": {
+    "model": "qwen3-8b",
+    "family": "sans_collimation",
+    "split": "heldout",
+    "n": 15,
+    "n_valid": 15,
+    "errors": 0,
+    "level_histogram": {
+     "0": 0,
+     "1": 0,
+     "2": 0,
+     "3": 0,
+     "4": 15
+    },
+    "pass_rate": 1.0,
+    "mean_best_reward": 1.0645,
+    "wall_s": 15.2,
+    "rows": [
+     {
+      "instance": 0,
+      "instance_id": "sans_collimation-heldout-000000",
+      "best_level": 4,
+      "best_reward": 1.074344,
+      "best_fom_ratio": 1.297377,
+      "steps": 2
+     },
+     {
+      "instance": 1,
+      "instance_id": "sans_collimation-heldout-000001",
+      "best_level": 4,
+      "best_reward": 1.050296,
+      "best_fom_ratio": 1.201184,
+      "steps": 2
+     },
+     {
+      "instance": 2,
+      "instance_id": "sans_collimation-heldout-000002",
+      "best_level": 4,
+      "best_reward": 1.075387,
+      "best_fom_ratio": 1.301548,
+      "steps": 2
+     },
+     {
+      "instance": 3,
+      "instance_id": "sans_collimation-heldout-000003",
+      "best_level": 4,
+      "best_reward": 1.068467,
+      "best_fom_ratio": 1.273867,
+      "steps": 2
+     },
+     {
+      "instance": 4,
+      "instance_id": "sans_collimation-heldout-000004",
+      "best_level": 4,
+      "best_reward": 1.074465,
+      "best_fom_ratio": 1.297862,
+      "steps": 2
+     },
+     {
+      "instance": 5,
+      "instance_id": "sans_collimation-heldout-000005",
+      "best_level": 4,
+      "best_reward": 1.058677,
+      "best_fom_ratio": 1.234709,
+      "steps": 2
+     },
+     {
+      "instance": 6,
+      "instance_id": "sans_collimation-heldout-000006",
+      "best_level": 4,
+      "best_reward": 1.063887,
+      "best_fom_ratio": 1.255549,
+      "steps": 2
+     },
+     {
+      "instance": 7,
+      "instance_id": "sans_collimation-heldout-000007",
+      "best_level": 4,
+      "best_reward": 1.053083,
+      "best_fom_ratio": 1.212333,
+      "steps": 2
+     },
+     {
+      "instance": 8,
+      "instance_id": "sans_collimation-heldout-000008",
+      "best_level": 4,
+      "best_reward": 1.069132,
+      "best_fom_ratio": 1.276527,
+      "steps": 2
+     },
+     {
+      "instance": 9,
+      "instance_id": "sans_collimation-heldout-000009",
+      "best_level": 4,
+      "best_reward": 1.060131,
+      "best_fom_ratio": 1.240523,
+      "steps": 2
+     },
+     {
+      "instance": 10,
+      "instance_id": "sans_collimation-heldout-000010",
+      "best_level": 4,
+      "best_reward": 1.049963,
+      "best_fom_ratio": 1.199853,
+      "steps": 2
+     },
+     {
+      "instance": 11,
+      "instance_id": "sans_collimation-heldout-000011",
+      "best_level": 4,
+      "best_reward": 1.067537,
+      "best_fom_ratio": 1.270148,
+      "steps": 2
+     },
+     {
+      "instance": 12,
+      "instance_id": "sans_collimation-heldout-000012",
+      "best_level": 4,
+      "best_reward": 1.072211,
+      "best_fom_ratio": 1.288842,
+      "steps": 2
+     },
+     {
+      "instance": 13,
+      "instance_id": "sans_collimation-heldout-000013",
+      "best_level": 4,
+      "best_reward": 1.070225,
+      "best_fom_ratio": 1.280902,
+      "steps": 2
+     },
+     {
+      "instance": 14,
+      "instance_id": "sans_collimation-heldout-000014",
+      "best_level": 4,
+      "best_reward": 1.059295,
+      "best_fom_ratio": 1.237179,
+      "steps": 2
+     }
+    ]
+   },
+   "_all": {
+    "level_histogram": {
+     "0": 0,
+     "1": 0,
+     "2": 0,
+     "3": 6,
+     "4": 24
+    },
+    "n_valid": 30,
+    "passes": 24,
+    "pass_rate": 0.8
+   }
+  },
+  "qwen3-32b": {
+   "guide_divergence": {
+    "model": "qwen3-32b",
+    "family": "guide_divergence",
+    "split": "heldout",
+    "n": 15,
+    "n_valid": 15,
+    "errors": 0,
+    "level_histogram": {
+     "0": 0,
+     "1": 0,
+     "2": 2,
+     "3": 0,
+     "4": 13
+    },
+    "pass_rate": 0.8667,
+    "mean_best_reward": 1.0993,
+    "wall_s": 26.0,
+    "rows": [
+     {
+      "instance": 0,
+      "instance_id": "guide_divergence-heldout-000000",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.078093,
+      "steps": 3
+     },
+     {
+      "instance": 1,
+      "instance_id": "guide_divergence-heldout-000001",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.113644,
+      "steps": 3
+     },
+     {
+      "instance": 2,
+      "instance_id": "guide_divergence-heldout-000002",
+      "best_level": 4,
+      "best_reward": 1.153699,
+      "best_fom_ratio": 1.614797,
+      "steps": 2
+     },
+     {
+      "instance": 3,
+      "instance_id": "guide_divergence-heldout-000003",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 4.824234,
+      "steps": 3
+     },
+     {
+      "instance": 4,
+      "instance_id": "guide_divergence-heldout-000004",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "steps": 6
+     },
+     {
+      "instance": 5,
+      "instance_id": "guide_divergence-heldout-000005",
+      "best_level": 4,
+      "best_reward": 1.148191,
+      "best_fom_ratio": 1.592765,
+      "steps": 1
+     },
+     {
+      "instance": 6,
+      "instance_id": "guide_divergence-heldout-000006",
+      "best_level": 4,
+      "best_reward": 1.151263,
+      "best_fom_ratio": 1.605054,
+      "steps": 1
+     },
+     {
+      "instance": 7,
+      "instance_id": "guide_divergence-heldout-000007",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.557729,
+      "steps": 1
+     },
+     {
+      "instance": 8,
+      "instance_id": "guide_divergence-heldout-000008",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "steps": 6
+     },
+     {
+      "instance": 9,
+      "instance_id": "guide_divergence-heldout-000009",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.652511,
+      "steps": 2
+     },
+     {
+      "instance": 10,
+      "instance_id": "guide_divergence-heldout-000010",
+      "best_level": 4,
+      "best_reward": 1.149099,
+      "best_fom_ratio": 1.596398,
+      "steps": 1
+     },
+     {
+      "instance": 11,
+      "instance_id": "guide_divergence-heldout-000011",
+      "best_level": 4,
+      "best_reward": 1.147427,
+      "best_fom_ratio": 1.589707,
+      "steps": 1
+     },
+     {
+      "instance": 12,
+      "instance_id": "guide_divergence-heldout-000012",
+      "best_level": 4,
+      "best_reward": 1.14669,
+      "best_fom_ratio": 1.586759,
+      "steps": 1
+     },
+     {
+      "instance": 13,
+      "instance_id": "guide_divergence-heldout-000013",
+      "best_level": 4,
+      "best_reward": 1.169749,
+      "best_fom_ratio": 1.678995,
+      "steps": 1
+     },
+     {
+      "instance": 14,
+      "instance_id": "guide_divergence-heldout-000014",
+      "best_level": 4,
+      "best_reward": 1.173312,
+      "best_fom_ratio": 1.693249,
+      "steps": 1
+     }
+    ]
+   },
+   "sans_collimation": {
+    "model": "qwen3-32b",
+    "family": "sans_collimation",
+    "split": "heldout",
+    "n": 15,
+    "n_valid": 15,
+    "errors": 0,
+    "level_histogram": {
+     "0": 0,
+     "1": 0,
+     "2": 0,
+     "3": 0,
+     "4": 15
+    },
+    "pass_rate": 1.0,
+    "mean_best_reward": 1.1358,
+    "wall_s": 27.0,
+    "rows": [
+     {
+      "instance": 0,
+      "instance_id": "sans_collimation-heldout-000000",
+      "best_level": 4,
+      "best_reward": 1.109677,
+      "best_fom_ratio": 1.438709,
+      "steps": 3
+     },
+     {
+      "instance": 1,
+      "instance_id": "sans_collimation-heldout-000001",
+      "best_level": 4,
+      "best_reward": 1.112584,
+      "best_fom_ratio": 1.450336,
+      "steps": 3
+     },
+     {
+      "instance": 2,
+      "instance_id": "sans_collimation-heldout-000002",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 23.292972,
+      "steps": 3
+     },
+     {
+      "instance": 3,
+      "instance_id": "sans_collimation-heldout-000003",
+      "best_level": 4,
+      "best_reward": 1.116066,
+      "best_fom_ratio": 1.464262,
+      "steps": 3
+     },
+     {
+      "instance": 4,
+      "instance_id": "sans_collimation-heldout-000004",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 6314.852143,
+      "steps": 1
+     },
+     {
+      "instance": 5,
+      "instance_id": "sans_collimation-heldout-000005",
+      "best_level": 4,
+      "best_reward": 1.097901,
+      "best_fom_ratio": 1.391604,
+      "steps": 3
+     },
+     {
+      "instance": 6,
+      "instance_id": "sans_collimation-heldout-000006",
+      "best_level": 4,
+      "best_reward": 1.111574,
+      "best_fom_ratio": 1.446298,
+      "steps": 3
+     },
+     {
+      "instance": 7,
+      "instance_id": "sans_collimation-heldout-000007",
+      "best_level": 4,
+      "best_reward": 1.140416,
+      "best_fom_ratio": 1.561662,
+      "steps": 2
+     },
+     {
+      "instance": 8,
+      "instance_id": "sans_collimation-heldout-000008",
+      "best_level": 4,
+      "best_reward": 1.091823,
+      "best_fom_ratio": 1.367293,
+      "steps": 5
+     },
+     {
+      "instance": 9,
+      "instance_id": "sans_collimation-heldout-000009",
+      "best_level": 4,
+      "best_reward": 1.099589,
+      "best_fom_ratio": 1.398355,
+      "steps": 3
+     },
+     {
+      "instance": 10,
+      "instance_id": "sans_collimation-heldout-000010",
+      "best_level": 4,
+      "best_reward": 1.110468,
+      "best_fom_ratio": 1.441872,
+      "steps": 4
+     },
+     {
+      "instance": 11,
+      "instance_id": "sans_collimation-heldout-000011",
+      "best_level": 4,
+      "best_reward": 1.049314,
+      "best_fom_ratio": 1.197256,
+      "steps": 4
+     },
+     {
+      "instance": 12,
+      "instance_id": "sans_collimation-heldout-000012",
+      "best_level": 4,
+      "best_reward": 1.12839,
+      "best_fom_ratio": 1.513561,
+      "steps": 3
+     },
+     {
+      "instance": 13,
+      "instance_id": "sans_collimation-heldout-000013",
+      "best_level": 4,
+      "best_reward": 1.118566,
+      "best_fom_ratio": 1.474264,
+      "steps": 3
+     },
+     {
+      "instance": 14,
+      "instance_id": "sans_collimation-heldout-000014",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.971872,
+      "steps": 2
+     }
+    ]
+   },
+   "_all": {
+    "level_histogram": {
+     "0": 0,
+     "1": 0,
+     "2": 2,
+     "3": 0,
+     "4": 28
+    },
+    "n_valid": 30,
+    "passes": 28,
+    "pass_rate": 0.9333
+   }
+  }
+ },
+ "train_keeprate": {
+  "guide_divergence": {
+   "keep": 9,
+   "n": 15,
+   "rate": 0.6,
+   "detail": {
+    "model": "qwen3-8b",
+    "family": "guide_divergence",
+    "split": "train",
+    "n": 15,
+    "n_valid": 15,
+    "errors": 0,
+    "level_histogram": {
+     "0": 0,
+     "1": 0,
+     "2": 0,
+     "3": 6,
+     "4": 9
+    },
+    "pass_rate": 0.6,
+    "mean_best_reward": 1.1151,
+    "wall_s": 33.1,
+    "rows": [
+     {
+      "instance": 0,
+      "instance_id": "guide_divergence-train-000000",
+      "best_level": 4,
+      "best_reward": 1.24545,
+      "best_fom_ratio": 1.981802,
+      "steps": 2
+     },
+     {
+      "instance": 1,
+      "instance_id": "guide_divergence-train-000001",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.375971,
+      "steps": 1
+     },
+     {
+      "instance": 2,
+      "instance_id": "guide_divergence-train-000002",
+      "best_level": 3,
+      "best_reward": 0.92149,
+      "best_fom_ratio": 0.685959,
+      "steps": 6
+     },
+     {
+      "instance": 3,
+      "instance_id": "guide_divergence-train-000003",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 6.05245,
+      "steps": 5
+     },
+     {
+      "instance": 4,
+      "instance_id": "guide_divergence-train-000004",
+      "best_level": 3,
+      "best_reward": 0.994828,
+      "best_fom_ratio": 0.979312,
+      "steps": 6
+     },
+     {
+      "instance": 5,
+      "instance_id": "guide_divergence-train-000005",
+      "best_level": 3,
+      "best_reward": 0.826828,
+      "best_fom_ratio": 0.307313,
+      "steps": 6
+     },
+     {
+      "instance": 6,
+      "instance_id": "guide_divergence-train-000006",
+      "best_level": 3,
+      "best_reward": 0.933774,
+      "best_fom_ratio": 0.735096,
+      "steps": 6
+     },
+     {
+      "instance": 7,
+      "instance_id": "guide_divergence-train-000007",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 5.003825,
+      "steps": 1
+     },
+     {
+      "instance": 8,
+      "instance_id": "guide_divergence-train-000008",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.627662,
+      "steps": 2
+     },
+     {
+      "instance": 9,
+      "instance_id": "guide_divergence-train-000009",
+      "best_level": 3,
+      "best_reward": 0.921895,
+      "best_fom_ratio": 0.68758,
+      "steps": 6
+     },
+     {
+      "instance": 10,
+      "instance_id": "guide_divergence-train-000010",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 4.567386,
+      "steps": 2
+     },
+     {
+      "instance": 11,
+      "instance_id": "guide_divergence-train-000011",
+      "best_level": 3,
+      "best_reward": 0.9215,
+      "best_fom_ratio": 0.685999,
+      "steps": 6
+     },
+     {
+      "instance": 12,
+      "instance_id": "guide_divergence-train-000012",
+      "best_level": 4,
+      "best_reward": 1.211408,
+      "best_fom_ratio": 1.84563,
+      "steps": 2
+     },
+     {
+      "instance": 13,
+      "instance_id": "guide_divergence-train-000013",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 4.502222,
+      "steps": 1
+     },
+     {
+      "instance": 14,
+      "instance_id": "guide_divergence-train-000014",
+      "best_level": 4,
+      "best_reward": 1.248711,
+      "best_fom_ratio": 1.994843,
+      "steps": 2
+     }
+    ]
+   }
+  },
+  "sans_collimation": {
+   "keep": 15,
+   "n": 15,
+   "rate": 1.0,
+   "detail": {
+    "model": "qwen3-8b",
+    "family": "sans_collimation",
+    "split": "train",
+    "n": 15,
+    "n_valid": 15,
+    "errors": 0,
+    "level_histogram": {
+     "0": 0,
+     "1": 0,
+     "2": 0,
+     "3": 2,
+     "4": 13
+    },
+    "pass_rate": 0.8667,
+    "mean_best_reward": 1.0949,
+    "wall_s": 21.0,
+    "rows": [
+     {
+      "instance": 0,
+      "instance_id": "sans_collimation-train-000000",
+      "best_level": 3,
+      "best_reward": 1.0,
+      "best_fom_ratio": 1.0,
+      "steps": 6
+     },
+     {
+      "instance": 1,
+      "instance_id": "sans_collimation-train-000001",
+      "best_level": 4,
+      "best_reward": 1.07442,
+      "best_fom_ratio": 1.29768,
+      "steps": 2
+     },
+     {
+      "instance": 2,
+      "instance_id": "sans_collimation-train-000002",
+      "best_level": 4,
+      "best_reward": 1.067397,
+      "best_fom_ratio": 1.26959,
+      "steps": 2
+     },
+     {
+      "instance": 3,
+      "instance_id": "sans_collimation-train-000003",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 11.438673,
+      "steps": 3
+     },
+     {
+      "instance": 4,
+      "instance_id": "sans_collimation-train-000004",
+      "best_level": 3,
+      "best_reward": 1.0,
+      "best_fom_ratio": 1.0,
+      "steps": 6
+     },
+     {
+      "instance": 5,
+      "instance_id": "sans_collimation-train-000005",
+      "best_level": 4,
+      "best_reward": 1.068337,
+      "best_fom_ratio": 1.273348,
+      "steps": 2
+     },
+     {
+      "instance": 6,
+      "instance_id": "sans_collimation-train-000006",
+      "best_level": 4,
+      "best_reward": 1.069124,
+      "best_fom_ratio": 1.276496,
+      "steps": 2
+     },
+     {
+      "instance": 7,
+      "instance_id": "sans_collimation-train-000007",
+      "best_level": 4,
+      "best_reward": 1.069159,
+      "best_fom_ratio": 1.276635,
+      "steps": 2
+     },
+     {
+      "instance": 8,
+      "instance_id": "sans_collimation-train-000008",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.145664,
+      "steps": 2
+     },
+     {
+      "instance": 9,
+      "instance_id": "sans_collimation-train-000009",
+      "best_level": 4,
+      "best_reward": 1.066648,
+      "best_fom_ratio": 1.266591,
+      "steps": 2
+     },
+     {
+      "instance": 10,
+      "instance_id": "sans_collimation-train-000010",
+      "best_level": 4,
+      "best_reward": 1.050939,
+      "best_fom_ratio": 1.203754,
+      "steps": 5
+     },
+     {
+      "instance": 11,
+      "instance_id": "sans_collimation-train-000011",
+      "best_level": 4,
+      "best_reward": 1.069772,
+      "best_fom_ratio": 1.27909,
+      "steps": 2
+     },
+     {
+      "instance": 12,
+      "instance_id": "sans_collimation-train-000012",
+      "best_level": 4,
+      "best_reward": 1.069672,
+      "best_fom_ratio": 1.27869,
+      "steps": 2
+     },
+     {
+      "instance": 13,
+      "instance_id": "sans_collimation-train-000013",
+      "best_level": 4,
+      "best_reward": 1.067462,
+      "best_fom_ratio": 1.269849,
+      "steps": 2
+     },
+     {
+      "instance": 14,
+      "instance_id": "sans_collimation-train-000014",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 5.173652,
+      "steps": 2
+     }
+    ]
+   }
+  }
+ },
+ "gates": {
+  "baseline_8b_pass": 0.8,
+  "baseline_32b_pass": 0.9333,
+  "vacuity_risk": false,
+  "raft_keep": 24,
+  "raft_rate": 0.8,
+  "raft_feasible": true
+ }
+}

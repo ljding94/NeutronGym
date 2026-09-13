@@ -1,0 +1,686 @@
+{
+ "family": "sans_collimation",
+ "fraction": 1.0,
+ "n": 25,
+ "split": "heldout",
+ "temperature": 0.0,
+ "max_steps": 6,
+ "heldout": {
+  "qwen3-8b": {
+   "sans_collimation": {
+    "rows": [
+     {
+      "instance": 0,
+      "instance_id": "sans_collimation-heldout-000000",
+      "best_level": 3,
+      "best_reward": 0.750018,
+      "best_fom_ratio": 7.1e-05,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 1,
+      "instance_id": "sans_collimation-heldout-000001",
+      "best_level": 4,
+      "best_reward": 1.003499,
+      "best_fom_ratio": 1.013997,
+      "pass_action": {
+       "r_pin1": 0.015,
+       "r_pin2": 0.01
+      },
+      "steps": 4,
+      "leak": true,
+      "clean_pass": false
+     },
+     {
+      "instance": 2,
+      "instance_id": "sans_collimation-heldout-000002",
+      "best_level": 3,
+      "best_reward": 0.750058,
+      "best_fom_ratio": 0.000233,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 3,
+      "instance_id": "sans_collimation-heldout-000003",
+      "best_level": 4,
+      "best_reward": 1.006546,
+      "best_fom_ratio": 1.026184,
+      "pass_action": {
+       "r_pin1": 0.015,
+       "r_pin2": 0.01
+      },
+      "steps": 4,
+      "leak": false,
+      "clean_pass": true
+     },
+     {
+      "instance": 4,
+      "instance_id": "sans_collimation-heldout-000004",
+      "best_level": 4,
+      "best_reward": 1.01102,
+      "best_fom_ratio": 1.044081,
+      "pass_action": {
+       "r_pin1": 0.01,
+       "r_pin2": 0.02
+      },
+      "steps": 5,
+      "leak": true,
+      "clean_pass": false
+     },
+     {
+      "instance": 5,
+      "instance_id": "sans_collimation-heldout-000005",
+      "best_level": 3,
+      "best_reward": 0.99479,
+      "best_fom_ratio": 0.979159,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 6,
+      "instance_id": "sans_collimation-heldout-000006",
+      "best_level": 3,
+      "best_reward": 0.848626,
+      "best_fom_ratio": 0.394503,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 7,
+      "instance_id": "sans_collimation-heldout-000007",
+      "best_level": 4,
+      "best_reward": 1.092921,
+      "best_fom_ratio": 1.371684,
+      "pass_action": {
+       "r_pin1": 0.01,
+       "r_pin2": 0.02
+      },
+      "steps": 5,
+      "leak": true,
+      "clean_pass": false
+     },
+     {
+      "instance": 8,
+      "instance_id": "sans_collimation-heldout-000008",
+      "best_level": 3,
+      "best_reward": 0.960343,
+      "best_fom_ratio": 0.84137,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 9,
+      "instance_id": "sans_collimation-heldout-000009",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.852238,
+      "pass_action": {
+       "r_pin1": 0.015,
+       "r_pin2": 0.01
+      },
+      "steps": 4,
+      "leak": true,
+      "clean_pass": false
+     },
+     {
+      "instance": 10,
+      "instance_id": "sans_collimation-heldout-000010",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.933555,
+      "pass_action": {
+       "r_pin1": 0.015,
+       "r_pin2": 0.01
+      },
+      "steps": 4,
+      "leak": true,
+      "clean_pass": false
+     },
+     {
+      "instance": 11,
+      "instance_id": "sans_collimation-heldout-000011",
+      "best_level": 3,
+      "best_reward": 0.780766,
+      "best_fom_ratio": 0.123063,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 12,
+      "instance_id": "sans_collimation-heldout-000012",
+      "best_level": 4,
+      "best_reward": 1.008526,
+      "best_fom_ratio": 1.034105,
+      "pass_action": {
+       "r_pin1": 0.015,
+       "r_pin2": 0.01
+      },
+      "steps": 4,
+      "leak": true,
+      "clean_pass": false
+     },
+     {
+      "instance": 13,
+      "instance_id": "sans_collimation-heldout-000013",
+      "best_level": 3,
+      "best_reward": 0.750037,
+      "best_fom_ratio": 0.000148,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 14,
+      "instance_id": "sans_collimation-heldout-000014",
+      "best_level": 3,
+      "best_reward": 0.750009,
+      "best_fom_ratio": 3.7e-05,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 15,
+      "instance_id": "sans_collimation-heldout-000015",
+      "best_level": 3,
+      "best_reward": 0.945577,
+      "best_fom_ratio": 0.782308,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 16,
+      "instance_id": "sans_collimation-heldout-000016",
+      "best_level": 4,
+      "best_reward": 1.006444,
+      "best_fom_ratio": 1.025776,
+      "pass_action": {
+       "r_pin1": 0.015,
+       "r_pin2": 0.01
+      },
+      "steps": 4,
+      "leak": false,
+      "clean_pass": true
+     },
+     {
+      "instance": 17,
+      "instance_id": "sans_collimation-heldout-000017",
+      "best_level": 3,
+      "best_reward": 0.750007,
+      "best_fom_ratio": 2.6e-05,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 18,
+      "instance_id": "sans_collimation-heldout-000018",
+      "best_level": 3,
+      "best_reward": 0.775348,
+      "best_fom_ratio": 0.101393,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 19,
+      "instance_id": "sans_collimation-heldout-000019",
+      "best_level": 3,
+      "best_reward": 0.932745,
+      "best_fom_ratio": 0.730981,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 20,
+      "instance_id": "sans_collimation-heldout-000020",
+      "best_level": 3,
+      "best_reward": 0.750007,
+      "best_fom_ratio": 3e-05,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 21,
+      "instance_id": "sans_collimation-heldout-000021",
+      "best_level": 3,
+      "best_reward": 0.99818,
+      "best_fom_ratio": 0.992719,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 22,
+      "instance_id": "sans_collimation-heldout-000022",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.811663,
+      "pass_action": {
+       "r_pin1": 0.015,
+       "r_pin2": 0.01
+      },
+      "steps": 4,
+      "leak": true,
+      "clean_pass": false
+     },
+     {
+      "instance": 23,
+      "instance_id": "sans_collimation-heldout-000023",
+      "best_level": 3,
+      "best_reward": 0.750028,
+      "best_fom_ratio": 0.000114,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 24,
+      "instance_id": "sans_collimation-heldout-000024",
+      "best_level": 4,
+      "best_reward": 1.007379,
+      "best_fom_ratio": 1.029515,
+      "pass_action": {
+       "r_pin1": 0.015,
+       "r_pin2": 0.01
+      },
+      "steps": 4,
+      "leak": true,
+      "clean_pass": false
+     }
+    ]
+   }
+  },
+  "qwen3-32b": {
+   "sans_collimation": {
+    "rows": [
+     {
+      "instance": 0,
+      "instance_id": "sans_collimation-heldout-000000",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.867358,
+      "pass_action": {
+       "r_pin1": 0.02,
+       "r_pin2": 0.02
+      },
+      "steps": 1,
+      "leak": true,
+      "clean_pass": false
+     },
+     {
+      "instance": 1,
+      "instance_id": "sans_collimation-heldout-000001",
+      "best_level": 4,
+      "best_reward": 1.003499,
+      "best_fom_ratio": 1.013997,
+      "pass_action": {
+       "r_pin1": 0.015,
+       "r_pin2": 0.01
+      },
+      "steps": 1,
+      "leak": true,
+      "clean_pass": false
+     },
+     {
+      "instance": 2,
+      "instance_id": "sans_collimation-heldout-000002",
+      "best_level": 4,
+      "best_reward": 1.00319,
+      "best_fom_ratio": 1.012761,
+      "pass_action": {
+       "r_pin1": 0.02,
+       "r_pin2": 0.02
+      },
+      "steps": 1,
+      "leak": true,
+      "clean_pass": false
+     },
+     {
+      "instance": 3,
+      "instance_id": "sans_collimation-heldout-000003",
+      "best_level": 4,
+      "best_reward": 1.006546,
+      "best_fom_ratio": 1.026184,
+      "pass_action": {
+       "r_pin1": 0.015,
+       "r_pin2": 0.01
+      },
+      "steps": 1,
+      "leak": false,
+      "clean_pass": true
+     },
+     {
+      "instance": 4,
+      "instance_id": "sans_collimation-heldout-000004",
+      "best_level": 4,
+      "best_reward": 1.01102,
+      "best_fom_ratio": 1.044081,
+      "pass_action": {
+       "r_pin1": 0.02,
+       "r_pin2": 0.02
+      },
+      "steps": 1,
+      "leak": true,
+      "clean_pass": false
+     },
+     {
+      "instance": 5,
+      "instance_id": "sans_collimation-heldout-000005",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 6.852186,
+      "pass_action": {
+       "r_pin1": 0.016,
+       "r_pin2": 0.011
+      },
+      "steps": 4,
+      "leak": true,
+      "clean_pass": false
+     },
+     {
+      "instance": 6,
+      "instance_id": "sans_collimation-heldout-000006",
+      "best_level": 3,
+      "best_reward": 0.848626,
+      "best_fom_ratio": 0.394503,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 7,
+      "instance_id": "sans_collimation-heldout-000007",
+      "best_level": 4,
+      "best_reward": 1.092921,
+      "best_fom_ratio": 1.371684,
+      "pass_action": {
+       "r_pin1": 0.02,
+       "r_pin2": 0.02
+      },
+      "steps": 1,
+      "leak": true,
+      "clean_pass": false
+     },
+     {
+      "instance": 8,
+      "instance_id": "sans_collimation-heldout-000008",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 9,
+      "instance_id": "sans_collimation-heldout-000009",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.852238,
+      "pass_action": {
+       "r_pin1": 0.015,
+       "r_pin2": 0.01
+      },
+      "steps": 1,
+      "leak": true,
+      "clean_pass": false
+     },
+     {
+      "instance": 10,
+      "instance_id": "sans_collimation-heldout-000010",
+      "best_level": 4,
+      "best_reward": 1.00052,
+      "best_fom_ratio": 1.002079,
+      "pass_action": {
+       "r_pin1": 0.01,
+       "r_pin2": 0.008
+      },
+      "steps": 2,
+      "leak": false,
+      "clean_pass": true
+     },
+     {
+      "instance": 11,
+      "instance_id": "sans_collimation-heldout-000011",
+      "best_level": 3,
+      "best_reward": 0.780766,
+      "best_fom_ratio": 0.123063,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 12,
+      "instance_id": "sans_collimation-heldout-000012",
+      "best_level": 4,
+      "best_reward": 1.008526,
+      "best_fom_ratio": 1.034105,
+      "pass_action": {
+       "r_pin1": 0.01,
+       "r_pin2": 0.008
+      },
+      "steps": 2,
+      "leak": false,
+      "clean_pass": true
+     },
+     {
+      "instance": 13,
+      "instance_id": "sans_collimation-heldout-000013",
+      "best_level": 4,
+      "best_reward": 1.113687,
+      "best_fom_ratio": 1.454747,
+      "pass_action": {
+       "r_pin1": 0.02,
+       "r_pin2": 0.02
+      },
+      "steps": 1,
+      "leak": true,
+      "clean_pass": false
+     },
+     {
+      "instance": 14,
+      "instance_id": "sans_collimation-heldout-000014",
+      "best_level": 4,
+      "best_reward": 1.022925,
+      "best_fom_ratio": 1.091699,
+      "pass_action": {
+       "r_pin1": 0.02,
+       "r_pin2": 0.02
+      },
+      "steps": 1,
+      "leak": true,
+      "clean_pass": false
+     },
+     {
+      "instance": 15,
+      "instance_id": "sans_collimation-heldout-000015",
+      "best_level": 2,
+      "best_reward": 0.5,
+      "best_fom_ratio": 0,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 16,
+      "instance_id": "sans_collimation-heldout-000016",
+      "best_level": 4,
+      "best_reward": 1.006111,
+      "best_fom_ratio": 1.024443,
+      "pass_action": {
+       "r_pin1": 0.007,
+       "r_pin2": 0.008
+      },
+      "steps": 5,
+      "leak": false,
+      "clean_pass": true
+     },
+     {
+      "instance": 17,
+      "instance_id": "sans_collimation-heldout-000017",
+      "best_level": 3,
+      "best_reward": 0.99979,
+      "best_fom_ratio": 0.99916,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 18,
+      "instance_id": "sans_collimation-heldout-000018",
+      "best_level": 3,
+      "best_reward": 0.782331,
+      "best_fom_ratio": 0.129323,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 19,
+      "instance_id": "sans_collimation-heldout-000019",
+      "best_level": 3,
+      "best_reward": 0.932745,
+      "best_fom_ratio": 0.730981,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 20,
+      "instance_id": "sans_collimation-heldout-000020",
+      "best_level": 3,
+      "best_reward": 0.999885,
+      "best_fom_ratio": 0.999539,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 21,
+      "instance_id": "sans_collimation-heldout-000021",
+      "best_level": 3,
+      "best_reward": 0.986854,
+      "best_fom_ratio": 0.947416,
+      "pass_action": null,
+      "steps": 6,
+      "leak": null,
+      "clean_pass": false
+     },
+     {
+      "instance": 22,
+      "instance_id": "sans_collimation-heldout-000022",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.811626,
+      "pass_action": {
+       "r_pin1": 0.007,
+       "r_pin2": 0.01
+      },
+      "steps": 4,
+      "leak": true,
+      "clean_pass": false
+     },
+     {
+      "instance": 23,
+      "instance_id": "sans_collimation-heldout-000023",
+      "best_level": 4,
+      "best_reward": 1.077118,
+      "best_fom_ratio": 1.30847,
+      "pass_action": {
+       "r_pin1": 0.02,
+       "r_pin2": 0.02
+      },
+      "steps": 1,
+      "leak": true,
+      "clean_pass": false
+     },
+     {
+      "instance": 24,
+      "instance_id": "sans_collimation-heldout-000024",
+      "best_level": 4,
+      "best_reward": 1.007379,
+      "best_fom_ratio": 1.029515,
+      "pass_action": {
+       "r_pin1": 0.01,
+       "r_pin2": 0.008
+      },
+      "steps": 2,
+      "leak": false,
+      "clean_pass": true
+     }
+    ]
+   }
+  }
+ },
+ "summary": {
+  "qwen3-8b": {
+   "n_valid": 25,
+   "passes": 10,
+   "leaking_passes": 8,
+   "clean_passes": 2,
+   "pass_rate": 0.4,
+   "clean_pass_rate": 0.08
+  },
+  "qwen3-32b": {
+   "n_valid": 25,
+   "passes": 16,
+   "leaking_passes": 11,
+   "clean_passes": 5,
+   "pass_rate": 0.64,
+   "clean_pass_rate": 0.2
+  }
+ },
+ "paired_raw": {
+  "only_qwen3-8b": 0,
+  "only_qwen3-32b": 6,
+  "mcnemar_p": 0.03125,
+  "agreement": 0.76,
+  "ordering_supported": true,
+  "balanced": false,
+  "leader": "qwen3-32b"
+ },
+ "paired_clean": {
+  "only_qwen3-8b": 0,
+  "only_qwen3-32b": 3,
+  "mcnemar_p": 0.25,
+  "agreement": 0.88,
+  "ordering_supported": false,
+  "balanced": false,
+  "leader": "qwen3-32b"
+ }
+}

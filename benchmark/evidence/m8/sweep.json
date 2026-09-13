@@ -1,0 +1,4112 @@
+{
+ "n_per_family": 25,
+ "fractions": [
+  0.8,
+  1.0,
+  1.2,
+  1.4
+ ],
+ "max_steps": 6,
+ "families": [
+  "guide_divergence",
+  "sans_collimation"
+ ],
+ "separation_threshold": 0.1,
+ "cells": {
+  "0.8|qwen3-8b|guide_divergence": {
+   "n_valid": 25,
+   "passes": 18,
+   "pass_rate": 0.72,
+   "level_histogram": {
+    "0": 0,
+    "1": 0,
+    "2": 3,
+    "3": 4,
+    "4": 18
+   },
+   "mean_level": 3.6,
+   "steps_to_success_median": 3.0,
+   "steps_all_median": 4,
+   "fom_ratio_median": 1.205,
+   "fom_ratio_max": 1.36
+  },
+  "0.8|qwen3-8b|sans_collimation": {
+   "n_valid": 25,
+   "passes": 12,
+   "pass_rate": 0.48,
+   "level_histogram": {
+    "0": 0,
+    "1": 0,
+    "2": 0,
+    "3": 13,
+    "4": 12
+   },
+   "mean_level": 3.48,
+   "steps_to_success_median": 2.0,
+   "steps_all_median": 6,
+   "fom_ratio_median": 0.978,
+   "fom_ratio_max": 1.513
+  },
+  "0.8|qwen3-32b|guide_divergence": {
+   "n_valid": 25,
+   "passes": 18,
+   "pass_rate": 0.72,
+   "level_histogram": {
+    "0": 0,
+    "1": 0,
+    "2": 5,
+    "3": 2,
+    "4": 18
+   },
+   "mean_level": 3.52,
+   "steps_to_success_median": 1.5,
+   "steps_all_median": 2,
+   "fom_ratio_median": 1.175,
+   "fom_ratio_max": 1.36
+  },
+  "0.8|qwen3-32b|sans_collimation": {
+   "n_valid": 25,
+   "passes": 19,
+   "pass_rate": 0.76,
+   "level_histogram": {
+    "0": 0,
+    "1": 0,
+    "2": 1,
+    "3": 5,
+    "4": 19
+   },
+   "mean_level": 3.72,
+   "steps_to_success_median": 1,
+   "steps_all_median": 1,
+   "fom_ratio_median": 1.266,
+   "fom_ratio_max": 3.584
+  },
+  "1.0|qwen3-8b|guide_divergence": {
+   "n_valid": 25,
+   "passes": 8,
+   "pass_rate": 0.32,
+   "level_histogram": {
+    "0": 0,
+    "1": 0,
+    "2": 5,
+    "3": 12,
+    "4": 8
+   },
+   "mean_level": 3.12,
+   "steps_to_success_median": 3.0,
+   "steps_all_median": 6,
+   "fom_ratio_median": 0.959,
+   "fom_ratio_max": 1.088
+  },
+  "1.0|qwen3-8b|sans_collimation": {
+   "n_valid": 25,
+   "passes": 10,
+   "pass_rate": 0.4,
+   "level_histogram": {
+    "0": 0,
+    "1": 0,
+    "2": 1,
+    "3": 14,
+    "4": 10
+   },
+   "mean_level": 3.36,
+   "steps_to_success_median": 4.0,
+   "steps_all_median": 6,
+   "fom_ratio_median": 0.841,
+   "fom_ratio_max": 3.934
+  },
+  "1.0|qwen3-32b|guide_divergence": {
+   "n_valid": 25,
+   "passes": 12,
+   "pass_rate": 0.48,
+   "level_histogram": {
+    "0": 0,
+    "1": 0,
+    "2": 4,
+    "3": 9,
+    "4": 12
+   },
+   "mean_level": 3.32,
+   "steps_to_success_median": 2.5,
+   "steps_all_median": 6,
+   "fom_ratio_median": 0.998,
+   "fom_ratio_max": 1.076
+  },
+  "1.0|qwen3-32b|sans_collimation": {
+   "n_valid": 25,
+   "passes": 18,
+   "pass_rate": 0.72,
+   "level_histogram": {
+    "0": 0,
+    "1": 0,
+    "2": 1,
+    "3": 6,
+    "4": 18
+   },
+   "mean_level": 3.68,
+   "steps_to_success_median": 1.5,
+   "steps_all_median": 3,
+   "fom_ratio_median": 1.026,
+   "fom_ratio_max": 6.852
+  },
+  "1.2|qwen3-8b|guide_divergence": {
+   "n_valid": 25,
+   "passes": 0,
+   "pass_rate": 0.0,
+   "level_histogram": {
+    "0": 0,
+    "1": 0,
+    "2": 7,
+    "3": 18,
+    "4": 0
+   },
+   "mean_level": 2.72,
+   "steps_to_success_median": null,
+   "steps_all_median": 6,
+   "fom_ratio_median": 0.806,
+   "fom_ratio_max": 0.915
+  },
+  "1.2|qwen3-8b|sans_collimation": {
+   "n_valid": 25,
+   "passes": 3,
+   "pass_rate": 0.12,
+   "level_histogram": {
+    "0": 0,
+    "1": 0,
+    "2": 1,
+    "3": 21,
+    "4": 3
+   },
+   "mean_level": 3.08,
+   "steps_to_success_median": 4,
+   "steps_all_median": 6,
+   "fom_ratio_median": 0.652,
+   "fom_ratio_max": 3.278
+  },
+  "1.2|qwen3-32b|guide_divergence": {
+   "n_valid": 25,
+   "passes": 0,
+   "pass_rate": 0.0,
+   "level_histogram": {
+    "0": 0,
+    "1": 0,
+    "2": 4,
+    "3": 21,
+    "4": 0
+   },
+   "mean_level": 2.84,
+   "steps_to_success_median": null,
+   "steps_all_median": 6,
+   "fom_ratio_median": 0.831,
+   "fom_ratio_max": 0.924
+  },
+  "1.2|qwen3-32b|sans_collimation": {
+   "n_valid": 25,
+   "passes": 6,
+   "pass_rate": 0.24,
+   "level_histogram": {
+    "0": 0,
+    "1": 0,
+    "2": 2,
+    "3": 17,
+    "4": 6
+   },
+   "mean_level": 3.16,
+   "steps_to_success_median": 1.0,
+   "steps_all_median": 6,
+   "fom_ratio_median": 0.844,
+   "fom_ratio_max": 3.176
+  },
+  "1.4|qwen3-8b|guide_divergence": {
+   "n_valid": 25,
+   "passes": 0,
+   "pass_rate": 0.0,
+   "level_histogram": {
+    "0": 0,
+    "1": 0,
+    "2": 5,
+    "3": 20,
+    "4": 0
+   },
+   "mean_level": 2.8,
+   "steps_to_success_median": null,
+   "steps_all_median": 6,
+   "fom_ratio_median": 0.683,
+   "fom_ratio_max": 0.777
+  },
+  "1.4|qwen3-8b|sans_collimation": {
+   "n_valid": 25,
+   "passes": 4,
+   "pass_rate": 0.16,
+   "level_histogram": {
+    "0": 0,
+    "1": 0,
+    "2": 0,
+    "3": 21,
+    "4": 4
+   },
+   "mean_level": 3.16,
+   "steps_to_success_median": 4.0,
+   "steps_all_median": 6,
+   "fom_ratio_median": 0.601,
+   "fom_ratio_max": 2.81
+  },
+  "1.4|qwen3-32b|guide_divergence": {
+   "n_valid": 25,
+   "passes": 0,
+   "pass_rate": 0.0,
+   "level_histogram": {
+    "0": 0,
+    "1": 0,
+    "2": 4,
+    "3": 21,
+    "4": 0
+   },
+   "mean_level": 2.84,
+   "steps_to_success_median": null,
+   "steps_all_median": 6,
+   "fom_ratio_median": 0.711,
+   "fom_ratio_max": 0.823
+  },
+  "1.4|qwen3-32b|sans_collimation": {
+   "n_valid": 25,
+   "passes": 2,
+   "pass_rate": 0.08,
+   "level_histogram": {
+    "0": 0,
+    "1": 0,
+    "2": 1,
+    "3": 22,
+    "4": 2
+   },
+   "mean_level": 3.04,
+   "steps_to_success_median": 1.0,
+   "steps_all_median": 6,
+   "fom_ratio_median": 0.702,
+   "fom_ratio_max": 2.037
+  }
+ },
+ "curve": [
+  {
+   "fraction": 0.8,
+   "qwen3-8b": {
+    "n_valid": 50,
+    "passes": 30,
+    "pass_rate": 0.6,
+    "level_histogram": {
+     "0": 0,
+     "1": 0,
+     "2": 3,
+     "3": 17,
+     "4": 30
+    },
+    "mean_level": 3.54,
+    "steps_to_success_median": 3.0,
+    "steps_all_median": 4.0,
+    "fom_ratio_median": 1.056,
+    "fom_ratio_max": 1.513
+   },
+   "qwen3-32b": {
+    "n_valid": 50,
+    "passes": 37,
+    "pass_rate": 0.74,
+    "level_histogram": {
+     "0": 0,
+     "1": 0,
+     "2": 6,
+     "3": 7,
+     "4": 37
+    },
+    "mean_level": 3.62,
+    "steps_to_success_median": 1,
+    "steps_all_median": 2.0,
+    "fom_ratio_median": 1.215,
+    "fom_ratio_max": 3.584
+   },
+   "pass_gap": 0.14,
+   "level_gap": 0.08,
+   "separates": true
+  },
+  {
+   "fraction": 1.0,
+   "qwen3-8b": {
+    "n_valid": 50,
+    "passes": 18,
+    "pass_rate": 0.36,
+    "level_histogram": {
+     "0": 0,
+     "1": 0,
+     "2": 6,
+     "3": 26,
+     "4": 18
+    },
+    "mean_level": 3.24,
+    "steps_to_success_median": 4.0,
+    "steps_all_median": 6.0,
+    "fom_ratio_median": 0.956,
+    "fom_ratio_max": 3.934
+   },
+   "qwen3-32b": {
+    "n_valid": 50,
+    "passes": 30,
+    "pass_rate": 0.6,
+    "level_histogram": {
+     "0": 0,
+     "1": 0,
+     "2": 5,
+     "3": 15,
+     "4": 30
+    },
+    "mean_level": 3.5,
+    "steps_to_success_median": 2.0,
+    "steps_all_median": 5.0,
+    "fom_ratio_median": 1.013,
+    "fom_ratio_max": 6.852
+   },
+   "pass_gap": 0.24,
+   "level_gap": 0.26,
+   "separates": true
+  },
+  {
+   "fraction": 1.2,
+   "qwen3-8b": {
+    "n_valid": 50,
+    "passes": 3,
+    "pass_rate": 0.06,
+    "level_histogram": {
+     "0": 0,
+     "1": 0,
+     "2": 8,
+     "3": 39,
+     "4": 3
+    },
+    "mean_level": 2.9,
+    "steps_to_success_median": 4,
+    "steps_all_median": 6.0,
+    "fom_ratio_median": 0.765,
+    "fom_ratio_max": 3.278
+   },
+   "qwen3-32b": {
+    "n_valid": 50,
+    "passes": 6,
+    "pass_rate": 0.12,
+    "level_histogram": {
+     "0": 0,
+     "1": 0,
+     "2": 6,
+     "3": 38,
+     "4": 6
+    },
+    "mean_level": 3.0,
+    "steps_to_success_median": 1.0,
+    "steps_all_median": 6.0,
+    "fom_ratio_median": 0.84,
+    "fom_ratio_max": 3.176
+   },
+   "pass_gap": 0.06,
+   "level_gap": 0.1,
+   "separates": false
+  },
+  {
+   "fraction": 1.4,
+   "qwen3-8b": {
+    "n_valid": 50,
+    "passes": 4,
+    "pass_rate": 0.08,
+    "level_histogram": {
+     "0": 0,
+     "1": 0,
+     "2": 5,
+     "3": 41,
+     "4": 4
+    },
+    "mean_level": 2.98,
+    "steps_to_success_median": 4.0,
+    "steps_all_median": 6.0,
+    "fom_ratio_median": 0.671,
+    "fom_ratio_max": 2.81
+   },
+   "qwen3-32b": {
+    "n_valid": 50,
+    "passes": 2,
+    "pass_rate": 0.04,
+    "level_histogram": {
+     "0": 0,
+     "1": 0,
+     "2": 5,
+     "3": 43,
+     "4": 2
+    },
+    "mean_level": 2.94,
+    "steps_to_success_median": 1.0,
+    "steps_all_median": 6.0,
+    "fom_ratio_median": 0.707,
+    "fom_ratio_max": 2.037
+   },
+   "pass_gap": -0.04,
+   "level_gap": -0.04,
+   "separates": false
+  }
+ ],
+ "rows_by_fraction": {
+  "0.8": {
+   "qwen3-8b": {
+    "guide_divergence": {
+     "rows": [
+      {
+       "instance": 0,
+       "instance_id": "guide_divergence-heldout-000000",
+       "best_level": 4,
+       "best_reward": 1.054452,
+       "best_fom_ratio": 1.217807,
+       "steps": 3
+      },
+      {
+       "instance": 1,
+       "instance_id": "guide_divergence-heldout-000001",
+       "best_level": 4,
+       "best_reward": 1.038677,
+       "best_fom_ratio": 1.15471,
+       "steps": 3
+      },
+      {
+       "instance": 2,
+       "instance_id": "guide_divergence-heldout-000002",
+       "best_level": 4,
+       "best_reward": 1.070603,
+       "best_fom_ratio": 1.28241,
+       "steps": 5
+      },
+      {
+       "instance": 3,
+       "instance_id": "guide_divergence-heldout-000003",
+       "best_level": 4,
+       "best_reward": 1.069168,
+       "best_fom_ratio": 1.276672,
+       "steps": 4
+      },
+      {
+       "instance": 4,
+       "instance_id": "guide_divergence-heldout-000004",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 5,
+       "instance_id": "guide_divergence-heldout-000005",
+       "best_level": 4,
+       "best_reward": 1.089993,
+       "best_fom_ratio": 1.359971,
+       "steps": 1
+      },
+      {
+       "instance": 6,
+       "instance_id": "guide_divergence-heldout-000006",
+       "best_level": 4,
+       "best_reward": 1.044613,
+       "best_fom_ratio": 1.178451,
+       "steps": 3
+      },
+      {
+       "instance": 7,
+       "instance_id": "guide_divergence-heldout-000007",
+       "best_level": 4,
+       "best_reward": 1.039995,
+       "best_fom_ratio": 1.159979,
+       "steps": 1
+      },
+      {
+       "instance": 8,
+       "instance_id": "guide_divergence-heldout-000008",
+       "best_level": 4,
+       "best_reward": 1.037634,
+       "best_fom_ratio": 1.150538,
+       "steps": 5
+      },
+      {
+       "instance": 9,
+       "instance_id": "guide_divergence-heldout-000009",
+       "best_level": 4,
+       "best_reward": 1.05116,
+       "best_fom_ratio": 1.204638,
+       "steps": 1
+      },
+      {
+       "instance": 10,
+       "instance_id": "guide_divergence-heldout-000010",
+       "best_level": 4,
+       "best_reward": 1.065721,
+       "best_fom_ratio": 1.262885,
+       "steps": 3
+      },
+      {
+       "instance": 11,
+       "instance_id": "guide_divergence-heldout-000011",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 12,
+       "instance_id": "guide_divergence-heldout-000012",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 13,
+       "instance_id": "guide_divergence-heldout-000013",
+       "best_level": 3,
+       "best_reward": 0.78845,
+       "best_fom_ratio": 0.153801,
+       "steps": 6
+      },
+      {
+       "instance": 14,
+       "instance_id": "guide_divergence-heldout-000014",
+       "best_level": 4,
+       "best_reward": 1.082183,
+       "best_fom_ratio": 1.328731,
+       "steps": 3
+      },
+      {
+       "instance": 15,
+       "instance_id": "guide_divergence-heldout-000015",
+       "best_level": 4,
+       "best_reward": 1.078748,
+       "best_fom_ratio": 1.314993,
+       "steps": 4
+      },
+      {
+       "instance": 16,
+       "instance_id": "guide_divergence-heldout-000016",
+       "best_level": 4,
+       "best_reward": 1.0639,
+       "best_fom_ratio": 1.255599,
+       "steps": 3
+      },
+      {
+       "instance": 17,
+       "instance_id": "guide_divergence-heldout-000017",
+       "best_level": 4,
+       "best_reward": 1.080523,
+       "best_fom_ratio": 1.322094,
+       "steps": 1
+      },
+      {
+       "instance": 18,
+       "instance_id": "guide_divergence-heldout-000018",
+       "best_level": 4,
+       "best_reward": 1.082616,
+       "best_fom_ratio": 1.330464,
+       "steps": 1
+      },
+      {
+       "instance": 19,
+       "instance_id": "guide_divergence-heldout-000019",
+       "best_level": 3,
+       "best_reward": 0.777054,
+       "best_fom_ratio": 0.108216,
+       "steps": 6
+      },
+      {
+       "instance": 20,
+       "instance_id": "guide_divergence-heldout-000020",
+       "best_level": 4,
+       "best_reward": 1.033273,
+       "best_fom_ratio": 1.133093,
+       "steps": 6
+      },
+      {
+       "instance": 21,
+       "instance_id": "guide_divergence-heldout-000021",
+       "best_level": 4,
+       "best_reward": 1.054137,
+       "best_fom_ratio": 1.216547,
+       "steps": 4
+      },
+      {
+       "instance": 22,
+       "instance_id": "guide_divergence-heldout-000022",
+       "best_level": 3,
+       "best_reward": 0.776096,
+       "best_fom_ratio": 0.104383,
+       "steps": 6
+      },
+      {
+       "instance": 23,
+       "instance_id": "guide_divergence-heldout-000023",
+       "best_level": 4,
+       "best_reward": 1.071706,
+       "best_fom_ratio": 1.286824,
+       "steps": 1
+      },
+      {
+       "instance": 24,
+       "instance_id": "guide_divergence-heldout-000024",
+       "best_level": 3,
+       "best_reward": 0.782615,
+       "best_fom_ratio": 0.13046,
+       "steps": 6
+      }
+     ]
+    },
+    "sans_collimation": {
+     "rows": [
+      {
+       "instance": 0,
+       "instance_id": "sans_collimation-heldout-000000",
+       "best_level": 3,
+       "best_reward": 0.750022,
+       "best_fom_ratio": 8.9e-05,
+       "steps": 6
+      },
+      {
+       "instance": 1,
+       "instance_id": "sans_collimation-heldout-000001",
+       "best_level": 4,
+       "best_reward": 1.016678,
+       "best_fom_ratio": 1.066711,
+       "steps": 2
+      },
+      {
+       "instance": 2,
+       "instance_id": "sans_collimation-heldout-000002",
+       "best_level": 3,
+       "best_reward": 0.750073,
+       "best_fom_ratio": 0.000292,
+       "steps": 6
+      },
+      {
+       "instance": 3,
+       "instance_id": "sans_collimation-heldout-000003",
+       "best_level": 4,
+       "best_reward": 1.070693,
+       "best_fom_ratio": 1.282771,
+       "steps": 3
+      },
+      {
+       "instance": 4,
+       "instance_id": "sans_collimation-heldout-000004",
+       "best_level": 4,
+       "best_reward": 1.016063,
+       "best_fom_ratio": 1.06425,
+       "steps": 4
+      },
+      {
+       "instance": 5,
+       "instance_id": "sans_collimation-heldout-000005",
+       "best_level": 4,
+       "best_reward": 1.00864,
+       "best_fom_ratio": 1.034559,
+       "steps": 2
+      },
+      {
+       "instance": 6,
+       "instance_id": "sans_collimation-heldout-000006",
+       "best_level": 3,
+       "best_reward": 0.873283,
+       "best_fom_ratio": 0.493133,
+       "steps": 6
+      },
+      {
+       "instance": 7,
+       "instance_id": "sans_collimation-heldout-000007",
+       "best_level": 3,
+       "best_reward": 0.750022,
+       "best_fom_ratio": 8.7e-05,
+       "steps": 6
+      },
+      {
+       "instance": 8,
+       "instance_id": "sans_collimation-heldout-000008",
+       "best_level": 4,
+       "best_reward": 1.012929,
+       "best_fom_ratio": 1.051716,
+       "steps": 2
+      },
+      {
+       "instance": 9,
+       "instance_id": "sans_collimation-heldout-000009",
+       "best_level": 4,
+       "best_reward": 1.022596,
+       "best_fom_ratio": 1.090386,
+       "steps": 2
+      },
+      {
+       "instance": 10,
+       "instance_id": "sans_collimation-heldout-000010",
+       "best_level": 3,
+       "best_reward": 0.993504,
+       "best_fom_ratio": 0.974018,
+       "steps": 6
+      },
+      {
+       "instance": 11,
+       "instance_id": "sans_collimation-heldout-000011",
+       "best_level": 3,
+       "best_reward": 0.782163,
+       "best_fom_ratio": 0.128652,
+       "steps": 6
+      },
+      {
+       "instance": 12,
+       "instance_id": "sans_collimation-heldout-000012",
+       "best_level": 4,
+       "best_reward": 1.002624,
+       "best_fom_ratio": 1.010497,
+       "steps": 3
+      },
+      {
+       "instance": 13,
+       "instance_id": "sans_collimation-heldout-000013",
+       "best_level": 4,
+       "best_reward": 1.128298,
+       "best_fom_ratio": 1.513192,
+       "steps": 2
+      },
+      {
+       "instance": 14,
+       "instance_id": "sans_collimation-heldout-000014",
+       "best_level": 3,
+       "best_reward": 0.750014,
+       "best_fom_ratio": 5.8e-05,
+       "steps": 6
+      },
+      {
+       "instance": 15,
+       "instance_id": "sans_collimation-heldout-000015",
+       "best_level": 3,
+       "best_reward": 0.994477,
+       "best_fom_ratio": 0.977908,
+       "steps": 6
+      },
+      {
+       "instance": 16,
+       "instance_id": "sans_collimation-heldout-000016",
+       "best_level": 4,
+       "best_reward": 1.015079,
+       "best_fom_ratio": 1.060318,
+       "steps": 2
+      },
+      {
+       "instance": 17,
+       "instance_id": "sans_collimation-heldout-000017",
+       "best_level": 3,
+       "best_reward": 0.750008,
+       "best_fom_ratio": 3.3e-05,
+       "steps": 6
+      },
+      {
+       "instance": 18,
+       "instance_id": "sans_collimation-heldout-000018",
+       "best_level": 3,
+       "best_reward": 0.790414,
+       "best_fom_ratio": 0.161654,
+       "steps": 6
+      },
+      {
+       "instance": 19,
+       "instance_id": "sans_collimation-heldout-000019",
+       "best_level": 3,
+       "best_reward": 0.978431,
+       "best_fom_ratio": 0.913722,
+       "steps": 6
+      },
+      {
+       "instance": 20,
+       "instance_id": "sans_collimation-heldout-000020",
+       "best_level": 3,
+       "best_reward": 0.750009,
+       "best_fom_ratio": 3.7e-05,
+       "steps": 6
+      },
+      {
+       "instance": 21,
+       "instance_id": "sans_collimation-heldout-000021",
+       "best_level": 4,
+       "best_reward": 1.060226,
+       "best_fom_ratio": 1.240906,
+       "steps": 4
+      },
+      {
+       "instance": 22,
+       "instance_id": "sans_collimation-heldout-000022",
+       "best_level": 4,
+       "best_reward": 1.001798,
+       "best_fom_ratio": 1.007191,
+       "steps": 2
+      },
+      {
+       "instance": 23,
+       "instance_id": "sans_collimation-heldout-000023",
+       "best_level": 3,
+       "best_reward": 0.750036,
+       "best_fom_ratio": 0.000142,
+       "steps": 6
+      },
+      {
+       "instance": 24,
+       "instance_id": "sans_collimation-heldout-000024",
+       "best_level": 4,
+       "best_reward": 1.010689,
+       "best_fom_ratio": 1.042755,
+       "steps": 2
+      }
+     ]
+    }
+   },
+   "qwen3-32b": {
+    "guide_divergence": {
+     "rows": [
+      {
+       "instance": 0,
+       "instance_id": "guide_divergence-heldout-000000",
+       "best_level": 4,
+       "best_reward": 1.033285,
+       "best_fom_ratio": 1.13314,
+       "steps": 1
+      },
+      {
+       "instance": 1,
+       "instance_id": "guide_divergence-heldout-000001",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 2,
+       "instance_id": "guide_divergence-heldout-000002",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 3,
+       "instance_id": "guide_divergence-heldout-000003",
+       "best_level": 4,
+       "best_reward": 1.077047,
+       "best_fom_ratio": 1.308186,
+       "steps": 3
+      },
+      {
+       "instance": 4,
+       "instance_id": "guide_divergence-heldout-000004",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 5,
+       "instance_id": "guide_divergence-heldout-000005",
+       "best_level": 4,
+       "best_reward": 1.089993,
+       "best_fom_ratio": 1.359971,
+       "steps": 2
+      },
+      {
+       "instance": 6,
+       "instance_id": "guide_divergence-heldout-000006",
+       "best_level": 4,
+       "best_reward": 1.017004,
+       "best_fom_ratio": 1.068015,
+       "steps": 1
+      },
+      {
+       "instance": 7,
+       "instance_id": "guide_divergence-heldout-000007",
+       "best_level": 4,
+       "best_reward": 1.048973,
+       "best_fom_ratio": 1.195894,
+       "steps": 1
+      },
+      {
+       "instance": 8,
+       "instance_id": "guide_divergence-heldout-000008",
+       "best_level": 4,
+       "best_reward": 1.069578,
+       "best_fom_ratio": 1.278311,
+       "steps": 6
+      },
+      {
+       "instance": 9,
+       "instance_id": "guide_divergence-heldout-000009",
+       "best_level": 4,
+       "best_reward": 1.043678,
+       "best_fom_ratio": 1.174713,
+       "steps": 2
+      },
+      {
+       "instance": 10,
+       "instance_id": "guide_divergence-heldout-000010",
+       "best_level": 4,
+       "best_reward": 1.076461,
+       "best_fom_ratio": 1.305846,
+       "steps": 1
+      },
+      {
+       "instance": 11,
+       "instance_id": "guide_divergence-heldout-000011",
+       "best_level": 4,
+       "best_reward": 1.057526,
+       "best_fom_ratio": 1.230103,
+       "steps": 1
+      },
+      {
+       "instance": 12,
+       "instance_id": "guide_divergence-heldout-000012",
+       "best_level": 3,
+       "best_reward": 0.923246,
+       "best_fom_ratio": 0.692986,
+       "steps": 6
+      },
+      {
+       "instance": 13,
+       "instance_id": "guide_divergence-heldout-000013",
+       "best_level": 4,
+       "best_reward": 1.01314,
+       "best_fom_ratio": 1.052559,
+       "steps": 3
+      },
+      {
+       "instance": 14,
+       "instance_id": "guide_divergence-heldout-000014",
+       "best_level": 4,
+       "best_reward": 1.074127,
+       "best_fom_ratio": 1.296507,
+       "steps": 2
+      },
+      {
+       "instance": 15,
+       "instance_id": "guide_divergence-heldout-000015",
+       "best_level": 4,
+       "best_reward": 1.050388,
+       "best_fom_ratio": 1.201553,
+       "steps": 1
+      },
+      {
+       "instance": 16,
+       "instance_id": "guide_divergence-heldout-000016",
+       "best_level": 4,
+       "best_reward": 1.086142,
+       "best_fom_ratio": 1.344568,
+       "steps": 1
+      },
+      {
+       "instance": 17,
+       "instance_id": "guide_divergence-heldout-000017",
+       "best_level": 4,
+       "best_reward": 1.080523,
+       "best_fom_ratio": 1.322094,
+       "steps": 1
+      },
+      {
+       "instance": 18,
+       "instance_id": "guide_divergence-heldout-000018",
+       "best_level": 4,
+       "best_reward": 1.082616,
+       "best_fom_ratio": 1.330464,
+       "steps": 1
+      },
+      {
+       "instance": 19,
+       "instance_id": "guide_divergence-heldout-000019",
+       "best_level": 4,
+       "best_reward": 1.046926,
+       "best_fom_ratio": 1.187704,
+       "steps": 2
+      },
+      {
+       "instance": 20,
+       "instance_id": "guide_divergence-heldout-000020",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 21,
+       "instance_id": "guide_divergence-heldout-000021",
+       "best_level": 4,
+       "best_reward": 1.043622,
+       "best_fom_ratio": 1.174489,
+       "steps": 4
+      },
+      {
+       "instance": 22,
+       "instance_id": "guide_divergence-heldout-000022",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 23,
+       "instance_id": "guide_divergence-heldout-000023",
+       "best_level": 3,
+       "best_reward": 0.921026,
+       "best_fom_ratio": 0.684105,
+       "steps": 6
+      },
+      {
+       "instance": 24,
+       "instance_id": "guide_divergence-heldout-000024",
+       "best_level": 4,
+       "best_reward": 1.007839,
+       "best_fom_ratio": 1.031356,
+       "steps": 2
+      }
+     ]
+    },
+    "sans_collimation": {
+     "rows": [
+      {
+       "instance": 0,
+       "instance_id": "sans_collimation-heldout-000000",
+       "best_level": 4,
+       "best_reward": 1.25,
+       "best_fom_ratio": 3.584197,
+       "steps": 1
+      },
+      {
+       "instance": 1,
+       "instance_id": "sans_collimation-heldout-000001",
+       "best_level": 4,
+       "best_reward": 1.066871,
+       "best_fom_ratio": 1.267485,
+       "steps": 1
+      },
+      {
+       "instance": 2,
+       "instance_id": "sans_collimation-heldout-000002",
+       "best_level": 4,
+       "best_reward": 1.066488,
+       "best_fom_ratio": 1.265952,
+       "steps": 1
+      },
+      {
+       "instance": 3,
+       "instance_id": "sans_collimation-heldout-000003",
+       "best_level": 4,
+       "best_reward": 1.056926,
+       "best_fom_ratio": 1.227705,
+       "steps": 3
+      },
+      {
+       "instance": 4,
+       "instance_id": "sans_collimation-heldout-000004",
+       "best_level": 4,
+       "best_reward": 1.076275,
+       "best_fom_ratio": 1.305101,
+       "steps": 1
+      },
+      {
+       "instance": 5,
+       "instance_id": "sans_collimation-heldout-000005",
+       "best_level": 4,
+       "best_reward": 1.041505,
+       "best_fom_ratio": 1.166021,
+       "steps": 3
+      },
+      {
+       "instance": 6,
+       "instance_id": "sans_collimation-heldout-000006",
+       "best_level": 3,
+       "best_reward": 0.873283,
+       "best_fom_ratio": 0.493133,
+       "steps": 6
+      },
+      {
+       "instance": 7,
+       "instance_id": "sans_collimation-heldout-000007",
+       "best_level": 4,
+       "best_reward": 1.178651,
+       "best_fom_ratio": 1.714605,
+       "steps": 1
+      },
+      {
+       "instance": 8,
+       "instance_id": "sans_collimation-heldout-000008",
+       "best_level": 4,
+       "best_reward": 1.066594,
+       "best_fom_ratio": 1.266376,
+       "steps": 5
+      },
+      {
+       "instance": 9,
+       "instance_id": "sans_collimation-heldout-000009",
+       "best_level": 4,
+       "best_reward": 1.25,
+       "best_fom_ratio": 3.56526,
+       "steps": 1
+      },
+      {
+       "instance": 10,
+       "instance_id": "sans_collimation-heldout-000010",
+       "best_level": 4,
+       "best_reward": 1.042621,
+       "best_fom_ratio": 1.170484,
+       "steps": 4
+      },
+      {
+       "instance": 11,
+       "instance_id": "sans_collimation-heldout-000011",
+       "best_level": 3,
+       "best_reward": 0.788457,
+       "best_fom_ratio": 0.153828,
+       "steps": 6
+      },
+      {
+       "instance": 12,
+       "instance_id": "sans_collimation-heldout-000012",
+       "best_level": 4,
+       "best_reward": 1.073152,
+       "best_fom_ratio": 1.292608,
+       "steps": 1
+      },
+      {
+       "instance": 13,
+       "instance_id": "sans_collimation-heldout-000013",
+       "best_level": 4,
+       "best_reward": 1.204608,
+       "best_fom_ratio": 1.818434,
+       "steps": 1
+      },
+      {
+       "instance": 14,
+       "instance_id": "sans_collimation-heldout-000014",
+       "best_level": 4,
+       "best_reward": 1.027506,
+       "best_fom_ratio": 1.110024,
+       "steps": 1
+      },
+      {
+       "instance": 15,
+       "instance_id": "sans_collimation-heldout-000015",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 16,
+       "instance_id": "sans_collimation-heldout-000016",
+       "best_level": 4,
+       "best_reward": 1.07056,
+       "best_fom_ratio": 1.28224,
+       "steps": 1
+      },
+      {
+       "instance": 17,
+       "instance_id": "sans_collimation-heldout-000017",
+       "best_level": 3,
+       "best_reward": 0.75001,
+       "best_fom_ratio": 4.2e-05,
+       "steps": 6
+      },
+      {
+       "instance": 18,
+       "instance_id": "sans_collimation-heldout-000018",
+       "best_level": 3,
+       "best_reward": 0.790414,
+       "best_fom_ratio": 0.161654,
+       "steps": 6
+      },
+      {
+       "instance": 19,
+       "instance_id": "sans_collimation-heldout-000019",
+       "best_level": 3,
+       "best_reward": 0.978431,
+       "best_fom_ratio": 0.913722,
+       "steps": 6
+      },
+      {
+       "instance": 20,
+       "instance_id": "sans_collimation-heldout-000020",
+       "best_level": 4,
+       "best_reward": 1.062356,
+       "best_fom_ratio": 1.249423,
+       "steps": 1
+      },
+      {
+       "instance": 21,
+       "instance_id": "sans_collimation-heldout-000021",
+       "best_level": 4,
+       "best_reward": 1.060226,
+       "best_fom_ratio": 1.240906,
+       "steps": 1
+      },
+      {
+       "instance": 22,
+       "instance_id": "sans_collimation-heldout-000022",
+       "best_level": 4,
+       "best_reward": 1.25,
+       "best_fom_ratio": 2.807407,
+       "steps": 3
+      },
+      {
+       "instance": 23,
+       "instance_id": "sans_collimation-heldout-000023",
+       "best_level": 4,
+       "best_reward": 1.158897,
+       "best_fom_ratio": 1.635588,
+       "steps": 1
+      },
+      {
+       "instance": 24,
+       "instance_id": "sans_collimation-heldout-000024",
+       "best_level": 4,
+       "best_reward": 1.071721,
+       "best_fom_ratio": 1.286884,
+       "steps": 1
+      }
+     ]
+    }
+   }
+  },
+  "1.0": {
+   "qwen3-8b": {
+    "guide_divergence": {
+     "rows": [
+      {
+       "instance": 0,
+       "instance_id": "guide_divergence-heldout-000000",
+       "best_level": 3,
+       "best_reward": 0.993561,
+       "best_fom_ratio": 0.974243,
+       "steps": 6
+      },
+      {
+       "instance": 1,
+       "instance_id": "guide_divergence-heldout-000001",
+       "best_level": 3,
+       "best_reward": 0.980947,
+       "best_fom_ratio": 0.923787,
+       "steps": 6
+      },
+      {
+       "instance": 2,
+       "instance_id": "guide_divergence-heldout-000002",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 3,
+       "instance_id": "guide_divergence-heldout-000003",
+       "best_level": 4,
+       "best_reward": 1.005332,
+       "best_fom_ratio": 1.021329,
+       "steps": 4
+      },
+      {
+       "instance": 4,
+       "instance_id": "guide_divergence-heldout-000004",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 5,
+       "instance_id": "guide_divergence-heldout-000005",
+       "best_level": 4,
+       "best_reward": 1.021995,
+       "best_fom_ratio": 1.087979,
+       "steps": 1
+      },
+      {
+       "instance": 6,
+       "instance_id": "guide_divergence-heldout-000006",
+       "best_level": 4,
+       "best_reward": 1.011435,
+       "best_fom_ratio": 1.045739,
+       "steps": 6
+      },
+      {
+       "instance": 7,
+       "instance_id": "guide_divergence-heldout-000007",
+       "best_level": 3,
+       "best_reward": 0.994024,
+       "best_fom_ratio": 0.976095,
+       "steps": 6
+      },
+      {
+       "instance": 8,
+       "instance_id": "guide_divergence-heldout-000008",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 9,
+       "instance_id": "guide_divergence-heldout-000009",
+       "best_level": 3,
+       "best_reward": 0.998463,
+       "best_fom_ratio": 0.99385,
+       "steps": 6
+      },
+      {
+       "instance": 10,
+       "instance_id": "guide_divergence-heldout-000010",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 11,
+       "instance_id": "guide_divergence-heldout-000011",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 12,
+       "instance_id": "guide_divergence-heldout-000012",
+       "best_level": 3,
+       "best_reward": 0.925114,
+       "best_fom_ratio": 0.700456,
+       "steps": 6
+      },
+      {
+       "instance": 13,
+       "instance_id": "guide_divergence-heldout-000013",
+       "best_level": 3,
+       "best_reward": 0.989754,
+       "best_fom_ratio": 0.959016,
+       "steps": 6
+      },
+      {
+       "instance": 14,
+       "instance_id": "guide_divergence-heldout-000014",
+       "best_level": 4,
+       "best_reward": 1.001851,
+       "best_fom_ratio": 1.007404,
+       "steps": 3
+      },
+      {
+       "instance": 15,
+       "instance_id": "guide_divergence-heldout-000015",
+       "best_level": 4,
+       "best_reward": 1.012996,
+       "best_fom_ratio": 1.051985,
+       "steps": 4
+      },
+      {
+       "instance": 16,
+       "instance_id": "guide_divergence-heldout-000016",
+       "best_level": 4,
+       "best_reward": 1.001126,
+       "best_fom_ratio": 1.004505,
+       "steps": 3
+      },
+      {
+       "instance": 17,
+       "instance_id": "guide_divergence-heldout-000017",
+       "best_level": 4,
+       "best_reward": 1.01442,
+       "best_fom_ratio": 1.057682,
+       "steps": 1
+      },
+      {
+       "instance": 18,
+       "instance_id": "guide_divergence-heldout-000018",
+       "best_level": 3,
+       "best_reward": 0.953491,
+       "best_fom_ratio": 0.813964,
+       "steps": 6
+      },
+      {
+       "instance": 19,
+       "instance_id": "guide_divergence-heldout-000019",
+       "best_level": 3,
+       "best_reward": 0.771643,
+       "best_fom_ratio": 0.086573,
+       "steps": 6
+      },
+      {
+       "instance": 20,
+       "instance_id": "guide_divergence-heldout-000020",
+       "best_level": 3,
+       "best_reward": 0.976619,
+       "best_fom_ratio": 0.906475,
+       "steps": 6
+      },
+      {
+       "instance": 21,
+       "instance_id": "guide_divergence-heldout-000021",
+       "best_level": 3,
+       "best_reward": 0.993308,
+       "best_fom_ratio": 0.973231,
+       "steps": 6
+      },
+      {
+       "instance": 22,
+       "instance_id": "guide_divergence-heldout-000022",
+       "best_level": 4,
+       "best_reward": 1.017027,
+       "best_fom_ratio": 1.068108,
+       "steps": 2
+      },
+      {
+       "instance": 23,
+       "instance_id": "guide_divergence-heldout-000023",
+       "best_level": 3,
+       "best_reward": 0.950558,
+       "best_fom_ratio": 0.802232,
+       "steps": 6
+      },
+      {
+       "instance": 24,
+       "instance_id": "guide_divergence-heldout-000024",
+       "best_level": 3,
+       "best_reward": 0.988279,
+       "best_fom_ratio": 0.953117,
+       "steps": 6
+      }
+     ]
+    },
+    "sans_collimation": {
+     "rows": [
+      {
+       "instance": 0,
+       "instance_id": "sans_collimation-heldout-000000",
+       "best_level": 3,
+       "best_reward": 0.750018,
+       "best_fom_ratio": 7.1e-05,
+       "steps": 6
+      },
+      {
+       "instance": 1,
+       "instance_id": "sans_collimation-heldout-000001",
+       "best_level": 4,
+       "best_reward": 1.003499,
+       "best_fom_ratio": 1.013997,
+       "steps": 4
+      },
+      {
+       "instance": 2,
+       "instance_id": "sans_collimation-heldout-000002",
+       "best_level": 3,
+       "best_reward": 0.750058,
+       "best_fom_ratio": 0.000233,
+       "steps": 6
+      },
+      {
+       "instance": 3,
+       "instance_id": "sans_collimation-heldout-000003",
+       "best_level": 4,
+       "best_reward": 1.006546,
+       "best_fom_ratio": 1.026184,
+       "steps": 4
+      },
+      {
+       "instance": 4,
+       "instance_id": "sans_collimation-heldout-000004",
+       "best_level": 4,
+       "best_reward": 1.01102,
+       "best_fom_ratio": 1.044081,
+       "steps": 5
+      },
+      {
+       "instance": 5,
+       "instance_id": "sans_collimation-heldout-000005",
+       "best_level": 3,
+       "best_reward": 0.99479,
+       "best_fom_ratio": 0.979159,
+       "steps": 6
+      },
+      {
+       "instance": 6,
+       "instance_id": "sans_collimation-heldout-000006",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 7,
+       "instance_id": "sans_collimation-heldout-000007",
+       "best_level": 4,
+       "best_reward": 1.092921,
+       "best_fom_ratio": 1.371684,
+       "steps": 5
+      },
+      {
+       "instance": 8,
+       "instance_id": "sans_collimation-heldout-000008",
+       "best_level": 3,
+       "best_reward": 0.960343,
+       "best_fom_ratio": 0.84137,
+       "steps": 6
+      },
+      {
+       "instance": 9,
+       "instance_id": "sans_collimation-heldout-000009",
+       "best_level": 4,
+       "best_reward": 1.25,
+       "best_fom_ratio": 2.852238,
+       "steps": 4
+      },
+      {
+       "instance": 10,
+       "instance_id": "sans_collimation-heldout-000010",
+       "best_level": 4,
+       "best_reward": 1.25,
+       "best_fom_ratio": 3.933555,
+       "steps": 4
+      },
+      {
+       "instance": 11,
+       "instance_id": "sans_collimation-heldout-000011",
+       "best_level": 3,
+       "best_reward": 0.780766,
+       "best_fom_ratio": 0.123063,
+       "steps": 6
+      },
+      {
+       "instance": 12,
+       "instance_id": "sans_collimation-heldout-000012",
+       "best_level": 4,
+       "best_reward": 1.008526,
+       "best_fom_ratio": 1.034105,
+       "steps": 4
+      },
+      {
+       "instance": 13,
+       "instance_id": "sans_collimation-heldout-000013",
+       "best_level": 3,
+       "best_reward": 0.750037,
+       "best_fom_ratio": 0.000148,
+       "steps": 6
+      },
+      {
+       "instance": 14,
+       "instance_id": "sans_collimation-heldout-000014",
+       "best_level": 3,
+       "best_reward": 0.750009,
+       "best_fom_ratio": 3.7e-05,
+       "steps": 6
+      },
+      {
+       "instance": 15,
+       "instance_id": "sans_collimation-heldout-000015",
+       "best_level": 3,
+       "best_reward": 0.945577,
+       "best_fom_ratio": 0.782308,
+       "steps": 6
+      },
+      {
+       "instance": 16,
+       "instance_id": "sans_collimation-heldout-000016",
+       "best_level": 4,
+       "best_reward": 1.006444,
+       "best_fom_ratio": 1.025776,
+       "steps": 4
+      },
+      {
+       "instance": 17,
+       "instance_id": "sans_collimation-heldout-000017",
+       "best_level": 3,
+       "best_reward": 0.750007,
+       "best_fom_ratio": 2.6e-05,
+       "steps": 6
+      },
+      {
+       "instance": 18,
+       "instance_id": "sans_collimation-heldout-000018",
+       "best_level": 3,
+       "best_reward": 0.775348,
+       "best_fom_ratio": 0.101393,
+       "steps": 6
+      },
+      {
+       "instance": 19,
+       "instance_id": "sans_collimation-heldout-000019",
+       "best_level": 3,
+       "best_reward": 0.932745,
+       "best_fom_ratio": 0.730981,
+       "steps": 6
+      },
+      {
+       "instance": 20,
+       "instance_id": "sans_collimation-heldout-000020",
+       "best_level": 3,
+       "best_reward": 0.750007,
+       "best_fom_ratio": 3e-05,
+       "steps": 6
+      },
+      {
+       "instance": 21,
+       "instance_id": "sans_collimation-heldout-000021",
+       "best_level": 3,
+       "best_reward": 0.99818,
+       "best_fom_ratio": 0.992719,
+       "steps": 6
+      },
+      {
+       "instance": 22,
+       "instance_id": "sans_collimation-heldout-000022",
+       "best_level": 4,
+       "best_reward": 1.25,
+       "best_fom_ratio": 3.811663,
+       "steps": 4
+      },
+      {
+       "instance": 23,
+       "instance_id": "sans_collimation-heldout-000023",
+       "best_level": 3,
+       "best_reward": 0.750028,
+       "best_fom_ratio": 0.000114,
+       "steps": 6
+      },
+      {
+       "instance": 24,
+       "instance_id": "sans_collimation-heldout-000024",
+       "best_level": 4,
+       "best_reward": 1.007379,
+       "best_fom_ratio": 1.029515,
+       "steps": 4
+      }
+     ]
+    }
+   },
+   "qwen3-32b": {
+    "guide_divergence": {
+     "rows": [
+      {
+       "instance": 0,
+       "instance_id": "guide_divergence-heldout-000000",
+       "best_level": 4,
+       "best_reward": 1.004895,
+       "best_fom_ratio": 1.019579,
+       "steps": 3
+      },
+      {
+       "instance": 1,
+       "instance_id": "guide_divergence-heldout-000001",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 2,
+       "instance_id": "guide_divergence-heldout-000002",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 3,
+       "instance_id": "guide_divergence-heldout-000003",
+       "best_level": 4,
+       "best_reward": 1.000725,
+       "best_fom_ratio": 1.002899,
+       "steps": 2
+      },
+      {
+       "instance": 4,
+       "instance_id": "guide_divergence-heldout-000004",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 5,
+       "instance_id": "guide_divergence-heldout-000005",
+       "best_level": 3,
+       "best_reward": 0.894194,
+       "best_fom_ratio": 0.576778,
+       "steps": 6
+      },
+      {
+       "instance": 6,
+       "instance_id": "guide_divergence-heldout-000006",
+       "best_level": 3,
+       "best_reward": 0.963601,
+       "best_fom_ratio": 0.854405,
+       "steps": 6
+      },
+      {
+       "instance": 7,
+       "instance_id": "guide_divergence-heldout-000007",
+       "best_level": 3,
+       "best_reward": 0.994756,
+       "best_fom_ratio": 0.979025,
+       "steps": 6
+      },
+      {
+       "instance": 8,
+       "instance_id": "guide_divergence-heldout-000008",
+       "best_level": 4,
+       "best_reward": 1.005657,
+       "best_fom_ratio": 1.022628,
+       "steps": 6
+      },
+      {
+       "instance": 9,
+       "instance_id": "guide_divergence-heldout-000009",
+       "best_level": 4,
+       "best_reward": 1.003457,
+       "best_fom_ratio": 1.013827,
+       "steps": 4
+      },
+      {
+       "instance": 10,
+       "instance_id": "guide_divergence-heldout-000010",
+       "best_level": 4,
+       "best_reward": 1.011167,
+       "best_fom_ratio": 1.044668,
+       "steps": 1
+      },
+      {
+       "instance": 11,
+       "instance_id": "guide_divergence-heldout-000011",
+       "best_level": 3,
+       "best_reward": 0.99602,
+       "best_fom_ratio": 0.98408,
+       "steps": 6
+      },
+      {
+       "instance": 12,
+       "instance_id": "guide_divergence-heldout-000012",
+       "best_level": 3,
+       "best_reward": 0.852952,
+       "best_fom_ratio": 0.411808,
+       "steps": 6
+      },
+      {
+       "instance": 13,
+       "instance_id": "guide_divergence-heldout-000013",
+       "best_level": 3,
+       "best_reward": 0.999477,
+       "best_fom_ratio": 0.997908,
+       "steps": 6
+      },
+      {
+       "instance": 14,
+       "instance_id": "guide_divergence-heldout-000014",
+       "best_level": 4,
+       "best_reward": 1.009299,
+       "best_fom_ratio": 1.037196,
+       "steps": 2
+      },
+      {
+       "instance": 15,
+       "instance_id": "guide_divergence-heldout-000015",
+       "best_level": 4,
+       "best_reward": 1.012103,
+       "best_fom_ratio": 1.048411,
+       "steps": 3
+      },
+      {
+       "instance": 16,
+       "instance_id": "guide_divergence-heldout-000016",
+       "best_level": 4,
+       "best_reward": 1.01892,
+       "best_fom_ratio": 1.075682,
+       "steps": 2
+      },
+      {
+       "instance": 17,
+       "instance_id": "guide_divergence-heldout-000017",
+       "best_level": 3,
+       "best_reward": 0.835687,
+       "best_fom_ratio": 0.342747,
+       "steps": 6
+      },
+      {
+       "instance": 18,
+       "instance_id": "guide_divergence-heldout-000018",
+       "best_level": 4,
+       "best_reward": 1.016092,
+       "best_fom_ratio": 1.064368,
+       "steps": 2
+      },
+      {
+       "instance": 19,
+       "instance_id": "guide_divergence-heldout-000019",
+       "best_level": 3,
+       "best_reward": 0.985375,
+       "best_fom_ratio": 0.941501,
+       "steps": 6
+      },
+      {
+       "instance": 20,
+       "instance_id": "guide_divergence-heldout-000020",
+       "best_level": 3,
+       "best_reward": 0.987418,
+       "best_fom_ratio": 0.949672,
+       "steps": 6
+      },
+      {
+       "instance": 21,
+       "instance_id": "guide_divergence-heldout-000021",
+       "best_level": 4,
+       "best_reward": 1.002991,
+       "best_fom_ratio": 1.011965,
+       "steps": 6
+      },
+      {
+       "instance": 22,
+       "instance_id": "guide_divergence-heldout-000022",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 23,
+       "instance_id": "guide_divergence-heldout-000023",
+       "best_level": 4,
+       "best_reward": 1.007362,
+       "best_fom_ratio": 1.02945,
+       "steps": 2
+      },
+      {
+       "instance": 24,
+       "instance_id": "guide_divergence-heldout-000024",
+       "best_level": 4,
+       "best_reward": 1.002149,
+       "best_fom_ratio": 1.008598,
+       "steps": 4
+      }
+     ]
+    },
+    "sans_collimation": {
+     "rows": [
+      {
+       "instance": 0,
+       "instance_id": "sans_collimation-heldout-000000",
+       "best_level": 4,
+       "best_reward": 1.25,
+       "best_fom_ratio": 2.867358,
+       "steps": 1
+      },
+      {
+       "instance": 1,
+       "instance_id": "sans_collimation-heldout-000001",
+       "best_level": 4,
+       "best_reward": 1.003499,
+       "best_fom_ratio": 1.013997,
+       "steps": 1
+      },
+      {
+       "instance": 2,
+       "instance_id": "sans_collimation-heldout-000002",
+       "best_level": 4,
+       "best_reward": 1.00319,
+       "best_fom_ratio": 1.012761,
+       "steps": 1
+      },
+      {
+       "instance": 3,
+       "instance_id": "sans_collimation-heldout-000003",
+       "best_level": 4,
+       "best_reward": 1.006546,
+       "best_fom_ratio": 1.026184,
+       "steps": 1
+      },
+      {
+       "instance": 4,
+       "instance_id": "sans_collimation-heldout-000004",
+       "best_level": 4,
+       "best_reward": 1.01102,
+       "best_fom_ratio": 1.044081,
+       "steps": 1
+      },
+      {
+       "instance": 5,
+       "instance_id": "sans_collimation-heldout-000005",
+       "best_level": 4,
+       "best_reward": 1.25,
+       "best_fom_ratio": 6.852186,
+       "steps": 4
+      },
+      {
+       "instance": 6,
+       "instance_id": "sans_collimation-heldout-000006",
+       "best_level": 3,
+       "best_reward": 0.848626,
+       "best_fom_ratio": 0.394503,
+       "steps": 6
+      },
+      {
+       "instance": 7,
+       "instance_id": "sans_collimation-heldout-000007",
+       "best_level": 4,
+       "best_reward": 1.092921,
+       "best_fom_ratio": 1.371684,
+       "steps": 1
+      },
+      {
+       "instance": 8,
+       "instance_id": "sans_collimation-heldout-000008",
+       "best_level": 4,
+       "best_reward": 1.003274,
+       "best_fom_ratio": 1.013097,
+       "steps": 5
+      },
+      {
+       "instance": 9,
+       "instance_id": "sans_collimation-heldout-000009",
+       "best_level": 4,
+       "best_reward": 1.009696,
+       "best_fom_ratio": 1.038782,
+       "steps": 2
+      },
+      {
+       "instance": 10,
+       "instance_id": "sans_collimation-heldout-000010",
+       "best_level": 4,
+       "best_reward": 1.00052,
+       "best_fom_ratio": 1.002079,
+       "steps": 2
+      },
+      {
+       "instance": 11,
+       "instance_id": "sans_collimation-heldout-000011",
+       "best_level": 3,
+       "best_reward": 0.780766,
+       "best_fom_ratio": 0.123063,
+       "steps": 6
+      },
+      {
+       "instance": 12,
+       "instance_id": "sans_collimation-heldout-000012",
+       "best_level": 4,
+       "best_reward": 1.008526,
+       "best_fom_ratio": 1.034105,
+       "steps": 5
+      },
+      {
+       "instance": 13,
+       "instance_id": "sans_collimation-heldout-000013",
+       "best_level": 4,
+       "best_reward": 1.113687,
+       "best_fom_ratio": 1.454747,
+       "steps": 1
+      },
+      {
+       "instance": 14,
+       "instance_id": "sans_collimation-heldout-000014",
+       "best_level": 4,
+       "best_reward": 1.022925,
+       "best_fom_ratio": 1.091699,
+       "steps": 1
+      },
+      {
+       "instance": 15,
+       "instance_id": "sans_collimation-heldout-000015",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 16,
+       "instance_id": "sans_collimation-heldout-000016",
+       "best_level": 4,
+       "best_reward": 1.006111,
+       "best_fom_ratio": 1.024443,
+       "steps": 5
+      },
+      {
+       "instance": 17,
+       "instance_id": "sans_collimation-heldout-000017",
+       "best_level": 3,
+       "best_reward": 0.99979,
+       "best_fom_ratio": 0.99916,
+       "steps": 6
+      },
+      {
+       "instance": 18,
+       "instance_id": "sans_collimation-heldout-000018",
+       "best_level": 3,
+       "best_reward": 0.782331,
+       "best_fom_ratio": 0.129323,
+       "steps": 6
+      },
+      {
+       "instance": 19,
+       "instance_id": "sans_collimation-heldout-000019",
+       "best_level": 3,
+       "best_reward": 0.932745,
+       "best_fom_ratio": 0.730981,
+       "steps": 6
+      },
+      {
+       "instance": 20,
+       "instance_id": "sans_collimation-heldout-000020",
+       "best_level": 3,
+       "best_reward": 0.999885,
+       "best_fom_ratio": 0.999539,
+       "steps": 6
+      },
+      {
+       "instance": 21,
+       "instance_id": "sans_collimation-heldout-000021",
+       "best_level": 4,
+       "best_reward": 1.25,
+       "best_fom_ratio": 3.199743,
+       "steps": 6
+      },
+      {
+       "instance": 22,
+       "instance_id": "sans_collimation-heldout-000022",
+       "best_level": 4,
+       "best_reward": 1.25,
+       "best_fom_ratio": 2.245935,
+       "steps": 3
+      },
+      {
+       "instance": 23,
+       "instance_id": "sans_collimation-heldout-000023",
+       "best_level": 4,
+       "best_reward": 1.077118,
+       "best_fom_ratio": 1.30847,
+       "steps": 1
+      },
+      {
+       "instance": 24,
+       "instance_id": "sans_collimation-heldout-000024",
+       "best_level": 4,
+       "best_reward": 1.007379,
+       "best_fom_ratio": 1.029515,
+       "steps": 2
+      }
+     ]
+    }
+   }
+  },
+  "1.2": {
+   "qwen3-8b": {
+    "guide_divergence": {
+     "rows": [
+      {
+       "instance": 0,
+       "instance_id": "guide_divergence-heldout-000000",
+       "best_level": 3,
+       "best_reward": 0.952967,
+       "best_fom_ratio": 0.811869,
+       "steps": 6
+      },
+      {
+       "instance": 1,
+       "instance_id": "guide_divergence-heldout-000001",
+       "best_level": 3,
+       "best_reward": 0.943901,
+       "best_fom_ratio": 0.775604,
+       "steps": 6
+      },
+      {
+       "instance": 2,
+       "instance_id": "guide_divergence-heldout-000002",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 3,
+       "instance_id": "guide_divergence-heldout-000003",
+       "best_level": 3,
+       "best_reward": 0.962777,
+       "best_fom_ratio": 0.851107,
+       "steps": 6
+      },
+      {
+       "instance": 4,
+       "instance_id": "guide_divergence-heldout-000004",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 5,
+       "instance_id": "guide_divergence-heldout-000005",
+       "best_level": 3,
+       "best_reward": 0.976662,
+       "best_fom_ratio": 0.906649,
+       "steps": 6
+      },
+      {
+       "instance": 6,
+       "instance_id": "guide_divergence-heldout-000006",
+       "best_level": 3,
+       "best_reward": 0.967862,
+       "best_fom_ratio": 0.871449,
+       "steps": 6
+      },
+      {
+       "instance": 7,
+       "instance_id": "guide_divergence-heldout-000007",
+       "best_level": 3,
+       "best_reward": 0.953353,
+       "best_fom_ratio": 0.813413,
+       "steps": 6
+      },
+      {
+       "instance": 8,
+       "instance_id": "guide_divergence-heldout-000008",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 9,
+       "instance_id": "guide_divergence-heldout-000009",
+       "best_level": 3,
+       "best_reward": 0.957052,
+       "best_fom_ratio": 0.828209,
+       "steps": 6
+      },
+      {
+       "instance": 10,
+       "instance_id": "guide_divergence-heldout-000010",
+       "best_level": 3,
+       "best_reward": 0.96379,
+       "best_fom_ratio": 0.85516,
+       "steps": 6
+      },
+      {
+       "instance": 11,
+       "instance_id": "guide_divergence-heldout-000011",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 12,
+       "instance_id": "guide_divergence-heldout-000012",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 13,
+       "instance_id": "guide_divergence-heldout-000013",
+       "best_level": 3,
+       "best_reward": 0.937593,
+       "best_fom_ratio": 0.750373,
+       "steps": 6
+      },
+      {
+       "instance": 14,
+       "instance_id": "guide_divergence-heldout-000014",
+       "best_level": 3,
+       "best_reward": 0.959876,
+       "best_fom_ratio": 0.839503,
+       "steps": 6
+      },
+      {
+       "instance": 15,
+       "instance_id": "guide_divergence-heldout-000015",
+       "best_level": 3,
+       "best_reward": 0.964691,
+       "best_fom_ratio": 0.858765,
+       "steps": 6
+      },
+      {
+       "instance": 16,
+       "instance_id": "guide_divergence-heldout-000016",
+       "best_level": 3,
+       "best_reward": 0.978692,
+       "best_fom_ratio": 0.914769,
+       "steps": 6
+      },
+      {
+       "instance": 17,
+       "instance_id": "guide_divergence-heldout-000017",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 18,
+       "instance_id": "guide_divergence-heldout-000018",
+       "best_level": 3,
+       "best_reward": 0.919576,
+       "best_fom_ratio": 0.678303,
+       "steps": 6
+      },
+      {
+       "instance": 19,
+       "instance_id": "guide_divergence-heldout-000019",
+       "best_level": 3,
+       "best_reward": 0.951596,
+       "best_fom_ratio": 0.806385,
+       "steps": 6
+      },
+      {
+       "instance": 20,
+       "instance_id": "guide_divergence-heldout-000020",
+       "best_level": 3,
+       "best_reward": 0.938849,
+       "best_fom_ratio": 0.755396,
+       "steps": 6
+      },
+      {
+       "instance": 21,
+       "instance_id": "guide_divergence-heldout-000021",
+       "best_level": 3,
+       "best_reward": 0.957732,
+       "best_fom_ratio": 0.830929,
+       "steps": 6
+      },
+      {
+       "instance": 22,
+       "instance_id": "guide_divergence-heldout-000022",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 23,
+       "instance_id": "guide_divergence-heldout-000023",
+       "best_level": 3,
+       "best_reward": 0.964469,
+       "best_fom_ratio": 0.857875,
+       "steps": 6
+      },
+      {
+       "instance": 24,
+       "instance_id": "guide_divergence-heldout-000024",
+       "best_level": 3,
+       "best_reward": 0.945767,
+       "best_fom_ratio": 0.783068,
+       "steps": 6
+      }
+     ]
+    },
+    "sans_collimation": {
+     "rows": [
+      {
+       "instance": 0,
+       "instance_id": "sans_collimation-heldout-000000",
+       "best_level": 3,
+       "best_reward": 0.750015,
+       "best_fom_ratio": 5.9e-05,
+       "steps": 6
+      },
+      {
+       "instance": 1,
+       "instance_id": "sans_collimation-heldout-000001",
+       "best_level": 3,
+       "best_reward": 0.917266,
+       "best_fom_ratio": 0.669064,
+       "steps": 6
+      },
+      {
+       "instance": 2,
+       "instance_id": "sans_collimation-heldout-000002",
+       "best_level": 3,
+       "best_reward": 0.750049,
+       "best_fom_ratio": 0.000194,
+       "steps": 6
+      },
+      {
+       "instance": 3,
+       "instance_id": "sans_collimation-heldout-000003",
+       "best_level": 3,
+       "best_reward": 0.963788,
+       "best_fom_ratio": 0.855154,
+       "steps": 6
+      },
+      {
+       "instance": 4,
+       "instance_id": "sans_collimation-heldout-000004",
+       "best_level": 3,
+       "best_reward": 0.967517,
+       "best_fom_ratio": 0.870067,
+       "steps": 6
+      },
+      {
+       "instance": 5,
+       "instance_id": "sans_collimation-heldout-000005",
+       "best_level": 3,
+       "best_reward": 0.953992,
+       "best_fom_ratio": 0.815966,
+       "steps": 6
+      },
+      {
+       "instance": 6,
+       "instance_id": "sans_collimation-heldout-000006",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 7,
+       "instance_id": "sans_collimation-heldout-000007",
+       "best_level": 3,
+       "best_reward": 0.750014,
+       "best_fom_ratio": 5.8e-05,
+       "steps": 6
+      },
+      {
+       "instance": 8,
+       "instance_id": "sans_collimation-heldout-000008",
+       "best_level": 3,
+       "best_reward": 0.925285,
+       "best_fom_ratio": 0.701142,
+       "steps": 6
+      },
+      {
+       "instance": 9,
+       "instance_id": "sans_collimation-heldout-000009",
+       "best_level": 4,
+       "best_reward": 1.25,
+       "best_fom_ratio": 2.376865,
+       "steps": 4
+      },
+      {
+       "instance": 10,
+       "instance_id": "sans_collimation-heldout-000010",
+       "best_level": 4,
+       "best_reward": 1.25,
+       "best_fom_ratio": 3.277963,
+       "steps": 4
+      },
+      {
+       "instance": 11,
+       "instance_id": "sans_collimation-heldout-000011",
+       "best_level": 3,
+       "best_reward": 0.766882,
+       "best_fom_ratio": 0.067526,
+       "steps": 6
+      },
+      {
+       "instance": 12,
+       "instance_id": "sans_collimation-heldout-000012",
+       "best_level": 3,
+       "best_reward": 0.965439,
+       "best_fom_ratio": 0.861754,
+       "steps": 6
+      },
+      {
+       "instance": 13,
+       "instance_id": "sans_collimation-heldout-000013",
+       "best_level": 3,
+       "best_reward": 0.750031,
+       "best_fom_ratio": 0.000123,
+       "steps": 6
+      },
+      {
+       "instance": 14,
+       "instance_id": "sans_collimation-heldout-000014",
+       "best_level": 3,
+       "best_reward": 0.75001,
+       "best_fom_ratio": 3.9e-05,
+       "steps": 6
+      },
+      {
+       "instance": 15,
+       "instance_id": "sans_collimation-heldout-000015",
+       "best_level": 3,
+       "best_reward": 0.912981,
+       "best_fom_ratio": 0.651923,
+       "steps": 6
+      },
+      {
+       "instance": 16,
+       "instance_id": "sans_collimation-heldout-000016",
+       "best_level": 3,
+       "best_reward": 0.963703,
+       "best_fom_ratio": 0.854813,
+       "steps": 6
+      },
+      {
+       "instance": 17,
+       "instance_id": "sans_collimation-heldout-000017",
+       "best_level": 3,
+       "best_reward": 0.865895,
+       "best_fom_ratio": 0.463582,
+       "steps": 6
+      },
+      {
+       "instance": 18,
+       "instance_id": "sans_collimation-heldout-000018",
+       "best_level": 3,
+       "best_reward": 0.771123,
+       "best_fom_ratio": 0.084494,
+       "steps": 6
+      },
+      {
+       "instance": 19,
+       "instance_id": "sans_collimation-heldout-000019",
+       "best_level": 3,
+       "best_reward": 0.902288,
+       "best_fom_ratio": 0.60915,
+       "steps": 6
+      },
+      {
+       "instance": 20,
+       "instance_id": "sans_collimation-heldout-000020",
+       "best_level": 3,
+       "best_reward": 0.750006,
+       "best_fom_ratio": 2.5e-05,
+       "steps": 6
+      },
+      {
+       "instance": 21,
+       "instance_id": "sans_collimation-heldout-000021",
+       "best_level": 3,
+       "best_reward": 0.956816,
+       "best_fom_ratio": 0.827266,
+       "steps": 6
+      },
+      {
+       "instance": 22,
+       "instance_id": "sans_collimation-heldout-000022",
+       "best_level": 4,
+       "best_reward": 1.25,
+       "best_fom_ratio": 3.176385,
+       "steps": 4
+      },
+      {
+       "instance": 23,
+       "instance_id": "sans_collimation-heldout-000023",
+       "best_level": 3,
+       "best_reward": 0.750024,
+       "best_fom_ratio": 9.5e-05,
+       "steps": 6
+      },
+      {
+       "instance": 24,
+       "instance_id": "sans_collimation-heldout-000024",
+       "best_level": 3,
+       "best_reward": 0.964482,
+       "best_fom_ratio": 0.857929,
+       "steps": 6
+      }
+     ]
+    }
+   },
+   "qwen3-32b": {
+    "guide_divergence": {
+     "rows": [
+      {
+       "instance": 0,
+       "instance_id": "guide_divergence-heldout-000000",
+       "best_level": 3,
+       "best_reward": 0.962412,
+       "best_fom_ratio": 0.849649,
+       "steps": 6
+      },
+      {
+       "instance": 1,
+       "instance_id": "guide_divergence-heldout-000001",
+       "best_level": 3,
+       "best_reward": 0.964928,
+       "best_fom_ratio": 0.859713,
+       "steps": 6
+      },
+      {
+       "instance": 2,
+       "instance_id": "guide_divergence-heldout-000002",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 3,
+       "instance_id": "guide_divergence-heldout-000003",
+       "best_level": 3,
+       "best_reward": 0.968531,
+       "best_fom_ratio": 0.874125,
+       "steps": 6
+      },
+      {
+       "instance": 4,
+       "instance_id": "guide_divergence-heldout-000004",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 5,
+       "instance_id": "guide_divergence-heldout-000005",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 6,
+       "instance_id": "guide_divergence-heldout-000006",
+       "best_level": 3,
+       "best_reward": 0.928001,
+       "best_fom_ratio": 0.712005,
+       "steps": 6
+      },
+      {
+       "instance": 7,
+       "instance_id": "guide_divergence-heldout-000007",
+       "best_level": 3,
+       "best_reward": 0.952163,
+       "best_fom_ratio": 0.808651,
+       "steps": 6
+      },
+      {
+       "instance": 8,
+       "instance_id": "guide_divergence-heldout-000008",
+       "best_level": 3,
+       "best_reward": 0.963047,
+       "best_fom_ratio": 0.85219,
+       "steps": 6
+      },
+      {
+       "instance": 9,
+       "instance_id": "guide_divergence-heldout-000009",
+       "best_level": 3,
+       "best_reward": 0.966486,
+       "best_fom_ratio": 0.865945,
+       "steps": 6
+      },
+      {
+       "instance": 10,
+       "instance_id": "guide_divergence-heldout-000010",
+       "best_level": 3,
+       "best_reward": 0.967639,
+       "best_fom_ratio": 0.870556,
+       "steps": 6
+      },
+      {
+       "instance": 11,
+       "instance_id": "guide_divergence-heldout-000011",
+       "best_level": 3,
+       "best_reward": 0.955017,
+       "best_fom_ratio": 0.820066,
+       "steps": 6
+      },
+      {
+       "instance": 12,
+       "instance_id": "guide_divergence-heldout-000012",
+       "best_level": 3,
+       "best_reward": 0.964315,
+       "best_fom_ratio": 0.857261,
+       "steps": 6
+      },
+      {
+       "instance": 13,
+       "instance_id": "guide_divergence-heldout-000013",
+       "best_level": 3,
+       "best_reward": 0.955211,
+       "best_fom_ratio": 0.820844,
+       "steps": 6
+      },
+      {
+       "instance": 14,
+       "instance_id": "guide_divergence-heldout-000014",
+       "best_level": 3,
+       "best_reward": 0.98097,
+       "best_fom_ratio": 0.923881,
+       "steps": 6
+      },
+      {
+       "instance": 15,
+       "instance_id": "guide_divergence-heldout-000015",
+       "best_level": 3,
+       "best_reward": 0.969009,
+       "best_fom_ratio": 0.876036,
+       "steps": 6
+      },
+      {
+       "instance": 16,
+       "instance_id": "guide_divergence-heldout-000016",
+       "best_level": 3,
+       "best_reward": 0.980211,
+       "best_fom_ratio": 0.920846,
+       "steps": 6
+      },
+      {
+       "instance": 17,
+       "instance_id": "guide_divergence-heldout-000017",
+       "best_level": 3,
+       "best_reward": 0.821406,
+       "best_fom_ratio": 0.285622,
+       "steps": 6
+      },
+      {
+       "instance": 18,
+       "instance_id": "guide_divergence-heldout-000018",
+       "best_level": 3,
+       "best_reward": 0.972304,
+       "best_fom_ratio": 0.889216,
+       "steps": 6
+      },
+      {
+       "instance": 19,
+       "instance_id": "guide_divergence-heldout-000019",
+       "best_level": 3,
+       "best_reward": 0.957742,
+       "best_fom_ratio": 0.83097,
+       "steps": 6
+      },
+      {
+       "instance": 20,
+       "instance_id": "guide_divergence-heldout-000020",
+       "best_level": 3,
+       "best_reward": 0.947848,
+       "best_fom_ratio": 0.791393,
+       "steps": 6
+      },
+      {
+       "instance": 21,
+       "instance_id": "guide_divergence-heldout-000021",
+       "best_level": 3,
+       "best_reward": 0.946413,
+       "best_fom_ratio": 0.785653,
+       "steps": 6
+      },
+      {
+       "instance": 22,
+       "instance_id": "guide_divergence-heldout-000022",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 23,
+       "instance_id": "guide_divergence-heldout-000023",
+       "best_level": 3,
+       "best_reward": 0.964469,
+       "best_fom_ratio": 0.857875,
+       "steps": 6
+      },
+      {
+       "instance": 24,
+       "instance_id": "guide_divergence-heldout-000024",
+       "best_level": 3,
+       "best_reward": 0.921895,
+       "best_fom_ratio": 0.687581,
+       "steps": 6
+      }
+     ]
+    },
+    "sans_collimation": {
+     "rows": [
+      {
+       "instance": 0,
+       "instance_id": "sans_collimation-heldout-000000",
+       "best_level": 4,
+       "best_reward": 1.25,
+       "best_fom_ratio": 2.389465,
+       "steps": 1
+      },
+      {
+       "instance": 1,
+       "instance_id": "sans_collimation-heldout-000001",
+       "best_level": 3,
+       "best_reward": 0.961249,
+       "best_fom_ratio": 0.844998,
+       "steps": 6
+      },
+      {
+       "instance": 2,
+       "instance_id": "sans_collimation-heldout-000002",
+       "best_level": 3,
+       "best_reward": 0.960992,
+       "best_fom_ratio": 0.843968,
+       "steps": 6
+      },
+      {
+       "instance": 3,
+       "instance_id": "sans_collimation-heldout-000003",
+       "best_level": 3,
+       "best_reward": 0.963788,
+       "best_fom_ratio": 0.855154,
+       "steps": 6
+      },
+      {
+       "instance": 4,
+       "instance_id": "sans_collimation-heldout-000004",
+       "best_level": 3,
+       "best_reward": 0.967517,
+       "best_fom_ratio": 0.870067,
+       "steps": 6
+      },
+      {
+       "instance": 5,
+       "instance_id": "sans_collimation-heldout-000005",
+       "best_level": 3,
+       "best_reward": 0.953992,
+       "best_fom_ratio": 0.815966,
+       "steps": 6
+      },
+      {
+       "instance": 6,
+       "instance_id": "sans_collimation-heldout-000006",
+       "best_level": 3,
+       "best_reward": 0.832188,
+       "best_fom_ratio": 0.328753,
+       "steps": 6
+      },
+      {
+       "instance": 7,
+       "instance_id": "sans_collimation-heldout-000007",
+       "best_level": 4,
+       "best_reward": 1.035768,
+       "best_fom_ratio": 1.14307,
+       "steps": 1
+      },
+      {
+       "instance": 8,
+       "instance_id": "sans_collimation-heldout-000008",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 9,
+       "instance_id": "sans_collimation-heldout-000009",
+       "best_level": 4,
+       "best_reward": 1.25,
+       "best_fom_ratio": 2.376865,
+       "steps": 1
+      },
+      {
+       "instance": 10,
+       "instance_id": "sans_collimation-heldout-000010",
+       "best_level": 3,
+       "best_reward": 0.958766,
+       "best_fom_ratio": 0.835065,
+       "steps": 6
+      },
+      {
+       "instance": 11,
+       "instance_id": "sans_collimation-heldout-000011",
+       "best_level": 3,
+       "best_reward": 0.775638,
+       "best_fom_ratio": 0.102553,
+       "steps": 6
+      },
+      {
+       "instance": 12,
+       "instance_id": "sans_collimation-heldout-000012",
+       "best_level": 3,
+       "best_reward": 0.965439,
+       "best_fom_ratio": 0.861754,
+       "steps": 6
+      },
+      {
+       "instance": 13,
+       "instance_id": "sans_collimation-heldout-000013",
+       "best_level": 4,
+       "best_reward": 1.053072,
+       "best_fom_ratio": 1.212289,
+       "steps": 1
+      },
+      {
+       "instance": 14,
+       "instance_id": "sans_collimation-heldout-000014",
+       "best_level": 3,
+       "best_reward": 0.750031,
+       "best_fom_ratio": 0.000124,
+       "steps": 6
+      },
+      {
+       "instance": 15,
+       "instance_id": "sans_collimation-heldout-000015",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 16,
+       "instance_id": "sans_collimation-heldout-000016",
+       "best_level": 3,
+       "best_reward": 0.963703,
+       "best_fom_ratio": 0.854813,
+       "steps": 6
+      },
+      {
+       "instance": 17,
+       "instance_id": "sans_collimation-heldout-000017",
+       "best_level": 3,
+       "best_reward": 0.958158,
+       "best_fom_ratio": 0.832634,
+       "steps": 6
+      },
+      {
+       "instance": 18,
+       "instance_id": "sans_collimation-heldout-000018",
+       "best_level": 3,
+       "best_reward": 0.776942,
+       "best_fom_ratio": 0.107769,
+       "steps": 6
+      },
+      {
+       "instance": 19,
+       "instance_id": "sans_collimation-heldout-000019",
+       "best_level": 3,
+       "best_reward": 0.902288,
+       "best_fom_ratio": 0.60915,
+       "steps": 6
+      },
+      {
+       "instance": 20,
+       "instance_id": "sans_collimation-heldout-000020",
+       "best_level": 3,
+       "best_reward": 0.958237,
+       "best_fom_ratio": 0.832949,
+       "steps": 6
+      },
+      {
+       "instance": 21,
+       "instance_id": "sans_collimation-heldout-000021",
+       "best_level": 3,
+       "best_reward": 0.947378,
+       "best_fom_ratio": 0.789513,
+       "steps": 6
+      },
+      {
+       "instance": 22,
+       "instance_id": "sans_collimation-heldout-000022",
+       "best_level": 4,
+       "best_reward": 1.25,
+       "best_fom_ratio": 3.176355,
+       "steps": 4
+      },
+      {
+       "instance": 23,
+       "instance_id": "sans_collimation-heldout-000023",
+       "best_level": 4,
+       "best_reward": 1.022598,
+       "best_fom_ratio": 1.090392,
+       "steps": 1
+      },
+      {
+       "instance": 24,
+       "instance_id": "sans_collimation-heldout-000024",
+       "best_level": 3,
+       "best_reward": 0.964482,
+       "best_fom_ratio": 0.857929,
+       "steps": 6
+      }
+     ]
+    }
+   }
+  },
+  "1.4": {
+   "qwen3-8b": {
+    "guide_divergence": {
+     "rows": [
+      {
+       "instance": 0,
+       "instance_id": "guide_divergence-heldout-000000",
+       "best_level": 3,
+       "best_reward": 0.923972,
+       "best_fom_ratio": 0.695888,
+       "steps": 6
+      },
+      {
+       "instance": 1,
+       "instance_id": "guide_divergence-heldout-000001",
+       "best_level": 3,
+       "best_reward": 0.914962,
+       "best_fom_ratio": 0.659848,
+       "steps": 6
+      },
+      {
+       "instance": 2,
+       "instance_id": "guide_divergence-heldout-000002",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 3,
+       "instance_id": "guide_divergence-heldout-000003",
+       "best_level": 3,
+       "best_reward": 0.93238,
+       "best_fom_ratio": 0.72952,
+       "steps": 6
+      },
+      {
+       "instance": 4,
+       "instance_id": "guide_divergence-heldout-000004",
+       "best_level": 3,
+       "best_reward": 0.922593,
+       "best_fom_ratio": 0.690372,
+       "steps": 6
+      },
+      {
+       "instance": 5,
+       "instance_id": "guide_divergence-heldout-000005",
+       "best_level": 3,
+       "best_reward": 0.944282,
+       "best_fom_ratio": 0.777128,
+       "steps": 6
+      },
+      {
+       "instance": 6,
+       "instance_id": "guide_divergence-heldout-000006",
+       "best_level": 3,
+       "best_reward": 0.936739,
+       "best_fom_ratio": 0.746956,
+       "steps": 6
+      },
+      {
+       "instance": 7,
+       "instance_id": "guide_divergence-heldout-000007",
+       "best_level": 3,
+       "best_reward": 0.926701,
+       "best_fom_ratio": 0.706804,
+       "steps": 6
+      },
+      {
+       "instance": 8,
+       "instance_id": "guide_divergence-heldout-000008",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 9,
+       "instance_id": "guide_divergence-heldout-000009",
+       "best_level": 3,
+       "best_reward": 0.92746,
+       "best_fom_ratio": 0.709841,
+       "steps": 6
+      },
+      {
+       "instance": 10,
+       "instance_id": "guide_divergence-heldout-000010",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 11,
+       "instance_id": "guide_divergence-heldout-000011",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 12,
+       "instance_id": "guide_divergence-heldout-000012",
+       "best_level": 3,
+       "best_reward": 0.906303,
+       "best_fom_ratio": 0.625211,
+       "steps": 6
+      },
+      {
+       "instance": 13,
+       "instance_id": "guide_divergence-heldout-000013",
+       "best_level": 3,
+       "best_reward": 0.920663,
+       "best_fom_ratio": 0.682653,
+       "steps": 6
+      },
+      {
+       "instance": 14,
+       "instance_id": "guide_divergence-heldout-000014",
+       "best_level": 3,
+       "best_reward": 0.939817,
+       "best_fom_ratio": 0.759268,
+       "steps": 6
+      },
+      {
+       "instance": 15,
+       "instance_id": "guide_divergence-heldout-000015",
+       "best_level": 3,
+       "best_reward": 0.934021,
+       "best_fom_ratio": 0.736084,
+       "steps": 6
+      },
+      {
+       "instance": 16,
+       "instance_id": "guide_divergence-heldout-000016",
+       "best_level": 3,
+       "best_reward": 0.942256,
+       "best_fom_ratio": 0.769025,
+       "steps": 6
+      },
+      {
+       "instance": 17,
+       "instance_id": "guide_divergence-heldout-000017",
+       "best_level": 3,
+       "best_reward": 0.938872,
+       "best_fom_ratio": 0.755487,
+       "steps": 6
+      },
+      {
+       "instance": 18,
+       "instance_id": "guide_divergence-heldout-000018",
+       "best_level": 3,
+       "best_reward": 0.895351,
+       "best_fom_ratio": 0.581403,
+       "steps": 6
+      },
+      {
+       "instance": 19,
+       "instance_id": "guide_divergence-heldout-000019",
+       "best_level": 3,
+       "best_reward": 0.80838,
+       "best_fom_ratio": 0.23352,
+       "steps": 6
+      },
+      {
+       "instance": 20,
+       "instance_id": "guide_divergence-heldout-000020",
+       "best_level": 3,
+       "best_reward": 0.911871,
+       "best_fom_ratio": 0.647482,
+       "steps": 6
+      },
+      {
+       "instance": 21,
+       "instance_id": "guide_divergence-heldout-000021",
+       "best_level": 3,
+       "best_reward": 0.928056,
+       "best_fom_ratio": 0.712225,
+       "steps": 6
+      },
+      {
+       "instance": 22,
+       "instance_id": "guide_divergence-heldout-000022",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 23,
+       "instance_id": "guide_divergence-heldout-000023",
+       "best_level": 3,
+       "best_reward": 0.893256,
+       "best_fom_ratio": 0.573023,
+       "steps": 6
+      },
+      {
+       "instance": 24,
+       "instance_id": "guide_divergence-heldout-000024",
+       "best_level": 3,
+       "best_reward": 0.890155,
+       "best_fom_ratio": 0.560622,
+       "steps": 6
+      }
+     ]
+    },
+    "sans_collimation": {
+     "rows": [
+      {
+       "instance": 0,
+       "instance_id": "sans_collimation-heldout-000000",
+       "best_level": 3,
+       "best_reward": 0.750013,
+       "best_fom_ratio": 5.1e-05,
+       "steps": 6
+      },
+      {
+       "instance": 1,
+       "instance_id": "sans_collimation-heldout-000001",
+       "best_level": 3,
+       "best_reward": 0.931071,
+       "best_fom_ratio": 0.724284,
+       "steps": 6
+      },
+      {
+       "instance": 2,
+       "instance_id": "sans_collimation-heldout-000002",
+       "best_level": 3,
+       "best_reward": 0.750042,
+       "best_fom_ratio": 0.000167,
+       "steps": 6
+      },
+      {
+       "instance": 3,
+       "instance_id": "sans_collimation-heldout-000003",
+       "best_level": 3,
+       "best_reward": 0.933247,
+       "best_fom_ratio": 0.732989,
+       "steps": 6
+      },
+      {
+       "instance": 4,
+       "instance_id": "sans_collimation-heldout-000004",
+       "best_level": 3,
+       "best_reward": 0.936443,
+       "best_fom_ratio": 0.745772,
+       "steps": 6
+      },
+      {
+       "instance": 5,
+       "instance_id": "sans_collimation-heldout-000005",
+       "best_level": 3,
+       "best_reward": 0.92485,
+       "best_fom_ratio": 0.699399,
+       "steps": 6
+      },
+      {
+       "instance": 6,
+       "instance_id": "sans_collimation-heldout-000006",
+       "best_level": 3,
+       "best_reward": 0.820447,
+       "best_fom_ratio": 0.281788,
+       "steps": 6
+      },
+      {
+       "instance": 7,
+       "instance_id": "sans_collimation-heldout-000007",
+       "best_level": 3,
+       "best_reward": 0.750012,
+       "best_fom_ratio": 5e-05,
+       "steps": 6
+      },
+      {
+       "instance": 8,
+       "instance_id": "sans_collimation-heldout-000008",
+       "best_level": 3,
+       "best_reward": 0.900245,
+       "best_fom_ratio": 0.600979,
+       "steps": 6
+      },
+      {
+       "instance": 9,
+       "instance_id": "sans_collimation-heldout-000009",
+       "best_level": 4,
+       "best_reward": 1.25,
+       "best_fom_ratio": 2.037313,
+       "steps": 4
+      },
+      {
+       "instance": 10,
+       "instance_id": "sans_collimation-heldout-000010",
+       "best_level": 4,
+       "best_reward": 1.25,
+       "best_fom_ratio": 2.809682,
+       "steps": 4
+      },
+      {
+       "instance": 11,
+       "instance_id": "sans_collimation-heldout-000011",
+       "best_level": 3,
+       "best_reward": 0.768379,
+       "best_fom_ratio": 0.073516,
+       "steps": 6
+      },
+      {
+       "instance": 12,
+       "instance_id": "sans_collimation-heldout-000012",
+       "best_level": 3,
+       "best_reward": 0.934662,
+       "best_fom_ratio": 0.738646,
+       "steps": 6
+      },
+      {
+       "instance": 13,
+       "instance_id": "sans_collimation-heldout-000013",
+       "best_level": 3,
+       "best_reward": 0.750026,
+       "best_fom_ratio": 0.000106,
+       "steps": 6
+      },
+      {
+       "instance": 14,
+       "instance_id": "sans_collimation-heldout-000014",
+       "best_level": 3,
+       "best_reward": 0.750008,
+       "best_fom_ratio": 3.3e-05,
+       "steps": 6
+      },
+      {
+       "instance": 15,
+       "instance_id": "sans_collimation-heldout-000015",
+       "best_level": 4,
+       "best_reward": 1.057489,
+       "best_fom_ratio": 1.229957,
+       "steps": 2
+      },
+      {
+       "instance": 16,
+       "instance_id": "sans_collimation-heldout-000016",
+       "best_level": 3,
+       "best_reward": 0.933174,
+       "best_fom_ratio": 0.732697,
+       "steps": 6
+      },
+      {
+       "instance": 17,
+       "instance_id": "sans_collimation-heldout-000017",
+       "best_level": 3,
+       "best_reward": 0.750004,
+       "best_fom_ratio": 1.5e-05,
+       "steps": 6
+      },
+      {
+       "instance": 18,
+       "instance_id": "sans_collimation-heldout-000018",
+       "best_level": 3,
+       "best_reward": 0.768106,
+       "best_fom_ratio": 0.072423,
+       "steps": 6
+      },
+      {
+       "instance": 19,
+       "instance_id": "sans_collimation-heldout-000019",
+       "best_level": 3,
+       "best_reward": 0.880532,
+       "best_fom_ratio": 0.522129,
+       "steps": 6
+      },
+      {
+       "instance": 20,
+       "instance_id": "sans_collimation-heldout-000020",
+       "best_level": 3,
+       "best_reward": 0.750005,
+       "best_fom_ratio": 2.1e-05,
+       "steps": 6
+      },
+      {
+       "instance": 21,
+       "instance_id": "sans_collimation-heldout-000021",
+       "best_level": 3,
+       "best_reward": 0.927271,
+       "best_fom_ratio": 0.709085,
+       "steps": 6
+      },
+      {
+       "instance": 22,
+       "instance_id": "sans_collimation-heldout-000022",
+       "best_level": 4,
+       "best_reward": 1.25,
+       "best_fom_ratio": 2.722616,
+       "steps": 4
+      },
+      {
+       "instance": 23,
+       "instance_id": "sans_collimation-heldout-000023",
+       "best_level": 3,
+       "best_reward": 0.75002,
+       "best_fom_ratio": 8.1e-05,
+       "steps": 6
+      },
+      {
+       "instance": 24,
+       "instance_id": "sans_collimation-heldout-000024",
+       "best_level": 3,
+       "best_reward": 0.933842,
+       "best_fom_ratio": 0.735368,
+       "steps": 6
+      }
+     ]
+    }
+   },
+   "qwen3-32b": {
+    "guide_divergence": {
+     "rows": [
+      {
+       "instance": 0,
+       "instance_id": "guide_divergence-heldout-000000",
+       "best_level": 3,
+       "best_reward": 0.933964,
+       "best_fom_ratio": 0.735857,
+       "steps": 6
+      },
+      {
+       "instance": 1,
+       "instance_id": "guide_divergence-heldout-000001",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 2,
+       "instance_id": "guide_divergence-heldout-000002",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 3,
+       "instance_id": "guide_divergence-heldout-000003",
+       "best_level": 3,
+       "best_reward": 0.936882,
+       "best_fom_ratio": 0.747528,
+       "steps": 6
+      },
+      {
+       "instance": 4,
+       "instance_id": "guide_divergence-heldout-000004",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 5,
+       "instance_id": "guide_divergence-heldout-000005",
+       "best_level": 3,
+       "best_reward": 0.944282,
+       "best_fom_ratio": 0.777128,
+       "steps": 6
+      },
+      {
+       "instance": 6,
+       "instance_id": "guide_divergence-heldout-000006",
+       "best_level": 3,
+       "best_reward": 0.902572,
+       "best_fom_ratio": 0.61029,
+       "steps": 6
+      },
+      {
+       "instance": 7,
+       "instance_id": "guide_divergence-heldout-000007",
+       "best_level": 3,
+       "best_reward": 0.923282,
+       "best_fom_ratio": 0.693129,
+       "steps": 6
+      },
+      {
+       "instance": 8,
+       "instance_id": "guide_divergence-heldout-000008",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 9,
+       "instance_id": "guide_divergence-heldout-000009",
+       "best_level": 3,
+       "best_reward": 0.931041,
+       "best_fom_ratio": 0.724162,
+       "steps": 6
+      },
+      {
+       "instance": 10,
+       "instance_id": "guide_divergence-heldout-000010",
+       "best_level": 3,
+       "best_reward": 0.936548,
+       "best_fom_ratio": 0.746191,
+       "steps": 6
+      },
+      {
+       "instance": 11,
+       "instance_id": "guide_divergence-heldout-000011",
+       "best_level": 3,
+       "best_reward": 0.925729,
+       "best_fom_ratio": 0.702914,
+       "steps": 6
+      },
+      {
+       "instance": 12,
+       "instance_id": "guide_divergence-heldout-000012",
+       "best_level": 3,
+       "best_reward": 0.848998,
+       "best_fom_ratio": 0.395992,
+       "steps": 6
+      },
+      {
+       "instance": 13,
+       "instance_id": "guide_divergence-heldout-000013",
+       "best_level": 3,
+       "best_reward": 0.929275,
+       "best_fom_ratio": 0.7171,
+       "steps": 6
+      },
+      {
+       "instance": 14,
+       "instance_id": "guide_divergence-heldout-000014",
+       "best_level": 3,
+       "best_reward": 0.947975,
+       "best_fom_ratio": 0.791898,
+       "steps": 6
+      },
+      {
+       "instance": 15,
+       "instance_id": "guide_divergence-heldout-000015",
+       "best_level": 3,
+       "best_reward": 0.937722,
+       "best_fom_ratio": 0.750888,
+       "steps": 6
+      },
+      {
+       "instance": 16,
+       "instance_id": "guide_divergence-heldout-000016",
+       "best_level": 3,
+       "best_reward": 0.947324,
+       "best_fom_ratio": 0.789296,
+       "steps": 6
+      },
+      {
+       "instance": 17,
+       "instance_id": "guide_divergence-heldout-000017",
+       "best_level": 3,
+       "best_reward": 0.811205,
+       "best_fom_ratio": 0.244819,
+       "steps": 6
+      },
+      {
+       "instance": 18,
+       "instance_id": "guide_divergence-heldout-000018",
+       "best_level": 3,
+       "best_reward": 0.940546,
+       "best_fom_ratio": 0.762185,
+       "steps": 6
+      },
+      {
+       "instance": 19,
+       "instance_id": "guide_divergence-heldout-000019",
+       "best_level": 3,
+       "best_reward": 0.923903,
+       "best_fom_ratio": 0.695612,
+       "steps": 6
+      },
+      {
+       "instance": 20,
+       "instance_id": "guide_divergence-heldout-000020",
+       "best_level": 3,
+       "best_reward": 0.919584,
+       "best_fom_ratio": 0.678337,
+       "steps": 6
+      },
+      {
+       "instance": 21,
+       "instance_id": "guide_divergence-heldout-000021",
+       "best_level": 3,
+       "best_reward": 0.918354,
+       "best_fom_ratio": 0.673417,
+       "steps": 6
+      },
+      {
+       "instance": 22,
+       "instance_id": "guide_divergence-heldout-000022",
+       "best_level": 3,
+       "best_reward": 0.955825,
+       "best_fom_ratio": 0.823302,
+       "steps": 6
+      },
+      {
+       "instance": 23,
+       "instance_id": "guide_divergence-heldout-000023",
+       "best_level": 3,
+       "best_reward": 0.93383,
+       "best_fom_ratio": 0.735321,
+       "steps": 6
+      },
+      {
+       "instance": 24,
+       "instance_id": "guide_divergence-heldout-000024",
+       "best_level": 3,
+       "best_reward": 0.927789,
+       "best_fom_ratio": 0.711157,
+       "steps": 6
+      }
+     ]
+    },
+    "sans_collimation": {
+     "rows": [
+      {
+       "instance": 0,
+       "instance_id": "sans_collimation-heldout-000000",
+       "best_level": 3,
+       "best_reward": 0.750016,
+       "best_fom_ratio": 6.5e-05,
+       "steps": 6
+      },
+      {
+       "instance": 1,
+       "instance_id": "sans_collimation-heldout-000001",
+       "best_level": 3,
+       "best_reward": 0.931071,
+       "best_fom_ratio": 0.724284,
+       "steps": 6
+      },
+      {
+       "instance": 2,
+       "instance_id": "sans_collimation-heldout-000002",
+       "best_level": 3,
+       "best_reward": 0.750019,
+       "best_fom_ratio": 7.8e-05,
+       "steps": 6
+      },
+      {
+       "instance": 3,
+       "instance_id": "sans_collimation-heldout-000003",
+       "best_level": 3,
+       "best_reward": 0.925381,
+       "best_fom_ratio": 0.701524,
+       "steps": 6
+      },
+      {
+       "instance": 4,
+       "instance_id": "sans_collimation-heldout-000004",
+       "best_level": 3,
+       "best_reward": 0.936443,
+       "best_fom_ratio": 0.745772,
+       "steps": 6
+      },
+      {
+       "instance": 5,
+       "instance_id": "sans_collimation-heldout-000005",
+       "best_level": 3,
+       "best_reward": 0.92485,
+       "best_fom_ratio": 0.699399,
+       "steps": 6
+      },
+      {
+       "instance": 6,
+       "instance_id": "sans_collimation-heldout-000006",
+       "best_level": 3,
+       "best_reward": 0.820447,
+       "best_fom_ratio": 0.281788,
+       "steps": 6
+      },
+      {
+       "instance": 7,
+       "instance_id": "sans_collimation-heldout-000007",
+       "best_level": 3,
+       "best_reward": 0.994944,
+       "best_fom_ratio": 0.979774,
+       "steps": 6
+      },
+      {
+       "instance": 8,
+       "instance_id": "sans_collimation-heldout-000008",
+       "best_level": 3,
+       "best_reward": 0.845625,
+       "best_fom_ratio": 0.3825,
+       "steps": 6
+      },
+      {
+       "instance": 9,
+       "instance_id": "sans_collimation-heldout-000009",
+       "best_level": 4,
+       "best_reward": 1.25,
+       "best_fom_ratio": 2.037313,
+       "steps": 1
+      },
+      {
+       "instance": 10,
+       "instance_id": "sans_collimation-heldout-000010",
+       "best_level": 3,
+       "best_reward": 0.928943,
+       "best_fom_ratio": 0.71577,
+       "steps": 6
+      },
+      {
+       "instance": 11,
+       "instance_id": "sans_collimation-heldout-000011",
+       "best_level": 3,
+       "best_reward": 0.771976,
+       "best_fom_ratio": 0.087902,
+       "steps": 6
+      },
+      {
+       "instance": 12,
+       "instance_id": "sans_collimation-heldout-000012",
+       "best_level": 3,
+       "best_reward": 0.934662,
+       "best_fom_ratio": 0.738646,
+       "steps": 6
+      },
+      {
+       "instance": 13,
+       "instance_id": "sans_collimation-heldout-000013",
+       "best_level": 4,
+       "best_reward": 1.009776,
+       "best_fom_ratio": 1.039105,
+       "steps": 1
+      },
+      {
+       "instance": 14,
+       "instance_id": "sans_collimation-heldout-000014",
+       "best_level": 3,
+       "best_reward": 0.750027,
+       "best_fom_ratio": 0.000106,
+       "steps": 6
+      },
+      {
+       "instance": 15,
+       "instance_id": "sans_collimation-heldout-000015",
+       "best_level": 2,
+       "best_reward": 0.5,
+       "best_fom_ratio": 0,
+       "steps": 6
+      },
+      {
+       "instance": 16,
+       "instance_id": "sans_collimation-heldout-000016",
+       "best_level": 3,
+       "best_reward": 0.933174,
+       "best_fom_ratio": 0.732697,
+       "steps": 6
+      },
+      {
+       "instance": 17,
+       "instance_id": "sans_collimation-heldout-000017",
+       "best_level": 3,
+       "best_reward": 0.928421,
+       "best_fom_ratio": 0.713686,
+       "steps": 6
+      },
+      {
+       "instance": 18,
+       "instance_id": "sans_collimation-heldout-000018",
+       "best_level": 3,
+       "best_reward": 0.773093,
+       "best_fom_ratio": 0.092374,
+       "steps": 6
+      },
+      {
+       "instance": 19,
+       "instance_id": "sans_collimation-heldout-000019",
+       "best_level": 3,
+       "best_reward": 0.880532,
+       "best_fom_ratio": 0.522129,
+       "steps": 6
+      },
+      {
+       "instance": 20,
+       "instance_id": "sans_collimation-heldout-000020",
+       "best_level": 3,
+       "best_reward": 0.928489,
+       "best_fom_ratio": 0.713956,
+       "steps": 6
+      },
+      {
+       "instance": 21,
+       "instance_id": "sans_collimation-heldout-000021",
+       "best_level": 3,
+       "best_reward": 0.919181,
+       "best_fom_ratio": 0.676726,
+       "steps": 6
+      },
+      {
+       "instance": 22,
+       "instance_id": "sans_collimation-heldout-000022",
+       "best_level": 3,
+       "best_reward": 0.840719,
+       "best_fom_ratio": 0.362875,
+       "steps": 6
+      },
+      {
+       "instance": 23,
+       "instance_id": "sans_collimation-heldout-000023",
+       "best_level": 3,
+       "best_reward": 0.983655,
+       "best_fom_ratio": 0.934621,
+       "steps": 6
+      },
+      {
+       "instance": 24,
+       "instance_id": "sans_collimation-heldout-000024",
+       "best_level": 3,
+       "best_reward": 0.933842,
+       "best_fom_ratio": 0.735368,
+       "steps": 6
+      }
+     ]
+    }
+   }
+  }
+ },
+ "paired": {
+  "0.8": {
+   "models": [
+    "qwen3-8b",
+    "qwen3-32b"
+   ],
+   "n_paired": 50,
+   "both_pass": 26,
+   "only_qwen3-8b": 4,
+   "only_qwen3-32b": 11,
+   "neither": 9,
+   "agreement": 0.7,
+   "discordant": 15,
+   "mcnemar_p": 0.118469,
+   "ordering_supported": false,
+   "balanced": false,
+   "leader": "qwen3-32b",
+   "n_discordant_for_significance": 6,
+   "per_family": {
+    "guide_divergence": {
+     "only_a": 4,
+     "only_b": 4,
+     "both": 14,
+     "neither": 3
+    },
+    "sans_collimation": {
+     "only_a": 0,
+     "only_b": 7,
+     "both": 12,
+     "neither": 6
+    }
+   },
+   "discordant_instances": [
+    {
+     "family": "guide_divergence",
+     "instance": 1,
+     "winner": "qwen3-8b"
+    },
+    {
+     "family": "guide_divergence",
+     "instance": 2,
+     "winner": "qwen3-8b"
+    },
+    {
+     "family": "guide_divergence",
+     "instance": 11,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "guide_divergence",
+     "instance": 13,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "guide_divergence",
+     "instance": 19,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "guide_divergence",
+     "instance": 20,
+     "winner": "qwen3-8b"
+    },
+    {
+     "family": "guide_divergence",
+     "instance": 23,
+     "winner": "qwen3-8b"
+    },
+    {
+     "family": "guide_divergence",
+     "instance": 24,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "sans_collimation",
+     "instance": 0,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "sans_collimation",
+     "instance": 2,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "sans_collimation",
+     "instance": 7,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "sans_collimation",
+     "instance": 10,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "sans_collimation",
+     "instance": 14,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "sans_collimation",
+     "instance": 20,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "sans_collimation",
+     "instance": 23,
+     "winner": "qwen3-32b"
+    }
+   ]
+  },
+  "1.0": {
+   "models": [
+    "qwen3-8b",
+    "qwen3-32b"
+   ],
+   "n_paired": 50,
+   "both_pass": 14,
+   "only_qwen3-8b": 4,
+   "only_qwen3-32b": 16,
+   "neither": 16,
+   "agreement": 0.6,
+   "discordant": 20,
+   "mcnemar_p": 0.011818,
+   "ordering_supported": true,
+   "balanced": false,
+   "leader": "qwen3-32b",
+   "n_discordant_for_significance": 6,
+   "per_family": {
+    "guide_divergence": {
+     "only_a": 4,
+     "only_b": 8,
+     "both": 4,
+     "neither": 9
+    },
+    "sans_collimation": {
+     "only_a": 0,
+     "only_b": 8,
+     "both": 10,
+     "neither": 7
+    }
+   },
+   "discordant_instances": [
+    {
+     "family": "guide_divergence",
+     "instance": 0,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "guide_divergence",
+     "instance": 5,
+     "winner": "qwen3-8b"
+    },
+    {
+     "family": "guide_divergence",
+     "instance": 6,
+     "winner": "qwen3-8b"
+    },
+    {
+     "family": "guide_divergence",
+     "instance": 8,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "guide_divergence",
+     "instance": 9,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "guide_divergence",
+     "instance": 10,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "guide_divergence",
+     "instance": 17,
+     "winner": "qwen3-8b"
+    },
+    {
+     "family": "guide_divergence",
+     "instance": 18,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "guide_divergence",
+     "instance": 21,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "guide_divergence",
+     "instance": 22,
+     "winner": "qwen3-8b"
+    },
+    {
+     "family": "guide_divergence",
+     "instance": 23,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "guide_divergence",
+     "instance": 24,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "sans_collimation",
+     "instance": 0,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "sans_collimation",
+     "instance": 2,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "sans_collimation",
+     "instance": 5,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "sans_collimation",
+     "instance": 8,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "sans_collimation",
+     "instance": 13,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "sans_collimation",
+     "instance": 14,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "sans_collimation",
+     "instance": 21,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "sans_collimation",
+     "instance": 23,
+     "winner": "qwen3-32b"
+    }
+   ]
+  },
+  "1.2": {
+   "models": [
+    "qwen3-8b",
+    "qwen3-32b"
+   ],
+   "n_paired": 50,
+   "both_pass": 2,
+   "only_qwen3-8b": 1,
+   "only_qwen3-32b": 4,
+   "neither": 43,
+   "agreement": 0.9,
+   "discordant": 5,
+   "mcnemar_p": 0.375,
+   "ordering_supported": false,
+   "balanced": false,
+   "leader": "qwen3-32b",
+   "n_discordant_for_significance": 6,
+   "per_family": {
+    "guide_divergence": {
+     "only_a": 0,
+     "only_b": 0,
+     "both": 0,
+     "neither": 25
+    },
+    "sans_collimation": {
+     "only_a": 1,
+     "only_b": 4,
+     "both": 2,
+     "neither": 18
+    }
+   },
+   "discordant_instances": [
+    {
+     "family": "sans_collimation",
+     "instance": 0,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "sans_collimation",
+     "instance": 7,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "sans_collimation",
+     "instance": 10,
+     "winner": "qwen3-8b"
+    },
+    {
+     "family": "sans_collimation",
+     "instance": 13,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "sans_collimation",
+     "instance": 23,
+     "winner": "qwen3-32b"
+    }
+   ]
+  },
+  "1.4": {
+   "models": [
+    "qwen3-8b",
+    "qwen3-32b"
+   ],
+   "n_paired": 50,
+   "both_pass": 1,
+   "only_qwen3-8b": 3,
+   "only_qwen3-32b": 1,
+   "neither": 45,
+   "agreement": 0.92,
+   "discordant": 4,
+   "mcnemar_p": 0.625,
+   "ordering_supported": false,
+   "balanced": false,
+   "leader": "qwen3-8b",
+   "n_discordant_for_significance": 6,
+   "per_family": {
+    "guide_divergence": {
+     "only_a": 0,
+     "only_b": 0,
+     "both": 0,
+     "neither": 25
+    },
+    "sans_collimation": {
+     "only_a": 3,
+     "only_b": 1,
+     "both": 1,
+     "neither": 20
+    }
+   },
+   "discordant_instances": [
+    {
+     "family": "sans_collimation",
+     "instance": 10,
+     "winner": "qwen3-8b"
+    },
+    {
+     "family": "sans_collimation",
+     "instance": 13,
+     "winner": "qwen3-32b"
+    },
+    {
+     "family": "sans_collimation",
+     "instance": 15,
+     "winner": "qwen3-8b"
+    },
+    {
+     "family": "sans_collimation",
+     "instance": 22,
+     "winner": "qwen3-8b"
+    }
+   ]
+  }
+ },
+ "verdict": {
+  "any_separation": true,
+  "paired_ordering_at": [
+   "1.0"
+  ],
+  "separating_fractions": [
+   0.8,
+   1.0
+  ],
+  "max_abs_gap": 0.24,
+  "max_gap_fraction": 1.0,
+  "hypothesis": "H_saturated"
+ }
+}

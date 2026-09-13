@@ -1,0 +1,25 @@
+{
+ "model": "qwen3-8b",
+ "split": "train",
+ "n_per_family": 300,
+ "target_fraction": 1.0,
+ "temperature": 0.7,
+ "max_steps": 6,
+ "keep_rule": "strict L4 pass at the calibrated bar",
+ "families": {
+  "guide_divergence": {
+   "instances": 300,
+   "kept": 135,
+   "keep_rate": 0.45,
+   "wall_s": 1280.5
+  }
+ },
+ "train_examples": 135,
+ "by_family": {
+  "guide_divergence": 135
+ },
+ "families_used": [
+  "guide_divergence"
+ ],
+ "note": "SANS excluded: direct-beam reward hole (note/sans-direct-beam-exploit-2026-09-13.md); collector stopped at the guide->SANS boundary before any SANS episode was kept"
+}

@@ -1,0 +1,45 @@
+template identity OK on 5 prompts vs http://localhost:8137/v1
+data: {'episodes': 135, 'pairs': 422, 'dropped_too_long': 0}
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights:   0%|          | 1/399 [00:00<00:55,  7.14it/s]Loading weights:   1%|          | 2/399 [00:00<01:08,  5.83it/s]Loading weights:   4%|▍         | 16/399 [00:00<00:08, 47.50it/s]Loading weights:   7%|▋         | 28/399 [00:00<00:05, 67.54it/s]Loading weights:  11%|█         | 43/399 [00:00<00:03, 91.35it/s]Loading weights:  14%|█▍        | 56/399 [00:00<00:03, 102.41it/s]Loading weights:  18%|█▊        | 70/399 [00:00<00:03, 106.97it/s]Loading weights:  21%|██        | 82/399 [00:01<00:03, 105.43it/s]Loading weights:  24%|██▎       | 94/399 [00:01<00:02, 104.52it/s]Loading weights:  27%|██▋       | 108/399 [00:01<00:02, 113.37it/s]Loading weights:  30%|███       | 120/399 [00:01<00:02, 114.72it/s]Loading weights:  34%|███▍      | 136/399 [00:01<00:02, 121.35it/s]Loading weights:  37%|███▋      | 149/399 [00:01<00:02, 110.61it/s]Loading weights:  41%|████      | 164/399 [00:01<00:01, 120.19it/s]Loading weights:  44%|████▍     | 177/399 [00:01<00:01, 122.18it/s]Loading weights:  48%|████▊     | 191/399 [00:01<00:01, 120.17it/s]Loading weights:  51%|█████     | 204/399 [00:02<00:01, 110.30it/s]Loading weights:  55%|█████▍    | 219/399 [00:02<00:01, 117.50it/s]Loading weights:  59%|█████▊    | 234/399 [00:02<00:01, 120.06it/s]Loading weights:  62%|██████▏   | 247/399 [00:02<00:01, 117.50it/s]Loading weights:  65%|██████▍   | 259/399 [00:02<00:01, 112.92it/s]Loading weights:  69%|██████▊   | 274/399 [00:02<00:01, 121.76it/s]Loading weights:  72%|███████▏  | 287/399 [00:02<00:00, 123.70it/s]Loading weights:  75%|███████▌  | 301/399 [00:02<00:00, 121.82it/s]Loading weights:  79%|███████▊  | 314/399 [00:02<00:00, 111.55it/s]Loading weights:  82%|████████▏ | 329/399 [00:03<00:00, 120.83it/s]Loading weights:  86%|████████▌ | 342/399 [00:03<00:00, 122.54it/s]Loading weights:  89%|████████▉ | 355/399 [00:03<00:00, 124.18it/s]Loading weights:  92%|█████████▏| 368/399 [00:03<00:00, 112.88it/s]Loading weights:  95%|█████████▌| 380/399 [00:03<00:00, 109.70it/s]Loading weights:  99%|█████████▉| 395/399 [00:03<00:00, 119.64it/s]Loading weights: 100%|██████████| 399/399 [00:03<00:00, 109.12it/s]
+trainable params: 87,293,952 || all params: 8,278,029,312 || trainable%: 1.0545
+[transformers] `use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+/netdisk/ldq/m8_train.py:232: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:822.)
+  acc_loss += float(out.loss) * n_target
+{'step': 0, 'epoch': 0, 'lr': 0.0001, 'loss': 0.040296794152296075, 'elapsed_s': 10.9}
+{'step': 1, 'epoch': 0, 'lr': 0.0001, 'loss': 0.12871166418669197, 'elapsed_s': 20.5}
+{'step': 2, 'epoch': 0, 'lr': 9.979871469976196e-05, 'loss': 0.07795290248126864, 'elapsed_s': 30.3}
+{'step': 3, 'epoch': 0, 'lr': 9.919647942993148e-05, 'loss': 0.07339794905988099, 'elapsed_s': 40.4}
+{'step': 4, 'epoch': 0, 'lr': 9.819814303479267e-05, 'loss': 0.07730559913818802, 'elapsed_s': 50.4}
+{'step': 5, 'epoch': 0, 'lr': 9.681174353198687e-05, 'loss': 0.07052679611594684, 'elapsed_s': 60.1}
+{'step': 6, 'epoch': 0, 'lr': 9.504844339512095e-05, 'loss': 0.07394714283959156, 'elapsed_s': 69.9}
+{'step': 7, 'epoch': 0, 'lr': 9.292243968009331e-05, 'loss': 0.09416250073790858, 'elapsed_s': 79.9}
+{'step': 8, 'epoch': 0, 'lr': 9.045084971874738e-05, 'loss': 0.060467033945024014, 'elapsed_s': 89.7}
+{'step': 9, 'epoch': 0, 'lr': 8.765357330018056e-05, 'loss': 0.08627845348790288, 'elapsed_s': 99.9}
+{'step': 10, 'epoch': 0, 'lr': 8.455313244934324e-05, 'loss': 0.06463295369874686, 'elapsed_s': 110.1}
+{'step': 11, 'epoch': 0, 'lr': 8.117449009293668e-05, 'loss': 0.04702653456479311, 'elapsed_s': 120.3}
+{'step': 12, 'epoch': 0, 'lr': 7.754484907260513e-05, 'loss': 0.05786595515906811, 'elapsed_s': 130.0}
+{'step': 13, 'epoch': 0, 'lr': 7.369343312364993e-05, 'loss': 0.06101255779658091, 'elapsed_s': 139.6}
+{'step': 14, 'epoch': 0, 'lr': 6.965125158269619e-05, 'loss': 0.05198323154194361, 'elapsed_s': 149.2}
+{'step': 15, 'epoch': 0, 'lr': 6.545084971874738e-05, 'loss': 0.07241592629221626, 'elapsed_s': 159.4}
+{'step': 16, 'epoch': 0, 'lr': 6.112604669781572e-05, 'loss': 0.05605894521876256, 'elapsed_s': 169.8}
+{'step': 17, 'epoch': 1, 'lr': 5.6711663290882776e-05, 'loss': 0.041135004023090005, 'elapsed_s': 180.2}
+{'step': 18, 'epoch': 1, 'lr': 5.2243241517525754e-05, 'loss': 0.044132555408092834, 'elapsed_s': 190.1}
+{'step': 19, 'epoch': 1, 'lr': 4.775675848247427e-05, 'loss': 0.05221478624269366, 'elapsed_s': 200.1}
+{'step': 20, 'epoch': 1, 'lr': 4.328833670911724e-05, 'loss': 0.08002306096762686, 'elapsed_s': 210.2}
+{'step': 21, 'epoch': 1, 'lr': 3.887395330218429e-05, 'loss': 0.043687279551075056, 'elapsed_s': 220.7}
+{'step': 22, 'epoch': 1, 'lr': 3.4549150281252636e-05, 'loss': 0.04291651262125621, 'elapsed_s': 230.3}
+{'step': 23, 'epoch': 1, 'lr': 3.0348748417303823e-05, 'loss': 0.04131121628373346, 'elapsed_s': 239.9}
+{'step': 24, 'epoch': 1, 'lr': 2.630656687635007e-05, 'loss': 0.03979745807126164, 'elapsed_s': 250.2}
+{'step': 25, 'epoch': 1, 'lr': 2.245515092739488e-05, 'loss': 0.035988497277721763, 'elapsed_s': 260.0}
+{'step': 26, 'epoch': 1, 'lr': 1.8825509907063327e-05, 'loss': 0.023815575013832132, 'elapsed_s': 270.0}
+{'step': 27, 'epoch': 1, 'lr': 1.544686755065677e-05, 'loss': 0.034975342052057386, 'elapsed_s': 280.1}
+{'step': 28, 'epoch': 1, 'lr': 1.2346426699819458e-05, 'loss': 0.03347952824613761, 'elapsed_s': 290.0}
+{'step': 29, 'epoch': 1, 'lr': 9.549150281252633e-06, 'loss': 0.04552394188370899, 'elapsed_s': 299.8}
+{'step': 30, 'epoch': 1, 'lr': 7.077560319906695e-06, 'loss': 0.038825001336567126, 'elapsed_s': 309.9}
+{'step': 31, 'epoch': 1, 'lr': 4.951556604879048e-06, 'loss': 0.043618610269801975, 'elapsed_s': 320.2}
+{'step': 32, 'epoch': 1, 'lr': 3.18825646801314e-06, 'loss': 0.04067115298751863, 'elapsed_s': 329.9}
+{'step': 33, 'epoch': 1, 'lr': 1.8018569652073381e-06, 'loss': 0.05014396413901229, 'elapsed_s': 339.9}
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:40<00:00, 40.77s/it]Writing model shards: 100%|██████████| 1/1 [00:40<00:00, 40.77s/it]
+-> adapter /netdisk/ldq/ckpt/m8-raft-guide1x/adapter
+-> merged /netdisk/ldq/ckpt/m8-raft-guide1x/merged (387s)
