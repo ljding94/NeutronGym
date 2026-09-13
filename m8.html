@@ -1,0 +1,31 @@
+<!doctype html><meta charset='utf-8'><title>NeutronGym — M8 trainability record</title><style>
+:root{--bg:#fbfbfd;--fg:#1a1a1f;--mut:#6b6b76;--line:#e3e3ea;--card:#fff;
+--bad:#b3261e;--good:#1b6b3a;--warn:#8a5a00;--accent:#2b4c9b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1060px;margin:0 auto;padding:32px 20px 80px}
+h1{font-size:26px;margin:0 0 4px} h2{font-size:19px;margin:34px 0 10px}
+h3{font-size:15px;margin:20px 0 8px;color:var(--mut);
+text-transform:uppercase;letter-spacing:.06em}
+.sub{color:var(--mut);margin:0 0 22px;font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;
+padding:16px 18px;margin:14px 0}
+.verdict{border-left:4px solid var(--bad)}
+.verdict.ok{border-left-color:var(--good)}
+.verdict h2{margin-top:0}
+table{border-collapse:collapse;width:100%;font-size:14px;margin:8px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 9px;text-align:left}
+th{color:var(--mut);font-weight:600;font-size:12px;
+text-transform:uppercase;letter-spacing:.04em}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.tag{display:inline-block;padding:1px 8px;border-radius:99px;font-size:12px;
+font-weight:600}
+.tag.bad{background:#fdecea;color:var(--bad)}
+.tag.good{background:#e7f4ec;color:var(--good)}
+.tag.warn{background:#fdf3e0;color:var(--warn)}
+.note{color:var(--mut);font-size:13px;margin:6px 0}
+code{background:#f1f1f5;padding:1px 5px;border-radius:4px;font-size:13px}
+.scroll{overflow-x:auto}
+.missing{color:var(--mut);font-style:italic}
+</style><div class='wrap'><h1>M8 — trainability: the gate, and why it stopped the experiment</h1><p class='sub'>Generated 2026-09-13 17:54 by <code>scripts/m8_report.py</code> from <code>runs/m8/*.json</code>. Never edit by hand — regenerate.</p><div class='card verdict'><h2>Phase-0 gate: FAILED on vacuity</h2><p>On held-out procedural instances with calibrated targets, the untrained <b>Qwen3-8B scores 70%</b> and the untrained <b>Qwen3-32B scores 70%</b> — a gap of <b>+0.000</b>. &ldquo;Approaching a larger untrained model&rdquo; presumes the larger model is ahead. It is not, so the claim bar has no target and cannot be evaluated on this axis.</p><p class='note'>The gate ran before any data generation or GPU time, which is what it was for.</p></div><h2>Calibration: the first measurement was a ceiling</h2><p class='note'>Procedural instances shipped with <code>target_ratio = 1.0</code>, so L4 meant beating a deliberately undersized baseline. <code>calibrate.py</code> now sets per-instance targets at 0.8&#215; a constraint-filtered, Liouville-checked, fresh-seed-re-verified classical optimum — the same discipline as the T2 benchmark tasks.</p><div class='scroll'><table><tr><th>target</th><th class='n'>8B pass</th><th class='n'>32B pass</th><th class='n'>gap</th></tr><tr><td>uncalibrated (beat the baseline)</td><td class='n'>80%</td><td class='n'>93%</td><td class='n'>+0.133</td></tr><tr><td>calibrated (0.8&#215; classical)</td><td class='n'>70%</td><td class='n'>70%</td><td class='n'>+0.000</td></tr></table></div><p class='note'><b>Transferable lesson:</b> an environment whose reward ladder is not calibrated per instance will report a trainability signal that is really a ceiling.</p><h2>Paired view — equal rates are not equal behaviour</h2><p class='note'>Marginal pass rates cannot distinguish &ldquo;the models behave alike&rdquo; from &ldquo;the models succeed on different instances&rdquo;. McNemar's exact test conditions on exactly the disagreements, which are the only episodes carrying information about an ordering.</p><div class="card"><h3>calibrated (the gate data)</h3><span class="tag bad">no ordering</span><table><tr><td>paired instances</td><td class='n'>20</td></tr><tr><td>both pass</td><td class='n'>10</td></tr><tr><td>qwen3-8b only</td><td class='n'>4</td></tr><tr><td>qwen3-32b only</td><td class='n'>4</td></tr><tr><td>neither</td><td class='n'>2</td></tr><tr><td>agreement</td><td class='n'>60%</td></tr><tr><td>McNemar exact p</td><td class='n'>1.0</td></tr></table></div><div class="card"><h3>uncalibrated (the ceiling run)</h3><span class="tag warn">underpowered, leans qwen3-32b</span><table><tr><td>paired instances</td><td class='n'>30</td></tr><tr><td>both pass</td><td class='n'>23</td></tr><tr><td>qwen3-8b only</td><td class='n'>1</td></tr><tr><td>qwen3-32b only</td><td class='n'>5</td></tr><tr><td>neither</td><td class='n'>1</td></tr><tr><td>agreement</td><td class='n'>80%</td></tr><tr><td>McNemar exact p</td><td class='n'>0.21875</td></tr></table></div><p class='note'>Measured at temperature 0 with one episode per instance, so a disagreement is deterministic for that model&ndash;instance pair and cannot be split into capability versus luck without resampling.</p><h2>Difficulty response — is the bar too low, or the task flat?</h2><p class='missing'>runs/m8/sweep.json not present yet — run <code>benchmark/harness/m8_difficulty_sweep.py</code>.</p><h2>Feedback budget — search versus reasoning</h2><p class='missing'>Not run yet. With six steps of dense per-step FOM feedback the task is hill-climbing — the job this architecture delegates to scipy. At <code>--max-steps 1</code> there is no feedback to climb, so the model must predict parameters from the physics alone; that is the direct test of whether scale matters for reasoning rather than search.</p><h2>Provenance</h2><p class='note'>Rendered from: <code>runs/m8/paired_calibrated.json</code>, <code>runs/m8/paired_uncalibrated.json</code>, <code>runs/m8/phase0_calibrated.json</code>, <code>runs/m8/phase0_n15.json</code>. Regenerate with <code>python3 scripts/m8_report.py</code>.</p></div>
