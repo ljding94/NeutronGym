@@ -3,35 +3,60 @@
   "episode": {
     "model": "meta-llama/llama-4-maverick",
     "scaffold": "plain-llm-oneshot",
-    "provider_pin": "Google",
-    "providers_seen": [],
-    "returncode": 1,
-    "error": "chat completion failed after 3 tries: HTTP 404: {\"error\":{\"message\":\"No endpoints found for meta-llama/llama-4-maverick.\",\"code\":404,\"metadata\":{\"routing_funnel\":[{\"step\":\"Initial Endpoints\",\"endpoint_count\":5},{\"step\":\"Filter by Context Length\",\"endpoint_count\":2},{\"step\":\"Apply Status Sorting\",\"endpoint_count\":2},{\"step\":\"Filter by Fallback\",\"e",
+    "provider_pin": "DigitalOcean",
+    "providers_seen": [
+      "DigitalOcean"
+    ],
+    "returncode": 0,
+    "error": null,
     "turns": 1,
     "hit_turn_cap": false,
     "empty_responses": 0,
     "cost_usd": null,
-    "duration_s": 0.5,
+    "duration_s": 13.6,
     "usage": {
-      "prompt_tokens": 0,
-      "completion_tokens": 0
+      "prompt_tokens": 1783,
+      "completion_tokens": 395
     },
     "mcp_calls": {},
     "skill_used": true,
-    "final_answer": ""
+    "final_answer": "```instr\nDEFINE INSTRUMENT tof_imaging(lam=3.5, dlam=1.3, ap_D=0.016)\n\nCOMPONENT src = Source_simple(\n  yheight=0.12, xwidth=0.1, dist=1.0, \n  focus_xw=ap_D, focus_yh=ap_D, \n  lambda0=lam, dlambda=dlam, \n  flux=1e13\n) AT (0, 0, 0) RELATIVE ABSOLUTE\n\nCOMPONENT aperture = Slit(\n  radius=0.5*ap_D\n) AT (0, 0, 1.0) RELATIVE src\n\nCOMPONENT scraper = Slit(\n  xwidth=0.3, yheight=0.3\n) AT (0, 0, 10.0) RELATIVE src\n\nCOMPONENT fov_mon = PSD_monitor(\n  nx=128, ny=128, filename=\"fov.dat\", \n  xwidth=0.28, yheight=0.28, \n  restore_neutron=1\n) AT (0, 0, 20.0) RELATIVE src\n\nCOMPONENT det = PSD_monitor(\n  nx=256, ny=256, filename=\"det.dat\", \n  xwidth=0.2, yheight=0.2, \n  restore_neutron=1\n) AT (0, 0, 25.0) RELATIVE src\n\nCOMPONENT det_lam = L_monitor(\n  nL=200, filename=\"det_lam.dat\", \n  xwidth=0.2, yheight=0.2, \n  Lmin=lam-2*dlam, Lmax=lam+2*dlam, \n  restore_neutron=1\n) AT (0, 0, 25.01) RELATIVE src\n\nEND\n```"
   },
   "grade": {
     "task": "T1_VENUS_SNS",
     "pass": false,
     "score": 0.0,
     "hard_failures": [
-      "agent left no built instrument in the episode registry"
+      "candidate failed to run (translate)"
     ],
-    "checks": []
+    "diagnostics": [
+      "WARNING: Full-path compiler \"${CONDA_PREFIX}/bin/arm64-apple-darwin20.0.0-clang\" not found!!",
+      "WARNING: Attempting replacement by \"arm64-apple-darwin20.0.0-clang\"",
+      "ERROR: syntax error at line 3.",
+      "mcstas: 1 Errors encountered during parse of /Users/ldq/Work/NeutronGym/runs/m6_final/T1_VENUS_SNS__oneshot__meta_llama_llama_4_maverick/home/instruments/tof_imaging/tof_imaging.instr.",
+      "INFO: call to /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas failed with Command '/opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas -t -o ./tof_imaging.c /Users/ldq/Work/NeutronGym/runs/m6_final/T1_VENUS_SNS__oneshot__meta_llama_llama_4_maverick/home/instruments/tof_imaging/tof_imaging.instr' returned non-zero exit status 1.",
+      "ERROR: Code generation failed for instrument /Users/ldq/Work/NeutronGym/runs/m6_final/T1_VENUS_SNS__oneshot__meta_llama_llama_4_maverick/home/instruments/tof_imaging/tof_imaging.instr using code generator /opt/homebrew/Caskroom/miniconda/base/envs/mcstas/bin/mcstas"
+    ],
+    "checks": [],
+    "candidate_instr": "/Users/ldq/Work/NeutronGym/runs/m6_final/T1_VENUS_SNS__oneshot__meta_llama_llama_4_maverick/home/instruments/tof_imaging/tof_imaging.instr",
+    "candidate_params": {
+      "lam": "3.5",
+      "dlam": "1.3",
+      "ap_D": "0.016"
+    }
   },
   "reference_leak": {
     "leaked": false,
     "events": []
   },
-  "artifacts": null
+  "artifacts": {
+    "instr": "/Users/ldq/Work/NeutronGym/runs/m6_final/T1_VENUS_SNS__oneshot__meta_llama_llama_4_maverick/artifacts/tof_imaging.instr",
+    "params": "/Users/ldq/Work/NeutronGym/runs/m6_final/T1_VENUS_SNS__oneshot__meta_llama_llama_4_maverick/artifacts/params.json",
+    "diagram": null,
+    "trace": null,
+    "errors": [
+      "diagram: McStasScript reader failed (known limitation)",
+      "trace: mcdisplay-webgl failed"
+    ]
+  }
 }

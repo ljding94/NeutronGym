@@ -149,10 +149,10 @@ committed per-episode evidence (1081 files) so every number is auditable.
 | Untrained open-weights floor; 32B ⊃ 8B pass set | **solid** (ordering; rate p=0.60) |
 | Failure-mode structure (one-shot L1 vs loop L0) | **solid as distribution** |
 | Fast tier ~30 rollouts/s/core; acceptance passed | **solid** |
-| Loop > one-shot on held-out | **suggestive, confounded** — always with p=0.041 AND the difficulty p=0.0009 |
+| Loop > one-shot on held-out | **suggestive, confounded** — 10/14 vs 2/14 over 7 models (p=0.006), always stated with the held-out-is-easier confound (10/14 vs 20/113, p=0.0001) |
 | One-shot > loop on seen tier | **RETRACTED** (all p ≥ 0.70) |
 | Tool-surface size defeats weak models | **RETRACTED** (was our harness) |
-| Trainability delta (RAFT SFT, 8B toward 32B) | **pending M8** — target exists: 32B leads 8B by +22 pts at the 1.0× bar |
-| 32B > 8B on calibrated procedural instances | **supported at n=25/family** (+14–16 at 0.8×, +22 at 1.0×); paired McNemar from `sweep.json` pending. The n=10 "tie" is RETRACTED |
+| Trainability delta (RAFT SFT, 8B toward 32B) | **pending M8** — whether a clean target exists depends on the guide-family n=100 probe; SANS excluded until its reward hole is fixed |
+| 32B > 8B on calibrated procedural instances | **NOT established on clean data.** Combined sweep 1.0×: 0.36 vs 0.60 (McNemar p=0.012), but all ordering comes from SANS, where most passes are direct-beam leakage (leak-free 0v3, p=0.25). Guide family: 0.8× tie (p=1.0), 1.0× +16 pts (p=0.39 at n=25); n=100 probe pending |
 | Uncalibrated reward ladders manufacture ceilings | **solid** (80%/93% → 70%/70% after per-instance calibration) |
 | Dense per-step FOM feedback makes the task non-discriminating | **RETRACTED** — the task discriminates at n=25; the idea came from an underpowered read |

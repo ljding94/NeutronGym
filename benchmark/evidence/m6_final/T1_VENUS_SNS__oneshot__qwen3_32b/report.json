@@ -4,21 +4,23 @@
     "model": "qwen3-32b",
     "scaffold": "plain-llm-oneshot",
     "provider_pin": null,
-    "providers_seen": [],
-    "returncode": 1,
-    "error": "chat completion failed after 3 tries: ConnectError: [Errno 61] Connection refused",
+    "providers_seen": [
+      "?"
+    ],
+    "returncode": 0,
+    "error": null,
     "turns": 1,
     "hit_turn_cap": false,
     "empty_responses": 0,
     "cost_usd": null,
-    "duration_s": 7.1,
+    "duration_s": 10.4,
     "usage": {
-      "prompt_tokens": 0,
-      "completion_tokens": 0
+      "prompt_tokens": 1845,
+      "completion_tokens": 579
     },
     "mcp_calls": {},
     "skill_used": true,
-    "final_answer": ""
+    "final_answer": "```instr\ninstrument tof_imaging_beamline {\n    // Instrument parameters\n    parameter double lam = 3.5;\n    parameter double dlam = 1.3;\n    parameter double ap_D = 0.016;\n\n    // Source\n    Source_simple src(\n        yheight = 0.12,\n        xwidth = 0.1,\n        dist = 1.0,\n        focus_xw = ap_D,\n        focus_yh = ap_D,\n        lambda0 = lam,\n        dlambda = dlam,\n        flux = 10000000000000.0\n    ) AT (0, 0, 0) RELATIVE ABSOLUTE;\n\n    // Aperture\n    Slit aperture(\n        radius = 0.5 * ap_D\n    ) AT (0, 0, 1.0) RELATIVE src;\n\n    // Scraper\n    Slit scraper(\n        xwidth = 0.3,\n        yheight = 0.3\n    ) AT (0, 0, 10.0) RELATIVE src;\n\n    // Field of view monitor\n    PSD_monitor fov_mon(\n        nx = 128,\n        ny = 128,\n        filename = \"fov.dat\",\n        xwidth = 0.28,\n        yheight = 0.28,\n        restore_neutron = 1\n    ) AT (0, 0, 20.0) RELATIVE src;\n\n    // Detector monitor\n    PSD_monitor det(\n        nx = 256,\n        ny = 256,\n        filename = \"det.dat\",\n        xwidth = 0.2,\n        yheight = 0.2,\n        restore_neutron = 1\n    ) AT (0, 0, 25.0) RELATIVE src;\n\n    // Wavelength monitor at detector position\n    L_monitor det_lam(\n        nL = 200,\n        filename = \"det_lam.dat\",\n        xwidth = 0.2,\n        yheight = 0.2,\n        Lmin = lam - 2 * dlam,\n        Lmax = lam + 2 * dlam,\n        restore_neutron = 1\n    ) AT (0, 0, 25.01) RELATIVE src;\n\n    // Define the neutron path\n    neutron_path {\n        src -> aperture -> scraper -> fov_mon -> det -> det_lam;\n    }\n\n    // Set simulation parameters\n    set_seed(123456);  // Fixed seed for reproducibility\n    set_ncount(1e6);   // Sufficient for initial verification\n}\n```"
   },
   "grade": {
     "task": "T1_VENUS_SNS",

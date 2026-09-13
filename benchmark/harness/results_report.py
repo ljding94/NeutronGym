@@ -182,6 +182,25 @@ def main():
     infra = sum(r["infra_excluded"] for r in matrix + final)
     leaks = sum(r["leak_invalid"] for r in matrix + final)
 
+    # held-out statistics, computed ONCE and read by both the Table 2 caption
+    # and the statistical-power table: the caption used to hardcode the
+    # 4-model figures and went stale the moment the qwen cells were re-run
+    hlp, hln = _rate(final_rows, "main")
+    hop, hon = _rate(final_rows, "oneshot")
+    # paired = models with VALID episodes in BOTH arms (a model whose
+    # one-shot cells were all INFRA is not a pair — that mistake turns the
+    # paired figure back into the pooled one)
+    def _has(arm, m):
+        return _rate(final_rows, arm, {m})[1] > 0
+
+    paired = sorted(m for m in {r["model"] for r in final_rows}
+                    if _has("main", m) and _has("oneshot", m))
+    plp, pln = _rate(final_rows, "main", set(paired))
+    pop, pon = _rate(final_rows, "oneshot", set(paired))
+    p_paired = fisher_exact_p(plp, pln - plp, pop, pon - pop)
+    smp, smn = _rate(matrix_rows, "main")
+    p_diff = fisher_exact_p(hlp, hln - hlp, smp, smn - smp)
+
     md = [
         "# NeutronGym — results of record",
         "",
@@ -218,11 +237,13 @@ def main():
         _md_table(final, "Table 2 — Held-out final pass (once-only touch)",
                   "Instruments with no public `.instr` (BOYA, VENUS), "
                   "authored for this benchmark and touched exactly once. "
-                  "The tool loop outscores one-shot here (paired, 4 models: "
-                  "7/8 vs 2/8, Fisher p=0.041) — **but see the statistical "
-                  "note below: these instruments are significantly EASIER "
-                  "than the seen-tier set (p<0.001), which is an unexcluded "
-                  "alternative explanation for the reversal.**"),
+                  f"The tool loop outscores one-shot here (paired, "
+                  f"{len(paired)} models: {plp}/{pln} vs {pop}/{pon}, Fisher "
+                  f"p={p_paired:.3f}) — **but see the statistical note "
+                  f"below: these instruments are significantly EASIER than "
+                  f"the seen-tier set (loop arm {hlp}/{hln} vs {smp}/{smn}, "
+                  f"p={p_diff:.4f}), which is an unexcluded alternative "
+                  f"explanation for the reversal.**"),
         "",
     ]
     if confounds:
@@ -286,21 +307,6 @@ def main():
         p = fisher_exact_p(lp, ln - lp, op, on - op)
         md.append(f"| seen: `{m}` loop vs one-shot | {lp}/{ln} vs {op}/{on} "
                   f"| {p:.3f} | not resolvable |")
-    hlp, hln = _rate(final_rows, "main")
-    hop, hon = _rate(final_rows, "oneshot")
-    # paired = models with VALID episodes in BOTH arms (a model whose
-    # one-shot cells were all INFRA is not a pair — that mistake turns the
-    # paired figure back into the pooled one)
-    def _has(arm, m):
-        return _rate(final_rows, arm, {m})[1] > 0
-
-    paired = sorted(m for m in {r["model"] for r in final_rows}
-                    if _has("main", m) and _has("oneshot", m))
-    plp, pln = _rate(final_rows, "main", set(paired))
-    pop, pon = _rate(final_rows, "oneshot", set(paired))
-    p_paired = fisher_exact_p(plp, pln - plp, pop, pon - pop)
-    smp, smn = _rate(matrix_rows, "main")
-    p_diff = fisher_exact_p(hlp, hln - hlp, smp, smn - smp)
     q8p, q8n = _rate(matrix_rows, "main", {"qwen3_8b"})
     q32p, q32n = _rate(matrix_rows, "main", {"qwen3_32b"})
     md += [

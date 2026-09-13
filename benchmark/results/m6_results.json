@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-13 17:47",
+ "generated": "2026-09-13 19:01",
  "provenance": {
   "config": "benchmark/m6_config.json (pinned: models, provider pins, protocol, arms, budget)",
   "evidence": "benchmark/evidence/{m6,m6_final,pilot}/ (committed per-episode reports, transcripts, artifacts)",
@@ -420,86 +420,86 @@
   {
    "model": "meta_llama_llama_4_maverick",
    "arm": "oneshot",
-   "valid_episodes": 0,
+   "valid_episodes": 2,
    "passes": 0,
-   "pass_rate": null,
+   "pass_rate": 0.0,
    "levels": {
     "PASS": 0,
     "L4": 0,
     "L3": 0,
     "L2": 0,
-    "L1": 0,
+    "L1": 2,
     "L0": 0
    },
-   "infra_excluded": 2,
+   "infra_excluded": 0,
    "leak_invalid": 0
   },
   {
    "model": "qwen3_32b",
    "arm": "main",
-   "valid_episodes": 0,
-   "passes": 0,
-   "pass_rate": null,
+   "valid_episodes": 2,
+   "passes": 2,
+   "pass_rate": 1.0,
    "levels": {
-    "PASS": 0,
+    "PASS": 2,
     "L4": 0,
     "L3": 0,
     "L2": 0,
     "L1": 0,
     "L0": 0
    },
-   "infra_excluded": 2,
+   "infra_excluded": 0,
    "leak_invalid": 0
   },
   {
    "model": "qwen3_32b",
    "arm": "oneshot",
-   "valid_episodes": 0,
+   "valid_episodes": 2,
    "passes": 0,
-   "pass_rate": null,
+   "pass_rate": 0.0,
    "levels": {
     "PASS": 0,
     "L4": 0,
     "L3": 0,
     "L2": 0,
     "L1": 0,
-    "L0": 0
+    "L0": 2
    },
-   "infra_excluded": 2,
+   "infra_excluded": 0,
    "leak_invalid": 0
   },
   {
    "model": "qwen3_8b",
    "arm": "main",
-   "valid_episodes": 0,
-   "passes": 0,
-   "pass_rate": null,
+   "valid_episodes": 2,
+   "passes": 1,
+   "pass_rate": 0.5,
    "levels": {
-    "PASS": 0,
+    "PASS": 1,
     "L4": 0,
     "L3": 0,
     "L2": 0,
     "L1": 0,
-    "L0": 0
+    "L0": 1
    },
-   "infra_excluded": 2,
+   "infra_excluded": 0,
    "leak_invalid": 0
   },
   {
    "model": "qwen3_8b",
    "arm": "oneshot",
-   "valid_episodes": 0,
+   "valid_episodes": 2,
    "passes": 0,
-   "pass_rate": null,
+   "pass_rate": 0.0,
    "levels": {
     "PASS": 0,
     "L4": 0,
     "L3": 0,
     "L2": 0,
     "L1": 0,
-    "L0": 0
+    "L0": 2
    },
-   "infra_excluded": 2,
+   "infra_excluded": 0,
    "leak_invalid": 0
   }
  ],
@@ -510,14 +510,14 @@
    "format": 38
   },
   "held_out": {
-   "incomplete": 2,
-   "physics": 6,
-   "format": 1
+   "incomplete": 3,
+   "physics": 8,
+   "format": 5
   }
  },
  "spend": {
   "total_usd": 122.1568,
-  "ledger_entries": 356
+  "ledger_entries": 364
  },
  "contamination_probes": {
   "anthropic/claude-haiku-4.5": {

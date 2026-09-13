@@ -2843,8 +2843,116 @@
    "usd": 0.0353,
    "wall_s": 658.0,
    "ok": true
+  },
+  {
+   "task": "T1_BOYA_CARR",
+   "arm": "oneshot",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0,
+   "final": true,
+   "wall_s": 1.0,
+   "ok": true
+  },
+  {
+   "task": "T1_VENUS_SNS",
+   "arm": "oneshot",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0,
+   "final": true,
+   "wall_s": 0.7,
+   "ok": true
+  },
+  {
+   "task": "T1_BOYA_CARR",
+   "arm": "oneshot",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.001,
+   "final": true,
+   "wall_s": 29.5,
+   "ok": true
+  },
+  {
+   "task": "T1_VENUS_SNS",
+   "arm": "oneshot",
+   "model": "meta-llama/llama-4-maverick",
+   "usd": 0.0007,
+   "final": true,
+   "wall_s": 20.2,
+   "ok": true
+  },
+  {
+   "task": "T1_BOYA_CARR",
+   "arm": "main",
+   "model": "qwen3-8b",
+   "usd": 0.0,
+   "final": true,
+   "wall_s": 35.6,
+   "ok": true
+  },
+  {
+   "task": "T1_VENUS_SNS",
+   "arm": "main",
+   "model": "qwen3-8b",
+   "usd": 0.0,
+   "final": true,
+   "wall_s": 41.5,
+   "ok": true
+  },
+  {
+   "task": "T1_BOYA_CARR",
+   "arm": "oneshot",
+   "model": "qwen3-8b",
+   "usd": 0.0,
+   "final": true,
+   "wall_s": 22.7,
+   "ok": true
+  },
+  {
+   "task": "T1_VENUS_SNS",
+   "arm": "oneshot",
+   "model": "qwen3-8b",
+   "usd": 0.0,
+   "final": true,
+   "wall_s": 13.3,
+   "ok": true
+  },
+  {
+   "task": "T1_BOYA_CARR",
+   "arm": "main",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "final": true,
+   "wall_s": 82.7,
+   "ok": true
+  },
+  {
+   "task": "T1_VENUS_SNS",
+   "arm": "main",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "final": true,
+   "wall_s": 60.6,
+   "ok": true
+  },
+  {
+   "task": "T1_BOYA_CARR",
+   "arm": "oneshot",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "final": true,
+   "wall_s": 21.5,
+   "ok": true
+  },
+  {
+   "task": "T1_VENUS_SNS",
+   "arm": "oneshot",
+   "model": "qwen3-32b",
+   "usd": 0.0,
+   "final": true,
+   "wall_s": 11.4,
+   "ok": true
   }
  ],
- "total_usd": 122.1551,
+ "total_usd": 122.1568,
  "_note": "187 entries = 185 final episodes on disk + 2 failed attempts (maverick T1_RTP_DIF and T2_sans_collimation, harness bugs fixed in 15cafb9, both re-run to completion). Failed attempts keep their cost \u2014 honest accounting. Explanation recorded 2026-09-02 after external review."
 }

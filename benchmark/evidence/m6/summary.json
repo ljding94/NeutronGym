@@ -1261,10 +1261,10 @@
  {
   "model": "meta_llama_llama_4_maverick",
   "arm": "main",
-  "n_valid": 14,
+  "n_valid": 17,
   "pass": 0,
   "mean_score": 0.0,
-  "infra_excluded": 3,
+  "infra_excluded": 0,
   "leaks": 0,
   "tasks": [
    {
@@ -1311,8 +1311,8 @@
     "task": "T1_ILL_H10_IN8",
     "pass": false,
     "score": 0.0,
-    "level": "INFRA",
-    "infra": true,
+    "level": "L0",
+    "infra": false,
     "leaked": false
    },
    {
@@ -1343,16 +1343,16 @@
     "task": "T1_ISIS_SANS2d",
     "pass": false,
     "score": 0.0,
-    "level": "INFRA",
-    "infra": true,
+    "level": "L0",
+    "infra": false,
     "leaked": false
    },
    {
     "task": "T1_ISIS_SANS2d_pert",
     "pass": false,
     "score": 0.0,
-    "level": "INFRA",
-    "infra": true,
+    "level": "L0",
+    "infra": false,
     "leaked": false
    },
    {

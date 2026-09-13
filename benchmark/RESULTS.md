@@ -1,10 +1,10 @@
 # NeutronGym — results of record
 
-*Generated 2026-09-13 17:47 by `benchmark/harness/results_report.py` from the committed evidence in `benchmark/evidence/`. **These are the numbers the manuscript cites.** Regenerate after any re-run; diff the JSON to see what moved.*
+*Generated 2026-09-13 19:01 by `benchmark/harness/results_report.py` from the committed evidence in `benchmark/evidence/`. **These are the numbers the manuscript cites.** Regenerate after any re-run; diff the JSON to see what moved.*
 
 **Validity rule:** INFRA (endpoint/provider/harness failures) and LEAK episodes are excluded from every rate and reported separately. This is not cosmetic — on 2026-09-10 an unnoticed dead SSH tunnel put 77 infra failures into the tables as capability zeros, which invalidated an entire model row until caught and re-run.
 
-**Totals:** 225 valid matrix episodes · 18 valid held-out episodes · 10 infra-excluded · 0 leak-invalid (zero leaks across the whole campaign) · $122.16 OpenRouter spend.
+**Totals:** 225 valid matrix episodes · 28 valid held-out episodes · 0 infra-excluded · 0 leak-invalid (zero leaks across the whole campaign) · $122.16 OpenRouter spend.
 
 ### Table 1 — Main matrix (seen-tier scored set)
 
@@ -30,7 +30,7 @@
 
 ### Table 2 — Held-out final pass (once-only touch)
 
-Instruments with no public `.instr` (BOYA, VENUS), authored for this benchmark and touched exactly once. The tool loop outscores one-shot here (paired, 4 models: 7/8 vs 2/8, Fisher p=0.041) — **but see the statistical note below: these instruments are significantly EASIER than the seen-tier set (p<0.001), which is an unexcluded alternative explanation for the reversal.**
+Instruments with no public `.instr` (BOYA, VENUS), authored for this benchmark and touched exactly once. The tool loop outscores one-shot here (paired, 7 models: 10/14 vs 2/14, Fisher p=0.006) — **but see the statistical note below: these instruments are significantly EASIER than the seen-tier set (loop arm 10/14 vs 20/113, p=0.0001), which is an unexcluded alternative explanation for the reversal.**
 
 | model | arm | valid n | passes | pass rate | L4 | L3 | L2 | L1 | L0 | infra excl. |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -43,11 +43,11 @@ Instruments with no public `.instr` (BOYA, VENUS), authored for this benchmark a
 | `google_gemini_3_6_flash` | main | 2 | 2 | 1.00 | 0 | 0 | 0 | 0 | 0 | 0 |
 | `google_gemini_3_6_flash` | oneshot | 2 | 1 | 0.50 | 1 | 0 | 0 | 0 | 0 | 0 |
 | `meta_llama_llama_4_maverick` | main | 2 | 0 | 0.00 | 0 | 0 | 0 | 0 | 2 | 0 |
-| `meta_llama_llama_4_maverick` | oneshot | 0 | 0 | — | 0 | 0 | 0 | 0 | 0 | 2 |
-| `qwen3_32b` | main | 0 | 0 | — | 0 | 0 | 0 | 0 | 0 | 2 |
-| `qwen3_32b` | oneshot | 0 | 0 | — | 0 | 0 | 0 | 0 | 0 | 2 |
-| `qwen3_8b` | main | 0 | 0 | — | 0 | 0 | 0 | 0 | 0 | 2 |
-| `qwen3_8b` | oneshot | 0 | 0 | — | 0 | 0 | 0 | 0 | 0 | 2 |
+| `meta_llama_llama_4_maverick` | oneshot | 2 | 0 | 0.00 | 0 | 0 | 0 | 2 | 0 | 0 |
+| `qwen3_32b` | main | 2 | 2 | 1.00 | 0 | 0 | 0 | 0 | 0 | 0 |
+| `qwen3_32b` | oneshot | 2 | 0 | 0.00 | 0 | 0 | 0 | 0 | 2 | 0 |
+| `qwen3_8b` | main | 2 | 1 | 0.50 | 0 | 0 | 0 | 0 | 1 | 0 |
+| `qwen3_8b` | oneshot | 2 | 0 | 0.00 | 0 | 0 | 0 | 0 | 2 | 0 |
 
 
 #### Serving-route confounds in Table 2
@@ -63,7 +63,7 @@ Instruments with no public `.instr` (BOYA, VENUS), authored for this benchmark a
 | set | format | incomplete | physics |
 |---|---:|---:|---:|
 | matrix | 38 | 51 | 96 |
-| held-out | 1 | 2 | 6 |
+| held-out | 5 | 3 | 8 |
 
 ### Table 4 — Contamination probes (per model, temperature 0, provider-pinned)
 
@@ -85,8 +85,8 @@ Two-sided Fisher exact on the pass counts. **At n=17 tasks per cell, seen-tier d
 | seen: `anthropic_claude_sonnet_5` loop vs one-shot | 5/16 vs 7/16 | 0.716 | not resolvable |
 | seen: `google_gemini_3_5_flash_lite` loop vs one-shot | 2/16 vs 1/16 | 1.000 | not resolvable |
 | seen: `google_gemini_3_6_flash` loop vs one-shot | 4/16 vs 6/16 | 0.704 | not resolvable |
-| held-out: loop vs one-shot (paired, 4 models) | 7/8 vs 2/8 | 0.041 | suggestive, n small, unadjusted |
-| **held-out vs seen difficulty (loop arm)** | 7/10 vs 20/113 | **0.0009** | **held-out tasks are EASIER — a confound for the row above** |
+| held-out: loop vs one-shot (paired, 7 models) | 10/14 vs 2/14 | 0.006 | suggestive, n small, unadjusted |
+| **held-out vs seen difficulty (loop arm)** | 10/14 vs 20/113 | **0.0001** | **held-out tasks are EASIER — a confound for the row above** |
 | RL ladder: 8B vs 32B (loop) | 1/16 vs 3/16 | 0.600 | ordering holds as a strict pass-set superset; rate difference underpowered |
 
 **What this means for the manuscript.** The defensible claims are the ones that do not rest on small pass-rate differences: zero reference leaks across the whole campaign; T2 unsolved by every model in every arm; the untrained open-weights floor and its strict-superset ordering; and the *distributional* failure structure of Table 3 (one-shot dies at L1, the loop dies at L0). Arm-vs-arm superiority on the seen tier is **not** supported, and the held-out reversal cannot be attributed to novelty while the difficulty difference is uncontrolled — controlling it needs held-out instruments matched to seen-tier complexity, which is future work, not a claim this data can carry.
