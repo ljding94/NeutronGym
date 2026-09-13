@@ -92,6 +92,67 @@ def rollout(env: NeutronGym, index: int, chat_fn) -> dict:
             "episode": env.episode_record()["steps"]}
 
 
+def evaluate(model: str, n_instances: int, family: str, split: str,
+             base_url: str | None = None, api_key: str | None = None,
+             provider_pin: str | None = None, temperature: float = 0.0,
+             max_steps: int = 6, start_index: int = 0,
+             chat_fn=None) -> dict:
+    """Measure a policy on procedural instances WITHOUT filtering — the
+    primitive behind both the phase-0 baselines and the phase-3 trained-vs-
+    untrained comparison, so both are measured identically.
+
+    Returns per-instance best level/reward/FOM ratio plus the level
+    histogram. Temperature 0 by default: this is measurement, not sampling.
+    """
+    from .agent import (LOCAL_REQUEST_TIMEOUT_S, REQUEST_TIMEOUT_S,
+                        chat_completion, resolve_backend)
+    import httpx
+
+    env = NeutronGym(family=family, split=split, max_steps=max_steps)
+    if chat_fn is not None:
+        call_model = chat_fn
+    else:
+        b_url, key = resolve_backend(model, base_url, api_key)
+        local = bool(base_url)
+        extra = ({"chat_template_kwargs": {"enable_thinking": False}}
+                 if local else None)
+        http = httpx.Client()
+
+        def call_model(msgs):
+            resp = chat_completion(
+                http, b_url, key, model, msgs, [], temperature,
+                None if local else provider_pin, chat_extra=extra,
+                timeout=(LOCAL_REQUEST_TIMEOUT_S if local
+                         else REQUEST_TIMEOUT_S))
+            return resp["choices"][0]["message"].get("content") or ""
+
+    rows, t0 = [], time.time()
+    for i in range(start_index, start_index + n_instances):
+        try:
+            ep = rollout(env, i, call_model)
+        except Exception as e:  # noqa: BLE001 — one bad episode must not
+            rows.append({"instance": i, "error": str(e)[:120],
+                         "best_level": None, "best_reward": None})
+            continue
+        best_fom = max((s.get("levels", {}).get("L4", {}).get("fom_ratio")
+                        or 0) for s in ep["episode"]) if ep["episode"] else 0
+        rows.append({"instance": i, "instance_id": ep["instance_id"],
+                     "best_level": ep["best_level"],
+                     "best_reward": ep["best_reward"],
+                     "best_fom_ratio": best_fom,
+                     "steps": len(ep["episode"])})
+    hist = {lv: sum(1 for r in rows if r["best_level"] == lv)
+            for lv in range(5)}
+    valid = [r for r in rows if r["best_level"] is not None]
+    return {"model": model, "family": family, "split": split,
+            "n": len(rows), "n_valid": len(valid), "errors":
+            len(rows) - len(valid), "level_histogram": hist,
+            "pass_rate": (round(hist[4] / len(valid), 4) if valid else None),
+            "mean_best_reward": (round(sum(r["best_reward"] for r in valid)
+                                       / len(valid), 4) if valid else None),
+            "wall_s": round(time.time() - t0, 1), "rows": rows}
+
+
 def collect(model: str, n_instances: int, out_path: str,
             family: str = "guide_divergence", split: str = "train",
             reward_threshold: float = 1.0, max_steps: int = 6,

@@ -205,11 +205,23 @@ def render_prompt(inst: dict, baseline_obs: dict | None = None) -> str:
               for k, (lo, hi) in inst["free_parameters"].items()]
     f = inst["fom"]
     lines += ["", f"Figure of merit: {f['metric']} on monitor "
-              f"'{f['monitor']}' ({'maximize' if f['maximize'] else 'minimize'}). "
-              f"Beat the baseline configuration."]
-    if baseline_obs:
-        lines += [f"Baseline FOM at the evaluation protocol: "
-                  f"{baseline_obs.get('fom'):.6g}"]
+              f"'{f['monitor']}' "
+              f"({'maximize' if f['maximize'] else 'minimize'})."]
+    base_fom = (baseline_obs or {}).get("fom")
+    tr = inst.get("target_ratio", 1.0)
+    if base_fom:
+        lines += [f"Baseline FOM at the evaluation protocol: {base_fom:.6g}"]
+        if inst.get("target_calibrated"):
+            # the model must know the bar it is held to: the target is
+            # 80% of a constraint-filtered, fresh-seed-verified classical
+            # optimum, not merely "beat the baseline" (2026-09-13)
+            lines += [f"TARGET TO BEAT: {base_fom * tr:.6g} "
+                      f"({tr:.2f}x the baseline). This target is 80% of what "
+                      f"a classical constraint-filtered random search "
+                      f"achieves on this instance, so beating the baseline "
+                      f"alone is NOT sufficient."]
+        else:
+            lines += ["Target: beat the baseline configuration."]
     lines += ["", "Constraints (checked against the baseline's pattern — "
               "stay within band):"]
     lines += [f"  {c['monitor']}.{c['observable']} within "

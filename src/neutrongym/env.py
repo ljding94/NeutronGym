@@ -25,17 +25,24 @@ import os
 
 from mcstas_mcp.config import home_dir
 
-from . import generate, reward
+from . import calibrate, generate, reward
 from .executor import FamilyExecutor
 
 
 class NeutronGym:
     def __init__(self, family: str = "guide_divergence", split: str = "train",
-                 workdir: str | None = None, max_steps: int = 32):
+                 workdir: str | None = None, max_steps: int = 32,
+                 calibrated: bool = True):
         if family not in generate.FAMILIES:
             raise ValueError(f"unknown family {family!r} — have "
                              f"{sorted(generate.FAMILIES)}")
         self.family, self.split, self.max_steps = family, split, max_steps
+        # calibrated targets (default ON since 2026-09-13): without them L4
+        # means merely beating a deliberately undersized baseline, which the
+        # untrained 8B already cleared ~83% of the time — no headroom for
+        # any trainability claim. calibrated=False reproduces the old
+        # (trivial) bar for comparison.
+        self.calibrated = calibrated
         self.workdir = workdir or os.path.join(home_dir(), "families")
         self.exec = FamilyExecutor(
             generate.family_instr(family, self.workdir),
@@ -57,6 +64,7 @@ class NeutronGym:
         if index is None:
             index, self._counter = self._counter, self._counter + 1
         inst = generate.instance(self.family, self.split, index)
+        family_dir = self.family
         base = self._baselines.get(inst["id"])
         if base is None:
             base = reward.baseline(inst, self.exec)
@@ -66,6 +74,13 @@ class NeutronGym:
                     f"produced an unrunnable context (fix the family ranges, "
                     f"do not skip silently): {base['detail']}")
             self._baselines[inst["id"]] = base
+        if self.calibrated:
+            tr = calibrate.calibrated_target_ratio(
+                inst, self.exec, base, os.path.join(self.workdir, family_dir))
+            inst["target_ratio"] = tr if tr is not None else inst["target_ratio"]
+            inst["target_calibrated"] = tr is not None
+        else:
+            inst["target_calibrated"] = False
         self.instance, self._base = inst, base
         self._steps, self._episode = 0, []
         obs = {
