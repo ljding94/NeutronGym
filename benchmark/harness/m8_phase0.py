@@ -31,6 +31,11 @@ from neutrongym import generate, rollouts  # noqa: E402
 MODELS = {"qwen3-8b": "NEUTRONGYM_VLLM_URL_8B",
           "qwen3-32b": "NEUTRONGYM_VLLM_URL_32B"}
 
+# RAFT feasibility is about the RATE: below this, self-generated data costs
+# more rollouts than it is worth and we fall back to a frontier seed.
+MIN_KEEP_RATE = 0.15
+TARGET_KEEPERS = 200          # the SFT set size the plan assumes
+
 
 def url_for(model):
     return os.environ.get(MODELS[model], "")
@@ -95,11 +100,26 @@ def main():
     keeprate = round(keeps / ns, 3) if ns else 0.0
 
     vacuous = (p32 - p8) < 0.05
-    raft_ok = keeps >= 20
+    # FEASIBILITY IS A RATE, NOT A COUNT (fixed 2026-09-13). The old test
+    # was `keeps >= 20` against however many rollouts --n produced: at the
+    # default --n 10 that is 20 train rollouts across two families, so it
+    # demanded a 100% keep rate and could only ever fail. Procedural
+    # instances are unlimited and free, so the question is never "did this
+    # sample yield 20 keepers" but "at this rate, how many instances must I
+    # sample to get the SFT set I want" -- which the run now reports.
+    raft_ok = keeprate >= MIN_KEEP_RATE
+    instances_needed = (int(-(-TARGET_KEEPERS // keeprate))
+                        if keeprate > 0 else None)
     record["gates"] = {
         "baseline_8b_pass": p8, "baseline_32b_pass": p32,
         "vacuity_risk": vacuous, "raft_keep": keeps, "raft_rate": keeprate,
-        "raft_feasible": raft_ok}
+        "raft_feasible": raft_ok, "min_keep_rate": MIN_KEEP_RATE,
+        "target_keepers": TARGET_KEEPERS,
+        "instances_needed_for_target": instances_needed,
+        "n_per_family": args.n,
+        "note": "pass rates are sample estimates; a gap this gate calls "
+                "vacuous at small n may be real -- see the paired McNemar "
+                "and the difficulty sweep before concluding"}
     print("\n=== GATE ===")
     print(f"  8B held-out pass {p8}  levels {l8}")
     print(f"  32B held-out pass {p32}  levels {l32}")
@@ -108,7 +128,11 @@ def main():
           f"untrained model' to have a target)")
     print(f"  [{'PASS' if raft_ok else 'FAIL'}] RAFT feasibility: "
           f"{keeps} keepers from {ns} train rollouts (rate {keeprate}; "
-          f"need >= 20 to seed self-generated SFT)")
+          f"need rate >= {MIN_KEEP_RATE})")
+    if instances_needed:
+        print(f"      at this rate, ~{instances_needed} train instances "
+              f"yield {TARGET_KEEPERS} keepers (instances are unlimited "
+              f"and free)")
     if vacuous:
         print("  -> ACTION: redefine the readout (level migration / FOM "
               "distribution) before generating data; do NOT claim "
@@ -117,6 +141,12 @@ def main():
         print("  -> ACTION: self-generated data too thin; decide "
               "seed-from-frontier + filtered-vs-unfiltered ablation, or "
               "abort to env+eval-only.")
+    if vacuous and args.n < 25:
+        print(f"  -> WARNING: n={args.n} per family ({args.n * 2} episodes "
+              f"per model) is small. A vacuity call at this n can flip: it "
+              f"did on 2026-09-13, when n=10 read 0.70/0.70 and n=25 read "
+              f"0.60/0.76. Re-run at --n 25 or higher before acting on a "
+              f"FAIL.")
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     with open(args.out, "w") as f:
         json.dump(record, f, indent=1)
