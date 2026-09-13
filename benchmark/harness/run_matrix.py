@@ -253,6 +253,52 @@ def cmd_report(cfg):
     print(f"-> {os.path.relpath(os.path.join(OUT, 'summary.json'), REPO)}")
 
 
+def infra_casualty(ep_dir: str) -> dict | None:
+    """-> the INFRA classification if this episode's report is an infra
+    failure, else None.
+
+    An INFRA episode never reached the model: no transcript, no tool calls,
+    no exposure to the task's reference. Re-running it therefore does NOT
+    spend the once-only held-out axis a second time for that model — the
+    first attempt spent nothing. That is the whole justification for
+    --retry-infra, and it is why the retry is restricted to this class and
+    refuses to touch a graded episode.
+    """
+    rp = os.path.join(ep_dir, "report.json")
+    if not os.path.isfile(rp):
+        return None
+    sys.path.insert(0, os.path.join(REPO, "benchmark", "harness"))
+    from taxonomy import classify
+    try:
+        with open(rp) as f:
+            rec = classify(json.load(f))
+    except Exception:  # noqa: BLE001 — an unreadable report is not a retry
+        return None
+    return rec if rec.get("level") == "INFRA" else None
+
+
+def quarantine_infra_report(ep_dir: str) -> str:
+    """Preserve the failed report OUTSIDE the episode directory, so the
+    infra failure stays auditable after a retry.
+
+    It must leave the episode dir: run_episode.py rmtree's its --episode-dir
+    before running (run_episode.py:323), so anything parked inside would be
+    deleted by the very retry it is meant to document. Files land in a
+    sibling _infra/ directory, which preserve_evidence.py copies into git
+    along with the rest of the campaign.
+    """
+    rp = os.path.join(ep_dir, "report.json")
+    qdir = os.path.join(os.path.dirname(ep_dir.rstrip(os.sep)), "_infra")
+    os.makedirs(qdir, exist_ok=True)
+    stem = os.path.basename(ep_dir.rstrip(os.sep))
+    for i in range(1, 100):
+        dest = os.path.join(qdir, f"{stem}__infra{i}.json")
+        if not os.path.isfile(dest):
+            os.rename(rp, dest)
+            return dest
+    raise RuntimeError(f"too many infra retries for {stem}")
+
+
 def enumerate_final_pass(cfg):
     """The ONE coordinated touch of the held-out axis — deliberately a
     separate path from the matrix enumerator (which cannot reach held-out
@@ -287,6 +333,11 @@ def main():
                     help="the ONE touch of the held-out axis (Sep 8-10); "
                          "requires --confirm-heldout")
     ap.add_argument("--confirm-heldout", action="store_true")
+    ap.add_argument("--retry-infra", action="store_true",
+                    help="re-run ONLY episodes whose report classifies as "
+                         "INFRA (the model was never reached, so no "
+                         "held-out exposure was spent). Graded episodes are "
+                         "never re-run.")
     args = ap.parse_args()
     cfg = load_config()
     if args.final_pass:
@@ -302,14 +353,22 @@ def main():
         if args.dry_run:
             for _, arm, model, t, ep in eps:
                 done = os.path.isfile(os.path.join(ep, "report.json"))
-                print(f"  final {arm:8} {model:34} {t:14}"
-                      f"{' (done)' if done else ''}")
+                infra = infra_casualty(ep)
+                state = (f" (INFRA: {infra['kind']})" if infra
+                         else " (done)" if done else "")
+                print(f"  final {arm:8} {model:34} {t:14}{state}")
             print(f"{len(eps)} final-pass episodes")
             return
         led = ledger_total()
         for _, arm, model, t, ep_dir in eps:
             if os.path.isfile(os.path.join(ep_dir, "report.json")):
-                continue
+                infra = infra_casualty(ep_dir)
+                if not (infra and args.retry_infra):
+                    continue
+                print(f"[retry-infra] {t} / {arm} / {model} "
+                      f"({infra['kind']}) — quarantining "
+                      f"{os.path.basename(quarantine_infra_report(ep_dir))}",
+                      flush=True)
             url = model_base_url(cfg, model)[0] if model else None
             if url and not endpoint_alive(url):
                 print(f"ABORT: {model}'s endpoint {url} is not answering — "

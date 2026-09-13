@@ -137,6 +137,14 @@ def main():
             "n_references": len(rec.get("references") or {}),
             "status": rec.get("status")}
 
+    # serving-route confounds declared in the pinned config: episodes that
+    # ARE graded (so they cannot be re-run without spending the once-only
+    # held-out axis twice) but were measured on a route the project has
+    # documented as broken. Disclosed, never silently dropped.
+    cfg_path = os.path.join(REPO, "benchmark", "m6_config.json")
+    with open(cfg_path) as f:
+        confounds = json.load(f).get("route_confounds") or []
+
     t2_path = os.path.join(REPO, "benchmark", "t2_baseline_arms.json")
     t2 = json.load(open(t2_path)) if os.path.isfile(t2_path) else None
 
@@ -163,6 +171,7 @@ def main():
         "failure_kinds": {"matrix": kinds(matrix_rows),
                           "held_out": kinds(final_rows)},
         "spend": spend, "contamination_probes": contamination,
+        "route_confounds": confounds,
         "t2_classical_baselines": t2,
     }
     with open(os.path.join(OUT_DIR, "m6_results.json"), "w") as f:
@@ -215,6 +224,21 @@ def main():
                   "than the seen-tier set (p<0.001), which is an unexcluded "
                   "alternative explanation for the reversal.**"),
         "",
+    ]
+    if confounds:
+        md += ["#### Serving-route confounds in Table 2", "",
+               "*Graded episodes measured on a provider route this project "
+               "has documented as broken. They are NOT re-run: unlike an "
+               "INFRA episode, which never reached the model and so spent "
+               "no held-out exposure, these were graded — re-running them "
+               "would touch the once-only held-out axis twice.*", ""]
+        for c in confounds:
+            md += [f"- **`{c['model']}` / {c['arm']} / {c['set']}** "
+                   f"({c['episodes_affected']} episodes: "
+                   f"{', '.join(c['tasks'])}). {c['what']} {c['evidence']} "
+                   f"**{c['handling']}**"]
+        md += [""]
+    md += [
         "### Table 3 — Failure kinds (valid failures only)",
         "",
         "*`format` = never engaged the tools, or emitted no parseable file "

@@ -96,7 +96,7 @@ def evaluate(model: str, n_instances: int, family: str, split: str,
              base_url: str | None = None, api_key: str | None = None,
              provider_pin: str | None = None, temperature: float = 0.0,
              max_steps: int = 6, start_index: int = 0,
-             chat_fn=None) -> dict:
+             chat_fn=None, target_fraction: float | None = None) -> dict:
     """Measure a policy on procedural instances WITHOUT filtering — the
     primitive behind both the phase-0 baselines and the phase-3 trained-vs-
     untrained comparison, so both are measured identically.
@@ -108,7 +108,8 @@ def evaluate(model: str, n_instances: int, family: str, split: str,
                         chat_completion, resolve_backend)
     import httpx
 
-    env = NeutronGym(family=family, split=split, max_steps=max_steps)
+    env = NeutronGym(family=family, split=split, max_steps=max_steps,
+                     target_fraction=target_fraction)
     if chat_fn is not None:
         call_model = chat_fn
     else:
@@ -145,6 +146,7 @@ def evaluate(model: str, n_instances: int, family: str, split: str,
             for lv in range(5)}
     valid = [r for r in rows if r["best_level"] is not None]
     return {"model": model, "family": family, "split": split,
+            "target_fraction": target_fraction,
             "n": len(rows), "n_valid": len(valid), "errors":
             len(rows) - len(valid), "level_histogram": hist,
             "pass_rate": (round(hist[4] / len(valid), 4) if valid else None),
@@ -158,7 +160,7 @@ def collect(model: str, n_instances: int, out_path: str,
             reward_threshold: float = 1.0, max_steps: int = 6,
             temperature: float = 0.7, provider_pin: str | None = "Google",
             base_url: str | None = None, api_key: str | None = None,
-            chat_fn=None) -> dict:
+            chat_fn=None, target_fraction: float | None = None) -> dict:
     """Rejection-sampled SFT set: keep episodes with best_reward >=
     threshold (default 1.0 = reached L3-valid with full structural pass;
     1.0+ means improved). Sampling temperature deliberately > 0 — diversity
@@ -168,7 +170,8 @@ def collect(model: str, n_instances: int, out_path: str,
                         chat_completion, resolve_backend)
     import httpx
 
-    env = NeutronGym(family=family, split=split, max_steps=max_steps)
+    env = NeutronGym(family=family, split=split, max_steps=max_steps,
+                     target_fraction=target_fraction)
     if chat_fn is not None:
         call_model = chat_fn
     else:

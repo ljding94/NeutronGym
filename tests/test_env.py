@@ -34,12 +34,25 @@ def test_step_improvement_reaches_l4(env):
 
 @pytest.mark.slow
 def test_step_baseline_is_level_3_not_4(env):
+    """Resubmitting the baseline is valid but not an improvement.
+
+    Since calibration (2026-09-13) fom_ratio is measured against the
+    CALIBRATED TARGET, not the baseline: ratio = fom / (baseline_fom *
+    target_ratio), so the baseline scores exactly 1/target_ratio. Asserting
+    that exact value — rather than the old 1.0, which silently encoded
+    target_ratio == 1 — is what makes this test notice if calibration ever
+    stops being applied.
+    """
     obs, _ = env.reset(index=0)
     inst = obs["instance"]
+    tr = inst["target_ratio"]
+    assert inst["target_calibrated"] and tr > 1.0, (
+        "the env must hold the baseline to a classical-derived target; "
+        f"target_ratio={tr} means the L4 bar is back to 'beat the baseline'")
     _, r, term, _, rec = env.step(dict(inst["baseline"]))
     assert rec["level"] == 3 and not term
-    assert rec["levels"]["L4"]["fom_ratio"] == pytest.approx(1.0)
-    assert r == pytest.approx(1.0)
+    assert rec["levels"]["L4"]["fom_ratio"] == pytest.approx(1 / tr, rel=1e-3)
+    assert r == pytest.approx(0.75 + 0.25 / tr, rel=1e-3)
 
 
 @pytest.mark.slow

@@ -32,7 +32,8 @@ from .executor import FamilyExecutor
 class NeutronGym:
     def __init__(self, family: str = "guide_divergence", split: str = "train",
                  workdir: str | None = None, max_steps: int = 32,
-                 calibrated: bool = True):
+                 calibrated: bool = True,
+                 target_fraction: float | None = None):
         if family not in generate.FAMILIES:
             raise ValueError(f"unknown family {family!r} — have "
                              f"{sorted(generate.FAMILIES)}")
@@ -43,6 +44,10 @@ class NeutronGym:
         # any trainability claim. calibrated=False reproduces the old
         # (trivial) bar for comparison.
         self.calibrated = calibrated
+        # difficulty knob: fraction of the classical optimum L4 demands.
+        # None = the module default (0.8, the T2 benchmark discipline).
+        # Sweeping it is free — see calibrate.calibrated_target_ratio.
+        self.target_fraction = target_fraction
         self.workdir = workdir or os.path.join(home_dir(), "families")
         self.exec = FamilyExecutor(
             generate.family_instr(family, self.workdir),
@@ -76,9 +81,13 @@ class NeutronGym:
             self._baselines[inst["id"]] = base
         if self.calibrated:
             tr = calibrate.calibrated_target_ratio(
-                inst, self.exec, base, os.path.join(self.workdir, family_dir))
+                inst, self.exec, base, os.path.join(self.workdir, family_dir),
+                fraction=self.target_fraction)
             inst["target_ratio"] = tr if tr is not None else inst["target_ratio"]
             inst["target_calibrated"] = tr is not None
+            inst["target_fraction"] = (self.target_fraction
+                                       if self.target_fraction is not None
+                                       else calibrate.TARGET_FRACTION)
         else:
             inst["target_calibrated"] = False
         self.instance, self._base = inst, base

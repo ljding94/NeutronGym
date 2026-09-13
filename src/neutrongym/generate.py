@@ -212,14 +212,17 @@ def render_prompt(inst: dict, baseline_obs: dict | None = None) -> str:
     if base_fom:
         lines += [f"Baseline FOM at the evaluation protocol: {base_fom:.6g}"]
         if inst.get("target_calibrated"):
-            # the model must know the bar it is held to: the target is
-            # 80% of a constraint-filtered, fresh-seed-verified classical
-            # optimum, not merely "beat the baseline" (2026-09-13)
+            # the model must know the bar it is held to: the target is a
+            # fraction of a constraint-filtered, fresh-seed-verified
+            # classical optimum, not merely "beat the baseline"
+            # (2026-09-13). The fraction is the difficulty knob, so quote
+            # the one actually in force rather than a hardcoded 80%.
+            pct = 100 * (inst.get("target_fraction") or 0.8)
             lines += [f"TARGET TO BEAT: {base_fom * tr:.6g} "
-                      f"({tr:.2f}x the baseline). This target is 80% of what "
-                      f"a classical constraint-filtered random search "
-                      f"achieves on this instance, so beating the baseline "
-                      f"alone is NOT sufficient."]
+                      f"({tr:.2f}x the baseline). This target is {pct:.0f}% "
+                      f"of what a classical constraint-filtered random "
+                      f"search achieves on this instance, so beating the "
+                      f"baseline alone is NOT sufficient."]
         else:
             lines += ["Target: beat the baseline configuration."]
     lines += ["", "Constraints (checked against the baseline's pattern — "

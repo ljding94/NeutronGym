@@ -95,10 +95,17 @@ def cache_path(workdir: str, inst: dict) -> str:
     return os.path.join(workdir, "calibration", f"{inst['id']}.json")
 
 
-def calibrated_target_ratio(inst: dict, fexec, base: dict,
-                            workdir: str) -> float | None:
+def calibrated_target_ratio(inst: dict, fexec, base: dict, workdir: str,
+                            fraction: float | None = None) -> float | None:
     """Cached per-instance target ratio; None if calibration failed (the
-    caller keeps the uncalibrated ratio and records that it did)."""
+    caller keeps the uncalibrated ratio and records that it did).
+
+    `fraction` overrides TARGET_FRACTION. The expensive part — the
+    constraint-filtered classical search — depends only on the instance, so
+    a different fraction is a pure rescale of the CACHED classical optimum
+    and costs no simulations. That is what makes the difficulty-response
+    sweep (2026-09-13) affordable.
+    """
     p = cache_path(workdir, inst)
     if os.path.isfile(p):
         with open(p) as f:
@@ -108,4 +115,11 @@ def calibrated_target_ratio(inst: dict, fexec, base: dict,
         os.makedirs(os.path.dirname(p), exist_ok=True)
         with open(p, "w") as f:
             json.dump(rec, f, indent=1)
-    return rec["target_ratio"] if rec.get("ok") else None
+    if not rec.get("ok"):
+        return None
+    if fraction is None or fraction == rec.get("fraction", TARGET_FRACTION):
+        return rec["target_ratio"]
+    over = rec.get("classical_over_baseline")
+    if over is None:  # pre-2026-09-13 cache entry
+        over = rec["target_ratio"] / rec.get("fraction", TARGET_FRACTION)
+    return round(fraction * over, 6)

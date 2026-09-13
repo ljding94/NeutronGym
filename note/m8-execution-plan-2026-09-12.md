@@ -11,6 +11,10 @@
 > | steps to success (median) | 3.5 | 2.0 | directionally, underpowered |
 > | FOM ratio (median/max) | 1.12 / 1.36 | 1.19 / 3.58 | directionally |
 >
+> (FOM ratio is measured against the CALIBRATED TARGET, not the baseline:
+> `fom / (baseline_fom * target_ratio)`, so 1.0 is exactly the bar. A
+> median of ~1.1 means the typical episode lands just over it.)
+>
 > **A 4x parameter increase buys nothing on this task.** "Approaching a
 > larger untrained model" is therefore VACUOUS on this axis — there is no
 > gap to approach — and a task insensitive to a 4x scale difference is
