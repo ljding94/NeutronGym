@@ -156,6 +156,11 @@ def main():
                          "the same base model, e.g. http://localhost:8137/v1")
     ap.add_argument("--dry-run", action="store_true",
                     help="build examples + template check, no training")
+    ap.add_argument("--smoke", type=int, default=0, metavar="N",
+                    help="train on the first N examples for one epoch with "
+                         "one optimizer step per example, save the adapter, "
+                         "skip the merge: checks memory, peft wiring and "
+                         "that the loss is finite, in minutes")
     args = ap.parse_args()
 
     # tokenizer-only until the dry-run exits: the template check needs just
@@ -176,6 +181,10 @@ def main():
         json.dump({**stats, **vars(args)}, f, indent=1)
     if args.dry_run or not examples:
         return
+    if args.smoke:
+        examples = examples[:args.smoke]
+        args.epochs = 1
+        args.tokens_per_step = 1
 
     import torch
     from peft import LoraConfig, get_peft_model
@@ -245,6 +254,11 @@ def main():
 
     adapter_dir = os.path.join(args.out, "adapter")
     model.save_pretrained(adapter_dir)
+    if args.smoke:
+        peak = torch.cuda.max_memory_allocated() / 2**30
+        print(f"SMOKE OK: {step} steps, peak GPU memory {peak:.1f} GiB, "
+              f"adapter {adapter_dir}")
+        return
     merged = model.merge_and_unload()
     merged_dir = os.path.join(args.out, "merged")
     merged.save_pretrained(merged_dir, safe_serialization=True)
