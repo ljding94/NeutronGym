@@ -22,6 +22,7 @@ DEST = os.path.join(REPO, "benchmark", "evidence")
 KEEP_TOP = {"report.json", "transcript.jsonl", "report_regraded.json",
             "ledger.json", "summary.json", "acceptance.json"}
 ARTIFACT_EXT = (".instr", ".json", ".png")
+INFRA_DIR = "_infra"  # run_matrix.quarantine_infra_report's destination
 
 
 def preserve():
@@ -39,6 +40,17 @@ def preserve():
                 copied += 1
                 continue
             if not os.path.isdir(src):
+                continue
+            if entry == INFRA_DIR:
+                # reports displaced by run_matrix --retry-infra: the only
+                # surviving record that those cells once failed on infra
+                for fn in sorted(os.listdir(src)):
+                    p = os.path.join(src, fn)
+                    if os.path.isfile(p) and fn.endswith(".json"):
+                        dst = os.path.join(DEST, name, INFRA_DIR, fn)
+                        os.makedirs(os.path.dirname(dst), exist_ok=True)
+                        shutil.copy2(p, dst)
+                        copied += 1
                 continue
             for fn in KEEP_TOP:
                 p = os.path.join(src, fn)
