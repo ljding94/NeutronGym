@@ -1,5 +1,18 @@
 # M8 execution plan — SFT trainability result (rev 2 · 2026-09-12)
 
+> ## ⚠ UPDATE LATER THE SAME EVENING (2026-09-13): no clean 8B→32B target
+>
+> The "M8 proceeds" banner below was right to proceed but wrong about the
+> target. SANS has a direct-beam reward hole — most SANS passes for both
+> models are leakage (note/sans-direct-beam-exploit-2026-09-13.md) — and on
+> the clean guide family at n=100 the untrained 32B does not lead the 8B
+> significantly (47 vs 40, McNemar 24v17, p=0.35). M8 continues on guide
+> only, against the pre-registered **≥10-point gain over the untrained 8B**;
+> the 32B is reported as context. Eval uses n=300 paired instances (41%
+> per-instance discordance makes n=100 underpowered for a 10-point gain).
+> RAFT data: 135/300 guide train instances kept (0.45); LoRA trained on
+> GPU 7; merged checkpoint served on :8139 with the base 8B's exact flags.
+
 > ## ✅ SUPERSEDED THE SAME EVENING (2026-09-13): M8 PROCEEDS
 >
 > The "phase-0 gate failed" block below was an artifact, and is kept only as

@@ -93,7 +93,7 @@ false positive → floor-gating. Source: `note/reward-red-team-2026-08-05.md`.
 
 ### 6. Trainability (M8 — running; numbers frozen Sep 17)
 
-- **The claim bar has a target.** On held-out procedural instances with
+- **~~The claim bar has a target.~~ Superseded by the n=100 guide probe — see the claim inventory; the 32B is context only.** On held-out procedural instances with
   calibrated targets (n=25 per family per model), the untrained Qwen3-32B
   leads the untrained Qwen3-8B by **+14 to +16 points at 0.8× the classical
   optimum and +22 at 1.0×**; at 1.2× the 8B is at the floor. Training bar:
@@ -152,7 +152,7 @@ committed per-episode evidence (1081 files) so every number is auditable.
 | Loop > one-shot on held-out | **suggestive, confounded** — 10/14 vs 2/14 over 7 models (p=0.006), always stated with the held-out-is-easier confound (10/14 vs 20/113, p=0.0001) |
 | One-shot > loop on seen tier | **RETRACTED** (all p ≥ 0.70) |
 | Tool-surface size defeats weak models | **RETRACTED** (was our harness) |
-| Trainability delta (RAFT SFT, 8B toward 32B) | **pending M8** — whether a clean target exists depends on the guide-family n=100 probe; SANS excluded until its reward hole is fixed |
-| 32B > 8B on calibrated procedural instances | **NOT established on clean data.** Combined sweep 1.0×: 0.36 vs 0.60 (McNemar p=0.012), but all ordering comes from SANS, where most passes are direct-beam leakage (leak-free 0v3, p=0.25). Guide family: 0.8× tie (p=1.0), 1.0× +16 pts (p=0.39 at n=25); n=100 probe pending |
+| Trainability delta (RAFT SFT on guide) | **pending M8** — claim bar is ≥10 pts over the untrained 8B (the 32B is context, not a target: no clean ordering). Eval n=300 paired for power; SANS excluded |
+| 32B > 8B on calibrated procedural instances | **NOT supported.** Guide (clean) at 1.0×, n=100: 0.40 vs 0.47, McNemar 17v24 p=0.35. The combined-sweep significance (p=0.012) came from SANS, where most passes are direct-beam leakage (leak-free 0v3, p=0.25). The n=10 "tie" and the n=25 "+22" were both small-sample reads |
 | Uncalibrated reward ladders manufacture ceilings | **solid** (80%/93% → 70%/70% after per-instance calibration) |
 | Dense per-step FOM feedback makes the task non-discriminating | **RETRACTED** — the task discriminates at n=25; the idea came from an underpowered read |
