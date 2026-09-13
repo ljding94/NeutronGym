@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-10 21:36",
+ "generated": "2026-09-13 17:47",
  "provenance": {
   "config": "benchmark/m6_config.json (pinned: models, provider pins, protocol, arms, budget)",
   "evidence": "benchmark/evidence/{m6,m6_final,pilot}/ (committed per-episode reports, transcripts, artifacts)",
@@ -516,8 +516,8 @@
   }
  },
  "spend": {
-  "total_usd": 122.1551,
-  "ledger_entries": 352
+  "total_usd": 122.1568,
+  "ledger_entries": 356
  },
  "contamination_probes": {
   "anthropic/claude-haiku-4.5": {
@@ -551,6 +551,23 @@
    "status": "PROBE INCOMPLETE at the 2026-09-07 pre-freeze re-sweep"
   }
  },
+ "route_confounds": [
+  {
+   "model": "meta-llama/llama-4-maverick",
+   "set": "m6_final",
+   "arm": "main",
+   "tasks": [
+    "T1_BOYA_CARR",
+    "T1_VENUS_SNS"
+   ],
+   "episodes_affected": 2,
+   "what": "Both held-out main-arm episodes ran 2026-09-10 09:48-09:53, BEFORE the provider pin moved from Google to DigitalOcean at 13:12 that day (commit 1aa5ee4). They were therefore measured on the Google route that pin_history already records as withdrawn and non-tool-calling.",
+   "evidence": "Both episodes show ~zero MCP calls (get_results x1, and none) and grade L0 - the exact signature pin_history attributes to the Google route, not to the model. The same model tool-calls correctly on DigitalOcean in the main matrix (Table 1).",
+   "why_not_rerun": "Unlike the two oneshot cells (which 404'd without ever reaching the model, spent no held-out exposure, and were retried on 2026-09-13 into valid L1 results), these two episodes WERE graded. Re-running them would touch the once-only held-out axis a second time for this model, which the protocol forbids.",
+   "handling": "Reported with this caveat rather than excluded or re-run. maverick's held-out main row is a serving-route artifact and must not be read as a capability measurement.",
+   "recorded": "2026-09-13"
+  }
+ ],
  "t2_classical_baselines": {
   "verify_ncount": 100000000.0,
   "fresh_seed": 20260823,

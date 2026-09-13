@@ -136,3 +136,22 @@ def test_significance_threshold_is_derived_not_hardcoded():
     assert mcnemar_exact_p(0, n) < 0.05
     assert mcnemar_exact_p(0, n - 1) >= 0.05
     assert n == 6  # 2 / 2^6 = 0.03125
+
+
+def test_pair_rows_reads_the_sweep_record_shape():
+    """m8_difficulty_sweep persists rows as
+    rows_by_fraction[frac][model][family]['rows'], and the sweep feeds that
+    sub-dict straight into pair_rows under a synthetic 'heldout' key. If
+    these shapes drift apart the sweep's paired column silently empties."""
+    sweep = {"rows_by_fraction": {"1.0": {
+        "qwen3-8b": {"guide_divergence": {"rows": [
+            {"instance": 0, "best_level": 4},
+            {"instance": 1, "best_level": 3}]}},
+        "qwen3-32b": {"guide_divergence": {"rows": [
+            {"instance": 0, "best_level": 3},
+            {"instance": 1, "best_level": 4}]}}}}}
+    paired = pair_rows({"heldout": sweep["rows_by_fraction"]["1.0"]}, M)
+    assert len(paired) == 2
+    res = analyze(paired, M)
+    assert res["only_qwen3-8b"] == 1 and res["only_qwen3-32b"] == 1
+    assert res["balanced"] is True

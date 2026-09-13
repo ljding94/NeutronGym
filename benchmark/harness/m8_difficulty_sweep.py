@@ -100,7 +100,14 @@ def main():
     families = list(generate.FAMILIES)
     record = {"n_per_family": args.n, "fractions": fractions,
               "families": families, "separation_threshold":
-              SEPARATION_THRESHOLD, "cells": {}, "curve": []}
+              SEPARATION_THRESHOLD, "cells": {}, "curve": [],
+              # raw per-episode rows, keyed so m8_paired.py can read this
+              # file directly. Marginal pass rates were exactly what hid the
+              # phase-0 finding (identical 0.70 rates reached on DIFFERENT
+              # instances), so a sweep that stored only summaries would
+              # reproduce the same blind spot at four difficulties instead
+              # of one.
+              "rows_by_fraction": {}}
 
     for frac in fractions:
         print(f"\n=== target = {frac:.2f}x classical optimum ===")
@@ -113,6 +120,9 @@ def main():
                     base_url=os.environ[MODELS[model]], temperature=0.0,
                     target_fraction=frac)
                 rows += r["rows"]
+                record["rows_by_fraction"].setdefault(
+                    str(frac), {}).setdefault(model, {})[fam] = {
+                        "rows": r["rows"]}
                 s = summarize(r["rows"])
                 print(f"  {model:10} {fam:18} pass={s['pass_rate']} "
                       f"levels={s['level_histogram']} "
@@ -139,11 +149,34 @@ def main():
         print(f"  -> gap(32B - 8B) = {p32 - p8:+.3f}  "
               f"{'SEPARATES' if abs(p32 - p8) >= SEPARATION_THRESHOLD else 'flat'}")
 
+    # --- paired view at every difficulty --------------------------------
+    # Marginal equality and per-instance equivalence are different claims;
+    # only the paired test can tell them apart.
+    sys.path.insert(0, os.path.join(REPO, "benchmark", "harness"))
+    from m8_paired import analyze, pair_rows
+    models = tuple(MODELS)
+    print("\n=== paired (per-instance) view ===")
+    for frac in fractions:
+        sub = {"heldout": record["rows_by_fraction"][str(frac)]}
+        paired = pair_rows(sub, models)
+        if not paired:
+            continue
+        res = analyze(paired, models)
+        record.setdefault("paired", {})[str(frac)] = res
+        verdict = ("ORDERING" if res["ordering_supported"]
+                   else "balanced" if res["balanced"] else "underpowered")
+        print(f"  {frac:.2f}x  agree={res['agreement']}  discordant="
+              f"{res[f'only_{models[0]}']}v{res[f'only_{models[1]}']}  "
+              f"McNemar p={res['mcnemar_p']}  -> {verdict}")
+
     # --- verdict --------------------------------------------------------
     sep = [c for c in record["curve"] if c["separates"]]
     best = max(record["curve"], key=lambda c: abs(c["pass_gap"]))
+    paired_orderings = [f for f, r in (record.get("paired") or {}).items()
+                        if r["ordering_supported"]]
     record["verdict"] = {
         "any_separation": bool(sep),
+        "paired_ordering_at": paired_orderings,
         "separating_fractions": [c["fraction"] for c in sep],
         "max_abs_gap": abs(best["pass_gap"]),
         "max_gap_fraction": best["fraction"],
@@ -155,6 +188,9 @@ def main():
               f"32B={c['qwen3-32b']['pass_rate']}  "
               f"gap={c['pass_gap']:+.3f}  "
               f"dlevel={c['level_gap']:+.3f}")
+    if paired_orderings:
+        print(f"  PAIRED ordering found at fractions {paired_orderings} — "
+              f"check these even if the marginal gap is small.")
     if sep:
         print(f"  H_saturated: the models DO separate at "
               f"{record['verdict']['separating_fractions']} — the 0.8x bar "

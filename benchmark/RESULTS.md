@@ -1,6 +1,6 @@
 # NeutronGym — results of record
 
-*Generated 2026-09-10 21:36 by `benchmark/harness/results_report.py` from the committed evidence in `benchmark/evidence/`. **These are the numbers the manuscript cites.** Regenerate after any re-run; diff the JSON to see what moved.*
+*Generated 2026-09-13 17:47 by `benchmark/harness/results_report.py` from the committed evidence in `benchmark/evidence/`. **These are the numbers the manuscript cites.** Regenerate after any re-run; diff the JSON to see what moved.*
 
 **Validity rule:** INFRA (endpoint/provider/harness failures) and LEAK episodes are excluded from every rate and reported separately. This is not cosmetic — on 2026-09-10 an unnoticed dead SSH tunnel put 77 infra failures into the tables as capability zeros, which invalidated an entire model row until caught and re-run.
 
@@ -49,6 +49,12 @@ Instruments with no public `.instr` (BOYA, VENUS), authored for this benchmark a
 | `qwen3_8b` | main | 0 | 0 | — | 0 | 0 | 0 | 0 | 0 | 2 |
 | `qwen3_8b` | oneshot | 0 | 0 | — | 0 | 0 | 0 | 0 | 0 | 2 |
 
+
+#### Serving-route confounds in Table 2
+
+*Graded episodes measured on a provider route this project has documented as broken. They are NOT re-run: unlike an INFRA episode, which never reached the model and so spent no held-out exposure, these were graded — re-running them would touch the once-only held-out axis twice.*
+
+- **`meta-llama/llama-4-maverick` / main / m6_final** (2 episodes: T1_BOYA_CARR, T1_VENUS_SNS). Both held-out main-arm episodes ran 2026-09-10 09:48-09:53, BEFORE the provider pin moved from Google to DigitalOcean at 13:12 that day (commit 1aa5ee4). They were therefore measured on the Google route that pin_history already records as withdrawn and non-tool-calling. Both episodes show ~zero MCP calls (get_results x1, and none) and grade L0 - the exact signature pin_history attributes to the Google route, not to the model. The same model tool-calls correctly on DigitalOcean in the main matrix (Table 1). **Reported with this caveat rather than excluded or re-run. maverick's held-out main row is a serving-route artifact and must not be read as a capability measurement.**
 
 ### Table 3 — Failure kinds (valid failures only)
 
