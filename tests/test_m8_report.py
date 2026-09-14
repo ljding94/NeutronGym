@@ -168,3 +168,42 @@ def test_eval_section_marks_a_met_bar_green():
     ev = {"arms": {}, "verdict": {"pass_gain": 0.12, "claim_bar_met": True}}
     html = m8_report.eval_section(ev)
     assert "verdict ok" in html and "Claim bar MET" in html
+
+
+def _readout(verdict):
+    return {"verdict": verdict, "label": "post-hoc",
+            "pass_rate": {"untrained-8b": 0.4033, "per-turn": 0.3133,
+                          "passing-turn": 0.39},
+            "passing_vs_untrained": {"only_a": 30, "only_b": 26, "mcnemar_p": 0.69},
+            "per_turn_vs_untrained": {"only_a": 47, "only_b": 20, "mcnemar_p": 0.0013},
+            "passing_vs_per_turn": {"only_a": 15, "only_b": 38, "mcnemar_p": 0.002}}
+
+
+def test_ablation_section_is_always_labelled_post_hoc():
+    for v in ("supported", "refuted", "inconclusive"):
+        html = m8_report.ablation_section(_readout(v))
+        assert "post-hoc" in html
+        assert "remains the headline M8 result" in html
+        assert v in html
+
+
+def test_ablation_section_only_green_when_supported():
+    assert "verdict ok" in m8_report.ablation_section(_readout("supported"))
+    assert "verdict ok" not in m8_report.ablation_section(_readout("refuted"))
+    assert "verdict ok" not in m8_report.ablation_section(_readout("inconclusive"))
+
+
+def test_ablation_section_shows_all_three_comparisons():
+    html = m8_report.ablation_section(_readout("supported"))
+    assert "passing-turn vs untrained 8B" in html
+    assert "per-turn vs untrained 8B" in html
+    assert "passing-turn vs per-turn" in html
+    assert "0.0013" in html and "0.002" in html
+
+
+def test_report_says_ablation_missing_before_readout(tmp_path, monkeypatch):
+    monkeypatch.setattr(m8_report, "RUNS", str(tmp_path / "empty"))
+    out = tmp_path / "m8.html"
+    monkeypatch.setattr(m8_report, "OUT", str(out))
+    m8_report.main()
+    assert "ablation_readout.json not present yet" in out.read_text()

@@ -194,12 +194,41 @@ def eval_section(ev):
     return "".join(out)
 
 
+def ablation_section(ab):
+    """The pre-specified ablation verdict. Always labelled post-hoc: it was
+    decided after the pre-registered result, so it can explain that result
+    but never replace it."""
+    verdict = ab.get("verdict", "?")
+    tone = {"supported": "verdict ok"}.get(verdict, "verdict")
+    rates = ab.get("pass_rate") or {}
+    label = {"passing_vs_untrained": "passing-turn vs untrained 8B",
+             "per_turn_vs_untrained": "per-turn vs untrained 8B",
+             "passing_vs_per_turn": "passing-turn vs per-turn"}
+    rows = "".join(
+        f"<tr><td>{label[k]}</td>"
+        f"<td class='n'>{(ab.get(k) or {}).get('only_a')}</td>"
+        f"<td class='n'>{(ab.get(k) or {}).get('only_b')}</td>"
+        f"<td class='n'>{(ab.get(k) or {}).get('mcnemar_p')}</td></tr>"
+        for k in label)
+    return (f"<div class='card {tone}'><p><span class='tag warn'>post-hoc</span> "
+            f"Mechanism <b>{esc(verdict)}</b> under the criteria fixed before "
+            f"training (PLAN.md, 2026-09-14).</p><p class='note'>Pass rates: "
+            f"untrained 8B {pct(rates.get('untrained-8b'))}, per-turn "
+            f"{pct(rates.get('per-turn'))}, passing-turn "
+            f"{pct(rates.get('passing-turn'))}. The pre-registered per-turn "
+            f"result remains the headline M8 result.</p></div>"
+            "<div class='scroll'><table><tr><th>paired comparison</th>"
+            "<th class='n'>only first</th><th class='n'>only second</th>"
+            "<th class='n'>McNemar p</th></tr>" + rows + "</table></div>")
+
+
 def main():
     uncal, cal = load("phase0_n15.json"), load("phase0_calibrated.json")
     p_cal = load("paired_calibrated.json")
     p_unc = load("paired_uncalibrated.json")
     sweep, oneshot = load("sweep.json"), load("sweep_oneshot.json")
     ev = load("eval_guide_1x_n300.json")
+    ablation = load("ablation_readout.json")
 
     H = [f"<!doctype html><meta charset='utf-8'><title>NeutronGym — M8 "
          f"trainability record</title><style>{CSS}</style><div class='wrap'>"]
@@ -331,6 +360,15 @@ def main():
                  "</p>")
     else:
         H.append(eval_section(ev))
+
+    # ---- post-hoc ablation ----------------------------------------------
+    H.append("<h2>Post-hoc ablation — train only the passing turn</h2>")
+    if not ablation:
+        H.append("<p class='missing'>runs/m8/ablation_readout.json not present "
+                 "yet — run <code>benchmark/harness/m8_ablation_readout.py"
+                 "</code> after the ablation evaluation.</p>")
+    else:
+        H.append(ablation_section(ablation))
 
     # ---- feedback budget -----------------------------------------------
     H.append("<h2>Feedback budget — search versus reasoning</h2>")
