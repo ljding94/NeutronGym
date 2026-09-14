@@ -110,8 +110,8 @@ false positive → floor-gating. Source: `note/reward-red-team-2026-08-05.md`.
   all-max corner and many keep w_in pinned at its maximum while sweeping
   w_out; the passing move is usually lowering w_in (modal passing action
   w_in=0.05, 39/135). The trained model opens at the corner on 20/20
-  held-out prompts (untrained 12/20) and runs a fixed w_in-pinned sweep
-  (26/30 replays; one exact 6-step trajectory recurs 5/30), ignoring the
+  held-out prompts (untrained 11/20) and runs a fixed w_in-pinned sweep
+  (26/30 replays; one exact 6-step trajectory recurs 6/30), ignoring the
   instance-specific feedback. No single training trajectory was copied
   verbatim (83/135 distinct).
 - **Methods lessons** (stand regardless of any follow-up): uncalibrated
