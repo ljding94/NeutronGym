@@ -47,14 +47,19 @@ def tokenize(url, model, messages):
 
 
 def main():
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--name", default=TRAINED_NAME,
+                    help="expected served-model name of the trained server")
+    args = ap.parse_args()
     base_url = os.environ["NEUTRONGYM_VLLM_URL_8B"]
     trained_url = os.environ["NEUTRONGYM_VLLM_URL_TRAINED"]
     ok = True
 
     tid, bid = served_id(trained_url), served_id(base_url)
     print(f"id: trained={tid} base={bid}")
-    if tid != TRAINED_NAME:
-        print(f"FAIL id: expected {TRAINED_NAME}"); ok = False
+    if tid != args.name:
+        print(f"FAIL id: expected {args.name}"); ok = False
 
     fam = "guide_divergence"
     for i in (0, 1, 2):

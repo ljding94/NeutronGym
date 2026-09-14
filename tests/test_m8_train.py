@@ -158,3 +158,47 @@ def test_token_ids_unwraps_a_batch_of_one_and_rejects_real_batches():
         m8_train.token_ids([[1, 2], [3, 4]])
     with pytest.raises(TypeError):
         m8_train.token_ids(["input_ids", "attention_mask"])
+
+
+EPISODE = [
+    {"role": "system", "content": "sys"},
+    {"role": "user", "content": "task"},
+    {"role": "assistant", "content": "A1"},
+    {"role": "user", "content": "deepest level reached: L2; failed at L2: x; Reply with your next JSON action."},
+    {"role": "assistant", "content": "A2"},
+    {"role": "user", "content": "deepest level reached: L3; FOM ratio vs baseline: 0.8; Reply with your next JSON action."},
+    {"role": "assistant", "content": "A3"},
+    {"role": "user", "content": "deepest level reached: L4; FOM ratio vs baseline: 1.01; Reply with your next JSON action."},
+]
+
+
+def test_passing_mode_keeps_only_the_l4_turn_with_its_full_history():
+    pairs = m8_train.turn_pairs(EPISODE, "passing")
+    assert [c for _, c in pairs] == ["A3"]
+    assert len(pairs[0][0]) == 6          # everything the server saw before A3
+
+
+def test_all_mode_is_unchanged_by_the_feedback_text():
+    assert [c for _, c in m8_train.turn_pairs(EPISODE)] == ["A1", "A2", "A3"]
+
+
+def test_passing_mode_takes_the_first_l4_turn():
+    ep = EPISODE + [{"role": "assistant", "content": "A4"},
+                    {"role": "user", "content": "deepest level reached: L4; again"}]
+    assert [c for _, c in m8_train.turn_pairs(ep, "passing")] == ["A3"]
+
+
+def test_passing_mode_yields_nothing_without_l4_feedback_and_is_counted():
+    tok = FakeTok()
+    recs = [{"best_level": 4, "messages": EPISODE},
+            {"best_level": 4, "messages": DIALOGUE}]   # no L4 feedback text
+    examples, stats = m8_train.build_examples(recs, tok, 10_000, "passing")
+    assert len(examples) == 1
+    assert stats["episodes_without_passing_turn"] == 1
+    assert stats["turns"] == "passing"
+
+
+def test_turns_rejects_unknown_modes():
+    import pytest
+    with pytest.raises(ValueError):
+        m8_train.turn_pairs(EPISODE, "final")

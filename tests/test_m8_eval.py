@@ -93,3 +93,43 @@ def test_eval_defaults_exclude_sans_and_rejects_unknown_families():
         m8_eval.parse_families("guide_divergence,not_a_family")
     with pytest.raises(SystemExit):
         m8_eval.parse_families(" , ")
+
+
+def _prev_eval(**over):
+    rec = {"target_fraction": 1.0, "n_per_family": 300, "max_steps": 6,
+           "split": "heldout", "temperature": 0.0,
+           "heldout": {"untrained-8b": {"guide_divergence": {"rows": [
+               {"instance": 0, "best_level": 4}]}},
+                       "untrained-32b": {"guide_divergence": {"rows": [
+               {"instance": 0, "best_level": 3}]}}}}
+    rec.update(over)
+    return rec
+
+
+def test_reuse_takes_rows_when_protocol_matches():
+    import m8_eval
+    got = m8_eval.load_reusable(_prev_eval(), ["untrained-8b", "untrained-32b"],
+                                target_fraction=1.0, n=300, max_steps=6,
+                                families=["guide_divergence"])
+    assert got["untrained-8b"]["guide_divergence"]["rows"][0]["best_level"] == 4
+    assert set(got) == {"untrained-8b", "untrained-32b"}
+
+
+@pytest.mark.parametrize("field,value", [("target_fraction", 0.8),
+                                         ("n_per_family", 100),
+                                         ("max_steps", 1),
+                                         ("split", "train")])
+def test_reuse_refuses_a_different_protocol(field, value):
+    import m8_eval
+    with pytest.raises(SystemExit):
+        m8_eval.load_reusable(_prev_eval(**{field: value}), ["untrained-8b"],
+                              target_fraction=1.0, n=300, max_steps=6,
+                              families=["guide_divergence"])
+
+
+def test_reuse_refuses_missing_family_rows():
+    import m8_eval
+    with pytest.raises(SystemExit):
+        m8_eval.load_reusable(_prev_eval(), ["untrained-8b"],
+                              target_fraction=1.0, n=300, max_steps=6,
+                              families=["guide_divergence", "sans_collimation"])

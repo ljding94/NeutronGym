@@ -72,12 +72,32 @@ def token_ids(encoded) -> list:
     return ids
 
 
-def turn_pairs(messages: list) -> list:
-    """One (prompt_messages, completion_text) pair per assistant turn."""
+PASS_FEEDBACK = "deepest level reached: L4"   # rollouts.feedback_message
+
+
+def turn_pairs(messages: list, turns: str = "all") -> list:
+    """(prompt_messages, completion_text) pairs.
+
+    turns="all": one pair per assistant turn (the pre-registered M8 run).
+    turns="passing": only the assistant turn whose env feedback reports L4 —
+    the post-hoc ablation (2026-09-14) testing whether the regression came
+    from exploration turns outnumbering the decisive one. Identified by the
+    feedback text, not by position, so a mis-shaped episode yields no pair
+    instead of a wrong one; the first L4 turn wins (rollouts stop on it).
+    """
+    if turns not in ("all", "passing"):
+        raise ValueError(f"turns must be all|passing, got {turns!r}")
     pairs = []
     for k, m in enumerate(messages):
-        if m.get("role") == "assistant" and k > 0:
-            pairs.append((messages[:k], m.get("content") or ""))
+        if m.get("role") != "assistant" or k == 0:
+            continue
+        if turns == "passing":
+            nxt = messages[k + 1] if k + 1 < len(messages) else {}
+            if not (nxt.get("role") == "user"
+                    and (nxt.get("content") or "").startswith(PASS_FEEDBACK)):
+                continue
+            return [(messages[:k], m.get("content") or "")]
+        pairs.append((messages[:k], m.get("content") or ""))
     return pairs
 
 
@@ -96,19 +116,26 @@ def encode_pair(tok, prompt_messages: list, completion: str,
             "labels": [IGNORE] * len(prompt_ids) + list(comp_ids)}
 
 
-def build_examples(records: list, tok, max_len: int) -> tuple[list, dict]:
-    examples, dropped = [], 0
+def build_examples(records: list, tok, max_len: int,
+                   turns: str = "all") -> tuple[list, dict]:
+    examples, dropped, no_pass = [], 0, 0
     for rec in records:
         if rec.get("best_level") != 4:
             continue
-        for prompt_messages, completion in turn_pairs(rec["messages"]):
+        pairs = turn_pairs(rec["messages"], turns)
+        if turns == "passing" and not pairs:
+            no_pass += 1
+        for prompt_messages, completion in pairs:
             ex = encode_pair(tok, prompt_messages, completion, max_len)
             if ex is None:
                 dropped += 1
             else:
                 examples.append(ex)
-    return examples, {"episodes": len(records), "pairs": len(examples),
-                      "dropped_too_long": dropped}
+    stats = {"episodes": len(records), "pairs": len(examples),
+             "dropped_too_long": dropped}
+    if turns != "all":
+        stats.update(turns=turns, episodes_without_passing_turn=no_pass)
+    return examples, stats
 
 
 def check_server(tok, url: str, records: list, n: int = 5) -> None:
@@ -154,6 +181,9 @@ def main():
     ap.add_argument("--check-server", default=None,
                     help="OpenAI-style base URL of the vLLM server serving "
                          "the same base model, e.g. http://localhost:8137/v1")
+    ap.add_argument("--turns", choices=("all", "passing"), default="all",
+                    help="all = every assistant turn (pre-registered run); "
+                         "passing = only the L4 turn (post-hoc ablation)")
     ap.add_argument("--dry-run", action="store_true",
                     help="build examples + template check, no training")
     ap.add_argument("--smoke", type=int, default=0, metavar="N",
@@ -174,7 +204,7 @@ def main():
     tok = AutoTokenizer.from_pretrained(args.base)
     if args.check_server:
         check_server(tok, args.check_server, records)
-    examples, stats = build_examples(records, tok, args.max_len)
+    examples, stats = build_examples(records, tok, args.max_len, args.turns)
     print(f"data: {stats}")
     os.makedirs(args.out, exist_ok=True)
     with open(os.path.join(args.out, "data_stats.json"), "w") as f:
