@@ -1,5 +1,9 @@
 # M8 execution plan — SFT trainability result (rev 2 · 2026-09-12)
 
+> ## ◆ POST-HOC ABLATION — specified 2026-09-14 before running
+>
+> **POST-HOC ABLATION PRE-SPECIFIED (user decision 2026-09-14, written before any ablation run):** *Hypothesis:* the regression came from per-turn SFT over-weighting exploration turns (all-max opening, w_in-pinned sweeps) relative to the one decisive turn per episode. *Data rule:* same 135 kept guide episodes; keep ONLY the assistant turn whose env step reached L4 (the last assistant turn — rollouts terminate on the L4 step), rendered with the same per-turn prompt/mask → 135 pairs. *Training:* identical settings (LoRA r=32/α=64 on all seven projections, lr 1e-4, 2 epochs, 16k tokens/step — fewer total steps because there is less data; not retuned). *Evaluation:* identical protocol (guide, 1.0×, the same 300 held-out instances, temperature 0, 6 steps); the untrained 8B and 32B rows are REUSED from the pre-registered run so both trained variants face one fixed comparator. *Reading, fixed in advance:* mechanism supported if the passing-turn model does not regress vs the untrained 8B (McNemar p ≥ 0.05 in the harmful direction) AND beats the per-turn model (paired McNemar p < 0.05); refuted if it regresses as much. Reported as **post-hoc** whatever the outcome; the pre-registered result stays the headline M8 result.
+
 > ## ✖ PRE-REGISTERED RESULT (2026-09-13, late): RAFT SFT regressed the 8B
 >
 > Guide, 1.0×, n=300 paired held-out: untrained 8B **40.3%** → trained 8B
