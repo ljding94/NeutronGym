@@ -30,7 +30,10 @@ INFRA_DIR = "_infra"  # run_matrix.quarantine_infra_report's destination
 # manifest. Rollout scratch and checkpoints stay out.
 M8_SRC = "runs/m8"
 M8_FILES = ("*.json", "sweep.log", "raft/manifest.json", "raft/train.jsonl",
-            "train/*.jsonl", "train/*.json", "train/*.log")
+            "train/*.jsonl", "train/*.json", "train/*.log",
+            # per-variant training runs (e.g. train/passing/ for the
+            # post-hoc passing-turn ablation) live one level down
+            "train/*/*.jsonl", "train/*/*.json", "train/*/*.log")
 
 
 def preserve():

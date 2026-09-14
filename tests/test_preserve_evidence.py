@@ -90,3 +90,19 @@ def test_m8_records_are_preserved_by_allowlist(tmp_path, monkeypatch):
     assert got == ["probe_guide_divergence_1x_n100.json", "raft/manifest.json",
                    "raft/train.jsonl", "sweep.json", "train/train_log.jsonl"]
     assert n == 5
+
+
+def test_m8_per_variant_training_logs_are_preserved(tmp_path, monkeypatch):
+    """The post-hoc ablation's log lives in runs/m8/train/passing/; a
+    one-level glob would silently leave it out of git."""
+    m8 = tmp_path / "runs" / "m8"
+    (m8 / "train" / "passing").mkdir(parents=True)
+    (m8 / "train" / "passing" / "train_log.jsonl").write_text('{"step": 0}\n')
+    (m8 / "train" / "passing" / "data_stats.json").write_text("{}")
+    (m8 / "train" / "passing" / "m8-train-guide1x-pass.log").write_text("-> merged\n")
+    (m8 / "train" / "passing" / "adapter.bin").write_text("weights")
+    monkeypatch.setattr(pe, "REPO", str(tmp_path))
+    monkeypatch.setattr(pe, "DEST", str(tmp_path / "evidence"))
+    pe.preserve_m8()
+    got = sorted(p.name for p in (tmp_path / "evidence" / "m8" / "train" / "passing").iterdir())
+    assert got == ["data_stats.json", "m8-train-guide1x-pass.log", "train_log.jsonl"]
