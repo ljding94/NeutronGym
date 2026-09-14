@@ -47,6 +47,11 @@ def calibrate_instance(inst: dict, fexec, base: dict,
     for _ in range(n_samples):
         action = {k: round(rng.uniform(lo, hi), 6)
                   for k, (lo, hi) in inst["free_parameters"].items()}
+        # a classical "best" the agent's own L1 would reject is not a
+        # legitimate target: 22 of 35 cached SANS optima were direct-beam
+        # leaks before this check existed (2026-09-13)
+        if not reward._check_l1(inst, action)["pass"]:
+            continue
         out = fexec.run({**inst["context"], **action},
                         ncount=proto["ncount"], seed=proto["seed"])
         if not out["ok"]:

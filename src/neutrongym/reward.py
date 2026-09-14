@@ -85,6 +85,13 @@ def _check_l1(inst: dict, action: dict) -> dict:
         if not lo <= v <= hi:
             return {"pass": False,
                     "detail": f"{k}={v:g} outside bounds [{lo}, {hi}]"}
+    if inst.get("static_checks"):
+        from .generate import STATIC_CHECKS
+        for name in inst["static_checks"]:
+            res = STATIC_CHECKS[name](inst["context"], action)
+            if not res["pass"]:
+                return {"pass": False, "check": name,
+                        "detail": res.get("detail", name)}
     return {"pass": True}
 
 

@@ -120,16 +120,25 @@ FAMILIES = {
         "description": ("Pinhole SANS: choose the two collimation pinhole "
                         "radii to maximize scattered intensity on the "
                         "detector while keeping the direct beam on the "
-                        "beamstop and the scattering pattern intact."),
+                        "beamstop and the scattering pattern intact. The "
+                        "beamstop radius is 0.02 m; a configuration whose "
+                        "unscattered beam is wider than the beamstop is "
+                        "rejected before simulation."),
         "context": {
             "src_r":    {"train": (0.015, 0.03), "heldout": (0.015, 0.03)},
-            "L_coll":   {"train": (2.0, 4.0),    "heldout": (4.5, 6.0)},
+            # train floor 2.5 m (was 2.0): at 2.4 m and the longest detector
+            # distance the BASELINE pinholes' direct beam is exactly 0.020 m,
+            # on the 0.02 m stop's edge; 2.5 m gives 0.0194 m, so the baseline
+            # passes the direct-beam check on every train instance (2026-09-13)
+            "L_coll":   {"train": (2.5, 4.0),    "heldout": (4.5, 6.0)},
             "wl":       {"train": (4.0, 8.0),    "heldout": (4.0, 8.0)},
             "r_sphere": {"train": (50.0, 150.0), "heldout": (50.0, 150.0)},
             "det_dist": {"train": (2.5, 3.5),    "heldout": (2.5, 3.5)},
         },
         "free_parameters": {"r_pin1": (0.001, 0.02), "r_pin2": (0.001, 0.02)},
         "baseline": {"r_pin1": 0.005, "r_pin2": 0.005},
+        # L1 geometric checks run on (context, action) before any simulation
+        "static_checks": ["direct_beam_on_stop"],
         "fom": {"monitor": "detector", "metric": "intensity",
                 "maximize": True},
         "constraints": [
@@ -177,6 +186,23 @@ def sans_direct_beam_leaks(context: dict, action: dict) -> bool:
     return sans_direct_beam_radius(context, action) > SANS_STOP_RADIUS
 
 
+def check_direct_beam_on_stop(context: dict, action: dict) -> dict:
+    """L1 static check closing the SANS direct-beam hole: an unscattered
+    beam wider than the beamstop reaches the detector, and the
+    total-intensity FOM would count it as scattering."""
+    r = sans_direct_beam_radius(context, action)
+    if r <= SANS_STOP_RADIUS:
+        return {"pass": True}
+    return {"pass": False,
+            "detail": (f"direct beam radius {r:.4f} m at the beamstop exceeds "
+                       f"the {SANS_STOP_RADIUS} m stop; the unscattered beam "
+                       f"would reach the detector — narrow the pinholes")}
+
+
+# name -> check(context, action) -> {"pass": bool, "detail"?: str}
+STATIC_CHECKS = {"direct_beam_on_stop": check_direct_beam_on_stop}
+
+
 def family_instr(family: str, workdir: str) -> str:
     """Materialize the family's .instr (stable content — the executor's
     comment-stripped sha keeps the compiled binary cached across calls)."""
@@ -211,6 +237,7 @@ def instance(family: str, split: str, index: int) -> dict:
         "baseline": dict(fam["baseline"]),
         "fom": dict(fam["fom"]),
         "constraints": [dict(c) for c in fam["constraints"]],
+        "static_checks": list(fam.get("static_checks", [])),
         "target_ratio": 1.0,  # L4 pass bar: fom >= target_ratio * baseline fom
         # rng is seeded from a string (deterministic across processes);
         # never use hash() here — string hashing is per-process randomized
