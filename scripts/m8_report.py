@@ -159,11 +159,47 @@ def paired_table(res, title):
             f'<table>{rows}</table></div>')
 
 
+def eval_section(ev):
+    """Pass rates per arm plus the pre-registered verdict. The verdict card
+    is red whenever the claim bar is not met, including a regression."""
+    arms = ev.get("arms") or {}
+    v = ev.get("verdict") or {}
+    met = bool(v.get("claim_bar_met"))
+    gain = v.get("pass_gain")
+    ca = v.get("level_migration_cochran_armitage") or {}
+    mc = v.get("paired_mcnemar") or {}
+    if met:
+        msg = f"<b>Claim bar MET</b>: pass gain {gain:+.3f}."
+    elif gain is not None and gain < 0:
+        msg = (f"<b>Claim bar NOT MET — training made the model worse</b>: "
+               f"pass gain {gain:+.3f}.")
+    else:
+        msg = f"<b>Claim bar NOT MET</b>: pass gain {gain:+.3f}."
+    out = [f"<div class='card {'verdict ok' if met else 'verdict'}'><p>{msg}"
+           f"</p><p class='note'>Paired McNemar p={mc.get('mcnemar_p')} "
+           f"(untrained-only {mc.get('only_untrained-8b')}, trained-only "
+           f"{mc.get('only_trained-8b')}); level migration Cochran–Armitage "
+           f"z={ca.get('z')} p={ca.get('p')}. Families "
+           f"{esc(ev.get('families'))}, bar {ev.get('target_fraction')}&#215;, "
+           f"n={ev.get('n_per_family')} per family per arm.</p></div>"]
+    rows = "".join(
+        f"<tr><td>{esc(arm)}</td><td class='n'>{pct(a.get('pass_rate'))}</td>"
+        f"<td class='n'>{a.get('passes')}/{a.get('n_valid')}</td>"
+        f"<td class='n'>{a.get('mean_level')}</td>"
+        f"<td>{esc(a.get('level_histogram'))}</td></tr>"
+        for arm, a in arms.items())
+    out.append("<div class='scroll'><table><tr><th>arm</th><th class='n'>pass"
+               "</th><th class='n'>passes</th><th class='n'>mean level</th>"
+               "<th>L0..L4</th></tr>" + rows + "</table></div>")
+    return "".join(out)
+
+
 def main():
     uncal, cal = load("phase0_n15.json"), load("phase0_calibrated.json")
     p_cal = load("paired_calibrated.json")
     p_unc = load("paired_uncalibrated.json")
     sweep, oneshot = load("sweep.json"), load("sweep_oneshot.json")
+    ev = load("eval_guide_1x_n300.json")
 
     H = [f"<!doctype html><meta charset='utf-8'><title>NeutronGym — M8 "
          f"trainability record</title><style>{CSS}</style><div class='wrap'>"]
@@ -286,6 +322,15 @@ def main():
         H.append("<p class='note'>Both models see the same instances at the "
                  "same bars, and the prompt always states the bar in force. "
                  "Steps are the median over PASSING episodes only.</p>")
+
+    # ---- phase-3 evaluation --------------------------------------------
+    H.append("<h2>Trained vs untrained — the pre-registered evaluation</h2>")
+    if not ev:
+        H.append("<p class='missing'>runs/m8/eval_guide_1x_n300.json not "
+                 "present yet — run <code>benchmark/harness/m8_eval.py</code>."
+                 "</p>")
+    else:
+        H.append(eval_section(ev))
 
     # ---- feedback budget -----------------------------------------------
     H.append("<h2>Feedback budget — search versus reasoning</h2>")

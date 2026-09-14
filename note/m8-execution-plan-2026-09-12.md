@@ -1,5 +1,17 @@
 # M8 execution plan — SFT trainability result (rev 2 · 2026-09-12)
 
+> ## ✖ PRE-REGISTERED RESULT (2026-09-13, late): RAFT SFT regressed the 8B
+>
+> Guide, 1.0×, n=300 paired held-out: untrained 8B **40.3%** → trained 8B
+> **31.3%** (McNemar 20 vs 47, p=0.0013; downward level migration,
+> Cochran–Armitage p=0.003). Claim bar not met. The untrained 32B (54.7%)
+> does lead the 8B at this n (p=0.0001). Mechanism: per-turn SFT cloned the
+> high-frequency exploration turns (all-max opening, w_in pinned at 0.09)
+> instead of the decisive, feedback-conditioned move (lowering w_in); the
+> trained model opens at the corner on 20/20 prompts and repeats a fixed
+> sweep. Any further training run is post-hoc and must be labelled so.
+> SANS direct-beam hole fixed in the environment (L1 geometric check).
+
 > ## ⚠ UPDATE LATER THE SAME EVENING (2026-09-13): no clean 8B→32B target
 >
 > The "M8 proceeds" banner below was right to proceed but wrong about the

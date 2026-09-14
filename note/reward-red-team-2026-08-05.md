@@ -77,3 +77,18 @@ A fabricated 100×-bound summary fails L3 with `unphysical_gain`
   intensity needs its own bound derivation (BOUNDS registry is per-family
   by design; unknown families pass with kind "none" — add a bound when
   adding a family).
+
+## Finding 6 (2026-09-13): SANS direct-beam leakage passed every ladder level
+
+A constant all-max pinhole policy with no model passed 8/25 held-out SANS
+instances at the calibrated 1.0× bar, one at 11,992× the target: the
+unscattered beam spilled around the beamstop and the total-intensity FOM
+counted it as scattering. The width-band defence caught 15 of 25 leaking
+configurations; the Liouville bound cannot catch it (the direct beam is
+physically allowed). Most SANS passes by both Qwen3-8B (8 of 10) and
+Qwen3-32B (11 of 16) were leaks, and 22/35 cached classical calibration
+optima were too. Fixed with an L1 geometric check plus a calibration filter;
+all-max now fails 25/25. Full record: `note/sans-direct-beam-exploit-2026-09-13.md`.
+Lesson: the band defence was designed against the leakage that SHRINKS the
+apparent width; a leak that stays inside the band needs a check on the
+configuration itself, not on the observables.

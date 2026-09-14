@@ -141,3 +141,30 @@ def test_report_names_h_flat_when_nothing_separates(tmp_path, monkeypatch):
 def test_escaping(bad):
     assert "<script>" not in m8_report.esc(bad)
     assert "&" in m8_report.esc(bad) or "<" not in m8_report.esc(bad)
+
+
+def test_eval_section_flags_a_regression_as_not_met():
+    ev = {"families": ["guide_divergence"], "target_fraction": 1.0,
+          "n_per_family": 300,
+          "arms": {"untrained-8b": {"pass_rate": 0.4033, "passes": 121,
+                                    "n_valid": 300, "mean_level": 3.213,
+                                    "level_histogram": {"4": 121}},
+                   "trained-8b": {"pass_rate": 0.3133, "passes": 94,
+                                  "n_valid": 300, "mean_level": 3.03,
+                                  "level_histogram": {"4": 94}}},
+          "verdict": {"pass_gain": -0.09, "claim_bar_met": False,
+                      "level_migration_cochran_armitage": {"z": -2.9478, "p": 0.0032},
+                      "paired_mcnemar": {"mcnemar_p": 0.0013,
+                                         "only_untrained-8b": 47,
+                                         "only_trained-8b": 20}}}
+    html = m8_report.eval_section(ev)
+    assert "training made the model worse" in html
+    assert "verdict ok" not in html
+    assert "31%" in html and "40%" in html
+    assert "0.0013" in html
+
+
+def test_eval_section_marks_a_met_bar_green():
+    ev = {"arms": {}, "verdict": {"pass_gain": 0.12, "claim_bar_met": True}}
+    html = m8_report.eval_section(ev)
+    assert "verdict ok" in html and "Claim bar MET" in html
