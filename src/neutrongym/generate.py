@@ -53,7 +53,7 @@ END
 SANS_INSTR = """\
 DEFINE INSTRUMENT fam_sans_collimation(double src_r=0.02, double L_coll=3.0,
   double wl=6.0, double r_sphere=100, double det_dist=3.0, double stop_r=0.02,
-  double r_pin1=0.005, double r_pin2=0.005)
+  double sample_wh=0.01, double r_pin1=0.005, double r_pin2=0.005)
 TRACE
 COMPONENT arm = Arm()
 AT (0, 0, 0) ABSOLUTE
@@ -68,8 +68,8 @@ AT (0, 0, 3) RELATIVE arm
 COMPONENT coll2 = Slit(radius=r_pin2)
 AT (0, 0, 3+L_coll) RELATIVE arm
 
-SPLIT 30 COMPONENT sample = Sans_spheres(R=r_sphere, Phi=0.01,
-  Delta_rho=0.6, sigma_abs=0.5, xwidth=0.01, yheight=0.01, zdepth=0.005,
+SPLIT 60 COMPONENT sample = Sans_spheres(R=r_sphere, Phi=0.04,
+  Delta_rho=0.6, sigma_abs=0.5, xwidth=sample_wh, yheight=sample_wh, zdepth=0.005,
   target_index=2, focus_xw=0.6, focus_yh=0.6)
 AT (0, 0, 0.2) RELATIVE coll2
 
@@ -140,7 +140,10 @@ FAMILIES = {
                         "radius r_sphere (Angstrom) sets a resolution "
                         "requirement q_min <= 1/r_sphere: the unscattered "
                         "beam at the detector must stay within "
-                        "wl x det_dist / (2 pi r_sphere) of the axis."),
+                        "wl x det_dist / (2 pi r_sphere) of the axis. The "
+                        "beam must also fit the sample (radius at the sample "
+                        "<= sample_wh / 2); illuminating past it only adds "
+                        "holder background."),
         "context": {
             "src_r":    {"train": (0.015, 0.03), "heldout": (0.015, 0.03)},
             # train floor 2.5 m (was 2.0): at 2.4 m and the longest detector
@@ -158,14 +161,29 @@ FAMILIES = {
             # them; the floor 0.011 keeps the 2.5 mm baseline valid (worst case
             # 0.0095 m at the stop plane).
             "stop_r":   {"train": (0.011, 0.025), "heldout": (0.011, 0.025)},
+            # sample size, per instance (2026-09-15). Appended LAST so earlier
+            # draws are unchanged. It bounds r_pin2 (illuminating past the
+            # sample only adds holder background) INDEPENDENTLY of the
+            # beamstop/resolution bound on r_pin1, so no single configuration
+            # fits every instance's feasible set. Floor 0.007 keeps the 2.5 mm
+            # baseline valid (its beam is ~0.0029 m at the sample).
+            "sample_wh": {"train": (0.007, 0.016), "heldout": (0.007, 0.016)},
         },
         "free_parameters": {"r_pin1": (0.001, 0.02), "r_pin2": (0.001, 0.02)},
         # 2.5 mm (was 5 mm, 2026-09-15): the resolution specification's
         # tightest limit is ~0.0106 m at the detector; 5 mm pinholes reach
         # ~0.0198 m on short train collimations
+        # nominal only: the real baseline is per instance (baseline_fn),
+        # because one fixed action must fit the SMALLEST sample and is then
+        # starved everywhere else (0-360 detector events, 2/25 exactly zero)
         "baseline": {"r_pin1": 0.0025, "r_pin2": 0.0025},
+        "baseline_fn": "sans_baseline",
+        # 8x the shared ncount: the tightest instances (7 mm sample, short
+        # collimation) collect ~60 events at 1e5, below the L3 floor of 500
+        "protocol": {"ncount": 8e5, "ncount_cheap": 8e4},
         # L1 geometric checks run on (context, action) before any simulation
-        "static_checks": ["direct_beam_on_stop", "sans_resolution"],
+        "static_checks": ["direct_beam_on_stop", "sans_resolution",
+                          "sans_beam_fits_sample"],
         "fom": {"monitor": "detector", "metric": "intensity",
                 "maximize": True},
         "constraints": [
@@ -186,6 +204,20 @@ FAMILIES = {
 # old settings the 2.5 mm baseline put only 10-100 events on the detector per
 # 1e5-ray run (floor 500), i.e. ~+/-17% noise on the figure of merit.
 PROTOCOL = {"ncount_cheap": 1e4, "ncount": 1e5, "statistics_floor": 500}
+
+
+def family_protocol(family: str) -> dict:
+    """PROTOCOL with the family's own overrides.
+
+    ncount is per family (2026-09-15) because families differ by orders of
+    magnitude in how many rays reach the FOM monitor. The guide collects
+    13k+ events at 1e5; SANS counts only neutrons scattered through two
+    pinholes and collected 60 on its tightest instances — under the L3
+    floor, so calibration found no valid candidate and the instance kept an
+    uncalibrated target. Raising the SHARED ncount would have cost the guide
+    6x wall time for statistics it does not need.
+    """
+    return {**PROTOCOL, **FAMILIES[family].get("protocol", {})}
 
 # geometry of SANS_INSTR, kept next to it so a change to the instrument text
 # is a change here too
@@ -284,6 +316,51 @@ def sans_detector_beam_radius(context: dict, action: dict) -> float:
     return r2 + (r1 + r2) * d / float(context["L_coll"])
 
 
+def sans_sample_beam_radius(context: dict, action: dict) -> float:
+    """Unscattered-beam radius at the sample plane (0.2 m after pinhole 2)."""
+    r1 = min(float(action["r_pin1"]), SANS_FOCUS_HALF_DIAG)
+    r2 = float(action["r_pin2"])
+    return r2 + (r1 + r2) * SANS_COLL2_TO_SAMPLE / float(context["L_coll"])
+
+
+def check_sans_beam_fits_sample(context: dict, action: dict) -> dict:
+    r, lim = sans_sample_beam_radius(context, action), float(context["sample_wh"]) / 2
+    if r <= lim:
+        return {"pass": True}
+    return {"pass": False,
+            "detail": (f"beam radius {r:.4f} m at the sample exceeds half the "
+                       f"sample width ({lim:.4f} m, sample_wh = "
+                       f"{context['sample_wh']}); the excess only lights the "
+                       f"holder — narrow the pinholes")}
+
+
+SANS_BASELINE_FRACTION = 0.8   # of the tightest allowed beam radius
+
+
+def sans_baseline(context: dict) -> dict:
+    """A sensible-but-unoptimised starting point sized to THIS instance.
+
+    Equal pinholes r give a beam radius r * (1 + 2a) at a plane a lengths
+    downstream, so the largest valid r is the tightest of the three
+    specifications; the baseline sits at SANS_BASELINE_FRACTION of it.
+    """
+    L = float(context["L_coll"])
+    det = float(context["det_dist"])
+    limits = [
+        (float(context["sample_wh"]) / 2, SANS_COLL2_TO_SAMPLE / L),
+        (sans_stop_radius(context),
+         (SANS_COLL2_TO_SAMPLE + det - SANS_STOP_BEFORE_DETECTOR) / L),
+        (sans_resolution_limit(context), (SANS_COLL2_TO_SAMPLE + det) / L),
+    ]
+    r = min(lim / (1 + 2 * a) for lim, a in limits) * SANS_BASELINE_FRACTION
+    lo, hi = FAMILIES["sans_collimation"]["free_parameters"]["r_pin1"]
+    r = round(min(max(r, lo), hi), 6)
+    return {"r_pin1": r, "r_pin2": r}
+
+
+BASELINE_FNS = {"sans_baseline": sans_baseline}
+
+
 def sans_resolution_limit(context: dict) -> float:
     """Largest unscattered-beam radius at the detector that still reaches
     q_min <= 1/R: q ~ 2 pi theta / lambda with theta = r / det_dist, both
@@ -305,13 +382,14 @@ def check_sans_resolution(context: dict, action: dict) -> dict:
 
 # name -> check(context, action) -> {"pass": bool, "detail"?: str}
 STATIC_CHECKS = {"direct_beam_on_stop": check_direct_beam_on_stop,
+                 "sans_beam_fits_sample": check_sans_beam_fits_sample,
                  "guide_divergence_spec": check_guide_divergence_spec,
                  "guide_beam_size_spec": check_guide_beam_size_spec,
                  "sans_resolution": check_sans_resolution}
 
-# bump when a static check's LOGIC changes without the family dict changing,
+# bump when check or baseline LOGIC changes without the family dict changing,
 # so family_signature (and every calibration cache keyed on it) moves too
-SPEC_VERSION = 1
+SPEC_VERSION = 2
 
 
 def family_signature(family: str) -> str:
@@ -321,8 +399,9 @@ def family_signature(family: str) -> str:
     fam = FAMILIES[family]
     payload = {k: fam[k] for k in ("instr", "context", "free_parameters",
                                    "baseline", "fom", "constraints")}
-    payload.update(static_checks=fam.get("static_checks", []),
-                   protocol=PROTOCOL, spec_version=SPEC_VERSION)
+    payload.update(baseline_fn=fam.get("baseline_fn"),
+                   static_checks=fam.get("static_checks", []),
+                   protocol=family_protocol(family), spec_version=SPEC_VERSION)
     return hashlib.sha1(json.dumps(payload, sort_keys=True).encode()).hexdigest()[:10]
 
 
@@ -337,6 +416,8 @@ def spec_lines(inst: dict) -> list:
     if fam == "sans_collimation":
         return [f"  beamstop: unscattered beam radius at the stop <= "
                 f"stop_r = {sans_stop_radius(c):.4f} m",
+                f"  sample: beam radius at the sample <= sample_wh / 2 = "
+                f"{float(c['sample_wh']) / 2:.4f} m",
                 f"  resolution: q_min <= 1/r_sphere, i.e. unscattered beam radius "
                 f"at the detector <= {sans_resolution_limit(c):.4f} m here"]
     return []
@@ -373,7 +454,8 @@ def instance(family: str, split: str, index: int) -> dict:
         "context": context,
         "free_parameters": {k: list(v)
                             for k, v in fam["free_parameters"].items()},
-        "baseline": dict(fam["baseline"]),
+        "baseline": (BASELINE_FNS[fam["baseline_fn"]](context)
+                     if fam.get("baseline_fn") else dict(fam["baseline"])),
         "fom": dict(fam["fom"]),
         "constraints": [dict(c) for c in fam["constraints"]],
         "static_checks": list(fam.get("static_checks", [])),
@@ -381,7 +463,8 @@ def instance(family: str, split: str, index: int) -> dict:
         "target_ratio": 1.0,  # L4 pass bar: fom >= target_ratio * baseline fom
         # rng is seeded from a string (deterministic across processes);
         # never use hash() here — string hashing is per-process randomized
-        "protocol": {**PROTOCOL, "seed": 1 + rng.randrange(2**31 - 1)},
+        "protocol": {**family_protocol(family),
+                     "seed": 1 + rng.randrange(2**31 - 1)},
     }
 
 

@@ -19,10 +19,11 @@ N = 300
 @pytest.mark.parametrize("family", list(generate.FAMILIES))
 @pytest.mark.parametrize("split", ["train", "heldout"])
 def test_baseline_meets_every_specification(family, split):
-    base = generate.FAMILIES[family]["baseline"]
     for i in range(N):
         inst = generate.instance(family, split, i)
-        res = reward._check_l1(inst, dict(base))
+        # per instance since 2026-09-15: a family-constant baseline had to fit
+        # the SMALLEST sample, so it was starved on every other instance
+        res = reward._check_l1(inst, dict(inst["baseline"]))
         assert res["pass"], (i, res)
 
 
@@ -91,3 +92,121 @@ def test_prompt_states_the_numeric_specification():
     s = generate.render_prompt(generate.instance("sans_collimation", "heldout", 0))
     assert "Specification for this instance" in g and "m_coat <=" in g and "w_out <= det_wh" in g
     assert "Specification for this instance" in s and "resolution: q_min <= 1/r_sphere" in s
+
+
+def test_sans_beam_fits_sample_hand_value():
+    ctx = {"L_coll": 5.0, "sample_wh": 0.012}
+    a = {"r_pin1": 0.01, "r_pin2": 0.005}       # 0.005 + 0.015 * 0.2 / 5 = 0.0056
+    assert generate.sans_sample_beam_radius(ctx, a) == pytest.approx(0.0056)
+    assert generate.check_sans_beam_fits_sample(ctx, a)["pass"]
+    wide = {"r_pin1": 0.02, "r_pin2": 0.008}    # 0.008 + 0.028 * 0.04 = 0.00912 > 0.006
+    bad = generate.check_sans_beam_fits_sample(ctx, wide)
+    assert not bad["pass"] and "sample" in bad["detail"]
+
+
+def test_sans_sample_size_and_beamstop_vary_independently():
+    """Two instance-specific bounds on different parameters: with one shared
+    bound, a mid-sized constant fitted 40% of instances (2026-09-15)."""
+    ctxs = [generate.instance("sans_collimation", "heldout", i)["context"] for i in range(50)]
+    samples = {c["sample_wh"] for c in ctxs}
+    stops = {c["stop_r"] for c in ctxs}
+    assert len(samples) > 45 and len(stops) > 45
+    assert min(samples) >= 0.007 and max(samples) <= 0.016
+    # the two limits are not the same ranking of instances
+    order_s = sorted(range(50), key=lambda i: ctxs[i]["sample_wh"])
+    order_b = sorted(range(50), key=lambda i: ctxs[i]["stop_r"])
+    assert order_s != order_b
+
+
+def test_sans_prompt_quotes_the_sample_limit():
+    inst = generate.instance("sans_collimation", "heldout", 0)
+    half = inst["context"]["sample_wh"] / 2
+    assert f"sample_wh / 2 = {half:.4f} m" in generate.render_prompt(inst)
+
+
+def test_sans_baseline_is_sized_per_instance_and_always_valid():
+    """One fixed baseline had to fit the SMALLEST sample and was starved
+    everywhere else (0-360 detector events, 2/25 zero; 2026-09-15)."""
+    seen = set()
+    for split in ("train", "heldout"):
+        for i in range(N):
+            inst = generate.instance("sans_collimation", split, i)
+            b = inst["baseline"]
+            seen.add((b["r_pin1"], b["r_pin2"]))
+            assert reward._check_l1(inst, dict(b))["pass"], (split, i, b)
+    assert len(seen) > 400, "baselines must scale with the instance"
+
+
+def test_sans_baseline_sits_below_every_specification_limit():
+    inst = generate.instance("sans_collimation", "heldout", 0)
+    c, b = inst["context"], inst["baseline"]
+    assert generate.sans_sample_beam_radius(c, b) <= c["sample_wh"] / 2
+    assert generate.sans_direct_beam_radius(c, b) <= generate.sans_stop_radius(c)
+    assert generate.sans_detector_beam_radius(c, b) <= generate.sans_resolution_limit(c)
+    # and it leaves headroom: the optimum must be able to beat it
+    assert generate.SANS_BASELINE_FRACTION < 1.0
+
+
+def test_guide_baseline_stays_a_fixed_action():
+    inst = generate.instance("guide_divergence", "heldout", 0)
+    assert inst["baseline"] == generate.FAMILIES["guide_divergence"]["baseline"]
+
+
+def test_zero_flux_baseline_is_an_error_not_a_silent_uncalibrated_target():
+    class _Exec:
+        def run(self, params, ncount, seed, **kw):
+            return {"ok": True, "elapsed_s": 0.0, "summary": {"monitors": [
+                {"component": "detector", "intensity": 0.0, "events": 0}]}}
+
+    inst = generate.instance("sans_collimation", "heldout", 0)
+    out = reward.baseline(inst, _Exec())
+    assert out["ok"] is False and "collects no signal" in out["detail"]
+
+
+def test_sans_runs_more_rays_than_guide_because_it_needs_them():
+    """ncount is per family (2026-09-15). SANS counts only scattered
+    neutrons through two pinholes, so at the shared 1e5 its tightest
+    instances collected 60 events — under the 500 floor, which left
+    calibration with no valid candidate and the instance uncalibrated.
+    The guide family sees 13k+ events at 1e5 and must NOT pay 6x for
+    statistics it does not need."""
+    sans = generate.family_protocol("sans_collimation")
+    guide = generate.family_protocol("guide_divergence")
+    assert sans["ncount"] > guide["ncount"]
+    assert guide["ncount"] == generate.PROTOCOL["ncount"]
+    assert sans["statistics_floor"] == generate.PROTOCOL["statistics_floor"]
+    for fam, proto in (("sans_collimation", sans), ("guide_divergence", guide)):
+        assert generate.instance(fam, "heldout", 0)["protocol"]["ncount"] == proto["ncount"]
+
+
+def test_protocol_is_part_of_the_family_signature():
+    """Calibration caches are keyed on the signature; changing how many rays
+    an instance is scored with must invalidate them, or agents get compared
+    against targets measured under a different protocol."""
+    sig = generate.family_signature("sans_collimation")
+    original = generate.FAMILIES["sans_collimation"].get("protocol")
+    try:
+        generate.FAMILIES["sans_collimation"]["protocol"] = {
+            **(original or {}), "ncount": (original or generate.PROTOCOL)["ncount"] * 2}
+        assert generate.family_signature("sans_collimation") != sig
+    finally:
+        if original is None:
+            generate.FAMILIES["sans_collimation"].pop("protocol", None)
+        else:
+            generate.FAMILIES["sans_collimation"]["protocol"] = original
+    assert generate.family_signature("sans_collimation") == sig
+
+
+def test_baseline_below_the_statistics_floor_is_an_error():
+    """A baseline that cannot clear L3's own floor cannot define a target:
+    every candidate would be judged against a noise estimate."""
+    floor = generate.PROTOCOL["statistics_floor"]
+
+    class _Starved:
+        def run(self, params, ncount, seed, **kw):
+            return {"ok": True, "elapsed_s": 0.0, "summary": {"monitors": [
+                {"component": "detector", "intensity": 1.0, "events": floor - 1}]}}
+
+    inst = generate.instance("sans_collimation", "heldout", 0)
+    out = reward.baseline(inst, _Starved())
+    assert out["ok"] is False and "floor" in out["detail"]

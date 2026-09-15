@@ -60,6 +60,21 @@ def baseline(inst: dict, fexec) -> dict:
     summary = out["summary"]
     fom_mon = _monitor(summary, inst["fom"]["monitor"])
     fom = get_observable(fom_mon, inst["fom"]["metric"]) if fom_mon else None
+    if not fom:
+        # a zero-flux baseline cannot normalise anything: calibration would
+        # bail and the instance would fall back to an UNCALIBRATED target
+        # (2026-09-15). Fail loudly instead — env.reset raises.
+        return {"ok": False, "detail": (
+            f"baseline FOM is {fom!r} on {inst['id']}: the baseline collects "
+            f"no signal, so no target can be defined for this instance")}
+    floor = proto.get("statistics_floor", 0)
+    events = (fom_mon.get("events") or 0) if fom_mon else 0
+    if events < floor:
+        # normalising every candidate by a noise estimate is worse than
+        # failing: raise the family's ncount or tighten its generator ranges
+        return {"ok": False, "detail": (
+            f"baseline statistics below floor on {inst['id']}: {events:g} < "
+            f"{floor:g} events")}
     cons = {}
     for c in inst["constraints"]:
         mon = _monitor(summary, c["monitor"])

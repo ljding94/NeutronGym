@@ -88,6 +88,11 @@ def test_second_family_compiles_and_steps(tmp_path):
                      workdir=str(tmp_path))
     obs, info = env.reset(index=0)
     assert info["split"] == "heldout"
-    _, r, _, _, rec = env.step({"r_pin1": 0.008, "r_pin2": 0.004})
-    assert rec["level"] >= 2, rec  # ran for real; physics outcome may vary
+    inst = obs["instance"]
+    # derive the action from THIS instance: hardcoded pinholes (0.008/0.004)
+    # violated the 2026-09-15 beam-fits-sample spec on a 7.4 mm sample. The
+    # per-instance baseline is valid and above the L3 floor by construction,
+    # so anything below level 3 here is a real regression, not physics luck.
+    _, r, _, _, rec = env.step(dict(inst["baseline"]))
+    assert rec["level"] >= 3, rec
     assert rec["elapsed_s"] < 5

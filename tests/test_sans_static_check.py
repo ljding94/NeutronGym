@@ -30,22 +30,29 @@ def test_all_max_is_rejected_at_l1_on_every_instance():
 
 
 def test_baseline_is_valid_at_l1_on_every_instance():
-    base = generate.FAMILIES[FAM]["baseline"]
     for split in ("train", "heldout"):
         for i in range(N):
             inst = generate.instance(FAM, split, i)
-            assert reward._check_l1(inst, dict(base))["pass"], (split, i)
+            assert reward._check_l1(inst, dict(inst["baseline"]))["pass"], (split, i)
 
 
-def test_train_collimation_floor_keeps_the_baseline_inside_the_stop():
-    """The worst train corner (shortest collimation, longest detector
-    distance) must still admit the baseline; lowering the L_coll floor would
-    silently reintroduce invalid baselines."""
-    ctx = generate.FAMILIES[FAM]["context"]
-    worst = {"L_coll": ctx["L_coll"]["train"][0],
-             "det_dist": ctx["det_dist"]["train"][1]}
-    base = generate.FAMILIES[FAM]["baseline"]
+def test_worst_train_corner_still_gets_a_valid_baseline():
+    """Shortest collimation with the longest detector distance is the hardest
+    corner to keep inside the stop. The per-instance baseline must solve it
+    rather than assume it, so no generator range can produce an unrunnable
+    instance."""
+    spans = generate.FAMILIES[FAM]["context"]
+    worst = dict(generate.instance(FAM, "train", 0)["context"])
+    worst.update(L_coll=spans["L_coll"]["train"][0],
+                 det_dist=spans["det_dist"]["train"][1],
+                 sample_wh=spans["sample_wh"]["train"][0],
+                 stop_r=spans["stop_r"]["train"][0])
+    base = generate.sans_baseline(worst)
     assert not generate.sans_direct_beam_leaks(worst, base)
+    assert generate.sans_sample_beam_radius(worst, base) <= worst["sample_wh"] / 2
+    # and it tracks the instance: a longer collimator admits a wider beam
+    loose = dict(worst, L_coll=spans["L_coll"]["train"][1])
+    assert generate.sans_baseline(loose)["r_pin1"] > base["r_pin1"]
 
 
 def test_family_static_checks_do_not_cross_over():
@@ -54,7 +61,8 @@ def test_family_static_checks_do_not_cross_over():
     guide = generate.instance("guide_divergence", "heldout", 0)
     sans = generate.instance(FAM, "heldout", 0)
     assert set(guide["static_checks"]) == {"guide_divergence_spec", "guide_beam_size_spec"}
-    assert set(sans["static_checks"]) == {"direct_beam_on_stop", "sans_resolution"}
+    assert set(sans["static_checks"]) == {"direct_beam_on_stop", "sans_resolution",
+                                          "sans_beam_fits_sample"}
     ok = {"w_in": 0.05, "w_out": guide["context"]["det_wh"], "m_coat": 1.0}
     assert reward._check_l1(guide, ok) == {"pass": True}
 

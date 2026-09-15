@@ -132,5 +132,5 @@ def test_real_sans_train_instance_without_headroom_rejects_the_baseline():
     obs, _ = env.reset(index=idx)
     inst = obs["instance"]
     assert inst["no_headroom"] is True and inst["target_ratio"] >= 1.0
-    rec = env.step(dict(generate.FAMILIES["sans_collimation"]["baseline"]))[4]
+    rec = env.step(dict(inst["baseline"]))[4]
     assert rec["level"] < 4
