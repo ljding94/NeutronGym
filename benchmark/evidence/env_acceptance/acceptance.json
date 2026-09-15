@@ -1,0 +1,129 @@
+{
+  "date": "2026-09-15 14:31",
+  "instances": 104,
+  "scored_actions": 312,
+  "level_histogram": {
+    "0": 134,
+    "1": 0,
+    "2": 34,
+    "3": 124,
+    "4": 20
+  },
+  "rollouts_per_s_1e5": 23.2,
+  "wall_s": 166.6,
+  "constant_probe": {
+    "guide_divergence": {
+      "ok": false,
+      "max_rate": 0.2,
+      "best_action": {
+        "w_in": 0.05,
+        "w_out": 0.03,
+        "m_coat": 1.5
+      },
+      "best_pass_rate": 0.36,
+      "n_instances": 25,
+      "n_candidates": 126,
+      "top5": [
+        {
+          "action": {
+            "w_in": 0.05,
+            "w_out": 0.03,
+            "m_coat": 1.5
+          },
+          "passes": 9,
+          "pass_rate": 0.36
+        },
+        {
+          "action": {
+            "w_in": 0.05,
+            "w_out": 0.03,
+            "m_coat": 2.0
+          },
+          "passes": 9,
+          "pass_rate": 0.36
+        },
+        {
+          "action": {
+            "w_in": 0.05,
+            "w_out": 0.03,
+            "m_coat": 2.5
+          },
+          "passes": 9,
+          "pass_rate": 0.36
+        },
+        {
+          "action": {
+            "w_in": 0.05,
+            "w_out": 0.03,
+            "m_coat": 3.0
+          },
+          "passes": 9,
+          "pass_rate": 0.36
+        },
+        {
+          "action": {
+            "w_in": 0.05,
+            "w_out": 0.05,
+            "m_coat": 2.0
+          },
+          "passes": 8,
+          "pass_rate": 0.32
+        }
+      ]
+    },
+    "sans_collimation": {
+      "ok": true,
+      "max_rate": 0.2,
+      "best_action": {
+        "r_pin1": 0.0105,
+        "r_pin2": 0.0105
+      },
+      "best_pass_rate": 0.12,
+      "n_instances": 25,
+      "n_candidates": 26,
+      "top5": [
+        {
+          "action": {
+            "r_pin1": 0.0105,
+            "r_pin2": 0.0105
+          },
+          "passes": 3,
+          "pass_rate": 0.12
+        },
+        {
+          "action": {
+            "r_pin1": 0.01525,
+            "r_pin2": 0.0105
+          },
+          "passes": 3,
+          "pass_rate": 0.12
+        },
+        {
+          "action": {
+            "r_pin1": 0.02,
+            "r_pin2": 0.0105
+          },
+          "passes": 3,
+          "pass_rate": 0.12
+        },
+        {
+          "action": {
+            "r_pin1": 0.0105,
+            "r_pin2": 0.00575
+          },
+          "passes": 1,
+          "pass_rate": 0.04
+        },
+        {
+          "action": {
+            "r_pin1": 0.01525,
+            "r_pin2": 0.00575
+          },
+          "passes": 1,
+          "pass_rate": 0.04
+        }
+      ]
+    }
+  },
+  "pass": false
+}

@@ -82,6 +82,22 @@ def preserve():
     return copied
 
 
+ACCEPTANCE_SRC = "runs/env_acceptance/acceptance.json"
+
+
+def preserve_acceptance():
+    """The environment acceptance verdict, including the constant-policy
+    gate the paper cites (acceptance step 4). Only the summary JSON — the
+    acceptance run's scratch home and binaries stay out."""
+    src = os.path.join(REPO, ACCEPTANCE_SRC)
+    if not os.path.isfile(src):
+        return 0
+    dst = os.path.join(DEST, "env_acceptance", "acceptance.json")
+    os.makedirs(os.path.dirname(dst), exist_ok=True)
+    shutil.copy2(src, dst)
+    return 1
+
+
 def preserve_m8():
     import glob
     src_root = os.path.join(REPO, M8_SRC)
@@ -101,6 +117,6 @@ def preserve_m8():
 
 
 if __name__ == "__main__":
-    n = preserve() + preserve_m8()
+    n = preserve() + preserve_m8() + preserve_acceptance()
     print(f"{n} evidence files -> {os.path.relpath(DEST, REPO)}/ "
           "(commit them; runs/ stays scratch)")

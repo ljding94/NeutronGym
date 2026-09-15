@@ -106,3 +106,21 @@ def test_m8_per_variant_training_logs_are_preserved(tmp_path, monkeypatch):
     pe.preserve_m8()
     got = sorted(p.name for p in (tmp_path / "evidence" / "m8" / "train" / "passing").iterdir())
     assert got == ["data_stats.json", "m8-train-guide1x-pass.log", "train_log.jsonl"]
+
+
+def test_acceptance_verdict_is_preserved_without_scratch(tmp_path, monkeypatch):
+    acc = tmp_path / "runs" / "env_acceptance"
+    (acc / "home").mkdir(parents=True)
+    (acc / "acceptance.json").write_text('{"pass": false, "constant_probe": {}}')
+    (acc / "home" / "binary").write_text("x")
+    monkeypatch.setattr(pe, "REPO", str(tmp_path))
+    monkeypatch.setattr(pe, "DEST", str(tmp_path / "evidence"))
+    assert pe.preserve_acceptance() == 1
+    got = sorted(p.name for p in (tmp_path / "evidence" / "env_acceptance").iterdir())
+    assert got == ["acceptance.json"]
+
+
+def test_acceptance_preservation_is_a_noop_before_any_run(tmp_path, monkeypatch):
+    monkeypatch.setattr(pe, "REPO", str(tmp_path))
+    monkeypatch.setattr(pe, "DEST", str(tmp_path / "evidence"))
+    assert pe.preserve_acceptance() == 0
