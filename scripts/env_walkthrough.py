@@ -15,7 +15,7 @@
    if any single constant passes more than 20% — its pass rates would not
    distinguish design skill from a lookup.
 
-    conda run -n mcstas python scripts/env_walkthrough.py [n_instances] [n_probe]
+    conda run -n mcstas python scripts/env_walkthrough.py [n_instances] [n_probe] [gate_fraction]
 """
 
 import json
@@ -45,6 +45,9 @@ def action_policy(rng, inst, kind):
 def main():
     n_target = int(sys.argv[1]) if len(sys.argv) > 1 else 104
     n_probe = int(sys.argv[2]) if len(sys.argv) > 2 else 25
+    # the bar the families are graded on; 1.0x would make the gate vacuous
+    gate_fraction = hacks.check_gate_fraction(
+        float(sys.argv[3]) if len(sys.argv) > 3 else 0.9)
     out_dir = os.path.join(REPO, "runs", "env_acceptance")
     os.makedirs(out_dir, exist_ok=True)
     rng = random.Random(20260731)
@@ -113,13 +116,13 @@ def main():
         bar = "#" * int(40 * n / max(n_steps, 1))
         print(f"    {labels[lv]:34} {n:5}  {bar}")
 
-    print(f"\n=== 4. Constant-policy degeneracy gate (held-out, 1.0x bar, "
-          f"{n_probe} instances/family, no model) ===")
+    print(f"\n=== 4. Constant-policy degeneracy gate (held-out, "
+          f"{gate_fraction:g}x bar, {n_probe} instances/family, no model) ===")
     probes = {}
     t0 = time.time()
     for fam in generate.FAMILIES:
-        penv = NeutronGym(family=fam, split="heldout", target_fraction=1.0,
-                          max_steps=10**6)
+        penv = NeutronGym(family=fam, split="heldout",
+                          target_fraction=gate_fraction, max_steps=10**6)
         cands = hacks.constant_candidates(generate.instance(fam, "heldout", 0))
         verdict = hacks.summarize_constant_probe(
             hacks.constant_policy_probe(penv, range(n_probe), cands))
@@ -153,7 +156,7 @@ def main():
                "scored_actions": n_steps, "level_histogram": hist,
                "rollouts_per_s_1e5": round(throughput_1e5 or 0, 1),
                "wall_s": round(wall, 1),
-               "constant_probe": probes,
+               "constant_probe": probes, "gate_fraction": gate_fraction,
                "pass": bool(ok_count and ok_fields and ok_speed and ok_constant)}
     with open(os.path.join(out_dir, "acceptance.json"), "w") as f:
         json.dump(summary, f, indent=2)

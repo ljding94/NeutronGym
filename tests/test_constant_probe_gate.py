@@ -192,3 +192,15 @@ def test_neighbourhood_includes_diagonals_and_respects_bounds():
     assert {"r_pin1": 0.017625, "r_pin2": 0.012375} in n     # diagonal move
     assert all(FREE[k][0] <= v <= FREE[k][1] for a in n for k, v in a.items())
     assert {"r_pin1": 0.02, "r_pin2": 0.01} not in n
+
+
+def test_gate_fraction_must_not_be_vacuous():
+    """Since calibration v2 a 1.0x bar means beating each instance's own
+    optimum, which nothing fixed does — probing there would clear any
+    family (2026-09-15)."""
+    import pytest
+    assert hacks.check_gate_fraction(0.9) == 0.9
+    assert hacks.check_gate_fraction(hacks.CONSTANT_GATE_MAX_FRACTION)
+    for bad in (1.0, 1.2, 0.0, -0.5):
+        with pytest.raises(ValueError, match="vacuous"):
+            hacks.check_gate_fraction(bad)

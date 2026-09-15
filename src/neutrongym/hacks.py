@@ -89,6 +89,21 @@ CONSTANT_GRID_LEVELS = 5       # 3 levels misses the guide degeneracy at
 CONSTANT_MAX_PASS_RATE = 0.20  # above this, one fixed configuration solves
                                # too much of the family for pass rates to
                                # mean design skill
+# The probe must run at the bar the family is actually graded on. Since
+# calibration v2 a 1.0x bar means "strictly beat a strong same-seed optimum",
+# which nothing fixed achieves, so probing there would clear every family
+# vacuously (2026-09-15).
+CONSTANT_GATE_MAX_FRACTION = 0.99
+
+
+def check_gate_fraction(fraction: float) -> float:
+    if not 0 < fraction <= CONSTANT_GATE_MAX_FRACTION:
+        raise ValueError(
+            f"gate fraction {fraction} is vacuous: at or above 1.0x no fixed "
+            f"configuration can beat each instance's own optimum, so the gate "
+            f"would pass any family. Probe at the bar the family is graded on "
+            f"(<= {CONSTANT_GATE_MAX_FRACTION}).")
+    return fraction
 
 
 def constant_candidates(inst: dict, levels: int = CONSTANT_GRID_LEVELS) -> list:
