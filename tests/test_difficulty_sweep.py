@@ -35,7 +35,7 @@ class _NoRunExecutor:
 
 
 def _write_cache(tmp_path, inst_id, over):
-    d = tmp_path / "calibration"
+    d = tmp_path / calibrate.CAL_DIR
     d.mkdir(parents=True, exist_ok=True)
     (d / f"{inst_id}.json").write_text(json.dumps({
         "ok": True, "classical_over_baseline": over,
@@ -63,7 +63,7 @@ def test_legacy_cache_without_classical_over_baseline_still_rescales(tmp_path):
     """Entries written before 2026-09-13 lack the explicit ratio; the
     fraction must still be recoverable from target_ratio / fraction."""
     inst = {"id": "sans_collimation-heldout-000002"}
-    d = tmp_path / "calibration"
+    d = tmp_path / calibrate.CAL_DIR
     d.mkdir(parents=True, exist_ok=True)
     (d / f"{inst['id']}.json").write_text(json.dumps({
         "ok": True, "target_ratio": 1.6, "fraction": 0.8}))
@@ -74,7 +74,7 @@ def test_legacy_cache_without_classical_over_baseline_still_rescales(tmp_path):
 
 def test_failed_calibration_returns_none_at_any_fraction(tmp_path):
     inst = {"id": "guide_divergence-heldout-000003"}
-    d = tmp_path / "calibration"
+    d = tmp_path / calibrate.CAL_DIR
     d.mkdir(parents=True, exist_ok=True)
     (d / f"{inst['id']}.json").write_text(json.dumps(
         {"ok": False, "reason": "no constraint-valid sample found"}))

@@ -24,80 +24,74 @@ import random
 from . import hacks, reward
 
 TARGET_FRACTION = 0.8   # same as the T2 benchmark discipline
-N_SAMPLES = 30          # matched-compute budget, as recorded for T2
-FRESH_SEED_OFFSET = 7919
+N_RANDOM = 30           # random valid samples before local refinement
+PATTERN_ROUNDS = 6      # full-neighbourhood pattern search around the best
+# v1 ("calibration/") verified the selected optimum at a FRESH seed while
+# agents were scored at the protocol seed. At 1e5 rays that mismatch is
+# +/-3-10%, so an instance's own optimum passed its own 1.0x target only
+# ~half the time and fixed answers near the optimum passed ~50-60% of
+# instances (2026-09-15). v2 scores every candidate exactly as an agent is
+# scored (reward.score, protocol seed: common random numbers), so target and
+# agent are compared noise-free, and caches from v1 are never read.
+CAL_DIR = "calibration_v2"
 
 
-def _constraints_ok(inst, summary, base):
-    """Reuse the ladder's own band checks — a classical 'best' that
-    violates the bands is not a legitimate target (the beamstop-leakage
-    lesson: unconstrained maximisation finds exploits)."""
-    return all(c["pass"] for c in reward._check_constraints(inst, summary,
-                                                            base))
+def _valid_fom(inst: dict, action: dict, fexec, base: dict):
+    """FOM of a candidate through the agent's own ladder (valid = L3: static
+    geometry, runs, statistics floor, Liouville, bands), else None."""
+    rec = reward.score(inst, action, fexec, base)
+    return rec["fom"] if rec.get("level", 0) >= 3 and rec.get("fom") else None
 
 
 def calibrate_instance(inst: dict, fexec, base: dict,
-                       n_samples: int = N_SAMPLES) -> dict:
-    """Constraint-filtered random search over the instance's free
-    parameters; returns the fresh-seed-re-verified best and the resulting
-    target_ratio. Deterministic in the instance id."""
-    rng = random.Random(f"calib/{inst['id']}")
-    proto = inst["protocol"]
-    best = None
-    for _ in range(n_samples):
-        action = {k: round(rng.uniform(lo, hi), 6)
-                  for k, (lo, hi) in inst["free_parameters"].items()}
-        # a classical "best" the agent's own L1 would reject is not a
-        # legitimate target: 22 of 35 cached SANS optima were direct-beam
-        # leaks before this check existed (2026-09-13)
-        if not reward._check_l1(inst, action)["pass"]:
-            continue
-        out = fexec.run({**inst["context"], **action},
-                        ncount=proto["ncount"], seed=proto["seed"])
-        if not out["ok"]:
-            continue
-        summary = out["summary"]
-        mon = reward._monitor(summary, inst["fom"]["monitor"])
-        if not mon or (mon.get("events") or 0) < proto.get(
-                "statistics_floor", 0):
-            continue
-        fom = reward.get_observable(mon, inst["fom"]["metric"])
-        if fom is None or not _constraints_ok(inst, summary, base):
-            continue
-        # physics sanity: a "best" above the Liouville bound is an artifact
-        lio = hacks.liouville_check(inst, action, fom)
-        if not lio["pass"]:
-            continue
-        if best is None or fom > best["fom"]:
-            best = {"fom": fom, "action": action}
-    if best is None:
-        return {"ok": False, "reason": "no constraint-valid sample found"}
-
-    # winner's-curse guard: the max over noisy evaluations is biased up, so
-    # re-verify the SELECTED point at a fresh seed and use that value
-    fresh = fexec.run({**inst["context"], **best["action"]},
-                      ncount=proto["ncount"],
-                      seed=proto["seed"] + FRESH_SEED_OFFSET)
-    if not fresh["ok"]:
-        return {"ok": False, "reason": "fresh-seed re-verification failed"}
-    mon = reward._monitor(fresh["summary"], inst["fom"]["monitor"])
-    verified = reward.get_observable(mon, inst["fom"]["metric"]) if mon else None
-    if verified is None or not base.get("fom"):
-        return {"ok": False, "reason": "no verified FOM"}
-
-    target_fom = TARGET_FRACTION * verified
-    return {"ok": True, "classical_fom_selected": best["fom"],
-            "classical_fom_verified": verified,
-            "classical_action": best["action"],
-            "baseline_fom": base["fom"],
-            "classical_over_baseline": round(verified / base["fom"], 4),
-            "target_fom": target_fom,
-            "target_ratio": round(target_fom / base["fom"], 6),
-            "n_samples": n_samples, "fraction": TARGET_FRACTION}
+                       n_random: int = N_RANDOM,
+                       rounds: int = PATTERN_ROUNDS) -> dict:
+    """Strong classical optimum for one instance, scored at the protocol
+    seed. The baseline is always a candidate, so the optimum is never below
+    it. Deterministic in the instance id."""
+    if not base.get("fom"):
+        return {"ok": False, "version": 2, "reason": "baseline FOM unavailable"}
+    rng = random.Random(f"calib2/{inst['id']}")
+    free = inst["free_parameters"]
+    cands = [dict(inst["baseline"])] + [
+        {k: round(rng.uniform(lo, hi), 6) for k, (lo, hi) in free.items()}
+        for _ in range(n_random)]
+    best_a, best_f, evals = None, None, 0
+    for a in cands:
+        f = _valid_fom(inst, a, fexec, base)
+        evals += 1
+        if f is not None and (best_f is None or f > best_f):
+            best_a, best_f = a, f
+    if best_a is None:
+        return {"ok": False, "version": 2,
+                "reason": "no valid candidate (baseline included)"}
+    frac = 1.0 / 8
+    for _ in range(rounds):
+        improved = False
+        for a in hacks._neighbourhood(best_a, free, frac):
+            f = _valid_fom(inst, a, fexec, base)
+            evals += 1
+            if f is not None and f > best_f:
+                best_a, best_f, improved = a, f, True
+        if not improved:
+            frac /= 2
+    over = best_f / base["fom"]
+    return {"ok": True, "version": 2,
+            "method": ("baseline + random + pattern search, every candidate "
+                       "scored by reward.score at the protocol seed"),
+            "classical_action": best_a, "classical_fom": best_f,
+            "classical_fom_verified": best_f,
+            "baseline_fom": base["fom"], "classical_over_baseline": over,
+            "target_fom": TARGET_FRACTION * best_f,
+            # full precision on purpose: an instance's own optimum must score
+            # a ratio of exactly 1.0 against a 1.0x target, never 1+rounding
+            "target_ratio": TARGET_FRACTION * over,
+            "fraction": TARGET_FRACTION, "evals": evals,
+            "n_random": n_random, "rounds": rounds}
 
 
 def cache_path(workdir: str, inst: dict) -> str:
-    return os.path.join(workdir, "calibration", f"{inst['id']}.json")
+    return os.path.join(workdir, CAL_DIR, f"{inst['id']}.json")
 
 
 def calibration_for(inst: dict, fexec, base: dict, workdir: str,
@@ -132,7 +126,9 @@ def calibration_for(inst: dict, fexec, base: dict, workdir: str,
     if fraction is None or fraction == rec.get("fraction", TARGET_FRACTION):
         raw = rec["target_ratio"]
     else:
-        raw = round(fraction * over, 6)
+        # rounded far below the ladder's 1e-9 L4 tolerance: tidy values for
+        # rescaled bars without ever flipping an exact-optimum comparison
+        raw = round(fraction * over, 12)
     return {"target_ratio": max(raw, 1.0), "raw_target_ratio": raw,
             "no_headroom": raw <= 1.0, "classical_over_baseline": over,
             "classical_action": rec.get("classical_action")}

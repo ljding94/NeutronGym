@@ -91,15 +91,11 @@ def _real_env(family):
                       max_steps=10**6)
 
 
-@pytest.mark.slow
-def test_guide_family_is_degenerate_at_the_1x_bar():
-    """Documents red-team finding 7. If this starts failing, the guide
-    family was hardened: update finding 7 and the M8 write-up, then delete
-    this test rather than weakening it."""
-    probe = hacks.constant_policy_probe(_real_env("guide_divergence"),
-                                        range(10), [GUIDE_DEGENERATE],
-                                        classical=False, refine_rounds=0)
-    assert probe["results"][0]["pass_rate"] >= hacks.CONSTANT_MAX_PASS_RATE
+# test_guide_family_is_degenerate_at_the_1x_bar was deleted 2026-09-15, as its
+# docstring instructed once it failed. Under calibration v2 (strong optimum,
+# same seed as agents) no fixed guide answer strictly beats an instance's
+# optimum at 1.0x, so the v1 "~50% at 1.0x" finding was mostly seed noise.
+# Degeneracy below 1.0x is measured by benchmark/harness/family_diagnostic.py.
 
 
 @pytest.mark.slow

@@ -20,7 +20,7 @@ class _NoRun:
 
 
 def _cache(tmp_path, iid, over, fraction=0.8):
-    d = tmp_path / "calibration"
+    d = tmp_path / calibrate.CAL_DIR
     d.mkdir(parents=True, exist_ok=True)
     (d / f"{iid}.json").write_text(json.dumps({
         "ok": True, "classical_over_baseline": over, "fraction": fraction,
@@ -56,7 +56,7 @@ def test_headroom_depends_on_the_bar(tmp_path):
 
 
 def test_failed_calibration_is_none(tmp_path):
-    d = tmp_path / "calibration"; d.mkdir()
+    d = tmp_path / calibrate.CAL_DIR; d.mkdir()
     (d / "x.json").write_text(json.dumps({"ok": False}))
     assert calibrate.calibration_for({"id": "x"}, _NoRun(), {}, str(tmp_path)) is None
 
@@ -120,7 +120,7 @@ def test_real_sans_train_instance_without_headroom_rejects_the_baseline():
     baseline, the env must flag it and the baseline must not reach L4."""
     from neutrongym import generate
     from neutrongym.env import NeutronGym
-    home = os.path.expanduser("~/.mcstas-mcp/families/sans_collimation/calibration")
+    home = os.path.expanduser(f"~/.mcstas-mcp/families/sans_collimation/{calibrate.CAL_DIR}")
     idx = None
     for p in sorted(glob.glob(f"{home}/sans_collimation-train-*.json")):
         rec = json.load(open(p))

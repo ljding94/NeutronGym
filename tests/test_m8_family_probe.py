@@ -33,11 +33,12 @@ def test_small_pinholes_stay_inside_the_stop():
 
 
 def test_radius_hand_value():
-    # r1 capped at the focus half-diagonal 0.005*sqrt(2); d = 0.2 + 3.0 - 0.1
+    # 4.5 cm focus window: half-diagonal 0.0318 > any pinhole, so r1 is not
+    # capped; d = 0.2 + 3.0 - 0.1
     ctx = {"det_dist": 3.0, "L_coll": 5.0}
     r = generate.sans_direct_beam_radius(ctx, {"r_pin1": 0.02, "r_pin2": 0.01})
-    r1 = 0.005 * 2 ** 0.5
-    assert abs(r - (0.01 + (r1 + 0.01) * 3.1 / 5.0)) < 1e-12
+    assert abs(r - (0.01 + (0.02 + 0.01) * 3.1 / 5.0)) < 1e-12
+    assert generate.SANS_FOCUS_HALF_DIAG > 0.02
 
 
 def test_radius_grows_with_either_pinhole():

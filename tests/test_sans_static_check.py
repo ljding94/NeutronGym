@@ -79,7 +79,7 @@ def test_calibration_never_simulates_a_leaking_candidate():
     inst = generate.instance(FAM, "heldout", 0)
     fx = _RecordingExecutor()
     rec = calibrate.calibrate_instance(inst, fx, {"fom": 1.0, "constraints": {}},
-                                       n_samples=60)
+                                       n_random=60, rounds=0)
     assert fx.actions, "some candidates must pass L1 and be simulated"
     assert all(not generate.sans_direct_beam_leaks(inst["context"], a)
                for a in fx.actions)
