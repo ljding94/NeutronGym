@@ -24,9 +24,11 @@ def test_reset_yields_contract_and_baseline(env):
 
 @pytest.mark.slow
 def test_step_improvement_reaches_l4(env):
-    env.reset(index=0)
-    obs, r, term, trunc, rec = env.step(
-        {"w_in": 0.06, "w_out": 0.03, "m_coat": 2.8})
+    obs, _ = env.reset(index=0)
+    # the calibrated classical optimum meets the instance's specification and
+    # clears the default 0.8x bar by construction (a hardcoded "improvement"
+    # broke when the 2026-09-15 specifications were added)
+    obs, r, term, trunc, rec = env.step(dict(obs["instance"]["classical_action"]))
     assert rec["level"] == 4 and term and not trunc
     assert r > 1.0
     assert obs["feedback"]["fom_ratio"] > 1

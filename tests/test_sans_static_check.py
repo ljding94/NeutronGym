@@ -48,11 +48,15 @@ def test_train_collimation_floor_keeps_the_baseline_inside_the_stop():
     assert not generate.sans_direct_beam_leaks(worst, base)
 
 
-def test_guide_family_has_no_static_checks_and_l1_is_unchanged():
-    inst = generate.instance("guide_divergence", "heldout", 0)
-    assert inst["static_checks"] == []
-    corner = {k: hi for k, (lo, hi) in inst["free_parameters"].items()}
-    assert reward._check_l1(inst, corner) == {"pass": True}
+def test_family_static_checks_do_not_cross_over():
+    """Each family carries only its own specification checks: the SANS
+    beamstop/resolution checks never gate guide actions, and vice versa."""
+    guide = generate.instance("guide_divergence", "heldout", 0)
+    sans = generate.instance(FAM, "heldout", 0)
+    assert set(guide["static_checks"]) == {"guide_divergence_spec", "guide_beam_size_spec"}
+    assert set(sans["static_checks"]) == {"direct_beam_on_stop", "sans_resolution"}
+    ok = {"w_in": 0.05, "w_out": guide["context"]["det_wh"], "m_coat": 1.0}
+    assert reward._check_l1(guide, ok) == {"pass": True}
 
 
 def test_bounds_are_checked_before_geometry():

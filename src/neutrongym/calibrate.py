@@ -91,7 +91,11 @@ def calibrate_instance(inst: dict, fexec, base: dict,
 
 
 def cache_path(workdir: str, inst: dict) -> str:
-    return os.path.join(workdir, CAL_DIR, f"{inst['id']}.json")
+    """Keyed on the family signature when the instance carries one, so a
+    changed family definition never reads optima computed for the old one."""
+    sig = inst.get("family_signature")
+    parts = [workdir, CAL_DIR] + ([sig] if sig else []) + [f"{inst['id']}.json"]
+    return os.path.join(*parts)
 
 
 def calibration_for(inst: dict, fexec, base: dict, workdir: str,

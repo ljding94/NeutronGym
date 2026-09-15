@@ -2,7 +2,7 @@
 fail surface, shaping monotonicity, deepest-level-reached semantics. No
 simulation: the ladder's logic must be testable in milliseconds."""
 
-from neutrongym import generate, reward
+from neutrongym import generate, hacks, reward
 
 
 def _summary(fom_intensity=0.001, events=5000, div_width=0.3, psd_width=0.9):
@@ -32,7 +32,13 @@ class FakeExec:
 INST = generate.instance("guide_divergence", "train", 0)
 BASE = {"ok": True, "fom": 0.001,
         "constraints": {"divmon.beam_width_x": 0.3, "psd.beam_width_x": 0.9}}
-GOOD_ACTION = {"w_in": 0.05, "w_out": 0.03, "m_coat": 2.5}
+# spec-valid for this instance (2026-09-15 specifications): exit no wider
+# than the sample, coating at or below the divergence-limited maximum
+GOOD_ACTION = {"w_in": 0.05, "w_out": INST["context"]["det_wh"],
+               "m_coat": round(min(2.5, generate.guide_max_m(INST["context"])) - 1e-3, 3)}
+# Liouville bound for this instance and action — intensities below are set
+# relative to it, so the test does not depend on the counted window size
+BOUND = hacks._guide_bound(INST["context"], GOOD_ACTION)
 
 
 def test_l1_rejects_bounds_extras_missing_and_nonnumbers():
@@ -79,7 +85,8 @@ def test_l4_improvement_and_shaping_monotone():
                       {"ok": True, "summary": _summary(fom_intensity=fom)})
         return reward.score(INST, GOOD_ACTION, fx, BASE)
 
-    # all intensities physical (instance-0 Liouville bound is ~0.0049)
+    # all intensities physical: the largest stays under the Liouville bound
+    assert 0.004 < BOUND
     worse, same, better, huge = (run(f) for f in
                                  (0.0005, 0.001, 0.002, 0.004))
     assert worse["level"] == 3 and not worse["levels"]["L4"]["pass"]
@@ -94,7 +101,7 @@ def test_unphysical_gain_fails_l3():
     reward hack (or simulation artifact) by construction, whatever the
     constraints say."""
     fx = FakeExec({"ok": True, "summary": _summary()},
-                  {"ok": True, "summary": _summary(fom_intensity=0.5)})
+                  {"ok": True, "summary": _summary(fom_intensity=200 * BOUND)})
     rec = reward.score(INST, GOOD_ACTION, fx, BASE)
     assert rec["level"] == 2
     assert "unphysical_gain" in rec["levels"]["L3"]["detail"]
@@ -102,7 +109,7 @@ def test_unphysical_gain_fails_l3():
     assert not lio["pass"] and lio["utilization"] > 100
     # a physical score carries the utilization analysis field
     fx2 = FakeExec({"ok": True, "summary": _summary()},
-                   {"ok": True, "summary": _summary(fom_intensity=0.004)})
+                   {"ok": True, "summary": _summary(fom_intensity=0.8 * BOUND)})
     rec2 = reward.score(INST, GOOD_ACTION, fx2, BASE)
     assert rec2["levels"]["L3"]["liouville"]["pass"]
     assert 0.5 < rec2["levels"]["L3"]["liouville"]["utilization"] < 1.1

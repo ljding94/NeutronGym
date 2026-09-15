@@ -17,6 +17,9 @@ through a guide, divergence-band constraint) and sans_collimation
 constraints — the red-teamed beamstop-leakage lesson baked in).
 """
 
+import hashlib
+import json
+import math
 import os
 import random
 
@@ -27,7 +30,7 @@ import random
 GUIDE_INSTR = """\
 DEFINE INSTRUMENT fam_guide_divergence(double src_wh=0.10, double L_in=1.5,
   double L_guide=10, double wl=5.0, double dwl=0.5, double det_wh=0.02,
-  double w_in=0.02, double w_out=0.02, double m_coat=2.0)
+  double w_in=0.02, double w_out=0.02, double m_coat=2.0, double div_max=0.5)
 TRACE
 COMPONENT src = Source_simple(xwidth=src_wh, yheight=src_wh, dist=L_in,
   focus_xw=w_in, focus_yh=w_in, lambda0=wl, dlambda=dwl)
@@ -38,7 +41,7 @@ COMPONENT guide = Guide(w1=w_in, h1=w_in, w2=w_out, h2=w_out,
 AT (0, 0, L_in) RELATIVE src
 
 COMPONENT divmon = Divergence_monitor(filename="div.dat", xwidth=det_wh,
-  yheight=det_wh, maxdiv_h=0.5, maxdiv_v=0.5, restore_neutron=1)
+  yheight=det_wh, maxdiv_h=div_max, maxdiv_v=div_max, restore_neutron=1)
 AT (0, 0, L_guide+0.05) RELATIVE guide
 
 COMPONENT psd = PSD_monitor(nx=60, ny=60, filename="psd.dat",
@@ -65,7 +68,7 @@ AT (0, 0, 3) RELATIVE arm
 COMPONENT coll2 = Slit(radius=r_pin2)
 AT (0, 0, 3+L_coll) RELATIVE arm
 
-SPLIT 10 COMPONENT sample = Sans_spheres(R=r_sphere, Phi=0.001,
+SPLIT 30 COMPONENT sample = Sans_spheres(R=r_sphere, Phi=0.01,
   Delta_rho=0.6, sigma_abs=0.5, xwidth=0.01, yheight=0.01, zdepth=0.005,
   target_index=2, focus_xw=0.6, focus_yh=0.6)
 AT (0, 0, 0.2) RELATIVE coll2
@@ -89,9 +92,13 @@ FAMILIES = {
         "instr_name": "fam_guide_divergence",
         "instr": GUIDE_INSTR,
         "description": ("Deliver neutrons through a straight supermirror "
-                        "guide onto a small divergence monitor; maximize "
-                        "delivered intensity without blowing up the beam "
-                        "divergence."),
+                        "guide onto a small sample; maximize the intensity "
+                        "delivered within the instance's divergence limit. "
+                        "The specification: the supermirror critical angle "
+                        "m_coat x 0.099 deg/Angstrom x wl must not exceed "
+                        "div_max (degrees), only neutrons within +/-div_max "
+                        "are counted, and the guide exit may not be wider "
+                        "than the sample (w_out <= det_wh)."),
         # context: sampled per instance; heldout ranges DISJOINT where given
         "context": {
             "src_wh":  {"train": (0.06, 0.14), "heldout": (0.06, 0.14)},
@@ -100,10 +107,15 @@ FAMILIES = {
             "wl":      {"train": (3.0, 8.0),   "heldout": (3.0, 8.0)},
             "dwl":     {"train": (0.3, 1.0),   "heldout": (0.3, 1.0)},
             "det_wh":  {"train": (0.015, 0.03), "heldout": (0.015, 0.03)},
+            # divergence specification (2026-09-15). Appended LAST so every
+            # earlier context draw is unchanged. Floor 0.85 deg keeps the
+            # m_coat = 1 baseline valid at the longest wavelength (8 A -> 0.79)
+            "div_max": {"train": (0.85, 2.4), "heldout": (0.85, 2.4)},
         },
         "free_parameters": {"w_in": (0.01, 0.09), "w_out": (0.01, 0.09),
                             "m_coat": (1.0, 3.0)},
-        "baseline": {"w_in": 0.012, "w_out": 0.012, "m_coat": 1.5},
+        "baseline": {"w_in": 0.012, "w_out": 0.012, "m_coat": 1.0},
+        "static_checks": ["guide_divergence_spec", "guide_beam_size_spec"],
         "fom": {"monitor": "divmon", "metric": "intensity", "maximize": True},
         # band constraints vs baseline observables (anti-hacking: max-only
         # constraints have the wrong sign for leakage-class exploits)
@@ -123,7 +135,11 @@ FAMILIES = {
                         "beamstop and the scattering pattern intact. The "
                         "beamstop radius is 0.02 m; a configuration whose "
                         "unscattered beam is wider than the beamstop is "
-                        "rejected before simulation."),
+                        "rejected before simulation. The sample's sphere "
+                        "radius r_sphere (Angstrom) sets a resolution "
+                        "requirement q_min <= 1/r_sphere: the unscattered "
+                        "beam at the detector must stay within "
+                        "wl x det_dist / (2 pi r_sphere) of the axis."),
         "context": {
             "src_r":    {"train": (0.015, 0.03), "heldout": (0.015, 0.03)},
             # train floor 2.5 m (was 2.0): at 2.4 m and the longest detector
@@ -136,9 +152,12 @@ FAMILIES = {
             "det_dist": {"train": (2.5, 3.5),    "heldout": (2.5, 3.5)},
         },
         "free_parameters": {"r_pin1": (0.001, 0.02), "r_pin2": (0.001, 0.02)},
-        "baseline": {"r_pin1": 0.005, "r_pin2": 0.005},
+        # 2.5 mm (was 5 mm, 2026-09-15): the resolution specification's
+        # tightest limit is ~0.0106 m at the detector; 5 mm pinholes reach
+        # ~0.0198 m on short train collimations
+        "baseline": {"r_pin1": 0.0025, "r_pin2": 0.0025},
         # L1 geometric checks run on (context, action) before any simulation
-        "static_checks": ["direct_beam_on_stop"],
+        "static_checks": ["direct_beam_on_stop", "sans_resolution"],
         "fom": {"monitor": "detector", "metric": "intensity",
                 "maximize": True},
         "constraints": [
@@ -154,6 +173,10 @@ FAMILIES = {
     },
 }
 
+# SANS sample: volume fraction 0.01 (was 0.001) and SPLIT 30 (was 10),
+# 2026-09-15. The resolution specification forces small pinholes, and at the
+# old settings the 2.5 mm baseline put only 10-100 events on the detector per
+# 1e5-ray run (floor 500), i.e. ~+/-17% noise on the figure of merit.
 PROTOCOL = {"ncount_cheap": 1e4, "ncount": 1e5, "statistics_floor": 500}
 
 # geometry of SANS_INSTR, kept next to it so a change to the instrument text
@@ -203,8 +226,107 @@ def check_direct_beam_on_stop(context: dict, action: dict) -> dict:
                        f"would reach the detector — narrow the pinholes")}
 
 
+GUIDE_THETA_C_DEG_PER_AA = 0.099   # Ni critical angle per Angstrom, m = 1
+
+
+def guide_critical_angle_deg(context: dict, action: dict) -> float:
+    return (float(action["m_coat"]) * GUIDE_THETA_C_DEG_PER_AA
+            * float(context["wl"]))
+
+
+def guide_max_m(context: dict) -> float:
+    return float(context["div_max"]) / (GUIDE_THETA_C_DEG_PER_AA
+                                        * float(context["wl"]))
+
+
+def check_guide_divergence_spec(context: dict, action: dict) -> dict:
+    """The supermirror reflects up to m x 0.099 deg/A x lambda; the
+    instance's divergence limit caps that, so the best coating depends on
+    wavelength and limit instead of always being the maximum."""
+    th, lim = guide_critical_angle_deg(context, action), float(context["div_max"])
+    if th <= lim + 1e-12:
+        return {"pass": True}
+    return {"pass": False,
+            "detail": (f"supermirror critical angle {th:.3f} deg (m_coat x "
+                       f"0.099 deg/A x wl) exceeds the divergence limit "
+                       f"div_max = {lim:.3f} deg; m_coat must be <= "
+                       f"{guide_max_m(context):.3f} here")}
+
+
+def check_guide_beam_size_spec(context: dict, action: dict) -> dict:
+    w, lim = float(action["w_out"]), float(context["det_wh"])
+    if w <= lim + 1e-12:
+        return {"pass": True}
+    return {"pass": False,
+            "detail": (f"guide exit w_out = {w:.4f} m is wider than the sample "
+                       f"(det_wh = {lim:.4f} m)")}
+
+
+def sans_detector_beam_radius(context: dict, action: dict) -> float:
+    """Unscattered-beam radius at the detector plane (straight-line penumbra
+    through both pinholes; coll2 -> sample 0.2 m -> detector det_dist)."""
+    r1 = min(float(action["r_pin1"]), SANS_FOCUS_HALF_DIAG)
+    r2 = float(action["r_pin2"])
+    d = SANS_COLL2_TO_SAMPLE + float(context["det_dist"])
+    return r2 + (r1 + r2) * d / float(context["L_coll"])
+
+
+def sans_resolution_limit(context: dict) -> float:
+    """Largest unscattered-beam radius at the detector that still reaches
+    q_min <= 1/R: q ~ 2 pi theta / lambda with theta = r / det_dist, both
+    lambda and R in Angstrom."""
+    return (float(context["wl"]) * float(context["det_dist"])
+            / (2 * math.pi * float(context["r_sphere"])))
+
+
+def check_sans_resolution(context: dict, action: dict) -> dict:
+    r, lim = sans_detector_beam_radius(context, action), sans_resolution_limit(context)
+    if r <= lim:
+        return {"pass": True}
+    return {"pass": False,
+            "detail": (f"unscattered beam radius {r:.4f} m at the detector "
+                       f"exceeds the resolution limit {lim:.4f} m (q_min <= "
+                       f"1/r_sphere needs radius <= wl x det_dist / (2 pi "
+                       f"r_sphere)); narrow the pinholes")}
+
+
 # name -> check(context, action) -> {"pass": bool, "detail"?: str}
-STATIC_CHECKS = {"direct_beam_on_stop": check_direct_beam_on_stop}
+STATIC_CHECKS = {"direct_beam_on_stop": check_direct_beam_on_stop,
+                 "guide_divergence_spec": check_guide_divergence_spec,
+                 "guide_beam_size_spec": check_guide_beam_size_spec,
+                 "sans_resolution": check_sans_resolution}
+
+# bump when a static check's LOGIC changes without the family dict changing,
+# so family_signature (and every calibration cache keyed on it) moves too
+SPEC_VERSION = 1
+
+
+def family_signature(family: str) -> str:
+    """Short hash of everything that defines a family's tasks. Calibration
+    caches are keyed on it, so a redesigned family can never reuse optima
+    computed for the old one (stale caches caused three bugs in a week)."""
+    fam = FAMILIES[family]
+    payload = {k: fam[k] for k in ("instr", "context", "free_parameters",
+                                   "baseline", "fom", "constraints")}
+    payload.update(static_checks=fam.get("static_checks", []),
+                   protocol=PROTOCOL, spec_version=SPEC_VERSION)
+    return hashlib.sha1(json.dumps(payload, sort_keys=True).encode()).hexdigest()[:10]
+
+
+def spec_lines(inst: dict) -> list:
+    """The instance's specification with its numeric limits, for the prompt."""
+    c, fam = inst["context"], inst["family"]
+    if fam == "guide_divergence":
+        return [f"  divergence limit div_max = {c['div_max']} deg: m_coat x 0.099 "
+                f"deg/A x wl <= div_max, i.e. m_coat <= {guide_max_m(c):.3f} here; "
+                f"only neutrons within +/-div_max are counted",
+                f"  beam size: w_out <= det_wh = {c['det_wh']} m"]
+    if fam == "sans_collimation":
+        return [f"  beamstop: unscattered beam radius at the stop <= "
+                f"{SANS_STOP_RADIUS} m",
+                f"  resolution: q_min <= 1/r_sphere, i.e. unscattered beam radius "
+                f"at the detector <= {sans_resolution_limit(c):.4f} m here"]
+    return []
 
 
 def family_instr(family: str, workdir: str) -> str:
@@ -242,6 +364,7 @@ def instance(family: str, split: str, index: int) -> dict:
         "fom": dict(fam["fom"]),
         "constraints": [dict(c) for c in fam["constraints"]],
         "static_checks": list(fam.get("static_checks", [])),
+        "family_signature": family_signature(family),
         "target_ratio": 1.0,  # L4 pass bar: fom >= target_ratio * baseline fom
         # rng is seeded from a string (deterministic across processes);
         # never use hash() here — string hashing is per-process randomized
@@ -280,9 +403,9 @@ def render_prompt(inst: dict, baseline_obs: dict | None = None) -> str:
             pct = 100 * (inst.get("target_fraction") or 0.8)
             lines += [f"TARGET TO BEAT: {base_fom * tr:.6g} "
                       f"({tr:.2f}x the baseline). This target is {pct:.0f}% "
-                      f"of what a classical constraint-filtered random "
-                      f"search achieves on this instance, so beating the "
-                      f"baseline alone is NOT sufficient."]
+                      f"of the best design a classical optimizer found for "
+                      f"this instance under the same simulation protocol, so "
+                      f"beating the baseline alone is NOT sufficient."]
         else:
             lines += ["Target: beat the baseline configuration."]
     lines += ["", "Constraints (checked against the baseline's pattern — "
@@ -290,6 +413,10 @@ def render_prompt(inst: dict, baseline_obs: dict | None = None) -> str:
     lines += [f"  {c['monitor']}.{c['observable']} within "
               f"[{c['band'][0]}x, {c['band'][1]}x] of baseline"
               for c in inst["constraints"]]
+    spec = spec_lines(inst) if "family" in inst else []
+    if spec:
+        lines += ["", "Specification for this instance (checked before any "
+                  "simulation; a violation scores level 0):"] + spec
     lines += ["", "Evaluation runs at a fixed protocol (ncount "
               f"{inst['protocol']['ncount']:g}, env-controlled seed); "
               "iterate however you like, the graded run is the env's."]

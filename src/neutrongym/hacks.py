@@ -36,10 +36,12 @@ LIOUVILLE_MARGIN = 1.10  # legit max ~0.99x bound; 1e5-ray stats ~1-2%
 
 
 def _guide_bound(context, action):
-    # Divergence_monitor: det_wh x det_wh window, +/-0.5 deg both axes,
-    # full source band 2*dwl; family template flux = 1 [n/s/cm^2/sr/AA]
+    # Divergence_monitor: det_wh x det_wh window, +/-div_max deg both axes
+    # (the instance's divergence specification since 2026-09-15; 0.5 deg for
+    # older contexts), full source band 2*dwl; template flux = 1
+    # [n/s/cm^2/sr/AA]
     area = (context["det_wh"] * 100.0) ** 2
-    omega = (2 * math.radians(0.5)) ** 2
+    omega = (2 * math.radians(context.get("div_max", 0.5))) ** 2
     return 1.0 * area * omega * (2 * context["dwl"])
 
 

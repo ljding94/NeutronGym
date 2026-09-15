@@ -3,6 +3,7 @@ REAL env with scripted models — no network, no spend."""
 
 import json
 import os
+import re
 
 import pytest
 
@@ -20,10 +21,16 @@ def test_parse_action_last_complete_json():
 
 @pytest.mark.slow
 def test_rollout_and_collect_filtering(tmp_path):
-    good = json.dumps({"w_in": 0.06, "w_out": 0.03, "m_coat": 2.8})
     bad = json.dumps({"w_in": 0.5, "w_out": 0.02, "m_coat": 2.0})
 
     def improver(messages):
+        # read the instance's stated specification from the prompt, as a
+        # sensible agent would: exit at the sample size, coating at its cap
+        prompt = messages[1]["content"]
+        det_wh = float(re.search(r"w_out <= det_wh = ([0-9.]+)", prompt).group(1))
+        m_cap = float(re.search(r"m_coat <= ([0-9.]+) here", prompt).group(1))
+        good = json.dumps({"w_in": 0.05, "w_out": det_wh,
+                           "m_coat": round(min(3.0, m_cap) - 1e-3, 3)})
         return f"Here is my action: {good}"
 
     def outlaw(messages):
