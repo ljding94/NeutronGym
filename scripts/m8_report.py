@@ -194,12 +194,26 @@ def eval_section(ev):
     return "".join(out)
 
 
-def ablation_section(ab):
+def constant_matches(ab, constant, tol=0.02):
+    """True when some no-model constant action reaches the trained model's
+    pass rate (within tol): the trained score then says nothing about design
+    skill, whatever the ablation criteria concluded."""
+    if not constant:
+        return False
+    trained = (ab.get("pass_rate") or {}).get("passing-turn")
+    best = (constant.get("best_single_constant") or {}).get("pass_rate")
+    return trained is not None and best is not None and best >= trained - tol
+
+
+def ablation_section(ab, constant=None):
     """The pre-specified ablation verdict. Always labelled post-hoc: it was
     decided after the pre-registered result, so it can explain that result
-    but never replace it."""
+    but never replace it. Never green when a no-model constant matches the
+    trained model (red-team finding 7)."""
     verdict = ab.get("verdict", "?")
-    tone = {"supported": "verdict ok"}.get(verdict, "verdict")
+    degenerate = constant_matches(ab, constant)
+    tone = ("verdict ok" if verdict == "supported" and not degenerate
+            else "verdict")
     rates = ab.get("pass_rate") or {}
     label = {"passing_vs_untrained": "passing-turn vs untrained 8B",
              "per_turn_vs_untrained": "per-turn vs untrained 8B",
@@ -216,7 +230,15 @@ def ablation_section(ab):
             f"untrained 8B {pct(rates.get('untrained-8b'))}, per-turn "
             f"{pct(rates.get('per-turn'))}, passing-turn "
             f"{pct(rates.get('passing-turn'))}. The pre-registered per-turn "
-            f"result remains the headline M8 result.</p></div>"
+            f"result remains the headline M8 result.</p>"
+            + (f"<p><b>No-model constant baseline matches it:</b> the constant "
+               f"{esc((constant.get('best_single_constant') or {}).get('action'))} "
+               f"passes {pct((constant.get('best_single_constant') or {}).get('pass_rate'))} "
+               f"of the same instances (any-of-five constants "
+               f"{pct(constant.get('any_of_five_constants_pass_rate'))}). The "
+               f"trained score reflects a learned lookup, not instance-specific "
+               f"design.</p>" if degenerate else "")
+            + "</div>"
             "<div class='scroll'><table><tr><th>paired comparison</th>"
             "<th class='n'>only first</th><th class='n'>only second</th>"
             "<th class='n'>McNemar p</th></tr>" + rows + "</table></div>")
@@ -229,6 +251,7 @@ def main():
     sweep, oneshot = load("sweep.json"), load("sweep_oneshot.json")
     ev = load("eval_guide_1x_n300.json")
     ablation = load("ablation_readout.json")
+    constant = load("constant_probe_guide_1x_n300.json")
 
     H = [f"<!doctype html><meta charset='utf-8'><title>NeutronGym — M8 "
          f"trainability record</title><style>{CSS}</style><div class='wrap'>"]
@@ -368,7 +391,7 @@ def main():
                  "yet — run <code>benchmark/harness/m8_ablation_readout.py"
                  "</code> after the ablation evaluation.</p>")
     else:
-        H.append(ablation_section(ablation))
+        H.append(ablation_section(ablation, constant))
 
     # ---- feedback budget -----------------------------------------------
     H.append("<h2>Feedback budget — search versus reasoning</h2>")

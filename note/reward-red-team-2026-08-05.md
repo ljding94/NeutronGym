@@ -92,3 +92,18 @@ all-max now fails 25/25. Full record: `note/sans-direct-beam-exploit-2026-09-13.
 Lesson: the band defence was designed against the leakage that SHRINKS the
 apparent width; a leak that stays inside the band needs a check on the
 configuration itself, not on the observables.
+
+## Finding 7 (2026-09-15): guide family at the 1.0× bar is ~50% solvable by one constant
+
+Found while explaining the M8 post-hoc passing-turn ablation (52.3% on 300
+held-out guide instances, indistinguishable from the untrained Qwen3-32B).
+Its replays resubmitted one configuration, so constant policies were run with
+no model on the same instances (`benchmark/harness/m8_constant_probe.py`):
+(w_in 0.05, w_out 0.03, m_coat 2.5) passes 50.3% and agrees with the trained
+model on 98% of instances; (0.04, 0.03, 2.5) passes 52.3%; an any-of-five
+constant lookup reaches 67.7%. The untrained 8B (40.3%) is BELOW the best
+constant. Per-instance calibrated targets did not make the task
+instance-dependent: the held-out context regimes admit a near-universal
+configuration. Lesson: a constant-policy probe is required for every family
+before its pass rates are read as capability — it caught the SANS hole
+(finding 6) and this degeneracy with the same method.

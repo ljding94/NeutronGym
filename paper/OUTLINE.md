@@ -73,7 +73,7 @@ so evaluation and training share one instrument.
   audit found 4/7 pilot episodes had fetched the reference through
   legitimate tools. **Zero leaks in 271 scored episodes since.**
 
-### 4. Reward red-teaming (paper section, six findings)
+### 4. Reward red-teaming (paper section, seven findings)
 Beamstop leakage → band constraints · optimizer bounds escape → filtered
 ensembles · winner's curse → fresh-seed re-verification · monitor-matching
 decoy → position-aware matching · and the Liouville gate's own statistical
@@ -120,6 +120,21 @@ false positive → floor-gating. Source: `note/reward-red-team-2026-08-05.md`.
   a reward hole can make most successes fake (SANS, below and §4); and
   multi-turn rejection sampling over-weights exploration turns.
 
+- **Post-hoc ablation, and why it does not rescue trainability.** Training
+  only on each episode's passing turn (same data and settings) lifted the 8B
+  to 52.3% (vs untrained 40.3%, McNemar p=0.001; indistinguishable from the
+  untrained 32B, p=0.49). But its replays resubmit one action — the data's
+  modal passing configuration — and a **no-model constant** of that action
+  passes 50.3% of the same instances and agrees with the trained model on 98%
+  of them; a neighbouring constant passes 52.3%. The ablation removed the
+  exploration-cloning failure and replaced it with a lookup. At the 1.0× bar
+  the guide family is ~50% solvable by a fixed configuration, so neither the
+  ablation's gain nor the 32B's lead shows instance-specific design.
+- **Headline lesson for environment builders:** calibrate targets AND probe
+  every family with no-model constant policies before reading pass rates as
+  capability. Here the constant probe exposed a reward hole (SANS) and a
+  degenerate task (guide at 1.0×) in the same week.
+
 ### 7. Limitations (write this honestly, it is short and load-bearing)
 - n=17 curated tasks cannot resolve scaffold differences.
 - 2 held-out instruments, both simpler than the seen median.
@@ -152,7 +167,9 @@ committed per-episode evidence (1081 files) so every number is auditable.
 | Loop > one-shot on held-out | **suggestive, confounded** — 10/14 vs 2/14 over 7 models (p=0.006), always stated with the held-out-is-easier confound (10/14 vs 20/113, p=0.0001) |
 | One-shot > loop on seen tier | **RETRACTED** (all p ≥ 0.70) |
 | Tool-surface size defeats weak models | **RETRACTED** (was our harness) |
-| Trainability delta (RAFT SFT on guide) | **NEGATIVE, significant** — 40.3% → 31.3% at n=300 paired (McNemar p=0.0013; downward level migration p=0.003). Pre-registered claim bar not met. Mechanism: per-turn SFT cloned exploration turns (w_in-pinned sweep) over the decisive move |
-| 32B > 8B on calibrated procedural instances (guide) | **supported at n=300** — 54.7% vs 40.3%, McNemar 81v38, p=0.0001. Earlier reads (n=10 tie, n=25 +22 inflated by SANS leakage, n=100 +7 p=0.35) were small-sample or leak-contaminated |
+| Trainability delta (RAFT SFT on guide) | **NEGATIVE, significant (pre-registered)** — 40.3% → 31.3% at n=300 paired (McNemar p=0.0013; downward level migration p=0.003). Pre-registered claim bar not met. Mechanism: per-turn SFT cloned exploration turns (w_in-pinned sweep) over the decisive move |
+| 32B > 8B on calibrated procedural instances (guide) | **true as pass rates at n=300, but NOT evidence of design skill** — 54.7% vs 40.3%, McNemar 81v38, p=0.0001. Earlier reads (n=10 tie, n=25 +22 inflated by SANS leakage, n=100 +7 p=0.35) were small-sample or leak-contaminated — a no-model constant (0.04, 0.03, 2.5) passes 52.3%, indistinguishable from the 32B (p=0.57) |
+| Passing-turn RAFT ablation lifts 8B to 32B level | **post-hoc; explained by a memorized constant action** — no-model constant passes 50.3% and agrees with the trained model on 98% of instances |
+| Guide family at 1.0× requires instance-specific design | **FALSE** — one fixed configuration passes 52.3%; any-of-five constants 67.7% |
 | Uncalibrated reward ladders manufacture ceilings | **solid** (80%/93% → 70%/70% after per-instance calibration) |
 | Dense per-step FOM feedback makes the task non-discriminating | **RETRACTED** — the task discriminates at n=25; the idea came from an underpowered read |

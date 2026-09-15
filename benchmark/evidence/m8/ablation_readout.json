@@ -1,0 +1,32 @@
+{
+ "family": "guide_divergence",
+ "reused_untrained_rows_identical": true,
+ "errored_instances_excluded": [],
+ "pass_rate": {
+  "untrained-8b": 0.4033,
+  "per-turn": 0.3133,
+  "passing-turn": 0.5233
+ },
+ "passing_vs_untrained": {
+  "only_a": 39,
+  "only_b": 75,
+  "mcnemar_p": 0.000959,
+  "n_paired": 300
+ },
+ "per_turn_vs_untrained": {
+  "only_a": 47,
+  "only_b": 20,
+  "mcnemar_p": 0.001307,
+  "n_paired": 300
+ },
+ "passing_vs_per_turn": {
+  "only_a": 28,
+  "only_b": 91,
+  "mcnemar_p": 0.0,
+  "n_paired": 300
+ },
+ "passing_regresses_vs_untrained": false,
+ "passing_beats_per_turn": true,
+ "verdict": "supported",
+ "label": "post-hoc"
+}

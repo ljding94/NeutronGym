@@ -207,3 +207,21 @@ def test_report_says_ablation_missing_before_readout(tmp_path, monkeypatch):
     monkeypatch.setattr(m8_report, "OUT", str(out))
     m8_report.main()
     assert "ablation_readout.json not present yet" in out.read_text()
+
+
+def test_ablation_card_is_not_green_when_a_constant_matches_the_trained_model():
+    constant = {"best_single_constant": {"action": {"w_in": 0.04}, "pass_rate": 0.5233},
+                "any_of_five_constants_pass_rate": 0.6767}
+    html = m8_report.ablation_section(_readout("supported") | {
+        "pass_rate": {"untrained-8b": 0.4033, "per-turn": 0.3133, "passing-turn": 0.5233}}, constant)
+    assert "verdict ok" not in html
+    assert "No-model constant baseline matches it" in html
+    assert "52%" in html and "68%" in html
+
+
+def test_ablation_card_stays_green_when_constants_fall_well_short():
+    constant = {"best_single_constant": {"action": {}, "pass_rate": 0.20},
+                "any_of_five_constants_pass_rate": 0.30}
+    html = m8_report.ablation_section(_readout("supported"), constant)
+    assert "verdict ok" in html
+    assert "No-model constant baseline matches it" not in html

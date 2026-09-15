@@ -1,5 +1,15 @@
 # M8 execution plan — SFT trainability result (rev 2 · 2026-09-12)
 
+> ## ◆ POST-HOC ABLATION RESULT (2026-09-15): gain explained by a constant action
+>
+> Passing-turn LoRA: 52.3% vs untrained 40.3% (p=0.001), ≈ untrained 32B
+> (54.7%, p=0.49); pre-specified verdict "supported". But replays resubmit
+> one action, and a NO-MODEL constant (0.05, 0.03, 2.5) passes 50.3% of the
+> same instances with 98% per-instance agreement; (0.04, 0.03, 2.5) passes
+> 52.3%. The ablation learned a lookup; the guide family at 1.0× is ~50%
+> solvable by one fixed configuration. Pre-registered regression stays the
+> headline. Red-team finding #7: constant-policy degeneracy.
+
 > ## ◆ POST-HOC ABLATION — specified 2026-09-14 before running
 >
 > **POST-HOC ABLATION PRE-SPECIFIED (user decision 2026-09-14, written before any ablation run):** *Hypothesis:* the regression came from per-turn SFT over-weighting exploration turns (all-max opening, w_in-pinned sweeps) relative to the one decisive turn per episode. *Data rule:* same 135 kept guide episodes; keep ONLY the assistant turn whose env step reached L4 (the last assistant turn — rollouts terminate on the L4 step), rendered with the same per-turn prompt/mask → 135 pairs. *Training:* identical settings (LoRA r=32/α=64 on all seven projections, lr 1e-4, 2 epochs, 16k tokens/step — fewer total steps because there is less data; not retuned). *Evaluation:* identical protocol (guide, 1.0×, the same 300 held-out instances, temperature 0, 6 steps); the untrained 8B and 32B rows are REUSED from the pre-registered run so both trained variants face one fixed comparator. *Reading, fixed in advance:* mechanism supported if the passing-turn model does not regress vs the untrained 8B (McNemar p ≥ 0.05 in the harmful direction) AND beats the per-turn model (paired McNemar p < 0.05); refuted if it regresses as much. Reported as **post-hoc** whatever the outcome; the pre-registered result stays the headline M8 result.
