@@ -107,37 +107,123 @@ def constant_candidates(inst: dict, levels: int = CONSTANT_GRID_LEVELS) -> list:
     return out
 
 
-def constant_policy_probe(env, indices, candidates: list) -> dict:
-    """Score every candidate action once on every instance, no model.
+CONSTANT_REFINE_ROUNDS = 4      # local search around the best candidate
 
-    `env` is a NeutronGym (or anything with reset(index=) and step(action)
-    returning the gym 5-tuple with a level-resolved record last). Resetting
-    once per instance keeps the baseline and calibration cached; each step
-    is scored independently, so the order of candidates cannot matter.
+
+def _key(action: dict) -> tuple:
+    return tuple(sorted(action.items()))
+
+
+def _neighbourhood(action: dict, free: dict, step_frac: float) -> list:
+    """Every combination of -step / 0 / +step per free parameter (diagonals
+    included: a sweet spot can need both parameters to move together),
+    clipped to bounds."""
+    axes = []
+    for k, (lo, hi) in free.items():
+        step = (hi - lo) * step_frac
+        axes.append(sorted({round(min(hi, max(lo, action[k] + d)), 6)
+                            for d in (-step, 0.0, step)}))
+    names = list(free)
+    out = []
+    for combo in itertools.product(*axes):
+        cand = dict(zip(names, combo))
+        if _key(cand) != _key(action):
+            out.append(cand)
+    return out
+
+
+def constant_policy_probe(env, indices, candidates: list, classical: bool = True,
+                          refine_rounds: int = CONSTANT_REFINE_ROUNDS) -> dict:
+    """Score fixed actions on every instance, no model.
+
+    Candidates come from three sources, because a grid alone missed a sharp
+    sweet spot (SANS (0.008, 0.008) passed 51% of held-out instances while
+    the 5-level grid reported 12%, 2026-09-15):
+      grid       the caller's list (constant_candidates: baseline + grid)
+      classical  each probed instance's own calibrated classical optimum,
+                 tried as a constant on EVERY instance
+      refined    a local neighbourhood search around the best candidate
+
+    Instances flagged `no_headroom` are skipped — they are not improvement
+    tasks. `env` needs reset(index=) returning (obs, info) and step(action)
+    returning the gym 5-tuple with a level-resolved record last; obs
+    ["instance"] supplies bounds, baseline and classical optimum when present.
     """
-    passes = [0] * len(candidates)
     indices = list(indices)
+    valid, free, base_key, classical_actions = [], None, None, []
     for idx in indices:
-        env.reset(index=idx)
-        for j, action in enumerate(candidates):
-            rec = env.step(dict(action))[4]
-            passes[j] += rec.get("level") == 4
-    n = len(indices)
-    return {"n_instances": n,
-            "results": [{"action": dict(a), "passes": p,
-                         "pass_rate": round(p / n, 4) if n else None}
-                        for a, p in zip(candidates, passes)]}
+        obs, _ = env.reset(index=idx)
+        inst = (obs or {}).get("instance") or {}
+        if inst.get("no_headroom"):
+            continue
+        valid.append(idx)
+        free = free or inst.get("free_parameters")
+        if base_key is None and inst.get("baseline"):
+            base_key = _key(inst["baseline"])
+        if classical and inst.get("classical_action"):
+            classical_actions.append(dict(inst["classical_action"]))
+
+    pool = {}
+
+    def add(action, source):
+        k = _key(action)
+        if k not in pool:
+            pool[k] = {"action": dict(action), "passes": None,
+                       "source": "baseline" if k == base_key else source}
+        return k
+
+    def score(keys):
+        keys = [k for k in keys if pool[k]["passes"] is None]
+        if not keys:
+            return
+        for k in keys:
+            pool[k]["passes"] = 0
+        for idx in valid:
+            env.reset(index=idx)
+            for k in keys:
+                rec = env.step(dict(pool[k]["action"]))[4]
+                pool[k]["passes"] += rec.get("level") == 4
+
+    score([add(a, "grid") for a in candidates]
+          + [add(a, "classical") for a in classical_actions])
+
+    if free and valid and pool:
+        best = max(pool, key=lambda k: pool[k]["passes"])
+        step_frac = 1.0 / 8
+        for _ in range(refine_rounds):
+            neigh = [add(a, "refined")
+                     for a in _neighbourhood(pool[best]["action"], free, step_frac)]
+            score(neigh)
+            challenger = max(pool, key=lambda k: pool[k]["passes"])
+            if pool[challenger]["passes"] > pool[best]["passes"]:
+                best = challenger
+            else:
+                step_frac /= 2
+
+    n = len(valid)
+    return {"n_instances": n, "skipped_no_headroom": len(indices) - n,
+            "results": [{"action": v["action"], "passes": v["passes"],
+                         "pass_rate": round(v["passes"] / n, 4) if n else None,
+                         "source": v["source"]}
+                        for v in pool.values()]}
 
 
 def summarize_constant_probe(probe: dict,
                              max_rate: float = CONSTANT_MAX_PASS_RATE) -> dict:
-    """Gate verdict: the family passes only if no single constant clears
-    `max_rate`. Reports the best constant and the top five."""
+    """Gate verdict. A family fails if any single constant passes more than
+    `max_rate` of instances, or if the baseline itself ever passes (L4 must
+    mean improvement)."""
     ranked = sorted(probe["results"], key=lambda r: -(r["pass_rate"] or 0))
     best = ranked[0] if ranked else {"action": None, "pass_rate": None}
     rate = best["pass_rate"] or 0
-    return {"ok": rate <= max_rate, "max_rate": max_rate,
-            "best_action": best["action"], "best_pass_rate": best["pass_rate"],
+    baseline_passes = sum(r["passes"] or 0 for r in probe["results"]
+                          if r.get("source") == "baseline")
+    return {"ok": rate <= max_rate and baseline_passes == 0,
+            "max_rate": max_rate, "best_action": best["action"],
+            "best_pass_rate": best["pass_rate"],
+            "best_source": best.get("source"),
+            "baseline_passes": baseline_passes,
             "n_instances": probe["n_instances"],
+            "skipped_no_headroom": probe.get("skipped_no_headroom", 0),
             "n_candidates": len(probe["results"]),
             "top5": ranked[:5]}

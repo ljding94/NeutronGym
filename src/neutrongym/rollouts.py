@@ -62,6 +62,12 @@ def feedback_message(obs) -> str:
 def rollout(env: NeutronGym, index: int, chat_fn) -> dict:
     """One dialogue episode; chat_fn(messages) -> assistant text."""
     obs, info = env.reset(index=index)
+    if obs["instance"].get("no_headroom"):
+        # no improvement exists at this bar; an episode here would teach or
+        # score resubmitting the baseline (2026-09-15)
+        return {"instance_id": info["instance_id"], "split": info["split"],
+                "skipped": "no_headroom", "messages": [], "best_reward": 0.0,
+                "best_level": None, "episode": []}
     messages = [{"role": "system", "content": DIALOGUE_SYSTEM},
                 {"role": "user", "content": obs["prompt"]}]
     best_reward, best_level = 0.0, 0
@@ -127,13 +133,18 @@ def evaluate(model: str, n_instances: int, family: str, split: str,
                          else REQUEST_TIMEOUT_S))
             return resp["choices"][0]["message"].get("content") or ""
 
-    rows, t0 = [], time.time()
+    rows, t0, skipped = [], time.time(), []
     for i in range(start_index, start_index + n_instances):
         try:
             ep = rollout(env, i, call_model)
         except Exception as e:  # noqa: BLE001 — one bad episode must not
             rows.append({"instance": i, "error": str(e)[:120],
                          "best_level": None, "best_reward": None})
+            continue
+        if ep.get("skipped"):
+            # dropped from every arm alike: same cached calibration, so the
+            # paired comparison stays on identical instances
+            skipped.append(i)
             continue
         best_fom = max((s.get("levels", {}).get("L4", {}).get("fom_ratio")
                         or 0) for s in ep["episode"]) if ep["episode"] else 0
@@ -154,6 +165,7 @@ def evaluate(model: str, n_instances: int, family: str, split: str,
     valid = [r for r in rows if r["best_level"] is not None]
     return {"model": model, "family": family, "split": split,
             "target_fraction": target_fraction,
+            "skipped_no_headroom": len(skipped),
             "n": len(rows), "n_valid": len(valid), "errors":
             len(rows) - len(valid), "level_histogram": hist,
             "pass_rate": (round(hist[4] / len(valid), 4) if valid else None),
@@ -204,13 +216,16 @@ def collect(model: str, n_instances: int, out_path: str,
             return resp["choices"][0]["message"].get("content") or ""
 
     os.makedirs(os.path.dirname(os.path.abspath(out_path)), exist_ok=True)
-    kept = total = 0
+    kept = total = skipped = 0
     t0 = time.time()
     with open(out_path, "w") as f:
         # start_index lets a second collection batch cover a disjoint
         # instance range instead of resampling the same instances
         for idx in range(start_index, start_index + n_instances):
             ep = rollout(env, idx, call_model)
+            if ep.get("skipped"):
+                skipped += 1
+                continue
             total += 1
             if ep["best_reward"] >= reward_threshold:
                 kept += 1
@@ -223,6 +238,7 @@ def collect(model: str, n_instances: int, out_path: str,
             "self_generated": bool(base_url),
             "family": family, "split": split,
             "instances": total, "kept": kept, "start_index": start_index,
+            "skipped_no_headroom": skipped,
             "keep_rate": round(kept / total, 3) if total else 0.0,
             "reward_threshold": reward_threshold,
             "wall_s": round(time.time() - t0, 1), "out": out_path}

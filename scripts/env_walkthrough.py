@@ -124,8 +124,11 @@ def main():
         verdict = hacks.summarize_constant_probe(
             hacks.constant_policy_probe(penv, range(n_probe), cands))
         probes[fam] = verdict
-        print(f"  {fam:22} {len(cands):4} constants  best "
-              f"{verdict['best_action']} passes {verdict['best_pass_rate']}"
+        print(f"  {fam:22} {verdict['n_candidates']:4} constants "
+              f"(grid+classical+refined)  best {verdict['best_action']} "
+              f"[{verdict['best_source']}] passes {verdict['best_pass_rate']}; "
+              f"baseline passes {verdict['baseline_passes']}; skipped "
+              f"no-headroom {verdict['skipped_no_headroom']}"
               f"  -> {'ok' if verdict['ok'] else 'DEGENERATE'}")
     print(f"  ({time.time() - t0:.0f} s incl. held-out calibration)")
     ok_constant = all(v["ok"] for v in probes.values())

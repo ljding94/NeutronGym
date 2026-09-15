@@ -80,11 +80,16 @@ class NeutronGym:
                     f"do not skip silently): {base['detail']}")
             self._baselines[inst["id"]] = base
         if self.calibrated:
-            tr = calibrate.calibrated_target_ratio(
+            cal = calibrate.calibration_for(
                 inst, self.exec, base, os.path.join(self.workdir, family_dir),
                 fraction=self.target_fraction)
-            inst["target_ratio"] = tr if tr is not None else inst["target_ratio"]
-            inst["target_calibrated"] = tr is not None
+            if cal is not None:
+                inst["target_ratio"] = cal["target_ratio"]
+                # classical search could not beat the baseline at this bar:
+                # not an improvement task, so rollouts skip it
+                inst["no_headroom"] = cal["no_headroom"]
+                inst["classical_action"] = cal["classical_action"]
+            inst["target_calibrated"] = cal is not None
             inst["target_fraction"] = (self.target_fraction
                                        if self.target_fraction is not None
                                        else calibrate.TARGET_FRACTION)

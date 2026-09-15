@@ -61,7 +61,8 @@ def test_probe_scores_every_candidate_on_every_instance_once():
     env = _StubEnv()
     cands = [{"a": 0.9}, {"a": 0.1}]
     probe = hacks.constant_policy_probe(env, range(4), cands)
-    assert env.resets == [0, 1, 2, 3]
+    # one discovery pass, then one scoring pass (no bounds -> no refinement)
+    assert env.resets == [0, 1, 2, 3, 0, 1, 2, 3]
     assert probe["n_instances"] == 4
     assert [r["pass_rate"] for r in probe["results"]] == [1.0, 0.0]
 
@@ -96,7 +97,8 @@ def test_guide_family_is_degenerate_at_the_1x_bar():
     family was hardened: update finding 7 and the M8 write-up, then delete
     this test rather than weakening it."""
     probe = hacks.constant_policy_probe(_real_env("guide_divergence"),
-                                        range(10), [GUIDE_DEGENERATE])
+                                        range(10), [GUIDE_DEGENERATE],
+                                        classical=False, refine_rounds=0)
     assert probe["results"][0]["pass_rate"] >= hacks.CONSTANT_MAX_PASS_RATE
 
 
@@ -106,5 +108,91 @@ def test_sans_all_max_no_longer_passes_after_the_direct_beam_fix():
     inst = generate.instance("sans_collimation", "heldout", 0)
     all_max = {k: hi for k, (lo, hi) in inst["free_parameters"].items()}
     probe = hacks.constant_policy_probe(_real_env("sans_collimation"),
-                                        range(5), [all_max])
+                                        range(5), [all_max],
+                                        classical=False, refine_rounds=0)
     assert probe["results"][0]["pass_rate"] == 0.0
+
+
+
+# --- gate v2 (2026-09-15): classical-optima candidates, refinement, baseline --
+
+FREE = {"r_pin1": (0.001, 0.02), "r_pin2": (0.001, 0.02)}
+BASE = {"r_pin1": 0.005, "r_pin2": 0.005}
+
+
+class _SansLikeEnv:
+    """Instance i passes an action iff both radii are within `tol` of c_i."""
+
+    def __init__(self, centers, tol=0.0015, classical=None, baseline_passes_on=(),
+                 no_headroom=()):
+        self.centers, self.tol = centers, tol
+        self.classical = classical or {}
+        self.baseline_passes_on = set(baseline_passes_on)
+        self.no_headroom = set(no_headroom)
+
+    def reset(self, index):
+        self.i = index
+        inst = {"free_parameters": FREE, "baseline": dict(BASE),
+                "no_headroom": index in self.no_headroom}
+        if index in self.classical:
+            inst["classical_action"] = self.classical[index]
+        return {"instance": inst}, {}
+
+    def step(self, action):
+        c = self.centers[self.i]
+        hit = all(abs(action[k] - c) <= self.tol for k in action)
+        if action == BASE and self.i in self.baseline_passes_on:
+            hit = True
+        return {}, 0.0, False, False, {"level": 4 if hit else 3}
+
+
+def _grid():
+    return hacks.constant_candidates({"free_parameters": FREE, "baseline": BASE})
+
+
+def test_grid_alone_misses_a_sharp_sweet_spot_between_grid_points():
+    env = _SansLikeEnv([0.008] * 10)
+    v = hacks.summarize_constant_probe(
+        hacks.constant_policy_probe(env, range(10), _grid(), classical=False, refine_rounds=0))
+    assert v["best_pass_rate"] == 0.0 and v["ok"] is True   # the old false pass
+
+
+def test_classical_optima_expose_the_sweet_spot():
+    env = _SansLikeEnv([0.008] * 10, classical={0: {"r_pin1": 0.0079, "r_pin2": 0.0083}})
+    v = hacks.summarize_constant_probe(hacks.constant_policy_probe(env, range(10), _grid()))
+    assert v["best_pass_rate"] == 1.0
+    assert v["ok"] is False and v["best_source"] in ("classical", "refined")
+
+
+def test_refinement_improves_on_the_best_candidate_with_diagonal_moves():
+    centers = [0.007 + 0.0002 * i for i in range(10)]
+    env = _SansLikeEnv(centers, tol=0.002)
+    grid_only = hacks.constant_policy_probe(env, range(10), _grid(),
+                                            classical=False, refine_rounds=0)
+    refined = hacks.constant_policy_probe(env, range(10), _grid(), classical=False)
+    g = hacks.summarize_constant_probe(grid_only)
+    r = hacks.summarize_constant_probe(refined)
+    assert r["best_pass_rate"] > g["best_pass_rate"]
+    assert r["best_source"] == "refined"
+
+
+def test_a_passing_baseline_fails_the_gate_even_below_the_rate_ceiling():
+    # center 0.0128 sits clear of every grid radius (0.0105, 0.01525)
+    env = _SansLikeEnv([0.0128] * 10, baseline_passes_on={0})
+    v = hacks.summarize_constant_probe(
+        hacks.constant_policy_probe(env, range(10), _grid(), classical=False, refine_rounds=0))
+    assert v["best_pass_rate"] <= hacks.CONSTANT_MAX_PASS_RATE
+    assert v["baseline_passes"] == 1 and v["ok"] is False
+
+
+def test_no_headroom_instances_are_skipped_by_the_probe():
+    env = _SansLikeEnv([0.019] * 10, no_headroom={0, 1})
+    probe = hacks.constant_policy_probe(env, range(10), _grid(), classical=False, refine_rounds=0)
+    assert probe["n_instances"] == 8 and probe["skipped_no_headroom"] == 2
+
+
+def test_neighbourhood_includes_diagonals_and_respects_bounds():
+    n = hacks._neighbourhood({"r_pin1": 0.02, "r_pin2": 0.01}, FREE, 1 / 8)
+    assert {"r_pin1": 0.017625, "r_pin2": 0.012375} in n     # diagonal move
+    assert all(FREE[k][0] <= v <= FREE[k][1] for a in n for k, v in a.items())
+    assert {"r_pin1": 0.02, "r_pin2": 0.01} not in n
