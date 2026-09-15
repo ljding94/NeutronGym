@@ -51,6 +51,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--name", default=TRAINED_NAME,
                     help="expected served-model name of the trained server")
+    ap.add_argument("--family", default="guide_divergence",
+                    choices=list(generate.FAMILIES),
+                    help="family whose prompts are used; a checkpoint trained "
+                         "on one family is checked on that family's action "
+                         "format, not guide's")
     args = ap.parse_args()
     base_url = os.environ["NEUTRONGYM_VLLM_URL_8B"]
     trained_url = os.environ["NEUTRONGYM_VLLM_URL_TRAINED"]
@@ -61,7 +66,7 @@ def main():
     if tid != args.name:
         print(f"FAIL id: expected {args.name}"); ok = False
 
-    fam = "guide_divergence"
+    fam = args.family
     for i in (0, 1, 2):
         inst = generate.instance(fam, "heldout", i)
         msgs = [{"role": "system", "content": DIALOGUE_SYSTEM},
