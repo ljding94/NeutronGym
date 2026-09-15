@@ -52,7 +52,7 @@ END
 
 SANS_INSTR = """\
 DEFINE INSTRUMENT fam_sans_collimation(double src_r=0.02, double L_coll=3.0,
-  double wl=6.0, double r_sphere=100, double det_dist=3.0,
+  double wl=6.0, double r_sphere=100, double det_dist=3.0, double stop_r=0.02,
   double r_pin1=0.005, double r_pin2=0.005)
 TRACE
 COMPONENT arm = Arm()
@@ -73,7 +73,7 @@ SPLIT 30 COMPONENT sample = Sans_spheres(R=r_sphere, Phi=0.01,
   target_index=2, focus_xw=0.6, focus_yh=0.6)
 AT (0, 0, 0.2) RELATIVE coll2
 
-COMPONENT STOP = Beamstop(radius=0.02)
+COMPONENT STOP = Beamstop(radius=stop_r)
 AT (0, 0, det_dist-0.1) RELATIVE sample
 
 COMPONENT detector = PSD_monitor(nx=128, ny=128, filename="PSD.dat",
@@ -133,7 +133,8 @@ FAMILIES = {
                         "radii to maximize scattered intensity on the "
                         "detector while keeping the direct beam on the "
                         "beamstop and the scattering pattern intact. The "
-                        "beamstop radius is 0.02 m; a configuration whose "
+                        "beamstop radius stop_r is given per instance; a "
+                        "configuration whose "
                         "unscattered beam is wider than the beamstop is "
                         "rejected before simulation. The sample's sphere "
                         "radius r_sphere (Angstrom) sets a resolution "
@@ -150,6 +151,13 @@ FAMILIES = {
             "wl":       {"train": (4.0, 8.0),    "heldout": (4.0, 8.0)},
             "r_sphere": {"train": (50.0, 150.0), "heldout": (50.0, 150.0)},
             "det_dist": {"train": (2.5, 3.5),    "heldout": (2.5, 3.5)},
+            # beamstop radius, per instance (2026-09-15). Appended LAST so
+            # every earlier context draw is unchanged. A FIXED 0.02 m stop was
+            # the binding constraint on 86% of instances, so every instance had
+            # the same feasible corner and one configuration fitted most of
+            # them; the floor 0.011 keeps the 2.5 mm baseline valid (worst case
+            # 0.0095 m at the stop plane).
+            "stop_r":   {"train": (0.011, 0.025), "heldout": (0.011, 0.025)},
         },
         "free_parameters": {"r_pin1": (0.001, 0.02), "r_pin2": (0.001, 0.02)},
         # 2.5 mm (was 5 mm, 2026-09-15): the resolution specification's
@@ -209,21 +217,26 @@ def sans_direct_beam_radius(context: dict, action: dict) -> float:
     return r2 + (r1 + r2) * d / float(context["L_coll"])
 
 
+def sans_stop_radius(context: dict) -> float:
+    """The instance's beamstop radius (older contexts: the fixed default)."""
+    return float(context.get("stop_r", SANS_STOP_RADIUS))
+
+
 def sans_direct_beam_leaks(context: dict, action: dict) -> bool:
-    return sans_direct_beam_radius(context, action) > SANS_STOP_RADIUS
+    return sans_direct_beam_radius(context, action) > sans_stop_radius(context)
 
 
 def check_direct_beam_on_stop(context: dict, action: dict) -> dict:
     """L1 static check closing the SANS direct-beam hole: an unscattered
     beam wider than the beamstop reaches the detector, and the
     total-intensity FOM would count it as scattering."""
-    r = sans_direct_beam_radius(context, action)
-    if r <= SANS_STOP_RADIUS:
+    r, stop = sans_direct_beam_radius(context, action), sans_stop_radius(context)
+    if r <= stop:
         return {"pass": True}
     return {"pass": False,
             "detail": (f"direct beam radius {r:.4f} m at the beamstop exceeds "
-                       f"the {SANS_STOP_RADIUS} m stop; the unscattered beam "
-                       f"would reach the detector — narrow the pinholes")}
+                       f"this instance's {stop:.4f} m stop; the unscattered "
+                       f"beam would reach the detector — narrow the pinholes")}
 
 
 GUIDE_THETA_C_DEG_PER_AA = 0.099   # Ni critical angle per Angstrom, m = 1
@@ -323,7 +336,7 @@ def spec_lines(inst: dict) -> list:
                 f"  beam size: w_out <= det_wh = {c['det_wh']} m"]
     if fam == "sans_collimation":
         return [f"  beamstop: unscattered beam radius at the stop <= "
-                f"{SANS_STOP_RADIUS} m",
+                f"stop_r = {sans_stop_radius(c):.4f} m",
                 f"  resolution: q_min <= 1/r_sphere, i.e. unscattered beam radius "
                 f"at the detector <= {sans_resolution_limit(c):.4f} m here"]
     return []

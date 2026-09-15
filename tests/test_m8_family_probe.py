@@ -18,6 +18,14 @@ import m8_family_probe as probe  # noqa: E402
 FAM = "sans_collimation"
 
 
+def test_beamstop_radius_varies_by_instance():
+    """A FIXED stop was the binding constraint on 86% of instances, so every
+    instance shared one feasible corner (2026-09-15)."""
+    stops = {generate.sans_stop_radius(generate.instance(FAM, "heldout", i)["context"])
+             for i in range(50)}
+    assert len(stops) > 45 and min(stops) >= 0.011 and max(stops) <= 0.025
+
+
 def test_all_max_pinholes_leak_on_every_heldout_instance():
     act = {k: hi for k, (lo, hi) in generate.FAMILIES[FAM]["free_parameters"].items()}
     for i in range(25):

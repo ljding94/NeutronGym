@@ -65,9 +65,11 @@ def test_bounds_are_checked_before_geometry():
     assert not res["pass"] and "outside bounds" in res["detail"]
 
 
-def test_prompt_discloses_the_beamstop_rule():
+def test_prompt_discloses_this_instance_beamstop_radius():
     inst = generate.instance(FAM, "heldout", 0)
-    assert "0.02 m" in generate.render_prompt(inst)
+    stop = generate.sans_stop_radius(inst["context"])
+    assert f"stop_r = {stop:.4f} m" in generate.render_prompt(inst)
+    assert 0.011 <= stop <= 0.025
 
 
 class _RecordingExecutor:
