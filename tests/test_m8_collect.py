@@ -56,3 +56,27 @@ def test_merge_tolerates_a_family_that_never_ran(tmp_path):
                              ["guide_divergence", "sans_collimation"])
     assert stats["by_family"]["sans_collimation"] == 0
     assert stats["train_examples"] == 1
+
+
+def test_collect_covers_a_disjoint_instance_range(tmp_path, monkeypatch):
+    """A second batch with start_index must sample new instances, not
+    resample the first batch's."""
+    from neutrongym import rollouts
+    seen = []
+
+    class FakeEnv:
+        def __init__(self, **kw):
+            pass
+
+    def fake_rollout(env, idx, call_model):
+        seen.append(idx)
+        return {"best_reward": 0.0, "instance_id": f"i{idx}", "split": "train",
+                "best_level": 3, "messages": []}
+
+    monkeypatch.setattr(rollouts, "NeutronGym", FakeEnv)
+    monkeypatch.setattr(rollouts, "rollout", fake_rollout)
+    r = rollouts.collect("m", 3, str(tmp_path / "out.jsonl"),
+                         family="sans_collimation", chat_fn=lambda m: "",
+                         start_index=300)
+    assert seen == [300, 301, 302]
+    assert r["start_index"] == 300 and r["instances"] == 3

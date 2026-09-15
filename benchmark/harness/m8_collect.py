@@ -65,6 +65,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--n", type=int, default=200,
                     help="train instances sampled per family")
+    ap.add_argument("--start", type=int, default=0,
+                    help="first train instance index; use a disjoint range "
+                         "for an additional batch")
     ap.add_argument("--target-fraction", type=float, required=True,
                     help="calibrated bar the keepers must clear; use the "
                          "bar the evaluation will score")
@@ -80,6 +83,7 @@ def main():
     families = args.families.split(",")
     os.makedirs(args.out, exist_ok=True)
     manifest = {"model": MODEL, "split": "train", "n_per_family": args.n,
+                "start_index": args.start,
                 "target_fraction": args.target_fraction,
                 "temperature": args.temperature, "max_steps": args.max_steps,
                 "keep_rule": "strict L4 pass at the calibrated bar",
@@ -89,10 +93,11 @@ def main():
             MODEL, args.n, os.path.join(args.out, f"{fam}.jsonl"),
             family=fam, split="train", reward_threshold=STRICT_L4_REWARD,
             max_steps=args.max_steps, temperature=args.temperature,
-            base_url=url, target_fraction=args.target_fraction)
+            base_url=url, target_fraction=args.target_fraction,
+            start_index=args.start)
         manifest["families"][fam] = {k: r[k] for k in
                                      ("instances", "kept", "keep_rate",
-                                      "wall_s")}
+                                      "wall_s", "start_index")}
         print(f"  {fam:18} kept {r['kept']}/{r['instances']} "
               f"rate={r['keep_rate']} ({r['wall_s']}s)", flush=True)
         with open(os.path.join(args.out, "manifest.json"), "w") as f:

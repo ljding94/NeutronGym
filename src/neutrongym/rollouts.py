@@ -167,7 +167,8 @@ def collect(model: str, n_instances: int, out_path: str,
             reward_threshold: float = 1.0, max_steps: int = 6,
             temperature: float = 0.7, provider_pin: str | None = "Google",
             base_url: str | None = None, api_key: str | None = None,
-            chat_fn=None, target_fraction: float | None = None) -> dict:
+            chat_fn=None, target_fraction: float | None = None,
+            start_index: int = 0) -> dict:
     """Rejection-sampled SFT set: keep episodes with best_reward >=
     threshold (default 1.0 = reached L3-valid with full structural pass;
     1.0+ means improved). Sampling temperature deliberately > 0 — diversity
@@ -206,7 +207,9 @@ def collect(model: str, n_instances: int, out_path: str,
     kept = total = 0
     t0 = time.time()
     with open(out_path, "w") as f:
-        for idx in range(n_instances):
+        # start_index lets a second collection batch cover a disjoint
+        # instance range instead of resampling the same instances
+        for idx in range(start_index, start_index + n_instances):
             ep = rollout(env, idx, call_model)
             total += 1
             if ep["best_reward"] >= reward_threshold:
@@ -219,7 +222,7 @@ def collect(model: str, n_instances: int, out_path: str,
     return {"model": model, "base_url": base_url,
             "self_generated": bool(base_url),
             "family": family, "split": split,
-            "instances": total, "kept": kept,
+            "instances": total, "kept": kept, "start_index": start_index,
             "keep_rate": round(kept / total, 3) if total else 0.0,
             "reward_threshold": reward_threshold,
             "wall_s": round(time.time() - t0, 1), "out": out_path}
