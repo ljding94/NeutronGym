@@ -89,10 +89,14 @@ def main():
     ap.add_argument("--eval", default=os.path.join(REPO, "runs", "m8", "eval_guide_1x_n300.json"))
     ap.add_argument("--data", default=os.path.join(REPO, "runs", "m8", "raft", "train.jsonl"))
     ap.add_argument("--out", default=os.path.join(REPO, "runs", "m8", "mechanism.json"))
+    ap.add_argument("--trained-model", default="qwen3-8b-m8raft",
+                    help="served name of the trained checkpoint (the post-hoc "
+                         "passing-turn ablation is qwen3-8b-m8raft-pass)")
     args = ap.parse_args()
     arms = {"untrained-8b": (os.environ["NEUTRONGYM_VLLM_URL_8B"], "qwen3-8b"),
-            "trained-8b": (os.environ["NEUTRONGYM_VLLM_URL_TRAINED"], "qwen3-8b-m8raft")}
-    rec = {"training_data": data_stats(args.data)}
+            "trained-8b": (os.environ["NEUTRONGYM_VLLM_URL_TRAINED"], args.trained_model)}
+    rec = {"trained_model": args.trained_model, "eval": os.path.relpath(args.eval, REPO),
+           "training_data": data_stats(args.data)}
     print("training data:", json.dumps(rec["training_data"]), flush=True)
 
     env = NeutronGym(family="guide_divergence", split="heldout",
