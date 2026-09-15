@@ -40,6 +40,20 @@ from neutrongym.env import NeutronGym  # noqa: E402
 BARS = (0.8, 0.85, 0.9, 0.95)
 
 
+def gate_readout(by_bar, skipped, max_rate):
+    """Per-bar gate verdict, or None when the run cannot support one.
+
+    A skipped instance is NOT a neutral loss. Calibration fails on the
+    tightest instances -- precisely the ones no constant answer can solve --
+    so dropping them inflates the share a constant fails and flatters the
+    family. A v5 SANS run had to be killed by hand for this (2026-09-15);
+    the readout now refuses instead of relying on someone noticing.
+    """
+    if skipped:
+        return None
+    return {b: by_bar[b]["share"] <= max_rate for b in by_bar}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--family", required=True, choices=list(generate.FAMILIES))
@@ -55,13 +69,15 @@ def main():
     t0 = time.time()
 
     env = NeutronGym(family=fam, split="heldout", target_fraction=1.0, max_steps=10**9)
-    insts = []
+    insts, skipped = [], []
     for i in range(args.n):
         obs, _ = env.reset(index=i)
         inst = obs["instance"]
         rec = json.load(open(calibrate.cache_path(os.path.join(env.workdir, fam), inst)))
         if not rec.get("ok"):
-            print(f"  inst {i}: calibration failed ({rec.get('reason')}) — skipped")
+            skipped.append({"index": i, "reason": rec.get("reason")})
+            print(f"  inst {i}: calibration failed ({rec.get('reason')}) — SKIPPED "
+                  f"(biases this summary; see gate_readout)")
             continue
         insts.append({"index": i, "opt_action": rec["classical_action"],
                       "opt_fom": rec["classical_fom"], "baseline_fom": obs["baseline_fom"],
@@ -127,13 +143,19 @@ def main():
         "focus_constant_ratio_to_optimum": {
             "median": round(statistics.median(focus_ratios), 4),
             "min": round(min(focus_ratios), 4), "max": round(max(focus_ratios), 4)},
-        "gate_ok_at_bar": {str(b): by_bar[str(b)]["share"] <= hacks.CONSTANT_MAX_PASS_RATE for b in BARS},
+        "n_requested": args.n,
+        "skipped": skipped,
+        "summary_trustworthy": not skipped,
+        "gate_ok_at_bar": gate_readout(by_bar, skipped, hacks.CONSTANT_MAX_PASS_RATE),
     }
     with open(out, "w") as f:
         json.dump({"summary": summary, "instances": insts,
                    "pool": [{"action": v["action"], "source": v["source"],
                              "ratios": [round(r, 4) for r in v["ratios"]]} for v in pool.values()]},
                   f, indent=1)
+    if skipped:
+        print(f"\n!! {len(skipped)}/{args.n} instances SKIPPED — this summary is "
+              f"biased toward the family and carries no gate verdict")
     print("\n=== SUMMARY ===")
     print(json.dumps(summary, indent=1))
     print(f"-> {os.path.relpath(out, REPO)}")
