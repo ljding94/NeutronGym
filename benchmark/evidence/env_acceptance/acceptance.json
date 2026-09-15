@@ -1,126 +1,142 @@
 {
-  "date": "2026-09-15 14:31",
+  "date": "2026-09-15 16:58",
   "instances": 104,
   "scored_actions": 312,
   "level_histogram": {
     "0": 134,
     "1": 0,
     "2": 34,
-    "3": 124,
-    "4": 20
+    "3": 129,
+    "4": 15
   },
-  "rollouts_per_s_1e5": 23.2,
-  "wall_s": 166.6,
+  "rollouts_per_s_1e5": 29.7,
+  "wall_s": 12.7,
   "constant_probe": {
     "guide_divergence": {
       "ok": false,
       "max_rate": 0.2,
       "best_action": {
-        "w_in": 0.05,
-        "w_out": 0.03,
-        "m_coat": 1.5
+        "w_in": 0.041651,
+        "w_out": 0.029663,
+        "m_coat": 2.796156
       },
-      "best_pass_rate": 0.36,
+      "best_pass_rate": 0.6,
+      "best_source": "refined",
+      "baseline_passes": 0,
       "n_instances": 25,
-      "n_candidates": 126,
+      "skipped_no_headroom": 0,
+      "n_candidates": 240,
       "top5": [
         {
           "action": {
-            "w_in": 0.05,
-            "w_out": 0.03,
-            "m_coat": 1.5
+            "w_in": 0.041651,
+            "w_out": 0.029663,
+            "m_coat": 2.796156
           },
-          "passes": 9,
-          "pass_rate": 0.36
+          "passes": 15,
+          "pass_rate": 0.6,
+          "source": "refined"
         },
         {
           "action": {
-            "w_in": 0.05,
-            "w_out": 0.03,
-            "m_coat": 2.0
+            "w_in": 0.041651,
+            "w_out": 0.029663,
+            "m_coat": 2.858656
           },
-          "passes": 9,
-          "pass_rate": 0.36
+          "passes": 15,
+          "pass_rate": 0.6,
+          "source": "refined"
         },
         {
           "action": {
-            "w_in": 0.05,
-            "w_out": 0.03,
-            "m_coat": 2.5
+            "w_in": 0.041651,
+            "w_out": 0.029663,
+            "m_coat": 2.921156
           },
-          "passes": 9,
-          "pass_rate": 0.36
+          "passes": 15,
+          "pass_rate": 0.6,
+          "source": "refined"
         },
         {
           "action": {
-            "w_in": 0.05,
-            "w_out": 0.03,
-            "m_coat": 3.0
+            "w_in": 0.041651,
+            "w_out": 0.032163,
+            "m_coat": 2.858656
           },
-          "passes": 9,
-          "pass_rate": 0.36
+          "passes": 14,
+          "pass_rate": 0.56,
+          "source": "refined"
         },
         {
           "action": {
-            "w_in": 0.05,
-            "w_out": 0.05,
-            "m_coat": 2.0
+            "w_in": 0.041651,
+            "w_out": 0.032163,
+            "m_coat": 2.983656
           },
-          "passes": 8,
-          "pass_rate": 0.32
+          "passes": 14,
+          "pass_rate": 0.56,
+          "source": "refined"
         }
       ]
     },
     "sans_collimation": {
-      "ok": true,
+      "ok": false,
       "max_rate": 0.2,
       "best_action": {
-        "r_pin1": 0.0105,
-        "r_pin2": 0.0105
+        "r_pin1": 0.013933,
+        "r_pin2": 0.007561
       },
-      "best_pass_rate": 0.12,
+      "best_pass_rate": 0.56,
+      "best_source": "classical",
+      "baseline_passes": 0,
       "n_instances": 25,
-      "n_candidates": 26,
+      "skipped_no_headroom": 0,
+      "n_candidates": 83,
       "top5": [
         {
           "action": {
-            "r_pin1": 0.0105,
-            "r_pin2": 0.0105
+            "r_pin1": 0.013933,
+            "r_pin2": 0.007561
           },
-          "passes": 3,
-          "pass_rate": 0.12
+          "passes": 14,
+          "pass_rate": 0.56,
+          "source": "classical"
         },
         {
           "action": {
-            "r_pin1": 0.01525,
-            "r_pin2": 0.0105
+            "r_pin1": 0.012708,
+            "r_pin2": 0.007732
           },
-          "passes": 3,
-          "pass_rate": 0.12
+          "passes": 14,
+          "pass_rate": 0.56,
+          "source": "classical"
         },
         {
           "action": {
-            "r_pin1": 0.02,
-            "r_pin2": 0.0105
+            "r_pin1": 0.018393,
+            "r_pin2": 0.007184
           },
-          "passes": 3,
-          "pass_rate": 0.12
+          "passes": 14,
+          "pass_rate": 0.56,
+          "source": "classical"
         },
         {
           "action": {
-            "r_pin1": 0.0105,
-            "r_pin2": 0.00575
+            "r_pin1": 0.010115,
+            "r_pin2": 0.006672
           },
-          "passes": 1,
-          "pass_rate": 0.04
+          "passes": 14,
+          "pass_rate": 0.56,
+          "source": "classical"
         },
         {
           "action": {
-            "r_pin1": 0.01525,
-            "r_pin2": 0.00575
+            "r_pin1": 0.011959,
+            "r_pin2": 0.007871
           },
-          "passes": 1,
-          "pass_rate": 0.04
+          "passes": 14,
+          "pass_rate": 0.56,
+          "source": "classical"
         }
       ]
     }
