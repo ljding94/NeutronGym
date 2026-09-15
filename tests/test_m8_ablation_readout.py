@@ -47,3 +47,24 @@ def test_refuses_if_the_comparator_rows_are_not_the_reused_ones():
     other_u = [3] * 40 + [4] * 60
     with pytest.raises(SystemExit):
         readout(rec(U, TURN), rec(other_u, TURN))
+
+
+def _with_errors(levels, bad):
+    return [None if i in bad else lv for i, lv in enumerate(levels)]
+
+
+def test_errored_instances_are_dropped_from_every_arm_not_scored_as_failures():
+    passing = [4] * 40 + [3] * 60
+    # two passes lost to a tunnel drop in the ablation arm only
+    res = readout(rec(U, TURN), rec(U, _with_errors(passing, {0, 1})))
+    assert res["errored_instances_excluded"] == [0, 1]
+    # without exclusion those would have counted as 2 untrained-only discordant pairs
+    assert res["passing_vs_untrained"]["only_a"] == 0
+    assert res["passing_vs_untrained"]["n_paired"] == 98
+    assert res["per_turn_vs_untrained"]["n_paired"] == 98
+
+
+def test_refuses_to_read_out_when_too_many_instances_errored():
+    passing = [4] * 40 + [3] * 60
+    with pytest.raises(SystemExit):
+        readout(rec(U, TURN), rec(U, _with_errors(passing, set(range(6)))))

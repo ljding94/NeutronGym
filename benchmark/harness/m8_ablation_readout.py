@@ -33,6 +33,12 @@ sys.path.insert(0, os.path.join(REPO, "benchmark", "harness"))
 from m8_paired import analyze, pair_rows  # noqa: E402
 
 ALPHA = 0.05
+# an errored episode (best_level None: endpoint dropped, request failed) is
+# not a capability datapoint. Scoring it as a failure would bias the verdict
+# against whichever arm was running when the tunnel dropped, so errored
+# instances are removed from EVERY arm; past this fraction the run is not
+# trusted at all.
+MAX_ERROR_FRACTION = 0.05
 
 
 def _rows(record, arm, family):
@@ -55,6 +61,15 @@ def readout(per_turn: dict, passing: dict, family: str = "guide_divergence") -> 
     u = _rows(passing, "untrained-8b", family)
     t_turn = _rows(per_turn, "trained-8b", family)
     t_pass = _rows(passing, "trained-8b", family)
+    errored = set()
+    for r in (u, t_turn, t_pass):
+        errored |= {x["instance"] for x in r["rows"] if x.get("best_level") is None}
+    n_total = len({x["instance"] for x in u["rows"]})
+    if n_total and len(errored) / n_total > MAX_ERROR_FRACTION:
+        raise SystemExit(f"{len(errored)}/{n_total} instances errored in some arm "
+                         f"(> {MAX_ERROR_FRACTION:.0%}) — re-run, do not read out")
+    u, t_turn, t_pass = ({"rows": [x for x in r["rows"] if x["instance"] not in errored]}
+                         for r in (u, t_turn, t_pass))
     vs_u_turn = paired(u, t_turn, "untrained", "per_turn", family)
     vs_u_pass = paired(u, t_pass, "untrained", "passing", family)
     vs_turn = paired(t_turn, t_pass, "per_turn", "passing", family)
@@ -76,6 +91,7 @@ def readout(per_turn: dict, passing: dict, family: str = "guide_divergence") -> 
     else:
         verdict = "inconclusive"
     return {"family": family, "reused_untrained_rows_identical": same,
+            "errored_instances_excluded": sorted(errored),
             "pass_rate": {"untrained-8b": rate(u), "per-turn": rate(t_turn),
                           "passing-turn": rate(t_pass)},
             "passing_vs_untrained": vs_u_pass,
