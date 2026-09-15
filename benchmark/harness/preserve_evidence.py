@@ -33,7 +33,9 @@ M8_FILES = ("*.json", "sweep.log", "raft/manifest.json", "raft/train.jsonl",
             "train/*.jsonl", "train/*.json", "train/*.log",
             # per-variant training runs (e.g. train/passing/ for the
             # post-hoc passing-turn ablation) live one level down
-            "train/*/*.jsonl", "train/*/*.json", "train/*/*.log")
+            "train/*/*.jsonl", "train/*/*.json", "train/*/*.log",
+            # per-family RAFT sets (raft_sans/, raft_sans_b/, raft_sans_all/)
+            "raft_*/manifest.json", "raft_*/train.jsonl")
 
 
 def preserve():

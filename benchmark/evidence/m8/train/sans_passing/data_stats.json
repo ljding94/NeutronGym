@@ -1,0 +1,20 @@
+{
+ "episodes": 134,
+ "pairs": 134,
+ "dropped_too_long": 0,
+ "turns": "passing",
+ "episodes_without_passing_turn": 0,
+ "data": "m8data/train_sans_1x.jsonl",
+ "base": "/netdisk/ldq/hf/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+ "out": "/netdisk/ldq/ckpt/m8-raft-sans1x-pass",
+ "rank": 32,
+ "alpha": 64,
+ "lr": 0.0001,
+ "epochs": 2,
+ "tokens_per_step": 16000,
+ "max_len": 8192,
+ "seed": 20260913,
+ "check_server": "http://localhost:8137/v1",
+ "dry_run": false,
+ "smoke": 0
+}
