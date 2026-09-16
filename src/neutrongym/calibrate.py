@@ -35,7 +35,18 @@ TARGET_FRACTION = 0.85
 # current bar happens to be silently mis-scales it.
 LEGACY_FRACTION = 0.8
 N_RANDOM = 30           # random valid samples before local refinement
-PATTERN_ROUNDS = 6      # full-neighbourhood pattern search around the best
+PATTERN_ROUNDS = 6      # v2 only (kept for the signature of old call sites)
+# v3 search (2026-09-16). v2 ran ONE pattern search from the best of 31
+# samples for a fixed 6 rounds, halving the step every non-improving round.
+# Optima sit on specification boundaries, where most +/-step moves are
+# invalid, so the step collapsed and the search stopped early (SANS: 79
+# evals). A fixed candidate from the probe pool then beat the "optimum" on
+# 60-70% of instances in every family, by more than 1/0.85 on 20-25%.
+N_STARTS = 3                 # pattern searches from the best distinct seeds
+START_STEP = 1 / 8
+MIN_STEP = 1 / 512           # search runs until the step is this small
+MAX_STEP = 1 / 4             # steps grow back after an improvement
+MAX_EVALS = 2000             # per instance, hard cap
 # v1 ("calibration/") verified the selected optimum at a FRESH seed while
 # agents were scored at the protocol seed. At 1e5 rays that mismatch is
 # +/-3-10%, so an instance's own optimum passed its own 1.0x target only
@@ -43,7 +54,7 @@ PATTERN_ROUNDS = 6      # full-neighbourhood pattern search around the best
 # instances (2026-09-15). v2 scores every candidate exactly as an agent is
 # scored (reward.score, protocol seed: common random numbers), so target and
 # agent are compared noise-free, and caches from v1 are never read.
-CAL_DIR = "calibration_v2"
+CAL_DIR = "calibration_v3"
 
 
 def _valid_fom(inst: dict, action: dict, fexec, base: dict):
@@ -54,41 +65,67 @@ def _valid_fom(inst: dict, action: dict, fexec, base: dict):
 
 
 def calibrate_instance(inst: dict, fexec, base: dict,
-                       n_random: int = N_RANDOM,
-                       rounds: int = PATTERN_ROUNDS) -> dict:
+                       n_random: int = N_RANDOM, n_starts: int = N_STARTS,
+                       max_evals: int = MAX_EVALS, rounds=None) -> dict:
     """Strong classical optimum for one instance, scored at the protocol
-    seed. The baseline is always a candidate, so the optimum is never below
-    it. Deterministic in the instance id."""
+    seed (common random numbers with the agent). Deterministic in the id.
+
+    Seeds: baseline + `n_random` uniform samples + the constant-probe grid
+    (the gate's own candidates, so no fixed answer the gate tries can beat
+    the optimum for want of having been looked at). Then an adaptive pattern
+    search from each of the `n_starts` best distinct seeds: the step doubles
+    (up to MAX_STEP) after an improving move and halves otherwise, stopping
+    at MIN_STEP. Every action is scored at most once. `rounds` is accepted
+    and ignored for v2 call sites.
+    """
     if not base.get("fom"):
-        return {"ok": False, "version": 2, "reason": "baseline FOM unavailable"}
+        return {"ok": False, "version": 3, "reason": "baseline FOM unavailable"}
     rng = random.Random(f"calib2/{inst['id']}")
     free = inst["free_parameters"]
-    cands = [dict(inst["baseline"])] + [
+    seen: dict = {}
+
+    def fom(a):
+        k = hacks._key(a)
+        if k not in seen:
+            if len(seen) >= max_evals:
+                return None          # over budget: unscored, and NOT counted
+            seen[k] = _valid_fom(inst, a, fexec, base)
+        return seen[k]
+
+    seeds = [dict(inst["baseline"])] + [
         {k: round(rng.uniform(lo, hi), 6) for k, (lo, hi) in free.items()}
-        for _ in range(n_random)]
-    best_a, best_f, evals = None, None, 0
-    for a in cands:
-        f = _valid_fom(inst, a, fexec, base)
-        evals += 1
-        if f is not None and (best_f is None or f > best_f):
-            best_a, best_f = a, f
-    if best_a is None:
-        return {"ok": False, "version": 2,
-                "reason": "no valid candidate (baseline included)"}
-    frac = 1.0 / 8
-    for _ in range(rounds):
-        improved = False
-        for a in hacks._neighbourhood(best_a, free, frac):
-            f = _valid_fom(inst, a, fexec, base)
-            evals += 1
-            if f is not None and f > best_f:
-                best_a, best_f, improved = a, f, True
-        if not improved:
-            frac /= 2
+        for _ in range(n_random)] + hacks.constant_candidates(inst)
+    scored = [(fom(a), a) for a in seeds]
+    valid = sorted([(f, a) for f, a in scored if f is not None],
+                   key=lambda t: -t[0])
+    if not valid:
+        return {"ok": False, "version": 3, "evals": len(seen),
+                "reason": "no valid candidate (baseline and grid included)"}
+    starts, used = [], set()
+    for f, a in valid:
+        if hacks._key(a) not in used:
+            starts.append((f, a)); used.add(hacks._key(a))
+        if len(starts) == n_starts:
+            break
+    best_f, best_a = valid[0]
+    for f, a in starts:
+        step = START_STEP
+        while step >= MIN_STEP and len(seen) < max_evals:
+            moves = [(fom(c), c) for c in hacks._neighbourhood(a, free, step)]
+            moves = [(mf, c) for mf, c in moves if mf is not None]
+            top = max(moves, key=lambda t: t[0], default=None)
+            if top and top[0] > f:
+                f, a = top
+                step = min(step * 2, MAX_STEP)
+            else:
+                step /= 2
+        if f > best_f:
+            best_f, best_a = f, a
     over = best_f / base["fom"]
-    return {"ok": True, "version": 2,
-            "method": ("baseline + random + pattern search, every candidate "
-                       "scored by reward.score at the protocol seed"),
+    return {"ok": True, "version": 3,
+            "method": ("baseline + random + probe grid seeds, adaptive "
+                       "multi-start pattern search, every candidate scored "
+                       "by reward.score at the protocol seed"),
             "classical_action": best_a, "classical_fom": best_f,
             "classical_fom_verified": best_f,
             "baseline_fom": base["fom"], "classical_over_baseline": over,
@@ -96,8 +133,9 @@ def calibrate_instance(inst: dict, fexec, base: dict,
             # full precision on purpose: an instance's own optimum must score
             # a ratio of exactly 1.0 against a 1.0x target, never 1+rounding
             "target_ratio": TARGET_FRACTION * over,
-            "fraction": TARGET_FRACTION, "evals": evals,
-            "n_random": n_random, "rounds": rounds}
+            "fraction": TARGET_FRACTION, "evals": len(seen),
+            "n_random": n_random, "n_starts": n_starts,
+            "hit_eval_cap": len(seen) >= max_evals}
 
 
 def cache_path(workdir: str, inst: dict) -> str:

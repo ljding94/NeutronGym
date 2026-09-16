@@ -41,7 +41,7 @@ def test_every_simulation_uses_the_protocol_seed():
     fx, inst = _Exec(), _inst()
     base = reward.baseline(inst, fx)
     rec = calibrate.calibrate_instance(inst, fx, base)
-    assert rec["ok"] and rec["version"] == 2
+    assert rec["ok"] and rec["version"] == 3
     assert {seed for _, seed, _ in fx.runs} == {77}      # no fresh seed anywhere
 
 
