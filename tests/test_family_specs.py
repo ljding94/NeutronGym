@@ -210,3 +210,48 @@ def test_baseline_below_the_statistics_floor_is_an_error():
     inst = generate.instance("sans_collimation", "heldout", 0)
     out = reward.baseline(inst, _Starved())
     assert out["ok"] is False and "floor" in out["detail"]
+
+
+def test_guide_divergence_spec_binds_on_every_instance():
+    """It was inert on ~47% of instances: the implied coating limit sat at or
+    above the top of the m_coat range, so it could not bind and the task
+    reduced to "max out the coating" -- a universal answer (2026-09-16)."""
+    for split in ("train", "heldout"):
+        for i in range(N):
+            inst = generate.instance("guide_divergence", split, i)
+            lim = generate.guide_max_m(inst["context"])
+            lo, hi = inst["free_parameters"]["m_coat"]
+            assert lo < lim < hi, (split, i, lim)
+
+
+def test_the_maximum_coating_is_never_a_legal_answer():
+    """The n=150 probe's best fixed answer was exactly m_coat = 3.0."""
+    for split in ("train", "heldout"):
+        for i in range(0, N, 5):
+            inst = generate.instance("guide_divergence", split, i)
+            hi = inst["free_parameters"]["m_coat"][1]
+            res = generate.check_guide_divergence_spec(inst["context"],
+                                                       {"m_coat": hi})
+            assert not res["pass"], (split, i)
+
+
+def test_derived_div_max_stays_physical_and_instance_specific():
+    vals = set()
+    for i in range(N):
+        inst = generate.instance("guide_divergence", "heldout", i)
+        c = inst["context"]
+        vals.add(c["div_max"])
+        # div_max = m_limit * 0.099 * wl, with m_limit inside GUIDE_M_LIMIT_RANGE
+        m_limit = c["div_max"] / (generate.GUIDE_THETA_C_DEG_PER_AA * c["wl"])
+        lo, hi = generate.GUIDE_M_LIMIT_RANGE
+        assert lo - 1e-6 <= m_limit <= hi + 1e-6, (i, m_limit)
+        assert c["div_max"] > 0
+    assert len(vals) > N * 0.9, "div_max must vary across instances"
+
+
+def test_guide_baseline_survives_the_tightened_spec():
+    base = generate.FAMILIES["guide_divergence"]["baseline"]
+    for split in ("train", "heldout"):
+        for i in range(0, N, 5):
+            inst = generate.instance("guide_divergence", split, i)
+            assert reward._check_l1(inst, dict(base))["pass"], (split, i)

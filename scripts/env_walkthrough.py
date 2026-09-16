@@ -10,10 +10,18 @@
    mixed action policy; verifies level-resolved fields in every record and
    prints the level histogram. Summary JSON lands in runs/env_acceptance/.
 4. CONSTANT-POLICY DEGENERACY GATE (added 2026-09-15, red-team findings 6
-   and 7): every family's held-out instances are probed with a grid of fixed
-   configurations and no model, at the 1.0x calibrated bar. A family fails
-   if any single constant passes more than 20% — its pass rates would not
-   distinguish design skill from a lookup.
+   and 7): every family's held-out instances are probed with grid, classical
+   and locally-refined fixed configurations and no model, at the bar the
+   family is graded on (gate_fraction; 1.0x would be vacuous). A family fails
+   if a single constant can pass more than 20% of instances — its pass rates
+   would not distinguish design skill from a lookup.
+
+   The verdict is taken on the one-sided 95% UPPER limit, not the observed
+   rate (2026-09-16), so n_probe must be large enough to certify: at n=25
+   only 0-1 passing constants can clear the ceiling, and the default 25 will
+   report `underpowered` for a family that is in fact clean. The certified
+   n=150 measurements live in runs/diagnostic/; use n_probe >= 150 here when
+   the verdict is meant to stand on its own.
 
     conda run -n mcstas python scripts/env_walkthrough.py [n_instances] [n_probe] [gate_fraction]
 """

@@ -116,6 +116,9 @@ FAMILIES = {
                             "m_coat": (1.0, 3.0)},
         "baseline": {"w_in": 0.012, "w_out": 0.012, "m_coat": 1.0},
         "static_checks": ["guide_divergence_spec", "guide_beam_size_spec"],
+        # div_max is DERIVED from wl so the divergence spec always binds; the
+        # range below is only the raw draw, which guide_context overwrites
+        "context_fn": "guide_context",
         "fom": {"monitor": "divmon", "metric": "intensity", "maximize": True},
         # band constraints vs baseline observables (anti-hacking: max-only
         # constraints have the wrong sign for leakage-class exploits)
@@ -392,6 +395,34 @@ STATIC_CHECKS = {"direct_beam_on_stop": check_direct_beam_on_stop,
 SPEC_VERSION = 2
 
 
+GUIDE_M_LIMIT_RANGE = (1.2, 2.8)   # strictly inside the m_coat range (1.0, 3.0)
+
+
+def guide_context(context: dict, rng) -> dict:
+    """Make the divergence specification always bind.
+
+    div_max used to be drawn independently of wl, so the implied coating
+    limit guide_max_m = div_max / (0.099 * wl) landed at or above 3.0 -- the
+    TOP of the m_coat range -- on 47% of train and 46% of held-out instances
+    (2026-09-16). On those the spec could not bind at all, and the task
+    collapsed to "max out the coating": a universal answer. The best fixed
+    answer found by the n=150 probe was exactly m_coat = 3.0, and it won
+    precisely where the limit was loose (limit median 4.27 on the instances
+    it solved vs 2.54 on the rest).
+
+    Draw the LIMIT strictly inside the range instead and derive div_max from
+    it, so every instance has a binding, instance-specific divergence bar and
+    the maximum coating is never legal anywhere.
+    """
+    m_limit = rng.uniform(*GUIDE_M_LIMIT_RANGE)
+    context["div_max"] = round(
+        m_limit * GUIDE_THETA_C_DEG_PER_AA * context["wl"], 6)
+    return context
+
+
+CONTEXT_FNS = {"guide_context": guide_context}
+
+
 def family_signature(family: str) -> str:
     """Short hash of everything that defines a family's tasks. Calibration
     caches are keyed on it, so a redesigned family can never reuse optima
@@ -399,8 +430,14 @@ def family_signature(family: str) -> str:
     fam = FAMILIES[family]
     payload = {k: fam[k] for k in ("instr", "context", "free_parameters",
                                    "baseline", "fom", "constraints")}
-    payload.update(baseline_fn=fam.get("baseline_fn"),
-                   static_checks=fam.get("static_checks", []),
+    # optional hooks are recorded ONLY when a family uses them: including
+    # them as None made every family's hash move whenever a new hook was
+    # added, so a guide-only change discarded 150 certified SANS calibrations
+    # (2026-09-16). SPEC_VERSION stays global and is for logic changes that
+    # the dicts cannot express.
+    payload.update({k: fam[k] for k in ("baseline_fn", "context_fn")
+                    if fam.get(k)})
+    payload.update(static_checks=fam.get("static_checks", []),
                    protocol=family_protocol(family), spec_version=SPEC_VERSION)
     return hashlib.sha1(json.dumps(payload, sort_keys=True).encode()).hexdigest()[:10]
 
@@ -445,6 +482,8 @@ def instance(family: str, split: str, index: int) -> dict:
     rng = random.Random(f"{family}/{split}/{index}")
     context = {k: round(rng.uniform(*rr[split]), 6)
                for k, rr in fam["context"].items()}
+    if fam.get("context_fn"):
+        context = CONTEXT_FNS[fam["context_fn"]](context, rng)
     return {
         "id": f"{family}-{split}-{index:06d}",
         "family": family,
