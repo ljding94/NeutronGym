@@ -48,9 +48,21 @@ def test_fraction_rescales_cached_optimum_without_simulating(tmp_path):
     _write_cache(tmp_path, inst["id"], over=2.5)
     fx, base = _NoRunExecutor(), {"fom": 1.0}
 
-    # default fraction returns the stored ratio verbatim
+    # the default resolves to the CURRENT bar and rescales a cache written at
+    # another one. Returning the stored ratio verbatim (the pre-2026-09-16
+    # behaviour) meant moving TARGET_FRACTION silently graded old instances at
+    # the old bar -- still no simulation, it is arithmetic on the cached optimum
     assert calibrate.calibrated_target_ratio(
-        inst, fx, base, str(tmp_path)) == 0.8 * 2.5
+        inst, fx, base, str(tmp_path)) == round(calibrate.TARGET_FRACTION * 2.5, 12)
+    # a cache written AT the current bar is returned verbatim
+    _write_cache(tmp_path, inst["id"], over=2.5)
+    d = tmp_path / calibrate.CAL_DIR / f"{inst['id']}.json"
+    rec = json.loads(d.read_text())
+    rec.update(fraction=calibrate.TARGET_FRACTION,
+               target_ratio=calibrate.TARGET_FRACTION * 2.5)
+    d.write_text(json.dumps(rec))
+    assert calibrate.calibrated_target_ratio(
+        inst, fx, base, str(tmp_path)) == calibrate.TARGET_FRACTION * 2.5
     # a harder bar is 1.2 x the SAME classical optimum
     assert calibrate.calibrated_target_ratio(
         inst, fx, base, str(tmp_path), fraction=1.2) == 3.0

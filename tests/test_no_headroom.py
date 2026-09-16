@@ -41,9 +41,19 @@ def test_target_below_baseline_is_floored_and_flagged(tmp_path):
 
 
 def test_exactly_at_baseline_has_no_headroom(tmp_path):
+    """Derived from the bar, not hardcoded: over=1.25 encoded "0.8 * 1.25 = 1"
+    and silently stopped testing the boundary when the default moved to 0.85
+    (2026-09-16) -- at which point 1.25 is genuinely an improvement."""
     inst = {"id": "g-1"}
-    _cache(tmp_path, inst["id"], over=1.25)          # 0.8 * 1.25 = 1.0
-    assert calibrate.calibration_for(inst, _NoRun(), {"fom": 1.0}, str(tmp_path))["no_headroom"]
+    over = 1 / calibrate.TARGET_FRACTION              # target lands exactly at 1.0
+    _cache(tmp_path, inst["id"], over=over, fraction=calibrate.TARGET_FRACTION)
+    cal = calibrate.calibration_for(inst, _NoRun(), {"fom": 1.0}, str(tmp_path))
+    assert cal["raw_target_ratio"] == 1.0
+    assert cal["no_headroom"] is True
+    # and just above the boundary there IS headroom
+    _cache(tmp_path, "g-1b", over=over * 1.01, fraction=calibrate.TARGET_FRACTION)
+    assert calibrate.calibration_for({"id": "g-1b"}, _NoRun(), {"fom": 1.0},
+                                     str(tmp_path))["no_headroom"] is False
 
 
 def test_headroom_depends_on_the_bar(tmp_path):

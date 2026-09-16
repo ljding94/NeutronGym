@@ -23,7 +23,17 @@ import random
 
 from . import hacks, reward
 
-TARGET_FRACTION = 0.8   # same as the T2 benchmark discipline
+# 0.85 since 2026-09-16 (was 0.8, the T2 benchmark discipline). At 0.8 the
+# guide family could not be certified free of constant-policy degeneracy: its
+# best fixed answer passed 23/150 = 15.3% of held-out instances, upper95
+# 21.0%, over the 20% ceiling. At 0.85 it passes 20/150 = 13.3%, upper95
+# 18.8% -- certified. Raising the bar is the cheap half of the fix; the other
+# half (the guide's inert divergence spec) is tracked separately.
+TARGET_FRACTION = 0.85
+# Cache entries predating the `fraction` key were all written at 0.8. This
+# must NOT track TARGET_FRACTION: defaulting an old entry to whatever the
+# current bar happens to be silently mis-scales it.
+LEGACY_FRACTION = 0.8
 N_RANDOM = 30           # random valid samples before local refinement
 PATTERN_ROUNDS = 6      # full-neighbourhood pattern search around the best
 # v1 ("calibration/") verified the selected optimum at a FRESH seed while
@@ -124,15 +134,21 @@ def calibration_for(inst: dict, fexec, base: dict, workdir: str,
             json.dump(rec, f, indent=1)
     if not rec.get("ok"):
         return None
+    cached_fraction = rec.get("fraction", LEGACY_FRACTION)
     over = rec.get("classical_over_baseline")
     if over is None:  # pre-2026-09-13 cache entry
-        over = rec["target_ratio"] / rec.get("fraction", TARGET_FRACTION)
-    if fraction is None or fraction == rec.get("fraction", TARGET_FRACTION):
+        over = rec["target_ratio"] / cached_fraction
+    # resolve the default BEFORE comparing: `fraction is None` used to return
+    # the cached target_ratio verbatim, so after TARGET_FRACTION moved from
+    # 0.8 to 0.85 every cached instance would have kept grading at 0.8 while
+    # the module claimed 0.85 (2026-09-16)
+    want = TARGET_FRACTION if fraction is None else fraction
+    if want == cached_fraction:
         raw = rec["target_ratio"]
     else:
         # rounded far below the ladder's 1e-9 L4 tolerance: tidy values for
         # rescaled bars without ever flipping an exact-optimum comparison
-        raw = round(fraction * over, 12)
+        raw = round(want * over, 12)
     return {"target_ratio": max(raw, 1.0), "raw_target_ratio": raw,
             "no_headroom": raw <= 1.0, "classical_over_baseline": over,
             "classical_action": rec.get("classical_action")}

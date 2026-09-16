@@ -85,3 +85,47 @@ def test_v1_cache_directory_is_never_read(tmp_path):
     cal = calibrate.calibration_for(inst, fx, base, str(tmp_path), fraction=1.0)
     assert cal["classical_over_baseline"] < 99.0                 # recomputed, not v1
     assert (tmp_path / calibrate.CAL_DIR / "stub-2.json").is_file()
+
+
+def test_moving_the_default_bar_rescales_old_caches_instead_of_reusing_them():
+    """TARGET_FRACTION moved 0.8 -> 0.85 on 2026-09-16. Cache entries written
+    at the old bar store target_ratio = 0.8 * over; reusing that verbatim
+    would grade those instances at 0.8 while the module reported 0.85."""
+    import json
+    import os
+    import tempfile
+    from neutrongym import calibrate
+
+    class _NoRun:
+        def run(self, *a, **k):
+            raise AssertionError("rescaling must not simulate")
+
+    with tempfile.TemporaryDirectory() as d:
+        inst = {"id": "guide_divergence-heldout-000007"}
+        p = os.path.join(d, calibrate.CAL_DIR)
+        os.makedirs(p)
+        with open(os.path.join(p, inst["id"] + ".json"), "w") as f:
+            json.dump({"ok": True, "classical_over_baseline": 4.0,
+                       "target_ratio": 0.8 * 4.0, "fraction": 0.8}, f)
+        got = calibrate.calibrated_target_ratio(inst, _NoRun(), {"fom": 1.0}, d)
+        assert got == round(calibrate.TARGET_FRACTION * 4.0, 12)
+        assert got != 0.8 * 4.0
+
+
+def test_legacy_entries_are_pinned_to_0_8_not_to_the_current_bar():
+    """An entry with no `fraction` key was written at 0.8. Defaulting it to
+    TARGET_FRACTION would re-derive its optimum wrongly once the bar moves."""
+    import json
+    import os
+    import tempfile
+    from neutrongym import calibrate
+
+    assert calibrate.LEGACY_FRACTION == 0.8
+    with tempfile.TemporaryDirectory() as d:
+        inst = {"id": "guide_divergence-heldout-000008"}
+        p = os.path.join(d, calibrate.CAL_DIR)
+        os.makedirs(p)
+        with open(os.path.join(p, inst["id"] + ".json"), "w") as f:
+            json.dump({"ok": True, "target_ratio": 1.6}, f)   # no fraction key
+        cal = calibrate.calibration_for(inst, None, {"fom": 1.0}, d)
+        assert cal["classical_over_baseline"] == 2.0          # 1.6 / 0.8
