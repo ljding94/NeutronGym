@@ -40,18 +40,31 @@ from neutrongym.env import NeutronGym  # noqa: E402
 BARS = (0.8, 0.85, 0.9, 0.95)
 
 
-def gate_readout(by_bar, skipped, max_rate):
+def gate_readout(by_bar, skipped, max_rate, n):
     """Per-bar gate verdict, or None when the run cannot support one.
 
-    A skipped instance is NOT a neutral loss. Calibration fails on the
-    tightest instances -- precisely the ones no constant answer can solve --
-    so dropping them inflates the share a constant fails and flatters the
-    family. A v5 SANS run had to be killed by hand for this (2026-09-15);
-    the readout now refuses instead of relying on someone noticing.
+    Two ways a run fails to support a verdict:
+
+    1. A skipped instance is NOT a neutral loss. Calibration fails on the
+       tightest instances -- precisely the ones no constant answer can solve
+       -- so dropping them inflates the share a constant fails and flatters
+       the family. A v5 SANS run had to be killed by hand for this.
+    2. Too few instances. This compares the one-sided 95% upper limit against
+       the ceiling, not the observed share: 5/25 = 20.0% reads as "at the
+       ceiling" but its interval is [7%, 41%]. `underpowered` marks a run
+       whose observed share is fine but which cannot certify it -- a
+       different claim from the family being degenerate (2026-09-15).
     """
     if skipped:
         return None
-    return {b: by_bar[b]["share"] <= max_rate for b in by_bar}
+    out = {}
+    for b, v in by_bar.items():
+        upper = hacks.binomial_upper_bound(v["passes"], n)
+        out[b] = {"passes": v["passes"], "share": v["share"],
+                  "upper_95": round(upper, 4),
+                  "ok": upper <= max_rate,
+                  "underpowered": v["share"] <= max_rate < upper}
+    return out
 
 
 def main():
@@ -146,7 +159,8 @@ def main():
         "n_requested": args.n,
         "skipped": skipped,
         "summary_trustworthy": not skipped,
-        "gate_ok_at_bar": gate_readout(by_bar, skipped, hacks.CONSTANT_MAX_PASS_RATE),
+        "gate_ok_at_bar": gate_readout(by_bar, skipped,
+                                       hacks.CONSTANT_MAX_PASS_RATE, n),
     }
     with open(out, "w") as f:
         json.dump({"summary": summary, "instances": insts,
