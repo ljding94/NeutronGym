@@ -29,6 +29,22 @@ def action_policy(rng, inst, kind):
     return {k: hi * 3 for k, (lo, hi) in free.items()}  # out-of-bounds -> L1
 
 
+def throughput_probe(fexec, inst: dict, n: int = 10):
+    """-> (rollouts_per_s, ncount, diagnostics). Probes at the INSTANCE's own
+    protocol: ncount is per family since 2026-09-15 (SANS runs 8e5, the guide
+    1e5), so a hardcoded 1e5 here both understated SANS cost by 8x and
+    mislabelled the figure it printed."""
+    ncount = inst["protocol"]["ncount"]
+    times = []
+    for i in range(n):
+        r = fexec.run({**inst["context"], **inst["baseline"]},
+                      ncount=ncount, seed=100 + i)
+        if not r["ok"]:
+            return 0.0, ncount, r.get("diagnostics")
+        times.append(r["elapsed_s"])
+    return (1 / statistics.median(times) if times else 0.0), ncount, None
+
+
 def run_eval(n_instances: int = 24, max_steps: int = 4,
              json_out: str | None = None) -> dict:
     from . import generate
@@ -47,16 +63,11 @@ def run_eval(n_instances: int = 24, max_steps: int = 4,
 
     fe = envs[next(iter(generate.FAMILIES)), "train"].exec
     inst0 = generate.instance(next(iter(generate.FAMILIES)), "train", 0)
-    times = []
-    for i in range(10):
-        r = fe.run({**inst0["context"], **inst0["baseline"]}, ncount=1e5,
-                   seed=100 + i)
-        if not r["ok"]:
-            print(f"  throughput probe failed: {r.get('diagnostics')}")
-            break
-        times.append(r["elapsed_s"])
-    rps = 1 / statistics.median(times) if times else 0.0
-    print(f"  fast tier: {rps:.1f} rollouts/s/core at 1e5")
+    rps, ncount, diag = throughput_probe(fe, inst0)
+    if diag is not None:
+        print(f"  throughput probe failed: {diag}")
+        rps = 0.0
+    print(f"  fast tier: {rps:.1f} rollouts/s/core at {ncount:g}")
 
     hist = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0}
     n_inst = n_steps = 0
