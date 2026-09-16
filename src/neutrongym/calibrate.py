@@ -17,6 +17,7 @@ made a trained-model result meaningless, and it reuses machinery that has
 already been red-teamed (bounds-filtered ensemble; winner's-curse guard).
 """
 
+import itertools
 import json
 import os
 import random
@@ -47,6 +48,27 @@ START_STEP = 1 / 8
 MIN_STEP = 1 / 512           # search runs until the step is this small
 MAX_STEP = 1 / 4             # steps grow back after an improvement
 MAX_EVALS = 2000             # per instance, hard cap
+# Low-dimensional families also get half-step moves. SANS's two pinholes trade
+# off along a ridge that is neither axis-aligned nor 45 deg, so +/-step moves
+# stalled on it: one of 10 previously-beaten instances still ended at 0.78 of
+# the best-known answer. Adding +/-step/2 (1:2 and 2:1 directions) fixed 10/10
+# at fewer evals than 8 starts (median 577 vs 640). Not used above 2
+# parameters: 5**k moves (124 for the guide) where 3**k already reached 10/10.
+HALF_STEP_MAX_DIMS = 2
+
+
+def _search_neighbourhood(action: dict, free: dict, step: float) -> list:
+    if len(free) > HALF_STEP_MAX_DIMS:
+        return hacks._neighbourhood(action, free, step)
+    axes = []
+    for k, (lo, hi) in free.items():
+        d = (hi - lo) * step
+        axes.append(sorted({round(min(hi, max(lo, action[k] + m * d)), 6)
+                            for m in (-1, -0.5, 0.0, 0.5, 1)}))
+    me = hacks._key(action)
+    return [c for c in (dict(zip(free, combo))
+                        for combo in itertools.product(*axes))
+            if hacks._key(c) != me]
 # v1 ("calibration/") verified the selected optimum at a FRESH seed while
 # agents were scored at the protocol seed. At 1e5 rays that mismatch is
 # +/-3-10%, so an instance's own optimum passed its own 1.0x target only
@@ -111,7 +133,7 @@ def calibrate_instance(inst: dict, fexec, base: dict,
     for f, a in starts:
         step = START_STEP
         while step >= MIN_STEP and len(seen) < max_evals:
-            moves = [(fom(c), c) for c in hacks._neighbourhood(a, free, step)]
+            moves = [(fom(c), c) for c in _search_neighbourhood(a, free, step)]
             moves = [(mf, c) for mf, c in moves if mf is not None]
             top = max(moves, key=lambda t: t[0], default=None)
             if top and top[0] > f:

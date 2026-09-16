@@ -89,3 +89,18 @@ def test_eval_cap_is_respected_and_reported():
 
 def test_v2_caches_are_never_read():
     assert calibrate.CAL_DIR == "calibration_v3"
+
+
+def test_two_parameter_families_search_with_half_steps():
+    """SANS's pinholes trade off along an off-diagonal ridge; +/-step moves
+    stalled at 0.78 of the best-known answer on one real instance."""
+    free = {"x": (0.0, 1.0), "y": (0.0, 1.0)}
+    moves = calibrate._search_neighbourhood({"x": 0.5, "y": 0.5}, free, 0.2)
+    assert len(moves) == 24                      # 5**2 - 1
+    assert {"x": 0.6, "y": 0.7} in moves         # a 1:2 direction
+
+
+def test_three_parameter_families_keep_the_cheap_neighbourhood():
+    free = {"a": (0.0, 1.0), "b": (0.0, 1.0), "c": (0.0, 1.0)}
+    moves = calibrate._search_neighbourhood({"a": .5, "b": .5, "c": .5}, free, .2)
+    assert len(moves) == 26                      # 3**3 - 1, not 124

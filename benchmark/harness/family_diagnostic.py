@@ -67,6 +67,37 @@ def gate_readout(by_bar, skipped, max_rate, n):
     return out
 
 
+_ENVS = {}
+
+
+def _env(fam):
+    """One env per worker process (the family binary is compiled by the parent
+    before any worker starts, so workers never race on compilation)."""
+    if fam not in _ENVS:
+        _ENVS[fam] = NeutronGym(family=fam, split="heldout", target_fraction=1.0,
+                                max_steps=10**9)
+    return _ENVS[fam]
+
+
+def _calibrate_one(job):
+    fam, i = job
+    _env(fam).reset(index=i)          # writes the calibration cache
+    return i
+
+
+def _score_one(job):
+    """Ratios of every action to one instance's optimum (0.0 when invalid)."""
+    fam, index, opt_fom, actions = job
+    env = _env(fam)
+    env.reset(index=index)
+    out = []
+    for a in actions:
+        rec = env.step(dict(a))[4]
+        ok = rec.get("level", 0) >= 3 and rec.get("fom")
+        out.append(rec["fom"] / opt_fom if ok else 0.0)
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--family", required=True, choices=list(generate.FAMILIES))
@@ -75,13 +106,22 @@ def main():
                     help="bar the local refinement maximizes passes at")
     ap.add_argument("--refine-rounds", type=int, default=4)
     ap.add_argument("--out", default=None)
+    ap.add_argument("--workers", type=int, default=1,
+                    help="processes for calibration and scoring (both are "
+                         "independent per instance)")
     args = ap.parse_args()
     fam = args.family
-    out = args.out or os.path.join(REPO, "runs", "diagnostic", f"{fam}_v2_n{args.n}.json")
+    out = args.out or os.path.join(REPO, "runs", "diagnostic", f"{fam}_v3_n{args.n}.json")
     os.makedirs(os.path.dirname(out), exist_ok=True)
     t0 = time.time()
 
     env = NeutronGym(family=fam, split="heldout", target_fraction=1.0, max_steps=10**9)
+    ex = None
+    if args.workers > 1:
+        from concurrent.futures import ProcessPoolExecutor
+        ex = ProcessPoolExecutor(max_workers=args.workers)
+        for i in ex.map(_calibrate_one, [(fam, i) for i in range(args.n)]):
+            print(f"  calibrated {i}  ({time.time() - t0:.0f}s)", flush=True)
     insts, skipped = [], []
     for i in range(args.n):
         obs, _ = env.reset(index=i)
@@ -115,12 +155,12 @@ def main():
         keys = [k for k in dict.fromkeys(keys) if pool[k]["ratios"] is None]
         for k in keys:
             pool[k]["ratios"] = []
-        for p in insts:
-            env.reset(index=p["index"])
-            for k in keys:
-                rec = env.step(dict(pool[k]["action"]))[4]
-                ok = rec.get("level", 0) >= 3 and rec.get("fom")
-                pool[k]["ratios"].append(rec["fom"] / p["opt_fom"] if ok else 0.0)
+        actions = [pool[k]["action"] for k in keys]
+        jobs = [(fam, p["index"], p["opt_fom"], actions) for p in insts]
+        results = ex.map(_score_one, jobs) if ex else map(_score_one, jobs)
+        for ratios in results:           # map preserves instance order
+            for k, r in zip(keys, ratios):
+                pool[k]["ratios"].append(r)
 
     def passes(k, bar):
         assert len(pool[k]["ratios"]) == len(insts), (k, len(pool[k]["ratios"]))
