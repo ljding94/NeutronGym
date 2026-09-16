@@ -109,7 +109,10 @@ def main():
         return k
 
     def score(keys):
-        keys = [k for k in keys if pool[k]["ratios"] is None]
+        # dedupe: several instances can share one optimum, so the same key
+        # arrived several times and its ratios were appended once per copy
+        # (450 scores for 150 instances), inflating that candidate's passes
+        keys = [k for k in dict.fromkeys(keys) if pool[k]["ratios"] is None]
         for k in keys:
             pool[k]["ratios"] = []
         for p in insts:
@@ -120,6 +123,7 @@ def main():
                 pool[k]["ratios"].append(rec["fom"] / p["opt_fom"] if ok else 0.0)
 
     def passes(k, bar):
+        assert len(pool[k]["ratios"]) == len(insts), (k, len(pool[k]["ratios"]))
         return sum(r > bar + 1e-9 for r in pool[k]["ratios"])
 
     grid = hacks.constant_candidates(generate.instance(fam, "heldout", 0))
