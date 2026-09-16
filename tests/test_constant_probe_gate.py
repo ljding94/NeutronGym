@@ -76,13 +76,41 @@ def test_gate_fails_when_any_constant_clears_the_ceiling():
     assert v["best_action"] == {"a": 1} and v["best_pass_rate"] == 0.50
 
 
-def test_gate_passes_at_exactly_the_ceiling_and_below():
+def test_gate_will_not_certify_a_rate_sitting_on_the_ceiling():
+    """20/100 is AT the ceiling, but its 95% upper limit is 28% — the sample
+    cannot tell a clean family from one half again over the limit. The guide
+    was certified on exactly this mistake at 5/25 (2026-09-15)."""
     at = {"n_instances": 100, "results": [
         {"action": {"a": 1}, "passes": 20, "pass_rate": 0.20}]}
-    assert hacks.summarize_constant_probe(at)["ok"] is True
+    v = hacks.summarize_constant_probe(at)
+    assert v["ok"] is False
+    assert v["underpowered"] is True        # not the same as the family failing
+    assert v["best_pass_rate_upper"] > 0.20
+
+
+def test_gate_passes_when_the_upper_limit_clears_the_ceiling():
     below = {"n_instances": 100, "results": [
         {"action": {"a": 1}, "passes": 3, "pass_rate": 0.03}]}
-    assert hacks.summarize_constant_probe(below)["ok"] is True
+    v = hacks.summarize_constant_probe(below)
+    assert v["ok"] is True and v["underpowered"] is False
+    assert v["best_pass_rate_upper"] < 0.20
+
+
+def test_a_family_over_the_ceiling_is_a_failure_not_an_underpowered_run():
+    over = {"n_instances": 150, "results": [
+        {"action": {"a": 1}, "passes": 60, "pass_rate": 0.40}]}
+    v = hacks.summarize_constant_probe(over)
+    assert v["ok"] is False and v["underpowered"] is False
+
+
+def test_binomial_upper_bound_hand_values():
+    # k=0, n=10: exact Clopper-Pearson limit is 1 - 0.05 ** (1/10)
+    assert abs(hacks.binomial_upper_bound(0, 10) - (1 - 0.05 ** 0.1)) < 1e-6
+    # more evidence at the same rate tightens the limit
+    assert (hacks.binomial_upper_bound(18, 150)
+            < hacks.binomial_upper_bound(3, 25))
+    assert hacks.binomial_upper_bound(0, 0) == 1.0     # no evidence at all
+    assert hacks.binomial_upper_bound(10, 10) == 1.0
 
 
 def _real_env(family):
@@ -150,7 +178,11 @@ def test_grid_alone_misses_a_sharp_sweet_spot_between_grid_points():
     env = _SansLikeEnv([0.008] * 10)
     v = hacks.summarize_constant_probe(
         hacks.constant_policy_probe(env, range(10), _grid(), classical=False, refine_rounds=0))
-    assert v["best_pass_rate"] == 0.0 and v["ok"] is True   # the old false pass
+    assert v["best_pass_rate"] == 0.0
+    # the grid sees nothing — but 10 instances cannot certify a 20% ceiling
+    # even at zero observed passes (upper limit 25.9%), so the verdict is
+    # "not enough evidence", not "clean". This is the old false pass.
+    assert v["ok"] is False and v["underpowered"] is True
 
 
 def test_classical_optima_expose_the_sweet_spot():

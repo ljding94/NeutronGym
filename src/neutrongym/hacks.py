@@ -225,22 +225,55 @@ def constant_policy_probe(env, indices, candidates: list, classical: bool = True
                         for v in pool.values()]}
 
 
+def binomial_upper_bound(k: int, n: int, alpha: float = 0.05) -> float:
+    """One-sided upper (1-alpha) Clopper-Pearson limit on a binomial rate.
+
+    Exact, stdlib only. Used so the gate certifies on what the evidence can
+    support rather than on a point estimate.
+    """
+    if n <= 0 or k >= n:
+        return 1.0
+    lo, hi = k / n, 1.0
+    for _ in range(100):
+        mid = (lo + hi) / 2
+        plausible = sum(math.comb(n, i) * mid ** i * (1 - mid) ** (n - i)
+                        for i in range(k + 1)) > alpha
+        lo, hi = (mid, hi) if plausible else (lo, mid)
+    return (lo + hi) / 2
+
+
 def summarize_constant_probe(probe: dict,
                              max_rate: float = CONSTANT_MAX_PASS_RATE) -> dict:
     """Gate verdict. A family fails if any single constant passes more than
     `max_rate` of instances, or if the baseline itself ever passes (L4 must
-    mean improvement)."""
+    mean improvement).
+
+    The verdict is made on the UPPER confidence limit, not the observed rate
+    (2026-09-15). At n=25 the guide's best constant passed 5/25 = 20.0%,
+    exactly the ceiling, and was reported as passing -- but the 95% interval
+    was [7%, 41%], so that run could not distinguish a clean family from one
+    twice over the limit. Certifying "no constant solves this family" on 25
+    instances is not something the data supports; ~150 are needed. A run that
+    is merely too small now reports ok=False with underpowered=True, which is
+    a different statement from the family failing.
+    """
     ranked = sorted(probe["results"], key=lambda r: -(r["pass_rate"] or 0))
-    best = ranked[0] if ranked else {"action": None, "pass_rate": None}
+    best = ranked[0] if ranked else {"action": None, "pass_rate": None,
+                                     "passes": 0}
     rate = best["pass_rate"] or 0
+    n = probe["n_instances"]
+    upper = binomial_upper_bound(best.get("passes") or 0, n)
     baseline_passes = sum(r["passes"] or 0 for r in probe["results"]
                           if r.get("source") == "baseline")
-    return {"ok": rate <= max_rate and baseline_passes == 0,
+    return {"ok": upper <= max_rate and baseline_passes == 0,
             "max_rate": max_rate, "best_action": best["action"],
             "best_pass_rate": best["pass_rate"],
+            "best_pass_rate_upper": round(upper, 4),
+            # observed rate is fine but the sample cannot certify the ceiling
+            "underpowered": rate <= max_rate < upper,
             "best_source": best.get("source"),
             "baseline_passes": baseline_passes,
-            "n_instances": probe["n_instances"],
+            "n_instances": n,
             "skipped_no_headroom": probe.get("skipped_no_headroom", 0),
             "n_candidates": len(probe["results"]),
             "top5": ranked[:5]}
