@@ -384,11 +384,62 @@ def check_sans_resolution(context: dict, action: dict) -> dict:
 
 
 # name -> check(context, action) -> {"pass": bool, "detail"?: str}
-STATIC_CHECKS = {"direct_beam_on_stop": check_direct_beam_on_stop,
-                 "sans_beam_fits_sample": check_sans_beam_fits_sample,
+def sans_limits(context: dict) -> list:
+    """(name, limit, a) for every SANS beam-size specification. Each has the
+    same form: radius = r2 + (r1 + r2) * a <= limit, a = distance / L_coll."""
+    L, det = float(context["L_coll"]), float(context["det_dist"])
+    return [
+        ("beamstop", sans_stop_radius(context),
+         (SANS_COLL2_TO_SAMPLE + det - SANS_STOP_BEFORE_DETECTOR) / L),
+        ("sample", float(context["sample_wh"]) / 2, SANS_COLL2_TO_SAMPLE / L),
+        ("resolution", sans_resolution_limit(context), (SANS_COLL2_TO_SAMPLE + det) / L),
+    ]
+
+
+def sans_max_r2(context: dict, r1: float) -> float:
+    """Largest r_pin2 satisfying every SANS limit for this r_pin1."""
+    return min((lim - r1 * a) / (1 + a) for _, lim, a in sans_limits(context))
+
+
+def sans_max_r1(context: dict, r2: float) -> float:
+    """Largest r_pin1 satisfying every SANS limit for this r_pin2."""
+    return min((lim - r2 * (1 + a)) / a for _, lim, a in sans_limits(context))
+
+
+def sans_fix_hint(context: dict, action: dict) -> str:
+    """Numeric repair advice for a rejected SANS design.
+
+    Added 2026-09-16: the RAFT collection kept 2/300 episodes because the
+    untrained 8B opened with a near-maximum r_pin2 and, told only to "narrow
+    the pinholes", spent all 6 turns being rejected at L0. The specification
+    is exact geometry, so the feedback can state the exact limits. Feedback
+    text only -- grading is unchanged."""
+    lo = FAMILIES["sans_collimation"]["free_parameters"]["r_pin2"][0]
+    r1, r2 = float(action["r_pin1"]), float(action["r_pin2"])
+    m2, m1 = sans_max_r2(context, r1), sans_max_r1(context, r2)
+    if m2 < lo:
+        return (f" Hint: with r_pin1 = {r1:.4f} m no r_pin2 >= {lo} m fits; "
+                f"r_pin1 must be <= {sans_max_r1(context, lo):.4f} m.")
+    tail = (f"; or keep r_pin2 = {r2:.4f} m with r_pin1 <= {m1:.4f} m" if m1 >= lo else "")
+    return (f" Hint: across all limits, with r_pin1 = {r1:.4f} m, r_pin2 must be "
+            f"<= {m2:.4f} m{tail}.")
+
+
+def _with_sans_hint(check):
+    def wrapped(context, action):
+        res = check(context, action)
+        if not res["pass"]:
+            res = dict(res, detail=res.get("detail", "") + sans_fix_hint(context, action))
+        return res
+    wrapped.__name__ = check.__name__
+    return wrapped
+
+
+STATIC_CHECKS = {"direct_beam_on_stop": _with_sans_hint(check_direct_beam_on_stop),
+                 "sans_beam_fits_sample": _with_sans_hint(check_sans_beam_fits_sample),
                  "guide_divergence_spec": check_guide_divergence_spec,
                  "guide_beam_size_spec": check_guide_beam_size_spec,
-                 "sans_resolution": check_sans_resolution}
+                 "sans_resolution": _with_sans_hint(check_sans_resolution)}
 
 # bump when check or baseline LOGIC changes without the family dict changing,
 # so family_signature (and every calibration cache keyed on it) moves too
