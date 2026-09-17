@@ -242,6 +242,74 @@ def binomial_upper_bound(k: int, n: int, alpha: float = 0.05) -> float:
     return (lo + hi) / 2
 
 
+READOUT_LEVELS = 17   # levels for the parameter a readout rule leaves free
+
+
+def _levels(lo, hi, n=READOUT_LEVELS):
+    return [round(lo + (hi - lo) * k / (n - 1), 6) for k in range(n)]
+
+
+def readout_rules(family: str, free: dict) -> list:
+    """No-model policies that READ the instance's stated limits (2026-09-17).
+
+    The constant-policy gate probes fixed actions only. On the guide family a
+    two-line rule -- w_out and m_coat at the limits the prompt prints, fixed
+    w_in -- passed 96.3% of held-out instances, and GRPO learned exactly that
+    (18.0% -> 98.7%). A family must be checked against rules like these too.
+    -> [(label, fn(context) -> action | None)]; None = rule not applicable."""
+    from . import generate
+    rules = []
+    if family == "guide_divergence":
+        lo, hi = free["m_coat"]
+        wlo, whi = free["w_out"]
+
+        def m_lim(c):
+            return max(lo, min(hi, math.floor(generate.guide_max_m(c) * 1000) / 1000))
+
+        def w_lim(c):
+            return max(wlo, min(whi, float(c["det_wh"])))
+
+        for w_in in _levels(*free["w_in"]):
+            rules.append((f"w_out=limit m_coat=limit w_in={w_in}",
+                          lambda c, w=w_in: {"w_in": w, "w_out": w_lim(c), "m_coat": m_lim(c)}))
+    elif family == "sans_collimation":
+        rlo, rhi = free["r_pin1"]
+        for r1 in _levels(rlo, rhi):
+            def f(c, r1=r1):
+                r2 = math.floor(generate.sans_max_r2(c, r1) * 1e5) / 1e5
+                return None if r2 < rlo else {"r_pin1": r1, "r_pin2": min(rhi, r2)}
+            rules.append((f"r_pin1={r1} r_pin2=limit", f))
+        for r2 in _levels(rlo, rhi):
+            def g(c, r2=r2):
+                r1 = math.floor(generate.sans_max_r1(c, r2) * 1e5) / 1e5
+                return None if r1 < rlo else {"r_pin1": min(rhi, r1), "r_pin2": r2}
+            rules.append((f"r_pin2={r2} r_pin1=limit", g))
+    return rules
+
+
+def readout_policy_probe(env, indices, rules: list) -> dict:
+    """Score every readout rule on every instance (no model). Same result
+    shape as constant_policy_probe, so summarize_constant_probe applies."""
+    valid = []
+    for idx in indices:
+        obs, _ = env.reset(index=idx)
+        if not obs["instance"].get("no_headroom"):
+            valid.append(idx)
+    passes = {label: 0 for label, _ in rules}
+    for idx in valid:
+        obs, _ = env.reset(index=idx)
+        ctx = obs["instance"]["context"]
+        for label, fn in rules:
+            a = fn(ctx)
+            if a is not None:
+                passes[label] += env.step(a)[4].get("level") == 4
+    n = len(valid)
+    return {"n_instances": n, "skipped_no_headroom": len(list(indices)) - n,
+            "results": [{"action": label, "passes": v,
+                         "pass_rate": round(v / n, 4) if n else None,
+                         "source": "readout"} for label, v in passes.items()]}
+
+
 def summarize_constant_probe(probe: dict,
                              max_rate: float = CONSTANT_MAX_PASS_RATE) -> dict:
     """Gate verdict. A family fails if any single constant passes more than
