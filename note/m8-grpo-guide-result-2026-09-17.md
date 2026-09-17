@@ -164,3 +164,26 @@ seeds (88%, up from 84%).
 Interpretation: the gain is in iterative refinement from simulation feedback —
 the trained model reaches targets faster and on many more instances, while
 still needing measurements to get there.
+
+
+### Transfer: guide_match training helps on the guide family it never saw
+
+The 220-step `guide_match` model, evaluated unchanged on 300 held-out **guide**
+instances (0.85x calibrated bar, 10 turns):
+
+| policy on guide | passed | designs rejected before simulation |
+|---|---|---|
+| untrained Qwen3-8B | 54/300 (18.0%) | 73 |
+| **guide_match-trained 8B (transfer)** | **102/300 (34.0%)** | **20** |
+| untrained Qwen3-32B | 232/300 (77.3%) | 1 |
+| guide-trained 8B (in-family) | 296/300 (98.7%) | 0 |
+
+Paired vs untrained 8B on the same instances: 76 transfer-only passes vs 28
+untrained-only, McNemar p = 3e-6, agreement 0.65. Rejections before simulation
+fall from 73 to 20.
+
+So the RL gain is not purely family-specific: a model trained only to match
+beam targets becomes markedly better at a different task — maximising flux
+under a divergence specification — which it never trained on. It remains well
+below both the in-family trained model (98.7%) and the untrained 32B (77.3%)
+on that family.
