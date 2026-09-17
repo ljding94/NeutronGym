@@ -3,8 +3,9 @@
 *The anchor document: what this work is, what it claims, and where its edges are.
 Stable by design — it changes only when a dated decision note changes it.
 The **how/when** lives in `PLAN.md` (milestones, acceptance criteria, gates);
-day-to-day conventions live in `CLAUDE.md`. Last updated 2026-09-15 (M8 frozen;
-prior-art re-check `note/prior-art-recheck-2026-09-13.md` applied).*
+day-to-day conventions live in `CLAUDE.md`. Last updated 2026-09-17 (M8 reopened
+for step-level GRPO and a third family; `note/m8-grpo-guide-result-2026-09-17.md`
+applied; prior-art re-check `note/prior-art-recheck-2026-09-13.md` still applies).*
 
 ## Goal
 
@@ -19,9 +20,12 @@ ladder (L1 syntax → L2 runtime → L3 structural → L4 scientific) presented 
 it; **McStasAgent** (the `mcstas-mcp` server + design skill) is the reference
 baseline shipped inside it, not a standalone contribution.
 
-*Wording rule (2026-09-15):* do **not** call NeutronGym an "RL environment" in the
-headline or abstract. The pre-registered trainability result was a regression,
-and the post-hoc gain was a memorized constant action (see Claims).
+*Wording rule (revised 2026-09-17):* "RL environment" is now defensible, but only
+with the evidence attached: step-level GRPO trains Qwen3-8B from environment
+reward alone (guide_match 14.0% -> 50.0% held-out, above a one-shot physics
+formula at 31.3%; guide 18.0% -> 98.7%). Never quote the guide number without
+its readout-rule baseline (96.3%) — that family is solvable by copying the
+limits its prompt prints. SFT regressed three times (see Claims).
 
 ## The three research questions (every task must serve one)
 
@@ -32,16 +36,16 @@ and the post-hoc gain was a memorized constant action (see Claims).
    target specs, measured against classical baselines under matched compute?
    *(the trainable core — procedurally generated)*
 3. **Trainability** — does physics-verifiable reward train? *(answered
-   2026-09-15, M8 frozen: self-generated RAFT + LoRA SFT on Qwen3-8B, no GRPO.
-   The pre-registered run regressed the 8B; a post-hoc passing-turn run
-   matched the untrained 32B only by learning one constant action. Reported as
-   a methods result — see Claims.)*
+   2026-09-17: YES with step-level GRPO, NO with rejection-sampling SFT.
+   Three SFT runs regressed the 8B; GRPO on decisions drawn from the model's
+   own states — failures included — lifted it on both gated families. Reported
+   with every no-model baseline attached — see Claims.)*
 
 ## What ships
 
 | Artifact | What it is |
 |---|---|
-| **NeutronGym** (headline) | Gym-style env: reward-ladder API with level-resolved output, procedural instance generator, anti-hacking checks, fast tier at ~25 rollouts/s/core; pip-installable (Docker deferred to camera-ready — trim 2026-07-29) |
+| **NeutronGym** (headline) | Gym-style env: reward-ladder API with level-resolved output, procedural instance generator, anti-hacking checks, fast tier at ~25 rollouts/s/core; three families — two flux-maximisation (guide, SANS) and one target-matching (`guide_match`, added 2026-09-17 because maximisation families proved rule-solvable); pip-installable (Docker deferred to camera-ready — trim 2026-07-29) |
 | **McStasBench** | Tiered eval slice: T1 reproduce / T2 improve / T3 open design, with contamination controls (held-out 2024–26 instruments, memorization probes, perturbed variants) |
 | **McStasAgent** | Reference baseline: 22-tool MCP server wrapping McStasScript + the `mcstas-instrument-design` skill; run through the **NeutronGym reference loop** (minimal model-agnostic scaffold shipped in the env — the measurement instrument for all headline numbers; Claude Code is a comparison arm, decided 2026-07-30) |
 | **ICLR 2027 paper** | Eval matrix across model tiers with level-resolved failure analysis, plus the M8 trainability study reported as a methods result (pre-registered regression, its mechanism, and the red-team findings it surfaced) |
@@ -52,7 +56,20 @@ and the post-hoc gain was a memorized constant action (see Claims).
   never the unqualified "first executable scientific environment" (MDGYM et al.
   exist). Keep it narrow and dated: prior-art re-check 2026-09-13 found no
   McStas/McXtrace LLM work, but McStas developers now use AI assistance.
-- **Trainability — the pre-registered bar was NOT met, and the paper says so.**
+- **Trainability — GRPO meets the bar on a gated family; SFT never did.**
+  Step-level GRPO (decisions sampled from the model's own episodes, failures
+  included; group-normalised advantage; KL to the frozen base) on `guide_match`,
+  n=300 held-out, +/-5%, 10 turns: untrained 8B **14.0%**, untrained 32B 11.0%,
+  one-shot physics formula 31.3%, best fixed design / lookup 4.0%, **GRPO 8B
+  50.0%** (paired: 122 trained-only vs 14 untrained-only). It is iterative
+  design, not a rule: **no arm passes any instance on turn 1**, the trained
+  model solves 118/150 on turn 4+, 132 distinct passing designs, and against
+  the formula on the same instances it is trained-only 97 / formula-only 41.
+  Caveat to state: at fresh seeds 49/58 passes hold (~16% sit near the
+  tolerance edge). On the guide family GRPO reaches 98.7% from 18.0%, but a
+  no-model readout rule reaches 96.3% there, so that number demonstrates
+  reward-driven strategy discovery, not design skill.
+- **The three SFT regressions stand as the contrast, and the paper says so.**
   Bar, verbatim: 7B + training beats the 7B baseline, approaching a larger
   untrained model. Outcome (guide family, 1.0× calibrated bar, n=300 paired):
   RAFT SFT took Qwen3-8B from 40.3% to 31.3% (McNemar p=0.0013) by cloning
@@ -80,11 +97,12 @@ and the post-hoc gain was a memorized constant action (see Claims).
 - Eval matrix: subscription Claude + ~$200 OpenRouter breadth + **open-weights
   arms (Qwen3-8B / Qwen3-32B)** served from the DGX A100s — the baselines for
   both the eval matrix and the M8 study.
-- M8 trainability study in the paper — **FROZEN 2026-09-15:** self-generated
-  RAFT + LoRA SFT on Qwen3-8B, guide family only (SANS excluded while its
-  reward hole was open), pre-registered evaluation plus one pre-specified
-  post-hoc ablation. **No GRPO** (dropped 2026-09-12) and no further training
-  runs.
+- M8 trainability study in the paper — **reopened 2026-09-17** (user decision
+  after the third SFT regression): self-generated RAFT + LoRA SFT on Qwen3-8B
+  (three runs, all regressions) **plus step-level GRPO** on the guide and
+  `guide_match` families, each gated before its pass rates are read. Every
+  training number is reported beside its no-model baselines (constant, lookup,
+  readout rule, physics formula).
 - Self-contained episode outputs: every benchmark run yields a folder with the
   report, transcript, and an artifact bundle (built `.instr`, component diagram
   PNG, real-scale geometry trace) — inspectable without re-execution.
@@ -106,7 +124,11 @@ and the post-hoc gain was a memorized constant action (see Claims).
 
 Contamination controls · red-team-the-reward analysis (seven findings, incl.
 the SANS direct-beam leak and the guide family's constant-policy degeneracy) ·
-a no-model constant-policy probe for every family · T2 improvement analysis ·
+**a no-model probe suite for every family before its pass rates are read as
+capability: fixed designs, other instances' solutions (lookup), and
+prompt-readout rules, each judged on the one-sided 95% upper limit, with
+physics-model rules reported as a reference arm rather than gated** · T2
+improvement analysis ·
 the pre-registered trainability result reported as it came out (a regression),
 with the post-hoc ablation labelled post-hoc · fresh-seed re-verification of
 any selected best · env-controlled grading protocol (never agent-chosen
