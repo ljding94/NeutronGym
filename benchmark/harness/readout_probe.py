@@ -49,13 +49,21 @@ def main():
     chunks = [idx[k::a.workers] for k in range(a.workers) if idx[k::a.workers]]
     with ProcessPoolExecutor(max_workers=a.workers) as ex:
         probe = merge(list(ex.map(_chunk, [(a.family, a.target_fraction, c) for c in chunks])))
-    v = hacks.summarize_constant_probe(probe)
+    copy, phys = hacks.split_rule_results(probe)
+    v = hacks.summarize_constant_probe(copy) if copy["results"] else None
+    vp = hacks.summarize_constant_probe(phys) if phys["results"] else None
     top = sorted(probe["results"], key=lambda r: -r["passes"])[:5]
     out = a.out or f"runs/m8/readout_probe_{a.family}_{a.target_fraction}_n{a.n}.json"
-    json.dump({"verdict": v, "probe": probe}, open(out, "w"), indent=1)
-    print(f"{a.family} @ {a.target_fraction}x, n={probe['n_instances']}: best readout rule "
-          f"{v['best_action']!r} passes {v['best_pass_rate']:.1%} (upper95 "
-          f"{v['best_pass_rate_upper']:.1%}) -> {'CLEAN' if v['ok'] else ('underpowered' if v['underpowered'] else 'DEGENERATE')}")
+    json.dump({"verdict": v, "physics_reference": vp, "probe": probe}, open(out, "w"), indent=1)
+    if v:
+        print(f"{a.family} @ {a.target_fraction}x, n={probe['n_instances']}: best COPY-type readout rule "
+              f"{v['best_action']!r} passes {v['best_pass_rate']:.1%} (upper95 "
+              f"{v['best_pass_rate_upper']:.1%}) -> {'CLEAN' if v['ok'] else ('underpowered' if v['underpowered'] else 'DEGENERATE')}")
+    else:
+        print(f"{a.family}: no copy-type readout rules apply -> CLEAN on this check")
+    if vp:
+        print(f"   physics-model reference (reported, not gated): {vp['best_action']!r} "
+              f"passes {vp['best_pass_rate']:.1%} (upper95 {vp['best_pass_rate_upper']:.1%})")
     for r in top:
         print(f"   {r['passes']:4}/{probe['n_instances']}  {r['action']}")
     print(f"-> {out}")

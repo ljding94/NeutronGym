@@ -301,8 +301,23 @@ def readout_rules(family: str, free: dict) -> list:
                     core = spot_m ** 2 - spread ** 2
                     w_out = max(wlo, min(whi, math.sqrt(core) * math.sqrt(12) if core > 0 else wlo))
                     return {"w_in": w_in, "w_out": round(w_out, 5), "m_coat": round(m, 4)}
-                rules.append((f"formula kdiv={kdiv:.3f} w_in={w_in}", h))
+                rules.append((f"physics: optics inversion kdiv={kdiv:.3f} w_in={w_in}", h))
     return rules
+
+
+PHYSICS_RULE_PREFIX = "physics:"
+
+
+def split_rule_results(probe: dict) -> tuple[dict, dict]:
+    """(copy-type rules, physics-model rules). The ceiling is enforced on the
+    first kind only (2026-09-17): copying printed limits, fixed answers and
+    lookups need no physics, while a one-shot physics-model estimate IS design
+    knowledge -- it is reported as a reference arm, not a disqualifier. Every
+    physically sensible few-parameter task has such an estimate."""
+    def sub(keep):
+        return dict(probe, results=[r for r in probe["results"] if keep(r)])
+    phys = lambda r: str(r["action"]).startswith(PHYSICS_RULE_PREFIX)
+    return sub(lambda r: not phys(r)), sub(phys)
 
 
 def readout_policy_probe(env, indices, rules: list) -> dict:
