@@ -125,6 +125,10 @@ def main():
     ap.add_argument("--alpha", type=int, default=64)
     ap.add_argument("--save-every", type=int, default=30)
     ap.add_argument("--seed", type=int, default=20260916)
+    ap.add_argument("--init-adapter", default=None,
+                    help="continue from a saved LoRA adapter (e.g. adapter_step120)")
+    ap.add_argument("--start-step", type=int, default=0,
+                    help="step number of --init-adapter, so logs and saves continue from it")
     ap.add_argument("--dry-run", action="store_true",
                     help="one step with generation and scoring, no update")
     a = ap.parse_args()
@@ -137,7 +141,7 @@ def main():
     sys.path.insert(0, sys_path)
     from m8_train import token_ids
 
-    rng = random.Random(a.seed)
+    rng = random.Random(a.seed + a.start_step)
     torch.manual_seed(a.seed)
     os.makedirs(a.out, exist_ok=True)
     states = [s for s in load_states(a.states) if s["family"] == a.family]
@@ -152,9 +156,13 @@ def main():
     model = AutoModelForCausalLM.from_pretrained(a.base, dtype=torch.bfloat16).cuda()
     model.gradient_checkpointing_enable()
     model.enable_input_require_grads()
-    model = get_peft_model(model, LoraConfig(r=a.rank, lora_alpha=a.alpha,
-                                             target_modules=TARGET_MODULES,
-                                             lora_dropout=0.0, task_type="CAUSAL_LM"))
+    if a.init_adapter:
+        from peft import PeftModel
+        model = PeftModel.from_pretrained(model, a.init_adapter, is_trainable=True)
+    else:
+        model = get_peft_model(model, LoraConfig(r=a.rank, lora_alpha=a.alpha,
+                                                 target_modules=TARGET_MODULES,
+                                                 lora_dropout=0.0, task_type="CAUSAL_LM"))
     opt = torch.optim.AdamW([p for p in model.parameters() if p.requires_grad], lr=a.lr)
     log = open(os.path.join(a.out, "grpo_log.jsonl"), "a")
     print(f"states: {len(states)} for {a.family}", flush=True)
@@ -175,7 +183,7 @@ def main():
         return lp, torch.tensor(cmask, device="cuda", dtype=lp.dtype)
 
     t0 = time.time()
-    for step in range(1, a.steps + 1):
+    for step in range(a.start_step + 1, a.start_step + a.steps + 1):
         batch = rng.sample(states, a.states_per_step)
         groups = []
         model.eval()
@@ -235,7 +243,7 @@ def main():
         stats["elapsed_s"] = round(time.time() - t0, 1)
         log.write(json.dumps(stats) + "\n"); log.flush()
         print(json.dumps(stats), flush=True)
-        if step % a.save_every == 0 or step == a.steps:
+        if step % a.save_every == 0 or step == a.start_step + a.steps:
             model.save_pretrained(os.path.join(a.out, f"adapter_step{step}"))
     model.save_pretrained(os.path.join(a.out, "adapter"))
     merged = model.merge_and_unload()
