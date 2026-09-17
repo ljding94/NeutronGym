@@ -27,11 +27,14 @@ from .env import NeutronGym
 
 DIALOGUE_SYSTEM = (
     "You are optimizing a neutron instrument. Each turn, reply with ONLY a "
-    "JSON object assigning every free design parameter, e.g. "
-    '{"w_in": 0.05, "w_out": 0.03, "m_coat": 2.5}. You will receive '
-    "simulation feedback (deepest validation level reached, figure-of-merit "
-    "ratio vs baseline, constraint details). Improve on the baseline within "
-    "the given bounds.")
+    "JSON object assigning every free design parameter listed in the task, "
+    'e.g. {"param_a": 0.05, "param_b": 2.5}. You will receive simulation '
+    "feedback (deepest validation level reached, the figure of merit as a "
+    "multiple of the baseline and as a fraction of the target, constraint "
+    "details). The episode passes when the figure of merit exceeds the "
+    "target; stay within the given bounds.")
+# Until 2026-09-16 this said "figure-of-merit ratio vs baseline" and showed the
+# guide family's parameter names as the example, including to SANS agents.
 
 
 def parse_action(answer: str, free: dict) -> dict | None:
@@ -54,7 +57,17 @@ def feedback_message(obs) -> str:
     if fb["failed_at"]:
         parts.append(f"failed at {fb['failed_at']}: {fb['detail']}")
     if fb["fom_ratio"] is not None:
-        parts.append(f"FOM ratio vs baseline: {fb['fom_ratio']}")
+        # fom_ratio is fom / TARGET (reward.py), not fom / baseline. It was
+        # labelled "vs baseline" until 2026-09-16, so a design at 0.93 of a
+        # 10x-baseline target read as being below the baseline.
+        base = obs.get("baseline_fom")
+        vs_base = (f"{fb['fom'] / base:.3g}x the baseline, "
+                   if fb.get("fom") is not None and base else "")
+        parts.append(f"FOM {vs_base}{fb['fom_ratio']:.3g} of the target "
+                     f"(pass needs > 1)")
+    if fb.get("repeat_of"):
+        parts.append(f"this action is identical to your turn {fb['repeat_of']} "
+                     f"and scores the same; change the design")
     parts.append("Reply with your next JSON action.")
     return "; ".join(parts)
 

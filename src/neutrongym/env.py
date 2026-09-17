@@ -111,6 +111,10 @@ class NeutronGym:
         if self.instance is None:
             raise RuntimeError("call reset() before step()")
         rec = reward.score(self.instance, action, self.exec, self._base)
+        # an exact resubmission is flagged in the feedback: the trained SANS
+        # model (2026-09-16) resubmitted one design for 8 straight turns
+        repeat_of = next((s["step"] for s in self._episode
+                          if s.get("action") == rec.get("action")), None)
         self._steps += 1
         rec["step"] = self._steps
         self._episode.append(rec)
@@ -130,6 +134,7 @@ class NeutronGym:
                 if failed else None,
                 "fom": rec["fom"],
                 "fom_ratio": rec["levels"].get("L4", {}).get("fom_ratio"),
+                "repeat_of": repeat_of,
             },
         }
         return obs, rec["reward"], terminated, truncated, rec

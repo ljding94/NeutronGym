@@ -96,3 +96,15 @@ def test_second_family_compiles_and_steps(tmp_path):
     _, r, _, _, rec = env.step(dict(inst["baseline"]))
     assert rec["level"] >= 3, rec
     assert rec["elapsed_s"] < 5
+
+
+@pytest.mark.slow
+def test_identical_resubmission_is_flagged_in_feedback(env):
+    obs, _ = env.reset(index=2)
+    a = dict(obs["instance"]["baseline"])
+    first = env.step(a)[0]["feedback"]
+    second = env.step(dict(a))[0]["feedback"]
+    other = env.step(dict(a, w_in=round(a["w_in"] * 1.1, 6)))[0]["feedback"]
+    assert first["repeat_of"] is None
+    assert second["repeat_of"] == 1
+    assert other["repeat_of"] is None
