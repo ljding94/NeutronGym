@@ -137,5 +137,30 @@ What makes this different from the guide result:
 
 Training: 300 train instances -> 2,807 states, 120 steps x 8 states x 8
 samples, 104 min on one A100-40GB; mean reward 0.79 -> 0.88, sampled-action
-pass 1.6% -> ~12%, KL/token 0.78 at the end and still rising — the run had not
-converged, so a longer continuation is under way from `adapter_step120`.
+pass 1.6% -> ~12%, KL/token 0.78 at the end and still rising.
+
+### Continuation to 220 steps: 73.0%
+
+The 120-step run had not converged. Continuing at lr 1e-5 (steps 121-180)
+plateaued — reward ~0.85, sampled pass 6-8%, KL flat — so it was stopped and
+resumed from `adapter_step120` at lr 3e-5 with kl 0.01 for 100 steps.
+
+| policy | passed |
+|---|---|
+| untrained Qwen3-8B | 42/300 (14.0%) |
+| untrained Qwen3-32B | 33/300 (11.0%) |
+| one-shot physics formula (reference) | 94/300 (31.3%) |
+| GRPO 8B, 120 steps | 150/300 (50.0%) |
+| **GRPO 8B, 220 steps** | **219/300 (73.0%)** |
+
+Paired vs untrained 8B: 200 trained-only, 23 untrained-only (McNemar p ~ 0);
+Cochran-Armitage z = 14.58. The 220-step model is better on every axis
+measured: 211 distinct passing designs, 148/219 solved on turn 4+ (2 on turn
+1), median 5 turns per episode against 10 for every other arm (it stops early
+because it has solved the instance), trained-only 155 vs formula-only 30
+against the physics reference, and 72/82 passing designs still match at fresh
+seeds (88%, up from 84%).
+
+Interpretation: the gain is in iterative refinement from simulation feedback —
+the trained model reaches targets faster and on many more instances, while
+still needing measurements to get there.
