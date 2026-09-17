@@ -89,6 +89,8 @@ class NeutronGym:
                 # not an improvement task, so rollouts skip it
                 inst["no_headroom"] = cal["no_headroom"]
                 inst["classical_action"] = cal["classical_action"]
+                if "targets" in cal:
+                    inst["targets"] = cal["targets"]
             inst["target_calibrated"] = cal is not None
             inst["target_fraction"] = (self.target_fraction
                                        if self.target_fraction is not None
@@ -135,6 +137,7 @@ class NeutronGym:
                 "fom": rec["fom"],
                 "fom_ratio": rec["levels"].get("L4", {}).get("fom_ratio"),
                 "repeat_of": repeat_of,
+                "match": rec.get("match"),
             },
         }
         return obs, rec["reward"], terminated, truncated, rec

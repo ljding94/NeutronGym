@@ -84,6 +84,39 @@ def baseline(inst: dict, fexec) -> dict:
             "elapsed_s": out["elapsed_s"]}
 
 
+def match_measurements(inst: dict, summary: dict) -> list:
+    """Measured value of every matched observable (None if unavailable)."""
+    out = []
+    for spec in inst["fom"]["match"]:
+        mon = _monitor(summary, spec["monitor"])
+        out.append(get_observable(mon, spec["observable"]) if mon else None)
+    return out
+
+
+def _score_match(inst: dict, summary: dict, record: dict, levels: dict) -> dict:
+    """L4 for target-matching families (2026-09-17): pass when every matched
+    observable is within the tolerance of its target. fom_ratio = tolerance /
+    worst relative error, so "ratio > 1" still means pass and the reward
+    formula 0.75 + 0.25 * min(ratio, 2) is unchanged."""
+    targets = inst.get("targets")
+    tol = inst["fom"]["tolerance"]
+    measured = match_measurements(inst, summary)
+    if not targets or any(m is None for m in measured):
+        levels["L4"] = {"pass": False, "detail": "match observables unavailable"}
+        return record
+    rel = [abs(m - t) / abs(t) for m, t in zip(measured, targets)]
+    worst = max(rel)
+    ratio = min(tol / worst, 1e6) if worst > 0 else 1e6
+    record["match"] = {"measured": [round(m, 6) for m in measured],
+                       "targets": list(targets), "rel_err": [round(r, 4) for r in rel],
+                       "tolerance": tol}
+    levels["L4"] = {"pass": ratio > 1.0 + 1e-9, "fom_ratio": round(ratio, 6)}
+    record["reward"] = round(0.75 + 0.25 * max(0.0, min(ratio, 2.0)), 6)
+    if levels["L4"]["pass"]:
+        record["level"] = 4
+    return record
+
+
 def _check_l1(inst: dict, action: dict) -> dict:
     free = inst["free_parameters"]
     extra = sorted(set(action) - set(free))
@@ -199,6 +232,8 @@ def score(inst: dict, action: dict, fexec, base: dict) -> dict:
 
     fom = get_observable(fom_mon, inst["fom"]["metric"]) if fom_mon else None
     record["fom"] = fom
+    if inst["fom"].get("type") == "match":
+        return _score_match(inst, summary, record, levels)
     base_fom, tr = base.get("fom"), inst.get("target_ratio", 1.0)
     if not base_fom or fom is None:
         levels["L4"] = {"pass": False, "detail": "FOM unavailable"}

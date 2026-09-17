@@ -202,6 +202,89 @@ FAMILIES = {
     },
 }
 
+
+GUIDE_MATCH_INSTR = """\
+DEFINE INSTRUMENT fam_guide_match(double src_wh=0.10, double L_in=1.5,
+  double L_guide=10, double wl=5.0, double dwl=0.5, double d_sample=0.5,
+  double w_in=0.02, double w_out=0.02, double m_coat=2.0)
+TRACE
+COMPONENT src = Source_simple(xwidth=src_wh, yheight=src_wh, dist=L_in,
+  focus_xw=w_in, focus_yh=w_in, lambda0=wl, dlambda=dwl)
+AT (0, 0, 0) ABSOLUTE
+
+COMPONENT guide = Guide(w1=w_in, h1=w_in, w2=w_out, h2=w_out,
+  l=L_guide, m=m_coat)
+AT (0, 0, L_in) RELATIVE src
+
+COMPONENT divmon = Divergence_monitor(nh=40, nv=40, filename="divw.dat",
+  xwidth=0.3, yheight=0.3, maxdiv_h=4, maxdiv_v=4, restore_neutron=1)
+AT (0, 0, L_guide + d_sample) RELATIVE guide
+
+COMPONENT psd = PSD_monitor(nx=100, ny=100, filename="psdw.dat",
+  xwidth=0.2, yheight=0.2, restore_neutron=1)
+AT (0, 0, L_guide + d_sample + 0.001) RELATIVE guide
+END
+"""
+
+MATCH_TOLERANCE = 0.05
+# a hidden design is rejected when the baseline already lands within this
+# multiple of the tolerance of its targets: resubmitting the baseline must
+# never pass (instance 0 of the held-out split drew a design next to it)
+MATCH_BASELINE_EXCLUSION = 2.0
+MATCH_HIDDEN_CANDIDATES = 12
+
+
+def match_hidden_candidates(inst: dict, n: int = MATCH_HIDDEN_CANDIDATES) -> list:
+    """Deterministic sequence of hidden designs for one instance; calibration
+    takes the first that is runnable and not already matched by the baseline."""
+    rng = random.Random(f"hidden/{inst['id']}")
+    free = inst["free_parameters"]
+    return [dict(inst["hidden_action"])] + [
+        {k: round(rng.uniform(lo, hi), 6) for k, (lo, hi) in free.items()}
+        for _ in range(n - 1)]
+
+# Target-matching family (2026-09-17). Three maximisation designs were
+# solvable by short no-model rules (guide with limits: readout rule 96-98%;
+# guide without limits: one constant on 16/16; Bragg monochromator: Bragg angle
+# + open collimators 12/12). Matching a stated beam has a single interior
+# answer that moves with every instance. Prototype, 16 instances at +/-5%:
+# best fixed design 2/16, nearest-instance lookup 0/16, best of 12 tuned
+# geometric-optics formula rules 6/16 (spot predicted well, divergence not).
+FAMILIES["guide_match"] = {
+    "instr_name": "fam_guide_match",
+    "instr": GUIDE_MATCH_INSTR,
+    "description": ("Shape the beam delivered by a straight supermirror guide. "
+                    "Choose the guide entrance width, exit width and coating so "
+                    "that, at the sample position d_sample metres after the "
+                    "guide exit, the beam's horizontal spot size and horizontal "
+                    "divergence both match this instance's targets. Both are "
+                    "reported as the standard deviation of the distribution "
+                    "(spot in cm, divergence in degrees)."),
+    "context": {
+        "src_wh": {"train": (0.06, 0.14), "heldout": (0.06, 0.14)},
+        "L_in": {"train": (1.0, 2.0), "heldout": (1.0, 2.0)},
+        "L_guide": {"train": (6.0, 12.0), "heldout": (12.5, 16.0)},
+        "wl": {"train": (3.0, 8.0), "heldout": (3.0, 8.0)},
+        "dwl": {"train": (0.3, 1.0), "heldout": (0.3, 1.0)},
+        "d_sample": {"train": (0.1, 1.5), "heldout": (0.1, 1.5)},
+    },
+    "free_parameters": {"w_in": (0.01, 0.09), "w_out": (0.01, 0.09),
+                        "m_coat": (1.0, 3.0)},
+    "baseline": {"w_in": 0.05, "w_out": 0.03, "m_coat": 2.0},
+    # the baseline FOM is only the statistics check; grading is by "match"
+    "fom": {"monitor": "psd", "metric": "intensity", "maximize": True,
+            "type": "match", "tolerance": MATCH_TOLERANCE,
+            "match": [
+                {"monitor": "psd", "observable": "beam_width_x",
+                 "label": "spot size (horizontal std)", "unit": "cm"},
+                {"monitor": "divmon", "observable": "beam_width_x",
+                 "label": "divergence (horizontal std)", "unit": "deg"},
+            ]},
+    "constraints": [],
+    "static_checks": [],
+    "hidden_design": True,
+}
+
 # SANS sample: volume fraction 0.01 (was 0.001) and SPLIT 30 (was 10),
 # 2026-09-15. The resolution specification forces small pinholes, and at the
 # old settings the 2.5 mm baseline put only 10-100 events on the detector per
@@ -486,7 +569,7 @@ def family_signature(family: str) -> str:
     # added, so a guide-only change discarded 150 certified SANS calibrations
     # (2026-09-16). SPEC_VERSION stays global and is for logic changes that
     # the dicts cannot express.
-    payload.update({k: fam[k] for k in ("baseline_fn", "context_fn")
+    payload.update({k: fam[k] for k in ("baseline_fn", "context_fn", "hidden_design")
                     if fam.get(k)})
     payload.update(static_checks=fam.get("static_checks", []),
                    protocol=family_protocol(family), spec_version=SPEC_VERSION)
@@ -535,7 +618,7 @@ def instance(family: str, split: str, index: int) -> dict:
                for k, rr in fam["context"].items()}
     if fam.get("context_fn"):
         context = CONTEXT_FNS[fam["context_fn"]](context, rng)
-    return {
+    out = {
         "id": f"{family}-{split}-{index:06d}",
         "family": family,
         "split": split,
@@ -556,6 +639,12 @@ def instance(family: str, split: str, index: int) -> dict:
         "protocol": {**family_protocol(family),
                      "seed": 1 + rng.randrange(2**31 - 1)},
     }
+    if fam.get("hidden_design"):
+        # the design whose simulated beam defines the targets; never shown
+        # to the agent (render_prompt prints context and targets only)
+        out["hidden_action"] = {k: round(rng.uniform(lo, hi), 6)
+                                for k, (lo, hi) in fam["free_parameters"].items()}
+    return out
 
 
 def render_prompt(inst: dict, baseline_obs: dict | None = None) -> str:
@@ -578,6 +667,15 @@ def render_prompt(inst: dict, baseline_obs: dict | None = None) -> str:
               f"({'maximize' if f['maximize'] else 'minimize'})."]
     base_fom = (baseline_obs or {}).get("fom")
     tr = inst.get("target_ratio", 1.0)
+    if f.get("type") == "match":
+        lines = lines[:-1]            # replace the generic figure-of-merit line
+        tol = 100 * f["tolerance"]
+        lines += ["TARGETS for this instance (the episode passes when EVERY "
+                  f"quantity is within +/-{tol:g}% of its target):"]
+        for spec, t in zip(f["match"], inst.get("targets") or [None] * len(f["match"])):
+            val = f"{t:.4g} {spec['unit']}" if t is not None else "(set at reset)"
+            lines += [f"  {spec['label']} on monitor '{spec['monitor']}': {val}"]
+        base_fom = None
     if base_fom:
         lines += [f"Baseline FOM at the evaluation protocol: {base_fom:.6g}"]
         if inst.get("target_calibrated"):
@@ -594,11 +692,12 @@ def render_prompt(inst: dict, baseline_obs: dict | None = None) -> str:
                       f"beating the baseline alone is NOT sufficient."]
         else:
             lines += ["Target: beat the baseline configuration."]
-    lines += ["", "Constraints (checked against the baseline's pattern — "
-              "stay within band):"]
-    lines += [f"  {c['monitor']}.{c['observable']} within "
-              f"[{c['band'][0]}x, {c['band'][1]}x] of baseline"
-              for c in inst["constraints"]]
+    if inst["constraints"]:
+        lines += ["", "Constraints (checked against the baseline's pattern — "
+                  "stay within band):"]
+        lines += [f"  {c['monitor']}.{c['observable']} within "
+                  f"[{c['band'][0]}x, {c['band'][1]}x] of baseline"
+                  for c in inst["constraints"]]
     spec = spec_lines(inst) if "family" in inst else []
     if spec:
         lines += ["", "Specification for this instance (checked before any "

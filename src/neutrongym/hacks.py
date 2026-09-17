@@ -271,19 +271,37 @@ def readout_rules(family: str, free: dict) -> list:
 
         for w_in in _levels(*free["w_in"]):
             rules.append((f"w_out=limit m_coat=limit w_in={w_in}",
-                          lambda c, w=w_in: {"w_in": w, "w_out": w_lim(c), "m_coat": m_lim(c)}))
+                          lambda c, inst=None, w=w_in: {"w_in": w, "w_out": w_lim(c), "m_coat": m_lim(c)}))
     elif family == "sans_collimation":
         rlo, rhi = free["r_pin1"]
         for r1 in _levels(rlo, rhi):
-            def f(c, r1=r1):
+            def f(c, inst=None, r1=r1):
                 r2 = math.floor(generate.sans_max_r2(c, r1) * 1e5) / 1e5
                 return None if r2 < rlo else {"r_pin1": r1, "r_pin2": min(rhi, r2)}
             rules.append((f"r_pin1={r1} r_pin2=limit", f))
         for r2 in _levels(rlo, rhi):
-            def g(c, r2=r2):
+            def g(c, inst=None, r2=r2):
                 r1 = math.floor(generate.sans_max_r1(c, r2) * 1e5) / 1e5
                 return None if r1 < rlo else {"r_pin1": min(rhi, r1), "r_pin2": r2}
             rules.append((f"r_pin2={r2} r_pin1=limit", g))
+    elif family == "guide_match":
+        # geometric-optics inversions of the stated targets (prototype best:
+        # 6/16 at +/-5%): divergence std ~ kdiv * 0.099 * m * wl  ->  m_coat;
+        # spot std^2 ~ (w_out / sqrt(12))^2 + (d_sample * divergence)^2  ->  w_out
+        lo, hi = free["m_coat"]
+        wlo, whi = free["w_out"]
+        for kdiv in (1 / math.sqrt(3), 0.5, 0.45, 0.4):
+            for w_in in _levels(*free["w_in"], n=9):
+                def h(c, inst=None, kdiv=kdiv, w_in=w_in):
+                    if not inst or not inst.get("targets"):
+                        return None
+                    spot_m, div_deg = inst["targets"][0] / 100.0, inst["targets"][1]
+                    m = max(lo, min(hi, div_deg / (kdiv * 0.099 * float(c["wl"]))))
+                    spread = float(c["d_sample"]) * math.tan(math.radians(div_deg))
+                    core = spot_m ** 2 - spread ** 2
+                    w_out = max(wlo, min(whi, math.sqrt(core) * math.sqrt(12) if core > 0 else wlo))
+                    return {"w_in": w_in, "w_out": round(w_out, 5), "m_coat": round(m, 4)}
+                rules.append((f"formula kdiv={kdiv:.3f} w_in={w_in}", h))
     return rules
 
 
@@ -300,7 +318,7 @@ def readout_policy_probe(env, indices, rules: list) -> dict:
         obs, _ = env.reset(index=idx)
         ctx = obs["instance"]["context"]
         for label, fn in rules:
-            a = fn(ctx)
+            a = fn(ctx, obs["instance"])
             if a is not None:
                 passes[label] += env.step(a)[4].get("level") == 4
     n = len(valid)

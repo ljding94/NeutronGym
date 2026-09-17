@@ -59,9 +59,9 @@ class _Env:
 
 
 def test_probe_counts_passes_per_rule_and_feeds_the_gate_summary():
-    rules = [("w_in=0.06", lambda c: {"w_in": 0.06, "w_out": c["det_wh"], "m_coat": 1.0}),
-             ("w_in=0.05", lambda c: {"w_in": 0.05, "w_out": c["det_wh"], "m_coat": 1.0}),
-             ("n/a", lambda c: None)]
+    rules = [("w_in=0.06", lambda c, inst=None: {"w_in": 0.06, "w_out": c["det_wh"], "m_coat": 1.0}),
+             ("w_in=0.05", lambda c, inst=None: {"w_in": 0.05, "w_out": c["det_wh"], "m_coat": 1.0}),
+             ("n/a", lambda c, inst=None: None)]
     probe = hacks.readout_policy_probe(_Env(), range(150), rules)
     by = {r["action"]: r["passes"] for r in probe["results"]}
     assert by == {"w_in=0.06": 150, "w_in=0.05": 0, "n/a": 0}

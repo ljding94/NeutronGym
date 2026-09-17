@@ -76,7 +76,7 @@ def _search_neighbourhood(action: dict, free: dict, step: float) -> list:
 # instances (2026-09-15). v2 scores every candidate exactly as an agent is
 # scored (reward.score, protocol seed: common random numbers), so target and
 # agent are compared noise-free, and caches from v1 are never read.
-CAL_DIR = "calibration_v3"
+CAL_DIR = "calibration_v3"   # match families write version "match2" records here
 
 
 def _valid_fom(inst: dict, action: dict, fexec, base: dict):
@@ -168,6 +168,44 @@ def cache_path(workdir: str, inst: dict) -> str:
     return os.path.join(*parts)
 
 
+def calibrate_match(inst: dict, fexec) -> dict:
+    """Targets for a matching family: the hidden design's simulated
+    observables at the protocol seed (so the hidden design scores an exact
+    match and every instance is achievable). Fails if a monitor is starved."""
+    from . import generate as _generate
+    from . import reward as _reward
+    proto = inst["protocol"]
+    floor = proto.get("statistics_floor", 0)
+    tol = inst["fom"]["tolerance"]
+
+    def measure(action):
+        out = fexec.run({**inst["context"], **action},
+                        ncount=proto["ncount"], seed=proto["seed"])
+        if not out.get("ok"):
+            return None
+        for spec in inst["fom"]["match"]:
+            mon = _reward._monitor(out["summary"], spec["monitor"])
+            if not mon or (mon.get("events") or 0) < floor:
+                return None
+        return _reward.match_measurements(inst, out["summary"])
+
+    base = measure(inst["baseline"])
+    rejected = []
+    for k, cand in enumerate(_generate.match_hidden_candidates(inst)):
+        targets = measure(cand)
+        if targets is None or any(t is None or t <= 0 for t in targets):
+            rejected.append((k, "unrunnable or starved"))
+            continue
+        if base is not None and all(abs(b - t) / t <= _generate.MATCH_BASELINE_EXCLUSION * tol
+                                    for b, t in zip(base, targets)):
+            rejected.append((k, "baseline already matches"))
+            continue
+        return {"ok": True, "version": "match2", "targets": [round(t, 6) for t in targets],
+                "hidden_action": dict(cand), "candidate": k, "rejected": rejected}
+    return {"ok": False, "version": "match2", "reason": "no usable hidden design",
+            "rejected": rejected}
+
+
 def calibration_for(inst: dict, fexec, base: dict, workdir: str,
                     fraction: float | None = None) -> dict | None:
     """Cached calibration for one instance at one bar, or None if the
@@ -184,16 +222,24 @@ def calibration_for(inst: dict, fexec, base: dict, workdir: str,
     different fraction is a pure rescale of the cached optimum.
     """
     p = cache_path(workdir, inst)
+    matching = (inst.get("fom") or {}).get("type") == "match"
     if os.path.isfile(p):
         with open(p) as f:
             rec = json.load(f)
     else:
-        rec = calibrate_instance(inst, fexec, base)
+        rec = calibrate_match(inst, fexec) if matching else calibrate_instance(inst, fexec, base)
         os.makedirs(os.path.dirname(p), exist_ok=True)
         with open(p, "w") as f:
             json.dump(rec, f, indent=1)
     if not rec.get("ok"):
         return None
+    if matching:
+        inst["hidden_action"] = rec["hidden_action"]
+        # classical_action = the hidden design: the constant probe then tries
+        # every probed instance's own solution on all others (a lookup check)
+        return {"target_ratio": 1.0, "raw_target_ratio": 1.0, "no_headroom": False,
+                "classical_over_baseline": None, "targets": rec["targets"],
+                "classical_action": rec["hidden_action"]}
     cached_fraction = rec.get("fraction", LEGACY_FRACTION)
     over = rec.get("classical_over_baseline")
     if over is None:  # pre-2026-09-13 cache entry

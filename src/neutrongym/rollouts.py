@@ -29,10 +29,10 @@ DIALOGUE_SYSTEM = (
     "You are optimizing a neutron instrument. Each turn, reply with ONLY a "
     "JSON object assigning every free design parameter listed in the task, "
     'e.g. {"param_a": 0.05, "param_b": 2.5}. You will receive simulation '
-    "feedback (deepest validation level reached, the figure of merit as a "
-    "multiple of the baseline and as a fraction of the target, constraint "
-    "details). The episode passes when the figure of merit exceeds the "
-    "target; stay within the given bounds.")
+    "feedback (deepest validation level reached, how the simulated result "
+    "compares with this task's target, constraint details). The episode "
+    "passes when the task's stated target is met; stay within the given "
+    "bounds.")
 # Until 2026-09-16 this said "figure-of-merit ratio vs baseline" and showed the
 # guide family's parameter names as the example, including to SANS agents.
 
@@ -56,7 +56,15 @@ def feedback_message(obs) -> str:
     parts = [f"deepest level reached: L{fb['level']}"]
     if fb["failed_at"]:
         parts.append(f"failed at {fb['failed_at']}: {fb['detail']}")
-    if fb["fom_ratio"] is not None:
+    if fb.get("match"):
+        mt = fb["match"]
+        obs_parts = [f"{spec['label']} {m:.4g} {spec['unit']} (target {t:.4g}, "
+                     f"{100 * (m - t) / t:+.1f}%)"
+                     for spec, m, t in zip(obs["instance"]["fom"]["match"],
+                                           mt["measured"], mt["targets"])]
+        parts.append("measured " + "; ".join(obs_parts)
+                     + f"; pass needs every quantity within +/-{100 * mt['tolerance']:g}%")
+    elif fb["fom_ratio"] is not None:
         # fom_ratio is fom / TARGET (reward.py), not fom / baseline. It was
         # labelled "vs baseline" until 2026-09-16, so a design at 0.93 of a
         # 10x-baseline target read as being below the baseline.
