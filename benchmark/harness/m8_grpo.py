@@ -111,6 +111,7 @@ def main():
     ap.add_argument("--base", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--family", required=True)
+    ap.add_argument("--split", default="train")
     ap.add_argument("--reward-url", default="http://127.0.0.1:8199/score")
     ap.add_argument("--steps", type=int, default=120)
     ap.add_argument("--states-per-step", type=int, default=8)
@@ -193,7 +194,7 @@ def main():
             texts = [tok.decode(c, skip_special_tokens=True) for c in comps]
             groups.append({"state": st, "prompt": p_ids, "comps": comps, "texts": texts})
         items = [{"index": g["state"]["index"], "completion": t} for g in groups for t in g["texts"]]
-        results = post_json(a.reward_url, {"family": a.family, "split": "train", "items": items})["results"]
+        results = post_json(a.reward_url, {"family": a.family, "split": a.split, "items": items})["results"]
         k = 0
         for g in groups:
             g["results"] = results[k:k + len(g["texts"])]; k += len(g["texts"])
