@@ -1,0 +1,26 @@
+== 1. wait for guide train targets 0-299 12:47:01 ==
+== 2. collect all untrained-8B episodes, train 0-299 12:47:01 ==
+  275/300 episodes, 2594 states, 30 passed, 0 errored (299s)
+  300/300 episodes, 2807 states, 38 passed, 0 errored (325s)
+{"episodes": 300, "states": 2807, "passed": 38, "errored": 0, "resumed_from": 0, "wall_s": 325}
+== 3. reward server + GRPO on GPU 7 12:52:27 ==
+{"step": 118, "reward_mean": 0.877, "pass_frac": 0.125, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.77973, "pg": -0.00123, "elapsed_s": 6118.5}
+{"step": 119, "reward_mean": 0.8399, "pass_frac": 0.0625, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.73486, "pg": -0.00589, "elapsed_s": 6172.3}
+{"step": 120, "reward_mean": 0.8139, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.72624, "pg": -0.00686, "elapsed_s": 6232.7}
+== 4. serve on GPU 7 :8139 14:37:38 ==
+== 5. wait for baseline arms, then evaluate trained arm 14:40:39 ==
+  trained-8b     TOTAL              pass=0.5 mean_level=3.5 levels={'0': 0, '1': 0, '2': 0, '3': 150, '4': 150}
+-> runs/m8/eval_match05grpo_arm_trained-8b.json
+untrained-8b rows 300 errored 0
+untrained-32b rows 300 errored 0
+trained-8b rows 300 errored 0
+  untrained-32b  REUSED             pass=0.11 mean_level=3.11 (from runs/m8/eval_match05grpo_arms_combined.json)
+
+=== VERDICT (trained vs untrained 8B) ===
+  pass gain +0.360  (claim needs >= +0.10 or beating 32B at 0.11)
+  level migration: Cochran-Armitage z=9.4519 p=0.0
+  paired McNemar p=0.0 (untrained-only 14, trained-only 122)
+  fraction of 8B->32B gap closed: None
+  CLAIM BAR MET
+-> runs/m8/eval_match05grpo_n300.json
+MATCH_GRPO_DONE OK 15:08:29

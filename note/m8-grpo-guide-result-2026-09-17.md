@@ -95,3 +95,47 @@ its minimum). GRPO trains on decisions from all states, failures included.
 - `runs/m8/readout_probe_{guide_divergence,sans_collimation}_0.85_n150.json` (+ 0.9, 0.95 on the DGX)
 - `runs/m8/grpo_verify/` — verification, rule-policy and limit-free prototype scripts
 - Checkpoint: `/netdisk/ldq/ckpt/m8-guide085grpo/merged` (served as `qwen3-8b-m8-guide085grpo` on DGX :8139)
+
+## Addendum: guide_match — GRPO learns iterative design (2026-09-17)
+
+The guide family above is solvable by a readout rule, so a second family was
+built specifically to resist that: `guide_match`. Each instance states a
+target spot size and divergence at the sample, taken from the simulated beam
+of a hidden per-instance design; a pass needs both within +/-5%.
+
+Gate (held-out n=150): fixed designs, the baseline, every other instance's
+hidden design (lookup) and a refinement round — **best 4.0% (upper95 7.7%),
+baseline 0 -> clean**. A one-shot geometric-optics inversion passes 31.3%; it
+is reported as a reference arm rather than gated, since every physically
+sensible few-parameter task admits such an estimate.
+
+Held-out n=300, +/-5%, 10 turns, 0 errored episodes:
+
+| policy | passed |
+|---|---|
+| untrained Qwen3-8B | 42/300 (14.0%) |
+| untrained Qwen3-32B | 33/300 (11.0%) |
+| one-shot physics formula (reference) | 94/300 (31.3%) |
+| best fixed design / lookup (n=150) | 4.0% |
+| **GRPO-trained Qwen3-8B (120 steps)** | **150/300 (50.0%)** |
+
+Paired vs untrained 8B: 122 trained-only, 14 untrained-only (McNemar p ~ 0);
+Cochran-Armitage z = 9.45.
+
+What makes this different from the guide result:
+
+- **No policy solves an instance on the first turn** (0/300 for every arm), so
+  passes require measuring and adjusting. The trained model solves 118 of its
+  150 on turn 4 or later.
+- **It is not the physics formula:** on the same instances, trained-only 97,
+  formula-only 41, both 53.
+- **It is instance-specific:** 132 distinct passing designs out of 150.
+- **Scale does not substitute:** the untrained 32B (11.0%) is no better than
+  the untrained 8B (14.0%).
+- Caveat: re-simulated at fresh seeds, 49/58 passing designs still match, so
+  ~16% sit close enough to the tolerance edge to flip.
+
+Training: 300 train instances -> 2,807 states, 120 steps x 8 states x 8
+samples, 104 min on one A100-40GB; mean reward 0.79 -> 0.88, sampled-action
+pass 1.6% -> ~12%, KL/token 0.78 at the end and still rising — the run had not
+converged, so a longer continuation is under way from `adapter_step120`.
