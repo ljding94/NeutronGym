@@ -13,7 +13,7 @@ CKPT=/netdisk/ldq/ckpt/m8-$TAG
 NAME=qwen3-8b-m8-$TAG
 export NEUTRONGYM_VLLM_URL_8B=http://localhost:8137/v1 NEUTRONGYM_VLLM_URL_32B=http://localhost:8138/v1 NEUTRONGYM_VLLM_URL_TRAINED=http://localhost:8139/v1
 done_() { echo "MATCH_RESUME_DONE $1 $(date +%T)"; exit "${2:-0}"; }
-[ -d $PREV/adapter_step120 ] || done_ NO_STEP120_ADAPTER 1
+[ -d $PREV/adapter ] || done_ NO_PREV_ADAPTER 1
 [ -e $CKPT ] && done_ CKPT_EXISTS 1
 
 echo "== 1. free GPU 7 (stop the 120-step model server) $(date +%T) =="
