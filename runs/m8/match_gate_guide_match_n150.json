@@ -1,0 +1,3083 @@
+{
+ "verdict": {
+  "ok": true,
+  "max_rate": 0.2,
+  "best_action": {
+   "w_in": 0.038175,
+   "w_out": 0.019088,
+   "m_coat": 2.896475
+  },
+  "best_pass_rate": 0.04,
+  "best_pass_rate_upper": 0.0774,
+  "underpowered": false,
+  "best_source": "hidden-of-other-instance",
+  "baseline_passes": 0,
+  "n_instances": 150,
+  "skipped_no_headroom": 0,
+  "n_candidates": 301,
+  "top5": [
+   {
+    "action": {
+     "w_in": 0.038175,
+     "w_out": 0.019088,
+     "m_coat": 2.896475
+    },
+    "passes": 6,
+    "pass_rate": 0.04,
+    "source": "hidden-of-other-instance"
+   },
+   {
+    "action": {
+     "w_in": 0.043175,
+     "w_out": 0.019088,
+     "m_coat": 2.771475
+    },
+    "passes": 6,
+    "pass_rate": 0.04,
+    "source": "refined"
+   },
+   {
+    "action": {
+     "w_in": 0.065387,
+     "w_out": 0.028632,
+     "m_coat": 2.473749
+    },
+    "passes": 5,
+    "pass_rate": 0.0333,
+    "source": "hidden-of-other-instance"
+   },
+   {
+    "action": {
+     "w_in": 0.047939,
+     "w_out": 0.017789,
+     "m_coat": 2.681456
+    },
+    "passes": 5,
+    "pass_rate": 0.0333,
+    "source": "hidden-of-other-instance"
+   },
+   {
+    "action": {
+     "w_in": 0.043708,
+     "w_out": 0.019178,
+     "m_coat": 2.865984
+    },
+    "passes": 5,
+    "pass_rate": 0.0333,
+    "source": "hidden-of-other-instance"
+   }
+  ]
+ },
+ "pool": [
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.03,
+    "m_coat": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "baseline"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.01,
+    "m_coat": 1.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.01,
+    "m_coat": 1.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.01,
+    "m_coat": 2.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.01,
+    "m_coat": 2.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.01,
+    "m_coat": 3.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.03,
+    "m_coat": 1.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.03,
+    "m_coat": 1.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.03,
+    "m_coat": 2.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.03,
+    "m_coat": 2.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.03,
+    "m_coat": 3.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.05,
+    "m_coat": 1.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.05,
+    "m_coat": 1.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.05,
+    "m_coat": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.05,
+    "m_coat": 2.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.05,
+    "m_coat": 3.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.07,
+    "m_coat": 1.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.07,
+    "m_coat": 1.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.07,
+    "m_coat": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.07,
+    "m_coat": 2.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.07,
+    "m_coat": 3.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.09,
+    "m_coat": 1.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.09,
+    "m_coat": 1.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.09,
+    "m_coat": 2.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.09,
+    "m_coat": 2.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.01,
+    "w_out": 0.09,
+    "m_coat": 3.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.01,
+    "m_coat": 1.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.01,
+    "m_coat": 1.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.01,
+    "m_coat": 2.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.01,
+    "m_coat": 2.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.01,
+    "m_coat": 3.0
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.03,
+    "m_coat": 1.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.03,
+    "m_coat": 1.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.03,
+    "m_coat": 2.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.03,
+    "m_coat": 2.5
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.03,
+    "m_coat": 3.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.05,
+    "m_coat": 1.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.05,
+    "m_coat": 1.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.05,
+    "m_coat": 2.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.05,
+    "m_coat": 2.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.05,
+    "m_coat": 3.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.07,
+    "m_coat": 1.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.07,
+    "m_coat": 1.5
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.07,
+    "m_coat": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.07,
+    "m_coat": 2.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.07,
+    "m_coat": 3.0
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.09,
+    "m_coat": 1.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.09,
+    "m_coat": 1.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.09,
+    "m_coat": 2.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.09,
+    "m_coat": 2.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.03,
+    "w_out": 0.09,
+    "m_coat": 3.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.01,
+    "m_coat": 1.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.01,
+    "m_coat": 1.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.01,
+    "m_coat": 2.0
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.01,
+    "m_coat": 2.5
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.01,
+    "m_coat": 3.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.03,
+    "m_coat": 1.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.03,
+    "m_coat": 1.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.03,
+    "m_coat": 2.5
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.03,
+    "m_coat": 3.0
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.05,
+    "m_coat": 1.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.05,
+    "m_coat": 1.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.05,
+    "m_coat": 2.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.05,
+    "m_coat": 2.5
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.05,
+    "m_coat": 3.0
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.07,
+    "m_coat": 1.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.07,
+    "m_coat": 1.5
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.07,
+    "m_coat": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.07,
+    "m_coat": 2.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.07,
+    "m_coat": 3.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.09,
+    "m_coat": 1.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.09,
+    "m_coat": 1.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.09,
+    "m_coat": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.09,
+    "m_coat": 2.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.05,
+    "w_out": 0.09,
+    "m_coat": 3.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.01,
+    "m_coat": 1.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.01,
+    "m_coat": 1.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.01,
+    "m_coat": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.01,
+    "m_coat": 2.5
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.01,
+    "m_coat": 3.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.03,
+    "m_coat": 1.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.03,
+    "m_coat": 1.5
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.03,
+    "m_coat": 2.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.03,
+    "m_coat": 2.5
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.03,
+    "m_coat": 3.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.05,
+    "m_coat": 1.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.05,
+    "m_coat": 1.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.05,
+    "m_coat": 2.0
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.05,
+    "m_coat": 2.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.05,
+    "m_coat": 3.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.07,
+    "m_coat": 1.0
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.07,
+    "m_coat": 1.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.07,
+    "m_coat": 2.0
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.07,
+    "m_coat": 2.5
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.07,
+    "m_coat": 3.0
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.09,
+    "m_coat": 1.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.09,
+    "m_coat": 1.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.09,
+    "m_coat": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.09,
+    "m_coat": 2.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.07,
+    "w_out": 0.09,
+    "m_coat": 3.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.01,
+    "m_coat": 1.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.01,
+    "m_coat": 1.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.01,
+    "m_coat": 2.0
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.01,
+    "m_coat": 2.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.01,
+    "m_coat": 3.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.03,
+    "m_coat": 1.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.03,
+    "m_coat": 1.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.03,
+    "m_coat": 2.0
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.03,
+    "m_coat": 2.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.03,
+    "m_coat": 3.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.05,
+    "m_coat": 1.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.05,
+    "m_coat": 1.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.05,
+    "m_coat": 2.0
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.05,
+    "m_coat": 2.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.05,
+    "m_coat": 3.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.07,
+    "m_coat": 1.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.07,
+    "m_coat": 1.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.07,
+    "m_coat": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.07,
+    "m_coat": 2.5
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.07,
+    "m_coat": 3.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.09,
+    "m_coat": 1.0
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.09,
+    "m_coat": 1.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.09,
+    "m_coat": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.09,
+    "m_coat": 2.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.09,
+    "w_out": 0.09,
+    "m_coat": 3.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "w_in": 0.058217,
+    "w_out": 0.060466,
+    "m_coat": 2.114279
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.088601,
+    "w_out": 0.071606,
+    "m_coat": 2.484353
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.030677,
+    "w_out": 0.010377,
+    "m_coat": 2.885962
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.047923,
+    "w_out": 0.049059,
+    "m_coat": 1.398317
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.039379,
+    "w_out": 0.08255,
+    "m_coat": 2.86403
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.044717,
+    "w_out": 0.017901,
+    "m_coat": 1.070412
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.072942,
+    "w_out": 0.069452,
+    "m_coat": 1.412624
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.070012,
+    "w_out": 0.025934,
+    "m_coat": 2.237256
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.016201,
+    "w_out": 0.076319,
+    "m_coat": 2.793046
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.075183,
+    "w_out": 0.062731,
+    "m_coat": 2.344658
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.027199,
+    "w_out": 0.064578,
+    "m_coat": 1.407502
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.026462,
+    "w_out": 0.073704,
+    "m_coat": 1.83581
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.015256,
+    "w_out": 0.035934,
+    "m_coat": 2.132605
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.083691,
+    "w_out": 0.013937,
+    "m_coat": 1.53443
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.013142,
+    "w_out": 0.056818,
+    "m_coat": 1.545993
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.020251,
+    "w_out": 0.05011,
+    "m_coat": 1.000808
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.048114,
+    "w_out": 0.054481,
+    "m_coat": 2.915421
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.077694,
+    "w_out": 0.055937,
+    "m_coat": 1.521276
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.033923,
+    "w_out": 0.011424,
+    "m_coat": 1.981057
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.038557,
+    "w_out": 0.070749,
+    "m_coat": 2.488093
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.081276,
+    "w_out": 0.06557,
+    "m_coat": 2.848621
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.013423,
+    "w_out": 0.075568,
+    "m_coat": 1.087425
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.046713,
+    "w_out": 0.034983,
+    "m_coat": 2.362366
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.020564,
+    "w_out": 0.055682,
+    "m_coat": 2.597836
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.065387,
+    "w_out": 0.028632,
+    "m_coat": 2.473749
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.076962,
+    "w_out": 0.036435,
+    "m_coat": 2.468616
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.075281,
+    "w_out": 0.053107,
+    "m_coat": 1.685158
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.042716,
+    "w_out": 0.072462,
+    "m_coat": 1.718432
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.086776,
+    "w_out": 0.067164,
+    "m_coat": 1.499666
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.035069,
+    "w_out": 0.067581,
+    "m_coat": 1.789072
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.051698,
+    "w_out": 0.035541,
+    "m_coat": 1.21898
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.010252,
+    "w_out": 0.031217,
+    "m_coat": 2.10289
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.037578,
+    "w_out": 0.089234,
+    "m_coat": 2.675476
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.050621,
+    "w_out": 0.023855,
+    "m_coat": 1.269899
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.046381,
+    "w_out": 0.074756,
+    "m_coat": 2.740083
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.073506,
+    "w_out": 0.062998,
+    "m_coat": 1.528685
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.020487,
+    "w_out": 0.02714,
+    "m_coat": 2.570782
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.037053,
+    "w_out": 0.038952,
+    "m_coat": 1.983119
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.0545,
+    "w_out": 0.086471,
+    "m_coat": 2.125965
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.067111,
+    "w_out": 0.028184,
+    "m_coat": 2.163184
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.047939,
+    "w_out": 0.017789,
+    "m_coat": 2.681456
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.032935,
+    "w_out": 0.019282,
+    "m_coat": 2.135147
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.063845,
+    "w_out": 0.047285,
+    "m_coat": 1.900306
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.083471,
+    "w_out": 0.071458,
+    "m_coat": 2.359412
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.048811,
+    "w_out": 0.084868,
+    "m_coat": 1.361854
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.035376,
+    "w_out": 0.03613,
+    "m_coat": 2.656203
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.070878,
+    "w_out": 0.058818,
+    "m_coat": 2.881687
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.038379,
+    "w_out": 0.028698,
+    "m_coat": 2.600371
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.031326,
+    "w_out": 0.073028,
+    "m_coat": 2.847786
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.059005,
+    "w_out": 0.034817,
+    "m_coat": 1.64232
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.032853,
+    "w_out": 0.066536,
+    "m_coat": 1.787761
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.021486,
+    "w_out": 0.010557,
+    "m_coat": 1.34226
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.076652,
+    "w_out": 0.01708,
+    "m_coat": 2.646514
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.034333,
+    "w_out": 0.070397,
+    "m_coat": 1.360582
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.021925,
+    "w_out": 0.061292,
+    "m_coat": 2.925983
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.07522,
+    "w_out": 0.012749,
+    "m_coat": 1.906315
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.086225,
+    "w_out": 0.028493,
+    "m_coat": 2.974847
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.013901,
+    "w_out": 0.033102,
+    "m_coat": 1.942991
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.05992,
+    "w_out": 0.014196,
+    "m_coat": 1.121877
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.077973,
+    "w_out": 0.071947,
+    "m_coat": 2.708822
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.029508,
+    "w_out": 0.023301,
+    "m_coat": 2.112943
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.072771,
+    "w_out": 0.055735,
+    "m_coat": 2.008241
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.043921,
+    "w_out": 0.015331,
+    "m_coat": 2.048521
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.075544,
+    "w_out": 0.05097,
+    "m_coat": 2.028715
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.017869,
+    "w_out": 0.04352,
+    "m_coat": 1.677152
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.031997,
+    "w_out": 0.062136,
+    "m_coat": 2.006839
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.024974,
+    "w_out": 0.061227,
+    "m_coat": 2.549811
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.063752,
+    "w_out": 0.051097,
+    "m_coat": 2.812677
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.067801,
+    "w_out": 0.043335,
+    "m_coat": 1.309099
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.088181,
+    "w_out": 0.047688,
+    "m_coat": 2.905734
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.043609,
+    "w_out": 0.081712,
+    "m_coat": 1.8776
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.039611,
+    "w_out": 0.056113,
+    "m_coat": 2.377341
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.031681,
+    "w_out": 0.040214,
+    "m_coat": 1.740825
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.021714,
+    "w_out": 0.057111,
+    "m_coat": 1.996805
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.052765,
+    "w_out": 0.021975,
+    "m_coat": 2.982669
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.066217,
+    "w_out": 0.011717,
+    "m_coat": 2.762295
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.051194,
+    "w_out": 0.069192,
+    "m_coat": 1.367273
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.025624,
+    "w_out": 0.089353,
+    "m_coat": 2.492259
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.056362,
+    "w_out": 0.068103,
+    "m_coat": 2.464963
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.023272,
+    "w_out": 0.018979,
+    "m_coat": 2.345628
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.038195,
+    "w_out": 0.076211,
+    "m_coat": 2.729072
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.033469,
+    "w_out": 0.016139,
+    "m_coat": 2.239543
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.08714,
+    "w_out": 0.06657,
+    "m_coat": 2.310463
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.070497,
+    "w_out": 0.059837,
+    "m_coat": 1.856776
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.014598,
+    "w_out": 0.018469,
+    "m_coat": 2.250727
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.056053,
+    "w_out": 0.050947,
+    "m_coat": 1.168548
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.012998,
+    "w_out": 0.089529,
+    "m_coat": 1.11774
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.047819,
+    "w_out": 0.076262,
+    "m_coat": 2.086189
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.035602,
+    "w_out": 0.080541,
+    "m_coat": 2.219833
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.045371,
+    "w_out": 0.053288,
+    "m_coat": 1.03546
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.089711,
+    "w_out": 0.052689,
+    "m_coat": 1.179217
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.068658,
+    "w_out": 0.064726,
+    "m_coat": 2.447521
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.060435,
+    "w_out": 0.028052,
+    "m_coat": 1.562493
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.036246,
+    "w_out": 0.042871,
+    "m_coat": 2.901224
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.080858,
+    "w_out": 0.061012,
+    "m_coat": 1.790286
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.08977,
+    "w_out": 0.058529,
+    "m_coat": 1.991357
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.047253,
+    "w_out": 0.045728,
+    "m_coat": 2.993263
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.041815,
+    "w_out": 0.076285,
+    "m_coat": 1.077308
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.045733,
+    "w_out": 0.03473,
+    "m_coat": 1.815576
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.036694,
+    "w_out": 0.014973,
+    "m_coat": 2.294846
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.081321,
+    "w_out": 0.057491,
+    "m_coat": 2.781861
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.078237,
+    "w_out": 0.062451,
+    "m_coat": 2.204839
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.043708,
+    "w_out": 0.019178,
+    "m_coat": 2.865984
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.049758,
+    "w_out": 0.066081,
+    "m_coat": 2.068165
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.066669,
+    "w_out": 0.068336,
+    "m_coat": 1.315942
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.059237,
+    "w_out": 0.086391,
+    "m_coat": 1.147833
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.017142,
+    "w_out": 0.065061,
+    "m_coat": 2.706991
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.012551,
+    "w_out": 0.08547,
+    "m_coat": 1.698699
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.068372,
+    "w_out": 0.028483,
+    "m_coat": 2.512606
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.038175,
+    "w_out": 0.019088,
+    "m_coat": 2.896475
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.036383,
+    "w_out": 0.064321,
+    "m_coat": 2.49318
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.083053,
+    "w_out": 0.021457,
+    "m_coat": 1.939754
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.082411,
+    "w_out": 0.022227,
+    "m_coat": 1.462919
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.019863,
+    "w_out": 0.085014,
+    "m_coat": 2.914796
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.051236,
+    "w_out": 0.010552,
+    "m_coat": 2.528207
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.029536,
+    "w_out": 0.057011,
+    "m_coat": 1.435879
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.045258,
+    "w_out": 0.011785,
+    "m_coat": 2.852521
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.048919,
+    "w_out": 0.072956,
+    "m_coat": 1.447207
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.046279,
+    "w_out": 0.024664,
+    "m_coat": 1.362263
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.010872,
+    "w_out": 0.064637,
+    "m_coat": 2.094705
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.079339,
+    "w_out": 0.035903,
+    "m_coat": 1.224585
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.013153,
+    "w_out": 0.015882,
+    "m_coat": 1.601756
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.053279,
+    "w_out": 0.063408,
+    "m_coat": 2.714716
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.078043,
+    "w_out": 0.031612,
+    "m_coat": 1.453518
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.028434,
+    "w_out": 0.016086,
+    "m_coat": 1.37667
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.089665,
+    "w_out": 0.048512,
+    "m_coat": 1.923065
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.073468,
+    "w_out": 0.020223,
+    "m_coat": 2.159979
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.020467,
+    "w_out": 0.061765,
+    "m_coat": 1.941398
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.031142,
+    "w_out": 0.070426,
+    "m_coat": 1.442577
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.077972,
+    "w_out": 0.057253,
+    "m_coat": 2.336205
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.049744,
+    "w_out": 0.039877,
+    "m_coat": 2.064016
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.077628,
+    "w_out": 0.030872,
+    "m_coat": 2.287443
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.077172,
+    "w_out": 0.018164,
+    "m_coat": 2.915706
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.061846,
+    "w_out": 0.024908,
+    "m_coat": 1.282803
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.012443,
+    "w_out": 0.075421,
+    "m_coat": 2.316907
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.064674,
+    "w_out": 0.088786,
+    "m_coat": 1.280292
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.035293,
+    "w_out": 0.087015,
+    "m_coat": 1.175703
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.069671,
+    "w_out": 0.056067,
+    "m_coat": 2.235936
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.083719,
+    "w_out": 0.072209,
+    "m_coat": 2.784313
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.040969,
+    "w_out": 0.073522,
+    "m_coat": 1.310902
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.046676,
+    "w_out": 0.077678,
+    "m_coat": 2.724072
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.061122,
+    "w_out": 0.081303,
+    "m_coat": 1.501227
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.021476,
+    "w_out": 0.060612,
+    "m_coat": 2.605354
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.036115,
+    "w_out": 0.085105,
+    "m_coat": 2.612933
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.028096,
+    "w_out": 0.06428,
+    "m_coat": 2.06972
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.075956,
+    "w_out": 0.076739,
+    "m_coat": 2.558171
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.053936,
+    "w_out": 0.021419,
+    "m_coat": 1.894258
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.079885,
+    "w_out": 0.069536,
+    "m_coat": 1.868472
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.016256,
+    "w_out": 0.027124,
+    "m_coat": 1.260815
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.035253,
+    "w_out": 0.047644,
+    "m_coat": 2.165962
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "w_in": 0.033175,
+    "w_out": 0.014088,
+    "m_coat": 2.771475
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.033175,
+    "w_out": 0.014088,
+    "m_coat": 2.896475
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.033175,
+    "w_out": 0.014088,
+    "m_coat": 3.0
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.033175,
+    "w_out": 0.019088,
+    "m_coat": 2.771475
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.033175,
+    "w_out": 0.019088,
+    "m_coat": 2.896475
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.033175,
+    "w_out": 0.019088,
+    "m_coat": 3.0
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.033175,
+    "w_out": 0.024088,
+    "m_coat": 2.771475
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.033175,
+    "w_out": 0.024088,
+    "m_coat": 2.896475
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.033175,
+    "w_out": 0.024088,
+    "m_coat": 3.0
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.038175,
+    "w_out": 0.014088,
+    "m_coat": 2.771475
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.038175,
+    "w_out": 0.014088,
+    "m_coat": 2.896475
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.038175,
+    "w_out": 0.014088,
+    "m_coat": 3.0
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.038175,
+    "w_out": 0.019088,
+    "m_coat": 2.771475
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.038175,
+    "w_out": 0.019088,
+    "m_coat": 3.0
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.038175,
+    "w_out": 0.024088,
+    "m_coat": 2.771475
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.038175,
+    "w_out": 0.024088,
+    "m_coat": 2.896475
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.038175,
+    "w_out": 0.024088,
+    "m_coat": 3.0
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.043175,
+    "w_out": 0.014088,
+    "m_coat": 2.771475
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.043175,
+    "w_out": 0.014088,
+    "m_coat": 2.896475
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.043175,
+    "w_out": 0.014088,
+    "m_coat": 3.0
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.043175,
+    "w_out": 0.019088,
+    "m_coat": 2.771475
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.043175,
+    "w_out": 0.019088,
+    "m_coat": 2.896475
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.043175,
+    "w_out": 0.019088,
+    "m_coat": 3.0
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.043175,
+    "w_out": 0.024088,
+    "m_coat": 2.771475
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.043175,
+    "w_out": 0.024088,
+    "m_coat": 2.896475
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "w_in": 0.043175,
+    "w_out": 0.024088,
+    "m_coat": 3.0
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "refined"
+  }
+ ]
+}

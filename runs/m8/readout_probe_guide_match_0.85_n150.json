@@ -1,0 +1,269 @@
+{
+ "verdict": {
+  "ok": false,
+  "max_rate": 0.2,
+  "best_action": "formula kdiv=0.577 w_in=0.08",
+  "best_pass_rate": 0.3133,
+  "best_pass_rate_upper": 0.3814,
+  "underpowered": false,
+  "best_source": "readout",
+  "baseline_passes": 0,
+  "n_instances": 150,
+  "skipped_no_headroom": 0,
+  "n_candidates": 36,
+  "top5": [
+   {
+    "action": "formula kdiv=0.577 w_in=0.08",
+    "passes": 47,
+    "pass_rate": 0.3133,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.577 w_in=0.07",
+    "passes": 40,
+    "pass_rate": 0.2667,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.577 w_in=0.09",
+    "passes": 39,
+    "pass_rate": 0.26,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.577 w_in=0.05",
+    "passes": 35,
+    "pass_rate": 0.2333,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.577 w_in=0.06",
+    "passes": 33,
+    "pass_rate": 0.22,
+    "source": "readout"
+   }
+  ]
+ },
+ "probe": {
+  "n_instances": 150,
+  "skipped_no_headroom": 0,
+  "results": [
+   {
+    "action": "formula kdiv=0.577 w_in=0.01",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.577 w_in=0.02",
+    "passes": 9,
+    "pass_rate": 0.06,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.577 w_in=0.03",
+    "passes": 13,
+    "pass_rate": 0.0867,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.577 w_in=0.04",
+    "passes": 25,
+    "pass_rate": 0.1667,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.577 w_in=0.05",
+    "passes": 35,
+    "pass_rate": 0.2333,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.577 w_in=0.06",
+    "passes": 33,
+    "pass_rate": 0.22,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.577 w_in=0.07",
+    "passes": 40,
+    "pass_rate": 0.2667,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.577 w_in=0.08",
+    "passes": 47,
+    "pass_rate": 0.3133,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.577 w_in=0.09",
+    "passes": 39,
+    "pass_rate": 0.26,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.500 w_in=0.01",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.500 w_in=0.02",
+    "passes": 10,
+    "pass_rate": 0.0667,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.500 w_in=0.03",
+    "passes": 13,
+    "pass_rate": 0.0867,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.500 w_in=0.04",
+    "passes": 27,
+    "pass_rate": 0.18,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.500 w_in=0.05",
+    "passes": 25,
+    "pass_rate": 0.1667,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.500 w_in=0.06",
+    "passes": 27,
+    "pass_rate": 0.18,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.500 w_in=0.07",
+    "passes": 33,
+    "pass_rate": 0.22,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.500 w_in=0.08",
+    "passes": 14,
+    "pass_rate": 0.0933,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.500 w_in=0.09",
+    "passes": 8,
+    "pass_rate": 0.0533,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.450 w_in=0.01",
+    "passes": 1,
+    "pass_rate": 0.0067,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.450 w_in=0.02",
+    "passes": 9,
+    "pass_rate": 0.06,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.450 w_in=0.03",
+    "passes": 10,
+    "pass_rate": 0.0667,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.450 w_in=0.04",
+    "passes": 21,
+    "pass_rate": 0.14,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.450 w_in=0.05",
+    "passes": 24,
+    "pass_rate": 0.16,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.450 w_in=0.06",
+    "passes": 29,
+    "pass_rate": 0.1933,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.450 w_in=0.07",
+    "passes": 10,
+    "pass_rate": 0.0667,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.450 w_in=0.08",
+    "passes": 9,
+    "pass_rate": 0.06,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.450 w_in=0.09",
+    "passes": 4,
+    "pass_rate": 0.0267,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.400 w_in=0.01",
+    "passes": 1,
+    "pass_rate": 0.0067,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.400 w_in=0.02",
+    "passes": 9,
+    "pass_rate": 0.06,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.400 w_in=0.03",
+    "passes": 10,
+    "pass_rate": 0.0667,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.400 w_in=0.04",
+    "passes": 21,
+    "pass_rate": 0.14,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.400 w_in=0.05",
+    "passes": 28,
+    "pass_rate": 0.1867,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.400 w_in=0.06",
+    "passes": 20,
+    "pass_rate": 0.1333,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.400 w_in=0.07",
+    "passes": 6,
+    "pass_rate": 0.04,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.400 w_in=0.08",
+    "passes": 8,
+    "pass_rate": 0.0533,
+    "source": "readout"
+   },
+   {
+    "action": "formula kdiv=0.400 w_in=0.09",
+    "passes": 3,
+    "pass_rate": 0.02,
+    "source": "readout"
+   }
+  ]
+ }
+}
