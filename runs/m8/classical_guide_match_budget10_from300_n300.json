@@ -1,0 +1,6330 @@
+{
+ "summary": {
+  "coordinate": {
+   "n": 300,
+   "passes": 40,
+   "pass_rate": 0.1333,
+   "median_best_error": 0.1839,
+   "median_sims": 10
+  },
+  "nelder-mead": {
+   "n": 300,
+   "passes": 8,
+   "pass_rate": 0.0267,
+   "median_best_error": 0.3744,
+   "median_sims": 10
+  },
+  "random": {
+   "n": 300,
+   "passes": 22,
+   "pass_rate": 0.0733,
+   "median_best_error": 0.1848,
+   "median_sims": 10
+  }
+ },
+ "budget": 10,
+ "start": 300,
+ "n": 300,
+ "rows": [
+  {
+   "instance": 300,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2215,
+   "sims_used": 10
+  },
+  {
+   "instance": 301,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1675,
+   "sims_used": 10
+  },
+  {
+   "instance": 302,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3614,
+   "sims_used": 10
+  },
+  {
+   "instance": 303,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.4359,
+   "sims_used": 10
+  },
+  {
+   "instance": 304,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1603,
+   "sims_used": 10
+  },
+  {
+   "instance": 305,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.191,
+   "sims_used": 10
+  },
+  {
+   "instance": 306,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1622,
+   "sims_used": 10
+  },
+  {
+   "instance": 307,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1212,
+   "sims_used": 10
+  },
+  {
+   "instance": 308,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.126,
+   "sims_used": 10
+  },
+  {
+   "instance": 309,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1277,
+   "sims_used": 10
+  },
+  {
+   "instance": 310,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2799,
+   "sims_used": 10
+  },
+  {
+   "instance": 311,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.285,
+   "sims_used": 10
+  },
+  {
+   "instance": 312,
+   "method": "random",
+   "passed": true,
+   "best_error": 0.0215,
+   "sims_used": 10
+  },
+  {
+   "instance": 313,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2502,
+   "sims_used": 10
+  },
+  {
+   "instance": 314,
+   "method": "random",
+   "passed": true,
+   "best_error": 0.0353,
+   "sims_used": 10
+  },
+  {
+   "instance": 315,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.4157,
+   "sims_used": 10
+  },
+  {
+   "instance": 316,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0858,
+   "sims_used": 10
+  },
+  {
+   "instance": 317,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1518,
+   "sims_used": 10
+  },
+  {
+   "instance": 318,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.5891,
+   "sims_used": 10
+  },
+  {
+   "instance": 319,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3022,
+   "sims_used": 10
+  },
+  {
+   "instance": 320,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2373,
+   "sims_used": 10
+  },
+  {
+   "instance": 321,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2747,
+   "sims_used": 10
+  },
+  {
+   "instance": 322,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0693,
+   "sims_used": 10
+  },
+  {
+   "instance": 323,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3611,
+   "sims_used": 10
+  },
+  {
+   "instance": 324,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2726,
+   "sims_used": 10
+  },
+  {
+   "instance": 325,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.4029,
+   "sims_used": 10
+  },
+  {
+   "instance": 326,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2782,
+   "sims_used": 10
+  },
+  {
+   "instance": 327,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3404,
+   "sims_used": 10
+  },
+  {
+   "instance": 328,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0524,
+   "sims_used": 10
+  },
+  {
+   "instance": 329,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.091,
+   "sims_used": 10
+  },
+  {
+   "instance": 330,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.4027,
+   "sims_used": 10
+  },
+  {
+   "instance": 331,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.6081,
+   "sims_used": 10
+  },
+  {
+   "instance": 332,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2178,
+   "sims_used": 10
+  },
+  {
+   "instance": 333,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1956,
+   "sims_used": 10
+  },
+  {
+   "instance": 334,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0737,
+   "sims_used": 10
+  },
+  {
+   "instance": 335,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1304,
+   "sims_used": 10
+  },
+  {
+   "instance": 336,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.5215,
+   "sims_used": 10
+  },
+  {
+   "instance": 337,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1671,
+   "sims_used": 10
+  },
+  {
+   "instance": 338,
+   "method": "random",
+   "passed": true,
+   "best_error": 0.0428,
+   "sims_used": 10
+  },
+  {
+   "instance": 339,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0974,
+   "sims_used": 10
+  },
+  {
+   "instance": 340,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0835,
+   "sims_used": 10
+  },
+  {
+   "instance": 341,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.4925,
+   "sims_used": 10
+  },
+  {
+   "instance": 342,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2659,
+   "sims_used": 10
+  },
+  {
+   "instance": 343,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1694,
+   "sims_used": 10
+  },
+  {
+   "instance": 344,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2792,
+   "sims_used": 10
+  },
+  {
+   "instance": 345,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1159,
+   "sims_used": 10
+  },
+  {
+   "instance": 346,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1402,
+   "sims_used": 10
+  },
+  {
+   "instance": 347,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.206,
+   "sims_used": 10
+  },
+  {
+   "instance": 348,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2474,
+   "sims_used": 10
+  },
+  {
+   "instance": 349,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3467,
+   "sims_used": 10
+  },
+  {
+   "instance": 350,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3472,
+   "sims_used": 10
+  },
+  {
+   "instance": 351,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1957,
+   "sims_used": 10
+  },
+  {
+   "instance": 352,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.4355,
+   "sims_used": 10
+  },
+  {
+   "instance": 353,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1598,
+   "sims_used": 10
+  },
+  {
+   "instance": 354,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.242,
+   "sims_used": 10
+  },
+  {
+   "instance": 355,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2185,
+   "sims_used": 10
+  },
+  {
+   "instance": 356,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1288,
+   "sims_used": 10
+  },
+  {
+   "instance": 357,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.201,
+   "sims_used": 10
+  },
+  {
+   "instance": 358,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2443,
+   "sims_used": 10
+  },
+  {
+   "instance": 359,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2871,
+   "sims_used": 10
+  },
+  {
+   "instance": 360,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1194,
+   "sims_used": 10
+  },
+  {
+   "instance": 361,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3984,
+   "sims_used": 10
+  },
+  {
+   "instance": 362,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2348,
+   "sims_used": 10
+  },
+  {
+   "instance": 363,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0617,
+   "sims_used": 10
+  },
+  {
+   "instance": 364,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1015,
+   "sims_used": 10
+  },
+  {
+   "instance": 365,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2642,
+   "sims_used": 10
+  },
+  {
+   "instance": 366,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.21,
+   "sims_used": 10
+  },
+  {
+   "instance": 367,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0865,
+   "sims_used": 10
+  },
+  {
+   "instance": 368,
+   "method": "random",
+   "passed": true,
+   "best_error": 0.0252,
+   "sims_used": 10
+  },
+  {
+   "instance": 369,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3778,
+   "sims_used": 10
+  },
+  {
+   "instance": 370,
+   "method": "random",
+   "passed": true,
+   "best_error": 0.0268,
+   "sims_used": 10
+  },
+  {
+   "instance": 371,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2462,
+   "sims_used": 10
+  },
+  {
+   "instance": 372,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.362,
+   "sims_used": 10
+  },
+  {
+   "instance": 373,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0775,
+   "sims_used": 10
+  },
+  {
+   "instance": 374,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2234,
+   "sims_used": 10
+  },
+  {
+   "instance": 375,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0755,
+   "sims_used": 10
+  },
+  {
+   "instance": 376,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0905,
+   "sims_used": 10
+  },
+  {
+   "instance": 377,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0965,
+   "sims_used": 10
+  },
+  {
+   "instance": 378,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1285,
+   "sims_used": 10
+  },
+  {
+   "instance": 379,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.4105,
+   "sims_used": 10
+  },
+  {
+   "instance": 380,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2503,
+   "sims_used": 10
+  },
+  {
+   "instance": 381,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.8728,
+   "sims_used": 10
+  },
+  {
+   "instance": 382,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0572,
+   "sims_used": 10
+  },
+  {
+   "instance": 383,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1137,
+   "sims_used": 10
+  },
+  {
+   "instance": 384,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2253,
+   "sims_used": 10
+  },
+  {
+   "instance": 385,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3685,
+   "sims_used": 10
+  },
+  {
+   "instance": 386,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3431,
+   "sims_used": 10
+  },
+  {
+   "instance": 387,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1649,
+   "sims_used": 10
+  },
+  {
+   "instance": 388,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2433,
+   "sims_used": 10
+  },
+  {
+   "instance": 389,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1958,
+   "sims_used": 10
+  },
+  {
+   "instance": 390,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3121,
+   "sims_used": 10
+  },
+  {
+   "instance": 391,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.9505,
+   "sims_used": 10
+  },
+  {
+   "instance": 392,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1045,
+   "sims_used": 10
+  },
+  {
+   "instance": 393,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2589,
+   "sims_used": 10
+  },
+  {
+   "instance": 394,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2135,
+   "sims_used": 10
+  },
+  {
+   "instance": 395,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1453,
+   "sims_used": 10
+  },
+  {
+   "instance": 396,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1379,
+   "sims_used": 10
+  },
+  {
+   "instance": 397,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1857,
+   "sims_used": 10
+  },
+  {
+   "instance": 398,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.6272,
+   "sims_used": 10
+  },
+  {
+   "instance": 399,
+   "method": "random",
+   "passed": true,
+   "best_error": 0.0374,
+   "sims_used": 10
+  },
+  {
+   "instance": 400,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.6505,
+   "sims_used": 10
+  },
+  {
+   "instance": 401,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0645,
+   "sims_used": 10
+  },
+  {
+   "instance": 402,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.166,
+   "sims_used": 10
+  },
+  {
+   "instance": 403,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.291,
+   "sims_used": 10
+  },
+  {
+   "instance": 404,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1011,
+   "sims_used": 10
+  },
+  {
+   "instance": 405,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1794,
+   "sims_used": 10
+  },
+  {
+   "instance": 406,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1881,
+   "sims_used": 10
+  },
+  {
+   "instance": 407,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1644,
+   "sims_used": 10
+  },
+  {
+   "instance": 408,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3302,
+   "sims_used": 10
+  },
+  {
+   "instance": 409,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1915,
+   "sims_used": 10
+  },
+  {
+   "instance": 410,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.135,
+   "sims_used": 10
+  },
+  {
+   "instance": 411,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.322,
+   "sims_used": 10
+  },
+  {
+   "instance": 412,
+   "method": "random",
+   "passed": true,
+   "best_error": 0.0335,
+   "sims_used": 10
+  },
+  {
+   "instance": 413,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.233,
+   "sims_used": 10
+  },
+  {
+   "instance": 414,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1255,
+   "sims_used": 10
+  },
+  {
+   "instance": 415,
+   "method": "random",
+   "passed": true,
+   "best_error": 0.0269,
+   "sims_used": 10
+  },
+  {
+   "instance": 416,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0808,
+   "sims_used": 10
+  },
+  {
+   "instance": 417,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1053,
+   "sims_used": 10
+  },
+  {
+   "instance": 418,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.272,
+   "sims_used": 10
+  },
+  {
+   "instance": 419,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1352,
+   "sims_used": 10
+  },
+  {
+   "instance": 420,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.4586,
+   "sims_used": 10
+  },
+  {
+   "instance": 421,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3199,
+   "sims_used": 10
+  },
+  {
+   "instance": 422,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.11,
+   "sims_used": 10
+  },
+  {
+   "instance": 423,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1782,
+   "sims_used": 10
+  },
+  {
+   "instance": 424,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2458,
+   "sims_used": 10
+  },
+  {
+   "instance": 425,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.4689,
+   "sims_used": 10
+  },
+  {
+   "instance": 426,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3368,
+   "sims_used": 10
+  },
+  {
+   "instance": 427,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0886,
+   "sims_used": 10
+  },
+  {
+   "instance": 428,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1192,
+   "sims_used": 10
+  },
+  {
+   "instance": 429,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.5299,
+   "sims_used": 10
+  },
+  {
+   "instance": 430,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0632,
+   "sims_used": 10
+  },
+  {
+   "instance": 431,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.25,
+   "sims_used": 10
+  },
+  {
+   "instance": 432,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3467,
+   "sims_used": 10
+  },
+  {
+   "instance": 433,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0595,
+   "sims_used": 10
+  },
+  {
+   "instance": 434,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3107,
+   "sims_used": 10
+  },
+  {
+   "instance": 435,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2803,
+   "sims_used": 10
+  },
+  {
+   "instance": 436,
+   "method": "random",
+   "passed": true,
+   "best_error": 0.0283,
+   "sims_used": 10
+  },
+  {
+   "instance": 437,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.4321,
+   "sims_used": 10
+  },
+  {
+   "instance": 438,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1546,
+   "sims_used": 10
+  },
+  {
+   "instance": 439,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.4843,
+   "sims_used": 10
+  },
+  {
+   "instance": 440,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1667,
+   "sims_used": 10
+  },
+  {
+   "instance": 441,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1369,
+   "sims_used": 10
+  },
+  {
+   "instance": 442,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1104,
+   "sims_used": 10
+  },
+  {
+   "instance": 443,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2581,
+   "sims_used": 10
+  },
+  {
+   "instance": 444,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1681,
+   "sims_used": 10
+  },
+  {
+   "instance": 445,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2962,
+   "sims_used": 10
+  },
+  {
+   "instance": 446,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1827,
+   "sims_used": 10
+  },
+  {
+   "instance": 447,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3047,
+   "sims_used": 10
+  },
+  {
+   "instance": 448,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1292,
+   "sims_used": 10
+  },
+  {
+   "instance": 449,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1945,
+   "sims_used": 10
+  },
+  {
+   "instance": 450,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1028,
+   "sims_used": 10
+  },
+  {
+   "instance": 451,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.4276,
+   "sims_used": 10
+  },
+  {
+   "instance": 452,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.065,
+   "sims_used": 10
+  },
+  {
+   "instance": 453,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3456,
+   "sims_used": 10
+  },
+  {
+   "instance": 454,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1031,
+   "sims_used": 10
+  },
+  {
+   "instance": 455,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.073,
+   "sims_used": 10
+  },
+  {
+   "instance": 456,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1706,
+   "sims_used": 10
+  },
+  {
+   "instance": 457,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2874,
+   "sims_used": 10
+  },
+  {
+   "instance": 458,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1341,
+   "sims_used": 10
+  },
+  {
+   "instance": 459,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2939,
+   "sims_used": 10
+  },
+  {
+   "instance": 460,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.5261,
+   "sims_used": 10
+  },
+  {
+   "instance": 461,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2575,
+   "sims_used": 10
+  },
+  {
+   "instance": 462,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0795,
+   "sims_used": 10
+  },
+  {
+   "instance": 463,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.111,
+   "sims_used": 10
+  },
+  {
+   "instance": 464,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0755,
+   "sims_used": 10
+  },
+  {
+   "instance": 465,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2238,
+   "sims_used": 10
+  },
+  {
+   "instance": 466,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.4649,
+   "sims_used": 10
+  },
+  {
+   "instance": 467,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3457,
+   "sims_used": 10
+  },
+  {
+   "instance": 468,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2048,
+   "sims_used": 10
+  },
+  {
+   "instance": 469,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1583,
+   "sims_used": 10
+  },
+  {
+   "instance": 470,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0885,
+   "sims_used": 10
+  },
+  {
+   "instance": 471,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0668,
+   "sims_used": 10
+  },
+  {
+   "instance": 472,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1103,
+   "sims_used": 10
+  },
+  {
+   "instance": 473,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1071,
+   "sims_used": 10
+  },
+  {
+   "instance": 474,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.5125,
+   "sims_used": 10
+  },
+  {
+   "instance": 475,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1238,
+   "sims_used": 10
+  },
+  {
+   "instance": 476,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3095,
+   "sims_used": 10
+  },
+  {
+   "instance": 477,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2548,
+   "sims_used": 10
+  },
+  {
+   "instance": 478,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1898,
+   "sims_used": 10
+  },
+  {
+   "instance": 479,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3745,
+   "sims_used": 10
+  },
+  {
+   "instance": 480,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.4357,
+   "sims_used": 10
+  },
+  {
+   "instance": 481,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1953,
+   "sims_used": 10
+  },
+  {
+   "instance": 482,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.168,
+   "sims_used": 10
+  },
+  {
+   "instance": 483,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2403,
+   "sims_used": 10
+  },
+  {
+   "instance": 484,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1701,
+   "sims_used": 10
+  },
+  {
+   "instance": 485,
+   "method": "random",
+   "passed": false,
+   "best_error": 1.1615,
+   "sims_used": 10
+  },
+  {
+   "instance": 486,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1588,
+   "sims_used": 10
+  },
+  {
+   "instance": 487,
+   "method": "random",
+   "passed": true,
+   "best_error": 0.0454,
+   "sims_used": 10
+  },
+  {
+   "instance": 488,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1546,
+   "sims_used": 10
+  },
+  {
+   "instance": 489,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1105,
+   "sims_used": 10
+  },
+  {
+   "instance": 490,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2359,
+   "sims_used": 10
+  },
+  {
+   "instance": 491,
+   "method": "random",
+   "passed": true,
+   "best_error": 0.0381,
+   "sims_used": 10
+  },
+  {
+   "instance": 492,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3044,
+   "sims_used": 10
+  },
+  {
+   "instance": 493,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0856,
+   "sims_used": 10
+  },
+  {
+   "instance": 494,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.4491,
+   "sims_used": 10
+  },
+  {
+   "instance": 495,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3171,
+   "sims_used": 10
+  },
+  {
+   "instance": 496,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2517,
+   "sims_used": 10
+  },
+  {
+   "instance": 497,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0814,
+   "sims_used": 10
+  },
+  {
+   "instance": 498,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0553,
+   "sims_used": 10
+  },
+  {
+   "instance": 499,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1735,
+   "sims_used": 10
+  },
+  {
+   "instance": 500,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1382,
+   "sims_used": 10
+  },
+  {
+   "instance": 501,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.082,
+   "sims_used": 10
+  },
+  {
+   "instance": 502,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1249,
+   "sims_used": 10
+  },
+  {
+   "instance": 503,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.721,
+   "sims_used": 10
+  },
+  {
+   "instance": 504,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1633,
+   "sims_used": 10
+  },
+  {
+   "instance": 505,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.183,
+   "sims_used": 10
+  },
+  {
+   "instance": 506,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.153,
+   "sims_used": 10
+  },
+  {
+   "instance": 507,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3469,
+   "sims_used": 10
+  },
+  {
+   "instance": 508,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1614,
+   "sims_used": 10
+  },
+  {
+   "instance": 509,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.8175,
+   "sims_used": 10
+  },
+  {
+   "instance": 510,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1044,
+   "sims_used": 10
+  },
+  {
+   "instance": 511,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1302,
+   "sims_used": 10
+  },
+  {
+   "instance": 512,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.5044,
+   "sims_used": 10
+  },
+  {
+   "instance": 513,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1084,
+   "sims_used": 10
+  },
+  {
+   "instance": 514,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3248,
+   "sims_used": 10
+  },
+  {
+   "instance": 515,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2355,
+   "sims_used": 10
+  },
+  {
+   "instance": 516,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0868,
+   "sims_used": 10
+  },
+  {
+   "instance": 517,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2566,
+   "sims_used": 10
+  },
+  {
+   "instance": 518,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2494,
+   "sims_used": 10
+  },
+  {
+   "instance": 519,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1485,
+   "sims_used": 10
+  },
+  {
+   "instance": 520,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0872,
+   "sims_used": 10
+  },
+  {
+   "instance": 521,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2458,
+   "sims_used": 10
+  },
+  {
+   "instance": 522,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3287,
+   "sims_used": 10
+  },
+  {
+   "instance": 523,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2246,
+   "sims_used": 10
+  },
+  {
+   "instance": 524,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2128,
+   "sims_used": 10
+  },
+  {
+   "instance": 525,
+   "method": "random",
+   "passed": true,
+   "best_error": 0.0196,
+   "sims_used": 10
+  },
+  {
+   "instance": 526,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3529,
+   "sims_used": 10
+  },
+  {
+   "instance": 527,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1793,
+   "sims_used": 10
+  },
+  {
+   "instance": 528,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0816,
+   "sims_used": 10
+  },
+  {
+   "instance": 529,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1152,
+   "sims_used": 10
+  },
+  {
+   "instance": 530,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2344,
+   "sims_used": 10
+  },
+  {
+   "instance": 531,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2191,
+   "sims_used": 10
+  },
+  {
+   "instance": 532,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.213,
+   "sims_used": 10
+  },
+  {
+   "instance": 533,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1102,
+   "sims_used": 10
+  },
+  {
+   "instance": 534,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1184,
+   "sims_used": 10
+  },
+  {
+   "instance": 535,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0872,
+   "sims_used": 10
+  },
+  {
+   "instance": 536,
+   "method": "random",
+   "passed": true,
+   "best_error": 0.0381,
+   "sims_used": 10
+  },
+  {
+   "instance": 537,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3026,
+   "sims_used": 10
+  },
+  {
+   "instance": 538,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2056,
+   "sims_used": 10
+  },
+  {
+   "instance": 539,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2208,
+   "sims_used": 10
+  },
+  {
+   "instance": 540,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1293,
+   "sims_used": 10
+  },
+  {
+   "instance": 541,
+   "method": "random",
+   "passed": true,
+   "best_error": 0.0492,
+   "sims_used": 10
+  },
+  {
+   "instance": 542,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1115,
+   "sims_used": 10
+  },
+  {
+   "instance": 543,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.6842,
+   "sims_used": 10
+  },
+  {
+   "instance": 544,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1575,
+   "sims_used": 10
+  },
+  {
+   "instance": 545,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3396,
+   "sims_used": 10
+  },
+  {
+   "instance": 546,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2946,
+   "sims_used": 10
+  },
+  {
+   "instance": 547,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0836,
+   "sims_used": 10
+  },
+  {
+   "instance": 548,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2176,
+   "sims_used": 10
+  },
+  {
+   "instance": 549,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1839,
+   "sims_used": 10
+  },
+  {
+   "instance": 550,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2923,
+   "sims_used": 10
+  },
+  {
+   "instance": 551,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.311,
+   "sims_used": 10
+  },
+  {
+   "instance": 552,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1681,
+   "sims_used": 10
+  },
+  {
+   "instance": 553,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.5559,
+   "sims_used": 10
+  },
+  {
+   "instance": 554,
+   "method": "random",
+   "passed": true,
+   "best_error": 0.0466,
+   "sims_used": 10
+  },
+  {
+   "instance": 555,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1217,
+   "sims_used": 10
+  },
+  {
+   "instance": 556,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2063,
+   "sims_used": 10
+  },
+  {
+   "instance": 557,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.145,
+   "sims_used": 10
+  },
+  {
+   "instance": 558,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1632,
+   "sims_used": 10
+  },
+  {
+   "instance": 559,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0673,
+   "sims_used": 10
+  },
+  {
+   "instance": 560,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2151,
+   "sims_used": 10
+  },
+  {
+   "instance": 561,
+   "method": "random",
+   "passed": true,
+   "best_error": 0.0316,
+   "sims_used": 10
+  },
+  {
+   "instance": 562,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1368,
+   "sims_used": 10
+  },
+  {
+   "instance": 563,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2771,
+   "sims_used": 10
+  },
+  {
+   "instance": 564,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1721,
+   "sims_used": 10
+  },
+  {
+   "instance": 565,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1992,
+   "sims_used": 10
+  },
+  {
+   "instance": 566,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0809,
+   "sims_used": 10
+  },
+  {
+   "instance": 567,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3195,
+   "sims_used": 10
+  },
+  {
+   "instance": 568,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.5443,
+   "sims_used": 10
+  },
+  {
+   "instance": 569,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3148,
+   "sims_used": 10
+  },
+  {
+   "instance": 570,
+   "method": "random",
+   "passed": true,
+   "best_error": 0.0421,
+   "sims_used": 10
+  },
+  {
+   "instance": 571,
+   "method": "random",
+   "passed": false,
+   "best_error": 1.2013,
+   "sims_used": 10
+  },
+  {
+   "instance": 572,
+   "method": "random",
+   "passed": true,
+   "best_error": 0.0476,
+   "sims_used": 10
+  },
+  {
+   "instance": 573,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0963,
+   "sims_used": 10
+  },
+  {
+   "instance": 574,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1848,
+   "sims_used": 10
+  },
+  {
+   "instance": 575,
+   "method": "random",
+   "passed": true,
+   "best_error": 0.0059,
+   "sims_used": 10
+  },
+  {
+   "instance": 576,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3743,
+   "sims_used": 10
+  },
+  {
+   "instance": 577,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1497,
+   "sims_used": 10
+  },
+  {
+   "instance": 578,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.3527,
+   "sims_used": 10
+  },
+  {
+   "instance": 579,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1787,
+   "sims_used": 10
+  },
+  {
+   "instance": 580,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0923,
+   "sims_used": 10
+  },
+  {
+   "instance": 581,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.4426,
+   "sims_used": 10
+  },
+  {
+   "instance": 582,
+   "method": "random",
+   "passed": true,
+   "best_error": 0.0293,
+   "sims_used": 10
+  },
+  {
+   "instance": 583,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2766,
+   "sims_used": 10
+  },
+  {
+   "instance": 584,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1478,
+   "sims_used": 10
+  },
+  {
+   "instance": 585,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0781,
+   "sims_used": 10
+  },
+  {
+   "instance": 586,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1905,
+   "sims_used": 10
+  },
+  {
+   "instance": 587,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1635,
+   "sims_used": 10
+  },
+  {
+   "instance": 588,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1122,
+   "sims_used": 10
+  },
+  {
+   "instance": 589,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.4189,
+   "sims_used": 10
+  },
+  {
+   "instance": 590,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1463,
+   "sims_used": 10
+  },
+  {
+   "instance": 591,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.6237,
+   "sims_used": 10
+  },
+  {
+   "instance": 592,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.4315,
+   "sims_used": 10
+  },
+  {
+   "instance": 593,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0987,
+   "sims_used": 10
+  },
+  {
+   "instance": 594,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.2658,
+   "sims_used": 10
+  },
+  {
+   "instance": 595,
+   "method": "random",
+   "passed": true,
+   "best_error": 0.036,
+   "sims_used": 10
+  },
+  {
+   "instance": 596,
+   "method": "random",
+   "passed": true,
+   "best_error": 0.0021,
+   "sims_used": 10
+  },
+  {
+   "instance": 597,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1421,
+   "sims_used": 10
+  },
+  {
+   "instance": 598,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.1726,
+   "sims_used": 10
+  },
+  {
+   "instance": 599,
+   "method": "random",
+   "passed": false,
+   "best_error": 0.0624,
+   "sims_used": 10
+  },
+  {
+   "instance": 300,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.6002,
+   "sims_used": 10
+  },
+  {
+   "instance": 301,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.191,
+   "sims_used": 10
+  },
+  {
+   "instance": 302,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3103,
+   "sims_used": 10
+  },
+  {
+   "instance": 303,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.2503,
+   "sims_used": 10
+  },
+  {
+   "instance": 304,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3946,
+   "sims_used": 10
+  },
+  {
+   "instance": 305,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3268,
+   "sims_used": 10
+  },
+  {
+   "instance": 306,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3873,
+   "sims_used": 10
+  },
+  {
+   "instance": 307,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.0829,
+   "sims_used": 10
+  },
+  {
+   "instance": 308,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5778,
+   "sims_used": 10
+  },
+  {
+   "instance": 309,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.0677,
+   "sims_used": 10
+  },
+  {
+   "instance": 310,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4351,
+   "sims_used": 10
+  },
+  {
+   "instance": 311,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3272,
+   "sims_used": 10
+  },
+  {
+   "instance": 312,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.6212,
+   "sims_used": 10
+  },
+  {
+   "instance": 313,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1404,
+   "sims_used": 10
+  },
+  {
+   "instance": 314,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2061,
+   "sims_used": 10
+  },
+  {
+   "instance": 315,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.607,
+   "sims_used": 10
+  },
+  {
+   "instance": 316,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3868,
+   "sims_used": 10
+  },
+  {
+   "instance": 317,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.0544,
+   "sims_used": 10
+  },
+  {
+   "instance": 318,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.2303,
+   "sims_used": 10
+  },
+  {
+   "instance": 319,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2336,
+   "sims_used": 10
+  },
+  {
+   "instance": 320,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1771,
+   "sims_used": 10
+  },
+  {
+   "instance": 321,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.7195,
+   "sims_used": 10
+  },
+  {
+   "instance": 322,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4687,
+   "sims_used": 10
+  },
+  {
+   "instance": 323,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3228,
+   "sims_used": 10
+  },
+  {
+   "instance": 324,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.6267,
+   "sims_used": 10
+  },
+  {
+   "instance": 325,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1005,
+   "sims_used": 10
+  },
+  {
+   "instance": 326,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4804,
+   "sims_used": 10
+  },
+  {
+   "instance": 327,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.8023,
+   "sims_used": 10
+  },
+  {
+   "instance": 328,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.287,
+   "sims_used": 10
+  },
+  {
+   "instance": 329,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4766,
+   "sims_used": 10
+  },
+  {
+   "instance": 330,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.9154,
+   "sims_used": 10
+  },
+  {
+   "instance": 331,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4811,
+   "sims_used": 10
+  },
+  {
+   "instance": 332,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.1067,
+   "sims_used": 10
+  },
+  {
+   "instance": 333,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3449,
+   "sims_used": 10
+  },
+  {
+   "instance": 334,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2066,
+   "sims_used": 10
+  },
+  {
+   "instance": 335,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3624,
+   "sims_used": 10
+  },
+  {
+   "instance": 336,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.835,
+   "sims_used": 10
+  },
+  {
+   "instance": 337,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3602,
+   "sims_used": 10
+  },
+  {
+   "instance": 338,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3964,
+   "sims_used": 10
+  },
+  {
+   "instance": 339,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4511,
+   "sims_used": 10
+  },
+  {
+   "instance": 340,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.088,
+   "sims_used": 10
+  },
+  {
+   "instance": 341,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.61,
+   "sims_used": 10
+  },
+  {
+   "instance": 342,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2694,
+   "sims_used": 10
+  },
+  {
+   "instance": 343,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.4403,
+   "sims_used": 10
+  },
+  {
+   "instance": 344,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3935,
+   "sims_used": 10
+  },
+  {
+   "instance": 345,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.0516,
+   "sims_used": 10
+  },
+  {
+   "instance": 346,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2118,
+   "sims_used": 10
+  },
+  {
+   "instance": 347,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1181,
+   "sims_used": 10
+  },
+  {
+   "instance": 348,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.493,
+   "sims_used": 10
+  },
+  {
+   "instance": 349,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1046,
+   "sims_used": 10
+  },
+  {
+   "instance": 350,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 2.0857,
+   "sims_used": 10
+  },
+  {
+   "instance": 351,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.0529,
+   "sims_used": 10
+  },
+  {
+   "instance": 352,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.7525,
+   "sims_used": 10
+  },
+  {
+   "instance": 353,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3633,
+   "sims_used": 10
+  },
+  {
+   "instance": 354,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4482,
+   "sims_used": 10
+  },
+  {
+   "instance": 355,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.086,
+   "sims_used": 10
+  },
+  {
+   "instance": 356,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1945,
+   "sims_used": 10
+  },
+  {
+   "instance": 357,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4411,
+   "sims_used": 10
+  },
+  {
+   "instance": 358,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1911,
+   "sims_used": 10
+  },
+  {
+   "instance": 359,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2811,
+   "sims_used": 10
+  },
+  {
+   "instance": 360,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.0908,
+   "sims_used": 10
+  },
+  {
+   "instance": 361,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.471,
+   "sims_used": 10
+  },
+  {
+   "instance": 362,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1755,
+   "sims_used": 10
+  },
+  {
+   "instance": 363,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3607,
+   "sims_used": 10
+  },
+  {
+   "instance": 364,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.0778,
+   "sims_used": 10
+  },
+  {
+   "instance": 365,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4085,
+   "sims_used": 10
+  },
+  {
+   "instance": 366,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.084,
+   "sims_used": 10
+  },
+  {
+   "instance": 367,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1851,
+   "sims_used": 10
+  },
+  {
+   "instance": 368,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4545,
+   "sims_used": 10
+  },
+  {
+   "instance": 369,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2406,
+   "sims_used": 10
+  },
+  {
+   "instance": 370,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2348,
+   "sims_used": 10
+  },
+  {
+   "instance": 371,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.0584,
+   "sims_used": 10
+  },
+  {
+   "instance": 372,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1353,
+   "sims_used": 10
+  },
+  {
+   "instance": 373,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5106,
+   "sims_used": 10
+  },
+  {
+   "instance": 374,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4265,
+   "sims_used": 10
+  },
+  {
+   "instance": 375,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 2.0936,
+   "sims_used": 10
+  },
+  {
+   "instance": 376,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3525,
+   "sims_used": 10
+  },
+  {
+   "instance": 377,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.804,
+   "sims_used": 10
+  },
+  {
+   "instance": 378,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4347,
+   "sims_used": 10
+  },
+  {
+   "instance": 379,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5509,
+   "sims_used": 10
+  },
+  {
+   "instance": 380,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2382,
+   "sims_used": 10
+  },
+  {
+   "instance": 381,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 2.2118,
+   "sims_used": 10
+  },
+  {
+   "instance": 382,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.418,
+   "sims_used": 10
+  },
+  {
+   "instance": 383,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3062,
+   "sims_used": 10
+  },
+  {
+   "instance": 384,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2751,
+   "sims_used": 10
+  },
+  {
+   "instance": 385,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5973,
+   "sims_used": 10
+  },
+  {
+   "instance": 386,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3123,
+   "sims_used": 10
+  },
+  {
+   "instance": 387,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4048,
+   "sims_used": 10
+  },
+  {
+   "instance": 388,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2911,
+   "sims_used": 10
+  },
+  {
+   "instance": 389,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2165,
+   "sims_used": 10
+  },
+  {
+   "instance": 390,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.7486,
+   "sims_used": 10
+  },
+  {
+   "instance": 391,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.8166,
+   "sims_used": 10
+  },
+  {
+   "instance": 392,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2646,
+   "sims_used": 10
+  },
+  {
+   "instance": 393,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2013,
+   "sims_used": 10
+  },
+  {
+   "instance": 394,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1629,
+   "sims_used": 10
+  },
+  {
+   "instance": 395,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2537,
+   "sims_used": 10
+  },
+  {
+   "instance": 396,
+   "method": "nelder-mead",
+   "passed": true,
+   "best_error": 0.044,
+   "sims_used": 10
+  },
+  {
+   "instance": 397,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.3213,
+   "sims_used": 10
+  },
+  {
+   "instance": 398,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.3908,
+   "sims_used": 10
+  },
+  {
+   "instance": 399,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4041,
+   "sims_used": 10
+  },
+  {
+   "instance": 400,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3531,
+   "sims_used": 10
+  },
+  {
+   "instance": 401,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3768,
+   "sims_used": 10
+  },
+  {
+   "instance": 402,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1014,
+   "sims_used": 10
+  },
+  {
+   "instance": 403,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1556,
+   "sims_used": 10
+  },
+  {
+   "instance": 404,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2968,
+   "sims_used": 10
+  },
+  {
+   "instance": 405,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.527,
+   "sims_used": 10
+  },
+  {
+   "instance": 406,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2607,
+   "sims_used": 10
+  },
+  {
+   "instance": 407,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.8759,
+   "sims_used": 10
+  },
+  {
+   "instance": 408,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4983,
+   "sims_used": 10
+  },
+  {
+   "instance": 409,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.6235,
+   "sims_used": 10
+  },
+  {
+   "instance": 410,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3568,
+   "sims_used": 10
+  },
+  {
+   "instance": 411,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4163,
+   "sims_used": 10
+  },
+  {
+   "instance": 412,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2164,
+   "sims_used": 10
+  },
+  {
+   "instance": 413,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.346,
+   "sims_used": 10
+  },
+  {
+   "instance": 414,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5566,
+   "sims_used": 10
+  },
+  {
+   "instance": 415,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5037,
+   "sims_used": 10
+  },
+  {
+   "instance": 416,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3744,
+   "sims_used": 10
+  },
+  {
+   "instance": 417,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2565,
+   "sims_used": 10
+  },
+  {
+   "instance": 418,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.3059,
+   "sims_used": 10
+  },
+  {
+   "instance": 419,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2332,
+   "sims_used": 10
+  },
+  {
+   "instance": 420,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 2.754,
+   "sims_used": 10
+  },
+  {
+   "instance": 421,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2705,
+   "sims_used": 10
+  },
+  {
+   "instance": 422,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3927,
+   "sims_used": 10
+  },
+  {
+   "instance": 423,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3384,
+   "sims_used": 10
+  },
+  {
+   "instance": 424,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.0506,
+   "sims_used": 10
+  },
+  {
+   "instance": 425,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.8344,
+   "sims_used": 10
+  },
+  {
+   "instance": 426,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.574,
+   "sims_used": 10
+  },
+  {
+   "instance": 427,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1258,
+   "sims_used": 10
+  },
+  {
+   "instance": 428,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3408,
+   "sims_used": 10
+  },
+  {
+   "instance": 429,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.989,
+   "sims_used": 10
+  },
+  {
+   "instance": 430,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2628,
+   "sims_used": 10
+  },
+  {
+   "instance": 431,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2045,
+   "sims_used": 10
+  },
+  {
+   "instance": 432,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2049,
+   "sims_used": 10
+  },
+  {
+   "instance": 433,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.0541,
+   "sims_used": 10
+  },
+  {
+   "instance": 434,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2204,
+   "sims_used": 10
+  },
+  {
+   "instance": 435,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2106,
+   "sims_used": 10
+  },
+  {
+   "instance": 436,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5272,
+   "sims_used": 10
+  },
+  {
+   "instance": 437,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.507,
+   "sims_used": 10
+  },
+  {
+   "instance": 438,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1232,
+   "sims_used": 10
+  },
+  {
+   "instance": 439,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.9892,
+   "sims_used": 10
+  },
+  {
+   "instance": 440,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5603,
+   "sims_used": 10
+  },
+  {
+   "instance": 441,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.7747,
+   "sims_used": 10
+  },
+  {
+   "instance": 442,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3159,
+   "sims_used": 10
+  },
+  {
+   "instance": 443,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.3419,
+   "sims_used": 10
+  },
+  {
+   "instance": 444,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1886,
+   "sims_used": 10
+  },
+  {
+   "instance": 445,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.6334,
+   "sims_used": 10
+  },
+  {
+   "instance": 446,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.8592,
+   "sims_used": 10
+  },
+  {
+   "instance": 447,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4005,
+   "sims_used": 10
+  },
+  {
+   "instance": 448,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1082,
+   "sims_used": 10
+  },
+  {
+   "instance": 449,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.8951,
+   "sims_used": 10
+  },
+  {
+   "instance": 450,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.0665,
+   "sims_used": 10
+  },
+  {
+   "instance": 451,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.611,
+   "sims_used": 10
+  },
+  {
+   "instance": 452,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.0871,
+   "sims_used": 10
+  },
+  {
+   "instance": 453,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3875,
+   "sims_used": 10
+  },
+  {
+   "instance": 454,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.0508,
+   "sims_used": 10
+  },
+  {
+   "instance": 455,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2589,
+   "sims_used": 10
+  },
+  {
+   "instance": 456,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3274,
+   "sims_used": 10
+  },
+  {
+   "instance": 457,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5577,
+   "sims_used": 10
+  },
+  {
+   "instance": 458,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.0313,
+   "sims_used": 10
+  },
+  {
+   "instance": 459,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1515,
+   "sims_used": 10
+  },
+  {
+   "instance": 460,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2391,
+   "sims_used": 10
+  },
+  {
+   "instance": 461,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4405,
+   "sims_used": 10
+  },
+  {
+   "instance": 462,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1751,
+   "sims_used": 10
+  },
+  {
+   "instance": 463,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4785,
+   "sims_used": 10
+  },
+  {
+   "instance": 464,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5127,
+   "sims_used": 10
+  },
+  {
+   "instance": 465,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5782,
+   "sims_used": 10
+  },
+  {
+   "instance": 466,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.0759,
+   "sims_used": 10
+  },
+  {
+   "instance": 467,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5043,
+   "sims_used": 10
+  },
+  {
+   "instance": 468,
+   "method": "nelder-mead",
+   "passed": true,
+   "best_error": 0.0359,
+   "sims_used": 10
+  },
+  {
+   "instance": 469,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.0695,
+   "sims_used": 10
+  },
+  {
+   "instance": 470,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5477,
+   "sims_used": 10
+  },
+  {
+   "instance": 471,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.0726,
+   "sims_used": 10
+  },
+  {
+   "instance": 472,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1803,
+   "sims_used": 10
+  },
+  {
+   "instance": 473,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3374,
+   "sims_used": 10
+  },
+  {
+   "instance": 474,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.636,
+   "sims_used": 10
+  },
+  {
+   "instance": 475,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.0961,
+   "sims_used": 10
+  },
+  {
+   "instance": 476,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 2.5024,
+   "sims_used": 10
+  },
+  {
+   "instance": 477,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2037,
+   "sims_used": 10
+  },
+  {
+   "instance": 478,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2126,
+   "sims_used": 10
+  },
+  {
+   "instance": 479,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1592,
+   "sims_used": 10
+  },
+  {
+   "instance": 480,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 2.1175,
+   "sims_used": 10
+  },
+  {
+   "instance": 481,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4103,
+   "sims_used": 10
+  },
+  {
+   "instance": 482,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.672,
+   "sims_used": 10
+  },
+  {
+   "instance": 483,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2726,
+   "sims_used": 10
+  },
+  {
+   "instance": 484,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4195,
+   "sims_used": 10
+  },
+  {
+   "instance": 485,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.6729,
+   "sims_used": 10
+  },
+  {
+   "instance": 486,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1865,
+   "sims_used": 10
+  },
+  {
+   "instance": 487,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3153,
+   "sims_used": 10
+  },
+  {
+   "instance": 488,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2593,
+   "sims_used": 10
+  },
+  {
+   "instance": 489,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.0688,
+   "sims_used": 10
+  },
+  {
+   "instance": 490,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4096,
+   "sims_used": 10
+  },
+  {
+   "instance": 491,
+   "method": "nelder-mead",
+   "passed": true,
+   "best_error": 0.0308,
+   "sims_used": 10
+  },
+  {
+   "instance": 492,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4257,
+   "sims_used": 10
+  },
+  {
+   "instance": 493,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2068,
+   "sims_used": 10
+  },
+  {
+   "instance": 494,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 2.2617,
+   "sims_used": 10
+  },
+  {
+   "instance": 495,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1987,
+   "sims_used": 10
+  },
+  {
+   "instance": 496,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.7555,
+   "sims_used": 10
+  },
+  {
+   "instance": 497,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.321,
+   "sims_used": 10
+  },
+  {
+   "instance": 498,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1359,
+   "sims_used": 10
+  },
+  {
+   "instance": 499,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4216,
+   "sims_used": 10
+  },
+  {
+   "instance": 500,
+   "method": "nelder-mead",
+   "passed": true,
+   "best_error": 0.011,
+   "sims_used": 10
+  },
+  {
+   "instance": 501,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2618,
+   "sims_used": 10
+  },
+  {
+   "instance": 502,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2735,
+   "sims_used": 10
+  },
+  {
+   "instance": 503,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 3.4606,
+   "sims_used": 10
+  },
+  {
+   "instance": 504,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.051,
+   "sims_used": 10
+  },
+  {
+   "instance": 505,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1188,
+   "sims_used": 10
+  },
+  {
+   "instance": 506,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.2095,
+   "sims_used": 10
+  },
+  {
+   "instance": 507,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1386,
+   "sims_used": 10
+  },
+  {
+   "instance": 508,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3889,
+   "sims_used": 10
+  },
+  {
+   "instance": 509,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.8354,
+   "sims_used": 10
+  },
+  {
+   "instance": 510,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1177,
+   "sims_used": 10
+  },
+  {
+   "instance": 511,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.4085,
+   "sims_used": 10
+  },
+  {
+   "instance": 512,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.279,
+   "sims_used": 10
+  },
+  {
+   "instance": 513,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5378,
+   "sims_used": 10
+  },
+  {
+   "instance": 514,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.6478,
+   "sims_used": 10
+  },
+  {
+   "instance": 515,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1003,
+   "sims_used": 10
+  },
+  {
+   "instance": 516,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4378,
+   "sims_used": 10
+  },
+  {
+   "instance": 517,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5202,
+   "sims_used": 10
+  },
+  {
+   "instance": 518,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.296,
+   "sims_used": 10
+  },
+  {
+   "instance": 519,
+   "method": "nelder-mead",
+   "passed": true,
+   "best_error": 0.0205,
+   "sims_used": 10
+  },
+  {
+   "instance": 520,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.115,
+   "sims_used": 10
+  },
+  {
+   "instance": 521,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.872,
+   "sims_used": 10
+  },
+  {
+   "instance": 522,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5962,
+   "sims_used": 10
+  },
+  {
+   "instance": 523,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4851,
+   "sims_used": 10
+  },
+  {
+   "instance": 524,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3269,
+   "sims_used": 10
+  },
+  {
+   "instance": 525,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3363,
+   "sims_used": 10
+  },
+  {
+   "instance": 526,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3999,
+   "sims_used": 10
+  },
+  {
+   "instance": 527,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3157,
+   "sims_used": 10
+  },
+  {
+   "instance": 528,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.8291,
+   "sims_used": 10
+  },
+  {
+   "instance": 529,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1148,
+   "sims_used": 10
+  },
+  {
+   "instance": 530,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5664,
+   "sims_used": 10
+  },
+  {
+   "instance": 531,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.8071,
+   "sims_used": 10
+  },
+  {
+   "instance": 532,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3579,
+   "sims_used": 10
+  },
+  {
+   "instance": 533,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4253,
+   "sims_used": 10
+  },
+  {
+   "instance": 534,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1226,
+   "sims_used": 10
+  },
+  {
+   "instance": 535,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.0794,
+   "sims_used": 10
+  },
+  {
+   "instance": 536,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.0615,
+   "sims_used": 10
+  },
+  {
+   "instance": 537,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.0097,
+   "sims_used": 10
+  },
+  {
+   "instance": 538,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.6895,
+   "sims_used": 10
+  },
+  {
+   "instance": 539,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1748,
+   "sims_used": 10
+  },
+  {
+   "instance": 540,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2149,
+   "sims_used": 10
+  },
+  {
+   "instance": 541,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3159,
+   "sims_used": 10
+  },
+  {
+   "instance": 542,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3742,
+   "sims_used": 10
+  },
+  {
+   "instance": 543,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.5423,
+   "sims_used": 10
+  },
+  {
+   "instance": 544,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4927,
+   "sims_used": 10
+  },
+  {
+   "instance": 545,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4672,
+   "sims_used": 10
+  },
+  {
+   "instance": 546,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5389,
+   "sims_used": 10
+  },
+  {
+   "instance": 547,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3777,
+   "sims_used": 10
+  },
+  {
+   "instance": 548,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2445,
+   "sims_used": 10
+  },
+  {
+   "instance": 549,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.2412,
+   "sims_used": 10
+  },
+  {
+   "instance": 550,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2087,
+   "sims_used": 10
+  },
+  {
+   "instance": 551,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.0743,
+   "sims_used": 10
+  },
+  {
+   "instance": 552,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 2.6513,
+   "sims_used": 10
+  },
+  {
+   "instance": 553,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.2127,
+   "sims_used": 10
+  },
+  {
+   "instance": 554,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5666,
+   "sims_used": 10
+  },
+  {
+   "instance": 555,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 2.6493,
+   "sims_used": 10
+  },
+  {
+   "instance": 556,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4304,
+   "sims_used": 10
+  },
+  {
+   "instance": 557,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4542,
+   "sims_used": 10
+  },
+  {
+   "instance": 558,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3136,
+   "sims_used": 10
+  },
+  {
+   "instance": 559,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2839,
+   "sims_used": 10
+  },
+  {
+   "instance": 560,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5038,
+   "sims_used": 10
+  },
+  {
+   "instance": 561,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1152,
+   "sims_used": 10
+  },
+  {
+   "instance": 562,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.09,
+   "sims_used": 10
+  },
+  {
+   "instance": 563,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3647,
+   "sims_used": 10
+  },
+  {
+   "instance": 564,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1468,
+   "sims_used": 10
+  },
+  {
+   "instance": 565,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.185,
+   "sims_used": 10
+  },
+  {
+   "instance": 566,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4321,
+   "sims_used": 10
+  },
+  {
+   "instance": 567,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.0599,
+   "sims_used": 10
+  },
+  {
+   "instance": 568,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3399,
+   "sims_used": 10
+  },
+  {
+   "instance": 569,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.2647,
+   "sims_used": 10
+  },
+  {
+   "instance": 570,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.8823,
+   "sims_used": 10
+  },
+  {
+   "instance": 571,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 2.6759,
+   "sims_used": 10
+  },
+  {
+   "instance": 572,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4201,
+   "sims_used": 10
+  },
+  {
+   "instance": 573,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3731,
+   "sims_used": 10
+  },
+  {
+   "instance": 574,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1666,
+   "sims_used": 10
+  },
+  {
+   "instance": 575,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5665,
+   "sims_used": 10
+  },
+  {
+   "instance": 576,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.484,
+   "sims_used": 10
+  },
+  {
+   "instance": 577,
+   "method": "nelder-mead",
+   "passed": true,
+   "best_error": 0.0203,
+   "sims_used": 10
+  },
+  {
+   "instance": 578,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 3.6445,
+   "sims_used": 10
+  },
+  {
+   "instance": 579,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1421,
+   "sims_used": 10
+  },
+  {
+   "instance": 580,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1066,
+   "sims_used": 10
+  },
+  {
+   "instance": 581,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3402,
+   "sims_used": 10
+  },
+  {
+   "instance": 582,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1466,
+   "sims_used": 10
+  },
+  {
+   "instance": 583,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.4735,
+   "sims_used": 10
+  },
+  {
+   "instance": 584,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 1.2315,
+   "sims_used": 10
+  },
+  {
+   "instance": 585,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5837,
+   "sims_used": 10
+  },
+  {
+   "instance": 586,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.3622,
+   "sims_used": 10
+  },
+  {
+   "instance": 587,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.1468,
+   "sims_used": 10
+  },
+  {
+   "instance": 588,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5223,
+   "sims_used": 10
+  },
+  {
+   "instance": 589,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 3.6472,
+   "sims_used": 10
+  },
+  {
+   "instance": 590,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 2.255,
+   "sims_used": 10
+  },
+  {
+   "instance": 591,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5627,
+   "sims_used": 10
+  },
+  {
+   "instance": 592,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.2546,
+   "sims_used": 10
+  },
+  {
+   "instance": 593,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4413,
+   "sims_used": 10
+  },
+  {
+   "instance": 594,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.4672,
+   "sims_used": 10
+  },
+  {
+   "instance": 595,
+   "method": "nelder-mead",
+   "passed": true,
+   "best_error": 0.0316,
+   "sims_used": 10
+  },
+  {
+   "instance": 596,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5495,
+   "sims_used": 10
+  },
+  {
+   "instance": 597,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.0737,
+   "sims_used": 10
+  },
+  {
+   "instance": 598,
+   "method": "nelder-mead",
+   "passed": false,
+   "best_error": 0.5834,
+   "sims_used": 10
+  },
+  {
+   "instance": 599,
+   "method": "nelder-mead",
+   "passed": true,
+   "best_error": 0.0098,
+   "sims_used": 10
+  },
+  {
+   "instance": 300,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0668,
+   "sims_used": 10
+  },
+  {
+   "instance": 301,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.171,
+   "sims_used": 10
+  },
+  {
+   "instance": 302,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2751,
+   "sims_used": 10
+  },
+  {
+   "instance": 303,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.513,
+   "sims_used": 10
+  },
+  {
+   "instance": 304,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1904,
+   "sims_used": 10
+  },
+  {
+   "instance": 305,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2051,
+   "sims_used": 10
+  },
+  {
+   "instance": 306,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2174,
+   "sims_used": 10
+  },
+  {
+   "instance": 307,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0422,
+   "sims_used": 10
+  },
+  {
+   "instance": 308,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.4075,
+   "sims_used": 10
+  },
+  {
+   "instance": 309,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0032,
+   "sims_used": 10
+  },
+  {
+   "instance": 310,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3073,
+   "sims_used": 10
+  },
+  {
+   "instance": 311,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0704,
+   "sims_used": 10
+  },
+  {
+   "instance": 312,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3606,
+   "sims_used": 10
+  },
+  {
+   "instance": 313,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0903,
+   "sims_used": 10
+  },
+  {
+   "instance": 314,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1141,
+   "sims_used": 10
+  },
+  {
+   "instance": 315,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.76,
+   "sims_used": 10
+  },
+  {
+   "instance": 316,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1309,
+   "sims_used": 10
+  },
+  {
+   "instance": 317,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.037,
+   "sims_used": 10
+  },
+  {
+   "instance": 318,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.4947,
+   "sims_used": 10
+  },
+  {
+   "instance": 319,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1496,
+   "sims_used": 10
+  },
+  {
+   "instance": 320,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1495,
+   "sims_used": 10
+  },
+  {
+   "instance": 321,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3385,
+   "sims_used": 10
+  },
+  {
+   "instance": 322,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2642,
+   "sims_used": 10
+  },
+  {
+   "instance": 323,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3305,
+   "sims_used": 10
+  },
+  {
+   "instance": 324,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3116,
+   "sims_used": 10
+  },
+  {
+   "instance": 325,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1201,
+   "sims_used": 10
+  },
+  {
+   "instance": 326,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2771,
+   "sims_used": 10
+  },
+  {
+   "instance": 327,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2054,
+   "sims_used": 10
+  },
+  {
+   "instance": 328,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2144,
+   "sims_used": 10
+  },
+  {
+   "instance": 329,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2531,
+   "sims_used": 10
+  },
+  {
+   "instance": 330,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.303,
+   "sims_used": 10
+  },
+  {
+   "instance": 331,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2375,
+   "sims_used": 10
+  },
+  {
+   "instance": 332,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.4387,
+   "sims_used": 10
+  },
+  {
+   "instance": 333,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0945,
+   "sims_used": 10
+  },
+  {
+   "instance": 334,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0393,
+   "sims_used": 10
+  },
+  {
+   "instance": 335,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2209,
+   "sims_used": 10
+  },
+  {
+   "instance": 336,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.8925,
+   "sims_used": 10
+  },
+  {
+   "instance": 337,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2301,
+   "sims_used": 10
+  },
+  {
+   "instance": 338,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2625,
+   "sims_used": 10
+  },
+  {
+   "instance": 339,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2754,
+   "sims_used": 10
+  },
+  {
+   "instance": 340,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0976,
+   "sims_used": 10
+  },
+  {
+   "instance": 341,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3618,
+   "sims_used": 10
+  },
+  {
+   "instance": 342,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0958,
+   "sims_used": 10
+  },
+  {
+   "instance": 343,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.6285,
+   "sims_used": 10
+  },
+  {
+   "instance": 344,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3411,
+   "sims_used": 10
+  },
+  {
+   "instance": 345,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.034,
+   "sims_used": 10
+  },
+  {
+   "instance": 346,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.067,
+   "sims_used": 10
+  },
+  {
+   "instance": 347,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0598,
+   "sims_used": 10
+  },
+  {
+   "instance": 348,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.303,
+   "sims_used": 10
+  },
+  {
+   "instance": 349,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0286,
+   "sims_used": 10
+  },
+  {
+   "instance": 350,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 1.0679,
+   "sims_used": 10
+  },
+  {
+   "instance": 351,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0302,
+   "sims_used": 10
+  },
+  {
+   "instance": 352,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1899,
+   "sims_used": 10
+  },
+  {
+   "instance": 353,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1756,
+   "sims_used": 10
+  },
+  {
+   "instance": 354,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1453,
+   "sims_used": 10
+  },
+  {
+   "instance": 355,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.037,
+   "sims_used": 10
+  },
+  {
+   "instance": 356,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0954,
+   "sims_used": 10
+  },
+  {
+   "instance": 357,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.307,
+   "sims_used": 10
+  },
+  {
+   "instance": 358,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1666,
+   "sims_used": 10
+  },
+  {
+   "instance": 359,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0099,
+   "sims_used": 10
+  },
+  {
+   "instance": 360,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1098,
+   "sims_used": 10
+  },
+  {
+   "instance": 361,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1575,
+   "sims_used": 10
+  },
+  {
+   "instance": 362,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1546,
+   "sims_used": 10
+  },
+  {
+   "instance": 363,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2358,
+   "sims_used": 10
+  },
+  {
+   "instance": 364,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0319,
+   "sims_used": 10
+  },
+  {
+   "instance": 365,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2991,
+   "sims_used": 10
+  },
+  {
+   "instance": 366,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0315,
+   "sims_used": 10
+  },
+  {
+   "instance": 367,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0534,
+   "sims_used": 10
+  },
+  {
+   "instance": 368,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.286,
+   "sims_used": 10
+  },
+  {
+   "instance": 369,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0439,
+   "sims_used": 10
+  },
+  {
+   "instance": 370,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0826,
+   "sims_used": 10
+  },
+  {
+   "instance": 371,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0431,
+   "sims_used": 10
+  },
+  {
+   "instance": 372,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0255,
+   "sims_used": 10
+  },
+  {
+   "instance": 373,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2797,
+   "sims_used": 10
+  },
+  {
+   "instance": 374,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2694,
+   "sims_used": 10
+  },
+  {
+   "instance": 375,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 1.0789,
+   "sims_used": 10
+  },
+  {
+   "instance": 376,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2363,
+   "sims_used": 10
+  },
+  {
+   "instance": 377,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3164,
+   "sims_used": 10
+  },
+  {
+   "instance": 378,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2812,
+   "sims_used": 10
+  },
+  {
+   "instance": 379,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1737,
+   "sims_used": 10
+  },
+  {
+   "instance": 380,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.274,
+   "sims_used": 10
+  },
+  {
+   "instance": 381,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 1.1982,
+   "sims_used": 10
+  },
+  {
+   "instance": 382,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3223,
+   "sims_used": 10
+  },
+  {
+   "instance": 383,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0951,
+   "sims_used": 10
+  },
+  {
+   "instance": 384,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1924,
+   "sims_used": 10
+  },
+  {
+   "instance": 385,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.4277,
+   "sims_used": 10
+  },
+  {
+   "instance": 386,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.049,
+   "sims_used": 10
+  },
+  {
+   "instance": 387,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1602,
+   "sims_used": 10
+  },
+  {
+   "instance": 388,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1553,
+   "sims_used": 10
+  },
+  {
+   "instance": 389,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1557,
+   "sims_used": 10
+  },
+  {
+   "instance": 390,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.4294,
+   "sims_used": 10
+  },
+  {
+   "instance": 391,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.5663,
+   "sims_used": 10
+  },
+  {
+   "instance": 392,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.178,
+   "sims_used": 10
+  },
+  {
+   "instance": 393,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1588,
+   "sims_used": 10
+  },
+  {
+   "instance": 394,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0875,
+   "sims_used": 10
+  },
+  {
+   "instance": 395,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1445,
+   "sims_used": 10
+  },
+  {
+   "instance": 396,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0286,
+   "sims_used": 10
+  },
+  {
+   "instance": 397,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.5476,
+   "sims_used": 10
+  },
+  {
+   "instance": 398,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.6023,
+   "sims_used": 10
+  },
+  {
+   "instance": 399,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1162,
+   "sims_used": 10
+  },
+  {
+   "instance": 400,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2258,
+   "sims_used": 10
+  },
+  {
+   "instance": 401,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2329,
+   "sims_used": 10
+  },
+  {
+   "instance": 402,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0594,
+   "sims_used": 10
+  },
+  {
+   "instance": 403,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.051,
+   "sims_used": 10
+  },
+  {
+   "instance": 404,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1317,
+   "sims_used": 10
+  },
+  {
+   "instance": 405,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3928,
+   "sims_used": 10
+  },
+  {
+   "instance": 406,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0821,
+   "sims_used": 10
+  },
+  {
+   "instance": 407,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2451,
+   "sims_used": 10
+  },
+  {
+   "instance": 408,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2828,
+   "sims_used": 10
+  },
+  {
+   "instance": 409,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2378,
+   "sims_used": 10
+  },
+  {
+   "instance": 410,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1577,
+   "sims_used": 10
+  },
+  {
+   "instance": 411,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2952,
+   "sims_used": 10
+  },
+  {
+   "instance": 412,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1296,
+   "sims_used": 10
+  },
+  {
+   "instance": 413,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0651,
+   "sims_used": 10
+  },
+  {
+   "instance": 414,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3892,
+   "sims_used": 10
+  },
+  {
+   "instance": 415,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3123,
+   "sims_used": 10
+  },
+  {
+   "instance": 416,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.172,
+   "sims_used": 10
+  },
+  {
+   "instance": 417,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1187,
+   "sims_used": 10
+  },
+  {
+   "instance": 418,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.5499,
+   "sims_used": 10
+  },
+  {
+   "instance": 419,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1959,
+   "sims_used": 10
+  },
+  {
+   "instance": 420,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 1.5059,
+   "sims_used": 10
+  },
+  {
+   "instance": 421,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1435,
+   "sims_used": 10
+  },
+  {
+   "instance": 422,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2767,
+   "sims_used": 10
+  },
+  {
+   "instance": 423,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1319,
+   "sims_used": 10
+  },
+  {
+   "instance": 424,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.4025,
+   "sims_used": 10
+  },
+  {
+   "instance": 425,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2084,
+   "sims_used": 10
+  },
+  {
+   "instance": 426,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0883,
+   "sims_used": 10
+  },
+  {
+   "instance": 427,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0596,
+   "sims_used": 10
+  },
+  {
+   "instance": 428,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1355,
+   "sims_used": 10
+  },
+  {
+   "instance": 429,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3779,
+   "sims_used": 10
+  },
+  {
+   "instance": 430,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1256,
+   "sims_used": 10
+  },
+  {
+   "instance": 431,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0671,
+   "sims_used": 10
+  },
+  {
+   "instance": 432,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1611,
+   "sims_used": 10
+  },
+  {
+   "instance": 433,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.023,
+   "sims_used": 10
+  },
+  {
+   "instance": 434,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.076,
+   "sims_used": 10
+  },
+  {
+   "instance": 435,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0768,
+   "sims_used": 10
+  },
+  {
+   "instance": 436,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3542,
+   "sims_used": 10
+  },
+  {
+   "instance": 437,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.6912,
+   "sims_used": 10
+  },
+  {
+   "instance": 438,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0775,
+   "sims_used": 10
+  },
+  {
+   "instance": 439,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3491,
+   "sims_used": 10
+  },
+  {
+   "instance": 440,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0469,
+   "sims_used": 10
+  },
+  {
+   "instance": 441,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2142,
+   "sims_used": 10
+  },
+  {
+   "instance": 442,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1178,
+   "sims_used": 10
+  },
+  {
+   "instance": 443,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.5654,
+   "sims_used": 10
+  },
+  {
+   "instance": 444,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0663,
+   "sims_used": 10
+  },
+  {
+   "instance": 445,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.169,
+   "sims_used": 10
+  },
+  {
+   "instance": 446,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.9124,
+   "sims_used": 10
+  },
+  {
+   "instance": 447,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1702,
+   "sims_used": 10
+  },
+  {
+   "instance": 448,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0701,
+   "sims_used": 10
+  },
+  {
+   "instance": 449,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2838,
+   "sims_used": 10
+  },
+  {
+   "instance": 450,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0214,
+   "sims_used": 10
+  },
+  {
+   "instance": 451,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0767,
+   "sims_used": 10
+  },
+  {
+   "instance": 452,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0554,
+   "sims_used": 10
+  },
+  {
+   "instance": 453,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1645,
+   "sims_used": 10
+  },
+  {
+   "instance": 454,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.073,
+   "sims_used": 10
+  },
+  {
+   "instance": 455,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0665,
+   "sims_used": 10
+  },
+  {
+   "instance": 456,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1392,
+   "sims_used": 10
+  },
+  {
+   "instance": 457,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2194,
+   "sims_used": 10
+  },
+  {
+   "instance": 458,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3745,
+   "sims_used": 10
+  },
+  {
+   "instance": 459,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0352,
+   "sims_used": 10
+  },
+  {
+   "instance": 460,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1808,
+   "sims_used": 10
+  },
+  {
+   "instance": 461,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1947,
+   "sims_used": 10
+  },
+  {
+   "instance": 462,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1515,
+   "sims_used": 10
+  },
+  {
+   "instance": 463,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3415,
+   "sims_used": 10
+  },
+  {
+   "instance": 464,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3518,
+   "sims_used": 10
+  },
+  {
+   "instance": 465,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.4268,
+   "sims_used": 10
+  },
+  {
+   "instance": 466,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.4065,
+   "sims_used": 10
+  },
+  {
+   "instance": 467,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3949,
+   "sims_used": 10
+  },
+  {
+   "instance": 468,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0567,
+   "sims_used": 10
+  },
+  {
+   "instance": 469,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0237,
+   "sims_used": 10
+  },
+  {
+   "instance": 470,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.364,
+   "sims_used": 10
+  },
+  {
+   "instance": 471,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0438,
+   "sims_used": 10
+  },
+  {
+   "instance": 472,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1147,
+   "sims_used": 10
+  },
+  {
+   "instance": 473,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1205,
+   "sims_used": 10
+  },
+  {
+   "instance": 474,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1115,
+   "sims_used": 10
+  },
+  {
+   "instance": 475,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0369,
+   "sims_used": 10
+  },
+  {
+   "instance": 476,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 1.3368,
+   "sims_used": 10
+  },
+  {
+   "instance": 477,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0147,
+   "sims_used": 10
+  },
+  {
+   "instance": 478,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1472,
+   "sims_used": 10
+  },
+  {
+   "instance": 479,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0465,
+   "sims_used": 10
+  },
+  {
+   "instance": 480,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 1.1117,
+   "sims_used": 10
+  },
+  {
+   "instance": 481,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2465,
+   "sims_used": 10
+  },
+  {
+   "instance": 482,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3934,
+   "sims_used": 10
+  },
+  {
+   "instance": 483,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1501,
+   "sims_used": 10
+  },
+  {
+   "instance": 484,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2144,
+   "sims_used": 10
+  },
+  {
+   "instance": 485,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.4279,
+   "sims_used": 10
+  },
+  {
+   "instance": 486,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1411,
+   "sims_used": 10
+  },
+  {
+   "instance": 487,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0515,
+   "sims_used": 10
+  },
+  {
+   "instance": 488,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1563,
+   "sims_used": 10
+  },
+  {
+   "instance": 489,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0442,
+   "sims_used": 10
+  },
+  {
+   "instance": 490,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3489,
+   "sims_used": 10
+  },
+  {
+   "instance": 491,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0069,
+   "sims_used": 10
+  },
+  {
+   "instance": 492,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2189,
+   "sims_used": 10
+  },
+  {
+   "instance": 493,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1191,
+   "sims_used": 10
+  },
+  {
+   "instance": 494,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 1.1543,
+   "sims_used": 10
+  },
+  {
+   "instance": 495,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0662,
+   "sims_used": 10
+  },
+  {
+   "instance": 496,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.4026,
+   "sims_used": 10
+  },
+  {
+   "instance": 497,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0869,
+   "sims_used": 10
+  },
+  {
+   "instance": 498,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0875,
+   "sims_used": 10
+  },
+  {
+   "instance": 499,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1954,
+   "sims_used": 10
+  },
+  {
+   "instance": 500,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0356,
+   "sims_used": 10
+  },
+  {
+   "instance": 501,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1675,
+   "sims_used": 10
+  },
+  {
+   "instance": 502,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1344,
+   "sims_used": 10
+  },
+  {
+   "instance": 503,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 2.0031,
+   "sims_used": 10
+  },
+  {
+   "instance": 504,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0622,
+   "sims_used": 10
+  },
+  {
+   "instance": 505,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0509,
+   "sims_used": 10
+  },
+  {
+   "instance": 506,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.4905,
+   "sims_used": 10
+  },
+  {
+   "instance": 507,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0671,
+   "sims_used": 10
+  },
+  {
+   "instance": 508,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1446,
+   "sims_used": 10
+  },
+  {
+   "instance": 509,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.9295,
+   "sims_used": 10
+  },
+  {
+   "instance": 510,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1192,
+   "sims_used": 10
+  },
+  {
+   "instance": 511,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.614,
+   "sims_used": 10
+  },
+  {
+   "instance": 512,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1722,
+   "sims_used": 10
+  },
+  {
+   "instance": 513,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0473,
+   "sims_used": 10
+  },
+  {
+   "instance": 514,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1155,
+   "sims_used": 10
+  },
+  {
+   "instance": 515,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0303,
+   "sims_used": 10
+  },
+  {
+   "instance": 516,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2762,
+   "sims_used": 10
+  },
+  {
+   "instance": 517,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1862,
+   "sims_used": 10
+  },
+  {
+   "instance": 518,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0382,
+   "sims_used": 10
+  },
+  {
+   "instance": 519,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0836,
+   "sims_used": 10
+  },
+  {
+   "instance": 520,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0178,
+   "sims_used": 10
+  },
+  {
+   "instance": 521,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3521,
+   "sims_used": 10
+  },
+  {
+   "instance": 522,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1974,
+   "sims_used": 10
+  },
+  {
+   "instance": 523,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3546,
+   "sims_used": 10
+  },
+  {
+   "instance": 524,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1839,
+   "sims_used": 10
+  },
+  {
+   "instance": 525,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1414,
+   "sims_used": 10
+  },
+  {
+   "instance": 526,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0716,
+   "sims_used": 10
+  },
+  {
+   "instance": 527,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2928,
+   "sims_used": 10
+  },
+  {
+   "instance": 528,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1903,
+   "sims_used": 10
+  },
+  {
+   "instance": 529,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1154,
+   "sims_used": 10
+  },
+  {
+   "instance": 530,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3875,
+   "sims_used": 10
+  },
+  {
+   "instance": 531,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.314,
+   "sims_used": 10
+  },
+  {
+   "instance": 532,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1131,
+   "sims_used": 10
+  },
+  {
+   "instance": 533,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3127,
+   "sims_used": 10
+  },
+  {
+   "instance": 534,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0728,
+   "sims_used": 10
+  },
+  {
+   "instance": 535,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0214,
+   "sims_used": 10
+  },
+  {
+   "instance": 536,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0155,
+   "sims_used": 10
+  },
+  {
+   "instance": 537,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2203,
+   "sims_used": 10
+  },
+  {
+   "instance": 538,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.801,
+   "sims_used": 10
+  },
+  {
+   "instance": 539,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0992,
+   "sims_used": 10
+  },
+  {
+   "instance": 540,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1258,
+   "sims_used": 10
+  },
+  {
+   "instance": 541,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1885,
+   "sims_used": 10
+  },
+  {
+   "instance": 542,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2332,
+   "sims_used": 10
+  },
+  {
+   "instance": 543,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.7534,
+   "sims_used": 10
+  },
+  {
+   "instance": 544,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3657,
+   "sims_used": 10
+  },
+  {
+   "instance": 545,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2936,
+   "sims_used": 10
+  },
+  {
+   "instance": 546,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3803,
+   "sims_used": 10
+  },
+  {
+   "instance": 547,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2241,
+   "sims_used": 10
+  },
+  {
+   "instance": 548,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1041,
+   "sims_used": 10
+  },
+  {
+   "instance": 549,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.4665,
+   "sims_used": 10
+  },
+  {
+   "instance": 550,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1596,
+   "sims_used": 10
+  },
+  {
+   "instance": 551,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.4058,
+   "sims_used": 10
+  },
+  {
+   "instance": 552,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 1.4581,
+   "sims_used": 10
+  },
+  {
+   "instance": 553,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.4937,
+   "sims_used": 10
+  },
+  {
+   "instance": 554,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3915,
+   "sims_used": 10
+  },
+  {
+   "instance": 555,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 1.4363,
+   "sims_used": 10
+  },
+  {
+   "instance": 556,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0452,
+   "sims_used": 10
+  },
+  {
+   "instance": 557,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3132,
+   "sims_used": 10
+  },
+  {
+   "instance": 558,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1718,
+   "sims_used": 10
+  },
+  {
+   "instance": 559,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2122,
+   "sims_used": 10
+  },
+  {
+   "instance": 560,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2845,
+   "sims_used": 10
+  },
+  {
+   "instance": 561,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0139,
+   "sims_used": 10
+  },
+  {
+   "instance": 562,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1087,
+   "sims_used": 10
+  },
+  {
+   "instance": 563,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2022,
+   "sims_used": 10
+  },
+  {
+   "instance": 564,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.074,
+   "sims_used": 10
+  },
+  {
+   "instance": 565,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0734,
+   "sims_used": 10
+  },
+  {
+   "instance": 566,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1941,
+   "sims_used": 10
+  },
+  {
+   "instance": 567,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3515,
+   "sims_used": 10
+  },
+  {
+   "instance": 568,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.231,
+   "sims_used": 10
+  },
+  {
+   "instance": 569,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3259,
+   "sims_used": 10
+  },
+  {
+   "instance": 570,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.9109,
+   "sims_used": 10
+  },
+  {
+   "instance": 571,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 1.3767,
+   "sims_used": 10
+  },
+  {
+   "instance": 572,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.319,
+   "sims_used": 10
+  },
+  {
+   "instance": 573,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2168,
+   "sims_used": 10
+  },
+  {
+   "instance": 574,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0523,
+   "sims_used": 10
+  },
+  {
+   "instance": 575,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3843,
+   "sims_used": 10
+  },
+  {
+   "instance": 576,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3562,
+   "sims_used": 10
+  },
+  {
+   "instance": 577,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0522,
+   "sims_used": 10
+  },
+  {
+   "instance": 578,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 2.1117,
+   "sims_used": 10
+  },
+  {
+   "instance": 579,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.055,
+   "sims_used": 10
+  },
+  {
+   "instance": 580,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0387,
+   "sims_used": 10
+  },
+  {
+   "instance": 581,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3225,
+   "sims_used": 10
+  },
+  {
+   "instance": 582,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0556,
+   "sims_used": 10
+  },
+  {
+   "instance": 583,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.561,
+   "sims_used": 10
+  },
+  {
+   "instance": 584,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.4793,
+   "sims_used": 10
+  },
+  {
+   "instance": 585,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.4128,
+   "sims_used": 10
+  },
+  {
+   "instance": 586,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1841,
+   "sims_used": 10
+  },
+  {
+   "instance": 587,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.0555,
+   "sims_used": 10
+  },
+  {
+   "instance": 588,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3327,
+   "sims_used": 10
+  },
+  {
+   "instance": 589,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 2.1211,
+   "sims_used": 10
+  },
+  {
+   "instance": 590,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 1.1589,
+   "sims_used": 10
+  },
+  {
+   "instance": 591,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.3917,
+   "sims_used": 10
+  },
+  {
+   "instance": 592,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1172,
+   "sims_used": 10
+  },
+  {
+   "instance": 593,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.2465,
+   "sims_used": 10
+  },
+  {
+   "instance": 594,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1452,
+   "sims_used": 10
+  },
+  {
+   "instance": 595,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0033,
+   "sims_used": 10
+  },
+  {
+   "instance": 596,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.383,
+   "sims_used": 10
+  },
+  {
+   "instance": 597,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0284,
+   "sims_used": 10
+  },
+  {
+   "instance": 598,
+   "method": "coordinate",
+   "passed": false,
+   "best_error": 0.1699,
+   "sims_used": 10
+  },
+  {
+   "instance": 599,
+   "method": "coordinate",
+   "passed": true,
+   "best_error": 0.0056,
+   "sims_used": 10
+  }
+ ]
+}
