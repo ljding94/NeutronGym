@@ -48,3 +48,20 @@ def test_left_padding_right_aligns_every_completion():
     # the masked window is exactly the completion tokens
     for row, m, c in zip(ids, cmask, [[7, 8, 99], [9, 99]]):
         assert [t for t, keep in zip(row[-width:], m) if keep] == c
+
+
+def test_sparse_reward_is_pass_fail_only():
+    """Ablation of the ladder's shaping (pre-registered 2026-09-18)."""
+    results = [{"level": 4, "reward": 1.21}, {"level": 3, "reward": 0.98},
+               {"level": 3, "reward": 0.76}, {"level": 0, "reward": 0.0}]
+    assert m8_grpo.shape_rewards(results) == [1.21, 0.98, 0.76, 0.0]
+    assert m8_grpo.shape_rewards(results, sparse=True) == [1.0, 0.0, 0.0, 0.0]
+
+
+def test_sparse_reward_removes_signal_when_no_sample_passes():
+    """The pre-registered failure mode: with pass/fail only, a group whose
+    members all fail carries no gradient, while the ladder still ranks them."""
+    near_misses = [{"level": 3, "reward": 0.99}, {"level": 3, "reward": 0.80},
+                   {"level": 0, "reward": 0.0}, {"level": 3, "reward": 0.90}]
+    assert m8_grpo.group_advantages(m8_grpo.shape_rewards(near_misses)) is not None
+    assert m8_grpo.group_advantages(m8_grpo.shape_rewards(near_misses, sparse=True)) is None

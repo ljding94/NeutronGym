@@ -57,6 +57,18 @@ def load_states(path: str, max_turn: int | None = None) -> list:
     return out
 
 
+def shape_rewards(results: list, sparse: bool = False) -> list:
+    """Environment reward per sampled action, or pass/fail only.
+
+    The ladder gives partial credit for a valid, well-measured design near the
+    target (0.75 + 0.25 * min(ratio, 2)); sparse gives 1.0 for an L4 pass and
+    0.0 otherwise. Ablation pre-registered 2026-09-18.
+    """
+    if sparse:
+        return [1.0 if r["level"] == 4 else 0.0 for r in results]
+    return [r["reward"] for r in results]
+
+
 def group_advantages(rewards: list, min_std: float = 1e-3):
     """(r - mean) / std within one group; None when the group has no spread."""
     n = len(rewards)
@@ -127,6 +139,8 @@ def main():
     ap.add_argument("--seed", type=int, default=20260916)
     ap.add_argument("--init-adapter", default=None,
                     help="continue from a saved LoRA adapter (e.g. adapter_step120)")
+    ap.add_argument("--sparse-reward", action="store_true",
+                    help="pass/fail reward only (ablation of the ladder's shaping)")
     ap.add_argument("--start-step", type=int, default=0,
                     help="step number of --init-adapter, so logs and saves continue from it")
     ap.add_argument("--dry-run", action="store_true",
@@ -206,10 +220,11 @@ def main():
         k = 0
         for g in groups:
             g["results"] = results[k:k + len(g["texts"])]; k += len(g["texts"])
-            g["adv"] = group_advantages([r["reward"] for r in g["results"]])
-        rewards = [r["reward"] for r in results]
+            g["adv"] = group_advantages(shape_rewards(g["results"], a.sparse_reward))
+        rewards = shape_rewards(results, a.sparse_reward)
         used = [g for g in groups if g["adv"] is not None]
-        stats = {"step": step, "reward_mean": round(sum(rewards) / max(len(rewards), 1), 4),
+        stats = {"step": step, "sparse": bool(a.sparse_reward),
+                 "reward_mean": round(sum(rewards) / max(len(rewards), 1), 4),
                  "pass_frac": round(sum(r["reward"] > 1.0 for r in results) / max(len(results), 1), 4),
                  "valid_frac": round(sum(r["level"] >= 3 for r in results) / max(len(results), 1), 4),
                  "parse_frac": round(sum(r["parsed"] for r in results) / max(len(results), 1), 4),
