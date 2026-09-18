@@ -40,12 +40,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--family", required=True, choices=list(generate.FAMILIES))
     ap.add_argument("--n", type=int, default=150)
+    ap.add_argument("--start", type=int, default=0,
+                    help="first held-out instance (match a model eval's --start-index)")
     ap.add_argument("--workers", type=int, default=16)
     ap.add_argument("--target-fraction", type=float, default=0.85)
     ap.add_argument("--out", default=None)
     a = ap.parse_args()
     NeutronGym(family=a.family, split="heldout")        # compile before forking
-    idx = list(range(a.n))
+    idx = list(range(a.start, a.start + a.n))
     chunks = [idx[k::a.workers] for k in range(a.workers) if idx[k::a.workers]]
     with ProcessPoolExecutor(max_workers=a.workers) as ex:
         probe = merge(list(ex.map(_chunk, [(a.family, a.target_fraction, c) for c in chunks])))
@@ -53,7 +55,8 @@ def main():
     v = hacks.summarize_constant_probe(copy) if copy["results"] else None
     vp = hacks.summarize_constant_probe(phys) if phys["results"] else None
     top = sorted(probe["results"], key=lambda r: -r["passes"])[:5]
-    out = a.out or f"runs/m8/readout_probe_{a.family}_{a.target_fraction}_n{a.n}.json"
+    out = a.out or (f"runs/m8/readout_probe_{a.family}_{a.target_fraction}_n{a.n}"
+                    + (f"_from{a.start}" if a.start else "") + ".json")
     json.dump({"verdict": v, "physics_reference": vp, "probe": probe}, open(out, "w"), indent=1)
     if v:
         print(f"{a.family} @ {a.target_fraction}x, n={probe['n_instances']}: best COPY-type readout rule "
