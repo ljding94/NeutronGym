@@ -54,14 +54,16 @@ def parse_families(spec: str) -> list:
 
 
 def load_reusable(prev: dict, arms: list, *, target_fraction: float, n: int,
-                  max_steps: int, families: list) -> dict:
+                  max_steps: int, families: list, start_index: int = 0) -> dict:
     """Rows for `arms` from an earlier eval record, only if it measured the
     same thing. Reusing a comparator measured under a different bar, n,
     split or feedback budget would silently change what the verdict means."""
     checks = {"target_fraction": target_fraction, "n_per_family": n,
               "max_steps": max_steps, "split": "heldout",
-              "temperature": 0.0}
-    bad = {k: (prev.get(k), v) for k, v in checks.items() if prev.get(k) != v}
+              "temperature": 0.0, "start_index": start_index}
+    # records written before 2026-09-17 have no start_index: they are slice 0
+    got = lambda k: prev.get(k, 0) if k == "start_index" else prev.get(k)
+    bad = {k: (got(k), v) for k, v in checks.items() if got(k) != v}
     if bad:
         raise SystemExit(f"refusing to reuse arms: protocol differs {bad}")
     out = {}
@@ -109,6 +111,9 @@ def main():
                     help="held-out instances per family per arm")
     ap.add_argument("--target-fraction", type=float, required=True)
     ap.add_argument("--max-steps", type=int, default=6)
+    ap.add_argument("--start-index", type=int, default=0,
+                    help="first held-out instance; a slice disjoint from the one "
+                         "used to CHOOSE a checkpoint gives an unbiased estimate")
     ap.add_argument("--arms", default=",".join(ARMS))
     ap.add_argument("--families", default="guide_divergence",
                     help="comma-separated; defaults to guide only because "
@@ -136,7 +141,8 @@ def main():
             reused = load_reusable(json.load(f), args.reuse_arms.split(","),
                                    target_fraction=args.target_fraction,
                                    n=args.n, max_steps=args.max_steps,
-                                   families=parse_families(args.families))
+                                   families=parse_families(args.families),
+                                   start_index=args.start_index)
     for arm in arms:
         if arm not in reused and not os.environ.get(ARMS[arm][1]):
             raise SystemExit(f"{ARMS[arm][1]} not set for arm {arm}")
@@ -147,6 +153,7 @@ def main():
               "trained_model": args.trained_model,
               "reused_arms": {a: args.reuse for a in reused},
               "max_steps": args.max_steps, "split": "heldout",
+              "start_index": args.start_index,
               "temperature": 0.0, "arms": {}, "heldout": {}}
     for arm in arms:
         model, var = arm_models[arm]
@@ -165,7 +172,8 @@ def main():
             r = rollouts.evaluate(model, args.n, fam, "heldout",
                                   base_url=os.environ[var], temperature=0.0,
                                   max_steps=args.max_steps,
-                                  target_fraction=args.target_fraction)
+                                  target_fraction=args.target_fraction,
+                                  start_index=args.start_index)
             rows += r["rows"]
             record["heldout"].setdefault(arm, {})[fam] = {"rows": r["rows"]}
             print(f"  {arm:14} {fam:18} pass={r['pass_rate']} "

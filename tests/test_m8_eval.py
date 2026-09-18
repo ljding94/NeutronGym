@@ -133,3 +133,19 @@ def test_reuse_refuses_missing_family_rows():
         m8_eval.load_reusable(_prev_eval(), ["untrained-8b"],
                               target_fraction=1.0, n=300, max_steps=6,
                               families=["guide_divergence", "sans_collimation"])
+
+
+def test_reuse_refuses_arms_measured_on_a_different_instance_slice():
+    """Checkpoints were compared on held-out 0-299, so the chosen one is
+    re-measured on 300-599 (2026-09-17). Mixing the two slices in one verdict
+    would compare arms on different tasks."""
+    import pytest
+    prev = {"target_fraction": 0.85, "n_per_family": 300, "max_steps": 10,
+            "split": "heldout", "temperature": 0.0, "start_index": 0,
+            "heldout": {"untrained-8b": {"guide_match": {"rows": [{"instance": 0}]}}}}
+    with pytest.raises(SystemExit, match="start_index"):
+        m8_eval.load_reusable(prev, ["untrained-8b"], target_fraction=0.85, n=300,
+                              max_steps=10, families=["guide_match"], start_index=300)
+    ok = m8_eval.load_reusable(prev, ["untrained-8b"], target_fraction=0.85, n=300,
+                               max_steps=10, families=["guide_match"], start_index=0)
+    assert ok["untrained-8b"]["guide_match"]["rows"] == [{"instance": 0}]
