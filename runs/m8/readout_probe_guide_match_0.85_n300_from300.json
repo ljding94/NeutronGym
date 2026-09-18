@@ -1,0 +1,270 @@
+{
+ "verdict": null,
+ "physics_reference": {
+  "ok": false,
+  "max_rate": 0.2,
+  "best_action": "physics: optics inversion kdiv=0.577 w_in=0.07",
+  "best_pass_rate": 0.2767,
+  "best_pass_rate_upper": 0.3224,
+  "underpowered": false,
+  "best_source": "readout",
+  "baseline_passes": 0,
+  "n_instances": 300,
+  "skipped_no_headroom": 0,
+  "n_candidates": 36,
+  "top5": [
+   {
+    "action": "physics: optics inversion kdiv=0.577 w_in=0.07",
+    "passes": 83,
+    "pass_rate": 0.2767,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.577 w_in=0.08",
+    "passes": 83,
+    "pass_rate": 0.2767,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.577 w_in=0.06",
+    "passes": 71,
+    "pass_rate": 0.2367,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.577 w_in=0.09",
+    "passes": 69,
+    "pass_rate": 0.23,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.500 w_in=0.06",
+    "passes": 66,
+    "pass_rate": 0.22,
+    "source": "readout"
+   }
+  ]
+ },
+ "probe": {
+  "n_instances": 300,
+  "skipped_no_headroom": 0,
+  "results": [
+   {
+    "action": "physics: optics inversion kdiv=0.577 w_in=0.01",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.577 w_in=0.02",
+    "passes": 5,
+    "pass_rate": 0.0167,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.577 w_in=0.03",
+    "passes": 38,
+    "pass_rate": 0.1267,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.577 w_in=0.04",
+    "passes": 54,
+    "pass_rate": 0.18,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.577 w_in=0.05",
+    "passes": 59,
+    "pass_rate": 0.1967,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.577 w_in=0.06",
+    "passes": 71,
+    "pass_rate": 0.2367,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.577 w_in=0.07",
+    "passes": 83,
+    "pass_rate": 0.2767,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.577 w_in=0.08",
+    "passes": 83,
+    "pass_rate": 0.2767,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.577 w_in=0.09",
+    "passes": 69,
+    "pass_rate": 0.23,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.500 w_in=0.01",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.500 w_in=0.02",
+    "passes": 13,
+    "pass_rate": 0.0433,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.500 w_in=0.03",
+    "passes": 31,
+    "pass_rate": 0.1033,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.500 w_in=0.04",
+    "passes": 32,
+    "pass_rate": 0.1067,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.500 w_in=0.05",
+    "passes": 51,
+    "pass_rate": 0.17,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.500 w_in=0.06",
+    "passes": 66,
+    "pass_rate": 0.22,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.500 w_in=0.07",
+    "passes": 51,
+    "pass_rate": 0.17,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.500 w_in=0.08",
+    "passes": 34,
+    "pass_rate": 0.1133,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.500 w_in=0.09",
+    "passes": 18,
+    "pass_rate": 0.06,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.450 w_in=0.01",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.450 w_in=0.02",
+    "passes": 16,
+    "pass_rate": 0.0533,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.450 w_in=0.03",
+    "passes": 31,
+    "pass_rate": 0.1033,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.450 w_in=0.04",
+    "passes": 36,
+    "pass_rate": 0.12,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.450 w_in=0.05",
+    "passes": 49,
+    "pass_rate": 0.1633,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.450 w_in=0.06",
+    "passes": 47,
+    "pass_rate": 0.1567,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.450 w_in=0.07",
+    "passes": 33,
+    "pass_rate": 0.11,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.450 w_in=0.08",
+    "passes": 18,
+    "pass_rate": 0.06,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.450 w_in=0.09",
+    "passes": 4,
+    "pass_rate": 0.0133,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.400 w_in=0.01",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.400 w_in=0.02",
+    "passes": 20,
+    "pass_rate": 0.0667,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.400 w_in=0.03",
+    "passes": 32,
+    "pass_rate": 0.1067,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.400 w_in=0.04",
+    "passes": 37,
+    "pass_rate": 0.1233,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.400 w_in=0.05",
+    "passes": 40,
+    "pass_rate": 0.1333,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.400 w_in=0.06",
+    "passes": 36,
+    "pass_rate": 0.12,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.400 w_in=0.07",
+    "passes": 27,
+    "pass_rate": 0.09,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.400 w_in=0.08",
+    "passes": 9,
+    "pass_rate": 0.03,
+    "source": "readout"
+   },
+   {
+    "action": "physics: optics inversion kdiv=0.400 w_in=0.09",
+    "passes": 4,
+    "pass_rate": 0.0133,
+    "source": "readout"
+   }
+  ]
+ }
+}

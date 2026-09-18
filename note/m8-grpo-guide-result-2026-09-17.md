@@ -221,3 +221,33 @@ either arm, median 5 turns for the trained model against 10 for the untrained.
 **Report the fresh-slice number as the headline** (11.3% -> 76.7%) and the
 0-299 curve as what it is: the checkpoint-selection curve, which also carries
 the over-optimisation finding at 340 steps.
+
+
+### Replication and the complete fresh-slice table (2026-09-18)
+
+The recipe was re-run end to end with a different sampling seed (20260918):
+fresh episodes from the untrained 8B (300 episodes -> 2,820 states, 40
+passing), 120 steps at lr 1e-5, then 100 steps at lr 3e-5, evaluated directly
+on the fresh slice. Held-out instances **300-599**, +/-5%, 10 turns, 0 errored
+episodes in every arm:
+
+| policy | passed |
+|---|---|
+| untrained Qwen3-8B | 34/300 (11.3%) |
+| untrained Qwen3-32B | 34/300 (11.3%) |
+| one-shot physics formula (reference) | 83/300 (27.7%) |
+| best fixed design / lookup (n=150, slice 0-149) | 4.0% |
+| **GRPO-trained 8B, seed 1** | **230/300 (76.7%)** |
+| **GRPO-trained 8B, seed 2 (replication)** | **207/300 (69.0%)** |
+
+Paired vs untrained 8B: seed 1 213 trained-only vs 17; seed 2 180 trained-only
+vs 7 (both McNemar p ~ 0). The two trained models differ from each other
+(seed-1-only 60, seed-2-only 37, agreement 0.68, p = 0.025) — same recipe,
+same magnitude, different instances solved — so the effect reproduces while
+the exact instance set does not. Both share the signature: no turn-1 passes,
+median 5 turns per episode against 10 for the untrained arms, and nearly every
+pass a distinct design (225/230 and 203/207).
+
+The untrained 32B matches the untrained 8B exactly on this slice (both 11.3%),
+so model scale buys nothing here while RL on the environment's reward buys
+~58-65 points.
