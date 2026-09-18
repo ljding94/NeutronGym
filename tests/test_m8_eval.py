@@ -139,7 +139,7 @@ def test_reuse_refuses_arms_measured_on_a_different_instance_slice():
     """Checkpoints were compared on held-out 0-299, so the chosen one is
     re-measured on 300-599 (2026-09-17). Mixing the two slices in one verdict
     would compare arms on different tasks."""
-    import pytest
+    import m8_eval
     prev = {"target_fraction": 0.85, "n_per_family": 300, "max_steps": 10,
             "split": "heldout", "temperature": 0.0, "start_index": 0,
             "heldout": {"untrained-8b": {"guide_match": {"rows": [{"instance": 0}]}}}}
