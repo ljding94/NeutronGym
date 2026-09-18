@@ -1,7 +1,11 @@
 # M8 result: step-level GRPO on the guide family (2026-09-17)
 
-Status: final numbers for the guide GRPO run, with every baseline needed to
-read them honestly. Evidence files are under `runs/m8/` (listed at the end).
+Status: **chronological log.** The authoritative summary for the writeup is
+`note/m8-results-summary-2026-09-18.md` — quote that one. This file records the
+runs in the order they happened, starting with the guide family (whose 98.7%
+is the weaker claim, since that family is solvable by a readout rule) and
+continuing through `guide_match`, transfer, over-training and replication.
+Evidence files are under `runs/m8/`.
 
 ## Headline
 
