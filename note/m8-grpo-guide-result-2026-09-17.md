@@ -187,3 +187,37 @@ beam targets becomes markedly better at a different task — maximising flux
 under a divergence specification — which it never trained on. It remains well
 below both the in-family trained model (98.7%) and the untrained 32B (77.3%)
 on that family.
+
+
+### Longer training overfits the reward; the headline is on a fresh slice
+
+Continuing to 340 steps made held-out performance **worse** while training
+reward kept rising (mean reward 0.95, ~27% of sampled actions passing at step
+339). Checkpoints compared on held-out 0-299:
+
+| checkpoint | held-out 0-299 |
+|---|---|
+| untrained 8B | 14.0% |
+| 120 steps | 50.0% |
+| **220 steps** | **73.0%** |
+| 340 steps | 56.7% |
+
+That comparison **chose** the 220-step checkpoint, so held-out 0-299 can no
+longer give it an unbiased estimate. Re-measured on held-out instances
+**300-599**, which played no part in the choice (`--start-index`, recorded in
+the run so a reused arm cannot mix slices):
+
+| guide_match, held-out 300-599 | passed |
+|---|---|
+| untrained Qwen3-8B | 34/300 (11.3%) |
+| **GRPO-trained Qwen3-8B (220 steps)** | **230/300 (76.7%)** |
+
+Paired: 213 trained-only vs 17 untrained-only, McNemar p ~ 0, agreement 0.23.
+The fresh slice is slightly *better* than the selection slice (76.7% vs
+73.0%), so checkpoint selection is not what produced the number. The same
+signature holds: 225 distinct passing designs out of 230, no turn-1 passes for
+either arm, median 5 turns for the trained model against 10 for the untrained.
+
+**Report the fresh-slice number as the headline** (11.3% -> 76.7%) and the
+0-299 curve as what it is: the checkpoint-selection curve, which also carries
+the over-optimisation finding at 340 steps.
