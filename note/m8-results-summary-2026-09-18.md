@@ -11,9 +11,17 @@ Physics-verifiable environment reward **does** train a small model, but only
 with on-policy RL, and only a task that resists shortcuts shows it as design
 skill. Step-level GRPO takes Qwen3-8B from **11.3% to 76.7%** (replication:
 69.0%) on a held-out slice of a target-matching family where a one-shot
-physics formula reaches 27.7% and the best fixed answer 4.0%, and where the
-untrained 32B is no better than the untrained 8B. Three rejection-sampling SFT
-runs on the same environment all regressed the model.
+physics formula reaches 27.7%, the best fixed answer 4.0%, classical search at
+the agent's own simulation budget 13.3%, and the untrained 32B is no better
+than the untrained 8B. Three rejection-sampling SFT runs on the same
+environment all regressed the model, and removing the reward ladder's shaping
+costs 60 points.
+
+**Frontier models solve this family** (claude-sonnet-5 99%, gemini-3.6-flash
+98% on 100 instances). So the environment discriminates model quality —
+untrained 8B 12% → trained 8B 76% → frontier 99% on the same instances — and
+the honest claim is that RL closes most of the small-model gap, **not** that a
+trained 8B matches frontier models.
 
 ## Main result — `guide_match`, held-out instances 300–599
 
@@ -35,8 +43,10 @@ Paired, same instances: seed 1 = 213 trained-only vs 17 untrained-only; seed 2
 
 **It is iterative design, not a rule or a lookup:**
 
-- **No policy ever passes on turn 1** (0/300, every arm). Targets cannot be hit
-  without measuring.
+- **No 8B or 32B policy ever passes on turn 1** (0/300, trained or untrained):
+  at that scale targets cannot be hit without measuring. Frontier models do
+  hit some instances cold (claude-sonnet-5 17/99, gemini-3.6-flash 1/98), so
+  state the claim at the scale it holds for.
 - Trained models use a **median of 5 turns**; untrained arms burn all 10.
 - **Nearly every pass is a distinct design**: 225/230 (seed 1), 203/207 (seed 2).
 - On the selection slice the trained model beat the physics formula on 155
@@ -45,6 +55,68 @@ Paired, same instances: seed 1 = 213 trained-only vs 17 untrained-only; seed 2
 - The two seeds agree in magnitude but solve different instances (seed-1-only
   60, seed-2-only 37, agreement 0.68, p = 0.025): **the effect replicates, the
   exact instance set does not.**
+
+## Matched-compute classical search (pre-registered)
+
+Same 300 fresh-slice instances, the agent's own budget of 10 terminal
+simulations, optimizers handed the parametrization the agent never sees, each
+minimising the worst relative error the environment grades:
+
+| policy | budget 10 | budget 30 (3x, sensitivity) |
+|---|---|---|
+| Nelder–Mead | 8/300 (2.7%) | 120/300 (40.0%) |
+| random search | 22/300 (7.3%) | 60/300 (20.0%) |
+| coordinate descent | **40/300 (13.3%)** | **221/300 (73.7%)** |
+| GRPO-trained 8B (10 turns) | **230/300 (76.7%)** | — |
+
+Paired vs the best arm at matched budget: 208 GRPO-only vs 18, p = 3.7e-42.
+The pre-registered rule (best classical < 69.0% at budget 10) selects the
+claim **"RL beats hand-coded physics and classical search at matched
+budget"**. State the 3x column too: with three times the simulations,
+coordinate descent reaches 73.7%, i.e. roughly the trained model's level — so
+what RL buys is *search efficiency per simulation*, from natural language,
+without being given the parametrization.
+
+## Frontier models (pre-registered, 100 instances, held-out 300–399)
+
+| policy (same 100 instances) | passed | 95% CI | turn-1 passes | cost |
+|---|---|---|---|---|
+| untrained 8B | 12/100 (12.0%) | [6.4, 20.0] | 0 | — |
+| **GRPO-trained 8B** | 76/100 (76.0%) | [66.4, 84.0] | 0 | — |
+| google/gemini-3.6-flash | 98/100 (98.0%) | [93.0, 99.8] | 1 | $1.21 |
+| anthropic/claude-sonnet-5 | 99/100 (99.0%) | [94.5, 100] | 17 | $8.48 |
+
+Paired vs the trained 8B: sonnet-5 24 model-only vs 1 (p = 1.5e-6);
+gemini-3.6-flash 24 vs 2 (p = 1e-5). Errored episodes: 0 and 2 (both under the
+10% infra-limited threshold). Total spend $9.69 of the $30 ceiling;
+gpt-5.2-pro was therefore in budget but is not required for the claim.
+
+**Reading.** The pre-registered "≥ 50%" branch says to report that the
+environment discriminates model quality, which it does — 12% → 76% → 99%
+across three capability levels on identical instances. But the branch's
+phrasing ("the trained 8B reaches frontier-level performance") is **not**
+supported: 76% vs 99% is a real gap, and frontier models also solve faster
+(median 2.5–3 turns vs 4). Report the measured version: RL recovers about
+three quarters of the untrained-8B-to-frontier gap, and the family is hard for
+small models rather than hard in absolute terms.
+
+## Reward-ladder ablation (pre-registered)
+
+Identical recipe, states and seed; only the reward changed to pass/fail (1.0
+for an L4 pass, 0.0 otherwise):
+
+| reward | fresh-slice passes |
+|---|---|
+| level-resolved ladder | 230/300 (76.7%) |
+| **pass/fail only** | **50/300 (16.7%)** |
+
+60-point gap; paired 196 ladder-only vs 16 sparse-only (p = 1.5e-40) — past
+the pre-registered 10-point bar, so **the ladder is load-bearing for
+training**, not only a measurement device. The mechanism is the one the
+pre-registration predicted: with pass/fail only, a mean of **0.33 of 8 groups
+per step** carried any reward spread (ladder run: 5–7 of 8), because the
+untrained model almost never passes, so almost every group is all-zeros and
+contributes no gradient.
 
 ## Supporting results
 
@@ -111,18 +183,21 @@ re-verification of any selected best; env-controlled protocol.
 
 ## Caveats to state in the paper
 
-1. **One family carries the design claim.** `guide_match` is the only family
+1. **Frontier models nearly solve the family** (98–99%), so it separates model
+   capability but is not hard in absolute terms; the design claim is about
+   small models learning from reward, not about task difficulty per se.
+2. **One family carries the design claim.** `guide_match` is the only family
    that passes the copy-type probes. SANS is parked as evaluation-only (its
    feedback prints the pinhole limit, so a copy rule reaches 56%); a
    `sans_match` variant was prototyped and rejected for now: intensity noise
    between seeds is 4% median / 11% max, needing ~5x the rays.
-2. **Tolerance-edge fragility:** ~12% of passing designs stop matching at a
+3. **Tolerance-edge fragility:** ~12% of passing designs stop matching at a
    fresh seed (72/82 hold).
-3. **Seed-to-seed instance sets differ** (agreement 0.68) even though the
+4. **Seed-to-seed instance sets differ** (agreement 0.68) even though the
    magnitude replicates.
-4. **Checkpoint selection used held-out 0–299**, so only the 300–599 numbers
+5. **Checkpoint selection used held-out 0–299**, so only the 300–599 numbers
    are unbiased for the chosen model. Both are reported.
-5. **A feedback-label bug affected every M8 number before 2026-09-16:** the
+6. **A feedback-label bug affected every M8 number before 2026-09-16:** the
    per-turn figure of merit was reported as a fraction of the target but
    labelled "vs baseline". The three SFT runs and the guide GRPO run predate
    the fix; the `guide_match` results postdate it.
@@ -141,6 +216,12 @@ re-verification of any selected best; env-controlled protocol.
   ~0.85, sampled pass 6–8%, KL flat); raising the rate resumed progress.
 
 ## Evidence index
+
+Pre-registered experiments (2026-09-18, `note/prereg-matched-compute-frontier-ablation-2026-09-18.md`):
+- `runs/m8/classical_guide_match_budget{10,30}_from300_n300.json` — matched-compute search
+- `runs/m8/frontier_guide_match_n100_from300.json` — frontier arm with per-model cost
+- `runs/m8/eval_match_fresh_sparse.json`, `grpo_matchsparse_{a,b}.log` — reward ablation
+- `runs/m8/m8_table.json` — generated table with exact intervals
 
 Main result (fresh slice 300–599):
 - `runs/m8/eval_match_fresh_untrained-8b.json`, `..._untrained-32b.json`
