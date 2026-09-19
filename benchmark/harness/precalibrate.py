@@ -41,7 +41,7 @@ def _one(job):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--family", required=True)
-    ap.add_argument("--split", required=True, choices=("train", "heldout"))
+    ap.add_argument("--split", required=True, choices=("train", "heldout", "ood"))
     ap.add_argument("--start", type=int, default=0)
     ap.add_argument("--n", type=int, required=True)
     ap.add_argument("--workers", type=int, default=7)

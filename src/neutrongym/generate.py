@@ -476,7 +476,9 @@ FAMILIES["sans_match"] = {
     },
     "free_parameters": {"r_pin1": (0.001, 0.02), "r_pin2": (0.001, 0.02)},
     "baseline": {"r_pin1": 0.005, "r_pin2": 0.005},
-    "protocol": {"ncount": 2e5, "ncount_cheap": 2e4},
+    # 2e6: at 2e5 the 5 mm baseline collected 179 events, under the L3 floor.
+    # Slits only (no sample scattering), so rays are cheap even at this count.
+    "protocol": {"ncount": 2e6, "ncount_cheap": 2e5},
     "fom": {"monitor": "at_sample", "metric": "intensity", "maximize": True,
             "type": "match", "tolerance": 0.03,
             "match": [

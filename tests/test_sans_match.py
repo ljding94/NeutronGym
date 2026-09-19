@@ -23,7 +23,7 @@ def test_tolerance_is_tighter_than_guide_match_and_protocol_is_cheap():
     f = generate.FAMILIES[FAM]
     assert f["fom"]["tolerance"] == 0.03 < generate.MATCH_TOLERANCE
     # no sample scattering in this instrument, so rays are cheap
-    assert generate.family_protocol(FAM)["ncount"] == 2e5
+    assert generate.family_protocol(FAM)["ncount"] == 2e6
     assert [m["monitor"] for m in f["fom"]["match"]] == ["at_sample", "at_stop"]
 
 
