@@ -13,6 +13,7 @@ CPUS=0-15,32-47,64-79,96-111
 export NEUTRONGYM_VLLM_URL_8B=http://localhost:8137/v1 NEUTRONGYM_VLLM_URL_32B=http://localhost:8138/v1 NEUTRONGYM_VLLM_URL_TRAINED=http://localhost:8139/v1
 done_() { echo "SANSMATCH_GRPO_DONE $1 $(date +%T)"; exit "${2:-0}"; }
 
+if [ "${SKIP_PREP:-0}" = "1" ]; then echo "== skipping steps 1-4 (already done) =="; else
 echo "== 1. targets at the new tolerance $(date +%T) =="
 for split in heldout train; do
   taskset -c $CPUS $RUN python benchmark/harness/precalibrate.py --family sans_match \
@@ -41,11 +42,15 @@ taskset -c 16-31 $RUN python -u benchmark/harness/m8_states.py --family sans_mat
 wait
 for arm in untrained-8b untrained-32b; do grep -v "libmamba\|Waiting\|Could not" runs/m8/eval_sansmatch_fresh_$arm.log | tail -1; done
 
+fi
 echo "== 5. GRPO 120 @1e-5 then 100 @3e-5 $(date +%T) =="
 for n in qwen3-8b-m8-match05grpoLR qwen3-8b-m8-matchsparse qwen3-8b-m8-matchrep2; do pkill -f "served-model-name $n"; done
 for i in $(seq 1 60); do [ $(nvidia-smi -i 7 --query-gpu=memory.used --format=csv,noheader,nounits) -lt 1000 ] && break; sleep 5; done
-pgrep -f "reward_server.py --port 8199" > /dev/null || \
-  (setsid nohup taskset -c 48-63,80-95 $RUN python benchmark/harness/reward_server.py --port 8199 --workers 32 > /netdisk/ldq/grpo/reward_server.log 2>&1 < /dev/null &)
+# ALWAYS restart: a server started before this family existed has workers
+# whose generate module lacks it, and the request dies as RemoteDisconnected
+pkill -f "reward_server.py --port 8199"; sleep 3
+rm -f /netdisk/ldq/grpo/reward_server.log
+(setsid nohup taskset -c 48-63,80-95 $RUN python benchmark/harness/reward_server.py --port 8199 --workers 32 > /netdisk/ldq/grpo/reward_server.log 2>&1 < /dev/null &)
 for i in $(seq 1 90); do grep -q "reward server on" /netdisk/ldq/grpo/reward_server.log 2>/dev/null && break; sleep 2; done
 CUDA_DEVICE_ORDER=PCI_BUS_ID CUDA_VISIBLE_DEVICES=7 HF_HOME=/netdisk/ldq/hf TMPDIR=/netdisk/ldq/tmp PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
   $SFT -u benchmark/harness/m8_grpo.py --states runs/m8/grpo_states_sansmatch.jsonl --base $BASE --out $CKPT_A \
