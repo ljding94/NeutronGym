@@ -118,6 +118,49 @@ per step** carried any reward spread (ladder run: 5–7 of 8), because the
 untrained model almost never passes, so almost every group is all-zeros and
 contributes no gradient.
 
+## Robustness, difficulty and budget (2026-09-18/19)
+
+**Out of distribution.** A third split shifts every context axis beyond BOTH
+train and held-out (longer guides, longer wavelengths, larger sources, further
+sample distances), n=150:
+
+| policy on OOD instances | passed | 95% CI |
+|---|---|---|
+| untrained 8B | 26/150 (17.3%) | [11.7, 24.4] |
+| **GRPO-trained 8B** | **68/150 (45.3%)** | [37.2, 53.7] |
+
+Paired: 57 trained-only vs 15 (p = 6.5e-7). Performance falls from 76.7% to
+45.3% outside the training ranges but the advantage survives, so the policy
+generalises the geometry rather than interpolating its training distribution —
+and the honest framing is "degrades but holds", not "transfers intact".
+
+**Difficulty knob.** The same fresh slice at tighter tolerances (targets do not
+depend on the tolerance, so no recalibration):
+
+| tolerance | untrained 8B | GRPO 8B | ratio |
+|---|---|---|---|
+| ±5% (reported) | 11.3% | 76.7% | 6.8x |
+| ±3% | 7.0% | 73.3% | 10.5x |
+| ±2% | 3.7% | 67.0% | 18x |
+
+The trained model degrades gracefully while the untrained one collapses, and
+the knob gives the benchmark headroom as models improve.
+
+**Turn budget.** Every one of the trained model's 70 failures at 10 turns used
+all 10, so the budget was doubled:
+
+| budget | untrained 8B | GRPO 8B |
+|---|---|---|
+| 10 turns | 11.3% | 76.7% |
+| 20 turns | 19.3% | 79.0% |
+
+Only 9 of 237 solves used more than 10 turns (median 4). **The trained model's
+remaining failures are not budget-limited — it plateaus rather than running
+out of turns**, while the untrained model does benefit from more attempts.
+Failure taxonomy at 10 turns: of 70 failures, 27 end within 10% of target,
+36 within 10-25%, 7 beyond 25%, none without a valid design (median miss
+12.2% against a 5% tolerance).
+
 ## Supporting results
 
 **Transfer to a family it never trained on** (`guide_divergence`, held-out
