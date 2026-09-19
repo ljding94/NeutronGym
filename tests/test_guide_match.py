@@ -120,3 +120,37 @@ def test_real_env_hidden_design_matches_exactly_and_baseline_does_not(tmp_path):
     rec = env.step(dict(inst["baseline"]))[4]
     assert rec["level"] == 3                 # never a pass: excluded at calibration
     assert max(rec["match"]["rel_err"]) > generate.MATCH_BASELINE_EXCLUSION * generate.MATCH_TOLERANCE
+
+
+def test_ood_split_is_beyond_train_and_heldout_on_every_axis():
+    """OOD separates learned geometry from interpolation of the training
+    distribution (2026-09-18)."""
+    spans = generate.FAMILIES[FAM]["context"]
+    for k, rr in spans.items():
+        lo, hi = rr["ood"]
+        for other in ("train", "heldout"):
+            olo, ohi = rr[other]
+            assert lo >= ohi or hi <= olo or k == "dwl", (k, rr)
+    for i in range(50):
+        inst = generate.instance(FAM, "ood", i)
+        for k, (lo, hi) in [(k, spans[k]["ood"]) for k in spans]:
+            assert lo <= inst["context"][k] <= hi
+    assert generate.instance(FAM, "ood", 0)["id"].startswith(f"{FAM}-ood-")
+
+
+def test_unknown_split_and_missing_range_fail_loudly():
+    with pytest.raises(ValueError, match="train|heldout|ood"):
+        generate.instance(FAM, "validation", 0)
+    with pytest.raises(ValueError, match="no 'ood' range"):
+        generate.instance("sans_collimation", "ood", 0)
+
+
+def test_match_tolerance_override_changes_the_bar_not_the_targets():
+    from neutrongym import reward as rw
+    inst = dict(generate.instance(FAM, "heldout", 0), targets=[2.0, 0.5])
+    strict = dict(inst, fom=dict(inst["fom"], tolerance=0.02))
+    summary = {"monitors": [
+        {"component": "psd", "intensity": 1.0, "events": 5000, "beam_width": {"dX": 2.06}},
+        {"component": "divmon", "intensity": 1.0, "events": 5000, "beam_width": {"dX": 0.5}}]}
+    assert rw._score_match(inst, summary, {"level": 3, "reward": 0.75}, {})["level"] == 4
+    assert rw._score_match(strict, summary, {"level": 3, "reward": 0.75}, {})["level"] == 3

@@ -33,7 +33,8 @@ class NeutronGym:
     def __init__(self, family: str = "guide_divergence", split: str = "train",
                  workdir: str | None = None, max_steps: int = 32,
                  calibrated: bool = True,
-                 target_fraction: float | None = None):
+                 target_fraction: float | None = None,
+                 match_tolerance: float | None = None):
         if family not in generate.FAMILIES:
             raise ValueError(f"unknown family {family!r} — have "
                              f"{sorted(generate.FAMILIES)}")
@@ -48,6 +49,9 @@ class NeutronGym:
         # None = the module default (0.8, the T2 benchmark discipline).
         # Sweeping it is free — see calibrate.calibrated_target_ratio.
         self.target_fraction = target_fraction
+        # difficulty knob for matching families; targets are independent of it,
+        # so sweeping it needs no recalibration
+        self.match_tolerance = match_tolerance
         self.workdir = workdir or os.path.join(home_dir(), "families")
         self.exec = FamilyExecutor(
             generate.family_instr(family, self.workdir),
@@ -69,6 +73,8 @@ class NeutronGym:
         if index is None:
             index, self._counter = self._counter, self._counter + 1
         inst = generate.instance(self.family, self.split, index)
+        if self.match_tolerance is not None and inst["fom"].get("type") == "match":
+            inst["fom"] = dict(inst["fom"], tolerance=self.match_tolerance)
         family_dir = self.family
         base = self._baselines.get(inst["id"])
         if base is None:

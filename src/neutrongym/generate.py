@@ -260,13 +260,16 @@ FAMILIES["guide_match"] = {
                     "divergence both match this instance's targets. Both are "
                     "reported as the standard deviation of the distribution "
                     "(spot in cm, divergence in degrees)."),
+    # "ood" shifts every axis beyond BOTH training and held-out ranges, so a
+    # policy that merely interpolated its training distribution should fall
+    # over while one that learned the geometry should degrade gracefully
     "context": {
-        "src_wh": {"train": (0.06, 0.14), "heldout": (0.06, 0.14)},
-        "L_in": {"train": (1.0, 2.0), "heldout": (1.0, 2.0)},
-        "L_guide": {"train": (6.0, 12.0), "heldout": (12.5, 16.0)},
-        "wl": {"train": (3.0, 8.0), "heldout": (3.0, 8.0)},
-        "dwl": {"train": (0.3, 1.0), "heldout": (0.3, 1.0)},
-        "d_sample": {"train": (0.1, 1.5), "heldout": (0.1, 1.5)},
+        "src_wh": {"train": (0.06, 0.14), "heldout": (0.06, 0.14), "ood": (0.15, 0.20)},
+        "L_in": {"train": (1.0, 2.0), "heldout": (1.0, 2.0), "ood": (2.2, 3.0)},
+        "L_guide": {"train": (6.0, 12.0), "heldout": (12.5, 16.0), "ood": (17.0, 21.0)},
+        "wl": {"train": (3.0, 8.0), "heldout": (3.0, 8.0), "ood": (8.5, 11.0)},
+        "dwl": {"train": (0.3, 1.0), "heldout": (0.3, 1.0), "ood": (0.3, 1.0)},
+        "d_sample": {"train": (0.1, 1.5), "heldout": (0.1, 1.5), "ood": (1.8, 2.6)},
     },
     "free_parameters": {"w_in": (0.01, 0.09), "w_out": (0.01, 0.09),
                         "m_coat": (1.0, 3.0)},
@@ -611,8 +614,11 @@ def instance(family: str, split: str, index: int) -> dict:
     """Deterministic instance: (family, split, index) -> the same task
     forever. split: 'train' | 'heldout' (held-out parameter regimes)."""
     fam = FAMILIES[family]
-    if split not in ("train", "heldout"):
-        raise ValueError(f"split must be train|heldout (got {split!r})")
+    if split not in ("train", "heldout", "ood"):
+        raise ValueError(f"split must be train|heldout|ood (got {split!r})")
+    missing = [k for k, rr in fam["context"].items() if split not in rr]
+    if missing:
+        raise ValueError(f"family {family} has no {split!r} range for {missing}")
     rng = random.Random(f"{family}/{split}/{index}")
     context = {k: round(rng.uniform(*rr[split]), 6)
                for k, rr in fam["context"].items()}

@@ -61,6 +61,8 @@ def load_reusable(prev: dict, arms: list, *, target_fraction: float, n: int,
     checks = {"target_fraction": target_fraction, "n_per_family": n,
               "max_steps": max_steps, "split": "heldout",
               "temperature": 0.0, "start_index": start_index}
+    # match_tolerance and split are compared through the same got() default
+    # path below; a row measured at another difficulty is not reusable
     # records written before 2026-09-17 have no start_index: they are slice 0
     got = lambda k: prev.get(k, 0) if k == "start_index" else prev.get(k)
     bad = {k: (got(k), v) for k, v in checks.items() if got(k) != v}
@@ -111,6 +113,10 @@ def main():
                     help="held-out instances per family per arm")
     ap.add_argument("--target-fraction", type=float, required=True)
     ap.add_argument("--max-steps", type=int, default=6)
+    ap.add_argument("--split", default="heldout", choices=("heldout", "ood"),
+                    help="ood = context ranges beyond training and held-out")
+    ap.add_argument("--match-tolerance", type=float, default=None,
+                    help="override a matching family's pass tolerance (difficulty knob)")
     ap.add_argument("--start-index", type=int, default=0,
                     help="first held-out instance; a slice disjoint from the one "
                          "used to CHOOSE a checkpoint gives an unbiased estimate")
@@ -152,8 +158,9 @@ def main():
               "families": families,
               "trained_model": args.trained_model,
               "reused_arms": {a: args.reuse for a in reused},
-              "max_steps": args.max_steps, "split": "heldout",
+              "max_steps": args.max_steps, "split": args.split,
               "start_index": args.start_index,
+              "match_tolerance": args.match_tolerance,
               "temperature": 0.0, "arms": {}, "heldout": {}}
     for arm in arms:
         model, var = arm_models[arm]
@@ -169,11 +176,12 @@ def main():
                   flush=True)
             continue
         for fam in families:
-            r = rollouts.evaluate(model, args.n, fam, "heldout",
+            r = rollouts.evaluate(model, args.n, fam, args.split,
                                   base_url=os.environ[var], temperature=0.0,
                                   max_steps=args.max_steps,
                                   target_fraction=args.target_fraction,
-                                  start_index=args.start_index)
+                                  start_index=args.start_index,
+                                  match_tolerance=args.match_tolerance)
             rows += r["rows"]
             record["heldout"].setdefault(arm, {})[fam] = {"rows": r["rows"]}
             print(f"  {arm:14} {fam:18} pass={r['pass_rate']} "

@@ -123,7 +123,8 @@ def evaluate(model: str, n_instances: int, family: str, split: str,
              base_url: str | None = None, api_key: str | None = None,
              provider_pin: str | None = None, temperature: float = 0.0,
              max_steps: int = 6, start_index: int = 0,
-             chat_fn=None, target_fraction: float | None = None) -> dict:
+             chat_fn=None, target_fraction: float | None = None,
+             match_tolerance: float | None = None) -> dict:
     """Measure a policy on procedural instances WITHOUT filtering — the
     primitive behind both the phase-0 baselines and the phase-3 trained-vs-
     untrained comparison, so both are measured identically.
@@ -136,7 +137,8 @@ def evaluate(model: str, n_instances: int, family: str, split: str,
     import httpx
 
     env = NeutronGym(family=family, split=split, max_steps=max_steps,
-                     target_fraction=target_fraction)
+                     target_fraction=target_fraction,
+                     match_tolerance=match_tolerance)
     if chat_fn is not None:
         call_model = chat_fn
     else:
