@@ -284,6 +284,32 @@ def readout_rules(family: str, free: dict) -> list:
                 r1 = math.floor(generate.sans_max_r1(c, r2) * 1e5) / 1e5
                 return None if r1 < rlo else {"r_pin1": min(rhi, r1), "r_pin2": r2}
             rules.append((f"r_pin2={r2} r_pin1=limit", g))
+    elif family == "sans_match":
+        # two geometric widths, both linear in (r1, r2):
+        #   w = k * (r2 + (r1 + r2) * a),  a = distance / L_coll
+        # so the pair is the exact solution of a 2x2 system, up to the profile
+        # constant k relating a monitor's std to the beam half-width.
+        rlo, rhi = free["r_pin1"]
+
+        def solve(c, t, k):
+            L = float(c["L_coll"])
+            a_s = generate.SANS_COLL2_TO_SAMPLE / L
+            a_t = (generate.SANS_COLL2_TO_SAMPLE + float(c["det_dist"])
+                   - generate.SANS_STOP_BEFORE_DETECTOR) / L
+            ws, wt = t[0] / 100.0 / k, t[1] / 100.0 / k      # cm -> m, de-scale
+            det = (1 + a_s) * a_t - (1 + a_t) * a_s
+            if abs(det) < 1e-12:
+                return None
+            r2 = (ws * a_t - wt * a_s) / det
+            r1 = (wt * (1 + a_s) - ws * (1 + a_t)) / det
+            if not (rlo <= r1 <= rhi and rlo <= r2 <= rhi):
+                return None
+            return {"r_pin1": round(r1, 6), "r_pin2": round(r2, 6)}
+
+        for k in (0.5, 0.577, 0.45, 0.6):
+            def h(c, inst=None, k=k):
+                return solve(c, inst["targets"], k) if inst and inst.get("targets") else None
+            rules.append((f"physics: width inversion k={k}", h))
     elif family == "guide_match":
         # geometric-optics inversions of the stated targets (prototype best:
         # 6/16 at +/-5%): divergence std ~ kdiv * 0.099 * m * wl  ->  m_coat;

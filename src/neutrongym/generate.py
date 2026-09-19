@@ -226,6 +226,36 @@ AT (0, 0, L_guide + d_sample + 0.001) RELATIVE guide
 END
 """
 
+SANS_MATCH_INSTR = """\
+DEFINE INSTRUMENT fam_sans_match(double src_r=0.02, double L_coll=3.0,
+  double wl=6.0, double det_dist=3.0, double r_pin1=0.005, double r_pin2=0.005)
+TRACE
+COMPONENT arm = Arm()
+AT (0, 0, 0) ABSOLUTE
+
+COMPONENT source = Source_simple(radius=src_r, dist=3, focus_xw=0.045,
+  focus_yh=0.045, lambda0=wl, dlambda=0.05*wl, flux=1e8)
+AT (0, 0, 0) RELATIVE arm
+
+COMPONENT coll1 = Slit(radius=r_pin1)
+AT (0, 0, 3) RELATIVE arm
+
+COMPONENT coll2 = Slit(radius=r_pin2)
+AT (0, 0, 3+L_coll) RELATIVE arm
+
+COMPONENT at_sample = PSD_monitor(nx=100, ny=100, filename="psamp.dat",
+  xwidth=0.1, yheight=0.1, restore_neutron=1)
+AT (0, 0, 0.19) RELATIVE coll2
+
+COMPONENT sample_arm = Arm()
+AT (0, 0, 0.2) RELATIVE coll2
+
+COMPONENT at_stop = PSD_monitor(nx=100, ny=100, filename="pstop.dat",
+  xwidth=0.3, yheight=0.3, restore_neutron=1)
+AT (0, 0, det_dist-0.1) RELATIVE sample_arm
+END
+"""
+
 MATCH_TOLERANCE = 0.05
 # a hidden design is rejected when the baseline already lands within this
 # multiple of the tolerance of its targets: resubmitting the baseline must
@@ -422,6 +452,43 @@ def check_sans_beam_fits_sample(context: dict, action: dict) -> dict:
                        f"{context['sample_wh']}); the excess only lights the "
                        f"holder — narrow the pinholes")}
 
+
+
+# Second matching family (2026-09-18). Built to test whether the GRPO recipe
+# generalises beyond one family. Targets are two GEOMETRIC widths -- the beam
+# at the sample and the unscattered beam at the beamstop plane -- because the
+# first SANS attempt matched scattered intensity, whose seed-to-seed noise is
+# 4-11% against 0.7% for widths. Prototype at +/-3%: median 1 of 169 grid
+# designs solves an instance, best constant 1/7, lookup 0/7.
+FAMILIES["sans_match"] = {
+    "instr_name": "fam_sans_match",
+    "instr": SANS_MATCH_INSTR,
+    "description": ("Pinhole SANS collimation. Choose the two pinhole radii so "
+                    "that the beam delivered to the sample and the unscattered "
+                    "beam arriving at the beamstop plane both match this "
+                    "instance's target widths. Both are reported as the "
+                    "standard deviation of the beam profile, in cm."),
+    "context": {
+        "src_r": {"train": (0.015, 0.03), "heldout": (0.015, 0.03)},
+        "L_coll": {"train": (2.5, 4.0), "heldout": (4.5, 6.0)},
+        "wl": {"train": (4.0, 8.0), "heldout": (4.0, 8.0)},
+        "det_dist": {"train": (2.5, 3.5), "heldout": (2.5, 3.5)},
+    },
+    "free_parameters": {"r_pin1": (0.001, 0.02), "r_pin2": (0.001, 0.02)},
+    "baseline": {"r_pin1": 0.005, "r_pin2": 0.005},
+    "protocol": {"ncount": 2e5, "ncount_cheap": 2e4},
+    "fom": {"monitor": "at_sample", "metric": "intensity", "maximize": True,
+            "type": "match", "tolerance": 0.03,
+            "match": [
+                {"monitor": "at_sample", "observable": "beam_width_x",
+                 "label": "beam width at the sample", "unit": "cm"},
+                {"monitor": "at_stop", "observable": "beam_width_x",
+                 "label": "unscattered beam width at the beamstop plane", "unit": "cm"},
+            ]},
+    "constraints": [],
+    "static_checks": [],
+    "hidden_design": True,
+}
 
 SANS_BASELINE_FRACTION = 0.8   # of the tightest allowed beam radius
 
