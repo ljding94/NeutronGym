@@ -1,0 +1,23 @@
+== arms in parallel 17:49:03 ==
+  untrained-8b   TOTAL              pass=0.0833 mean_level=2.75 levels={'0': 32, '1': 0, '2': 4, '3': 239, '4': 25}
+-> runs/m8/eval_sans085v3h_arm_untrained-8b.json
+  trained-8b     TOTAL              pass=0.01 mean_level=2.47 levels={'0': 49, '1': 0, '2': 15, '3': 233, '4': 3}
+-> runs/m8/eval_sans085v3h_arm_trained-8b.json
+  untrained-32b  TOTAL              pass=0.0867 mean_level=3.087 levels={'0': 0, '1': 0, '2': 0, '3': 274, '4': 26}
+-> runs/m8/eval_sans085v3h_arm_untrained-32b.json
+== combine 18:32:39 ==
+untrained-8b rows 300 errored 0
+trained-8b rows 300 errored 0
+untrained-32b rows 300 errored 0
+  untrained-8b   REUSED             pass=0.0833 mean_level=2.75 (from runs/m8/eval_sans085v3h_arms_combined.json)
+  trained-8b     REUSED             pass=0.01 mean_level=2.47 (from runs/m8/eval_sans085v3h_arms_combined.json)
+  untrained-32b  REUSED             pass=0.0867 mean_level=3.087 (from runs/m8/eval_sans085v3h_arms_combined.json)
+
+=== VERDICT (trained vs untrained 8B) ===
+  pass gain -0.073  (claim needs >= +0.10 or beating 32B at 0.0867)
+  level migration: Cochran-Armitage z=-3.2101 p=0.001327
+  paired McNemar p=3e-06 (untrained-only 23, trained-only 1)
+  fraction of 8B->32B gap closed: -21.559
+  CLAIM BAR NOT MET
+-> runs/m8/eval_sans085v3h_n300_passing.json
+== constant probe at 0.85 18:32:40 ==

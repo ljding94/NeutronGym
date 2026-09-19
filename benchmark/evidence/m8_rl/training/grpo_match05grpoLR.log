@@ -1,0 +1,108 @@
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 4135.12it/s]
+states: 2807 for guide_match
+[transformers] `use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+/netdisk/ldq/NeutronGym/benchmark/harness/m8_grpo.py:239: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:822.)
+  kl_sum += float((kl.sum(1) / ntok).sum()); pg_sum += float((pg.sum(1) / ntok).sum())
+{"step": 121, "reward_mean": 0.8374, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.83619, "pg": -0.01182, "elapsed_s": 65.0}
+{"step": 122, "reward_mean": 0.8174, "pass_frac": 0.0156, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.66445, "pg": 0.01181, "elapsed_s": 126.3}
+{"step": 123, "reward_mean": 0.8723, "pass_frac": 0.1406, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.43326, "pg": 0.01843, "elapsed_s": 179.3}
+{"step": 124, "reward_mean": 0.8087, "pass_frac": 0.0312, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.94029, "pg": 0.01083, "elapsed_s": 249.0}
+{"step": 125, "reward_mean": 0.8481, "pass_frac": 0.125, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.98409, "pg": 0.00071, "elapsed_s": 299.6}
+{"step": 126, "reward_mean": 0.7857, "pass_frac": 0.0, "valid_frac": 0.9844, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.89421, "pg": -0.00362, "elapsed_s": 356.1}
+{"step": 127, "reward_mean": 0.9102, "pass_frac": 0.2656, "valid_frac": 0.9844, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.8775, "pg": -0.0117, "elapsed_s": 424.0}
+{"step": 128, "reward_mean": 0.8784, "pass_frac": 0.0625, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.82844, "pg": 0.00893, "elapsed_s": 488.5}
+{"step": 129, "reward_mean": 0.8189, "pass_frac": 0.0469, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.16915, "pg": -0.00373, "elapsed_s": 547.4}
+{"step": 130, "reward_mean": 0.876, "pass_frac": 0.125, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.78709, "pg": 0.00043, "elapsed_s": 612.9}
+{"step": 131, "reward_mean": 0.8735, "pass_frac": 0.0938, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.63315, "pg": 0.01758, "elapsed_s": 679.9}
+{"step": 132, "reward_mean": 0.7963, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.92189, "pg": 0.00178, "elapsed_s": 740.6}
+{"step": 133, "reward_mean": 0.8502, "pass_frac": 0.0625, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.8811, "pg": -0.02045, "elapsed_s": 795.2}
+{"step": 134, "reward_mean": 0.8507, "pass_frac": 0.0625, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.90589, "pg": -0.01309, "elapsed_s": 850.8}
+{"step": 135, "reward_mean": 0.8459, "pass_frac": 0.0781, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.99873, "pg": -0.00816, "elapsed_s": 912.0}
+{"step": 136, "reward_mean": 0.8184, "pass_frac": 0.0156, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.96291, "pg": -0.017, "elapsed_s": 974.9}
+{"step": 137, "reward_mean": 0.8389, "pass_frac": 0.0156, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 1.04321, "pg": 0.00148, "elapsed_s": 1032.4}
+{"step": 138, "reward_mean": 0.8682, "pass_frac": 0.0625, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.16313, "pg": -0.01961, "elapsed_s": 1102.1}
+{"step": 139, "reward_mean": 0.8477, "pass_frac": 0.0156, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 1.16996, "pg": -0.00588, "elapsed_s": 1166.8}
+{"step": 140, "reward_mean": 0.8896, "pass_frac": 0.1719, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.02119, "pg": -0.01137, "elapsed_s": 1235.0}
+{"step": 141, "reward_mean": 0.8714, "pass_frac": 0.1562, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.89149, "pg": 0.00277, "elapsed_s": 1293.2}
+{"step": 142, "reward_mean": 0.8664, "pass_frac": 0.0312, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 1.11378, "pg": -0.01024, "elapsed_s": 1357.1}
+{"step": 143, "reward_mean": 0.901, "pass_frac": 0.0469, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.97288, "pg": 0.0025, "elapsed_s": 1428.1}
+{"step": 144, "reward_mean": 0.869, "pass_frac": 0.1406, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.77337, "pg": -0.00255, "elapsed_s": 1489.9}
+{"step": 145, "reward_mean": 0.8533, "pass_frac": 0.0781, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.18705, "pg": 0.00498, "elapsed_s": 1556.3}
+{"step": 146, "reward_mean": 0.8477, "pass_frac": 0.125, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.91664, "pg": -0.00068, "elapsed_s": 1624.8}
+{"step": 147, "reward_mean": 0.8749, "pass_frac": 0.0781, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.85974, "pg": 0.00301, "elapsed_s": 1686.7}
+{"step": 148, "reward_mean": 0.9037, "pass_frac": 0.1719, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.03881, "pg": -0.01507, "elapsed_s": 1747.6}
+{"step": 149, "reward_mean": 0.7935, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.95458, "pg": 0.00185, "elapsed_s": 1807.3}
+{"step": 150, "reward_mean": 0.8518, "pass_frac": 0.0625, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.92088, "pg": -0.01702, "elapsed_s": 1873.4}
+{"step": 151, "reward_mean": 0.8796, "pass_frac": 0.1562, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.04587, "pg": 0.00384, "elapsed_s": 1944.3}
+{"step": 152, "reward_mean": 0.804, "pass_frac": 0.125, "valid_frac": 0.9062, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.14635, "pg": -0.00365, "elapsed_s": 2015.0}
+{"step": 153, "reward_mean": 0.8985, "pass_frac": 0.1406, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.09035, "pg": 0.00091, "elapsed_s": 2084.0}
+{"step": 154, "reward_mean": 0.8554, "pass_frac": 0.0625, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.01952, "pg": -0.00668, "elapsed_s": 2137.1}
+{"step": 155, "reward_mean": 0.8991, "pass_frac": 0.2031, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.0846, "pg": -0.00636, "elapsed_s": 2196.5}
+{"step": 156, "reward_mean": 0.8077, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.23148, "pg": 0.00252, "elapsed_s": 2259.9}
+{"step": 157, "reward_mean": 0.8594, "pass_frac": 0.125, "valid_frac": 0.9844, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.04861, "pg": 0.01012, "elapsed_s": 2321.0}
+{"step": 158, "reward_mean": 0.8601, "pass_frac": 0.1094, "valid_frac": 0.9844, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 1.06424, "pg": -0.00341, "elapsed_s": 2389.1}
+{"step": 159, "reward_mean": 0.8498, "pass_frac": 0.1094, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.96931, "pg": 0.00143, "elapsed_s": 2447.2}
+{"step": 160, "reward_mean": 0.7531, "pass_frac": 0.125, "valid_frac": 0.875, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 1.37424, "pg": -0.00825, "elapsed_s": 2509.2}
+{"step": 161, "reward_mean": 0.8419, "pass_frac": 0.0312, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.84756, "pg": -0.01651, "elapsed_s": 2565.3}
+{"step": 162, "reward_mean": 0.8756, "pass_frac": 0.1094, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.98123, "pg": -0.0139, "elapsed_s": 2628.1}
+{"step": 163, "reward_mean": 0.8768, "pass_frac": 0.1562, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.02003, "pg": 0.00869, "elapsed_s": 2698.3}
+{"step": 164, "reward_mean": 0.8796, "pass_frac": 0.0312, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.81111, "pg": -0.00407, "elapsed_s": 2766.8}
+{"step": 165, "reward_mean": 0.9528, "pass_frac": 0.3438, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.95395, "pg": 0.00187, "elapsed_s": 2834.6}
+{"step": 166, "reward_mean": 0.8079, "pass_frac": 0.0625, "valid_frac": 0.9375, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 1.03751, "pg": -0.01974, "elapsed_s": 2897.3}
+{"step": 167, "reward_mean": 0.8735, "pass_frac": 0.1719, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.87381, "pg": -0.00505, "elapsed_s": 2949.8}
+{"step": 168, "reward_mean": 0.8476, "pass_frac": 0.1094, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.99611, "pg": -0.00482, "elapsed_s": 3015.0}
+{"step": 169, "reward_mean": 0.8453, "pass_frac": 0.0312, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.95143, "pg": 0.01182, "elapsed_s": 3076.0}
+{"step": 170, "reward_mean": 0.9148, "pass_frac": 0.2344, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.081, "pg": -0.00042, "elapsed_s": 3150.9}
+{"step": 171, "reward_mean": 0.8642, "pass_frac": 0.0781, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.82075, "pg": -0.00348, "elapsed_s": 3212.1}
+{"step": 172, "reward_mean": 0.8396, "pass_frac": 0.0156, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.95458, "pg": -0.0172, "elapsed_s": 3273.9}
+{"step": 173, "reward_mean": 0.8584, "pass_frac": 0.125, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.86464, "pg": 0.00211, "elapsed_s": 3334.5}
+{"step": 174, "reward_mean": 0.8877, "pass_frac": 0.125, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 1.22797, "pg": 0.00907, "elapsed_s": 3399.8}
+{"step": 175, "reward_mean": 0.8607, "pass_frac": 0.1094, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.0448, "pg": 0.00074, "elapsed_s": 3464.5}
+{"step": 176, "reward_mean": 0.8506, "pass_frac": 0.1719, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 1.07023, "pg": 0.00511, "elapsed_s": 3522.8}
+{"step": 177, "reward_mean": 0.8144, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 1.07641, "pg": -0.00601, "elapsed_s": 3585.1}
+{"step": 178, "reward_mean": 0.8406, "pass_frac": 0.0469, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.47049, "pg": -0.0094, "elapsed_s": 3662.3}
+{"step": 179, "reward_mean": 0.8952, "pass_frac": 0.1719, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.27649, "pg": -0.01083, "elapsed_s": 3730.2}
+{"step": 180, "reward_mean": 0.8622, "pass_frac": 0.1406, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.01069, "pg": 0.00213, "elapsed_s": 3788.0}
+{"step": 181, "reward_mean": 0.8359, "pass_frac": 0.0156, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.4178, "pg": 0.00868, "elapsed_s": 3849.2}
+{"step": 182, "reward_mean": 0.8459, "pass_frac": 0.1406, "valid_frac": 0.9531, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 1.22427, "pg": -0.01197, "elapsed_s": 3905.8}
+{"step": 183, "reward_mean": 0.8804, "pass_frac": 0.0938, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.82555, "pg": 0.00533, "elapsed_s": 3979.5}
+{"step": 184, "reward_mean": 0.9412, "pass_frac": 0.2969, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.29755, "pg": 0.00477, "elapsed_s": 4040.6}
+{"step": 185, "reward_mean": 0.8885, "pass_frac": 0.2188, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 1.40366, "pg": -0.02259, "elapsed_s": 4100.3}
+{"step": 186, "reward_mean": 0.8475, "pass_frac": 0.0156, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 1.3313, "pg": 0.00657, "elapsed_s": 4157.5}
+{"step": 187, "reward_mean": 0.8431, "pass_frac": 0.0312, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 1.18701, "pg": 0.01302, "elapsed_s": 4211.8}
+{"step": 188, "reward_mean": 0.84, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.77572, "pg": 0.00117, "elapsed_s": 4282.6}
+{"step": 189, "reward_mean": 0.8871, "pass_frac": 0.1562, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.45091, "pg": 0.0014, "elapsed_s": 4356.2}
+{"step": 190, "reward_mean": 0.8738, "pass_frac": 0.1406, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.43679, "pg": 0.01528, "elapsed_s": 4423.9}
+{"step": 191, "reward_mean": 0.8795, "pass_frac": 0.1562, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 1.34226, "pg": 0.005, "elapsed_s": 4487.0}
+{"step": 192, "reward_mean": 0.814, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.57671, "pg": 0.00416, "elapsed_s": 4552.1}
+{"step": 193, "reward_mean": 0.9086, "pass_frac": 0.1406, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.22746, "pg": 0.00632, "elapsed_s": 4622.9}
+{"step": 194, "reward_mean": 0.9217, "pass_frac": 0.1562, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.62564, "pg": 0.01906, "elapsed_s": 4694.8}
+{"step": 195, "reward_mean": 0.8963, "pass_frac": 0.1875, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 1.21832, "pg": -0.00338, "elapsed_s": 4746.8}
+{"step": 196, "reward_mean": 0.8983, "pass_frac": 0.2656, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 1.41768, "pg": -0.00414, "elapsed_s": 4809.0}
+{"step": 197, "reward_mean": 0.8557, "pass_frac": 0.0938, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.60786, "pg": -0.00573, "elapsed_s": 4879.0}
+{"step": 198, "reward_mean": 0.9167, "pass_frac": 0.1719, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.28457, "pg": 0.00309, "elapsed_s": 4953.4}
+{"step": 199, "reward_mean": 0.8995, "pass_frac": 0.1406, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.80482, "pg": -0.00621, "elapsed_s": 5026.6}
+{"step": 200, "reward_mean": 0.8772, "pass_frac": 0.1094, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.22214, "pg": 0.00649, "elapsed_s": 5091.9}
+{"step": 201, "reward_mean": 0.8648, "pass_frac": 0.25, "valid_frac": 0.9062, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.42075, "pg": 0.00737, "elapsed_s": 5162.7}
+{"step": 202, "reward_mean": 0.8793, "pass_frac": 0.125, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 1.44433, "pg": 0.02524, "elapsed_s": 5225.5}
+{"step": 203, "reward_mean": 0.8599, "pass_frac": 0.0781, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.3147, "pg": 0.00023, "elapsed_s": 5288.8}
+{"step": 204, "reward_mean": 0.8363, "pass_frac": 0.0156, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.45294, "pg": 0.00656, "elapsed_s": 5359.1}
+{"step": 205, "reward_mean": 0.8693, "pass_frac": 0.0938, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 1.5396, "pg": -0.02151, "elapsed_s": 5420.3}
+{"step": 206, "reward_mean": 0.8821, "pass_frac": 0.1094, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.39056, "pg": 0.01228, "elapsed_s": 5491.6}
+{"step": 207, "reward_mean": 0.91, "pass_frac": 0.1406, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.60478, "pg": 0.00172, "elapsed_s": 5558.0}
+{"step": 208, "reward_mean": 0.8472, "pass_frac": 0.0312, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.2894, "pg": -0.00255, "elapsed_s": 5631.4}
+{"step": 209, "reward_mean": 0.891, "pass_frac": 0.1406, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.23793, "pg": 0.00295, "elapsed_s": 5691.9}
+{"step": 210, "reward_mean": 0.9089, "pass_frac": 0.1719, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.36448, "pg": 0.00564, "elapsed_s": 5760.7}
+{"step": 211, "reward_mean": 0.8824, "pass_frac": 0.125, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.31281, "pg": -0.00656, "elapsed_s": 5820.8}
+{"step": 212, "reward_mean": 0.863, "pass_frac": 0.0469, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.34272, "pg": -0.00031, "elapsed_s": 5886.7}
+{"step": 213, "reward_mean": 0.89, "pass_frac": 0.1719, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 2.46512, "pg": -0.00407, "elapsed_s": 5949.8}
+{"step": 214, "reward_mean": 0.8411, "pass_frac": 0.0781, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 1.38469, "pg": -0.00668, "elapsed_s": 6010.2}
+{"step": 215, "reward_mean": 0.8339, "pass_frac": 0.0469, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.23192, "pg": 0.01221, "elapsed_s": 6075.1}
+{"step": 216, "reward_mean": 0.8401, "pass_frac": 0.0312, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 1.22164, "pg": 0.00285, "elapsed_s": 6133.3}
+{"step": 217, "reward_mean": 0.8654, "pass_frac": 0.1094, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.32804, "pg": -0.00576, "elapsed_s": 6202.8}
+{"step": 218, "reward_mean": 0.8751, "pass_frac": 0.0938, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.24675, "pg": 0.00536, "elapsed_s": 6269.5}
+{"step": 219, "reward_mean": 0.8334, "pass_frac": 0.0469, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 2.15306, "pg": -0.00438, "elapsed_s": 6341.2}
+{"step": 220, "reward_mean": 0.8391, "pass_frac": 0.0312, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.27195, "pg": -0.00714, "elapsed_s": 6404.9}
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:52<00:00, 52.11s/it]Writing model shards: 100%|██████████| 1/1 [00:52<00:00, 52.11s/it]
+-> merged /netdisk/ldq/ckpt/m8-match05grpoLR/merged (6460s)

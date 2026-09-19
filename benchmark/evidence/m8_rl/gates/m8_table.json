@@ -1,0 +1,80 @@
+{
+ "family": "guide_match",
+ "slice": "heldout 300-599",
+ "rows": [
+  {
+   "policy": "untrained 8B",
+   "passes": 34,
+   "n": 300,
+   "rate": 0.1133,
+   "ci95": [
+    0.0798,
+    0.1548
+   ],
+   "errored": 0,
+   "source": "eval_match_fresh_untrained-8b.json"
+  },
+  {
+   "policy": "untrained 32B",
+   "passes": 34,
+   "n": 300,
+   "rate": 0.1133,
+   "ci95": [
+    0.0798,
+    0.1548
+   ],
+   "errored": 0,
+   "source": "eval_match_fresh_untrained-32b.json"
+  },
+  {
+   "policy": "GRPO 8B (seed 1)",
+   "passes": 230,
+   "n": 300,
+   "rate": 0.7667,
+   "ci95": [
+    0.7146,
+    0.8134
+   ],
+   "errored": 0,
+   "source": "eval_match_fresh_trained-8b.json"
+  },
+  {
+   "policy": "GRPO 8B (seed 2)",
+   "passes": 207,
+   "n": 300,
+   "rate": 0.69,
+   "ci95": [
+    0.6343,
+    0.7419
+   ],
+   "errored": 0,
+   "source": "eval_match_fresh_rep2.json"
+  }
+ ],
+ "paired": {
+  "untrained 32B vs untrained 8B": {
+   "n": 300,
+   "only_a": 27,
+   "only_b": 27,
+   "mcnemar_p": 1.0
+  },
+  "GRPO 8B (seed 1) vs untrained 8B": {
+   "n": 300,
+   "only_a": 213,
+   "only_b": 17,
+   "mcnemar_p": 2.7227659744527548e-44
+  },
+  "GRPO 8B (seed 2) vs untrained 8B": {
+   "n": 300,
+   "only_a": 180,
+   "only_b": 7,
+   "mcnemar_p": 1.5016279239463608e-44
+  },
+  "seed 1 vs seed 2": {
+   "n": 300,
+   "only_a": 60,
+   "only_b": 37,
+   "mcnemar_p": 0.02499073659259803
+  }
+ }
+}

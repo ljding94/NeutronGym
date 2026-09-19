@@ -1,0 +1,22 @@
+== 1. free GPU 7 (stop the 120-step model server) 16:14:47 ==
+== 2. reward server 16:14:49 ==
+== 3. GRPO steps 121-360 16:14:50 ==
+{"step": 219, "reward_mean": 0.8334, "pass_frac": 0.0469, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 2.15306, "pg": -0.00438, "elapsed_s": 6341.2}
+{"step": 220, "reward_mean": 0.8391, "pass_frac": 0.0312, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 1.27195, "pg": -0.00714, "elapsed_s": 6404.9}
+== 4. serve + check 18:02:50 ==
+== 5. eval n=300 18:05:32 ==
+  trained-8b     TOTAL              pass=0.73 mean_level=3.73 levels={'0': 0, '1': 0, '2': 0, '3': 81, '4': 219}
+-> runs/m8/eval_match05grpoLR_arm_trained-8b.json
+untrained-8b rows 300
+untrained-32b rows 300
+trained-8b rows 300
+  untrained-32b  REUSED             pass=0.11 mean_level=3.11 (from runs/m8/eval_match05grpoLR_arms_combined.json)
+
+=== VERDICT (trained vs untrained 8B) ===
+  pass gain +0.590  (claim needs >= +0.10 or beating 32B at 0.11)
+  level migration: Cochran-Armitage z=14.5757 p=0.0
+  paired McNemar p=0.0 (untrained-only 23, trained-only 200)
+  fraction of 8B->32B gap closed: None
+  CLAIM BAR MET
+-> runs/m8/eval_match05grpoLR_n300.json
+MATCH_RESUME_DONE OK 18:27:34

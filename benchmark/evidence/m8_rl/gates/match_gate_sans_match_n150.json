@@ -1,0 +1,1723 @@
+{
+ "verdict": {
+  "ok": true,
+  "max_rate": 0.2,
+  "best_action": {
+   "r_pin1": 0.013794,
+   "r_pin2": 0.019028
+  },
+  "best_pass_rate": 0.1267,
+  "best_pass_rate_upper": 0.1803,
+  "underpowered": false,
+  "best_source": "hidden-of-other-instance",
+  "baseline_passes": 0,
+  "n_instances": 150,
+  "skipped_no_headroom": 0,
+  "n_candidates": 184,
+  "top5": [
+   {
+    "action": {
+     "r_pin1": 0.013794,
+     "r_pin2": 0.019028
+    },
+    "passes": 19,
+    "pass_rate": 0.1267,
+    "source": "hidden-of-other-instance"
+   },
+   {
+    "action": {
+     "r_pin1": 0.013041,
+     "r_pin2": 0.01933
+    },
+    "passes": 19,
+    "pass_rate": 0.1267,
+    "source": "hidden-of-other-instance"
+   },
+   {
+    "action": {
+     "r_pin1": 0.01271,
+     "r_pin2": 0.019293
+    },
+    "passes": 18,
+    "pass_rate": 0.12,
+    "source": "hidden-of-other-instance"
+   },
+   {
+    "action": {
+     "r_pin1": 0.014253,
+     "r_pin2": 0.019175
+    },
+    "passes": 17,
+    "pass_rate": 0.1133,
+    "source": "hidden-of-other-instance"
+   },
+   {
+    "action": {
+     "r_pin1": 0.012607,
+     "r_pin2": 0.019028
+    },
+    "passes": 17,
+    "pass_rate": 0.1133,
+    "source": "refined"
+   }
+  ]
+ },
+ "pool": [
+  {
+   "action": {
+    "r_pin1": 0.005,
+    "r_pin2": 0.005
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "baseline"
+  },
+  {
+   "action": {
+    "r_pin1": 0.001,
+    "r_pin2": 0.001
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.001,
+    "r_pin2": 0.00575
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.001,
+    "r_pin2": 0.0105
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.001,
+    "r_pin2": 0.01525
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.001,
+    "r_pin2": 0.02
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.00575,
+    "r_pin2": 0.001
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.00575,
+    "r_pin2": 0.00575
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.00575,
+    "r_pin2": 0.0105
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.00575,
+    "r_pin2": 0.01525
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.00575,
+    "r_pin2": 0.02
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.0105,
+    "r_pin2": 0.001
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.0105,
+    "r_pin2": 0.00575
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.0105,
+    "r_pin2": 0.0105
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.0105,
+    "r_pin2": 0.01525
+   },
+   "passes": 8,
+   "pass_rate": 0.0533,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.0105,
+    "r_pin2": 0.02
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.01525,
+    "r_pin2": 0.001
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.01525,
+    "r_pin2": 0.00575
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.01525,
+    "r_pin2": 0.0105
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.01525,
+    "r_pin2": 0.01525
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.01525,
+    "r_pin2": 0.02
+   },
+   "passes": 11,
+   "pass_rate": 0.0733,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.02,
+    "r_pin2": 0.001
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.02,
+    "r_pin2": 0.00575
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.02,
+    "r_pin2": 0.0105
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.02,
+    "r_pin2": 0.01525
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.02,
+    "r_pin2": 0.02
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_pin1": 0.017396,
+    "r_pin2": 0.002981
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.003273,
+    "r_pin2": 0.018843
+   },
+   "passes": 13,
+   "pass_rate": 0.0867,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.015609,
+    "r_pin2": 0.00709
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.005185,
+    "r_pin2": 0.01648
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.010615,
+    "r_pin2": 0.007547
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.012108,
+    "r_pin2": 0.018538
+   },
+   "passes": 13,
+   "pass_rate": 0.0867,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.003375,
+    "r_pin2": 0.007627
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.005608,
+    "r_pin2": 0.015252
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.007686,
+    "r_pin2": 0.002392
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.003418,
+    "r_pin2": 0.005005
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.006633,
+    "r_pin2": 0.012092
+   },
+   "passes": 8,
+   "pass_rate": 0.0533,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.014355,
+    "r_pin2": 0.007354
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.00654,
+    "r_pin2": 0.019157
+   },
+   "passes": 15,
+   "pass_rate": 0.1,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.011901,
+    "r_pin2": 0.019658
+   },
+   "passes": 15,
+   "pass_rate": 0.1,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.009541,
+    "r_pin2": 0.004351
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.012602,
+    "r_pin2": 0.011535
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.004463,
+    "r_pin2": 0.012076
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.013794,
+    "r_pin2": 0.019028
+   },
+   "passes": 19,
+   "pass_rate": 0.1267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.006959,
+    "r_pin2": 0.011869
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.00766,
+    "r_pin2": 0.010733
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.011408,
+    "r_pin2": 0.011321
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.010302,
+    "r_pin2": 0.006407
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.011203,
+    "r_pin2": 0.001985
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.007935,
+    "r_pin2": 0.002055
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.002954,
+    "r_pin2": 0.017976
+   },
+   "passes": 11,
+   "pass_rate": 0.0733,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.001818,
+    "r_pin2": 0.018267
+   },
+   "passes": 9,
+   "pass_rate": 0.06,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.013554,
+    "r_pin2": 0.013033
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.01208,
+    "r_pin2": 0.013413
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.002654,
+    "r_pin2": 0.011866
+   },
+   "passes": 10,
+   "pass_rate": 0.0667,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.015942,
+    "r_pin2": 0.016002
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.006777,
+    "r_pin2": 0.01179
+   },
+   "passes": 9,
+   "pass_rate": 0.06,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.004583,
+    "r_pin2": 0.007421
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.003152,
+    "r_pin2": 0.012025
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.018206,
+    "r_pin2": 0.014819
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.013584,
+    "r_pin2": 0.016941
+   },
+   "passes": 10,
+   "pass_rate": 0.0667,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.003185,
+    "r_pin2": 0.019567
+   },
+   "passes": 12,
+   "pass_rate": 0.08,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.01161,
+    "r_pin2": 0.00265
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.010111,
+    "r_pin2": 0.017878
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.015442,
+    "r_pin2": 0.010665
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.01155,
+    "r_pin2": 0.015227
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.019916,
+    "r_pin2": 0.017141
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.010923,
+    "r_pin2": 0.015503
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.009972,
+    "r_pin2": 0.018815
+   },
+   "passes": 15,
+   "pass_rate": 0.1,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.016748,
+    "r_pin2": 0.010985
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.016714,
+    "r_pin2": 0.018081
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.001789,
+    "r_pin2": 0.014605
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.01271,
+    "r_pin2": 0.019293
+   },
+   "passes": 18,
+   "pass_rate": 0.12,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.01002,
+    "r_pin2": 0.017445
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.017247,
+    "r_pin2": 0.018532
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.015502,
+    "r_pin2": 0.01668
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.019507,
+    "r_pin2": 0.010137
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.014253,
+    "r_pin2": 0.019175
+   },
+   "passes": 17,
+   "pass_rate": 0.1133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.010487,
+    "r_pin2": 0.01661
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.00402,
+    "r_pin2": 0.011522
+   },
+   "passes": 8,
+   "pass_rate": 0.0533,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.003056,
+    "r_pin2": 0.009191
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.011193,
+    "r_pin2": 0.005744
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.012052,
+    "r_pin2": 0.008439
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.016166,
+    "r_pin2": 0.013462
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.018126,
+    "r_pin2": 0.019745
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.016601,
+    "r_pin2": 0.017159
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.005482,
+    "r_pin2": 0.011326
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.004857,
+    "r_pin2": 0.019593
+   },
+   "passes": 12,
+   "pass_rate": 0.08,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.015131,
+    "r_pin2": 0.01145
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.007344,
+    "r_pin2": 0.004093
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.014031,
+    "r_pin2": 0.006328
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.009294,
+    "r_pin2": 0.014788
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.012475,
+    "r_pin2": 0.00328
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.013911,
+    "r_pin2": 0.003827
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.011256,
+    "r_pin2": 0.012519
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.016383,
+    "r_pin2": 0.014844
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.019701,
+    "r_pin2": 0.002007
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.012689,
+    "r_pin2": 0.010367
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.008209,
+    "r_pin2": 0.018597
+   },
+   "passes": 12,
+   "pass_rate": 0.08,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.013041,
+    "r_pin2": 0.01933
+   },
+   "passes": 19,
+   "pass_rate": 0.1267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.009487,
+    "r_pin2": 0.01578
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.008303,
+    "r_pin2": 0.011475
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.006132,
+    "r_pin2": 0.01842
+   },
+   "passes": 12,
+   "pass_rate": 0.08,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.003885,
+    "r_pin2": 0.019479
+   },
+   "passes": 13,
+   "pass_rate": 0.0867,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.015409,
+    "r_pin2": 0.014396
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.013732,
+    "r_pin2": 0.019791
+   },
+   "passes": 12,
+   "pass_rate": 0.08,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.012235,
+    "r_pin2": 0.001513
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.014023,
+    "r_pin2": 0.012385
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.006968,
+    "r_pin2": 0.006613
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.01376,
+    "r_pin2": 0.008878
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.019758,
+    "r_pin2": 0.003627
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.008288,
+    "r_pin2": 0.006839
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.014019,
+    "r_pin2": 0.016468
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.015934,
+    "r_pin2": 0.016965
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.016475,
+    "r_pin2": 0.005919
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.002237,
+    "r_pin2": 0.016038
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.006133,
+    "r_pin2": 0.013622
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.007734,
+    "r_pin2": 0.019426
+   },
+   "passes": 11,
+   "pass_rate": 0.0733,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.018078,
+    "r_pin2": 0.018349
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.01923,
+    "r_pin2": 0.009666
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.00877,
+    "r_pin2": 0.004872
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.014944,
+    "r_pin2": 0.005462
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.006676,
+    "r_pin2": 0.00671
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.002084,
+    "r_pin2": 0.0182
+   },
+   "passes": 11,
+   "pass_rate": 0.0733,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.007534,
+    "r_pin2": 0.003932
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.004269,
+    "r_pin2": 0.007909
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.017445,
+    "r_pin2": 0.015264
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.012991,
+    "r_pin2": 0.004129
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.005691,
+    "r_pin2": 0.015699
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.005615,
+    "r_pin2": 0.015715
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.016388,
+    "r_pin2": 0.011766
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.004969,
+    "r_pin2": 0.010709
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.016444,
+    "r_pin2": 0.007626
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.005819,
+    "r_pin2": 0.014005
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.00381,
+    "r_pin2": 0.017759
+   },
+   "passes": 9,
+   "pass_rate": 0.06,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.007235,
+    "r_pin2": 0.002448
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.0022,
+    "r_pin2": 0.019386
+   },
+   "passes": 12,
+   "pass_rate": 0.08,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.010153,
+    "r_pin2": 0.018553
+   },
+   "passes": 13,
+   "pass_rate": 0.0867,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.019217,
+    "r_pin2": 0.010263
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.004673,
+    "r_pin2": 0.018433
+   },
+   "passes": 13,
+   "pass_rate": 0.0867,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.001421,
+    "r_pin2": 0.018836
+   },
+   "passes": 12,
+   "pass_rate": 0.08,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.01791,
+    "r_pin2": 0.010557
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.012967,
+    "r_pin2": 0.002161
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.00833,
+    "r_pin2": 0.019743
+   },
+   "passes": 8,
+   "pass_rate": 0.0533,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.018788,
+    "r_pin2": 0.009458
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.005801,
+    "r_pin2": 0.012313
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.017376,
+    "r_pin2": 0.013539
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.003593,
+    "r_pin2": 0.014655
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.018651,
+    "r_pin2": 0.001989
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.012234,
+    "r_pin2": 0.003631
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.016893,
+    "r_pin2": 0.010072
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.011261,
+    "r_pin2": 0.008943
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.002638,
+    "r_pin2": 0.009799
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.011588,
+    "r_pin2": 0.018456
+   },
+   "passes": 11,
+   "pass_rate": 0.0733,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.00269,
+    "r_pin2": 0.019268
+   },
+   "passes": 15,
+   "pass_rate": 0.1,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.008292,
+    "r_pin2": 0.011491
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.0076,
+    "r_pin2": 0.018735
+   },
+   "passes": 13,
+   "pass_rate": 0.0867,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.002454,
+    "r_pin2": 0.017843
+   },
+   "passes": 8,
+   "pass_rate": 0.0533,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.009842,
+    "r_pin2": 0.014921
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.008733,
+    "r_pin2": 0.018763
+   },
+   "passes": 15,
+   "pass_rate": 0.1,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.013706,
+    "r_pin2": 0.018939
+   },
+   "passes": 16,
+   "pass_rate": 0.1067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.017894,
+    "r_pin2": 0.009949
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.012058,
+    "r_pin2": 0.007956
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.016705,
+    "r_pin2": 0.019445
+   },
+   "passes": 9,
+   "pass_rate": 0.06,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.002047,
+    "r_pin2": 0.016681
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.006846,
+    "r_pin2": 0.013374
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.017133,
+    "r_pin2": 0.002652
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.006672,
+    "r_pin2": 0.012316
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.009192,
+    "r_pin2": 0.014706
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.009882,
+    "r_pin2": 0.019767
+   },
+   "passes": 8,
+   "pass_rate": 0.0533,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.015036,
+    "r_pin2": 0.019428
+   },
+   "passes": 15,
+   "pass_rate": 0.1,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.008659,
+    "r_pin2": 0.016803
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.006539,
+    "r_pin2": 0.012362
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.018985,
+    "r_pin2": 0.005955
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.016299,
+    "r_pin2": 0.017819
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.013025,
+    "r_pin2": 0.00761
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_pin1": 0.012607,
+    "r_pin2": 0.01784
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_pin1": 0.012607,
+    "r_pin2": 0.019028
+   },
+   "passes": 17,
+   "pass_rate": 0.1133,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_pin1": 0.012607,
+    "r_pin2": 0.02
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_pin1": 0.013794,
+    "r_pin2": 0.01784
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_pin1": 0.013794,
+    "r_pin2": 0.02
+   },
+   "passes": 9,
+   "pass_rate": 0.06,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_pin1": 0.014982,
+    "r_pin2": 0.01784
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_pin1": 0.014982,
+    "r_pin2": 0.019028
+   },
+   "passes": 13,
+   "pass_rate": 0.0867,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_pin1": 0.014982,
+    "r_pin2": 0.02
+   },
+   "passes": 11,
+   "pass_rate": 0.0733,
+   "source": "refined"
+  }
+ ]
+}

@@ -1,0 +1,257 @@
+{
+ "verdict": {
+  "ok": false,
+  "max_rate": 0.2,
+  "best_action": "r_pin1=0.014062 r_pin2=limit",
+  "best_pass_rate": 0.3933,
+  "best_pass_rate_upper": 0.4634,
+  "underpowered": false,
+  "best_source": "readout",
+  "baseline_passes": 0,
+  "n_instances": 150,
+  "skipped_no_headroom": 0,
+  "n_candidates": 34,
+  "top5": [
+   {
+    "action": "r_pin1=0.014062 r_pin2=limit",
+    "passes": 59,
+    "pass_rate": 0.3933,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin1=0.012875 r_pin2=limit",
+    "passes": 58,
+    "pass_rate": 0.3867,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin1=0.011687 r_pin2=limit",
+    "passes": 54,
+    "pass_rate": 0.36,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin1=0.01525 r_pin2=limit",
+    "passes": 52,
+    "pass_rate": 0.3467,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin1=0.017625 r_pin2=limit",
+    "passes": 47,
+    "pass_rate": 0.3133,
+    "source": "readout"
+   }
+  ]
+ },
+ "probe": {
+  "n_instances": 150,
+  "skipped_no_headroom": 0,
+  "results": [
+   {
+    "action": "r_pin1=0.001 r_pin2=limit",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin1=0.002188 r_pin2=limit",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin1=0.003375 r_pin2=limit",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin1=0.004562 r_pin2=limit",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin1=0.00575 r_pin2=limit",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin1=0.006938 r_pin2=limit",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin1=0.008125 r_pin2=limit",
+    "passes": 5,
+    "pass_rate": 0.0333,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin1=0.009313 r_pin2=limit",
+    "passes": 23,
+    "pass_rate": 0.1533,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin1=0.0105 r_pin2=limit",
+    "passes": 38,
+    "pass_rate": 0.2533,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin1=0.011687 r_pin2=limit",
+    "passes": 54,
+    "pass_rate": 0.36,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin1=0.012875 r_pin2=limit",
+    "passes": 58,
+    "pass_rate": 0.3867,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin1=0.014062 r_pin2=limit",
+    "passes": 59,
+    "pass_rate": 0.3933,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin1=0.01525 r_pin2=limit",
+    "passes": 52,
+    "pass_rate": 0.3467,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin1=0.016438 r_pin2=limit",
+    "passes": 44,
+    "pass_rate": 0.2933,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin1=0.017625 r_pin2=limit",
+    "passes": 47,
+    "pass_rate": 0.3133,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin1=0.018812 r_pin2=limit",
+    "passes": 35,
+    "pass_rate": 0.2333,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin1=0.02 r_pin2=limit",
+    "passes": 21,
+    "pass_rate": 0.14,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin2=0.001 r_pin1=limit",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin2=0.002188 r_pin1=limit",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin2=0.003375 r_pin1=limit",
+    "passes": 22,
+    "pass_rate": 0.1467,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin2=0.004562 r_pin1=limit",
+    "passes": 27,
+    "pass_rate": 0.18,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin2=0.00575 r_pin1=limit",
+    "passes": 14,
+    "pass_rate": 0.0933,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin2=0.006938 r_pin1=limit",
+    "passes": 1,
+    "pass_rate": 0.0067,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin2=0.008125 r_pin1=limit",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin2=0.009313 r_pin1=limit",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin2=0.0105 r_pin1=limit",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin2=0.011687 r_pin1=limit",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin2=0.012875 r_pin1=limit",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin2=0.014062 r_pin1=limit",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin2=0.01525 r_pin1=limit",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin2=0.016438 r_pin1=limit",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin2=0.017625 r_pin1=limit",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin2=0.018812 r_pin1=limit",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "r_pin2=0.02 r_pin1=limit",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   }
+  ]
+ }
+}
