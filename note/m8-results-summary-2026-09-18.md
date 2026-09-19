@@ -143,8 +143,13 @@ depend on the tolerance, so no recalibration):
 | ±3% | 7.0% | 73.3% | 10.5x |
 | ±2% | 3.7% | 67.0% | 18x |
 
-The trained model degrades gracefully while the untrained one collapses, and
-the knob gives the benchmark headroom as models improve.
+The trained model degrades gracefully while the untrained one collapses. But
+the knob does **not** buy headroom against frontier models: at ±2%,
+claude-sonnet-5 and gemini-3.6-flash both still score 97/100 (against 99 and
+98 at ±5%), while the untrained 8B falls to 3/100 and the trained 8B to
+68/100 on those same instances. Tightening tolerance separates small models;
+challenging a frontier model would need a structurally harder family (more
+coupled parameters or competing objectives), not a finer bar.
 
 **Turn budget.** Every one of the trained model's 70 failures at 10 turns used
 all 10, so the budget was doubled:

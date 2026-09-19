@@ -1,0 +1,72 @@
+{
+ "verdict": null,
+ "physics_reference": {
+  "ok": true,
+  "max_rate": 0.2,
+  "best_action": "physics: width inversion k=0.5",
+  "best_pass_rate": 0.0333,
+  "best_pass_rate_upper": 0.0688,
+  "underpowered": false,
+  "best_source": "readout",
+  "baseline_passes": 0,
+  "n_instances": 150,
+  "skipped_no_headroom": 0,
+  "n_candidates": 4,
+  "top5": [
+   {
+    "action": "physics: width inversion k=0.5",
+    "passes": 5,
+    "pass_rate": 0.0333,
+    "source": "readout"
+   },
+   {
+    "action": "physics: width inversion k=0.577",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: width inversion k=0.45",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: width inversion k=0.6",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   }
+  ]
+ },
+ "probe": {
+  "n_instances": 150,
+  "skipped_no_headroom": 0,
+  "results": [
+   {
+    "action": "physics: width inversion k=0.5",
+    "passes": 5,
+    "pass_rate": 0.0333,
+    "source": "readout"
+   },
+   {
+    "action": "physics: width inversion k=0.577",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: width inversion k=0.45",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: width inversion k=0.6",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   }
+  ]
+ }
+}
