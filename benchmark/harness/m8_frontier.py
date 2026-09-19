@@ -75,6 +75,8 @@ def main():
     ap.add_argument("--start-index", type=int, default=300)
     ap.add_argument("--max-steps", type=int, default=10)
     ap.add_argument("--target-fraction", type=float, default=0.85)
+    ap.add_argument("--match-tolerance", type=float, default=None,
+                    help="override the family's pass tolerance (difficulty knob)")
     ap.add_argument("--max-usd", type=float, default=15.0, help="per model")
     ap.add_argument("--out", default=None)
     a = ap.parse_args()
@@ -82,6 +84,7 @@ def main():
         raise SystemExit("OPENROUTER_API_KEY not set")
     prices = price_table()
     record = {"family": a.family, "n_per_family": a.n, "start_index": a.start_index,
+              "match_tolerance": a.match_tolerance,
               "max_steps": a.max_steps, "target_fraction": a.target_fraction,
               "split": "heldout", "temperature": 0.0, "arms": {}, "heldout": {}}
     for model in a.models.split(","):
@@ -92,7 +95,8 @@ def main():
         try:
             r = rollouts.evaluate(model, a.n, a.family, "heldout", chat_fn=chat,
                                   max_steps=a.max_steps, start_index=a.start_index,
-                                  target_fraction=a.target_fraction)
+                                  target_fraction=a.target_fraction,
+                                  match_tolerance=a.match_tolerance)
             rows = r["rows"]
         except BudgetExceeded as e:
             aborted, rows = str(e), []
