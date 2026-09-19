@@ -479,8 +479,11 @@ FAMILIES["sans_match"] = {
     # 2e6: at 2e5 the 5 mm baseline collected 179 events, under the L3 floor.
     # Slits only (no sample scattering), so rays are cheap even at this count.
     "protocol": {"ncount": 2e6, "ncount_cheap": 2e5},
+    # 1.5%: at 3% the untrained 8B already passed 45.3% (too little headroom to
+    # measure training), at 1.0% 18.0%. Width noise at 2e6 rays is ~0.3%, so
+    # 1.5% keeps the ~5x noise margin guide_match has at 5%.
     "fom": {"monitor": "at_sample", "metric": "intensity", "maximize": True,
-            "type": "match", "tolerance": 0.03,
+            "type": "match", "tolerance": 0.015,
             "match": [
                 {"monitor": "at_sample", "observable": "beam_width_x",
                  "label": "beam width at the sample", "unit": "cm"},
