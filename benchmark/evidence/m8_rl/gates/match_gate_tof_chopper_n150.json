@@ -1,0 +1,3093 @@
+{
+ "verdict": {
+  "ok": true,
+  "max_rate": 0.2,
+  "best_action": {
+   "nu": 54.153269,
+   "phase": 110.913436,
+   "theta2": 16.986246
+  },
+  "best_pass_rate": 0.0267,
+  "best_pass_rate_upper": 0.06,
+  "underpowered": false,
+  "best_source": "hidden-of-other-instance",
+  "baseline_passes": 0,
+  "n_instances": 150,
+  "skipped_no_headroom": 0,
+  "n_candidates": 302,
+  "top5": [
+   {
+    "action": {
+     "nu": 54.153269,
+     "phase": 110.913436,
+     "theta2": 16.986246
+    },
+    "passes": 4,
+    "pass_rate": 0.0267,
+    "source": "hidden-of-other-instance"
+   },
+   {
+    "action": {
+     "nu": 53.351639,
+     "phase": 111.969065,
+     "theta2": 9.5612
+    },
+    "passes": 4,
+    "pass_rate": 0.0267,
+    "source": "hidden-of-other-instance"
+   },
+   {
+    "action": {
+     "nu": 54.153269,
+     "phase": 110.913436,
+     "theta2": 15.861246
+    },
+    "passes": 4,
+    "pass_rate": 0.0267,
+    "source": "refined"
+   },
+   {
+    "action": {
+     "nu": 54.153269,
+     "phase": 110.913436,
+     "theta2": 18.111246
+    },
+    "passes": 4,
+    "pass_rate": 0.0267,
+    "source": "refined"
+   },
+   {
+    "action": {
+     "nu": 60.0,
+     "phase": 20.0,
+     "theta2": 20.0
+    },
+    "passes": 3,
+    "pass_rate": 0.02,
+    "source": "grid"
+   }
+  ]
+ },
+ "pool": [
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 110.0,
+    "theta2": 10.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "baseline"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 20.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 20.0,
+    "theta2": 6.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 20.0,
+    "theta2": 11.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 20.0,
+    "theta2": 15.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 20.0,
+    "theta2": 20.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 100.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 100.0,
+    "theta2": 6.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 100.0,
+    "theta2": 11.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 100.0,
+    "theta2": 15.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 100.0,
+    "theta2": 20.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 180.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 180.0,
+    "theta2": 6.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 180.0,
+    "theta2": 11.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 180.0,
+    "theta2": 15.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 180.0,
+    "theta2": 20.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 260.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 260.0,
+    "theta2": 6.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 260.0,
+    "theta2": 11.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 260.0,
+    "theta2": 15.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 260.0,
+    "theta2": 20.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 340.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 340.0,
+    "theta2": 6.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 340.0,
+    "theta2": 11.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 340.0,
+    "theta2": 15.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 20.0,
+    "phase": 340.0,
+    "theta2": 20.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 20.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 20.0,
+    "theta2": 6.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 20.0,
+    "theta2": 11.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 20.0,
+    "theta2": 15.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 20.0,
+    "theta2": 20.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 100.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 100.0,
+    "theta2": 6.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 100.0,
+    "theta2": 11.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 100.0,
+    "theta2": 15.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 100.0,
+    "theta2": 20.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 180.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 180.0,
+    "theta2": 6.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 180.0,
+    "theta2": 11.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 180.0,
+    "theta2": 15.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 180.0,
+    "theta2": 20.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 260.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 260.0,
+    "theta2": 6.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 260.0,
+    "theta2": 11.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 260.0,
+    "theta2": 15.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 260.0,
+    "theta2": 20.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 340.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 340.0,
+    "theta2": 6.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 340.0,
+    "theta2": 11.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 340.0,
+    "theta2": 15.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 30.0,
+    "phase": 340.0,
+    "theta2": 20.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 20.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 20.0,
+    "theta2": 6.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 20.0,
+    "theta2": 11.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 20.0,
+    "theta2": 15.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 20.0,
+    "theta2": 20.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 100.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 100.0,
+    "theta2": 6.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 100.0,
+    "theta2": 11.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 100.0,
+    "theta2": 15.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 100.0,
+    "theta2": 20.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 180.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 180.0,
+    "theta2": 6.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 180.0,
+    "theta2": 11.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 180.0,
+    "theta2": 15.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 180.0,
+    "theta2": 20.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 260.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 260.0,
+    "theta2": 6.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 260.0,
+    "theta2": 11.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 260.0,
+    "theta2": 15.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 260.0,
+    "theta2": 20.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 340.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 340.0,
+    "theta2": 6.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 340.0,
+    "theta2": 11.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 340.0,
+    "theta2": 15.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 40.0,
+    "phase": 340.0,
+    "theta2": 20.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 20.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 20.0,
+    "theta2": 6.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 20.0,
+    "theta2": 11.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 20.0,
+    "theta2": 15.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 20.0,
+    "theta2": 20.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 100.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 100.0,
+    "theta2": 6.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 100.0,
+    "theta2": 11.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 100.0,
+    "theta2": 15.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 100.0,
+    "theta2": 20.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 180.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 180.0,
+    "theta2": 6.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 180.0,
+    "theta2": 11.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 180.0,
+    "theta2": 15.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 180.0,
+    "theta2": 20.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 260.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 260.0,
+    "theta2": 6.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 260.0,
+    "theta2": 11.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 260.0,
+    "theta2": 15.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 260.0,
+    "theta2": 20.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 340.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 340.0,
+    "theta2": 6.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 340.0,
+    "theta2": 11.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 340.0,
+    "theta2": 15.5
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 50.0,
+    "phase": 340.0,
+    "theta2": 20.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 20.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 20.0,
+    "theta2": 6.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 20.0,
+    "theta2": 11.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 20.0,
+    "theta2": 15.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 20.0,
+    "theta2": 20.0
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 100.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 100.0,
+    "theta2": 6.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 100.0,
+    "theta2": 11.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 100.0,
+    "theta2": 15.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 100.0,
+    "theta2": 20.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 180.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 180.0,
+    "theta2": 6.5
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 180.0,
+    "theta2": 11.0
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 180.0,
+    "theta2": 15.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 180.0,
+    "theta2": 20.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 260.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 260.0,
+    "theta2": 6.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 260.0,
+    "theta2": 11.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 260.0,
+    "theta2": 15.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 260.0,
+    "theta2": 20.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 340.0,
+    "theta2": 2.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 340.0,
+    "theta2": 6.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 340.0,
+    "theta2": 11.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 340.0,
+    "theta2": 15.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 60.0,
+    "phase": 340.0,
+    "theta2": 20.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "nu": 24.278458,
+    "phase": 172.873011,
+    "theta2": 15.937592
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 43.732359,
+    "phase": 124.875934,
+    "theta2": 14.581756
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 59.810391,
+    "phase": 286.051117,
+    "theta2": 15.821613
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 59.417852,
+    "phase": 238.994204,
+    "theta2": 13.373751
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 48.750125,
+    "phase": 70.457749,
+    "theta2": 10.575002
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 21.857274,
+    "phase": 159.425898,
+    "theta2": 15.412973
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 32.526295,
+    "phase": 157.364697,
+    "theta2": 2.873786
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 28.174118,
+    "phase": 177.91314,
+    "theta2": 10.489703
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 51.968597,
+    "phase": 107.144853,
+    "theta2": 15.094474
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 43.970467,
+    "phase": 153.56325,
+    "theta2": 19.547185
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 38.278736,
+    "phase": 268.903052,
+    "theta2": 4.693465
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 33.961901,
+    "phase": 153.937878,
+    "theta2": 9.167811
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 58.501335,
+    "phase": 202.781474,
+    "theta2": 12.621606
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 56.600796,
+    "phase": 96.09217,
+    "theta2": 7.922112
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 45.457077,
+    "phase": 311.075079,
+    "theta2": 14.129699
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 58.645468,
+    "phase": 102.829585,
+    "theta2": 14.62138
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 39.801911,
+    "phase": 246.575254,
+    "theta2": 10.41202
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 43.914002,
+    "phase": 41.712216,
+    "theta2": 8.505764
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 39.991492,
+    "phase": 293.178266,
+    "theta2": 12.347024
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 59.170139,
+    "phase": 310.304127,
+    "theta2": 19.288968
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 35.60267,
+    "phase": 167.097647,
+    "theta2": 6.548033
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 28.024721,
+    "phase": 204.029088,
+    "theta2": 5.891767
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 28.825596,
+    "phase": 197.820621,
+    "theta2": 6.02238
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 25.021363,
+    "phase": 85.33818,
+    "theta2": 13.252044
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 30.528819,
+    "phase": 40.866101,
+    "theta2": 10.446002
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 22.375703,
+    "phase": 91.234956,
+    "theta2": 13.757096
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 43.616481,
+    "phase": 253.796167,
+    "theta2": 8.779966
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 36.31031,
+    "phase": 112.177336,
+    "theta2": 13.890128
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 30.004389,
+    "phase": 242.937816,
+    "theta2": 15.331731
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 46.980703,
+    "phase": 161.320285,
+    "theta2": 16.151537
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 44.061387,
+    "phase": 168.808923,
+    "theta2": 8.629841
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 51.875674,
+    "phase": 86.303104,
+    "theta2": 6.572135
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 52.493069,
+    "phase": 102.949786,
+    "theta2": 17.41405
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 20.802255,
+    "phase": 113.399349,
+    "theta2": 16.868377
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 45.174498,
+    "phase": 111.674906,
+    "theta2": 19.382046
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 37.391171,
+    "phase": 210.065416,
+    "theta2": 12.60406
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 51.267218,
+    "phase": 328.399019,
+    "theta2": 19.341975
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 48.009872,
+    "phase": 129.775591,
+    "theta2": 4.74147
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 57.994635,
+    "phase": 79.112837,
+    "theta2": 18.914134
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 57.022921,
+    "phase": 248.319468,
+    "theta2": 9.158915
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 26.335613,
+    "phase": 125.854575,
+    "theta2": 7.098736
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 34.034821,
+    "phase": 97.742607,
+    "theta2": 8.741337
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 50.182048,
+    "phase": 265.15787,
+    "theta2": 13.390188
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 28.035208,
+    "phase": 219.303019,
+    "theta2": 18.267158
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 21.535683,
+    "phase": 55.754501,
+    "theta2": 14.582394
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 22.563192,
+    "phase": 75.198038,
+    "theta2": 12.350864
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 26.247256,
+    "phase": 26.164,
+    "theta2": 12.916198
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 39.51199,
+    "phase": 295.581976,
+    "theta2": 8.922232
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 58.732035,
+    "phase": 275.491547,
+    "theta2": 12.217868
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 23.592999,
+    "phase": 75.368111,
+    "theta2": 10.908792
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 51.689054,
+    "phase": 103.974224,
+    "theta2": 17.790103
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 30.701397,
+    "phase": 225.967519,
+    "theta2": 16.707313
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 25.170501,
+    "phase": 92.209815,
+    "theta2": 13.635517
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 44.766747,
+    "phase": 161.934826,
+    "theta2": 11.93702
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 51.351734,
+    "phase": 261.813033,
+    "theta2": 10.259333
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 33.616252,
+    "phase": 159.82979,
+    "theta2": 12.514092
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 58.118332,
+    "phase": 248.732617,
+    "theta2": 11.799988
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 34.556584,
+    "phase": 132.385985,
+    "theta2": 16.401585
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 24.614318,
+    "phase": 77.938571,
+    "theta2": 15.057155
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 55.932716,
+    "phase": 51.18487,
+    "theta2": 3.478655
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 55.815496,
+    "phase": 243.344526,
+    "theta2": 13.726413
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 32.295305,
+    "phase": 64.0947,
+    "theta2": 7.124627
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 34.750211,
+    "phase": 274.916544,
+    "theta2": 9.05237
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 57.32979,
+    "phase": 212.905171,
+    "theta2": 19.393943
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 47.051789,
+    "phase": 49.616572,
+    "theta2": 9.094767
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 51.791499,
+    "phase": 33.982387,
+    "theta2": 17.460438
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 41.693643,
+    "phase": 106.543208,
+    "theta2": 10.454054
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 28.759402,
+    "phase": 217.47879,
+    "theta2": 18.907484
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 31.739366,
+    "phase": 98.673459,
+    "theta2": 10.82187
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 47.508521,
+    "phase": 148.419808,
+    "theta2": 3.114513
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 47.489273,
+    "phase": 22.253664,
+    "theta2": 5.504003
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 52.529092,
+    "phase": 330.520523,
+    "theta2": 16.263703
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 31.235016,
+    "phase": 91.739008,
+    "theta2": 15.9423
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 33.748733,
+    "phase": 305.956975,
+    "theta2": 8.786059
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 58.246203,
+    "phase": 46.034264,
+    "theta2": 16.265902
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 40.443058,
+    "phase": 331.623469,
+    "theta2": 3.630229
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 23.475964,
+    "phase": 147.019146,
+    "theta2": 16.29137
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 29.583045,
+    "phase": 95.472172,
+    "theta2": 11.65834
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 54.153269,
+    "phase": 110.913436,
+    "theta2": 16.986246
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 47.382934,
+    "phase": 279.649267,
+    "theta2": 9.517945
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 53.688108,
+    "phase": 71.278827,
+    "theta2": 11.852953
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 32.038894,
+    "phase": 38.602324,
+    "theta2": 18.497753
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 46.059195,
+    "phase": 191.26401,
+    "theta2": 13.962089
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 28.337773,
+    "phase": 71.068223,
+    "theta2": 9.494974
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 52.629298,
+    "phase": 37.654262,
+    "theta2": 6.993459
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 32.404443,
+    "phase": 178.959618,
+    "theta2": 5.24271
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 56.446227,
+    "phase": 131.156035,
+    "theta2": 15.169122
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 33.206064,
+    "phase": 200.785627,
+    "theta2": 14.672602
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 22.749137,
+    "phase": 87.352397,
+    "theta2": 11.456941
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 53.351639,
+    "phase": 111.969065,
+    "theta2": 9.5612
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 55.381557,
+    "phase": 132.651401,
+    "theta2": 13.919585
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 31.158486,
+    "phase": 198.687982,
+    "theta2": 5.639652
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 40.547029,
+    "phase": 134.218094,
+    "theta2": 7.161693
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 35.911483,
+    "phase": 67.270362,
+    "theta2": 3.985342
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 56.989597,
+    "phase": 283.182148,
+    "theta2": 14.182576
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 47.516249,
+    "phase": 79.669734,
+    "theta2": 12.359401
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 36.341283,
+    "phase": 279.90714,
+    "theta2": 3.655446
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 31.917627,
+    "phase": 219.175467,
+    "theta2": 11.04226
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 23.85915,
+    "phase": 157.51847,
+    "theta2": 17.692625
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 57.399686,
+    "phase": 184.446072,
+    "theta2": 6.779662
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 48.147178,
+    "phase": 67.940241,
+    "theta2": 11.636318
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 34.346917,
+    "phase": 75.504774,
+    "theta2": 5.302248
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 50.818723,
+    "phase": 281.505525,
+    "theta2": 10.852539
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 39.32402,
+    "phase": 290.545198,
+    "theta2": 10.45041
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 56.487287,
+    "phase": 208.514777,
+    "theta2": 12.013767
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 29.206279,
+    "phase": 244.608015,
+    "theta2": 18.403973
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 24.038473,
+    "phase": 112.213006,
+    "theta2": 5.613639
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 42.854483,
+    "phase": 101.063489,
+    "theta2": 3.485088
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 27.127374,
+    "phase": 30.787297,
+    "theta2": 14.764718
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 48.452032,
+    "phase": 226.357915,
+    "theta2": 6.935344
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 58.319503,
+    "phase": 136.552084,
+    "theta2": 10.917093
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 53.32202,
+    "phase": 93.075996,
+    "theta2": 4.576652
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 50.305104,
+    "phase": 58.696225,
+    "theta2": 16.344934
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 37.217585,
+    "phase": 50.862203,
+    "theta2": 6.79169
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 30.669502,
+    "phase": 147.879451,
+    "theta2": 8.595076
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 41.487747,
+    "phase": 210.552131,
+    "theta2": 10.271859
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 40.461971,
+    "phase": 231.626381,
+    "theta2": 4.757713
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 34.246738,
+    "phase": 45.888764,
+    "theta2": 18.980942
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 59.111572,
+    "phase": 164.480106,
+    "theta2": 10.351494
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 53.532572,
+    "phase": 21.878152,
+    "theta2": 18.253777
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 37.400336,
+    "phase": 277.495335,
+    "theta2": 15.322008
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 55.82527,
+    "phase": 134.943982,
+    "theta2": 17.685521
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 57.892078,
+    "phase": 170.061774,
+    "theta2": 16.05547
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 25.670876,
+    "phase": 221.7214,
+    "theta2": 4.3807
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 34.493038,
+    "phase": 241.409608,
+    "theta2": 10.788703
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 48.695833,
+    "phase": 292.06561,
+    "theta2": 6.873044
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 48.343083,
+    "phase": 30.466711,
+    "theta2": 17.461336
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 45.92837,
+    "phase": 307.751909,
+    "theta2": 4.93541
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 54.985294,
+    "phase": 119.355656,
+    "theta2": 14.793588
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 39.687327,
+    "phase": 100.31744,
+    "theta2": 12.094203
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 34.464204,
+    "phase": 119.313528,
+    "theta2": 9.253335
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 31.339838,
+    "phase": 100.26376,
+    "theta2": 15.418502
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 26.91393,
+    "phase": 30.326707,
+    "theta2": 19.039115
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 43.395722,
+    "phase": 103.684124,
+    "theta2": 6.158521
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 58.911266,
+    "phase": 206.162154,
+    "theta2": 5.739545
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 42.140907,
+    "phase": 317.407952,
+    "theta2": 5.372782
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 57.720184,
+    "phase": 129.197479,
+    "theta2": 9.209655
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 38.585931,
+    "phase": 227.44286,
+    "theta2": 5.745987
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 34.158187,
+    "phase": 199.767187,
+    "theta2": 5.794845
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 52.766328,
+    "phase": 85.145014,
+    "theta2": 13.416001
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 47.609573,
+    "phase": 227.542443,
+    "theta2": 4.036153
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 23.219277,
+    "phase": 39.371232,
+    "theta2": 10.985767
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 48.791571,
+    "phase": 307.243803,
+    "theta2": 16.043704
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 51.349665,
+    "phase": 265.551858,
+    "theta2": 4.006526
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 23.112113,
+    "phase": 67.936333,
+    "theta2": 17.39038
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 56.584224,
+    "phase": 193.332663,
+    "theta2": 7.382906
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 37.117787,
+    "phase": 259.630558,
+    "theta2": 8.748597
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 33.698075,
+    "phase": 147.675158,
+    "theta2": 13.919131
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 45.097154,
+    "phase": 132.57195,
+    "theta2": 9.48057
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 48.063333,
+    "phase": 125.928703,
+    "theta2": 8.645961
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "nu": 51.653269,
+    "phase": 90.913436,
+    "theta2": 15.861246
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 51.653269,
+    "phase": 90.913436,
+    "theta2": 16.986246
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 51.653269,
+    "phase": 90.913436,
+    "theta2": 18.111246
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 51.653269,
+    "phase": 110.913436,
+    "theta2": 15.861246
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 51.653269,
+    "phase": 110.913436,
+    "theta2": 16.986246
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 51.653269,
+    "phase": 110.913436,
+    "theta2": 18.111246
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 51.653269,
+    "phase": 130.913436,
+    "theta2": 15.861246
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 51.653269,
+    "phase": 130.913436,
+    "theta2": 16.986246
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 51.653269,
+    "phase": 130.913436,
+    "theta2": 18.111246
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 54.153269,
+    "phase": 90.913436,
+    "theta2": 15.861246
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 54.153269,
+    "phase": 90.913436,
+    "theta2": 16.986246
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 54.153269,
+    "phase": 90.913436,
+    "theta2": 18.111246
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 54.153269,
+    "phase": 110.913436,
+    "theta2": 15.861246
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 54.153269,
+    "phase": 110.913436,
+    "theta2": 18.111246
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 54.153269,
+    "phase": 130.913436,
+    "theta2": 15.861246
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 54.153269,
+    "phase": 130.913436,
+    "theta2": 16.986246
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 54.153269,
+    "phase": 130.913436,
+    "theta2": 18.111246
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 56.653269,
+    "phase": 90.913436,
+    "theta2": 15.861246
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 56.653269,
+    "phase": 90.913436,
+    "theta2": 16.986246
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 56.653269,
+    "phase": 90.913436,
+    "theta2": 18.111246
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 56.653269,
+    "phase": 110.913436,
+    "theta2": 15.861246
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 56.653269,
+    "phase": 110.913436,
+    "theta2": 16.986246
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 56.653269,
+    "phase": 110.913436,
+    "theta2": 18.111246
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 56.653269,
+    "phase": 130.913436,
+    "theta2": 15.861246
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 56.653269,
+    "phase": 130.913436,
+    "theta2": 16.986246
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "nu": 56.653269,
+    "phase": 130.913436,
+    "theta2": 18.111246
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "refined"
+  }
+ ]
+}

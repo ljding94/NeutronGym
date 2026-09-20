@@ -1,0 +1,128 @@
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights:  98%|█████████▊| 392/399 [00:00<00:00, 3890.41it/s]Loading weights: 100%|██████████| 399/399 [00:00<00:00, 3928.01it/s]
+states: 2933 for tof_chopper
+[transformers] `use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+/netdisk/ldq/NeutronGym/benchmark/harness/m8_grpo.py:254: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:822.)
+  kl_sum += float((kl.sum(1) / ntok).sum()); pg_sum += float((pg.sum(1) / ntok).sum())
+{"step": 1, "sparse": false, "reward_mean": 0.6962, "pass_frac": 0.0, "valid_frac": 0.7344, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.0, "pg": -0.02179, "elapsed_s": 54.1}
+{"step": 2, "sparse": false, "reward_mean": 0.6242, "pass_frac": 0.0, "valid_frac": 0.4375, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.00075, "pg": 0.0373, "elapsed_s": 110.1}
+{"step": 3, "sparse": false, "reward_mean": 0.6787, "pass_frac": 0.0, "valid_frac": 0.625, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.00063, "pg": -0.01166, "elapsed_s": 174.4}
+{"step": 4, "sparse": false, "reward_mean": 0.6805, "pass_frac": 0.0, "valid_frac": 0.6875, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.00106, "pg": 0.01077, "elapsed_s": 229.6}
+{"step": 5, "sparse": false, "reward_mean": 0.6485, "pass_frac": 0.0, "valid_frac": 0.5469, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.00201, "pg": 0.01349, "elapsed_s": 285.9}
+{"step": 6, "sparse": false, "reward_mean": 0.7025, "pass_frac": 0.0, "valid_frac": 0.7031, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.00201, "pg": 0.01525, "elapsed_s": 347.3}
+{"step": 7, "sparse": false, "reward_mean": 0.7168, "pass_frac": 0.0, "valid_frac": 0.7969, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.00401, "pg": -0.02931, "elapsed_s": 402.8}
+{"step": 8, "sparse": false, "reward_mean": 0.6734, "pass_frac": 0.0, "valid_frac": 0.6562, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.00549, "pg": -0.01174, "elapsed_s": 454.6}
+{"step": 9, "sparse": false, "reward_mean": 0.7331, "pass_frac": 0.0312, "valid_frac": 0.7812, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.0069, "pg": 0.02095, "elapsed_s": 505.5}
+{"step": 10, "sparse": false, "reward_mean": 0.7015, "pass_frac": 0.0156, "valid_frac": 0.6875, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.00873, "pg": -0.01628, "elapsed_s": 560.3}
+{"step": 11, "sparse": false, "reward_mean": 0.6923, "pass_frac": 0.0, "valid_frac": 0.7188, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.01032, "pg": 0.0133, "elapsed_s": 616.3}
+{"step": 12, "sparse": false, "reward_mean": 0.6851, "pass_frac": 0.0, "valid_frac": 0.7031, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.01364, "pg": 0.01881, "elapsed_s": 681.4}
+{"step": 13, "sparse": false, "reward_mean": 0.7545, "pass_frac": 0.0, "valid_frac": 0.9531, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.03749, "pg": -0.01663, "elapsed_s": 731.6}
+{"step": 14, "sparse": false, "reward_mean": 0.7453, "pass_frac": 0.0, "valid_frac": 0.8594, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 4, "kl": 0.04965, "pg": 0.02513, "elapsed_s": 773.3}
+{"step": 15, "sparse": false, "reward_mean": 0.7144, "pass_frac": 0.0156, "valid_frac": 0.75, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 4, "kl": 0.01263, "pg": 0.02078, "elapsed_s": 824.5}
+{"step": 16, "sparse": false, "reward_mean": 0.6874, "pass_frac": 0.0, "valid_frac": 0.6719, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 4, "kl": 0.05184, "pg": -0.01921, "elapsed_s": 872.1}
+{"step": 17, "sparse": false, "reward_mean": 0.6738, "pass_frac": 0.0, "valid_frac": 0.6406, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 2, "kl": 0.02094, "pg": 0.02202, "elapsed_s": 912.9}
+{"step": 18, "sparse": false, "reward_mean": 0.7154, "pass_frac": 0.0, "valid_frac": 0.7969, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.0402, "pg": 0.02214, "elapsed_s": 975.4}
+{"step": 19, "sparse": false, "reward_mean": 0.75, "pass_frac": 0.0, "valid_frac": 0.9219, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.04947, "pg": -0.00114, "elapsed_s": 1040.1}
+{"step": 20, "sparse": false, "reward_mean": 0.76, "pass_frac": 0.0, "valid_frac": 0.9688, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.09675, "pg": -0.01626, "elapsed_s": 1096.6}
+{"step": 21, "sparse": false, "reward_mean": 0.7544, "pass_frac": 0.0, "valid_frac": 0.9375, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.10812, "pg": -0.01504, "elapsed_s": 1163.1}
+{"step": 22, "sparse": false, "reward_mean": 0.7171, "pass_frac": 0.0, "valid_frac": 0.7969, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.05993, "pg": 0.00141, "elapsed_s": 1226.4}
+{"step": 23, "sparse": false, "reward_mean": 0.8241, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 4, "kl": 0.03755, "pg": -0.02648, "elapsed_s": 1277.4}
+{"step": 24, "sparse": false, "reward_mean": 0.8069, "pass_frac": 0.0156, "valid_frac": 0.9844, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.08521, "pg": -0.00572, "elapsed_s": 1331.9}
+{"step": 25, "sparse": false, "reward_mean": 0.6618, "pass_frac": 0.0, "valid_frac": 0.5781, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.06667, "pg": 0.00279, "elapsed_s": 1401.5}
+{"step": 26, "sparse": false, "reward_mean": 0.7816, "pass_frac": 0.0, "valid_frac": 0.9688, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.05163, "pg": 0.00876, "elapsed_s": 1446.5}
+{"step": 27, "sparse": false, "reward_mean": 0.7489, "pass_frac": 0.0, "valid_frac": 0.8594, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.05173, "pg": -0.02734, "elapsed_s": 1496.3}
+{"step": 28, "sparse": false, "reward_mean": 0.7335, "pass_frac": 0.0, "valid_frac": 0.875, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 3, "kl": 0.18601, "pg": 0.01847, "elapsed_s": 1540.7}
+{"step": 29, "sparse": false, "reward_mean": 0.767, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 4, "kl": 0.11805, "pg": 0.00587, "elapsed_s": 1582.8}
+{"step": 30, "sparse": false, "reward_mean": 0.7036, "pass_frac": 0.0, "valid_frac": 0.7656, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.08003, "pg": 0.01058, "elapsed_s": 1634.7}
+{"step": 31, "sparse": false, "reward_mean": 0.7751, "pass_frac": 0.0312, "valid_frac": 0.9062, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.07821, "pg": 0.01565, "elapsed_s": 1696.6}
+{"step": 32, "sparse": false, "reward_mean": 0.7769, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.10569, "pg": -0.01313, "elapsed_s": 1752.6}
+{"step": 33, "sparse": false, "reward_mean": 0.719, "pass_frac": 0.0, "valid_frac": 0.8438, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 3, "kl": 0.2406, "pg": -0.02705, "elapsed_s": 1801.6}
+{"step": 34, "sparse": false, "reward_mean": 0.7232, "pass_frac": 0.0, "valid_frac": 0.8281, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.12447, "pg": 0.00267, "elapsed_s": 1861.9}
+{"step": 35, "sparse": false, "reward_mean": 0.7944, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.08946, "pg": -0.01221, "elapsed_s": 1920.0}
+{"step": 36, "sparse": false, "reward_mean": 0.7948, "pass_frac": 0.0625, "valid_frac": 0.9844, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.3344, "pg": -0.01958, "elapsed_s": 1981.5}
+{"step": 37, "sparse": false, "reward_mean": 0.744, "pass_frac": 0.0, "valid_frac": 0.9062, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 4, "kl": 0.13359, "pg": -0.00413, "elapsed_s": 2029.9}
+{"step": 38, "sparse": false, "reward_mean": 0.7232, "pass_frac": 0.0625, "valid_frac": 0.7812, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.15825, "pg": 0.00679, "elapsed_s": 2079.9}
+{"step": 39, "sparse": false, "reward_mean": 0.7609, "pass_frac": 0.0, "valid_frac": 0.9688, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 4, "kl": 0.13611, "pg": -0.01761, "elapsed_s": 2132.0}
+{"step": 40, "sparse": false, "reward_mean": 0.7671, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 3, "kl": 0.08338, "pg": -0.00576, "elapsed_s": 2175.1}
+{"step": 41, "sparse": false, "reward_mean": 0.7556, "pass_frac": 0.0, "valid_frac": 0.9219, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.08833, "pg": 0.01076, "elapsed_s": 2228.4}
+{"step": 42, "sparse": false, "reward_mean": 0.773, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.12064, "pg": -0.00249, "elapsed_s": 2277.5}
+{"step": 43, "sparse": false, "reward_mean": 0.7749, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.1346, "pg": -0.01992, "elapsed_s": 2328.2}
+{"step": 44, "sparse": false, "reward_mean": 0.7708, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.2157, "pg": 0.02325, "elapsed_s": 2388.6}
+{"step": 45, "sparse": false, "reward_mean": 0.7749, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 4, "kl": 0.08994, "pg": -0.00193, "elapsed_s": 2438.1}
+{"step": 46, "sparse": false, "reward_mean": 0.7449, "pass_frac": 0.0, "valid_frac": 0.8906, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 4, "kl": 0.13483, "pg": 0.02854, "elapsed_s": 2494.2}
+{"step": 47, "sparse": false, "reward_mean": 0.7612, "pass_frac": 0.0312, "valid_frac": 0.9531, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.16264, "pg": -0.00548, "elapsed_s": 2554.4}
+{"step": 48, "sparse": false, "reward_mean": 0.7793, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.08888, "pg": -0.01965, "elapsed_s": 2608.6}
+{"step": 49, "sparse": false, "reward_mean": 0.7356, "pass_frac": 0.0, "valid_frac": 0.875, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 3, "kl": 0.23241, "pg": -0.02891, "elapsed_s": 2650.8}
+{"step": 50, "sparse": false, "reward_mean": 0.8042, "pass_frac": 0.0781, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.15683, "pg": -0.0156, "elapsed_s": 2700.5}
+{"step": 51, "sparse": false, "reward_mean": 0.7773, "pass_frac": 0.0312, "valid_frac": 0.9375, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.17841, "pg": 0.00296, "elapsed_s": 2755.8}
+{"step": 52, "sparse": false, "reward_mean": 0.785, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.09998, "pg": 0.00244, "elapsed_s": 2814.3}
+{"step": 53, "sparse": false, "reward_mean": 0.773, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.26364, "pg": 0.00456, "elapsed_s": 2863.2}
+{"step": 54, "sparse": false, "reward_mean": 0.7611, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 4, "kl": 0.19656, "pg": 0.00569, "elapsed_s": 2911.6}
+{"step": 55, "sparse": false, "reward_mean": 0.7779, "pass_frac": 0.0, "valid_frac": 0.9844, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.15084, "pg": -0.00766, "elapsed_s": 2968.1}
+{"step": 56, "sparse": false, "reward_mean": 0.7637, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.16082, "pg": 0.01365, "elapsed_s": 3020.3}
+{"step": 57, "sparse": false, "reward_mean": 0.7336, "pass_frac": 0.0, "valid_frac": 0.875, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 3, "kl": 0.06056, "pg": 0.01633, "elapsed_s": 3064.8}
+{"step": 58, "sparse": false, "reward_mean": 0.7574, "pass_frac": 0.0, "valid_frac": 0.9688, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 4, "kl": 0.27726, "pg": -0.00557, "elapsed_s": 3115.1}
+{"step": 59, "sparse": false, "reward_mean": 0.7694, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.16468, "pg": -0.0086, "elapsed_s": 3163.2}
+{"step": 60, "sparse": false, "reward_mean": 0.7747, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.14024, "pg": 0.01195, "elapsed_s": 3217.3}
+{"step": 61, "sparse": false, "reward_mean": 0.7714, "pass_frac": 0.0, "valid_frac": 0.9844, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.29838, "pg": -0.00731, "elapsed_s": 3279.6}
+{"step": 62, "sparse": false, "reward_mean": 0.7928, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.18993, "pg": -0.01659, "elapsed_s": 3329.0}
+{"step": 63, "sparse": false, "reward_mean": 0.7751, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.22152, "pg": -0.0165, "elapsed_s": 3377.0}
+{"step": 64, "sparse": false, "reward_mean": 0.7117, "pass_frac": 0.0, "valid_frac": 0.7812, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.34306, "pg": 0.00024, "elapsed_s": 3442.5}
+{"step": 65, "sparse": false, "reward_mean": 0.7716, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.16168, "pg": -0.00207, "elapsed_s": 3489.9}
+{"step": 66, "sparse": false, "reward_mean": 0.7699, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.26794, "pg": 0.0025, "elapsed_s": 3550.4}
+{"step": 67, "sparse": false, "reward_mean": 0.7761, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.18969, "pg": 1e-05, "elapsed_s": 3610.2}
+{"step": 68, "sparse": false, "reward_mean": 0.7475, "pass_frac": 0.0, "valid_frac": 0.8906, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.19031, "pg": 0.00675, "elapsed_s": 3664.6}
+{"step": 69, "sparse": false, "reward_mean": 0.7741, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.09429, "pg": -0.00177, "elapsed_s": 3719.2}
+{"step": 70, "sparse": false, "reward_mean": 0.7578, "pass_frac": 0.0, "valid_frac": 0.9844, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.30967, "pg": 0.01005, "elapsed_s": 3779.7}
+{"step": 71, "sparse": false, "reward_mean": 0.7629, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 4, "kl": 0.23012, "pg": -0.00718, "elapsed_s": 3824.9}
+{"step": 72, "sparse": false, "reward_mean": 0.7435, "pass_frac": 0.0, "valid_frac": 0.9062, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.22728, "pg": -0.00056, "elapsed_s": 3889.8}
+{"step": 73, "sparse": false, "reward_mean": 0.7709, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 3, "kl": 0.10277, "pg": 0.03009, "elapsed_s": 3926.9}
+{"step": 74, "sparse": false, "reward_mean": 0.8054, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.28187, "pg": -0.00687, "elapsed_s": 3984.6}
+{"step": 75, "sparse": false, "reward_mean": 0.7809, "pass_frac": 0.0, "valid_frac": 0.9844, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 3, "kl": 1.44351, "pg": -0.04096, "elapsed_s": 4029.1}
+{"step": 76, "sparse": false, "reward_mean": 0.7544, "pass_frac": 0.0, "valid_frac": 0.9688, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.21123, "pg": 0.01562, "elapsed_s": 4079.7}
+{"step": 77, "sparse": false, "reward_mean": 0.7924, "pass_frac": 0.0156, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.22529, "pg": 0.02818, "elapsed_s": 4123.9}
+{"step": 78, "sparse": false, "reward_mean": 0.7305, "pass_frac": 0.0, "valid_frac": 0.875, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 4, "kl": 0.11944, "pg": 0.04279, "elapsed_s": 4167.0}
+{"step": 79, "sparse": false, "reward_mean": 0.7454, "pass_frac": 0.0, "valid_frac": 0.9062, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.16362, "pg": 0.01411, "elapsed_s": 4223.5}
+{"step": 80, "sparse": false, "reward_mean": 0.789, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.28282, "pg": 0.00258, "elapsed_s": 4288.7}
+{"step": 81, "sparse": false, "reward_mean": 0.7642, "pass_frac": 0.0, "valid_frac": 0.9688, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.29315, "pg": -0.0006, "elapsed_s": 4345.7}
+{"step": 82, "sparse": false, "reward_mean": 0.7767, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.2406, "pg": -0.00731, "elapsed_s": 4407.0}
+{"step": 83, "sparse": false, "reward_mean": 0.772, "pass_frac": 0.0, "valid_frac": 0.9844, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.25618, "pg": 0.00779, "elapsed_s": 4455.4}
+{"step": 84, "sparse": false, "reward_mean": 0.7659, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 3, "kl": 0.13142, "pg": 0.00393, "elapsed_s": 4501.0}
+{"step": 85, "sparse": false, "reward_mean": 0.7659, "pass_frac": 0.0, "valid_frac": 0.9688, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.20816, "pg": 0.00207, "elapsed_s": 4552.3}
+{"step": 86, "sparse": false, "reward_mean": 0.7717, "pass_frac": 0.0, "valid_frac": 0.9844, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.22824, "pg": 0.01642, "elapsed_s": 4607.8}
+{"step": 87, "sparse": false, "reward_mean": 0.7674, "pass_frac": 0.0625, "valid_frac": 0.9062, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.19647, "pg": -0.00628, "elapsed_s": 4671.4}
+{"step": 88, "sparse": false, "reward_mean": 0.7672, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.18594, "pg": 0.02257, "elapsed_s": 4726.5}
+{"step": 89, "sparse": false, "reward_mean": 0.7835, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.3352, "pg": -0.01866, "elapsed_s": 4788.1}
+{"step": 90, "sparse": false, "reward_mean": 0.7873, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.15936, "pg": -0.00255, "elapsed_s": 4841.2}
+{"step": 91, "sparse": false, "reward_mean": 0.7596, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.22915, "pg": 0.01491, "elapsed_s": 4895.6}
+{"step": 92, "sparse": false, "reward_mean": 0.7729, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.40435, "pg": -0.01671, "elapsed_s": 4950.0}
+{"step": 93, "sparse": false, "reward_mean": 0.7836, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.28649, "pg": -0.00385, "elapsed_s": 5012.6}
+{"step": 94, "sparse": false, "reward_mean": 0.7505, "pass_frac": 0.0, "valid_frac": 0.9688, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.30888, "pg": -0.00917, "elapsed_s": 5067.0}
+{"step": 95, "sparse": false, "reward_mean": 0.8028, "pass_frac": 0.0, "valid_frac": 0.9844, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.24623, "pg": -0.00351, "elapsed_s": 5131.3}
+{"step": 96, "sparse": false, "reward_mean": 0.784, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.24917, "pg": -0.00921, "elapsed_s": 5191.9}
+{"step": 97, "sparse": false, "reward_mean": 0.788, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.29538, "pg": -0.02434, "elapsed_s": 5262.3}
+{"step": 98, "sparse": false, "reward_mean": 0.7799, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.30677, "pg": 0.0138, "elapsed_s": 5313.8}
+{"step": 99, "sparse": false, "reward_mean": 0.7585, "pass_frac": 0.0, "valid_frac": 0.9844, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 4, "kl": 0.36908, "pg": -0.00472, "elapsed_s": 5353.2}
+{"step": 100, "sparse": false, "reward_mean": 0.7811, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.30096, "pg": 0.00186, "elapsed_s": 5405.1}
+{"step": 101, "sparse": false, "reward_mean": 0.7637, "pass_frac": 0.0, "valid_frac": 0.9219, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.19702, "pg": -0.0047, "elapsed_s": 5468.9}
+{"step": 102, "sparse": false, "reward_mean": 0.7811, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.20635, "pg": -0.00268, "elapsed_s": 5526.6}
+{"step": 103, "sparse": false, "reward_mean": 0.761, "pass_frac": 0.0, "valid_frac": 0.9844, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.23814, "pg": -0.00588, "elapsed_s": 5575.8}
+{"step": 104, "sparse": false, "reward_mean": 0.7678, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.28069, "pg": -0.01528, "elapsed_s": 5636.9}
+{"step": 105, "sparse": false, "reward_mean": 0.7553, "pass_frac": 0.0, "valid_frac": 0.8906, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.29597, "pg": 0.00393, "elapsed_s": 5707.0}
+{"step": 106, "sparse": false, "reward_mean": 0.8222, "pass_frac": 0.0938, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.39243, "pg": -0.00757, "elapsed_s": 5774.5}
+{"step": 107, "sparse": false, "reward_mean": 0.7486, "pass_frac": 0.0156, "valid_frac": 0.875, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.20283, "pg": 0.00425, "elapsed_s": 5833.8}
+{"step": 108, "sparse": false, "reward_mean": 0.8439, "pass_frac": 0.1094, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.23274, "pg": -0.00467, "elapsed_s": 5894.7}
+{"step": 109, "sparse": false, "reward_mean": 0.8061, "pass_frac": 0.1094, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.39022, "pg": 0.02287, "elapsed_s": 5968.2}
+{"step": 110, "sparse": false, "reward_mean": 0.7726, "pass_frac": 0.0312, "valid_frac": 0.9688, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.26428, "pg": -0.00567, "elapsed_s": 6019.5}
+{"step": 111, "sparse": false, "reward_mean": 0.7598, "pass_frac": 0.0, "valid_frac": 0.9844, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.62249, "pg": -0.01374, "elapsed_s": 6079.5}
+{"step": 112, "sparse": false, "reward_mean": 0.785, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.38553, "pg": -0.00385, "elapsed_s": 6136.3}
+{"step": 113, "sparse": false, "reward_mean": 0.7815, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.45899, "pg": -0.002, "elapsed_s": 6190.1}
+{"step": 114, "sparse": false, "reward_mean": 0.7952, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.23253, "pg": -0.02169, "elapsed_s": 6246.6}
+{"step": 115, "sparse": false, "reward_mean": 0.7776, "pass_frac": 0.0, "valid_frac": 0.9688, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 8, "kl": 0.46943, "pg": -0.01113, "elapsed_s": 6305.3}
+{"step": 116, "sparse": false, "reward_mean": 0.8172, "pass_frac": 0.0781, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.28686, "pg": -0.00696, "elapsed_s": 6366.8}
+{"step": 117, "sparse": false, "reward_mean": 0.7817, "pass_frac": 0.0, "valid_frac": 0.9844, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 6, "kl": 0.47022, "pg": -0.01007, "elapsed_s": 6424.2}
+{"step": 118, "sparse": false, "reward_mean": 0.791, "pass_frac": 0.0156, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.2066, "pg": 0.0243, "elapsed_s": 6483.1}
+{"step": 119, "sparse": false, "reward_mean": 0.7647, "pass_frac": 0.0, "valid_frac": 1.0, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 5, "kl": 0.28346, "pg": 0.00061, "elapsed_s": 6535.0}
+{"step": 120, "sparse": false, "reward_mean": 0.7711, "pass_frac": 0.0, "valid_frac": 0.9531, "parse_frac": 1.0, "groups": 8, "groups_with_signal": 7, "kl": 0.27653, "pg": -0.00336, "elapsed_s": 6600.4}
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:53<00:00, 53.13s/it]Writing model shards: 100%|██████████| 1/1 [00:53<00:00, 53.13s/it]
+-> merged /netdisk/ldq/ckpt/m8-tofgrpo-a/merged (6657s)

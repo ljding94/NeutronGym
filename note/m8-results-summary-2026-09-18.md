@@ -23,9 +23,9 @@ untrained 8B 12% → trained 8B 76% → frontier 99% on the same instances — a
 the honest claim is that RL closes most of the small-model gap, **not** that a
 trained 8B matches frontier models.
 
-**The recipe generalises to a second gated family**: `sans_match`, 26.0% →
-44.3% on an unbiased slice (+18 points, against +65 on the first family). On
-both families the trained 8B also beats the untrained 32B.
+**The recipe generalises across three gated families and two task
+formulations**: `sans_match` 26.0% → 44.3% and `tof_chopper` 2.0% → 46.7%. On
+all three the trained 8B also beats the untrained 32B.
 
 ## Main result — `guide_match`, held-out instances 300–599
 
@@ -219,6 +219,50 @@ gate's 6.7% ceiling).
 **What this supports:** the recipe transfers to a second, independently gated
 family — not that it transfers with the same magnitude. On both families the
 trained 8B also beats the untrained 32B.
+
+## Third archetype: `tof_chopper` (2026-09-20)
+
+The first family in the **time domain** and the first built on a third
+instrument. A chopper pair monochromates a continuous beam: the phase
+difference between the disks selects which velocity arrives in the open
+window (lambda = 3956 * dt / L_ch, dt = phase / (360 * nu)), and the second
+disk's opening angle with the frequency sets the spread. Targets are the mean
+wavelength (±2%) and the spread (±5%) at the sample — per-observable bars,
+because the two differ 15-fold in simulation noise (0.07% vs 1.1%).
+
+Gate (n=150): fixed designs, the baseline and every other instance's solution
+reach **2.7% (upper95 6.0%)**, the baseline never passes, and the physics
+inversion rule reaches **0.0%** — the cleanest family in the project.
+
+Held-out 300–599, 10 turns, 0 errored:
+
+| policy | passed | 95% CI |
+|---|---|---|
+| untrained Qwen3-8B | 6/300 (2.0%) | [0.7, 4.3] |
+| untrained Qwen3-32B | 36/300 (12.0%) | [8.6, 16.2] |
+| **GRPO-trained 8B** | **140/300 (46.7%)** | [40.9, 52.5] |
+
+Paired: 135 trained-only vs 1 against the untrained 8B (p = 3.1e-39) and 116
+vs 12 against the **32B** (p = 1.6e-22). 138 distinct designs among 140
+passes; no turn-1 passes; 124 of 140 solved on turn 4 or later.
+
+Three things make this the strongest single result:
+
+- **The largest relative gain (23x)** and the lowest starting point — episode
+  collection found only 18 of 300 episodes passing, so GRPO bootstrapped from
+  almost nothing. That is evidence the ladder's partial credit carries the
+  learning when passes are rare, matching the sparse-reward ablation.
+- **The first family where model scale clearly helps** (32B 12.0% vs 8B 2.0%,
+  6x), so a capability axis exists here that the earlier families lacked —
+  and training an 8B still beats the 32B four-fold.
+- **No shortcut we can construct solves it**, including our own physics rule.
+
+One honest cost: the trained policy reaches further and sometimes over-reaches.
+28 of its 300 episodes end at level 2 (a design that runs but starves the
+monitor below the statistics floor), where the untrained model never does —
+it stays near the baseline and fails safely. Trading some validity for reach
+is visible in the level histogram: trained {L2 28, L3 132, L4 140} against
+untrained {L3 294, L4 6}.
 
 ## Supporting results
 
