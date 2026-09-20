@@ -12,3 +12,6 @@ runs/
 !.claude/skills/
 # grader reference cache — regenerable from shipped examples + task protocol
 benchmark/refcache/
+
+# large release artifacts (adapters); tracked by checksum in release/README.md
+artifacts/
