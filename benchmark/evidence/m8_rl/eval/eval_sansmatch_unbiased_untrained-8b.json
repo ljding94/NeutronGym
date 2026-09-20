@@ -1,0 +1,2975 @@
+{
+ "target_fraction": 0.85,
+ "n_per_family": 300,
+ "families": [
+  "sans_match"
+ ],
+ "trained_model": "qwen3-8b-m8-sansmatchgrpo340",
+ "reused_arms": {},
+ "max_steps": 10,
+ "split": "heldout",
+ "start_index": 600,
+ "match_tolerance": null,
+ "temperature": 0.0,
+ "arms": {
+  "untrained-8b": {
+   "n_valid": 300,
+   "passes": 78,
+   "pass_rate": 0.26,
+   "level_histogram": {
+    "0": 0,
+    "1": 0,
+    "2": 0,
+    "3": 222,
+    "4": 78
+   },
+   "mean_level": 3.26,
+   "steps_to_success_median": 5.0,
+   "steps_all_median": 10.0,
+   "fom_ratio_median": 0.443,
+   "fom_ratio_max": 8.442
+  }
+ },
+ "heldout": {
+  "untrained-8b": {
+   "sans_match": {
+    "rows": [
+     {
+      "instance": 600,
+      "instance_id": "sans_match-heldout-000600",
+      "best_level": 3,
+      "best_reward": 0.914647,
+      "best_fom_ratio": 0.658589,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 601,
+      "instance_id": "sans_match-heldout-000601",
+      "best_level": 3,
+      "best_reward": 0.925987,
+      "best_fom_ratio": 0.703947,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 602,
+      "instance_id": "sans_match-heldout-000602",
+      "best_level": 3,
+      "best_reward": 0.773778,
+      "best_fom_ratio": 0.095113,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 603,
+      "instance_id": "sans_match-heldout-000603",
+      "best_level": 3,
+      "best_reward": 0.971899,
+      "best_fom_ratio": 0.887595,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 604,
+      "instance_id": "sans_match-heldout-000604",
+      "best_level": 3,
+      "best_reward": 0.781042,
+      "best_fom_ratio": 0.124167,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 605,
+      "instance_id": "sans_match-heldout-000605",
+      "best_level": 3,
+      "best_reward": 0.779361,
+      "best_fom_ratio": 0.117445,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 606,
+      "instance_id": "sans_match-heldout-000606",
+      "best_level": 3,
+      "best_reward": 0.883847,
+      "best_fom_ratio": 0.535388,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 607,
+      "instance_id": "sans_match-heldout-000607",
+      "best_level": 3,
+      "best_reward": 0.802216,
+      "best_fom_ratio": 0.208862,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 608,
+      "instance_id": "sans_match-heldout-000608",
+      "best_level": 4,
+      "best_reward": 1.002207,
+      "best_fom_ratio": 1.00883,
+      "pass_action": {
+       "r_pin1": 0.012,
+       "r_pin2": 0.014
+      },
+      "steps": 9
+     },
+     {
+      "instance": 609,
+      "instance_id": "sans_match-heldout-000609",
+      "best_level": 3,
+      "best_reward": 0.770784,
+      "best_fom_ratio": 0.083135,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 610,
+      "instance_id": "sans_match-heldout-000610",
+      "best_level": 3,
+      "best_reward": 0.933005,
+      "best_fom_ratio": 0.732022,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 611,
+      "instance_id": "sans_match-heldout-000611",
+      "best_level": 3,
+      "best_reward": 0.78357,
+      "best_fom_ratio": 0.13428,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 612,
+      "instance_id": "sans_match-heldout-000612",
+      "best_level": 3,
+      "best_reward": 0.838316,
+      "best_fom_ratio": 0.353265,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 613,
+      "instance_id": "sans_match-heldout-000613",
+      "best_level": 3,
+      "best_reward": 0.858449,
+      "best_fom_ratio": 0.433796,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 614,
+      "instance_id": "sans_match-heldout-000614",
+      "best_level": 4,
+      "best_reward": 1.14457,
+      "best_fom_ratio": 1.57828,
+      "pass_action": {
+       "r_pin1": 0.0165,
+       "r_pin2": 0.0175
+      },
+      "steps": 7
+     },
+     {
+      "instance": 615,
+      "instance_id": "sans_match-heldout-000615",
+      "best_level": 3,
+      "best_reward": 0.780536,
+      "best_fom_ratio": 0.122144,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 616,
+      "instance_id": "sans_match-heldout-000616",
+      "best_level": 3,
+      "best_reward": 0.904331,
+      "best_fom_ratio": 0.617325,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 617,
+      "instance_id": "sans_match-heldout-000617",
+      "best_level": 4,
+      "best_reward": 1.013431,
+      "best_fom_ratio": 1.053722,
+      "pass_action": {
+       "r_pin1": 0.0125,
+       "r_pin2": 0.0125
+      },
+      "steps": 5
+     },
+     {
+      "instance": 618,
+      "instance_id": "sans_match-heldout-000618",
+      "best_level": 3,
+      "best_reward": 0.823127,
+      "best_fom_ratio": 0.292507,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 619,
+      "instance_id": "sans_match-heldout-000619",
+      "best_level": 3,
+      "best_reward": 0.861703,
+      "best_fom_ratio": 0.446814,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 620,
+      "instance_id": "sans_match-heldout-000620",
+      "best_level": 3,
+      "best_reward": 0.822614,
+      "best_fom_ratio": 0.290458,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 621,
+      "instance_id": "sans_match-heldout-000621",
+      "best_level": 3,
+      "best_reward": 0.811428,
+      "best_fom_ratio": 0.245712,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 622,
+      "instance_id": "sans_match-heldout-000622",
+      "best_level": 3,
+      "best_reward": 0.953824,
+      "best_fom_ratio": 0.815297,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 623,
+      "instance_id": "sans_match-heldout-000623",
+      "best_level": 4,
+      "best_reward": 1.118375,
+      "best_fom_ratio": 1.473501,
+      "pass_action": {
+       "r_pin1": 0.007,
+       "r_pin2": 0.005
+      },
+      "steps": 3
+     },
+     {
+      "instance": 624,
+      "instance_id": "sans_match-heldout-000624",
+      "best_level": 4,
+      "best_reward": 1.094681,
+      "best_fom_ratio": 1.378724,
+      "pass_action": {
+       "r_pin1": 0.01,
+       "r_pin2": 0.02
+      },
+      "steps": 4
+     },
+     {
+      "instance": 625,
+      "instance_id": "sans_match-heldout-000625",
+      "best_level": 3,
+      "best_reward": 0.807922,
+      "best_fom_ratio": 0.231689,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 626,
+      "instance_id": "sans_match-heldout-000626",
+      "best_level": 3,
+      "best_reward": 0.839132,
+      "best_fom_ratio": 0.356526,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 627,
+      "instance_id": "sans_match-heldout-000627",
+      "best_level": 3,
+      "best_reward": 0.934046,
+      "best_fom_ratio": 0.736182,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 628,
+      "instance_id": "sans_match-heldout-000628",
+      "best_level": 3,
+      "best_reward": 0.824344,
+      "best_fom_ratio": 0.297375,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 629,
+      "instance_id": "sans_match-heldout-000629",
+      "best_level": 3,
+      "best_reward": 0.758108,
+      "best_fom_ratio": 0.032431,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 630,
+      "instance_id": "sans_match-heldout-000630",
+      "best_level": 3,
+      "best_reward": 0.894109,
+      "best_fom_ratio": 0.576435,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 631,
+      "instance_id": "sans_match-heldout-000631",
+      "best_level": 3,
+      "best_reward": 0.803121,
+      "best_fom_ratio": 0.212484,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 632,
+      "instance_id": "sans_match-heldout-000632",
+      "best_level": 4,
+      "best_reward": 1.161391,
+      "best_fom_ratio": 1.645563,
+      "pass_action": {
+       "r_pin1": 0.011,
+       "r_pin2": 0.0112
+      },
+      "steps": 6
+     },
+     {
+      "instance": 633,
+      "instance_id": "sans_match-heldout-000633",
+      "best_level": 4,
+      "best_reward": 1.135615,
+      "best_fom_ratio": 1.542458,
+      "pass_action": {
+       "r_pin1": 0.0067,
+       "r_pin2": 0.0067
+      },
+      "steps": 6
+     },
+     {
+      "instance": 634,
+      "instance_id": "sans_match-heldout-000634",
+      "best_level": 4,
+      "best_reward": 1.064458,
+      "best_fom_ratio": 1.257833,
+      "pass_action": {
+       "r_pin1": 0.018,
+       "r_pin2": 0.018
+      },
+      "steps": 5
+     },
+     {
+      "instance": 635,
+      "instance_id": "sans_match-heldout-000635",
+      "best_level": 3,
+      "best_reward": 0.803019,
+      "best_fom_ratio": 0.212077,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 636,
+      "instance_id": "sans_match-heldout-000636",
+      "best_level": 3,
+      "best_reward": 0.792782,
+      "best_fom_ratio": 0.171129,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 637,
+      "instance_id": "sans_match-heldout-000637",
+      "best_level": 3,
+      "best_reward": 0.863926,
+      "best_fom_ratio": 0.455702,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 638,
+      "instance_id": "sans_match-heldout-000638",
+      "best_level": 3,
+      "best_reward": 0.787283,
+      "best_fom_ratio": 0.14913,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 639,
+      "instance_id": "sans_match-heldout-000639",
+      "best_level": 3,
+      "best_reward": 0.895037,
+      "best_fom_ratio": 0.580147,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 640,
+      "instance_id": "sans_match-heldout-000640",
+      "best_level": 3,
+      "best_reward": 0.765545,
+      "best_fom_ratio": 0.062182,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 641,
+      "instance_id": "sans_match-heldout-000641",
+      "best_level": 3,
+      "best_reward": 0.82304,
+      "best_fom_ratio": 0.292161,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 642,
+      "instance_id": "sans_match-heldout-000642",
+      "best_level": 3,
+      "best_reward": 0.771649,
+      "best_fom_ratio": 0.086598,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 643,
+      "instance_id": "sans_match-heldout-000643",
+      "best_level": 4,
+      "best_reward": 1.030031,
+      "best_fom_ratio": 1.120124,
+      "pass_action": {
+       "r_pin1": 0.0115,
+       "r_pin2": 0.0125
+      },
+      "steps": 6
+     },
+     {
+      "instance": 644,
+      "instance_id": "sans_match-heldout-000644",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 4.361085,
+      "pass_action": {
+       "r_pin1": 0.008,
+       "r_pin2": 0.008
+      },
+      "steps": 4
+     },
+     {
+      "instance": 645,
+      "instance_id": "sans_match-heldout-000645",
+      "best_level": 3,
+      "best_reward": 0.900533,
+      "best_fom_ratio": 0.602132,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 646,
+      "instance_id": "sans_match-heldout-000646",
+      "best_level": 3,
+      "best_reward": 0.86345,
+      "best_fom_ratio": 0.453801,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 647,
+      "instance_id": "sans_match-heldout-000647",
+      "best_level": 3,
+      "best_reward": 0.75202,
+      "best_fom_ratio": 0.008079,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 648,
+      "instance_id": "sans_match-heldout-000648",
+      "best_level": 3,
+      "best_reward": 0.776219,
+      "best_fom_ratio": 0.104875,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 649,
+      "instance_id": "sans_match-heldout-000649",
+      "best_level": 3,
+      "best_reward": 0.853932,
+      "best_fom_ratio": 0.415726,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 650,
+      "instance_id": "sans_match-heldout-000650",
+      "best_level": 3,
+      "best_reward": 0.895018,
+      "best_fom_ratio": 0.580072,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 651,
+      "instance_id": "sans_match-heldout-000651",
+      "best_level": 3,
+      "best_reward": 0.792886,
+      "best_fom_ratio": 0.171546,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 652,
+      "instance_id": "sans_match-heldout-000652",
+      "best_level": 3,
+      "best_reward": 0.778836,
+      "best_fom_ratio": 0.115343,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 653,
+      "instance_id": "sans_match-heldout-000653",
+      "best_level": 3,
+      "best_reward": 0.785732,
+      "best_fom_ratio": 0.142928,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 654,
+      "instance_id": "sans_match-heldout-000654",
+      "best_level": 3,
+      "best_reward": 0.814411,
+      "best_fom_ratio": 0.257644,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 655,
+      "instance_id": "sans_match-heldout-000655",
+      "best_level": 4,
+      "best_reward": 1.043385,
+      "best_fom_ratio": 1.173538,
+      "pass_action": {
+       "r_pin1": 0.0115,
+       "r_pin2": 0.0115
+      },
+      "steps": 5
+     },
+     {
+      "instance": 656,
+      "instance_id": "sans_match-heldout-000656",
+      "best_level": 4,
+      "best_reward": 1.066415,
+      "best_fom_ratio": 1.26566,
+      "pass_action": {
+       "r_pin1": 0.019,
+       "r_pin2": 0.019
+      },
+      "steps": 4
+     },
+     {
+      "instance": 657,
+      "instance_id": "sans_match-heldout-000657",
+      "best_level": 3,
+      "best_reward": 0.891737,
+      "best_fom_ratio": 0.566948,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 658,
+      "instance_id": "sans_match-heldout-000658",
+      "best_level": 3,
+      "best_reward": 0.889368,
+      "best_fom_ratio": 0.55747,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 659,
+      "instance_id": "sans_match-heldout-000659",
+      "best_level": 4,
+      "best_reward": 1.032351,
+      "best_fom_ratio": 1.129403,
+      "pass_action": {
+       "r_pin1": 0.0155,
+       "r_pin2": 0.016
+      },
+      "steps": 6
+     },
+     {
+      "instance": 660,
+      "instance_id": "sans_match-heldout-000660",
+      "best_level": 3,
+      "best_reward": 0.95495,
+      "best_fom_ratio": 0.819799,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 661,
+      "instance_id": "sans_match-heldout-000661",
+      "best_level": 4,
+      "best_reward": 1.167393,
+      "best_fom_ratio": 1.669573,
+      "pass_action": {
+       "r_pin1": 0.0125,
+       "r_pin2": 0.0125
+      },
+      "steps": 5
+     },
+     {
+      "instance": 662,
+      "instance_id": "sans_match-heldout-000662",
+      "best_level": 3,
+      "best_reward": 0.846001,
+      "best_fom_ratio": 0.384002,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 663,
+      "instance_id": "sans_match-heldout-000663",
+      "best_level": 4,
+      "best_reward": 1.036708,
+      "best_fom_ratio": 1.146831,
+      "pass_action": {
+       "r_pin1": 0.015,
+       "r_pin2": 0.0155
+      },
+      "steps": 4
+     },
+     {
+      "instance": 664,
+      "instance_id": "sans_match-heldout-000664",
+      "best_level": 4,
+      "best_reward": 1.098787,
+      "best_fom_ratio": 1.395147,
+      "pass_action": {
+       "r_pin1": 0.016,
+       "r_pin2": 0.0165
+      },
+      "steps": 7
+     },
+     {
+      "instance": 665,
+      "instance_id": "sans_match-heldout-000665",
+      "best_level": 4,
+      "best_reward": 1.083706,
+      "best_fom_ratio": 1.334824,
+      "pass_action": {
+       "r_pin1": 0.0165,
+       "r_pin2": 0.0165
+      },
+      "steps": 4
+     },
+     {
+      "instance": 666,
+      "instance_id": "sans_match-heldout-000666",
+      "best_level": 3,
+      "best_reward": 0.924259,
+      "best_fom_ratio": 0.697036,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 667,
+      "instance_id": "sans_match-heldout-000667",
+      "best_level": 3,
+      "best_reward": 0.917496,
+      "best_fom_ratio": 0.669983,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 668,
+      "instance_id": "sans_match-heldout-000668",
+      "best_level": 4,
+      "best_reward": 1.02215,
+      "best_fom_ratio": 1.088602,
+      "pass_action": {
+       "r_pin1": 0.011,
+       "r_pin2": 0.0123
+      },
+      "steps": 10
+     },
+     {
+      "instance": 669,
+      "instance_id": "sans_match-heldout-000669",
+      "best_level": 4,
+      "best_reward": 1.129182,
+      "best_fom_ratio": 1.516726,
+      "pass_action": {
+       "r_pin1": 0.017,
+       "r_pin2": 0.017
+      },
+      "steps": 4
+     },
+     {
+      "instance": 670,
+      "instance_id": "sans_match-heldout-000670",
+      "best_level": 4,
+      "best_reward": 1.04909,
+      "best_fom_ratio": 1.196362,
+      "pass_action": {
+       "r_pin1": 0.017,
+       "r_pin2": 0.0185
+      },
+      "steps": 10
+     },
+     {
+      "instance": 671,
+      "instance_id": "sans_match-heldout-000671",
+      "best_level": 3,
+      "best_reward": 0.818179,
+      "best_fom_ratio": 0.272715,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 672,
+      "instance_id": "sans_match-heldout-000672",
+      "best_level": 3,
+      "best_reward": 0.831698,
+      "best_fom_ratio": 0.326791,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 673,
+      "instance_id": "sans_match-heldout-000673",
+      "best_level": 3,
+      "best_reward": 0.779805,
+      "best_fom_ratio": 0.11922,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 674,
+      "instance_id": "sans_match-heldout-000674",
+      "best_level": 3,
+      "best_reward": 0.934149,
+      "best_fom_ratio": 0.736594,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 675,
+      "instance_id": "sans_match-heldout-000675",
+      "best_level": 3,
+      "best_reward": 0.989825,
+      "best_fom_ratio": 0.959298,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 676,
+      "instance_id": "sans_match-heldout-000676",
+      "best_level": 3,
+      "best_reward": 0.98576,
+      "best_fom_ratio": 0.943039,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 677,
+      "instance_id": "sans_match-heldout-000677",
+      "best_level": 3,
+      "best_reward": 0.817923,
+      "best_fom_ratio": 0.271692,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 678,
+      "instance_id": "sans_match-heldout-000678",
+      "best_level": 3,
+      "best_reward": 0.758162,
+      "best_fom_ratio": 0.032649,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 679,
+      "instance_id": "sans_match-heldout-000679",
+      "best_level": 3,
+      "best_reward": 0.9012,
+      "best_fom_ratio": 0.604798,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 680,
+      "instance_id": "sans_match-heldout-000680",
+      "best_level": 3,
+      "best_reward": 0.793336,
+      "best_fom_ratio": 0.173345,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 681,
+      "instance_id": "sans_match-heldout-000681",
+      "best_level": 3,
+      "best_reward": 0.921601,
+      "best_fom_ratio": 0.686405,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 682,
+      "instance_id": "sans_match-heldout-000682",
+      "best_level": 3,
+      "best_reward": 0.751745,
+      "best_fom_ratio": 0.00698,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 683,
+      "instance_id": "sans_match-heldout-000683",
+      "best_level": 3,
+      "best_reward": 0.82733,
+      "best_fom_ratio": 0.309322,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 684,
+      "instance_id": "sans_match-heldout-000684",
+      "best_level": 3,
+      "best_reward": 0.753188,
+      "best_fom_ratio": 0.012754,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 685,
+      "instance_id": "sans_match-heldout-000685",
+      "best_level": 3,
+      "best_reward": 0.82081,
+      "best_fom_ratio": 0.283239,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 686,
+      "instance_id": "sans_match-heldout-000686",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.128225,
+      "pass_action": {
+       "r_pin1": 0.0068,
+       "r_pin2": 0.0068
+      },
+      "steps": 5
+     },
+     {
+      "instance": 687,
+      "instance_id": "sans_match-heldout-000687",
+      "best_level": 3,
+      "best_reward": 0.756237,
+      "best_fom_ratio": 0.024947,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 688,
+      "instance_id": "sans_match-heldout-000688",
+      "best_level": 4,
+      "best_reward": 1.01856,
+      "best_fom_ratio": 1.074241,
+      "pass_action": {
+       "r_pin1": 0.0115,
+       "r_pin2": 0.0195
+      },
+      "steps": 10
+     },
+     {
+      "instance": 689,
+      "instance_id": "sans_match-heldout-000689",
+      "best_level": 3,
+      "best_reward": 0.877545,
+      "best_fom_ratio": 0.510181,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 690,
+      "instance_id": "sans_match-heldout-000690",
+      "best_level": 3,
+      "best_reward": 0.77699,
+      "best_fom_ratio": 0.107961,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 691,
+      "instance_id": "sans_match-heldout-000691",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.4649,
+      "pass_action": {
+       "r_pin1": 0.0128,
+       "r_pin2": 0.0128
+      },
+      "steps": 8
+     },
+     {
+      "instance": 692,
+      "instance_id": "sans_match-heldout-000692",
+      "best_level": 3,
+      "best_reward": 0.752064,
+      "best_fom_ratio": 0.008257,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 693,
+      "instance_id": "sans_match-heldout-000693",
+      "best_level": 3,
+      "best_reward": 0.761263,
+      "best_fom_ratio": 0.045052,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 694,
+      "instance_id": "sans_match-heldout-000694",
+      "best_level": 3,
+      "best_reward": 0.800192,
+      "best_fom_ratio": 0.200768,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 695,
+      "instance_id": "sans_match-heldout-000695",
+      "best_level": 3,
+      "best_reward": 0.861747,
+      "best_fom_ratio": 0.446987,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 696,
+      "instance_id": "sans_match-heldout-000696",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 8.442244,
+      "pass_action": {
+       "r_pin1": 0.009,
+       "r_pin2": 0.009
+      },
+      "steps": 6
+     },
+     {
+      "instance": 697,
+      "instance_id": "sans_match-heldout-000697",
+      "best_level": 3,
+      "best_reward": 0.874357,
+      "best_fom_ratio": 0.49743,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 698,
+      "instance_id": "sans_match-heldout-000698",
+      "best_level": 3,
+      "best_reward": 0.952586,
+      "best_fom_ratio": 0.810344,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 699,
+      "instance_id": "sans_match-heldout-000699",
+      "best_level": 3,
+      "best_reward": 0.80775,
+      "best_fom_ratio": 0.230998,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 700,
+      "instance_id": "sans_match-heldout-000700",
+      "best_level": 3,
+      "best_reward": 0.782548,
+      "best_fom_ratio": 0.13019,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 701,
+      "instance_id": "sans_match-heldout-000701",
+      "best_level": 3,
+      "best_reward": 0.921634,
+      "best_fom_ratio": 0.686534,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 702,
+      "instance_id": "sans_match-heldout-000702",
+      "best_level": 3,
+      "best_reward": 0.75635,
+      "best_fom_ratio": 0.0254,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 703,
+      "instance_id": "sans_match-heldout-000703",
+      "best_level": 3,
+      "best_reward": 0.86962,
+      "best_fom_ratio": 0.478482,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 704,
+      "instance_id": "sans_match-heldout-000704",
+      "best_level": 4,
+      "best_reward": 1.235163,
+      "best_fom_ratio": 1.940654,
+      "pass_action": {
+       "r_pin1": 0.008,
+       "r_pin2": 0.012
+      },
+      "steps": 3
+     },
+     {
+      "instance": 705,
+      "instance_id": "sans_match-heldout-000705",
+      "best_level": 3,
+      "best_reward": 0.754801,
+      "best_fom_ratio": 0.019202,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 706,
+      "instance_id": "sans_match-heldout-000706",
+      "best_level": 3,
+      "best_reward": 0.792614,
+      "best_fom_ratio": 0.170456,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 707,
+      "instance_id": "sans_match-heldout-000707",
+      "best_level": 3,
+      "best_reward": 0.840753,
+      "best_fom_ratio": 0.363011,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 708,
+      "instance_id": "sans_match-heldout-000708",
+      "best_level": 3,
+      "best_reward": 0.890009,
+      "best_fom_ratio": 0.560037,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 709,
+      "instance_id": "sans_match-heldout-000709",
+      "best_level": 3,
+      "best_reward": 0.756398,
+      "best_fom_ratio": 0.025591,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 710,
+      "instance_id": "sans_match-heldout-000710",
+      "best_level": 3,
+      "best_reward": 0.784169,
+      "best_fom_ratio": 0.136675,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 711,
+      "instance_id": "sans_match-heldout-000711",
+      "best_level": 3,
+      "best_reward": 0.856002,
+      "best_fom_ratio": 0.424006,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 712,
+      "instance_id": "sans_match-heldout-000712",
+      "best_level": 3,
+      "best_reward": 0.873125,
+      "best_fom_ratio": 0.492498,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 713,
+      "instance_id": "sans_match-heldout-000713",
+      "best_level": 3,
+      "best_reward": 0.911605,
+      "best_fom_ratio": 0.646421,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 714,
+      "instance_id": "sans_match-heldout-000714",
+      "best_level": 3,
+      "best_reward": 0.843036,
+      "best_fom_ratio": 0.372144,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 715,
+      "instance_id": "sans_match-heldout-000715",
+      "best_level": 3,
+      "best_reward": 0.84289,
+      "best_fom_ratio": 0.371559,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 716,
+      "instance_id": "sans_match-heldout-000716",
+      "best_level": 3,
+      "best_reward": 0.832293,
+      "best_fom_ratio": 0.329171,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 717,
+      "instance_id": "sans_match-heldout-000717",
+      "best_level": 3,
+      "best_reward": 0.797496,
+      "best_fom_ratio": 0.189983,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 718,
+      "instance_id": "sans_match-heldout-000718",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.756566,
+      "pass_action": {
+       "r_pin1": 0.016,
+       "r_pin2": 0.016
+      },
+      "steps": 3
+     },
+     {
+      "instance": 719,
+      "instance_id": "sans_match-heldout-000719",
+      "best_level": 3,
+      "best_reward": 0.751945,
+      "best_fom_ratio": 0.007779,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 720,
+      "instance_id": "sans_match-heldout-000720",
+      "best_level": 3,
+      "best_reward": 0.79408,
+      "best_fom_ratio": 0.17632,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 721,
+      "instance_id": "sans_match-heldout-000721",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.53503,
+      "pass_action": {
+       "r_pin1": 0.01,
+       "r_pin2": 0.02
+      },
+      "steps": 4
+     },
+     {
+      "instance": 722,
+      "instance_id": "sans_match-heldout-000722",
+      "best_level": 3,
+      "best_reward": 0.953344,
+      "best_fom_ratio": 0.813377,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 723,
+      "instance_id": "sans_match-heldout-000723",
+      "best_level": 4,
+      "best_reward": 1.128917,
+      "best_fom_ratio": 1.515666,
+      "pass_action": {
+       "r_pin1": 0.0185,
+       "r_pin2": 0.0197
+      },
+      "steps": 10
+     },
+     {
+      "instance": 724,
+      "instance_id": "sans_match-heldout-000724",
+      "best_level": 3,
+      "best_reward": 0.755406,
+      "best_fom_ratio": 0.021624,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 725,
+      "instance_id": "sans_match-heldout-000725",
+      "best_level": 3,
+      "best_reward": 0.770783,
+      "best_fom_ratio": 0.083133,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 726,
+      "instance_id": "sans_match-heldout-000726",
+      "best_level": 4,
+      "best_reward": 1.054166,
+      "best_fom_ratio": 1.216666,
+      "pass_action": {
+       "r_pin1": 0.02,
+       "r_pin2": 0.02
+      },
+      "steps": 5
+     },
+     {
+      "instance": 727,
+      "instance_id": "sans_match-heldout-000727",
+      "best_level": 3,
+      "best_reward": 0.826313,
+      "best_fom_ratio": 0.30525,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 728,
+      "instance_id": "sans_match-heldout-000728",
+      "best_level": 3,
+      "best_reward": 0.827698,
+      "best_fom_ratio": 0.310793,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 729,
+      "instance_id": "sans_match-heldout-000729",
+      "best_level": 4,
+      "best_reward": 1.047574,
+      "best_fom_ratio": 1.190294,
+      "pass_action": {
+       "r_pin1": 0.014,
+       "r_pin2": 0.017
+      },
+      "steps": 10
+     },
+     {
+      "instance": 730,
+      "instance_id": "sans_match-heldout-000730",
+      "best_level": 3,
+      "best_reward": 0.788241,
+      "best_fom_ratio": 0.152963,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 731,
+      "instance_id": "sans_match-heldout-000731",
+      "best_level": 3,
+      "best_reward": 0.787032,
+      "best_fom_ratio": 0.148128,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 732,
+      "instance_id": "sans_match-heldout-000732",
+      "best_level": 4,
+      "best_reward": 1.007165,
+      "best_fom_ratio": 1.028659,
+      "pass_action": {
+       "r_pin1": 0.014,
+       "r_pin2": 0.014
+      },
+      "steps": 3
+     },
+     {
+      "instance": 733,
+      "instance_id": "sans_match-heldout-000733",
+      "best_level": 3,
+      "best_reward": 0.993985,
+      "best_fom_ratio": 0.975942,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 734,
+      "instance_id": "sans_match-heldout-000734",
+      "best_level": 4,
+      "best_reward": 1.063987,
+      "best_fom_ratio": 1.255946,
+      "pass_action": {
+       "r_pin1": 0.0086,
+       "r_pin2": 0.0086
+      },
+      "steps": 9
+     },
+     {
+      "instance": 735,
+      "instance_id": "sans_match-heldout-000735",
+      "best_level": 4,
+      "best_reward": 1.059789,
+      "best_fom_ratio": 1.239154,
+      "pass_action": {
+       "r_pin1": 0.0128,
+       "r_pin2": 0.0128
+      },
+      "steps": 6
+     },
+     {
+      "instance": 736,
+      "instance_id": "sans_match-heldout-000736",
+      "best_level": 3,
+      "best_reward": 0.989799,
+      "best_fom_ratio": 0.959195,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 737,
+      "instance_id": "sans_match-heldout-000737",
+      "best_level": 3,
+      "best_reward": 0.751371,
+      "best_fom_ratio": 0.005484,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 738,
+      "instance_id": "sans_match-heldout-000738",
+      "best_level": 3,
+      "best_reward": 0.837431,
+      "best_fom_ratio": 0.349724,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 739,
+      "instance_id": "sans_match-heldout-000739",
+      "best_level": 3,
+      "best_reward": 0.980767,
+      "best_fom_ratio": 0.923069,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 740,
+      "instance_id": "sans_match-heldout-000740",
+      "best_level": 3,
+      "best_reward": 0.852684,
+      "best_fom_ratio": 0.410736,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 741,
+      "instance_id": "sans_match-heldout-000741",
+      "best_level": 4,
+      "best_reward": 1.222542,
+      "best_fom_ratio": 1.890167,
+      "pass_action": {
+       "r_pin1": 0.0118,
+       "r_pin2": 0.0118
+      },
+      "steps": 7
+     },
+     {
+      "instance": 742,
+      "instance_id": "sans_match-heldout-000742",
+      "best_level": 3,
+      "best_reward": 0.799973,
+      "best_fom_ratio": 0.199892,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 743,
+      "instance_id": "sans_match-heldout-000743",
+      "best_level": 3,
+      "best_reward": 0.824956,
+      "best_fom_ratio": 0.299826,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 744,
+      "instance_id": "sans_match-heldout-000744",
+      "best_level": 3,
+      "best_reward": 0.799262,
+      "best_fom_ratio": 0.197047,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 745,
+      "instance_id": "sans_match-heldout-000745",
+      "best_level": 3,
+      "best_reward": 0.894441,
+      "best_fom_ratio": 0.577766,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 746,
+      "instance_id": "sans_match-heldout-000746",
+      "best_level": 3,
+      "best_reward": 0.757547,
+      "best_fom_ratio": 0.030189,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 747,
+      "instance_id": "sans_match-heldout-000747",
+      "best_level": 3,
+      "best_reward": 0.778613,
+      "best_fom_ratio": 0.11445,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 748,
+      "instance_id": "sans_match-heldout-000748",
+      "best_level": 3,
+      "best_reward": 0.844267,
+      "best_fom_ratio": 0.377067,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 749,
+      "instance_id": "sans_match-heldout-000749",
+      "best_level": 3,
+      "best_reward": 0.754172,
+      "best_fom_ratio": 0.016688,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 750,
+      "instance_id": "sans_match-heldout-000750",
+      "best_level": 3,
+      "best_reward": 0.77266,
+      "best_fom_ratio": 0.09064,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 751,
+      "instance_id": "sans_match-heldout-000751",
+      "best_level": 3,
+      "best_reward": 0.752859,
+      "best_fom_ratio": 0.011435,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 752,
+      "instance_id": "sans_match-heldout-000752",
+      "best_level": 3,
+      "best_reward": 0.943468,
+      "best_fom_ratio": 0.773873,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 753,
+      "instance_id": "sans_match-heldout-000753",
+      "best_level": 4,
+      "best_reward": 1.001402,
+      "best_fom_ratio": 1.005608,
+      "pass_action": {
+       "r_pin1": 0.0185,
+       "r_pin2": 0.0195
+      },
+      "steps": 8
+     },
+     {
+      "instance": 754,
+      "instance_id": "sans_match-heldout-000754",
+      "best_level": 3,
+      "best_reward": 0.899816,
+      "best_fom_ratio": 0.599262,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 755,
+      "instance_id": "sans_match-heldout-000755",
+      "best_level": 3,
+      "best_reward": 0.819127,
+      "best_fom_ratio": 0.276507,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 756,
+      "instance_id": "sans_match-heldout-000756",
+      "best_level": 3,
+      "best_reward": 0.890408,
+      "best_fom_ratio": 0.561633,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 757,
+      "instance_id": "sans_match-heldout-000757",
+      "best_level": 3,
+      "best_reward": 0.772256,
+      "best_fom_ratio": 0.089026,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 758,
+      "instance_id": "sans_match-heldout-000758",
+      "best_level": 3,
+      "best_reward": 0.912762,
+      "best_fom_ratio": 0.651047,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 759,
+      "instance_id": "sans_match-heldout-000759",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 4.081833,
+      "pass_action": {
+       "r_pin1": 0.00875,
+       "r_pin2": 0.00875
+      },
+      "steps": 8
+     },
+     {
+      "instance": 760,
+      "instance_id": "sans_match-heldout-000760",
+      "best_level": 3,
+      "best_reward": 0.801993,
+      "best_fom_ratio": 0.20797,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 761,
+      "instance_id": "sans_match-heldout-000761",
+      "best_level": 4,
+      "best_reward": 1.192252,
+      "best_fom_ratio": 1.769007,
+      "pass_action": {
+       "r_pin1": 0.007,
+       "r_pin2": 0.013
+      },
+      "steps": 4
+     },
+     {
+      "instance": 762,
+      "instance_id": "sans_match-heldout-000762",
+      "best_level": 3,
+      "best_reward": 0.824463,
+      "best_fom_ratio": 0.29785,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 763,
+      "instance_id": "sans_match-heldout-000763",
+      "best_level": 3,
+      "best_reward": 0.828249,
+      "best_fom_ratio": 0.312996,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 764,
+      "instance_id": "sans_match-heldout-000764",
+      "best_level": 3,
+      "best_reward": 0.927717,
+      "best_fom_ratio": 0.710868,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 765,
+      "instance_id": "sans_match-heldout-000765",
+      "best_level": 3,
+      "best_reward": 0.927546,
+      "best_fom_ratio": 0.710185,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 766,
+      "instance_id": "sans_match-heldout-000766",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.237365,
+      "pass_action": {
+       "r_pin1": 0.015,
+       "r_pin2": 0.015
+      },
+      "steps": 2
+     },
+     {
+      "instance": 767,
+      "instance_id": "sans_match-heldout-000767",
+      "best_level": 4,
+      "best_reward": 1.173019,
+      "best_fom_ratio": 1.692074,
+      "pass_action": {
+       "r_pin1": 0.015,
+       "r_pin2": 0.015
+      },
+      "steps": 2
+     },
+     {
+      "instance": 768,
+      "instance_id": "sans_match-heldout-000768",
+      "best_level": 3,
+      "best_reward": 0.806866,
+      "best_fom_ratio": 0.227462,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 769,
+      "instance_id": "sans_match-heldout-000769",
+      "best_level": 4,
+      "best_reward": 1.028174,
+      "best_fom_ratio": 1.112696,
+      "pass_action": {
+       "r_pin1": 0.0115,
+       "r_pin2": 0.0117
+      },
+      "steps": 7
+     },
+     {
+      "instance": 770,
+      "instance_id": "sans_match-heldout-000770",
+      "best_level": 3,
+      "best_reward": 0.878005,
+      "best_fom_ratio": 0.512021,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 771,
+      "instance_id": "sans_match-heldout-000771",
+      "best_level": 3,
+      "best_reward": 0.87415,
+      "best_fom_ratio": 0.496599,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 772,
+      "instance_id": "sans_match-heldout-000772",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.202506,
+      "pass_action": {
+       "r_pin1": 0.0093,
+       "r_pin2": 0.0093
+      },
+      "steps": 5
+     },
+     {
+      "instance": 773,
+      "instance_id": "sans_match-heldout-000773",
+      "best_level": 3,
+      "best_reward": 0.75764,
+      "best_fom_ratio": 0.03056,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 774,
+      "instance_id": "sans_match-heldout-000774",
+      "best_level": 3,
+      "best_reward": 0.861036,
+      "best_fom_ratio": 0.444143,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 775,
+      "instance_id": "sans_match-heldout-000775",
+      "best_level": 3,
+      "best_reward": 0.795415,
+      "best_fom_ratio": 0.181661,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 776,
+      "instance_id": "sans_match-heldout-000776",
+      "best_level": 3,
+      "best_reward": 0.96134,
+      "best_fom_ratio": 0.84536,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 777,
+      "instance_id": "sans_match-heldout-000777",
+      "best_level": 4,
+      "best_reward": 1.019048,
+      "best_fom_ratio": 1.076191,
+      "pass_action": {
+       "r_pin1": 0.01,
+       "r_pin2": 0.01
+      },
+      "steps": 2
+     },
+     {
+      "instance": 778,
+      "instance_id": "sans_match-heldout-000778",
+      "best_level": 3,
+      "best_reward": 0.927893,
+      "best_fom_ratio": 0.711572,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 779,
+      "instance_id": "sans_match-heldout-000779",
+      "best_level": 3,
+      "best_reward": 0.826392,
+      "best_fom_ratio": 0.305569,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 780,
+      "instance_id": "sans_match-heldout-000780",
+      "best_level": 4,
+      "best_reward": 1.030433,
+      "best_fom_ratio": 1.121733,
+      "pass_action": {
+       "r_pin1": 0.014,
+       "r_pin2": 0.014
+      },
+      "steps": 3
+     },
+     {
+      "instance": 781,
+      "instance_id": "sans_match-heldout-000781",
+      "best_level": 4,
+      "best_reward": 1.000631,
+      "best_fom_ratio": 1.002526,
+      "pass_action": {
+       "r_pin1": 0.015,
+       "r_pin2": 0.015
+      },
+      "steps": 2
+     },
+     {
+      "instance": 782,
+      "instance_id": "sans_match-heldout-000782",
+      "best_level": 3,
+      "best_reward": 0.802862,
+      "best_fom_ratio": 0.21145,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 783,
+      "instance_id": "sans_match-heldout-000783",
+      "best_level": 3,
+      "best_reward": 0.826562,
+      "best_fom_ratio": 0.306249,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 784,
+      "instance_id": "sans_match-heldout-000784",
+      "best_level": 3,
+      "best_reward": 0.834662,
+      "best_fom_ratio": 0.338649,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 785,
+      "instance_id": "sans_match-heldout-000785",
+      "best_level": 3,
+      "best_reward": 0.787579,
+      "best_fom_ratio": 0.150317,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 786,
+      "instance_id": "sans_match-heldout-000786",
+      "best_level": 3,
+      "best_reward": 0.91053,
+      "best_fom_ratio": 0.64212,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 787,
+      "instance_id": "sans_match-heldout-000787",
+      "best_level": 4,
+      "best_reward": 1.101814,
+      "best_fom_ratio": 1.407257,
+      "pass_action": {
+       "r_pin1": 0.014,
+       "r_pin2": 0.014
+      },
+      "steps": 3
+     },
+     {
+      "instance": 788,
+      "instance_id": "sans_match-heldout-000788",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.577875,
+      "pass_action": {
+       "r_pin1": 0.016,
+       "r_pin2": 0.016
+      },
+      "steps": 3
+     },
+     {
+      "instance": 789,
+      "instance_id": "sans_match-heldout-000789",
+      "best_level": 3,
+      "best_reward": 0.784224,
+      "best_fom_ratio": 0.136896,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 790,
+      "instance_id": "sans_match-heldout-000790",
+      "best_level": 3,
+      "best_reward": 0.795023,
+      "best_fom_ratio": 0.180092,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 791,
+      "instance_id": "sans_match-heldout-000791",
+      "best_level": 3,
+      "best_reward": 0.916096,
+      "best_fom_ratio": 0.664385,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 792,
+      "instance_id": "sans_match-heldout-000792",
+      "best_level": 3,
+      "best_reward": 0.977025,
+      "best_fom_ratio": 0.908102,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 793,
+      "instance_id": "sans_match-heldout-000793",
+      "best_level": 4,
+      "best_reward": 1.080817,
+      "best_fom_ratio": 1.32327,
+      "pass_action": {
+       "r_pin1": 0.0145,
+       "r_pin2": 0.0185
+      },
+      "steps": 6
+     },
+     {
+      "instance": 794,
+      "instance_id": "sans_match-heldout-000794",
+      "best_level": 3,
+      "best_reward": 0.915011,
+      "best_fom_ratio": 0.660043,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 795,
+      "instance_id": "sans_match-heldout-000795",
+      "best_level": 3,
+      "best_reward": 0.753351,
+      "best_fom_ratio": 0.013402,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 796,
+      "instance_id": "sans_match-heldout-000796",
+      "best_level": 4,
+      "best_reward": 1.167642,
+      "best_fom_ratio": 1.670569,
+      "pass_action": {
+       "r_pin1": 0.0115,
+       "r_pin2": 0.0115
+      },
+      "steps": 5
+     },
+     {
+      "instance": 797,
+      "instance_id": "sans_match-heldout-000797",
+      "best_level": 4,
+      "best_reward": 1.062811,
+      "best_fom_ratio": 1.251243,
+      "pass_action": {
+       "r_pin1": 0.0085,
+       "r_pin2": 0.0085
+      },
+      "steps": 9
+     },
+     {
+      "instance": 798,
+      "instance_id": "sans_match-heldout-000798",
+      "best_level": 3,
+      "best_reward": 0.860692,
+      "best_fom_ratio": 0.442768,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 799,
+      "instance_id": "sans_match-heldout-000799",
+      "best_level": 4,
+      "best_reward": 1.017211,
+      "best_fom_ratio": 1.068843,
+      "pass_action": {
+       "r_pin1": 0.012,
+       "r_pin2": 0.0115
+      },
+      "steps": 8
+     },
+     {
+      "instance": 800,
+      "instance_id": "sans_match-heldout-000800",
+      "best_level": 3,
+      "best_reward": 0.769646,
+      "best_fom_ratio": 0.078586,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 801,
+      "instance_id": "sans_match-heldout-000801",
+      "best_level": 3,
+      "best_reward": 0.841515,
+      "best_fom_ratio": 0.366061,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 802,
+      "instance_id": "sans_match-heldout-000802",
+      "best_level": 3,
+      "best_reward": 0.835086,
+      "best_fom_ratio": 0.340345,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 803,
+      "instance_id": "sans_match-heldout-000803",
+      "best_level": 3,
+      "best_reward": 0.76727,
+      "best_fom_ratio": 0.06908,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 804,
+      "instance_id": "sans_match-heldout-000804",
+      "best_level": 3,
+      "best_reward": 0.857224,
+      "best_fom_ratio": 0.428897,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 805,
+      "instance_id": "sans_match-heldout-000805",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 4.976884,
+      "pass_action": {
+       "r_pin1": 0.014,
+       "r_pin2": 0.017
+      },
+      "steps": 5
+     },
+     {
+      "instance": 806,
+      "instance_id": "sans_match-heldout-000806",
+      "best_level": 3,
+      "best_reward": 0.934692,
+      "best_fom_ratio": 0.73877,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 807,
+      "instance_id": "sans_match-heldout-000807",
+      "best_level": 3,
+      "best_reward": 0.758816,
+      "best_fom_ratio": 0.035266,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 808,
+      "instance_id": "sans_match-heldout-000808",
+      "best_level": 3,
+      "best_reward": 0.757122,
+      "best_fom_ratio": 0.028487,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 809,
+      "instance_id": "sans_match-heldout-000809",
+      "best_level": 3,
+      "best_reward": 0.851761,
+      "best_fom_ratio": 0.407044,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 810,
+      "instance_id": "sans_match-heldout-000810",
+      "best_level": 3,
+      "best_reward": 0.823097,
+      "best_fom_ratio": 0.292387,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 811,
+      "instance_id": "sans_match-heldout-000811",
+      "best_level": 3,
+      "best_reward": 0.935446,
+      "best_fom_ratio": 0.741783,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 812,
+      "instance_id": "sans_match-heldout-000812",
+      "best_level": 3,
+      "best_reward": 0.782164,
+      "best_fom_ratio": 0.128656,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 813,
+      "instance_id": "sans_match-heldout-000813",
+      "best_level": 3,
+      "best_reward": 0.798955,
+      "best_fom_ratio": 0.19582,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 814,
+      "instance_id": "sans_match-heldout-000814",
+      "best_level": 3,
+      "best_reward": 0.85506,
+      "best_fom_ratio": 0.420239,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 815,
+      "instance_id": "sans_match-heldout-000815",
+      "best_level": 3,
+      "best_reward": 0.876421,
+      "best_fom_ratio": 0.505683,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 816,
+      "instance_id": "sans_match-heldout-000816",
+      "best_level": 3,
+      "best_reward": 0.807404,
+      "best_fom_ratio": 0.229616,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 817,
+      "instance_id": "sans_match-heldout-000817",
+      "best_level": 4,
+      "best_reward": 1.041817,
+      "best_fom_ratio": 1.167268,
+      "pass_action": {
+       "r_pin1": 0.018,
+       "r_pin2": 0.018
+      },
+      "steps": 5
+     },
+     {
+      "instance": 818,
+      "instance_id": "sans_match-heldout-000818",
+      "best_level": 3,
+      "best_reward": 0.77885,
+      "best_fom_ratio": 0.115402,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 819,
+      "instance_id": "sans_match-heldout-000819",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.822934,
+      "pass_action": {
+       "r_pin1": 0.006,
+       "r_pin2": 0.013
+      },
+      "steps": 5
+     },
+     {
+      "instance": 820,
+      "instance_id": "sans_match-heldout-000820",
+      "best_level": 3,
+      "best_reward": 0.840454,
+      "best_fom_ratio": 0.361814,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 821,
+      "instance_id": "sans_match-heldout-000821",
+      "best_level": 4,
+      "best_reward": 1.051826,
+      "best_fom_ratio": 1.207303,
+      "pass_action": {
+       "r_pin1": 0.0095,
+       "r_pin2": 0.0105
+      },
+      "steps": 10
+     },
+     {
+      "instance": 822,
+      "instance_id": "sans_match-heldout-000822",
+      "best_level": 4,
+      "best_reward": 1.170745,
+      "best_fom_ratio": 1.68298,
+      "pass_action": {
+       "r_pin1": 0.011,
+       "r_pin2": 0.011
+      },
+      "steps": 4
+     },
+     {
+      "instance": 823,
+      "instance_id": "sans_match-heldout-000823",
+      "best_level": 3,
+      "best_reward": 0.898869,
+      "best_fom_ratio": 0.595476,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 824,
+      "instance_id": "sans_match-heldout-000824",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.332183,
+      "pass_action": {
+       "r_pin1": 0.006,
+       "r_pin2": 0.011
+      },
+      "steps": 10
+     },
+     {
+      "instance": 825,
+      "instance_id": "sans_match-heldout-000825",
+      "best_level": 3,
+      "best_reward": 0.825218,
+      "best_fom_ratio": 0.30087,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 826,
+      "instance_id": "sans_match-heldout-000826",
+      "best_level": 3,
+      "best_reward": 0.790629,
+      "best_fom_ratio": 0.162516,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 827,
+      "instance_id": "sans_match-heldout-000827",
+      "best_level": 3,
+      "best_reward": 0.915093,
+      "best_fom_ratio": 0.66037,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 828,
+      "instance_id": "sans_match-heldout-000828",
+      "best_level": 3,
+      "best_reward": 0.887247,
+      "best_fom_ratio": 0.548988,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 829,
+      "instance_id": "sans_match-heldout-000829",
+      "best_level": 3,
+      "best_reward": 0.752979,
+      "best_fom_ratio": 0.011918,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 830,
+      "instance_id": "sans_match-heldout-000830",
+      "best_level": 3,
+      "best_reward": 0.813254,
+      "best_fom_ratio": 0.253017,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 831,
+      "instance_id": "sans_match-heldout-000831",
+      "best_level": 3,
+      "best_reward": 0.840981,
+      "best_fom_ratio": 0.363925,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 832,
+      "instance_id": "sans_match-heldout-000832",
+      "best_level": 3,
+      "best_reward": 0.997405,
+      "best_fom_ratio": 0.98962,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 833,
+      "instance_id": "sans_match-heldout-000833",
+      "best_level": 3,
+      "best_reward": 0.800281,
+      "best_fom_ratio": 0.201126,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 834,
+      "instance_id": "sans_match-heldout-000834",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.825752,
+      "pass_action": {
+       "r_pin1": 0.0175,
+       "r_pin2": 0.0175
+      },
+      "steps": 7
+     },
+     {
+      "instance": 835,
+      "instance_id": "sans_match-heldout-000835",
+      "best_level": 4,
+      "best_reward": 1.125504,
+      "best_fom_ratio": 1.502017,
+      "pass_action": {
+       "r_pin1": 0.008,
+       "r_pin2": 0.012
+      },
+      "steps": 3
+     },
+     {
+      "instance": 836,
+      "instance_id": "sans_match-heldout-000836",
+      "best_level": 3,
+      "best_reward": 0.876638,
+      "best_fom_ratio": 0.506552,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 837,
+      "instance_id": "sans_match-heldout-000837",
+      "best_level": 3,
+      "best_reward": 0.782421,
+      "best_fom_ratio": 0.129684,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 838,
+      "instance_id": "sans_match-heldout-000838",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.652038,
+      "pass_action": {
+       "r_pin1": 0.01,
+       "r_pin2": 0.02
+      },
+      "steps": 4
+     },
+     {
+      "instance": 839,
+      "instance_id": "sans_match-heldout-000839",
+      "best_level": 3,
+      "best_reward": 0.819151,
+      "best_fom_ratio": 0.276605,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 840,
+      "instance_id": "sans_match-heldout-000840",
+      "best_level": 3,
+      "best_reward": 0.817162,
+      "best_fom_ratio": 0.268649,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 841,
+      "instance_id": "sans_match-heldout-000841",
+      "best_level": 3,
+      "best_reward": 0.89451,
+      "best_fom_ratio": 0.578039,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 842,
+      "instance_id": "sans_match-heldout-000842",
+      "best_level": 3,
+      "best_reward": 0.874221,
+      "best_fom_ratio": 0.496886,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 843,
+      "instance_id": "sans_match-heldout-000843",
+      "best_level": 3,
+      "best_reward": 0.808089,
+      "best_fom_ratio": 0.232357,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 844,
+      "instance_id": "sans_match-heldout-000844",
+      "best_level": 4,
+      "best_reward": 1.004417,
+      "best_fom_ratio": 1.017667,
+      "pass_action": {
+       "r_pin1": 0.0125,
+       "r_pin2": 0.0123
+      },
+      "steps": 10
+     },
+     {
+      "instance": 845,
+      "instance_id": "sans_match-heldout-000845",
+      "best_level": 4,
+      "best_reward": 1.12472,
+      "best_fom_ratio": 1.498881,
+      "pass_action": {
+       "r_pin1": 0.0165,
+       "r_pin2": 0.0165
+      },
+      "steps": 5
+     },
+     {
+      "instance": 846,
+      "instance_id": "sans_match-heldout-000846",
+      "best_level": 3,
+      "best_reward": 0.838145,
+      "best_fom_ratio": 0.35258,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 847,
+      "instance_id": "sans_match-heldout-000847",
+      "best_level": 3,
+      "best_reward": 0.756431,
+      "best_fom_ratio": 0.025725,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 848,
+      "instance_id": "sans_match-heldout-000848",
+      "best_level": 4,
+      "best_reward": 1.022979,
+      "best_fom_ratio": 1.091917,
+      "pass_action": {
+       "r_pin1": 0.017,
+       "r_pin2": 0.019
+      },
+      "steps": 8
+     },
+     {
+      "instance": 849,
+      "instance_id": "sans_match-heldout-000849",
+      "best_level": 3,
+      "best_reward": 0.814372,
+      "best_fom_ratio": 0.257488,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 850,
+      "instance_id": "sans_match-heldout-000850",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 7.830299,
+      "pass_action": {
+       "r_pin1": 0.015,
+       "r_pin2": 0.015
+      },
+      "steps": 2
+     },
+     {
+      "instance": 851,
+      "instance_id": "sans_match-heldout-000851",
+      "best_level": 3,
+      "best_reward": 0.771984,
+      "best_fom_ratio": 0.087937,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 852,
+      "instance_id": "sans_match-heldout-000852",
+      "best_level": 3,
+      "best_reward": 0.776736,
+      "best_fom_ratio": 0.106943,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 853,
+      "instance_id": "sans_match-heldout-000853",
+      "best_level": 4,
+      "best_reward": 1.140678,
+      "best_fom_ratio": 1.562711,
+      "pass_action": {
+       "r_pin1": 0.01,
+       "r_pin2": 0.015
+      },
+      "steps": 8
+     },
+     {
+      "instance": 854,
+      "instance_id": "sans_match-heldout-000854",
+      "best_level": 3,
+      "best_reward": 0.849112,
+      "best_fom_ratio": 0.396448,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 855,
+      "instance_id": "sans_match-heldout-000855",
+      "best_level": 3,
+      "best_reward": 0.760952,
+      "best_fom_ratio": 0.043808,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 856,
+      "instance_id": "sans_match-heldout-000856",
+      "best_level": 4,
+      "best_reward": 1.011007,
+      "best_fom_ratio": 1.044029,
+      "pass_action": {
+       "r_pin1": 0.013,
+       "r_pin2": 0.013
+      },
+      "steps": 4
+     },
+     {
+      "instance": 857,
+      "instance_id": "sans_match-heldout-000857",
+      "best_level": 3,
+      "best_reward": 0.88425,
+      "best_fom_ratio": 0.536999,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 858,
+      "instance_id": "sans_match-heldout-000858",
+      "best_level": 4,
+      "best_reward": 1.108856,
+      "best_fom_ratio": 1.435424,
+      "pass_action": {
+       "r_pin1": 0.009,
+       "r_pin2": 0.013
+      },
+      "steps": 4
+     },
+     {
+      "instance": 859,
+      "instance_id": "sans_match-heldout-000859",
+      "best_level": 4,
+      "best_reward": 1.058323,
+      "best_fom_ratio": 1.233294,
+      "pass_action": {
+       "r_pin1": 0.018,
+       "r_pin2": 0.018
+      },
+      "steps": 6
+     },
+     {
+      "instance": 860,
+      "instance_id": "sans_match-heldout-000860",
+      "best_level": 3,
+      "best_reward": 0.991371,
+      "best_fom_ratio": 0.965485,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 861,
+      "instance_id": "sans_match-heldout-000861",
+      "best_level": 4,
+      "best_reward": 1.11435,
+      "best_fom_ratio": 1.457399,
+      "pass_action": {
+       "r_pin1": 0.0157,
+       "r_pin2": 0.0163
+      },
+      "steps": 10
+     },
+     {
+      "instance": 862,
+      "instance_id": "sans_match-heldout-000862",
+      "best_level": 3,
+      "best_reward": 0.784045,
+      "best_fom_ratio": 0.136181,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 863,
+      "instance_id": "sans_match-heldout-000863",
+      "best_level": 3,
+      "best_reward": 0.79419,
+      "best_fom_ratio": 0.176759,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 864,
+      "instance_id": "sans_match-heldout-000864",
+      "best_level": 3,
+      "best_reward": 0.824216,
+      "best_fom_ratio": 0.296865,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 865,
+      "instance_id": "sans_match-heldout-000865",
+      "best_level": 3,
+      "best_reward": 0.956987,
+      "best_fom_ratio": 0.827948,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 866,
+      "instance_id": "sans_match-heldout-000866",
+      "best_level": 3,
+      "best_reward": 0.945392,
+      "best_fom_ratio": 0.781569,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 867,
+      "instance_id": "sans_match-heldout-000867",
+      "best_level": 3,
+      "best_reward": 0.78931,
+      "best_fom_ratio": 0.15724,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 868,
+      "instance_id": "sans_match-heldout-000868",
+      "best_level": 3,
+      "best_reward": 0.830453,
+      "best_fom_ratio": 0.32181,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 869,
+      "instance_id": "sans_match-heldout-000869",
+      "best_level": 4,
+      "best_reward": 1.013883,
+      "best_fom_ratio": 1.055532,
+      "pass_action": {
+       "r_pin1": 0.0185,
+       "r_pin2": 0.0185
+      },
+      "steps": 5
+     },
+     {
+      "instance": 870,
+      "instance_id": "sans_match-heldout-000870",
+      "best_level": 4,
+      "best_reward": 1.177632,
+      "best_fom_ratio": 1.710529,
+      "pass_action": {
+       "r_pin1": 0.007,
+       "r_pin2": 0.013
+      },
+      "steps": 4
+     },
+     {
+      "instance": 871,
+      "instance_id": "sans_match-heldout-000871",
+      "best_level": 4,
+      "best_reward": 1.003857,
+      "best_fom_ratio": 1.01543,
+      "pass_action": {
+       "r_pin1": 0.0182,
+       "r_pin2": 0.0183
+      },
+      "steps": 7
+     },
+     {
+      "instance": 872,
+      "instance_id": "sans_match-heldout-000872",
+      "best_level": 3,
+      "best_reward": 0.773479,
+      "best_fom_ratio": 0.093914,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 873,
+      "instance_id": "sans_match-heldout-000873",
+      "best_level": 3,
+      "best_reward": 0.778542,
+      "best_fom_ratio": 0.114169,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 874,
+      "instance_id": "sans_match-heldout-000874",
+      "best_level": 4,
+      "best_reward": 1.118891,
+      "best_fom_ratio": 1.475565,
+      "pass_action": {
+       "r_pin1": 0.014,
+       "r_pin2": 0.018
+      },
+      "steps": 4
+     },
+     {
+      "instance": 875,
+      "instance_id": "sans_match-heldout-000875",
+      "best_level": 3,
+      "best_reward": 0.828521,
+      "best_fom_ratio": 0.314083,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 876,
+      "instance_id": "sans_match-heldout-000876",
+      "best_level": 3,
+      "best_reward": 0.767801,
+      "best_fom_ratio": 0.071203,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 877,
+      "instance_id": "sans_match-heldout-000877",
+      "best_level": 4,
+      "best_reward": 1.006782,
+      "best_fom_ratio": 1.027127,
+      "pass_action": {
+       "r_pin1": 0.0125,
+       "r_pin2": 0.0165
+      },
+      "steps": 5
+     },
+     {
+      "instance": 878,
+      "instance_id": "sans_match-heldout-000878",
+      "best_level": 3,
+      "best_reward": 0.920863,
+      "best_fom_ratio": 0.683451,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 879,
+      "instance_id": "sans_match-heldout-000879",
+      "best_level": 3,
+      "best_reward": 0.755723,
+      "best_fom_ratio": 0.022893,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 880,
+      "instance_id": "sans_match-heldout-000880",
+      "best_level": 3,
+      "best_reward": 0.777506,
+      "best_fom_ratio": 0.110025,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 881,
+      "instance_id": "sans_match-heldout-000881",
+      "best_level": 4,
+      "best_reward": 1.142597,
+      "best_fom_ratio": 1.570389,
+      "pass_action": {
+       "r_pin1": 0.0167,
+       "r_pin2": 0.0167
+      },
+      "steps": 7
+     },
+     {
+      "instance": 882,
+      "instance_id": "sans_match-heldout-000882",
+      "best_level": 4,
+      "best_reward": 1.004657,
+      "best_fom_ratio": 1.018627,
+      "pass_action": {
+       "r_pin1": 0.0165,
+       "r_pin2": 0.0165
+      },
+      "steps": 5
+     },
+     {
+      "instance": 883,
+      "instance_id": "sans_match-heldout-000883",
+      "best_level": 3,
+      "best_reward": 0.804424,
+      "best_fom_ratio": 0.217694,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 884,
+      "instance_id": "sans_match-heldout-000884",
+      "best_level": 4,
+      "best_reward": 1.063968,
+      "best_fom_ratio": 1.255874,
+      "pass_action": {
+       "r_pin1": 0.014,
+       "r_pin2": 0.014
+      },
+      "steps": 4
+     },
+     {
+      "instance": 885,
+      "instance_id": "sans_match-heldout-000885",
+      "best_level": 3,
+      "best_reward": 0.850196,
+      "best_fom_ratio": 0.400783,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 886,
+      "instance_id": "sans_match-heldout-000886",
+      "best_level": 3,
+      "best_reward": 0.852357,
+      "best_fom_ratio": 0.409428,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 887,
+      "instance_id": "sans_match-heldout-000887",
+      "best_level": 3,
+      "best_reward": 0.919529,
+      "best_fom_ratio": 0.678115,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 888,
+      "instance_id": "sans_match-heldout-000888",
+      "best_level": 3,
+      "best_reward": 0.944967,
+      "best_fom_ratio": 0.779869,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 889,
+      "instance_id": "sans_match-heldout-000889",
+      "best_level": 3,
+      "best_reward": 0.842329,
+      "best_fom_ratio": 0.369318,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 890,
+      "instance_id": "sans_match-heldout-000890",
+      "best_level": 3,
+      "best_reward": 0.781567,
+      "best_fom_ratio": 0.126268,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 891,
+      "instance_id": "sans_match-heldout-000891",
+      "best_level": 3,
+      "best_reward": 0.824621,
+      "best_fom_ratio": 0.298484,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 892,
+      "instance_id": "sans_match-heldout-000892",
+      "best_level": 4,
+      "best_reward": 1.11444,
+      "best_fom_ratio": 1.457761,
+      "pass_action": {
+       "r_pin1": 0.01,
+       "r_pin2": 0.015
+      },
+      "steps": 2
+     },
+     {
+      "instance": 893,
+      "instance_id": "sans_match-heldout-000893",
+      "best_level": 4,
+      "best_reward": 1.169844,
+      "best_fom_ratio": 1.679377,
+      "pass_action": {
+       "r_pin1": 0.013,
+       "r_pin2": 0.013
+      },
+      "steps": 5
+     },
+     {
+      "instance": 894,
+      "instance_id": "sans_match-heldout-000894",
+      "best_level": 3,
+      "best_reward": 0.988366,
+      "best_fom_ratio": 0.953464,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 895,
+      "instance_id": "sans_match-heldout-000895",
+      "best_level": 3,
+      "best_reward": 0.782958,
+      "best_fom_ratio": 0.131831,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 896,
+      "instance_id": "sans_match-heldout-000896",
+      "best_level": 3,
+      "best_reward": 0.830104,
+      "best_fom_ratio": 0.320417,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 897,
+      "instance_id": "sans_match-heldout-000897",
+      "best_level": 3,
+      "best_reward": 0.846221,
+      "best_fom_ratio": 0.384882,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 898,
+      "instance_id": "sans_match-heldout-000898",
+      "best_level": 3,
+      "best_reward": 0.778895,
+      "best_fom_ratio": 0.115581,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 899,
+      "instance_id": "sans_match-heldout-000899",
+      "best_level": 3,
+      "best_reward": 0.814965,
+      "best_fom_ratio": 0.259861,
+      "pass_action": null,
+      "steps": 10
+     }
+    ]
+   }
+  }
+ }
+}

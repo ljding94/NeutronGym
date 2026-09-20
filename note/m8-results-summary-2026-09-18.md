@@ -23,6 +23,10 @@ untrained 8B 12% → trained 8B 76% → frontier 99% on the same instances — a
 the honest claim is that RL closes most of the small-model gap, **not** that a
 trained 8B matches frontier models.
 
+**The recipe generalises to a second gated family**: `sans_match`, 26.0% →
+44.3% on an unbiased slice (+18 points, against +65 on the first family). On
+both families the trained 8B also beats the untrained 32B.
+
 ## Main result — `guide_match`, held-out instances 300–599
 
 Fresh slice: it was not used to select checkpoints, hyperparameters or the
@@ -192,15 +196,29 @@ Paired: 70 trained-only vs 22 against the untrained 8B (p = 5.3e-7), and 59 vs
 23 against the untrained **32B** (p = 8.7e-5) — the trained small model beats
 the larger untrained one here, as it does on `guide_match`.
 
-Honest comparison with the first family: the gain is **+16 points, not +65**,
-the model still uses its full 10-turn budget (median 10 vs 5 on
-`guide_match`), and the training curve had not converged (sampled pass ~2–4%
-at the end), so a continuation is running. Passes remain instance-specific:
-80 distinct designs among 115 passes, and the most-reused design solves only
-5 of 300 instances (1.7%, against the gate's 6.7% ceiling).
+Training had not converged at 220 steps, so it continued to 340:
+
+| checkpoint | held-out 300–599 (selection) | held-out 600–899 (unbiased) |
+|---|---|---|
+| untrained 8B | 67/300 (22.3%) | 78/300 (26.0%) |
+| GRPO 220 steps | 115/300 (38.3%) | — |
+| **GRPO 340 steps** | **153/300 (51.0%)** | **133/300 (44.3%)** |
+
+As on `guide_match`, comparing checkpoints used the 300–599 slice, so the
+chosen model was re-measured on 600–899, which played no part in the choice:
+**26.0% → 44.3%**, paired 86 trained-only vs 31 (p = 3.7e-7). Quote the
+unbiased pair as the second-family headline.
+
+Honest comparison with the first family: the gain is **+18 points, not +65**,
+and the model still uses most of its turn budget (median 10 on the unbiased
+slice, 7 on the selection slice, against 5 for `guide_match`). Passes remain
+instance-specific: 115 distinct designs among 133 passes, and on the selection
+slice the most-reused design solves 5 of 300 instances (1.7%, against the
+gate's 6.7% ceiling).
 
 **What this supports:** the recipe transfers to a second, independently gated
-family — not that it transfers with the same magnitude.
+family — not that it transfers with the same magnitude. On both families the
+trained 8B also beats the untrained 32B.
 
 ## Supporting results
 
