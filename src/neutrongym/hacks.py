@@ -284,6 +284,29 @@ def readout_rules(family: str, free: dict) -> list:
                 r1 = math.floor(generate.sans_max_r1(c, r2) * 1e5) / 1e5
                 return None if r1 < rlo else {"r_pin1": min(rhi, r1), "r_pin2": r2}
             rules.append((f"r_pin2={r2} r_pin1=limit", g))
+    elif family == "tof_chopper":
+        # lambda = 3956 * dt / L_ch with dt = phase / (360 * nu), so phase is
+        # determined once a frequency is chosen; the spread fixes the second
+        # disk's opening: dlam/lam ~ (theta1 + theta2) / (360 * nu * dt).
+        nlo, nhi = free["nu"]
+        plo, phi = free["phase"]
+        tlo, thi = free["theta2"]
+        THETA1 = 5.0
+
+        def solve(c, t, nu):
+            lam, spread = t
+            dt = lam * float(c["L_ch"]) / 3956.0
+            phase = 360.0 * nu * dt
+            theta2 = 360.0 * nu * dt * (spread / lam) - THETA1
+            if not (plo <= phase <= phi and tlo <= theta2 <= thi):
+                return None
+            return {"nu": round(nu, 4), "phase": round(phase, 4),
+                    "theta2": round(theta2, 4)}
+
+        for nu in _levels(nlo, nhi, n=9):
+            def h(c, inst=None, nu=nu):
+                return solve(c, inst["targets"], nu) if inst and inst.get("targets") else None
+            rules.append((f"physics: tof inversion nu={nu}", h))
     elif family == "sans_match":
         # two geometric widths, both linear in (r1, r2):
         #   w = k * (r2 + (r1 + r2) * a),  a = distance / L_coll

@@ -226,6 +226,79 @@ AT (0, 0, L_guide + d_sample + 0.001) RELATIVE guide
 END
 """
 
+TOF_CHOPPER_INSTR = """\
+DEFINE INSTRUMENT fam_tof_chopper(double L_ch=8.0, double L_sample=2.0,
+  double lam0=5.0, double dlam=4.0, double src_r=0.02,
+  double nu=30, double phase=110, double theta2=10)
+TRACE
+COMPONENT arm = Arm()
+AT (0, 0, 0) ABSOLUTE
+
+COMPONENT src = Source_simple(radius=src_r, dist=1.0, focus_xw=0.03, focus_yh=0.03,
+  lambda0=lam0, dlambda=dlam, flux=1e12)
+AT (0, 0, 0) RELATIVE arm
+
+COMPONENT ch1 = DiskChopper(theta_0=5, radius=0.35, yheight=0.05, nu=nu,
+  nslit=1, isfirst=1)
+AT (0, 0, 1.0) RELATIVE arm
+
+COMPONENT ch2 = DiskChopper(theta_0=theta2, radius=0.35, yheight=0.05, nu=nu,
+  nslit=1, phase=phase)
+AT (0, 0, 1.0 + L_ch) RELATIVE arm
+
+COMPONENT lmon = L_monitor(nL=200, filename="lam.dat", xwidth=0.04, yheight=0.06,
+  Lmin=0.2, Lmax=20, restore_neutron=1)
+AT (0, 0, 1.0 + L_ch + L_sample) RELATIVE arm
+END
+"""
+
+# Third archetype (2026-09-20), and the first in the TIME domain: a chopper
+# pair whose phase difference selects the wavelength that arrives at the
+# sample (lambda = 3956 * dt / L_ch, dt = phase / (360 * nu)) and whose
+# opening angle and frequency set the spread. Prototype at +/-3%: 1 of 825
+# grid designs solves an instance, best constant 1/10, lookup 1/10. Two
+# earlier attempts failed on statistics (5e5 rays put every design at the
+# 500-event floor) and on frequency range (above ~60 Hz the selected
+# wavelength leaves the source band and most designs give no counts at all).
+FAMILIES["tof_chopper"] = {
+    "instr_name": "fam_tof_chopper",
+    "instr": TOF_CHOPPER_INSTR,
+    "description": ("Time-of-flight wavelength selection. A chopper pair "
+                    "monochromates a continuous beam: the phase difference "
+                    "between the two disks picks which neutron velocity "
+                    "arrives in the open window, and the second disk's "
+                    "opening angle with the rotation frequency sets the "
+                    "wavelength spread. Choose the frequency, the phase and "
+                    "the opening angle so that the beam reaching the sample "
+                    "matches this instance's target mean wavelength and "
+                    "target spread."),
+    "context": {
+        "L_ch": {"train": (5.0, 9.0), "heldout": (9.5, 12.0)},
+        "L_sample": {"train": (1.0, 3.0), "heldout": (1.0, 3.0)},
+        "lam0": {"train": (5.0, 5.0), "heldout": (5.0, 5.0)},
+        "dlam": {"train": (4.0, 4.0), "heldout": (4.0, 4.0)},
+        "src_r": {"train": (0.015, 0.03), "heldout": (0.015, 0.03)},
+    },
+    "free_parameters": {"nu": (20.0, 60.0), "phase": (20.0, 340.0),
+                        "theta2": (2.0, 20.0)},
+    "baseline": {"nu": 30.0, "phase": 110.0, "theta2": 10.0},
+    "protocol": {"ncount": 5e6, "ncount_cheap": 5e5},
+    "fom": {"monitor": "lmon", "metric": "intensity", "maximize": True,
+            "type": "match", "tolerance": 0.05,
+            "match": [
+                {"monitor": "lmon", "observable": "center_of_mass",
+                 "label": "mean wavelength at the sample", "unit": "AA",
+                 "tolerance": 0.02},
+                {"monitor": "lmon", "observable": "beam_width_x",
+                 "label": "wavelength spread (std)", "unit": "AA",
+                 "tolerance": 0.05},
+            ]},
+    "constraints": [],
+    "static_checks": [],
+    "hidden_design": True,
+}
+
+
 SANS_MATCH_INSTR = """\
 DEFINE INSTRUMENT fam_sans_match(double src_r=0.02, double L_coll=3.0,
   double wl=6.0, double det_dist=3.0, double r_pin1=0.005, double r_pin2=0.005)
@@ -747,12 +820,14 @@ def render_prompt(inst: dict, baseline_obs: dict | None = None) -> str:
     tr = inst.get("target_ratio", 1.0)
     if f.get("type") == "match":
         lines = lines[:-1]            # replace the generic figure-of-merit line
-        tol = 100 * f["tolerance"]
         lines += ["TARGETS for this instance (the episode passes when EVERY "
-                  f"quantity is within +/-{tol:g}% of its target):"]
+                  "quantity is within its stated tolerance):"]
         for spec, t in zip(f["match"], inst.get("targets") or [None] * len(f["match"])):
             val = f"{t:.4g} {spec['unit']}" if t is not None else "(set at reset)"
-            lines += [f"  {spec['label']} on monitor '{spec['monitor']}': {val}"]
+            # each quantity carries its own bar: they differ in simulation noise
+            pct = 100 * spec.get("tolerance", f["tolerance"])
+            lines += [f"  {spec['label']} on monitor '{spec['monitor']}': "
+                      f"{val} +/-{pct:g}%"]
         base_fom = None
     if base_fom:
         lines += [f"Baseline FOM at the evaluation protocol: {base_fom:.6g}"]

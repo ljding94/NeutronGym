@@ -104,12 +104,19 @@ def _score_match(inst: dict, summary: dict, record: dict, levels: dict) -> dict:
     if not targets or any(m is None for m in measured):
         levels["L4"] = {"pass": False, "detail": "match observables unavailable"}
         return record
+    # per-observable tolerance: quantities differ in simulation noise (the TOF
+    # family's mean wavelength varies 0.07% between seeds, its spread 1.1%), so
+    # one bar for both is either too loose or inside the noise. A spec without
+    # its own tolerance uses the family's.
+    tols = [spec.get("tolerance", tol) for spec in inst["fom"]["match"]]
     rel = [abs(m - t) / abs(t) for m, t in zip(measured, targets)]
-    worst = max(rel)
-    ratio = min(tol / worst, 1e6) if worst > 0 else 1e6
+    # normalise each miss by ITS bar, so the ratio still means "pass when > 1"
+    scaled = [r / tl for r, tl in zip(rel, tols)]
+    worst = max(scaled)
+    ratio = min(1.0 / worst, 1e6) if worst > 0 else 1e6
     record["match"] = {"measured": [round(m, 6) for m in measured],
                        "targets": list(targets), "rel_err": [round(r, 4) for r in rel],
-                       "tolerance": tol}
+                       "tolerance": tol, "tolerances": tols}
     levels["L4"] = {"pass": ratio > 1.0 + 1e-9, "fom_ratio": round(ratio, 6)}
     record["reward"] = round(0.75 + 0.25 * max(0.0, min(ratio, 2.0)), 6)
     if levels["L4"]["pass"]:
