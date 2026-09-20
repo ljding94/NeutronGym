@@ -16,7 +16,7 @@ done_() { echo "MATCH_RESUME_DONE $1 $(date +%T)"; exit "${2:-0}"; }
 [ -e $CKPT ] && done_ CKPT_EXISTS 1
 
 echo "== 1. free GPU 7 (stop the 120-step model server) $(date +%T) =="
-pkill -f "served-model-name qwen3-8b-m8-match05grpo"
+pkill -f "vllm serve /netdisk/ldq/ckpt"
 for i in $(seq 1 60); do [ $(nvidia-smi -i 7 --query-gpu=memory.used --format=csv,noheader,nounits) -lt 1000 ] && break; sleep 5; done
 [ $(nvidia-smi -i 7 --query-gpu=memory.used --format=csv,noheader,nounits) -lt 1000 ] || done_ GPU7_BUSY 1
 

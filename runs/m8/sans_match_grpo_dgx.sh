@@ -44,7 +44,9 @@ for arm in untrained-8b untrained-32b; do grep -v "libmamba\|Waiting\|Could not"
 
 fi
 echo "== 5. GRPO 120 @1e-5 then 100 @3e-5 $(date +%T) =="
-for n in qwen3-8b-m8-match05grpoLR qwen3-8b-m8-matchsparse qwen3-8b-m8-matchrep2; do pkill -f "served-model-name $n"; done
+# every trained-model server runs from /netdisk/ldq/ckpt; the base
+# 8B/32B servers (Qwen/Qwen3-*) are on other GPUs and are left alone
+pkill -f "vllm serve /netdisk/ldq/ckpt"
 for i in $(seq 1 60); do [ $(nvidia-smi -i 7 --query-gpu=memory.used --format=csv,noheader,nounits) -lt 1000 ] && break; sleep 5; done
 # ALWAYS restart: a server started before this family existed has workers
 # whose generate module lacks it, and the request dies as RemoteDisconnected

@@ -15,7 +15,9 @@ done_() { echo "SANSMATCH_CONT_DONE $1 $(date +%T)"; exit "${2:-0}"; }
 [ -d $PREV/adapter ] || done_ NO_PREV_ADAPTER 1
 
 echo "== 1. free GPU 7 and restart the reward server $(date +%T) =="
-for n in qwen3-8b-m8-sansmatchgrpo qwen3-8b-m8-match05grpoLR; do pkill -f "served-model-name $n"; done
+# every trained-model server runs from /netdisk/ldq/ckpt; the base
+# 8B/32B servers (Qwen/Qwen3-*) are on other GPUs and are left alone
+pkill -f "vllm serve /netdisk/ldq/ckpt"
 for i in $(seq 1 60); do [ $(nvidia-smi -i 7 --query-gpu=memory.used --format=csv,noheader,nounits) -lt 1000 ] && break; sleep 5; done
 pkill -f "reward_server.py --port 8199"; sleep 3
 (setsid nohup taskset -c 48-63,80-95 $RUN python benchmark/harness/reward_server.py --port 8199 --workers 32 > /netdisk/ldq/grpo/reward_server.log 2>&1 < /dev/null &)

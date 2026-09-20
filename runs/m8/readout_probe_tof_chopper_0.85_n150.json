@@ -1,0 +1,108 @@
+{
+ "verdict": null,
+ "physics_reference": {
+  "ok": true,
+  "max_rate": 0.2,
+  "best_action": "physics: tof inversion nu=20.0",
+  "best_pass_rate": 0.0,
+  "best_pass_rate_upper": 0.0198,
+  "underpowered": false,
+  "best_source": "readout",
+  "baseline_passes": 0,
+  "n_instances": 150,
+  "skipped_no_headroom": 0,
+  "n_candidates": 9,
+  "top5": [
+   {
+    "action": "physics: tof inversion nu=20.0",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: tof inversion nu=25.0",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: tof inversion nu=30.0",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: tof inversion nu=35.0",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: tof inversion nu=40.0",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   }
+  ]
+ },
+ "probe": {
+  "n_instances": 150,
+  "skipped_no_headroom": 0,
+  "results": [
+   {
+    "action": "physics: tof inversion nu=20.0",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: tof inversion nu=25.0",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: tof inversion nu=30.0",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: tof inversion nu=35.0",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: tof inversion nu=40.0",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: tof inversion nu=45.0",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: tof inversion nu=50.0",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: tof inversion nu=55.0",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: tof inversion nu=60.0",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   }
+  ]
+ }
+}

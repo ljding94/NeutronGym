@@ -17,7 +17,9 @@ ev() {  # ev <tag> <arm> <extra args...>
 }
 
 echo "== 0. serve the reported model $(date +%T) =="
-for n in qwen3-8b-m8-matchsparse qwen3-8b-m8-matchrep2 qwen3-8b-m8-match05grpo340; do pkill -f "served-model-name $n"; done
+# every trained-model server runs from /netdisk/ldq/ckpt; the base
+# 8B/32B servers (Qwen/Qwen3-*) are on other GPUs and are left alone
+pkill -f "vllm serve /netdisk/ldq/ckpt"
 for i in $(seq 1 60); do [ $(nvidia-smi -i 7 --query-gpu=memory.used --format=csv,noheader,nounits) -lt 1000 ] && break; sleep 5; done
 (MODEL=$CKPT/merged GPU=7 PORT=8139 NAME=$NAME setsid nohup /netdisk/ldq/serve-m8-trained.sh > /netdisk/ldq/serve-m8-overnight.log 2>&1 < /dev/null &)
 for i in $(seq 1 90); do curl -s -m 5 localhost:8139/v1/models | grep -q $NAME && break; sleep 20; done
