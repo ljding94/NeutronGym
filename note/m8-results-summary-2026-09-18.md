@@ -166,6 +166,42 @@ Failure taxonomy at 10 turns: of 70 failures, 27 end within 10% of target,
 36 within 10-25%, 7 beyond 25%, none without a valid design (median miss
 12.2% against a 5% tolerance).
 
+## Second family: `sans_match` (2026-09-19)
+
+Built after the fact to test whether the recipe generalises past one family,
+and gated before training. Targets are two geometric widths — the beam at the
+sample and the unscattered beam at the beamstop plane — matched within ±1.5%.
+The tolerance was chosen by measurement, not after seeing a result: the
+untrained 8B passes 45.3% at ±3%, 24.7% at ±1.5% and 18.0% at ±1%, and ±1.5%
+keeps the ~5x margin over the 0.3% width noise that `guide_match` has.
+
+Gate at the graded bar (n=150): fixed designs, baseline and every other
+instance's solution as a lookup reach **6.7% (upper95 11.1%)**, the baseline
+never passes, no copy-type rules apply, and the physics width-inversion
+reaches 0.7%.
+
+Held-out 300–599, ±1.5%, 10 turns, 0 errored:
+
+| policy | passed | 95% CI |
+|---|---|---|
+| untrained Qwen3-8B | 67/300 (22.3%) | [17.8, 27.5] |
+| untrained Qwen3-32B | 79/300 (26.3%) | [21.4, 31.7] |
+| **GRPO-trained 8B** | **115/300 (38.3%)** | [32.8, 44.1] |
+
+Paired: 70 trained-only vs 22 against the untrained 8B (p = 5.3e-7), and 59 vs
+23 against the untrained **32B** (p = 8.7e-5) — the trained small model beats
+the larger untrained one here, as it does on `guide_match`.
+
+Honest comparison with the first family: the gain is **+16 points, not +65**,
+the model still uses its full 10-turn budget (median 10 vs 5 on
+`guide_match`), and the training curve had not converged (sampled pass ~2–4%
+at the end), so a continuation is running. Passes remain instance-specific:
+80 distinct designs among 115 passes, and the most-reused design solves only
+5 of 300 instances (1.7%, against the gate's 6.7% ceiling).
+
+**What this supports:** the recipe transfers to a second, independently gated
+family — not that it transfers with the same magnitude.
+
 ## Supporting results
 
 **Transfer to a family it never trained on** (`guide_divergence`, held-out
