@@ -264,61 +264,70 @@ it stays near the baseline and fails safely. Trading some validity for reach
 is visible in the level histogram: trained {L2 28, L3 132, L4 140} against
 untrained {L3 294, L4 6}.
 
-## Fourth archetype: `bender` (2026-09-20) — IN FLIGHT
+## Fourth archetype: `bender` (2026-09-20/21)
 
-A curved neutron guide. Curvature sets which wavelengths survive: below the
-characteristic wavelength a neutron can cross the bend without touching the
-outer wall, above it cannot, so the bender is a geometric low-pass filter
-whose cutoff is fixed by the radius, the channel width and the coating.
-Targets are the transmitted beam's **centre of mass (±0.25%)** and its
-**width (±1%)** at the guide exit. The tight bars are deliberate: at ±2%/±5%
-a single constant design passed 4 of 8 probe instances, because the two
-observables move slowly with the free parameters.
+A curved neutron guide. Curvature makes a geometric low-pass filter whose
+cutoff is fixed by radius, channel width and coating:
+lam_c = sqrt(2w/r) / (GAMMA * m), GAMMA = Qc / 4pi. Targets are the
+transmitted beam's **centre of mass (±0.25%)** and **width (±1%)** in
+wavelength. The tight bars are deliberate: at ±2%/±5% a single constant
+design passed 4 of 8 probe instances. The incident spectrum varies per
+instance (lam0 3.0–7.5 Å, spread drawn as a *fraction* of lam0 — drawn
+independently it produced negative wavelength ranges Source_simple refuses
+to run).
 
-The incident spectrum varies per instance (lam0 3.0-7.5 A, spread drawn as a
-**fraction** of lam0 — drawn independently it produced negative wavelength
-ranges that Source_simple refuses to run), which is what defeats a lookup:
-the same geometry gives different observables under a different spectrum.
+### v1 is retracted: a quarter of its instances were degenerate
 
-Gate (n=150): the best fixed design reaches **10.7% (upper95 15.8%)**, under
-the 20% ceiling, and the baseline never passes. No copy-type readout rule
-applies. Both probes CLEAN.
+v1 trained 17.3% → **47.0%** (paired 112 trained-only vs 23, p = 3.0e-15)
+but did **not** beat the untrained 32B's 55.7% (36 vs 62, p = 0.011). The
+diagnosis of *why* is the result worth keeping.
 
-Baselines on held-out 300-599: untrained Qwen3-8B **52/300 (17.3%)** (level
-histogram {L3 248, L4 52}, median fom_ratio 0.22), untrained Qwen3-32B
-**167/300 (55.7%)**.
+Three signatures were off. The trained policy used only **42 distinct
+designs for 141 passes** (tof_chopper: 138 of 140), **43% of its passes came
+from five designs**, and it produced **17 turn-1 passes** where every earlier
+family had zero. One geometry passed 17 instances whose target means spanned
+**4.2–8.2 Å** — nearly the whole held-out range, which no single cutoff can
+match through the physics.
 
-That 32B number is the largest scale effect in the project — **3.2x, and from
-a floor that is not near zero** — where guide_match saw none at all (11.3%
-vs 11.3%) and tof_chopper saw 6x from 2.0%. Reading: the bender cutoff is a
-closed-form consequence of radius, channel width and coating, so a model that
-knows the physics can compute it, while the gate confirms no *fixed* design
-does. This is the family's value and its risk. It is the cleanest evidence
-that the environment measures physics competence rather than search luck —
-and it sets a bar of 55.7% that a trained 8B may well not clear. If it does
-not, that is the honest result to report: the trained-8B-beats-untrained-32B
-claim holds on three families and not on the fourth, and the reason is
-legible.
+Cause: hidden designs were drawn uniformly from the parameter box, and for a
+bender that is wrong. **24.7% of held-out instances got a hidden cutoff
+below the incident band**, so the bender did nothing and the targets were
+just the source spectrum's own mean and spread — any transparent design
+solved them. Another 21.3% cut less than a quarter of the band.
 
-**The physics rule does not explain it (2026-09-21).** The closed-form
-inversion — 50 rules over both readings of the transmitted band and a 5x5
-(w, m) grid — reaches only **6.7% (upper95 11.1%)** at its best. The
-hard-step model is too crude at ±0.25%: real bender transmission rises
-gradually through the cutoff and loses intensity above it, so band
-statistics computed from a step function miss the mean by more than a
-quarter percent. No copy-type rule applies at all.
+**This is the degeneracy the probe suite exists to catch, caught late.** The
+constant gate passed v1 at 10.7% because a *single* design must also match
+the spread target, which varies with the incident band; the degenerate slice
+was reachable by a *class* of designs, not by one. That is a real gap in the
+methodology and belongs in the paper: a constant-policy gate bounds fixed
+answers, not families of answers.
 
-That makes bender the strongest anti-shortcut case in the project. Nothing
-we can construct solves it — not a constant (10.7%), not another instance's
-solution, not a printed limit, not the analytic inversion (6.7%) — yet an
-untrained 32B reaches 55.7% *with ten turns of simulation feedback*. The
-one-shot physics rule and the multi-turn model differ by 8x on the same
-instances, which is direct evidence that what the environment rewards is
-**iterative design against measurement**, not recall of a formula. That is
-the cleanest statement of the environment's value we have.
+Fix: a `hidden_filter` family hook requiring the hidden design to cut
+**25–85%** of the incident band (the upper bound keeps the monitor off the
+statistics floor). Only bender's signature moves; the other three families
+keep all 4,710 cached calibrations. v1 artifacts: `runs/m8/bender_v1/`.
 
-**GRPO training is running** (restarted 2026-09-21 00:31, chained ahead of the
-joint multi-family run). This section is incomplete until it lands.
+### v2 (2026-09-21) — probes, training in flight
+
+| probe | v1 | **v2** |
+|---|---|---|
+| best fixed design | 10.7% (upper95 15.8%) | **8.0% (upper95 12.6%)** |
+| baseline | 0 | **0** |
+| copy-type readout rules | none apply | **none apply** |
+| analytic cutoff inversion (reference, not gated) | 6.7% (upper95 11.1%) | **12.7% (upper95 18.0%)** |
+
+The gate got *cleaner* (8.0% vs 10.7%), as expected: removing the
+transparent instances removes the ones one design solved for free.
+
+The physics rule went the **other** way — 6.7% → 12.7%. That direction is
+right on reflection: v2 instances all require real filtering, so the cutoff
+physics is genuinely determinative and the hard-step inversion lands closer.
+It stays under the 20% ceiling and is reported as a reference arm, but **do
+not repeat the v1 framing that a closed-form inversion barely works here** —
+on the repaired family it is the strongest physics rule in the project
+(tof_chopper's scored 0.0%, guide_match's 6/16 at ±5%).
+
+Baselines, state collection and GRPO are running from 11:20.
 
 ## Joint multi-family training (2026-09-21)
 
@@ -437,7 +446,20 @@ re-verification of any selected best; env-controlled protocol.
    magnitude replicates.
 5. **Checkpoint selection used held-out 0–299**, so only the 300–599 numbers
    are unbiased for the chosen model. Both are reported.
-6. **A feedback-label bug affected every M8 number before 2026-09-16:** the
+6. **The constant-policy gate bounds fixed answers, not families of
+   answers.** `bender` v1 passed it at 10.7% while 24.7% of its instances
+   were solvable by *any* sufficiently transparent design — a class, not a
+   single point, so no one candidate the gate tried scored high. It was
+   caught by the trained policy's design concentration (42 distinct designs
+   for 141 passes, one solving 17 instances across nearly the whole target
+   range) rather than by the probe. **State this as a limitation of the
+   methodology and report the diagnostic that actually worked**: the
+   distribution of distinct passing designs per instance, which is now worth
+   computing for every family, not just the suspect one.
+7. **Caveat 2 is out of date** (written when guide_match stood alone). Four
+   families are now gated: `guide_match`, `sans_match`, `tof_chopper`, and
+   `bender` (v2). SANS *collimation* remains evaluation-only.
+8. **A feedback-label bug affected every M8 number before 2026-09-16:** the
    per-turn figure of merit was reported as a fraction of the target but
    labelled "vs baseline". The three SFT runs and the guide GRPO run predate
    the fix; the `guide_match` results postdate it.
