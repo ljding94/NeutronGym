@@ -58,3 +58,16 @@ def test_hidden_design_in_bounds_and_absent_from_the_prompt():
     assert "+/-0.25%" in p and "+/-1%" in p
     for v in inst["hidden_action"].values():
         assert f"{v}" not in p
+
+
+def test_spectrum_is_always_physical():
+    """lam0 3.0 with an independent dlam 4.0 gives a negative wavelength and
+    Source_simple refuses to run (2026-09-20)."""
+    for split in ("train", "heldout"):
+        for i in range(200):
+            c = generate.instance(FAM, split, i)["context"]
+            assert c["dlam"] < c["lam0"], (split, i, c)
+            assert c["lam0"] - c["dlam"] > 0.5
+            frac = c["dlam"] / c["lam0"]
+            lo, hi = generate.BENDER_DLAM_FRACTION
+            assert lo - 1e-9 <= frac <= hi + 1e-9

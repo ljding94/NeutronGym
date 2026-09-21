@@ -272,6 +272,7 @@ FAMILIES["bender"] = {
         "lam0": {"train": (3.0, 7.5), "heldout": (3.0, 7.5)},
         "dlam": {"train": (2.0, 4.0), "heldout": (2.0, 4.0)},
     },
+    "context_fn": "bender_context",     # dlam is a fraction of lam0
     "free_parameters": {"r_curve": (40.0, 550.0), "w_ch": (0.02, 0.08),
                         "m_coat": (1.5, 4.0)},
     "baseline": {"r_curve": 200.0, "w_ch": 0.03, "m_coat": 2.5},
@@ -768,7 +769,23 @@ def guide_context(context: dict, rng) -> dict:
     return context
 
 
-CONTEXT_FNS = {"guide_context": guide_context}
+BENDER_DLAM_FRACTION = (0.30, 0.55)
+
+
+def bender_context(context: dict, rng) -> dict:
+    """Spread as a FRACTION of the centre wavelength.
+
+    Drawn independently, lam0 = 3.0 with dlam = 4.0 gives a negative lower
+    wavelength and Source_simple refuses to run ("Unmeaningful definition of
+    wavelength or energy range"), which the env surfaced as an unrunnable
+    instance (2026-09-20).
+    """
+    lo, hi = BENDER_DLAM_FRACTION
+    context["dlam"] = round(rng.uniform(lo, hi) * float(context["lam0"]), 6)
+    return context
+
+
+CONTEXT_FNS = {"guide_context": guide_context, "bender_context": bender_context}
 
 
 def family_signature(family: str) -> str:
