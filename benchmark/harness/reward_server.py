@@ -55,8 +55,10 @@ def main():
     class H(BaseHTTPRequestHandler):
         def do_POST(self):
             req = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
-            jobs = [(req["family"], req.get("split", "train"), a.target_fraction,
-                     10**6, it["index"], it["completion"]) for it in req["items"]]
+            # per-item family: joint training mixes families in one batch
+            jobs = [(it.get("family", req.get("family")), req.get("split", "train"),
+                     a.target_fraction, 10**6, it["index"], it["completion"])
+                    for it in req["items"]]
             body = json.dumps({"results": list(pool.map(score_item, jobs))}).encode()
             self.send_response(200); self.send_header("Content-Type", "application/json")
             self.send_header("Content-Length", str(len(body))); self.end_headers()

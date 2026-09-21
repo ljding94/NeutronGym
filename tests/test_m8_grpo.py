@@ -65,3 +65,17 @@ def test_sparse_reward_removes_signal_when_no_sample_passes():
                    {"level": 0, "reward": 0.0}, {"level": 3, "reward": 0.90}]
     assert m8_grpo.group_advantages(m8_grpo.shape_rewards(near_misses)) is not None
     assert m8_grpo.group_advantages(m8_grpo.shape_rewards(near_misses, sparse=True)) is None
+
+
+def test_states_can_be_pooled_across_families_keeping_their_family(tmp_path):
+    """Joint training mixes families in one batch, so every state (and every
+    scoring request) must carry its own family (2026-09-20)."""
+    import json
+    a = tmp_path / "a.jsonl"; b = tmp_path / "b.jsonl"
+    msgs = [{"role": "system", "content": "s"}, {"role": "user", "content": "t"},
+            {"role": "assistant", "content": "x"}]
+    a.write_text(json.dumps({"family": "guide_match", "index": 1, "messages": msgs}))
+    b.write_text(json.dumps({"family": "tof_chopper", "index": 2, "messages": msgs}))
+    pooled = m8_grpo.load_states(str(a)) + m8_grpo.load_states(str(b))
+    assert [s["family"] for s in pooled] == ["guide_match", "tof_chopper"]
+    assert [s["index"] for s in pooled] == [1, 2]

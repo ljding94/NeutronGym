@@ -119,10 +119,12 @@ def post_json(url: str, payload: dict, timeout: float = 600.0) -> dict:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--states", required=True)
+    ap.add_argument("--states", required=True,
+                    help="one states file, or several comma-separated")
     ap.add_argument("--base", required=True)
     ap.add_argument("--out", required=True)
-    ap.add_argument("--family", required=True)
+    ap.add_argument("--family", required=True,
+                    help="one family, or several comma-separated for joint training")
     ap.add_argument("--split", default="train")
     ap.add_argument("--reward-url", default="http://127.0.0.1:8199/score")
     ap.add_argument("--steps", type=int, default=120)
@@ -158,7 +160,10 @@ def main():
     rng = random.Random(a.seed + a.start_step)
     torch.manual_seed(a.seed)
     os.makedirs(a.out, exist_ok=True)
-    states = [s for s in load_states(a.states) if s["family"] == a.family]
+    families = [f.strip() for f in a.family.split(",") if f.strip()]
+    states = []
+    for path in [p.strip() for p in a.states.split(",") if p.strip()]:
+        states += [s for s in load_states(path) if s["family"] in families]
     tok = AutoTokenizer.from_pretrained(a.base)
     pad_id = tok.pad_token_id if tok.pad_token_id is not None else tok.eos_token_id
     eos_ids = {tok.convert_tokens_to_ids("<|im_end|>"), tok.eos_token_id}
@@ -179,7 +184,8 @@ def main():
                                                  lora_dropout=0.0, task_type="CAUSAL_LM"))
     opt = torch.optim.AdamW([p for p in model.parameters() if p.requires_grad], lr=a.lr)
     log = open(os.path.join(a.out, "grpo_log.jsonl"), "a")
-    print(f"states: {len(states)} for {a.family}", flush=True)
+    from collections import Counter
+    print(f"states: {len(states)} across {dict(Counter(s['family'] for s in states))}", flush=True)
 
     def completion_logprobs(ids, attn, cmask, width, adapter=True):
         ids_t = torch.tensor(ids, device="cuda")
@@ -215,8 +221,10 @@ def main():
             comps = [c if c else [next(iter(eos_ids))] for c in comps]
             texts = [tok.decode(c, skip_special_tokens=True) for c in comps]
             groups.append({"state": st, "prompt": p_ids, "comps": comps, "texts": texts})
-        items = [{"index": g["state"]["index"], "completion": t} for g in groups for t in g["texts"]]
-        results = post_json(a.reward_url, {"family": a.family, "split": a.split, "items": items})["results"]
+        items = [{"index": g["state"]["index"], "family": g["state"]["family"],
+                  "completion": t} for g in groups for t in g["texts"]]
+        results = post_json(a.reward_url, {"family": families[0], "split": a.split,
+                                           "items": items})["results"]
         k = 0
         for g in groups:
             g["results"] = results[k:k + len(g["texts"])]; k += len(g["texts"])
