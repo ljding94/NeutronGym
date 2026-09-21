@@ -401,6 +401,35 @@ r_pin1, set r_pin2 to the hinted limit"), which becomes a trap elsewhere — the
 trained model resubmitted one design for 8 straight turns from a state it had
 never trained on. GRPO trains on decisions from all states, failures included.
 
+## Design concentration — the diagnostic the gate cannot replace (2026-09-21)
+
+`benchmark/harness/design_concentration.py`, run on every family's passing
+episodes. The constant-policy gate bounds what a single **fixed** design can
+pass; it cannot bound what a **family** of designs can pass. Bender v1
+passed the gate at 10.7% while a quarter of its instances fell to any
+sufficiently transparent design — a class, not a point, so no candidate the
+gate tried scored high.
+
+| family / arm | passes | distinct designs | top-5 share | max reuse |
+|---|---|---|---|---|
+| guide_match, trained | 230 | **225 (98%)** | 4% | 2 |
+| guide_match, untrained 8B | 34 | 29 (85%) | 29% | 2 |
+| tof_chopper, trained | 140 | **138 (99%)** | 5% | 2 |
+| tof_chopper, untrained 32B | 36 | 36 (100%) | 14% | 1 |
+| sans_match, trained | 115 | 80 (70%) | 16% | 5 |
+| **bender v1, trained (retracted)** | 141 | **42 (30%)** | **43%** | **17** |
+| bender v1, untrained 32B | 167 | 120 (72%) | 18% | 8 |
+
+Reading: the two families that carry the headline are essentially fully
+instance-specific (98–99% distinct). `sans_match` sits in between at 70%
+with a max reuse of 5 — worth stating, and consistent with it being the
+family whose signal is weakest and the one that fails to learn under joint
+training. Bender v1 is the outlier by a wide margin.
+
+**Use it as a standing check, not a post-hoc one.** It costs nothing (it
+reads the eval file that already exists) and it is the only probe here that
+sees class-degeneracy. Artifacts: `runs/m8/concentration_*.json`.
+
 ## Environment methodology (the part that makes the numbers readable)
 
 **Every family faces a no-model probe suite before its pass rates are read as
