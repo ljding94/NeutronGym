@@ -38,14 +38,27 @@ TEMPLATE_KWARGS = {"enable_thinking": False}
 
 def load_states(path: str, max_turn: int | None = None) -> list:
     """(family, index, prompt_messages) for every decision point in every
-    non-errored, non-skipped episode."""
-    out = []
+    non-errored, non-skipped episode.
+
+    An episode appearing twice contributes its states twice, so the sampler
+    draws them at double weight -- a silent bias in the training pool. It
+    happens when a killed collection run is re-run over the same file: the
+    bender pool held indices 53-58 twice, one worker batch from an
+    interrupted --workers 6 run (2026-09-20). Keep the first occurrence and
+    say so; do not let it pass unnoticed.
+    """
+    out, seen, dropped = [], set(), 0
     for line in open(path):
         if not line.strip():
             continue
         ep = json.loads(line)
         if ep.get("error") or ep.get("skipped"):
             continue
+        key = (ep["family"], ep["index"])
+        if key in seen:
+            dropped += 1
+            continue
+        seen.add(key)
         msgs = ep.get("messages") or []
         turn = 0
         for k, m in enumerate(msgs):
@@ -54,6 +67,9 @@ def load_states(path: str, max_turn: int | None = None) -> list:
                 if max_turn is None or turn <= max_turn:
                     out.append({"family": ep["family"], "index": ep["index"],
                                 "turn": turn, "messages": msgs[:k]})
+    if dropped:
+        print(f"  load_states: dropped {dropped} duplicate episode(s) from "
+              f"{path} (kept the first of each)", flush=True)
     return out
 
 

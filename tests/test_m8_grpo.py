@@ -134,3 +134,29 @@ def test_reward_server_isolates_a_failing_item():
     out = reward_server.score_item(bad)
     assert out["reward"] == 0.0 and out["parsed"] is False
     assert "error" in out and "KeyError" in out["error"]
+
+
+def test_load_states_drops_duplicate_episodes(tmp_path, capsys):
+    """A re-run collection can leave an episode in the file twice, which
+    doubles its sampling weight -- the bender pool held indices 53-58 twice
+    (2026-09-20). Keep the first, and say so rather than biasing silently."""
+    ep = {"family": "bender", "index": 7, "messages": [
+        {"role": "user", "content": "u"}, {"role": "assistant", "content": "a"},
+        {"role": "user", "content": "u2"}, {"role": "assistant", "content": "a2"}]}
+    other = dict(ep, index=8)
+    p = tmp_path / "states.jsonl"
+    p.write_text("\n".join(json.dumps(e) for e in [ep, other, ep]) + "\n")
+
+    states = m8_grpo.load_states(str(p))
+    assert [(s["family"], s["index"], s["turn"]) for s in states] == [
+        ("bender", 7, 1), ("bender", 7, 2), ("bender", 8, 1), ("bender", 8, 2)]
+    assert "dropped 1 duplicate episode" in capsys.readouterr().out
+
+
+def test_load_states_keeps_same_index_in_different_families(tmp_path):
+    """Joint training pools families; index 7 of two families is two states."""
+    mk = lambda fam: {"family": fam, "index": 7, "messages": [  # noqa: E731
+        {"role": "user", "content": "u"}, {"role": "assistant", "content": "a"}]}
+    p = tmp_path / "states.jsonl"
+    p.write_text("\n".join(json.dumps(mk(f)) for f in ("bender", "tof_chopper")) + "\n")
+    assert len(m8_grpo.load_states(str(p))) == 2

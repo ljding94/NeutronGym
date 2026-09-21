@@ -284,12 +284,28 @@ Gate (n=150): the best fixed design reaches **10.7% (upper95 15.8%)**, under
 the 20% ceiling, and the baseline never passes. No copy-type readout rule
 applies. Both probes CLEAN.
 
-Untrained Qwen3-8B on held-out 300-599: **52/300 (17.3%)**, level histogram
-{L3 248, L4 52}, median fom_ratio 0.22 — real headroom, and a higher floor
-than tof_chopper's 2.0%, so this family tests improvement from a competent
-start rather than from nothing.
+Baselines on held-out 300-599: untrained Qwen3-8B **52/300 (17.3%)** (level
+histogram {L3 248, L4 52}, median fom_ratio 0.22), untrained Qwen3-32B
+**167/300 (55.7%)**.
 
-**GRPO training is running** (started 2026-09-20 23:57, chained ahead of the
+That 32B number is the largest scale effect in the project — **3.2x, and from
+a floor that is not near zero** — where guide_match saw none at all (11.3%
+vs 11.3%) and tof_chopper saw 6x from 2.0%. Reading: the bender cutoff is a
+closed-form consequence of radius, channel width and coating, so a model that
+knows the physics can compute it, while the gate confirms no *fixed* design
+does. This is the family's value and its risk. It is the cleanest evidence
+that the environment measures physics competence rather than search luck —
+and it sets a bar of 55.7% that a trained 8B may well not clear. If it does
+not, that is the honest result to report: the trained-8B-beats-untrained-32B
+claim holds on three families and not on the fourth, and the reason is
+legible.
+
+**Still to measure:** a physics-model readout rule for bender (closed-form
+cutoff inversion). The readout probe found no *copy-type* rule, but we have
+not yet written the analytic inversion the way tof_chopper's was written
+(it scored 0.0%). Given the 32B result, that number belongs in the table.
+
+**GRPO training is running** (restarted 2026-09-21 00:31, chained ahead of the
 joint multi-family run). This section is incomplete until it lands.
 
 ## Supporting results
