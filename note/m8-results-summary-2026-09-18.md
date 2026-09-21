@@ -264,6 +264,34 @@ it stays near the baseline and fails safely. Trading some validity for reach
 is visible in the level histogram: trained {L2 28, L3 132, L4 140} against
 untrained {L3 294, L4 6}.
 
+## Fourth archetype: `bender` (2026-09-20) — IN FLIGHT
+
+A curved neutron guide. Curvature sets which wavelengths survive: below the
+characteristic wavelength a neutron can cross the bend without touching the
+outer wall, above it cannot, so the bender is a geometric low-pass filter
+whose cutoff is fixed by the radius, the channel width and the coating.
+Targets are the transmitted beam's **centre of mass (±0.25%)** and its
+**width (±1%)** at the guide exit. The tight bars are deliberate: at ±2%/±5%
+a single constant design passed 4 of 8 probe instances, because the two
+observables move slowly with the free parameters.
+
+The incident spectrum varies per instance (lam0 3.0-7.5 A, spread drawn as a
+**fraction** of lam0 — drawn independently it produced negative wavelength
+ranges that Source_simple refuses to run), which is what defeats a lookup:
+the same geometry gives different observables under a different spectrum.
+
+Gate (n=150): the best fixed design reaches **10.7% (upper95 15.8%)**, under
+the 20% ceiling, and the baseline never passes. No copy-type readout rule
+applies. Both probes CLEAN.
+
+Untrained Qwen3-8B on held-out 300-599: **52/300 (17.3%)**, level histogram
+{L3 248, L4 52}, median fom_ratio 0.22 — real headroom, and a higher floor
+than tof_chopper's 2.0%, so this family tests improvement from a competent
+start rather than from nothing.
+
+**GRPO training is running** (started 2026-09-20 23:57, chained ahead of the
+joint multi-family run). This section is incomplete until it lands.
+
 ## Supporting results
 
 **Transfer to a family it never trained on** (`guide_divergence`, held-out
