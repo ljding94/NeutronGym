@@ -316,8 +316,29 @@ keep all 4,710 cached calibrations. v1 artifacts: `runs/m8/bender_v1/`.
 | copy-type readout rules | none apply | **none apply** |
 | analytic cutoff inversion (reference, not gated) | 6.7% (upper95 11.1%) | **12.7% (upper95 18.0%)** |
 
+Baselines on held-out 300–599, and they move too:
+
+| arm | v1 | **v2** |
+|---|---|---|
+| untrained 8B | 17.3% | **69/300 (23.0%)** |
+| untrained 32B | 55.7% | **131/300 (43.7%)** |
+| scale gap | 3.2x | **1.9x** |
+
 The gate got *cleaner* (8.0% vs 10.7%), as expected: removing the
 transparent instances removes the ones one design solved for free.
+
+**Retract the v1 claim that bender shows "the largest scale effect in the
+project".** On the repaired family the 32B advantage is 1.9x, not 3.2x —
+comparable to other families rather than exceptional. Part of what looked
+like the 32B's superior physics was it exploiting the degenerate slice
+(its v1 design concentration was 72% distinct with a max reuse of 8, worse
+than any clean family). Note the comparison is not a clean subset: the new
+signature re-drew every instance's hidden design, not only the degenerate
+ones, so v1 and v2 are different task distributions.
+
+State collection on v2 found **54/300 episodes passing (18%)**, so the
+filter removed the free instances without making the family unreachable —
+consistent with 0 `no_headroom` instances at calibration.
 
 The physics rule went the **other** way — 6.7% → 12.7%. That direction is
 right on reflection: v2 instances all require real filtering, so the cutoff
