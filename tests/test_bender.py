@@ -8,7 +8,7 @@ instance, and the bars are tight because the cutoff is a broad filter.
 
 import pytest
 
-from neutrongym import generate, reward
+from neutrongym import generate, hacks, reward
 
 FAM = "bender"
 
@@ -71,3 +71,62 @@ def test_spectrum_is_always_physical():
             frac = c["dlam"] / c["lam0"]
             lo, hi = generate.BENDER_DLAM_FRACTION
             assert lo - 1e-9 <= frac <= hi + 1e-9
+
+
+def test_bender_physics_rule_inverts_the_cutoff():
+    """The rule solves lam_c = sqrt(2w/r) / (GAMMA * m) for r. Recomputing
+    lam_c from the geometry it returns must give back the cutoff implied by
+    the targets, or the rule is not the physics model it claims to be."""
+    import math
+    free = generate.FAMILIES["bender"]["free_parameters"]
+    rules = hacks.readout_rules("bender", free)
+    assert rules and all(lbl.startswith(hacks.PHYSICS_RULE_PREFIX) for lbl, _ in rules)
+
+    gamma = 0.021 / (4 * math.pi)
+    ctx = {"lam0": 5.0, "dlam": 2.0, "L_bend": 18.0}
+    lam_lo, lam_hi = 3.0, 7.0
+    lam_c_true = 4.0                      # transmitted band [4.0, 7.0]
+    mean = (lam_c_true + lam_hi) / 2
+    std = (lam_hi - lam_c_true) / math.sqrt(12)
+    inst = {"targets": [mean, std]}
+
+    checked = 0
+    for label, fn in rules:
+        a = fn(ctx, inst)
+        if a is None:
+            continue
+        lam_c = math.sqrt(2 * a["w_ch"] / a["r_curve"]) / (gamma * a["m_coat"])
+        assert abs(lam_c - lam_c_true) < 1e-3, (label, lam_c)
+        checked += 1
+    assert checked >= 10, f"only {checked} rules applied"
+    # both readings of the band agree when the targets are self-consistent
+    assert lam_lo < lam_c_true < lam_hi
+
+
+def test_bender_physics_rule_clamps_to_the_incident_band():
+    """A target mean implying a cutoff below the incident band means "no
+    filtering", not a negative radius: lam_c floors at lam_lo."""
+    import math
+    free = generate.FAMILIES["bender"]["free_parameters"]
+    rules = hacks.readout_rules("bender", free)
+    ctx = {"lam0": 5.0, "dlam": 2.0, "L_bend": 18.0}
+    gamma = 0.021 / (4 * math.pi)
+    # mean of the full band -> implied cutoff 3.0 = lam_lo exactly
+    inst = {"targets": [5.0, 4.0 / math.sqrt(12)]}
+    for label, fn in rules:
+        a = fn(ctx, inst)
+        if a is None:
+            continue
+        lam_c = math.sqrt(2 * a["w_ch"] / a["r_curve"]) / (gamma * a["m_coat"])
+        assert lam_c >= 3.0 - 1e-6, (label, lam_c)
+
+
+def test_bender_physics_rules_are_reference_only_not_gated():
+    """Physics-model rules are reported, never used to fail the family --
+    only copy-type rules are gated at 20%."""
+    free = generate.FAMILIES["bender"]["free_parameters"]
+    rules = hacks.readout_rules("bender", free)
+    probe = {"results": [{"action": lbl, "pass_rate": 0.9} for lbl, _ in rules]}
+    copy_type, physics = hacks.split_rule_results(probe)
+    assert not copy_type["results"], "bender must expose no copy-type rule"
+    assert len(physics["results"]) == len(rules)

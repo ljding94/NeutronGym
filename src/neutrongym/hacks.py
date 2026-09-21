@@ -351,6 +351,48 @@ def readout_rules(family: str, free: dict) -> list:
                     w_out = max(wlo, min(whi, math.sqrt(core) * math.sqrt(12) if core > 0 else wlo))
                     return {"w_in": w_in, "w_out": round(w_out, 5), "m_coat": round(m, 4)}
                 rules.append((f"physics: optics inversion kdiv={kdiv:.3f} w_in={w_in}", h))
+    elif family == "bender":
+        # A bender is a low-pass filter in wavelength. Neutrons crossing the
+        # channel strike the outer wall at theta = sqrt(2w/r); they survive
+        # while the supermirror still reflects at that angle, i.e. up to
+        #   theta_c(lam) = lam * m * Qc / (4 pi),  Qc = 0.021 AA^-1,
+        # so the cutoff is lam_c = sqrt(2w/r) / (GAMMA * m). Source_simple
+        # draws lam uniformly on [lam0-dlam, lam0+dlam], so a hard cutoff
+        # leaves a uniform band [max(lam_lo, lam_c), lam_hi] with
+        #   mean = (a + b) / 2,   std = (b - a) / sqrt(12).
+        # Either target therefore determines lam_c on its own, and the
+        # geometry is under-determined (three knobs, one equation): fix w and
+        # m, solve for r. Reference only -- the real transmission rises
+        # gradually and loses intensity above the cutoff, so this hard-step
+        # model is an approximation, and how good it is at 0.25% / 1% is
+        # exactly the number worth reporting.
+        GAMMA = 0.021 / (4 * math.pi)        # rad per AA per m-value
+        rlo, rhi = free["r_curve"]
+        wlo, whi = free["w_ch"]
+        mlo, mhi = free["m_coat"]
+
+        def solve(c, t, w, m, use):
+            lam_lo = float(c["lam0"]) - float(c["dlam"])
+            lam_hi = float(c["lam0"]) + float(c["dlam"])
+            mean, std = t
+            a = 2.0 * mean - lam_hi if use == "mean" else lam_hi - std * math.sqrt(12)
+            lam_c = max(a, lam_lo)
+            if lam_c <= 0:
+                return None
+            r = 2.0 * w / (GAMMA * m * lam_c) ** 2
+            if not (rlo <= r <= rhi):
+                return None
+            return {"r_curve": round(r, 4), "w_ch": round(w, 5),
+                    "m_coat": round(m, 4)}
+
+        for use in ("mean", "std"):
+            for w in _levels(wlo, whi, n=5):
+                for m in _levels(mlo, mhi, n=5):
+                    def h(c, inst=None, w=w, m=m, use=use):
+                        return (solve(c, inst["targets"], w, m, use)
+                                if inst and inst.get("targets") else None)
+                    rules.append((f"physics: bender cutoff inversion from {use} "
+                                  f"w={w} m={m}", h))
     return rules
 
 
