@@ -300,10 +300,22 @@ not, that is the honest result to report: the trained-8B-beats-untrained-32B
 claim holds on three families and not on the fourth, and the reason is
 legible.
 
-**Still to measure:** a physics-model readout rule for bender (closed-form
-cutoff inversion). The readout probe found no *copy-type* rule, but we have
-not yet written the analytic inversion the way tof_chopper's was written
-(it scored 0.0%). Given the 32B result, that number belongs in the table.
+**The physics rule does not explain it (2026-09-21).** The closed-form
+inversion — 50 rules over both readings of the transmitted band and a 5x5
+(w, m) grid — reaches only **6.7% (upper95 11.1%)** at its best. The
+hard-step model is too crude at ±0.25%: real bender transmission rises
+gradually through the cutoff and loses intensity above it, so band
+statistics computed from a step function miss the mean by more than a
+quarter percent. No copy-type rule applies at all.
+
+That makes bender the strongest anti-shortcut case in the project. Nothing
+we can construct solves it — not a constant (10.7%), not another instance's
+solution, not a printed limit, not the analytic inversion (6.7%) — yet an
+untrained 32B reaches 55.7% *with ten turns of simulation feedback*. The
+one-shot physics rule and the multi-turn model differ by 8x on the same
+instances, which is direct evidence that what the environment rewards is
+**iterative design against measurement**, not recall of a formula. That is
+the cleanest statement of the environment's value we have.
 
 **GRPO training is running** (restarted 2026-09-21 00:31, chained ahead of the
 joint multi-family run). This section is incomplete until it lands.
