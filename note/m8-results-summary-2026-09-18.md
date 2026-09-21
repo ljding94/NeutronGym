@@ -320,6 +320,44 @@ the cleanest statement of the environment's value we have.
 **GRPO training is running** (restarted 2026-09-21 00:31, chained ahead of the
 joint multi-family run). This section is incomplete until it lands.
 
+## Joint multi-family training (2026-09-21)
+
+One policy, one LoRA, trained on the pooled states of all three gated
+families at **the same 220-step budget a single specialist gets** — so it
+sees a third as many steps per family. Evaluated on each family's held-out
+300–599, against that family's own 220-step specialist:
+
+| family | untrained 8B | specialist | joint | joint vs specialist (paired) |
+|---|---|---|---|---|
+| guide_match | 34/300 (11.3%) | 230 (76.7%) | **203 (67.7%)** | 40 vs 67, p = 0.012 |
+| sans_match | 67/300 (22.3%) | 115 (38.3%) | **72 (24.0%)** | 21 vs 64, p = 3.3e-6 |
+| tof_chopper | 6/300 (2.0%) | 140 (46.7%) | **165 (55.0%)** | 40 vs 15, p = 0.001 |
+
+Joint vs untrained: guide_match 178-only vs 9 (p = 6.8e-42), tof_chopper
+159-only vs 0 (p = 2.7e-48), sans_match **28 vs 23 (p = 0.58 — no learning
+at all)**.
+
+Two findings, and the second is the interesting one:
+
+- **Pooling is compute-efficient in aggregate.** Mean pass rate 48.9%
+  against the specialists' 53.9% — 91% of the performance for a third of
+  the training compute (220 steps against 660, and that ignores the
+  340-step continuation sans_match needed as a specialist).
+- **Transfer is uneven, and it runs opposite to difficulty.**
+  `tof_chopper` — the family that starts at 2.0%, where episode collection
+  found only 18 of 300 passing and bootstrapping was hardest — is the one
+  pooling *helps*, significantly (55.0% vs 46.7%). `sans_match`, the family
+  whose specialist plateaued and needed a continuation to 340 steps, learns
+  **nothing** when pooled. So the states of other families supply the early
+  gradient a sparse family cannot generate for itself, while a family whose
+  per-step signal is weak rather than sparse simply gets crowded out.
+
+That pair is worth stating plainly: multi-task RL here is not a uniform
+win or loss. It substitutes for missing exploration signal and it competes
+for gradient budget, and which effect dominates depends on whether a
+family's difficulty is *sparsity* (helped) or *weak per-step signal*
+(hurt).
+
 ## Supporting results
 
 **Transfer to a family it never trained on** (`guide_divergence`, held-out
