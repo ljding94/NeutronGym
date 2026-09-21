@@ -130,3 +130,54 @@ def test_bender_physics_rules_are_reference_only_not_gated():
     copy_type, physics = hacks.split_rule_results(probe)
     assert not copy_type["results"], "bender must expose no copy-type rule"
     assert len(physics["results"]) == len(rules)
+
+
+def test_hidden_designs_must_actually_filter():
+    """Drawn uniformly from the box, a quarter of held-out instances got a
+    hidden cutoff BELOW the incident band: the bender did nothing and the
+    targets were the source spectrum's own mean and spread, so any
+    transparent design solved them. The trained policy exploited exactly
+    that -- one geometry passed 17 instances spanning 4.2-8.2 AA of target
+    mean (2026-09-21)."""
+    lo, hi = generate.BENDER_BAND_CUT
+    checked = 0
+    for split in ("train", "heldout"):
+        for i in range(0, 60):
+            inst = generate.instance("bender", split, i)
+            cands = generate.match_hidden_candidates(inst)
+            assert cands, (split, i)
+            for a in cands:
+                cut = generate.bender_band_cut(inst["context"], a)
+                assert lo <= cut <= hi, (split, i, a, cut)
+                checked += 1
+    assert checked > 500, checked
+
+
+def test_hidden_candidate_list_keeps_its_length():
+    """The filter must not shorten the sequence -- calibration walks it for a
+    design that is runnable and not already matched by the baseline."""
+    for i in range(0, 30):
+        inst = generate.instance("bender", "heldout", i)
+        assert len(generate.match_hidden_candidates(inst)) == generate.MATCH_HIDDEN_CANDIDATES
+
+
+def test_families_without_a_filter_are_unaffected():
+    for fam in ("guide_match", "sans_match", "tof_chopper"):
+        inst = generate.instance(fam, "heldout", 3)
+        cands = generate.match_hidden_candidates(inst)
+        assert len(cands) == generate.MATCH_HIDDEN_CANDIDATES
+        assert cands[0] == inst["hidden_action"], fam
+
+
+def test_band_cut_is_zero_below_the_band_and_one_above():
+    ctx = {"lam0": 5.0, "dlam": 2.0}          # band [3, 7]
+    import math
+    gamma = generate.BENDER_GAMMA
+
+    def geom_for(lam_c, w=0.03, m=2.5):
+        return {"w_ch": w, "m_coat": m,
+                "r_curve": 2.0 * w / (gamma * m * lam_c) ** 2}
+
+    assert generate.bender_band_cut(ctx, geom_for(2.0)) == 0.0
+    assert generate.bender_band_cut(ctx, geom_for(8.0)) == 1.0
+    assert abs(generate.bender_band_cut(ctx, geom_for(5.0)) - 0.5) < 1e-9

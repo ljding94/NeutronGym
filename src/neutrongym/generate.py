@@ -273,6 +273,7 @@ FAMILIES["bender"] = {
         "dlam": {"train": (2.0, 4.0), "heldout": (2.0, 4.0)},
     },
     "context_fn": "bender_context",     # dlam is a fraction of lam0
+    "hidden_filter": "bender_hidden_ok",   # the bender must actually filter
     "free_parameters": {"r_curve": (40.0, 550.0), "w_ch": (0.02, 0.08),
                         "m_coat": (1.5, 4.0)},
     "baseline": {"r_curve": 200.0, "w_ch": 0.03, "m_coat": 2.5},
@@ -402,16 +403,60 @@ MATCH_TOLERANCE = 0.05
 # never pass (instance 0 of the held-out split drew a design next to it)
 MATCH_BASELINE_EXCLUSION = 2.0
 MATCH_HIDDEN_CANDIDATES = 12
+# drawn before filtering, so a family with a `hidden_filter` still gets 12
+MATCH_HIDDEN_POOL = 400
+
+
+BENDER_GAMMA = 0.021 / (4 * math.pi)     # rad per AA per m-value (Qc / 4pi)
+# A hidden design must make the bender actually filter. Drawn uniformly from
+# the parameter box, 24.7% of held-out instances got a cutoff BELOW the
+# incident band, so the bender did nothing and the targets were just the
+# source spectrum's own mean and spread -- any transparent design solved
+# them. The trained policy found exactly that: one geometry passed 17
+# instances whose target means spanned 4.2-8.2 AA, nearly the whole held-out
+# range, and 43% of its passes came from five designs (2026-09-21). The
+# upper bound keeps the monitor off the statistics floor.
+BENDER_BAND_CUT = (0.25, 0.85)
+
+
+def bender_band_cut(context: dict, action: dict) -> float:
+    """Fraction of the incident wavelength band the cutoff removes."""
+    lo = float(context["lam0"]) - float(context["dlam"])
+    hi = float(context["lam0"]) + float(context["dlam"])
+    lam_c = (math.sqrt(2.0 * float(action["w_ch"]) / float(action["r_curve"]))
+             / (BENDER_GAMMA * float(action["m_coat"])))
+    return (min(max(lam_c, lo), hi) - lo) / (hi - lo) if hi > lo else 0.0
+
+
+def bender_hidden_ok(inst: dict, action: dict) -> bool:
+    lo, hi = BENDER_BAND_CUT
+    return lo <= bender_band_cut(inst["context"], action) <= hi
+
+
+HIDDEN_FILTERS = {"bender_hidden_ok": bender_hidden_ok}
 
 
 def match_hidden_candidates(inst: dict, n: int = MATCH_HIDDEN_CANDIDATES) -> list:
     """Deterministic sequence of hidden designs for one instance; calibration
-    takes the first that is runnable and not already matched by the baseline."""
+    takes the first that is runnable and not already matched by the baseline.
+
+    A family may declare `hidden_filter` to reject designs that make a
+    degenerate task. Candidates are then drawn from a larger pool and
+    filtered, so the sequence keeps its length; the instance's own
+    `hidden_action` is subject to the filter like any other."""
     rng = random.Random(f"hidden/{inst['id']}")
     free = inst["free_parameters"]
-    return [dict(inst["hidden_action"])] + [
-        {k: round(rng.uniform(lo, hi), 6) for k, (lo, hi) in free.items()}
-        for _ in range(n - 1)]
+    name = FAMILIES[inst["family"]].get("hidden_filter")
+    ok = HIDDEN_FILTERS[name] if name else None
+    out = []
+    for cand in [dict(inst["hidden_action"])] + [
+            {k: round(rng.uniform(lo, hi), 6) for k, (lo, hi) in free.items()}
+            for _ in range(MATCH_HIDDEN_POOL)]:
+        if ok is None or ok(inst, cand):
+            out.append(cand)
+        if len(out) == n:
+            break
+    return out
 
 # Target-matching family (2026-09-17). Three maximisation designs were
 # solvable by short no-model rules (guide with limits: readout rule 96-98%;
@@ -800,7 +845,8 @@ def family_signature(family: str) -> str:
     # added, so a guide-only change discarded 150 certified SANS calibrations
     # (2026-09-16). SPEC_VERSION stays global and is for logic changes that
     # the dicts cannot express.
-    payload.update({k: fam[k] for k in ("baseline_fn", "context_fn", "hidden_design")
+    payload.update({k: fam[k] for k in ("baseline_fn", "context_fn",
+                                        "hidden_design", "hidden_filter")
                     if fam.get(k)})
     payload.update(static_checks=fam.get("static_checks", []),
                    protocol=family_protocol(family), spec_version=SPEC_VERSION)

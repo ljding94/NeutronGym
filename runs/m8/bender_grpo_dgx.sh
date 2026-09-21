@@ -58,6 +58,10 @@ for arm in untrained-8b untrained-32b; do
 done
 
 fi
+# PREP_ONLY stops here. Step 5 kills every trained-model vLLM server and
+# restarts the reward server, which would take down a concurrent eval, so
+# the CPU prep can overlap with another run only in this mode.
+[ "${PREP_ONLY:-0}" = "1" ] && done_ PREP_ONLY_OK 0
 echo "== 5. GRPO 120 @1e-5 then 100 @3e-5 $(date +%T) =="
 # every trained-model server runs from /netdisk/ldq/ckpt; the base
 # 8B/32B servers (Qwen/Qwen3-*) are on other GPUs and are left alone
