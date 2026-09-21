@@ -363,6 +363,70 @@ one-dimensional answer whose population is concentrated, a learned prior
 near the median sometimes lands without feedback. Worth stating; it is why
 the "no turn-1 passes" signature is a claim about the other families.
 
+## `sans_match` vs the untrained 32B — the last unpaired cell (2026-09-21)
+
+Measured on the **unbiased** slice 600–899, the same slice and settings as
+the other two arms (target fraction 0.85, 10 turns, temperature 0):
+
+| policy | passed | 95% CI |
+|---|---|---|
+| untrained Qwen3-8B | 78/300 (26.0%) | [21.1, 31.4] |
+| untrained Qwen3-32B | 87/300 (29.0%) | [23.9, 34.5] |
+| **GRPO-trained 8B** | **133/300 (44.3%)** | [38.6, 50.2] |
+
+Paired: **89 trained-only vs 43** against the 32B (p = 7.7e-5), and 86 vs 31
+against the untrained 8B (p = 3.7e-7).
+
+**This completes the claim on all four families**: a GRPO-trained 8B beats
+an untrained 32B on guide_match (76.7% vs 11.3%), sans_match (44.3% vs
+29.0%), tof_chopper (46.7% vs 12.0%) and bender (75.7% vs 43.7%), each
+paired on one slice with exact McNemar.
+
+Second finding from the same run: **scale buys nothing on `sans_match`** —
+32B vs 8B is 37 vs 28 discordant, p = 0.32 (29.0% vs 26.0%). So sans_match
+joins guide_match (11.3% vs 11.3% on the fresh slice) as a family where
+model scale does not help, against tof_chopper (6x) and bender (1.9x) where
+it does. Worth one sentence: the environment's families differ in whether
+they reward scale, and the two that do not are the two oldest formulations.
+
+## Joint multi-family training (2026-09-21)
+
+One policy, one LoRA, trained on the pooled states of all three gated
+families at **the same 220-step budget a single specialist gets** — so it
+sees a third as many steps per family. Evaluated on each family's held-out
+300–599, against that family's own 220-step specialist:
+
+| family | untrained 8B | specialist | joint | joint vs specialist (paired) |
+|---|---|---|---|---|
+| guide_match | 34/300 (11.3%) | 230 (76.7%) | **203 (67.7%)** | 40 vs 67, p = 0.012 |
+| sans_match | 67/300 (22.3%) | 115 (38.3%) | **72 (24.0%)** | 21 vs 64, p = 3.3e-6 |
+| tof_chopper | 6/300 (2.0%) | 140 (46.7%) | **165 (55.0%)** | 40 vs 15, p = 0.001 |
+
+Joint vs untrained: guide_match 178-only vs 9 (p = 6.8e-42), tof_chopper
+159-only vs 0 (p = 2.7e-48), sans_match **28 vs 23 (p = 0.58 — no learning
+at all)**.
+
+Two findings, and the second is the interesting one:
+
+- **Pooling is compute-efficient in aggregate.** Mean pass rate 48.9%
+  against the specialists' 53.9% — 91% of the performance for a third of
+  the training compute (220 steps against 660, and that ignores the
+  340-step continuation sans_match needed as a specialist).
+- **Transfer is uneven, and it runs opposite to difficulty.**
+  `tof_chopper` — the family that starts at 2.0%, where episode collection
+  found only 18 of 300 passing and bootstrapping was hardest — is the one
+  pooling *helps*, significantly (55.0% vs 46.7%). `sans_match`, the family
+  whose specialist plateaued and needed a continuation to 340 steps, learns
+  **nothing** when pooled. So the states of other families supply the early
+  gradient a sparse family cannot generate for itself, while a family whose
+  per-step signal is weak rather than sparse simply gets crowded out.
+
+That pair is worth stating plainly: multi-task RL here is not a uniform
+win or loss. It substitutes for missing exploration signal and it competes
+for gradient budget, and which effect dominates depends on whether a
+family's difficulty is *sparsity* (helped) or *weak per-step signal*
+(hurt).
+
 ## Design concentration — the diagnostic the gate cannot replace (2026-09-21)
 
 `benchmark/harness/design_concentration.py`, run on every family's passing
@@ -391,6 +455,40 @@ training. Bender v1 is the outlier by a wide margin.
 **Use it as a standing check, not a post-hoc one.** It costs nothing (it
 reads the eval file that already exists) and it is the only probe here that
 sees class-degeneracy. Artifacts: `runs/m8/concentration_*.json`.
+
+## Supporting results
+
+**Transfer to a family it never trained on** (`guide_divergence`, held-out
+0–299, 0.85x calibrated bar):
+
+| policy on guide | passed | rejected before simulation |
+|---|---|---|
+| untrained 8B | 54/300 (18.0%) | 73 |
+| **`guide_match`-trained 8B (transfer)** | **102/300 (34.0%)** | **20** |
+| untrained 32B | 232/300 (77.3%) | 1 |
+| guide-trained 8B (in-family) | 296/300 (98.7%) | 0 |
+
+Paired vs untrained 8B: 76 transfer-only vs 28 untrained-only, p = 3e-6.
+
+**More RL is not better.** Checkpoints compared on held-out 0–299: untrained
+14.0% → 120 steps 50.0% → **220 steps 73.0%** → 340 steps **56.7%**, while
+training reward kept rising (0.95, ~27% of sampled actions passing at step
+339). Over-optimisation of the reward is visible before it shows in held-out
+performance.
+
+**SFT regressed three times on the same environment** (n=300 paired each):
+
+| run | untrained 8B | trained 8B |
+|---|---|---|
+| guide, per-turn RAFT SFT | 40.3% | 31.3% (p = 0.0013) |
+| SANS, passing-turn SFT (v2 targets) | 31.0% | 27.0% (p = 0.004) |
+| SANS, passing-turn SFT (v3 targets) | 8.3% | 1.0% (p = 3e-6) |
+
+Mechanism, traced by replaying episodes: cloning the model's own successful
+turns teaches a rule conditional on states the model already handled ("keep
+r_pin1, set r_pin2 to the hinted limit"), which becomes a trap elsewhere — the
+trained model resubmitted one design for 8 straight turns from a state it had
+never trained on. GRPO trains on decisions from all states, failures included.
 
 ## Environment methodology (the part that makes the numbers readable)
 
