@@ -109,12 +109,30 @@ def left_pad_batch(prompt_ids: list, completions: list, pad_id: int):
     return ids, attn, cmask, width
 
 
-def post_json(url: str, payload: dict, timeout: float = 600.0) -> dict:
+def post_json(url: str, payload: dict, timeout: float = 600.0,
+              attempts: int = 4) -> dict:
+    """Retry a failed scoring request instead of losing the run.
+
+    A single dropped connection used to abort training outright -- the joint
+    run died at step 12 and forfeited two hours of GPU time (2026-09-20). The
+    request is idempotent (scoring is stateless in the instance and action),
+    so retrying is always safe.
+    """
+    import time
     import urllib.request
-    req = urllib.request.Request(url, data=json.dumps(payload).encode(),
-                                 headers={"Content-Type": "application/json"})
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return json.loads(r.read())
+    for attempt in range(1, attempts + 1):
+        req = urllib.request.Request(url, data=json.dumps(payload).encode(),
+                                     headers={"Content-Type": "application/json"})
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return json.loads(r.read())
+        except Exception as e:                   # noqa: BLE001 - reported below
+            if attempt == attempts:
+                raise
+            print(f"  reward request failed ({type(e).__name__}: {e}), "
+                  f"retry {attempt}/{attempts - 1} in {5 * attempt}s", flush=True)
+            time.sleep(5 * attempt)
+    raise AssertionError("unreachable")
 
 
 def main():
@@ -236,6 +254,10 @@ def main():
                  "pass_frac": round(sum(r["reward"] > 1.0 for r in results) / max(len(results), 1), 4),
                  "valid_frac": round(sum(r["level"] >= 3 for r in results) / max(len(results), 1), 4),
                  "parse_frac": round(sum(r["parsed"] for r in results) / max(len(results), 1), 4),
+                 # non-zero means the env failed on some item, not that the
+                 # policy wrote something unparseable -- investigate, do not
+                 # read those zeros as signal
+                 "err_frac": round(sum("error" in r for r in results) / max(len(results), 1), 4),
                  "groups": len(groups), "groups_with_signal": len(used)}
         if a.dry_run:
             print(json.dumps(stats), flush=True)

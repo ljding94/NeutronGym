@@ -79,3 +79,58 @@ def test_states_can_be_pooled_across_families_keeping_their_family(tmp_path):
     pooled = m8_grpo.load_states(str(a)) + m8_grpo.load_states(str(b))
     assert [s["family"] for s in pooled] == ["guide_match", "tof_chopper"]
     assert [s["index"] for s in pooled] == [1, 2]
+
+
+def test_post_json_retries_then_succeeds(monkeypatch):
+    """A dropped connection must not abort training: the joint run died at
+    step 12 on one RemoteDisconnected and forfeited two hours (2026-09-20)."""
+    import http.client
+    calls = {"n": 0}
+
+    class FakeResp:
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self): return b'{"results": [{"reward": 1.0}]}'
+
+    def fake_urlopen(req, timeout=None):
+        calls["n"] += 1
+        if calls["n"] < 3:
+            raise http.client.RemoteDisconnected("closed")
+        return FakeResp()
+
+    import urllib.request
+    monkeypatch.setattr(urllib.request, "urlopen", fake_urlopen)
+    monkeypatch.setattr(m8_grpo.time if hasattr(m8_grpo, "time") else __import__("time"),
+                        "sleep", lambda s: None)
+    out = m8_grpo.post_json("http://x/score", {"items": []}, attempts=4)
+    assert out["results"][0]["reward"] == 1.0
+    assert calls["n"] == 3
+
+
+def test_post_json_raises_after_last_attempt(monkeypatch):
+    import http.client
+    import urllib.request
+
+    def always_fail(req, timeout=None):
+        raise http.client.RemoteDisconnected("closed")
+
+    monkeypatch.setattr(urllib.request, "urlopen", always_fail)
+    monkeypatch.setattr(__import__("time"), "sleep", lambda s: None)
+    try:
+        m8_grpo.post_json("http://x/score", {"items": []}, attempts=2)
+    except http.client.RemoteDisconnected:
+        return
+    raise AssertionError("post_json swallowed a permanent failure")
+
+
+def test_reward_server_isolates_a_failing_item():
+    """One bad item scores 0.0 and is labelled, instead of taking the whole
+    batch (and the training run) down with it."""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(
+        os.path.abspath(__file__))), "benchmark", "harness"))
+    import reward_server
+
+    bad = ("no-such-family", "train", 0.85, 10, 0, "{}")
+    out = reward_server.score_item(bad)
+    assert out["reward"] == 0.0 and out["parsed"] is False
+    assert "error" in out and "KeyError" in out["error"]

@@ -8,6 +8,9 @@ beat the calibrated "optimum" on 60-70% of instances in every family -- by
 more than 1/0.85 on 20-25%. These tests pin what v3 promises.
 """
 
+import os
+import threading
+
 from neutrongym import calibrate, hacks, reward
 
 
@@ -104,3 +107,43 @@ def test_three_parameter_families_keep_the_cheap_neighbourhood():
     free = {"a": (0.0, 1.0), "b": (0.0, 1.0), "c": (0.0, 1.0)}
     moves = calibrate._search_neighbourhood({"a": .5, "b": .5, "c": .5}, free, .2)
     assert len(moves) == 26                      # 3**3 - 1, not 124
+
+
+def test_cache_write_is_atomic_and_read_tolerates_garbage(tmp_path):
+    """A torn read must never propagate. `open(path, "w")` truncates before it
+    writes, so a concurrent reader saw an empty file and raised
+    JSONDecodeError inside a reward-server worker, which closed the HTTP
+    connection and killed the joint GRPO run at step 12 (2026-09-20)."""
+    p = str(tmp_path / "sig" / "inst-1.json")
+    os.makedirs(os.path.dirname(p), exist_ok=True)
+
+    # unreadable entries read as absent, not as an exception
+    assert calibrate.read_cache(p) is None                  # missing
+    open(p, "w").close()
+    assert calibrate.read_cache(p) is None                  # empty (the torn read)
+    with open(p, "w") as f:
+        f.write('{"ok": true, "targ')
+    assert calibrate.read_cache(p) is None                  # truncated
+
+    # the write never leaves a partial file at the destination path
+    calibrate.write_cache(p, {"ok": True, "target_ratio": 1.5})
+    assert calibrate.read_cache(p) == {"ok": True, "target_ratio": 1.5}
+    assert not [f for f in os.listdir(os.path.dirname(p)) if f.endswith(".tmp")]
+
+
+def test_cache_write_is_visible_all_or_nothing(tmp_path):
+    """Readers racing a rewrite see the OLD entry or the NEW one."""
+    p = str(tmp_path / "inst-2.json")
+    calibrate.write_cache(p, {"ok": True, "target_ratio": 1.0})
+    seen = []
+
+    def reader():
+        for _ in range(400):
+            seen.append(calibrate.read_cache(p))
+
+    t = threading.Thread(target=reader)
+    t.start()
+    for i in range(60):
+        calibrate.write_cache(p, {"ok": True, "target_ratio": 1.0 + i})
+    t.join()
+    assert seen and all(r is not None and "target_ratio" in r for r in seen)

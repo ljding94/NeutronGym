@@ -20,6 +20,7 @@ already been red-teamed (bounds-filtered ensemble; winner's-curse guard).
 import itertools
 import json
 import os
+import tempfile
 import random
 
 from . import hacks, reward
@@ -168,6 +169,39 @@ def cache_path(workdir: str, inst: dict) -> str:
     return os.path.join(*parts)
 
 
+def read_cache(path: str) -> dict | None:
+    """A cache entry, or None when there is nothing usable to read.
+
+    Unreadable is treated as absent, not as an error: the entry is a pure
+    function of the instance, so recomputing it is always correct and merely
+    costs time. `open(path, "w")` truncates before it writes, so a reader that
+    arrives mid-write sees an empty (or half-written) file — which is exactly
+    what killed a reward-server worker and, through it, the joint GRPO run at
+    step 12 while the bender prep shared this cache directory (2026-09-20).
+    """
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except (FileNotFoundError, ValueError):
+        return None
+
+
+def write_cache(path: str, rec: dict) -> None:
+    """Write atomically, so a concurrent reader sees either the old entry or
+    the new one and never a truncated file. The temp file is created in the
+    destination directory to keep os.replace on one filesystem."""
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    fd, tmp = tempfile.mkstemp(dir=os.path.dirname(path), suffix=".tmp")
+    try:
+        with os.fdopen(fd, "w") as f:
+            json.dump(rec, f, indent=1)
+        os.replace(tmp, path)
+    except BaseException:
+        if os.path.isfile(tmp):
+            os.unlink(tmp)
+        raise
+
+
 def calibrate_match(inst: dict, fexec) -> dict:
     """Targets for a matching family: the hidden design's simulated
     observables at the protocol seed (so the hidden design scores an exact
@@ -223,14 +257,10 @@ def calibration_for(inst: dict, fexec, base: dict, workdir: str,
     """
     p = cache_path(workdir, inst)
     matching = (inst.get("fom") or {}).get("type") == "match"
-    if os.path.isfile(p):
-        with open(p) as f:
-            rec = json.load(f)
-    else:
+    rec = read_cache(p)
+    if rec is None:
         rec = calibrate_match(inst, fexec) if matching else calibrate_instance(inst, fexec, base)
-        os.makedirs(os.path.dirname(p), exist_ok=True)
-        with open(p, "w") as f:
-            json.dump(rec, f, indent=1)
+        write_cache(p, rec)
     if not rec.get("ok"):
         return None
     if matching:

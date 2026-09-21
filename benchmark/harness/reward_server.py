@@ -22,6 +22,23 @@ _ENVS = {}
 
 
 def score_item(job):
+    """Never raise: an exception here propagates out of `pool.map`, the
+    handler returns no response, and the trainer dies with
+    RemoteDisconnected. That cost the joint GRPO run 12 steps of work when a
+    concurrent writer left a cache file momentarily empty and one worker hit
+    JSONDecodeError (2026-09-20). A failed item scores 0.0 and says so; the
+    trainer surfaces the rate as `err_frac` so this stays visible.
+    """
+    try:
+        return _score_item(job)
+    except Exception as e:                       # noqa: BLE001 - reported, not hidden
+        import traceback
+        traceback.print_exc()
+        return {"reward": 0.0, "level": 0, "fom_ratio": None, "parsed": False,
+                "error": f"{type(e).__name__}: {e}"}
+
+
+def _score_item(job):
     family, split, frac, max_steps, index, completion = job
     from neutrongym import generate, rollouts
     free = generate.FAMILIES[family]["free_parameters"]
