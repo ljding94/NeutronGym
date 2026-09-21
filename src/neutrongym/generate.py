@@ -226,6 +226,72 @@ AT (0, 0, L_guide + d_sample + 0.001) RELATIVE guide
 END
 """
 
+BENDER_INSTR = """\
+DEFINE INSTRUMENT fam_bender(double L_bend=20.0, double L_out=1.0,
+  double src_wh=0.10, double lam0=5.0, double dlam=3.0,
+  double r_curve=200, double w_ch=0.03, double m_coat=2.5)
+TRACE
+COMPONENT arm = Arm()
+AT (0, 0, 0) ABSOLUTE
+
+COMPONENT src = Source_simple(xwidth=src_wh, yheight=src_wh, dist=2.0,
+  focus_xw=w_ch, focus_yh=0.05, lambda0=lam0, dlambda=dlam, flux=1e12)
+AT (0, 0, 0) RELATIVE arm
+
+COMPONENT bend = Bender(w=w_ch, h=0.05, r=r_curve, l=L_bend, k=1, d=0.0005,
+  ma=m_coat, mi=m_coat, ms=m_coat)
+AT (0, 0, 2.0) RELATIVE arm
+
+COMPONENT lmon = L_monitor(nL=200, filename="lam.dat", xwidth=0.12, yheight=0.08,
+  Lmin=0.2, Lmax=14, restore_neutron=1)
+AT (0, 0, L_bend + L_out) RELATIVE bend
+END
+"""
+
+# Fourth archetype (2026-09-20): a curved guide, which transmits only
+# wavelengths above a cutoff set by curvature, channel width and coating
+# (lambda_c ~ sqrt(2w/r) / (0.0017 m)). The incident spectrum varies per
+# instance ON PURPOSE: with a fixed spectrum the design -> observable mapping
+# is context-free and another instance's solution transferred on 7 of 10
+# prototype instances. Bars are tight (0.25% / 1%) because the cutoff is a
+# broad filter: at 2% / 5% one constant still solved half the instances,
+# while measurement noise here is only 0.02% / 0.05%.
+FAMILIES["bender"] = {
+    "instr_name": "fam_bender",
+    "instr": BENDER_INSTR,
+    "description": ("Curved neutron guide. A bender transmits long wavelengths "
+                    "and suppresses short ones: the cutoff is set by the radius "
+                    "of curvature, the channel width and the supermirror "
+                    "coating. Choose those three so that the beam leaving the "
+                    "bender matches this instance's target mean wavelength and "
+                    "target wavelength spread, given the incident spectrum."),
+    "context": {
+        "L_bend": {"train": (12.0, 22.0), "heldout": (23.0, 30.0)},
+        "L_out": {"train": (1.0, 1.0), "heldout": (1.0, 1.0)},
+        "src_wh": {"train": (0.10, 0.10), "heldout": (0.10, 0.10)},
+        "lam0": {"train": (3.0, 7.5), "heldout": (3.0, 7.5)},
+        "dlam": {"train": (2.0, 4.0), "heldout": (2.0, 4.0)},
+    },
+    "free_parameters": {"r_curve": (40.0, 550.0), "w_ch": (0.02, 0.08),
+                        "m_coat": (1.5, 4.0)},
+    "baseline": {"r_curve": 200.0, "w_ch": 0.03, "m_coat": 2.5},
+    "protocol": {"ncount": 2e6, "ncount_cheap": 2e5},
+    "fom": {"monitor": "lmon", "metric": "intensity", "maximize": True,
+            "type": "match", "tolerance": 0.01,
+            "match": [
+                {"monitor": "lmon", "observable": "center_of_mass",
+                 "label": "mean transmitted wavelength", "unit": "AA",
+                 "tolerance": 0.0025},
+                {"monitor": "lmon", "observable": "beam_width_x",
+                 "label": "transmitted wavelength spread (std)", "unit": "AA",
+                 "tolerance": 0.01},
+            ]},
+    "constraints": [],
+    "static_checks": [],
+    "hidden_design": True,
+}
+
+
 TOF_CHOPPER_INSTR = """\
 DEFINE INSTRUMENT fam_tof_chopper(double L_ch=8.0, double L_sample=2.0,
   double lam0=5.0, double dlam=4.0, double src_r=0.02,
