@@ -445,12 +445,23 @@ gate tried scored high.
 | sans_match, trained | 115 | 80 (70%) | 16% | 5 |
 | **bender v1, trained (retracted)** | 141 | **42 (30%)** | **43%** | **17** |
 | bender v1, untrained 32B | 167 | 120 (72%) | 18% | 8 |
+| bender v2, trained | 227 | 63 (28%) | 32% | 18 |
 
 Reading: the two families that carry the headline are essentially fully
 instance-specific (98–99% distinct). `sans_match` sits in between at 70%
 with a max reuse of 5 — worth stating, and consistent with it being the
 family whose signal is weakest and the one that fails to learn under joint
-training. Bender v1 is the outlier by a wide margin.
+training.
+
+**bender v2's 28% is not the same failure as v1's 30%**, and the table
+alone cannot tell them apart — see the `bender` section for the separating
+measurement. In short: v2's most-reused design covers 6.0% of instances
+against the constant gate's own 8.0%, and the instances it solves cluster
+5x more tightly in the physical cutoff `lam_c` than the population does,
+whereas v1's spanned nearly the whole target range while cutting none of
+the band. **Read a family against its own gate, not against another
+family** — concentration is bounded below by the task's effective degrees
+of freedom, and bender has one where guide_match has two.
 
 **Use it as a standing check, not a post-hoc one.** It costs nothing (it
 reads the eval file that already exists) and it is the only probe here that
