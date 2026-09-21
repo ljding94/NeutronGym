@@ -307,7 +307,7 @@ Fix: a `hidden_filter` family hook requiring the hidden design to cut
 statistics floor). Only bender's signature moves; the other three families
 keep all 4,710 cached calibrations. v1 artifacts: `runs/m8/bender_v1/`.
 
-### v2 (2026-09-21) — probes, training in flight
+### v2 (2026-09-21) — the family result
 
 | probe | v1 | **v2** |
 |---|---|---|
@@ -316,111 +316,52 @@ keep all 4,710 cached calibrations. v1 artifacts: `runs/m8/bender_v1/`.
 | copy-type readout rules | none apply | **none apply** |
 | analytic cutoff inversion (reference, not gated) | 6.7% (upper95 11.1%) | **12.7% (upper95 18.0%)** |
 
-Baselines on held-out 300–599, and they move too:
+Held-out 300–599, 10 turns, 0 errored:
 
-| arm | v1 | **v2** |
+| policy | passed | 95% CI |
 |---|---|---|
-| untrained 8B | 17.3% | **69/300 (23.0%)** |
-| untrained 32B | 55.7% | **131/300 (43.7%)** |
-| scale gap | 3.2x | **1.9x** |
+| untrained Qwen3-8B | 69/300 (23.0%) | [18.4, 28.2] |
+| untrained Qwen3-32B | 131/300 (43.7%) | [38.0, 49.5] |
+| **GRPO-trained 8B** | **227/300 (75.7%)** | [70.4, 80.4] |
 
-The gate got *cleaner* (8.0% vs 10.7%), as expected: removing the
-transparent instances removes the ones one design solved for free.
+Paired: **163 trained-only vs 5** against the untrained 8B (p = 5.8e-42) and
+**125 vs 29** against the **32B** (p = 2.1e-15). Median turns-to-solve 4
+(untrained 8B 6, 32B 5). So the trained 8B beats the untrained 32B here
+after all — the v1 failure to do so was an artefact of the degenerate slice.
 
-**Retract the v1 claim that bender shows "the largest scale effect in the
-project".** On the repaired family the 32B advantage is 1.9x, not 3.2x —
-comparable to other families rather than exceptional. Part of what looked
-like the 32B's superior physics was it exploiting the degenerate slice
-(its v1 design concentration was 72% distinct with a max reuse of 8, worse
-than any clean family). Note the comparison is not a clean subset: the new
-signature re-drew every instance's hidden design, not only the degenerate
-ones, so v1 and v2 are different task distributions.
+Scale gap on the repaired family: 1.9x (32B 43.7% vs 8B 23.0%), not v1's
+3.2x. **Do not describe bender as the project's largest scale effect.**
 
-State collection on v2 found **54/300 episodes passing (18%)**, so the
-filter removed the free instances without making the family unreachable —
-consistent with 0 `no_headroom` instances at calibration.
+**Design concentration needs a family-specific reading here, and this is
+the subtle part.** The trained policy uses 63 distinct designs for 227
+passes (28%), against guide_match's 98% and tof_chopper's 99% — on its face
+the same signature that exposed v1. It is not, and the measurement that
+separates them is the *physical* degree of freedom rather than the target:
 
-The physics rule went the **other** way — 6.7% → 12.7%. That direction is
-right on reflection: v2 instances all require real filtering, so the cutoff
-physics is genuinely determinative and the hard-step inversion lands closer.
-It stays under the 20% ceiling and is reported as a reference arm, but **do
-not repeat the v1 framing that a closed-form inversion barely works here** —
-on the repaired family it is the strongest physics rule in the project
-(tof_chopper's scored 0.0%, guide_match's 6/16 at ±5%).
-
-Baselines, state collection and GRPO are running from 11:20.
-
-## Joint multi-family training (2026-09-21)
-
-One policy, one LoRA, trained on the pooled states of all three gated
-families at **the same 220-step budget a single specialist gets** — so it
-sees a third as many steps per family. Evaluated on each family's held-out
-300–599, against that family's own 220-step specialist:
-
-| family | untrained 8B | specialist | joint | joint vs specialist (paired) |
-|---|---|---|---|---|
-| guide_match | 34/300 (11.3%) | 230 (76.7%) | **203 (67.7%)** | 40 vs 67, p = 0.012 |
-| sans_match | 67/300 (22.3%) | 115 (38.3%) | **72 (24.0%)** | 21 vs 64, p = 3.3e-6 |
-| tof_chopper | 6/300 (2.0%) | 140 (46.7%) | **165 (55.0%)** | 40 vs 15, p = 0.001 |
-
-Joint vs untrained: guide_match 178-only vs 9 (p = 6.8e-42), tof_chopper
-159-only vs 0 (p = 2.7e-48), sans_match **28 vs 23 (p = 0.58 — no learning
-at all)**.
-
-Two findings, and the second is the interesting one:
-
-- **Pooling is compute-efficient in aggregate.** Mean pass rate 48.9%
-  against the specialists' 53.9% — 91% of the performance for a third of
-  the training compute (220 steps against 660, and that ignores the
-  340-step continuation sans_match needed as a specialist).
-- **Transfer is uneven, and it runs opposite to difficulty.**
-  `tof_chopper` — the family that starts at 2.0%, where episode collection
-  found only 18 of 300 passing and bootstrapping was hardest — is the one
-  pooling *helps*, significantly (55.0% vs 46.7%). `sans_match`, the family
-  whose specialist plateaued and needed a continuation to 340 steps, learns
-  **nothing** when pooled. So the states of other families supply the early
-  gradient a sparse family cannot generate for itself, while a family whose
-  per-step signal is weak rather than sparse simply gets crowded out.
-
-That pair is worth stating plainly: multi-task RL here is not a uniform
-win or loss. It substitutes for missing exploration signal and it competes
-for gradient budget, and which effect dominates depends on whether a
-family's difficulty is *sparsity* (helped) or *weak per-step signal*
-(hurt).
-
-## Supporting results
-
-**Transfer to a family it never trained on** (`guide_divergence`, held-out
-0–299, 0.85x calibrated bar):
-
-| policy on guide | passed | rejected before simulation |
+| | v1 (degenerate) | **v2 (sound)** |
 |---|---|---|
-| untrained 8B | 54/300 (18.0%) | 73 |
-| **`guide_match`-trained 8B (transfer)** | **102/300 (34.0%)** | **20** |
-| untrained 32B | 232/300 (77.3%) | 1 |
-| guide-trained 8B (in-family) | 296/300 (98.7%) | 0 |
+| most-reused design | 17 instances | 18 instances |
+| span of target means it covers | ~the whole held-out range | 60% |
+| hidden lam_c of *all* instances | — | 2.48–9.96 Å, sd 1.51 |
+| hidden lam_c of the instances it solves | — | 5.04–6.57 Å, **sd 0.31** |
 
-Paired vs untrained 8B: 76 transfer-only vs 28 untrained-only, p = 3e-6.
+The v2 design has lam_c = 6.18 Å and the instances it solves cluster **5x
+more tightly** around that value than the population does. It is solving
+instances that genuinely need its cutoff. And it covers **18/300 = 6.0%**,
+*below* the best fixed design the constant gate found (8.0%) — the trained
+policy's most-reused answer underperforms the best constant.
 
-**More RL is not better.** Checkpoints compared on held-out 0–299: untrained
-14.0% → 120 steps 50.0% → **220 steps 73.0%** → 340 steps **56.7%**, while
-training reward kept rising (0.95, ~27% of sampled actions passing at step
-339). Over-optimisation of the reward is visible before it shows in held-out
-performance.
+The reason concentration is intrinsically low for this family: a bender's
+two observables are both determined by the single quantity lam_c, so the
+task has **one effective degree of freedom** where guide_match has two.
+A one-dimensional answer drawn from a distribution with sd/mean ~29% means
+any given design necessarily covers several instances. **Compare bender's
+concentration against its own constant gate, not against guide_match.**
 
-**SFT regressed three times on the same environment** (n=300 paired each):
-
-| run | untrained 8B | trained 8B |
-|---|---|---|
-| guide, per-turn RAFT SFT | 40.3% | 31.3% (p = 0.0013) |
-| SANS, passing-turn SFT (v2 targets) | 31.0% | 27.0% (p = 0.004) |
-| SANS, passing-turn SFT (v3 targets) | 8.3% | 1.0% (p = 3e-6) |
-
-Mechanism, traced by replaying episodes: cloning the model's own successful
-turns teaches a rule conditional on states the model already handled ("keep
-r_pin1, set r_pin2 to the hinted limit"), which becomes a trap elsewhere — the
-trained model resubmitted one design for 8 straight turns from a state it had
-never trained on. GRPO trains on decisions from all states, failures included.
+Honest residual: 18 turn-1 passes (untrained arms: 0). With a
+one-dimensional answer whose population is concentrated, a learned prior
+near the median sometimes lands without feedback. Worth stating; it is why
+the "no turn-1 passes" signature is a claim about the other families.
 
 ## Design concentration — the diagnostic the gate cannot replace (2026-09-21)
 

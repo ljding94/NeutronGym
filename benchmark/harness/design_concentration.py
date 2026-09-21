@@ -14,6 +14,18 @@ instances whose target means spanned nearly the whole held-out range. A
 design that solves instances with very different targets is not solving
 them through the physics.
 
+**Read it against the family's own constant gate, not against another
+family.** Concentration is bounded below by the task's effective degrees of
+freedom: `bender`'s two observables are both set by the single cutoff
+lam_c, so one design necessarily covers several instances and the trained
+policy sits at 28% distinct where `guide_match` (two independent targets)
+reaches 98%. The v2 family is sound anyway -- its most-reused design covers
+6.0% of instances, BELOW the 8.0% the constant gate's best fixed design
+reaches, and the instances it solves cluster 5x more tightly in lam_c than
+the population. What condemned v1 was not the 30% itself but that one
+design spanned nearly the whole target range while cutting none of the
+band. So: low concentration is a flag to investigate, not a verdict.
+
 So this is the diagnostic, and it belongs on every family:
 
   distinct   passing designs / passes         (1.0 = fully instance-specific)
