@@ -1,0 +1,26 @@
+{
+ "family": "sans_match",
+ "split": "heldout",
+ "arms": {
+  "trained-8b": {
+   "passes": 115,
+   "distinct": 80,
+   "distinct_frac": 0.6957,
+   "top_n": 5,
+   "top_n_share": 0.1565,
+   "max_reuse": 5,
+   "max_reuse_design": {
+    "r_pin1": 0.01,
+    "r_pin2": 0.015
+   },
+   "max_reuse_instances": [
+    500,
+    511,
+    515,
+    549,
+    558
+   ],
+   "eval": "runs/m8/eval_sansmatch_fresh_trained-8b.json"
+  }
+ }
+}

@@ -1,0 +1,354 @@
+{
+ "verdict": null,
+ "physics_reference": {
+  "ok": true,
+  "max_rate": 0.2,
+  "best_action": "physics: bender cutoff inversion from mean w=0.035 m=3.375",
+  "best_pass_rate": 0.1267,
+  "best_pass_rate_upper": 0.1803,
+  "underpowered": false,
+  "best_source": "readout",
+  "baseline_passes": 0,
+  "n_instances": 150,
+  "skipped_no_headroom": 0,
+  "n_candidates": 50,
+  "top5": [
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.035 m=3.375",
+    "passes": 19,
+    "pass_rate": 0.1267,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.05 m=3.375",
+    "passes": 16,
+    "pass_rate": 0.1067,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.035 m=2.75",
+    "passes": 15,
+    "pass_rate": 0.1,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.02 m=2.125",
+    "passes": 14,
+    "pass_rate": 0.0933,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.065 m=4.0",
+    "passes": 13,
+    "pass_rate": 0.0867,
+    "source": "readout"
+   }
+  ]
+ },
+ "probe": {
+  "n_instances": 150,
+  "skipped_no_headroom": 0,
+  "results": [
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.02 m=1.5",
+    "passes": 6,
+    "pass_rate": 0.04,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.02 m=2.125",
+    "passes": 14,
+    "pass_rate": 0.0933,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.02 m=2.75",
+    "passes": 7,
+    "pass_rate": 0.0467,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.02 m=3.375",
+    "passes": 3,
+    "pass_rate": 0.02,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.02 m=4.0",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.035 m=1.5",
+    "passes": 5,
+    "pass_rate": 0.0333,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.035 m=2.125",
+    "passes": 6,
+    "pass_rate": 0.04,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.035 m=2.75",
+    "passes": 15,
+    "pass_rate": 0.1,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.035 m=3.375",
+    "passes": 19,
+    "pass_rate": 0.1267,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.035 m=4.0",
+    "passes": 4,
+    "pass_rate": 0.0267,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.05 m=1.5",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.05 m=2.125",
+    "passes": 7,
+    "pass_rate": 0.0467,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.05 m=2.75",
+    "passes": 9,
+    "pass_rate": 0.06,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.05 m=3.375",
+    "passes": 16,
+    "pass_rate": 0.1067,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.05 m=4.0",
+    "passes": 12,
+    "pass_rate": 0.08,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.065 m=1.5",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.065 m=2.125",
+    "passes": 8,
+    "pass_rate": 0.0533,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.065 m=2.75",
+    "passes": 6,
+    "pass_rate": 0.04,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.065 m=3.375",
+    "passes": 5,
+    "pass_rate": 0.0333,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.065 m=4.0",
+    "passes": 13,
+    "pass_rate": 0.0867,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.08 m=1.5",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.08 m=2.125",
+    "passes": 2,
+    "pass_rate": 0.0133,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.08 m=2.75",
+    "passes": 4,
+    "pass_rate": 0.0267,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.08 m=3.375",
+    "passes": 8,
+    "pass_rate": 0.0533,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from mean w=0.08 m=4.0",
+    "passes": 7,
+    "pass_rate": 0.0467,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.02 m=1.5",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.02 m=2.125",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.02 m=2.75",
+    "passes": 3,
+    "pass_rate": 0.02,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.02 m=3.375",
+    "passes": 11,
+    "pass_rate": 0.0733,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.02 m=4.0",
+    "passes": 4,
+    "pass_rate": 0.0267,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.035 m=1.5",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.035 m=2.125",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.035 m=2.75",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.035 m=3.375",
+    "passes": 1,
+    "pass_rate": 0.0067,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.035 m=4.0",
+    "passes": 3,
+    "pass_rate": 0.02,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.05 m=1.5",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.05 m=2.125",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.05 m=2.75",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.05 m=3.375",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.05 m=4.0",
+    "passes": 1,
+    "pass_rate": 0.0067,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.065 m=1.5",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.065 m=2.125",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.065 m=2.75",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.065 m=3.375",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.065 m=4.0",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.08 m=1.5",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.08 m=2.125",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.08 m=2.75",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.08 m=3.375",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   },
+   {
+    "action": "physics: bender cutoff inversion from std w=0.08 m=4.0",
+    "passes": 0,
+    "pass_rate": 0.0,
+    "source": "readout"
+   }
+  ]
+ }
+}

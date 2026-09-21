@@ -1,0 +1,24 @@
+{
+ "family": "tof_chopper",
+ "split": "heldout",
+ "arms": {
+  "trained-8b": {
+   "passes": 140,
+   "distinct": 138,
+   "distinct_frac": 0.9857,
+   "top_n": 5,
+   "top_n_share": 0.05,
+   "max_reuse": 2,
+   "max_reuse_design": {
+    "nu": 30.0,
+    "phase": 205.0,
+    "theta2": 9.0
+   },
+   "max_reuse_instances": [
+    396,
+    401
+   ],
+   "eval": "runs/m8/eval_tof_fresh_trained-8b.json"
+  }
+ }
+}

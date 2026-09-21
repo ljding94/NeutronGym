@@ -1,0 +1,63 @@
+{
+ "family": "bender",
+ "split": "heldout",
+ "arms": {
+  "trained-8b": {
+   "passes": 227,
+   "distinct": 63,
+   "distinct_frac": 0.2775,
+   "top_n": 5,
+   "top_n_share": 0.3172,
+   "max_reuse": 18,
+   "max_reuse_design": {
+    "m_coat": 2.5,
+    "r_curve": 150.0,
+    "w_ch": 0.05
+   },
+   "max_reuse_instances": [
+    303,
+    312,
+    318,
+    352,
+    384,
+    419,
+    420,
+    422,
+    451,
+    455,
+    457,
+    459,
+    463,
+    466,
+    478,
+    505,
+    512,
+    592
+   ],
+   "eval": "runs/m8/eval_bender_fresh_trained-8b.json"
+  },
+  "untrained-32b": {
+   "passes": 131,
+   "distinct": 100,
+   "distinct_frac": 0.7634,
+   "top_n": 5,
+   "top_n_share": 0.1832,
+   "max_reuse": 7,
+   "max_reuse_design": {
+    "m_coat": 3.0,
+    "r_curve": 250.0,
+    "w_ch": 0.04
+   },
+   "max_reuse_instances": [
+    321,
+    378,
+    472,
+    486,
+    536,
+    555,
+    557
+   ],
+   "eval": "runs/m8/eval_bender_fresh_untrained-32b.json"
+  }
+ }
+}

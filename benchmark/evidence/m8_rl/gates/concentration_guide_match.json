@@ -1,0 +1,24 @@
+{
+ "family": "guide_match",
+ "split": "heldout",
+ "arms": {
+  "trained-8b": {
+   "passes": 230,
+   "distinct": 225,
+   "distinct_frac": 0.9783,
+   "top_n": 5,
+   "top_n_share": 0.0435,
+   "max_reuse": 2,
+   "max_reuse_design": {
+    "m_coat": 2.6,
+    "w_in": 0.06,
+    "w_out": 0.06
+   },
+   "max_reuse_instances": [
+    304,
+    423
+   ],
+   "eval": "runs/m8/eval_match_fresh_trained-8b.json"
+  }
+ }
+}

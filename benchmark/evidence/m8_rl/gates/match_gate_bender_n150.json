@@ -1,0 +1,3093 @@
+{
+ "verdict": {
+  "ok": true,
+  "max_rate": 0.2,
+  "best_action": {
+   "r_curve": 161.773966,
+   "w_ch": 0.050992,
+   "m_coat": 3.106019
+  },
+  "best_pass_rate": 0.08,
+  "best_pass_rate_upper": 0.1264,
+  "underpowered": false,
+  "best_source": "hidden-of-other-instance",
+  "baseline_passes": 0,
+  "n_instances": 150,
+  "skipped_no_headroom": 0,
+  "n_candidates": 302,
+  "top5": [
+   {
+    "action": {
+     "r_curve": 161.773966,
+     "w_ch": 0.050992,
+     "m_coat": 3.106019
+    },
+    "passes": 12,
+    "pass_rate": 0.08,
+    "source": "hidden-of-other-instance"
+   },
+   {
+    "action": {
+     "r_curve": 167.5,
+     "w_ch": 0.065,
+     "m_coat": 3.375
+    },
+    "passes": 11,
+    "pass_rate": 0.0733,
+    "source": "grid"
+   },
+   {
+    "action": {
+     "r_curve": 193.164435,
+     "w_ch": 0.050845,
+     "m_coat": 2.041352
+    },
+    "passes": 10,
+    "pass_rate": 0.0667,
+    "source": "hidden-of-other-instance"
+   },
+   {
+    "action": {
+     "r_curve": 419.081657,
+     "w_ch": 0.079103,
+     "m_coat": 2.216754
+    },
+    "passes": 10,
+    "pass_rate": 0.0667,
+    "source": "hidden-of-other-instance"
+   },
+   {
+    "action": {
+     "r_curve": 249.984809,
+     "w_ch": 0.057212,
+     "m_coat": 2.297664
+    },
+    "passes": 10,
+    "pass_rate": 0.0667,
+    "source": "hidden-of-other-instance"
+   }
+  ]
+ },
+ "pool": [
+  {
+   "action": {
+    "r_curve": 200.0,
+    "w_ch": 0.03,
+    "m_coat": 2.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "baseline"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.02,
+    "m_coat": 1.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.02,
+    "m_coat": 2.125
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.02,
+    "m_coat": 2.75
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.02,
+    "m_coat": 3.375
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.02,
+    "m_coat": 4.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.035,
+    "m_coat": 1.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.035,
+    "m_coat": 2.125
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.035,
+    "m_coat": 2.75
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.035,
+    "m_coat": 3.375
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.035,
+    "m_coat": 4.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.05,
+    "m_coat": 1.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.05,
+    "m_coat": 2.125
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.05,
+    "m_coat": 2.75
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.05,
+    "m_coat": 3.375
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.05,
+    "m_coat": 4.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.065,
+    "m_coat": 1.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.065,
+    "m_coat": 2.125
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.065,
+    "m_coat": 2.75
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.065,
+    "m_coat": 3.375
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.065,
+    "m_coat": 4.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.08,
+    "m_coat": 1.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.08,
+    "m_coat": 2.125
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.08,
+    "m_coat": 2.75
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.08,
+    "m_coat": 3.375
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 40.0,
+    "w_ch": 0.08,
+    "m_coat": 4.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.02,
+    "m_coat": 1.5
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.02,
+    "m_coat": 2.125
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.02,
+    "m_coat": 2.75
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.02,
+    "m_coat": 3.375
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.02,
+    "m_coat": 4.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.035,
+    "m_coat": 1.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.035,
+    "m_coat": 2.125
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.035,
+    "m_coat": 2.75
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.035,
+    "m_coat": 3.375
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.035,
+    "m_coat": 4.0
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.05,
+    "m_coat": 1.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.05,
+    "m_coat": 2.125
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.05,
+    "m_coat": 2.75
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.05,
+    "m_coat": 3.375
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.05,
+    "m_coat": 4.0
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.065,
+    "m_coat": 1.5
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.065,
+    "m_coat": 2.125
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.065,
+    "m_coat": 2.75
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.065,
+    "m_coat": 3.375
+   },
+   "passes": 11,
+   "pass_rate": 0.0733,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.065,
+    "m_coat": 4.0
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.08,
+    "m_coat": 1.5
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.08,
+    "m_coat": 2.125
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.08,
+    "m_coat": 2.75
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.08,
+    "m_coat": 3.375
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 167.5,
+    "w_ch": 0.08,
+    "m_coat": 4.0
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.02,
+    "m_coat": 1.5
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.02,
+    "m_coat": 2.125
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.02,
+    "m_coat": 2.75
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.02,
+    "m_coat": 3.375
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.02,
+    "m_coat": 4.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.035,
+    "m_coat": 1.5
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.035,
+    "m_coat": 2.125
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.035,
+    "m_coat": 2.75
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.035,
+    "m_coat": 3.375
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.035,
+    "m_coat": 4.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.05,
+    "m_coat": 1.5
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.05,
+    "m_coat": 2.125
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.05,
+    "m_coat": 2.75
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.05,
+    "m_coat": 3.375
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.05,
+    "m_coat": 4.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.065,
+    "m_coat": 1.5
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.065,
+    "m_coat": 2.125
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.065,
+    "m_coat": 2.75
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.065,
+    "m_coat": 3.375
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.065,
+    "m_coat": 4.0
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.08,
+    "m_coat": 1.5
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.08,
+    "m_coat": 2.125
+   },
+   "passes": 8,
+   "pass_rate": 0.0533,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.08,
+    "m_coat": 2.75
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.08,
+    "m_coat": 3.375
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 295.0,
+    "w_ch": 0.08,
+    "m_coat": 4.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.02,
+    "m_coat": 1.5
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.02,
+    "m_coat": 2.125
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.02,
+    "m_coat": 2.75
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.02,
+    "m_coat": 3.375
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.02,
+    "m_coat": 4.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.035,
+    "m_coat": 1.5
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.035,
+    "m_coat": 2.125
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.035,
+    "m_coat": 2.75
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.035,
+    "m_coat": 3.375
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.035,
+    "m_coat": 4.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.05,
+    "m_coat": 1.5
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.05,
+    "m_coat": 2.125
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.05,
+    "m_coat": 2.75
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.05,
+    "m_coat": 3.375
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.05,
+    "m_coat": 4.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.065,
+    "m_coat": 1.5
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.065,
+    "m_coat": 2.125
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.065,
+    "m_coat": 2.75
+   },
+   "passes": 8,
+   "pass_rate": 0.0533,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.065,
+    "m_coat": 3.375
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.065,
+    "m_coat": 4.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.08,
+    "m_coat": 1.5
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.08,
+    "m_coat": 2.125
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.08,
+    "m_coat": 2.75
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.08,
+    "m_coat": 3.375
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 422.5,
+    "w_ch": 0.08,
+    "m_coat": 4.0
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.02,
+    "m_coat": 1.5
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.02,
+    "m_coat": 2.125
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.02,
+    "m_coat": 2.75
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.02,
+    "m_coat": 3.375
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.02,
+    "m_coat": 4.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.035,
+    "m_coat": 1.5
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.035,
+    "m_coat": 2.125
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.035,
+    "m_coat": 2.75
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.035,
+    "m_coat": 3.375
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.035,
+    "m_coat": 4.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.05,
+    "m_coat": 1.5
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.05,
+    "m_coat": 2.125
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.05,
+    "m_coat": 2.75
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.05,
+    "m_coat": 3.375
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.05,
+    "m_coat": 4.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.065,
+    "m_coat": 1.5
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.065,
+    "m_coat": 2.125
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.065,
+    "m_coat": 2.75
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.065,
+    "m_coat": 3.375
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.065,
+    "m_coat": 4.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.08,
+    "m_coat": 1.5
+   },
+   "passes": 9,
+   "pass_rate": 0.06,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.08,
+    "m_coat": 2.125
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.08,
+    "m_coat": 2.75
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.08,
+    "m_coat": 3.375
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 550.0,
+    "w_ch": 0.08,
+    "m_coat": 4.0
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "grid"
+  },
+  {
+   "action": {
+    "r_curve": 298.370696,
+    "w_ch": 0.071174,
+    "m_coat": 3.604498
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 193.164435,
+    "w_ch": 0.050845,
+    "m_coat": 2.041352
+   },
+   "passes": 10,
+   "pass_rate": 0.0667,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 112.006845,
+    "w_ch": 0.027424,
+    "m_coat": 1.967059
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 393.942704,
+    "w_ch": 0.06027,
+    "m_coat": 2.315567
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 529.480004,
+    "w_ch": 0.033145,
+    "m_coat": 1.723739
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 112.013412,
+    "w_ch": 0.073332,
+    "m_coat": 3.344022
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 276.638855,
+    "w_ch": 0.03202,
+    "m_coat": 1.650153
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 72.619815,
+    "w_ch": 0.053799,
+    "m_coat": 3.595452
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 423.301027,
+    "w_ch": 0.030172,
+    "m_coat": 1.941392
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 243.211591,
+    "w_ch": 0.027986,
+    "m_coat": 1.563107
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 106.792644,
+    "w_ch": 0.02253,
+    "m_coat": 2.843567
+   },
+   "passes": 9,
+   "pass_rate": 0.06,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 549.969389,
+    "w_ch": 0.023266,
+    "m_coat": 1.704734
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 206.125319,
+    "w_ch": 0.065019,
+    "m_coat": 2.569211
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 363.04511,
+    "w_ch": 0.056344,
+    "m_coat": 3.298241
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 409.363842,
+    "w_ch": 0.067049,
+    "m_coat": 2.756973
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 516.761153,
+    "w_ch": 0.041236,
+    "m_coat": 1.925418
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 432.667586,
+    "w_ch": 0.05931,
+    "m_coat": 2.493729
+   },
+   "passes": 8,
+   "pass_rate": 0.0533,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 174.613284,
+    "w_ch": 0.067816,
+    "m_coat": 3.818901
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 163.212205,
+    "w_ch": 0.036756,
+    "m_coat": 1.945549
+   },
+   "passes": 9,
+   "pass_rate": 0.06,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 419.081657,
+    "w_ch": 0.079103,
+    "m_coat": 2.216754
+   },
+   "passes": 10,
+   "pass_rate": 0.0667,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 443.296981,
+    "w_ch": 0.063487,
+    "m_coat": 3.359203
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 76.662754,
+    "w_ch": 0.025055,
+    "m_coat": 2.46054
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 523.583044,
+    "w_ch": 0.053217,
+    "m_coat": 2.12367
+   },
+   "passes": 8,
+   "pass_rate": 0.0533,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 227.735421,
+    "w_ch": 0.050626,
+    "m_coat": 1.789449
+   },
+   "passes": 8,
+   "pass_rate": 0.0533,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 418.921328,
+    "w_ch": 0.051385,
+    "m_coat": 2.318867
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 326.559963,
+    "w_ch": 0.076308,
+    "m_coat": 2.340105
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 265.882712,
+    "w_ch": 0.034708,
+    "m_coat": 3.970016
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 201.80777,
+    "w_ch": 0.079717,
+    "m_coat": 2.025032
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 470.67287,
+    "w_ch": 0.079337,
+    "m_coat": 3.700978
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 310.108358,
+    "w_ch": 0.06402,
+    "m_coat": 3.186221
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 537.102978,
+    "w_ch": 0.077565,
+    "m_coat": 1.996874
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 285.997679,
+    "w_ch": 0.075969,
+    "m_coat": 2.647908
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 409.620453,
+    "w_ch": 0.037246,
+    "m_coat": 2.417866
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 535.183718,
+    "w_ch": 0.04773,
+    "m_coat": 3.138714
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 498.870727,
+    "w_ch": 0.061681,
+    "m_coat": 2.321199
+   },
+   "passes": 8,
+   "pass_rate": 0.0533,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 128.093015,
+    "w_ch": 0.035484,
+    "m_coat": 3.041044
+   },
+   "passes": 8,
+   "pass_rate": 0.0533,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 312.167487,
+    "w_ch": 0.032106,
+    "m_coat": 2.358736
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 342.588155,
+    "w_ch": 0.074317,
+    "m_coat": 3.921698
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 378.672721,
+    "w_ch": 0.042055,
+    "m_coat": 1.611748
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 141.591235,
+    "w_ch": 0.031073,
+    "m_coat": 1.864317
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 379.085697,
+    "w_ch": 0.056178,
+    "m_coat": 1.567306
+   },
+   "passes": 8,
+   "pass_rate": 0.0533,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 229.146476,
+    "w_ch": 0.078458,
+    "m_coat": 2.921788
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 72.624225,
+    "w_ch": 0.078268,
+    "m_coat": 3.111396
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 78.855923,
+    "w_ch": 0.047788,
+    "m_coat": 3.722007
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 174.154711,
+    "w_ch": 0.031227,
+    "m_coat": 2.229833
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 388.436887,
+    "w_ch": 0.076047,
+    "m_coat": 1.554687
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 320.531285,
+    "w_ch": 0.075269,
+    "m_coat": 1.84655
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 355.217186,
+    "w_ch": 0.066528,
+    "m_coat": 2.603766
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 521.738162,
+    "w_ch": 0.073834,
+    "m_coat": 2.624964
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 471.963213,
+    "w_ch": 0.076508,
+    "m_coat": 3.843941
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 114.684559,
+    "w_ch": 0.064514,
+    "m_coat": 3.340398
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 239.781709,
+    "w_ch": 0.063427,
+    "m_coat": 3.799253
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 332.92065,
+    "w_ch": 0.071381,
+    "m_coat": 2.231139
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 250.08061,
+    "w_ch": 0.048485,
+    "m_coat": 2.094556
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 337.556655,
+    "w_ch": 0.074842,
+    "m_coat": 2.432331
+   },
+   "passes": 8,
+   "pass_rate": 0.0533,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 194.941185,
+    "w_ch": 0.075255,
+    "m_coat": 3.558301
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 213.692823,
+    "w_ch": 0.076997,
+    "m_coat": 3.478725
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 464.270365,
+    "w_ch": 0.040523,
+    "m_coat": 2.410548
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 537.28647,
+    "w_ch": 0.069731,
+    "m_coat": 2.173503
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 435.200634,
+    "w_ch": 0.075915,
+    "m_coat": 2.098366
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 315.155543,
+    "w_ch": 0.061086,
+    "m_coat": 2.914623
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 195.59484,
+    "w_ch": 0.076385,
+    "m_coat": 2.298549
+   },
+   "passes": 8,
+   "pass_rate": 0.0533,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 307.680709,
+    "w_ch": 0.064261,
+    "m_coat": 1.685372
+   },
+   "passes": 8,
+   "pass_rate": 0.0533,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 245.479017,
+    "w_ch": 0.070489,
+    "m_coat": 2.682448
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 228.035785,
+    "w_ch": 0.024158,
+    "m_coat": 1.847421
+   },
+   "passes": 9,
+   "pass_rate": 0.06,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 237.398689,
+    "w_ch": 0.066917,
+    "m_coat": 2.464179
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 311.245879,
+    "w_ch": 0.042313,
+    "m_coat": 1.934751
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 368.644015,
+    "w_ch": 0.063745,
+    "m_coat": 2.835176
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 334.019393,
+    "w_ch": 0.054557,
+    "m_coat": 2.990422
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 301.644448,
+    "w_ch": 0.025336,
+    "m_coat": 2.560709
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 147.530429,
+    "w_ch": 0.072689,
+    "m_coat": 3.61373
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 233.454007,
+    "w_ch": 0.029336,
+    "m_coat": 1.859392
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 300.340761,
+    "w_ch": 0.059204,
+    "m_coat": 2.001192
+   },
+   "passes": 8,
+   "pass_rate": 0.0533,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 154.933996,
+    "w_ch": 0.071771,
+    "m_coat": 2.635786
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 333.088124,
+    "w_ch": 0.026521,
+    "m_coat": 2.078085
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 347.254342,
+    "w_ch": 0.075073,
+    "m_coat": 1.675905
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 150.732259,
+    "w_ch": 0.047553,
+    "m_coat": 2.789377
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 113.160793,
+    "w_ch": 0.064264,
+    "m_coat": 3.947961
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 131.334374,
+    "w_ch": 0.029763,
+    "m_coat": 3.147587
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 426.696527,
+    "w_ch": 0.057393,
+    "m_coat": 1.720445
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 420.362716,
+    "w_ch": 0.074837,
+    "m_coat": 2.31015
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 92.626245,
+    "w_ch": 0.075456,
+    "m_coat": 2.69217
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 340.575566,
+    "w_ch": 0.07177,
+    "m_coat": 3.367346
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 295.714297,
+    "w_ch": 0.057271,
+    "m_coat": 2.2268
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 261.588698,
+    "w_ch": 0.063313,
+    "m_coat": 2.688928
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 414.983914,
+    "w_ch": 0.071629,
+    "m_coat": 2.572932
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 315.855651,
+    "w_ch": 0.061678,
+    "m_coat": 3.125327
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 476.878624,
+    "w_ch": 0.064505,
+    "m_coat": 2.519681
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 158.610731,
+    "w_ch": 0.024017,
+    "m_coat": 1.52139
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 140.561081,
+    "w_ch": 0.033052,
+    "m_coat": 2.163213
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 458.565555,
+    "w_ch": 0.022252,
+    "m_coat": 1.973456
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 249.984809,
+    "w_ch": 0.057212,
+    "m_coat": 2.297664
+   },
+   "passes": 10,
+   "pass_rate": 0.0667,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 185.832438,
+    "w_ch": 0.059441,
+    "m_coat": 2.688225
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 319.34345,
+    "w_ch": 0.062067,
+    "m_coat": 3.362094
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 161.454642,
+    "w_ch": 0.035341,
+    "m_coat": 2.42965
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 138.401485,
+    "w_ch": 0.064664,
+    "m_coat": 2.607541
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 139.282188,
+    "w_ch": 0.044837,
+    "m_coat": 3.159472
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 329.852907,
+    "w_ch": 0.077262,
+    "m_coat": 2.202617
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 515.569156,
+    "w_ch": 0.031907,
+    "m_coat": 2.251724
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 120.618386,
+    "w_ch": 0.024369,
+    "m_coat": 2.796605
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 317.559249,
+    "w_ch": 0.077114,
+    "m_coat": 3.866535
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 188.908537,
+    "w_ch": 0.050041,
+    "m_coat": 2.777176
+   },
+   "passes": 10,
+   "pass_rate": 0.0667,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 314.890904,
+    "w_ch": 0.041907,
+    "m_coat": 2.428041
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 339.767874,
+    "w_ch": 0.07889,
+    "m_coat": 2.01068
+   },
+   "passes": 9,
+   "pass_rate": 0.06,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 176.034804,
+    "w_ch": 0.044478,
+    "m_coat": 2.022052
+   },
+   "passes": 9,
+   "pass_rate": 0.06,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 367.354125,
+    "w_ch": 0.04374,
+    "m_coat": 2.709444
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 61.754229,
+    "w_ch": 0.037414,
+    "m_coat": 3.206868
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 113.085248,
+    "w_ch": 0.03209,
+    "m_coat": 2.379894
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 454.584392,
+    "w_ch": 0.050929,
+    "m_coat": 2.111833
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 315.770326,
+    "w_ch": 0.057921,
+    "m_coat": 1.878602
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 214.203483,
+    "w_ch": 0.078264,
+    "m_coat": 2.614936
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 462.973288,
+    "w_ch": 0.06965,
+    "m_coat": 2.91681
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 122.564492,
+    "w_ch": 0.032107,
+    "m_coat": 3.433123
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 92.752121,
+    "w_ch": 0.055334,
+    "m_coat": 3.608872
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 98.684538,
+    "w_ch": 0.038838,
+    "m_coat": 2.385155
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 182.327445,
+    "w_ch": 0.051683,
+    "m_coat": 2.154287
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 162.73652,
+    "w_ch": 0.072085,
+    "m_coat": 2.865525
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 64.176433,
+    "w_ch": 0.038253,
+    "m_coat": 3.837978
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 188.546965,
+    "w_ch": 0.021852,
+    "m_coat": 1.908948
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 357.297693,
+    "w_ch": 0.052149,
+    "m_coat": 2.67682
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 126.60904,
+    "w_ch": 0.043198,
+    "m_coat": 2.198305
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 67.925445,
+    "w_ch": 0.074332,
+    "m_coat": 3.505422
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 97.543771,
+    "w_ch": 0.045106,
+    "m_coat": 2.826759
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 499.086962,
+    "w_ch": 0.062606,
+    "m_coat": 2.686417
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 241.332217,
+    "w_ch": 0.066448,
+    "m_coat": 2.813132
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 118.215029,
+    "w_ch": 0.037218,
+    "m_coat": 2.109703
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 201.503777,
+    "w_ch": 0.022087,
+    "m_coat": 1.864369
+   },
+   "passes": 8,
+   "pass_rate": 0.0533,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 104.681435,
+    "w_ch": 0.068739,
+    "m_coat": 3.428684
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 200.276839,
+    "w_ch": 0.030732,
+    "m_coat": 1.698877
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 221.439934,
+    "w_ch": 0.068295,
+    "m_coat": 2.310019
+   },
+   "passes": 8,
+   "pass_rate": 0.0533,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 515.312978,
+    "w_ch": 0.073715,
+    "m_coat": 1.809518
+   },
+   "passes": 8,
+   "pass_rate": 0.0533,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 321.885242,
+    "w_ch": 0.077373,
+    "m_coat": 1.680352
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 268.670211,
+    "w_ch": 0.021664,
+    "m_coat": 2.405429
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 273.260385,
+    "w_ch": 0.061792,
+    "m_coat": 2.521439
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 83.605112,
+    "w_ch": 0.027227,
+    "m_coat": 3.185685
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 136.2113,
+    "w_ch": 0.05646,
+    "m_coat": 2.81128
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 363.499523,
+    "w_ch": 0.052457,
+    "m_coat": 1.883292
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 338.099344,
+    "w_ch": 0.065673,
+    "m_coat": 1.749368
+   },
+   "passes": 8,
+   "pass_rate": 0.0533,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 204.074712,
+    "w_ch": 0.052947,
+    "m_coat": 2.524004
+   },
+   "passes": 9,
+   "pass_rate": 0.06,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 100.448163,
+    "w_ch": 0.055424,
+    "m_coat": 3.887481
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 241.997467,
+    "w_ch": 0.078027,
+    "m_coat": 2.761541
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 234.749542,
+    "w_ch": 0.063244,
+    "m_coat": 2.765554
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 158.030757,
+    "w_ch": 0.066863,
+    "m_coat": 3.587358
+   },
+   "passes": 9,
+   "pass_rate": 0.06,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 98.155086,
+    "w_ch": 0.021239,
+    "m_coat": 3.304493
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 161.773966,
+    "w_ch": 0.050992,
+    "m_coat": 3.106019
+   },
+   "passes": 12,
+   "pass_rate": 0.08,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 512.467478,
+    "w_ch": 0.078308,
+    "m_coat": 2.739539
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 121.732181,
+    "w_ch": 0.074165,
+    "m_coat": 3.800308
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 61.2883,
+    "w_ch": 0.021904,
+    "m_coat": 3.944749
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 356.054581,
+    "w_ch": 0.071022,
+    "m_coat": 3.180047
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 433.025741,
+    "w_ch": 0.075915,
+    "m_coat": 1.883481
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "hidden-of-other-instance"
+  },
+  {
+   "action": {
+    "r_curve": 129.898966,
+    "w_ch": 0.047242,
+    "m_coat": 2.949769
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 129.898966,
+    "w_ch": 0.047242,
+    "m_coat": 3.106019
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 129.898966,
+    "w_ch": 0.047242,
+    "m_coat": 3.262269
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 129.898966,
+    "w_ch": 0.050992,
+    "m_coat": 2.949769
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 129.898966,
+    "w_ch": 0.050992,
+    "m_coat": 3.106019
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 129.898966,
+    "w_ch": 0.050992,
+    "m_coat": 3.262269
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 129.898966,
+    "w_ch": 0.054742,
+    "m_coat": 2.949769
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 129.898966,
+    "w_ch": 0.054742,
+    "m_coat": 3.106019
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 129.898966,
+    "w_ch": 0.054742,
+    "m_coat": 3.262269
+   },
+   "passes": 6,
+   "pass_rate": 0.04,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 161.773966,
+    "w_ch": 0.047242,
+    "m_coat": 2.949769
+   },
+   "passes": 9,
+   "pass_rate": 0.06,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 161.773966,
+    "w_ch": 0.047242,
+    "m_coat": 3.106019
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 161.773966,
+    "w_ch": 0.047242,
+    "m_coat": 3.262269
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 161.773966,
+    "w_ch": 0.050992,
+    "m_coat": 2.949769
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 161.773966,
+    "w_ch": 0.050992,
+    "m_coat": 3.262269
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 161.773966,
+    "w_ch": 0.054742,
+    "m_coat": 2.949769
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 161.773966,
+    "w_ch": 0.054742,
+    "m_coat": 3.106019
+   },
+   "passes": 5,
+   "pass_rate": 0.0333,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 161.773966,
+    "w_ch": 0.054742,
+    "m_coat": 3.262269
+   },
+   "passes": 7,
+   "pass_rate": 0.0467,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 193.648966,
+    "w_ch": 0.047242,
+    "m_coat": 2.949769
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 193.648966,
+    "w_ch": 0.047242,
+    "m_coat": 3.106019
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 193.648966,
+    "w_ch": 0.047242,
+    "m_coat": 3.262269
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 193.648966,
+    "w_ch": 0.050992,
+    "m_coat": 2.949769
+   },
+   "passes": 4,
+   "pass_rate": 0.0267,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 193.648966,
+    "w_ch": 0.050992,
+    "m_coat": 3.106019
+   },
+   "passes": 1,
+   "pass_rate": 0.0067,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 193.648966,
+    "w_ch": 0.050992,
+    "m_coat": 3.262269
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 193.648966,
+    "w_ch": 0.054742,
+    "m_coat": 2.949769
+   },
+   "passes": 2,
+   "pass_rate": 0.0133,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 193.648966,
+    "w_ch": 0.054742,
+    "m_coat": 3.106019
+   },
+   "passes": 3,
+   "pass_rate": 0.02,
+   "source": "refined"
+  },
+  {
+   "action": {
+    "r_curve": 193.648966,
+    "w_ch": 0.054742,
+    "m_coat": 3.262269
+   },
+   "passes": 0,
+   "pass_rate": 0.0,
+   "source": "refined"
+  }
+ ]
+}

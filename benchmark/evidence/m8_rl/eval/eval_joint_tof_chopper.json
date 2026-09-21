@@ -1,0 +1,3401 @@
+{
+ "target_fraction": 0.85,
+ "n_per_family": 300,
+ "families": [
+  "tof_chopper"
+ ],
+ "trained_model": "qwen3-8b-m8-jointgrpo",
+ "reused_arms": {},
+ "max_steps": 10,
+ "split": "heldout",
+ "start_index": 300,
+ "match_tolerance": null,
+ "temperature": 0.0,
+ "arms": {
+  "trained-8b": {
+   "n_valid": 300,
+   "passes": 165,
+   "pass_rate": 0.55,
+   "level_histogram": {
+    "0": 0,
+    "1": 0,
+    "2": 0,
+    "3": 135,
+    "4": 165
+   },
+   "mean_level": 3.55,
+   "steps_to_success_median": 4,
+   "steps_all_median": 6.0,
+   "fom_ratio_median": 1.074,
+   "fom_ratio_max": 28.604
+  }
+ },
+ "heldout": {
+  "trained-8b": {
+   "tof_chopper": {
+    "rows": [
+     {
+      "instance": 300,
+      "instance_id": "tof_chopper-heldout-000300",
+      "best_level": 3,
+      "best_reward": 0.763428,
+      "best_fom_ratio": 0.053714,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 301,
+      "instance_id": "tof_chopper-heldout-000301",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.6161,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 210.0,
+       "theta2": 9.5
+      },
+      "steps": 4
+     },
+     {
+      "instance": 302,
+      "instance_id": "tof_chopper-heldout-000302",
+      "best_level": 3,
+      "best_reward": 0.763526,
+      "best_fom_ratio": 0.054104,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 303,
+      "instance_id": "tof_chopper-heldout-000303",
+      "best_level": 4,
+      "best_reward": 1.205807,
+      "best_fom_ratio": 1.823226,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 121.0,
+       "theta2": 4.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 304,
+      "instance_id": "tof_chopper-heldout-000304",
+      "best_level": 3,
+      "best_reward": 0.763439,
+      "best_fom_ratio": 0.053755,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 305,
+      "instance_id": "tof_chopper-heldout-000305",
+      "best_level": 3,
+      "best_reward": 0.76333,
+      "best_fom_ratio": 0.053319,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 306,
+      "instance_id": "tof_chopper-heldout-000306",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.231311,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 170.0,
+       "theta2": 10.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 307,
+      "instance_id": "tof_chopper-heldout-000307",
+      "best_level": 3,
+      "best_reward": 0.772536,
+      "best_fom_ratio": 0.090144,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 308,
+      "instance_id": "tof_chopper-heldout-000308",
+      "best_level": 3,
+      "best_reward": 0.76344,
+      "best_fom_ratio": 0.053761,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 309,
+      "instance_id": "tof_chopper-heldout-000309",
+      "best_level": 3,
+      "best_reward": 0.763245,
+      "best_fom_ratio": 0.052979,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 310,
+      "instance_id": "tof_chopper-heldout-000310",
+      "best_level": 3,
+      "best_reward": 0.763432,
+      "best_fom_ratio": 0.053728,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 311,
+      "instance_id": "tof_chopper-heldout-000311",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 4.811881,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 75.0,
+       "theta2": 7.5
+      },
+      "steps": 4
+     },
+     {
+      "instance": 312,
+      "instance_id": "tof_chopper-heldout-000312",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 4.94905,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 65.0,
+       "theta2": 9.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 313,
+      "instance_id": "tof_chopper-heldout-000313",
+      "best_level": 3,
+      "best_reward": 0.767236,
+      "best_fom_ratio": 0.068944,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 314,
+      "instance_id": "tof_chopper-heldout-000314",
+      "best_level": 4,
+      "best_reward": 1.102938,
+      "best_fom_ratio": 1.41175,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 63.0,
+       "theta2": 17.5
+      },
+      "steps": 6
+     },
+     {
+      "instance": 315,
+      "instance_id": "tof_chopper-heldout-000315",
+      "best_level": 4,
+      "best_reward": 1.033395,
+      "best_fom_ratio": 1.133579,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 220.0,
+       "theta2": 8.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 316,
+      "instance_id": "tof_chopper-heldout-000316",
+      "best_level": 4,
+      "best_reward": 1.074273,
+      "best_fom_ratio": 1.297092,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 73.0,
+       "theta2": 12.0
+      },
+      "steps": 5
+     },
+     {
+      "instance": 317,
+      "instance_id": "tof_chopper-heldout-000317",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 12.68352,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 63.0,
+       "theta2": 9.0
+      },
+      "steps": 5
+     },
+     {
+      "instance": 318,
+      "instance_id": "tof_chopper-heldout-000318",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.124908,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 54.0,
+       "theta2": 6.0
+      },
+      "steps": 6
+     },
+     {
+      "instance": 319,
+      "instance_id": "tof_chopper-heldout-000319",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.560603,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 205.0,
+       "theta2": 5.5
+      },
+      "steps": 4
+     },
+     {
+      "instance": 320,
+      "instance_id": "tof_chopper-heldout-000320",
+      "best_level": 4,
+      "best_reward": 1.056584,
+      "best_fom_ratio": 1.226335,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 150.0,
+       "theta2": 8.0
+      },
+      "steps": 5
+     },
+     {
+      "instance": 321,
+      "instance_id": "tof_chopper-heldout-000321",
+      "best_level": 3,
+      "best_reward": 0.833114,
+      "best_fom_ratio": 0.332454,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 322,
+      "instance_id": "tof_chopper-heldout-000322",
+      "best_level": 3,
+      "best_reward": 0.758073,
+      "best_fom_ratio": 0.032291,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 323,
+      "instance_id": "tof_chopper-heldout-000323",
+      "best_level": 3,
+      "best_reward": 0.773907,
+      "best_fom_ratio": 0.095629,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 324,
+      "instance_id": "tof_chopper-heldout-000324",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.227811,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 215.0,
+       "theta2": 5.0
+      },
+      "steps": 10
+     },
+     {
+      "instance": 325,
+      "instance_id": "tof_chopper-heldout-000325",
+      "best_level": 3,
+      "best_reward": 0.763373,
+      "best_fom_ratio": 0.053492,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 326,
+      "instance_id": "tof_chopper-heldout-000326",
+      "best_level": 4,
+      "best_reward": 1.082515,
+      "best_fom_ratio": 1.33006,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 145.0,
+       "theta2": 10.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 327,
+      "instance_id": "tof_chopper-heldout-000327",
+      "best_level": 3,
+      "best_reward": 0.782389,
+      "best_fom_ratio": 0.129555,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 328,
+      "instance_id": "tof_chopper-heldout-000328",
+      "best_level": 4,
+      "best_reward": 1.012902,
+      "best_fom_ratio": 1.051609,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 145.0,
+       "theta2": 8.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 329,
+      "instance_id": "tof_chopper-heldout-000329",
+      "best_level": 3,
+      "best_reward": 0.75233,
+      "best_fom_ratio": 0.009319,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 330,
+      "instance_id": "tof_chopper-heldout-000330",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.3762,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 72.0,
+       "theta2": 9.3
+      },
+      "steps": 7
+     },
+     {
+      "instance": 331,
+      "instance_id": "tof_chopper-heldout-000331",
+      "best_level": 3,
+      "best_reward": 0.764289,
+      "best_fom_ratio": 0.057155,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 332,
+      "instance_id": "tof_chopper-heldout-000332",
+      "best_level": 4,
+      "best_reward": 1.008027,
+      "best_fom_ratio": 1.032108,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 105.0,
+       "theta2": 3.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 333,
+      "instance_id": "tof_chopper-heldout-000333",
+      "best_level": 4,
+      "best_reward": 1.045508,
+      "best_fom_ratio": 1.182033,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 135.0,
+       "theta2": 18.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 334,
+      "instance_id": "tof_chopper-heldout-000334",
+      "best_level": 4,
+      "best_reward": 1.043923,
+      "best_fom_ratio": 1.175693,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 245.0,
+       "theta2": 2.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 335,
+      "instance_id": "tof_chopper-heldout-000335",
+      "best_level": 3,
+      "best_reward": 0.785122,
+      "best_fom_ratio": 0.140487,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 336,
+      "instance_id": "tof_chopper-heldout-000336",
+      "best_level": 4,
+      "best_reward": 1.029326,
+      "best_fom_ratio": 1.117303,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 130.0,
+       "theta2": 7.5
+      },
+      "steps": 3
+     },
+     {
+      "instance": 337,
+      "instance_id": "tof_chopper-heldout-000337",
+      "best_level": 3,
+      "best_reward": 0.938585,
+      "best_fom_ratio": 0.75434,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 338,
+      "instance_id": "tof_chopper-heldout-000338",
+      "best_level": 4,
+      "best_reward": 1.119794,
+      "best_fom_ratio": 1.479177,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 180.0,
+       "theta2": 8.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 339,
+      "instance_id": "tof_chopper-heldout-000339",
+      "best_level": 3,
+      "best_reward": 0.805904,
+      "best_fom_ratio": 0.223614,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 340,
+      "instance_id": "tof_chopper-heldout-000340",
+      "best_level": 3,
+      "best_reward": 0.752546,
+      "best_fom_ratio": 0.010184,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 341,
+      "instance_id": "tof_chopper-heldout-000341",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.078755,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 240.0,
+       "theta2": 11.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 342,
+      "instance_id": "tof_chopper-heldout-000342",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 4.866055,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 122.0,
+       "theta2": 5.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 343,
+      "instance_id": "tof_chopper-heldout-000343",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.150567,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 73.0,
+       "theta2": 8.3
+      },
+      "steps": 5
+     },
+     {
+      "instance": 344,
+      "instance_id": "tof_chopper-heldout-000344",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 12.171729,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 200.0,
+       "theta2": 16.5
+      },
+      "steps": 4
+     },
+     {
+      "instance": 345,
+      "instance_id": "tof_chopper-heldout-000345",
+      "best_level": 4,
+      "best_reward": 1.183601,
+      "best_fom_ratio": 1.734403,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 135.0,
+       "theta2": 5.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 346,
+      "instance_id": "tof_chopper-heldout-000346",
+      "best_level": 3,
+      "best_reward": 0.884221,
+      "best_fom_ratio": 0.536884,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 347,
+      "instance_id": "tof_chopper-heldout-000347",
+      "best_level": 3,
+      "best_reward": 0.807068,
+      "best_fom_ratio": 0.228273,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 348,
+      "instance_id": "tof_chopper-heldout-000348",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.755843,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 110.0,
+       "theta2": 20.0
+      },
+      "steps": 2
+     },
+     {
+      "instance": 349,
+      "instance_id": "tof_chopper-heldout-000349",
+      "best_level": 3,
+      "best_reward": 0.774887,
+      "best_fom_ratio": 0.099548,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 350,
+      "instance_id": "tof_chopper-heldout-000350",
+      "best_level": 3,
+      "best_reward": 0.763332,
+      "best_fom_ratio": 0.053327,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 351,
+      "instance_id": "tof_chopper-heldout-000351",
+      "best_level": 4,
+      "best_reward": 1.133077,
+      "best_fom_ratio": 1.532308,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 210.0,
+       "theta2": 10.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 352,
+      "instance_id": "tof_chopper-heldout-000352",
+      "best_level": 3,
+      "best_reward": 0.762868,
+      "best_fom_ratio": 0.051472,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 353,
+      "instance_id": "tof_chopper-heldout-000353",
+      "best_level": 4,
+      "best_reward": 1.115734,
+      "best_fom_ratio": 1.462934,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 50.0,
+       "theta2": 11.0
+      },
+      "steps": 6
+     },
+     {
+      "instance": 354,
+      "instance_id": "tof_chopper-heldout-000354",
+      "best_level": 3,
+      "best_reward": 0.773349,
+      "best_fom_ratio": 0.093395,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 355,
+      "instance_id": "tof_chopper-heldout-000355",
+      "best_level": 4,
+      "best_reward": 1.060509,
+      "best_fom_ratio": 1.242038,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 88.0,
+       "theta2": 13.2
+      },
+      "steps": 5
+     },
+     {
+      "instance": 356,
+      "instance_id": "tof_chopper-heldout-000356",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.076877,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 120.0,
+       "theta2": 5.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 357,
+      "instance_id": "tof_chopper-heldout-000357",
+      "best_level": 3,
+      "best_reward": 0.813477,
+      "best_fom_ratio": 0.253906,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 358,
+      "instance_id": "tof_chopper-heldout-000358",
+      "best_level": 4,
+      "best_reward": 1.203977,
+      "best_fom_ratio": 1.815907,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 270.0,
+       "theta2": 14.0
+      },
+      "steps": 6
+     },
+     {
+      "instance": 359,
+      "instance_id": "tof_chopper-heldout-000359",
+      "best_level": 3,
+      "best_reward": 0.763307,
+      "best_fom_ratio": 0.053228,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 360,
+      "instance_id": "tof_chopper-heldout-000360",
+      "best_level": 3,
+      "best_reward": 0.92974,
+      "best_fom_ratio": 0.718962,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 361,
+      "instance_id": "tof_chopper-heldout-000361",
+      "best_level": 4,
+      "best_reward": 1.02627,
+      "best_fom_ratio": 1.105081,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 175.0,
+       "theta2": 7.5
+      },
+      "steps": 3
+     },
+     {
+      "instance": 362,
+      "instance_id": "tof_chopper-heldout-000362",
+      "best_level": 4,
+      "best_reward": 1.041337,
+      "best_fom_ratio": 1.165347,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 130.0,
+       "theta2": 10.0
+      },
+      "steps": 2
+     },
+     {
+      "instance": 363,
+      "instance_id": "tof_chopper-heldout-000363",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 23.447887,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 38.0,
+       "theta2": 8.0
+      },
+      "steps": 6
+     },
+     {
+      "instance": 364,
+      "instance_id": "tof_chopper-heldout-000364",
+      "best_level": 3,
+      "best_reward": 0.810546,
+      "best_fom_ratio": 0.242184,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 365,
+      "instance_id": "tof_chopper-heldout-000365",
+      "best_level": 4,
+      "best_reward": 1.177784,
+      "best_fom_ratio": 1.711136,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 37.0,
+       "theta2": 12.0
+      },
+      "steps": 9
+     },
+     {
+      "instance": 366,
+      "instance_id": "tof_chopper-heldout-000366",
+      "best_level": 3,
+      "best_reward": 0.961572,
+      "best_fom_ratio": 0.846289,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 367,
+      "instance_id": "tof_chopper-heldout-000367",
+      "best_level": 3,
+      "best_reward": 0.765812,
+      "best_fom_ratio": 0.063248,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 368,
+      "instance_id": "tof_chopper-heldout-000368",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.600422,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 140.0,
+       "theta2": 14.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 369,
+      "instance_id": "tof_chopper-heldout-000369",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 4.007093,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 230.0,
+       "theta2": 12.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 370,
+      "instance_id": "tof_chopper-heldout-000370",
+      "best_level": 3,
+      "best_reward": 0.825138,
+      "best_fom_ratio": 0.300552,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 371,
+      "instance_id": "tof_chopper-heldout-000371",
+      "best_level": 3,
+      "best_reward": 0.794976,
+      "best_fom_ratio": 0.179905,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 372,
+      "instance_id": "tof_chopper-heldout-000372",
+      "best_level": 4,
+      "best_reward": 1.022605,
+      "best_fom_ratio": 1.090421,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 140.0,
+       "theta2": 17.5
+      },
+      "steps": 4
+     },
+     {
+      "instance": 373,
+      "instance_id": "tof_chopper-heldout-000373",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.54146,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 210.0,
+       "theta2": 14.0
+      },
+      "steps": 2
+     },
+     {
+      "instance": 374,
+      "instance_id": "tof_chopper-heldout-000374",
+      "best_level": 4,
+      "best_reward": 1.233014,
+      "best_fom_ratio": 1.932055,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 210.0,
+       "theta2": 10.0
+      },
+      "steps": 2
+     },
+     {
+      "instance": 375,
+      "instance_id": "tof_chopper-heldout-000375",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 28.603605,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 255.0,
+       "theta2": 16.5
+      },
+      "steps": 6
+     },
+     {
+      "instance": 376,
+      "instance_id": "tof_chopper-heldout-000376",
+      "best_level": 4,
+      "best_reward": 1.005691,
+      "best_fom_ratio": 1.022765,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 166.0,
+       "theta2": 2.0
+      },
+      "steps": 7
+     },
+     {
+      "instance": 377,
+      "instance_id": "tof_chopper-heldout-000377",
+      "best_level": 3,
+      "best_reward": 0.763362,
+      "best_fom_ratio": 0.053449,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 378,
+      "instance_id": "tof_chopper-heldout-000378",
+      "best_level": 4,
+      "best_reward": 1.011362,
+      "best_fom_ratio": 1.045449,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 127.0,
+       "theta2": 8.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 379,
+      "instance_id": "tof_chopper-heldout-000379",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.090812,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 140.0,
+       "theta2": 7.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 380,
+      "instance_id": "tof_chopper-heldout-000380",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.671645,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 115.0,
+       "theta2": 20.0
+      },
+      "steps": 2
+     },
+     {
+      "instance": 381,
+      "instance_id": "tof_chopper-heldout-000381",
+      "best_level": 4,
+      "best_reward": 1.079859,
+      "best_fom_ratio": 1.319437,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 86.0,
+       "theta2": 2.5
+      },
+      "steps": 10
+     },
+     {
+      "instance": 382,
+      "instance_id": "tof_chopper-heldout-000382",
+      "best_level": 3,
+      "best_reward": 0.767318,
+      "best_fom_ratio": 0.069273,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 383,
+      "instance_id": "tof_chopper-heldout-000383",
+      "best_level": 4,
+      "best_reward": 1.020724,
+      "best_fom_ratio": 1.082895,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 150.0,
+       "theta2": 3.5
+      },
+      "steps": 4
+     },
+     {
+      "instance": 384,
+      "instance_id": "tof_chopper-heldout-000384",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.992972,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 265.0,
+       "theta2": 6.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 385,
+      "instance_id": "tof_chopper-heldout-000385",
+      "best_level": 3,
+      "best_reward": 0.763303,
+      "best_fom_ratio": 0.053214,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 386,
+      "instance_id": "tof_chopper-heldout-000386",
+      "best_level": 4,
+      "best_reward": 1.003617,
+      "best_fom_ratio": 1.014469,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 195.0,
+       "theta2": 10.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 387,
+      "instance_id": "tof_chopper-heldout-000387",
+      "best_level": 4,
+      "best_reward": 1.169749,
+      "best_fom_ratio": 1.678997,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 270.0,
+       "theta2": 12.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 388,
+      "instance_id": "tof_chopper-heldout-000388",
+      "best_level": 3,
+      "best_reward": 0.762512,
+      "best_fom_ratio": 0.050048,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 389,
+      "instance_id": "tof_chopper-heldout-000389",
+      "best_level": 4,
+      "best_reward": 1.018128,
+      "best_fom_ratio": 1.072513,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 180.0,
+       "theta2": 4.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 390,
+      "instance_id": "tof_chopper-heldout-000390",
+      "best_level": 3,
+      "best_reward": 0.846797,
+      "best_fom_ratio": 0.387188,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 391,
+      "instance_id": "tof_chopper-heldout-000391",
+      "best_level": 3,
+      "best_reward": 0.763431,
+      "best_fom_ratio": 0.053722,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 392,
+      "instance_id": "tof_chopper-heldout-000392",
+      "best_level": 3,
+      "best_reward": 0.811043,
+      "best_fom_ratio": 0.244174,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 393,
+      "instance_id": "tof_chopper-heldout-000393",
+      "best_level": 3,
+      "best_reward": 0.825787,
+      "best_fom_ratio": 0.303149,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 394,
+      "instance_id": "tof_chopper-heldout-000394",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 4.206118,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 155.0,
+       "theta2": 8.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 395,
+      "instance_id": "tof_chopper-heldout-000395",
+      "best_level": 4,
+      "best_reward": 1.02927,
+      "best_fom_ratio": 1.117079,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 60.0,
+       "theta2": 8.0
+      },
+      "steps": 6
+     },
+     {
+      "instance": 396,
+      "instance_id": "tof_chopper-heldout-000396",
+      "best_level": 4,
+      "best_reward": 1.090579,
+      "best_fom_ratio": 1.362315,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 205.0,
+       "theta2": 10.0
+      },
+      "steps": 2
+     },
+     {
+      "instance": 397,
+      "instance_id": "tof_chopper-heldout-000397",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.986912,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 160.0,
+       "theta2": 13.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 398,
+      "instance_id": "tof_chopper-heldout-000398",
+      "best_level": 3,
+      "best_reward": 0.763339,
+      "best_fom_ratio": 0.053358,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 399,
+      "instance_id": "tof_chopper-heldout-000399",
+      "best_level": 3,
+      "best_reward": 0.753275,
+      "best_fom_ratio": 0.013099,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 400,
+      "instance_id": "tof_chopper-heldout-000400",
+      "best_level": 4,
+      "best_reward": 1.095347,
+      "best_fom_ratio": 1.38139,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 135.0,
+       "theta2": 6.0
+      },
+      "steps": 2
+     },
+     {
+      "instance": 401,
+      "instance_id": "tof_chopper-heldout-000401",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 20.467197,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 205.0,
+       "theta2": 10.0
+      },
+      "steps": 2
+     },
+     {
+      "instance": 402,
+      "instance_id": "tof_chopper-heldout-000402",
+      "best_level": 4,
+      "best_reward": 1.186967,
+      "best_fom_ratio": 1.747866,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 270.0,
+       "theta2": 6.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 403,
+      "instance_id": "tof_chopper-heldout-000403",
+      "best_level": 3,
+      "best_reward": 0.759777,
+      "best_fom_ratio": 0.039107,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 404,
+      "instance_id": "tof_chopper-heldout-000404",
+      "best_level": 3,
+      "best_reward": 0.823029,
+      "best_fom_ratio": 0.292115,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 405,
+      "instance_id": "tof_chopper-heldout-000405",
+      "best_level": 4,
+      "best_reward": 1.004976,
+      "best_fom_ratio": 1.019905,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 125.0,
+       "theta2": 7.0
+      },
+      "steps": 2
+     },
+     {
+      "instance": 406,
+      "instance_id": "tof_chopper-heldout-000406",
+      "best_level": 3,
+      "best_reward": 0.822602,
+      "best_fom_ratio": 0.290408,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 407,
+      "instance_id": "tof_chopper-heldout-000407",
+      "best_level": 4,
+      "best_reward": 1.031155,
+      "best_fom_ratio": 1.124621,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 245.0,
+       "theta2": 20.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 408,
+      "instance_id": "tof_chopper-heldout-000408",
+      "best_level": 3,
+      "best_reward": 0.92438,
+      "best_fom_ratio": 0.697521,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 409,
+      "instance_id": "tof_chopper-heldout-000409",
+      "best_level": 3,
+      "best_reward": 0.752231,
+      "best_fom_ratio": 0.008925,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 410,
+      "instance_id": "tof_chopper-heldout-000410",
+      "best_level": 3,
+      "best_reward": 0.764142,
+      "best_fom_ratio": 0.056569,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 411,
+      "instance_id": "tof_chopper-heldout-000411",
+      "best_level": 4,
+      "best_reward": 1.001489,
+      "best_fom_ratio": 1.005958,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 205.0,
+       "theta2": 7.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 412,
+      "instance_id": "tof_chopper-heldout-000412",
+      "best_level": 4,
+      "best_reward": 1.019536,
+      "best_fom_ratio": 1.078146,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 150.0,
+       "theta2": 6.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 413,
+      "instance_id": "tof_chopper-heldout-000413",
+      "best_level": 4,
+      "best_reward": 1.096416,
+      "best_fom_ratio": 1.385665,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 220.0,
+       "theta2": 10.0
+      },
+      "steps": 2
+     },
+     {
+      "instance": 414,
+      "instance_id": "tof_chopper-heldout-000414",
+      "best_level": 4,
+      "best_reward": 1.039204,
+      "best_fom_ratio": 1.156816,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 62.0,
+       "theta2": 20.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 415,
+      "instance_id": "tof_chopper-heldout-000415",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.090279,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 125.0,
+       "theta2": 8.0
+      },
+      "steps": 2
+     },
+     {
+      "instance": 416,
+      "instance_id": "tof_chopper-heldout-000416",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.227276,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 75.0,
+       "theta2": 9.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 417,
+      "instance_id": "tof_chopper-heldout-000417",
+      "best_level": 4,
+      "best_reward": 1.07741,
+      "best_fom_ratio": 1.30964,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 155.0,
+       "theta2": 5.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 418,
+      "instance_id": "tof_chopper-heldout-000418",
+      "best_level": 3,
+      "best_reward": 0.833264,
+      "best_fom_ratio": 0.333054,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 419,
+      "instance_id": "tof_chopper-heldout-000419",
+      "best_level": 3,
+      "best_reward": 0.896326,
+      "best_fom_ratio": 0.585304,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 420,
+      "instance_id": "tof_chopper-heldout-000420",
+      "best_level": 4,
+      "best_reward": 1.009962,
+      "best_fom_ratio": 1.03985,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 280.0,
+       "theta2": 10.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 421,
+      "instance_id": "tof_chopper-heldout-000421",
+      "best_level": 4,
+      "best_reward": 1.001464,
+      "best_fom_ratio": 1.005856,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 260.0,
+       "theta2": 6.5
+      },
+      "steps": 4
+     },
+     {
+      "instance": 422,
+      "instance_id": "tof_chopper-heldout-000422",
+      "best_level": 3,
+      "best_reward": 0.789568,
+      "best_fom_ratio": 0.158271,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 423,
+      "instance_id": "tof_chopper-heldout-000423",
+      "best_level": 3,
+      "best_reward": 0.763389,
+      "best_fom_ratio": 0.053555,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 424,
+      "instance_id": "tof_chopper-heldout-000424",
+      "best_level": 3,
+      "best_reward": 0.81577,
+      "best_fom_ratio": 0.263079,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 425,
+      "instance_id": "tof_chopper-heldout-000425",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 8.929419,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 155.0,
+       "theta2": 5.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 426,
+      "instance_id": "tof_chopper-heldout-000426",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.733461,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 240.0,
+       "theta2": 7.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 427,
+      "instance_id": "tof_chopper-heldout-000427",
+      "best_level": 3,
+      "best_reward": 0.763933,
+      "best_fom_ratio": 0.055731,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 428,
+      "instance_id": "tof_chopper-heldout-000428",
+      "best_level": 3,
+      "best_reward": 0.763871,
+      "best_fom_ratio": 0.055482,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 429,
+      "instance_id": "tof_chopper-heldout-000429",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.314643,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 75.0,
+       "theta2": 8.5
+      },
+      "steps": 6
+     },
+     {
+      "instance": 430,
+      "instance_id": "tof_chopper-heldout-000430",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 9.704407,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 60.0,
+       "theta2": 10.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 431,
+      "instance_id": "tof_chopper-heldout-000431",
+      "best_level": 3,
+      "best_reward": 0.758761,
+      "best_fom_ratio": 0.035044,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 432,
+      "instance_id": "tof_chopper-heldout-000432",
+      "best_level": 3,
+      "best_reward": 0.763443,
+      "best_fom_ratio": 0.05377,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 433,
+      "instance_id": "tof_chopper-heldout-000433",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 7.74764,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 58.0,
+       "theta2": 16.0
+      },
+      "steps": 6
+     },
+     {
+      "instance": 434,
+      "instance_id": "tof_chopper-heldout-000434",
+      "best_level": 3,
+      "best_reward": 0.76334,
+      "best_fom_ratio": 0.05336,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 435,
+      "instance_id": "tof_chopper-heldout-000435",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.702983,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 72.0,
+       "theta2": 7.5
+      },
+      "steps": 10
+     },
+     {
+      "instance": 436,
+      "instance_id": "tof_chopper-heldout-000436",
+      "best_level": 3,
+      "best_reward": 0.777931,
+      "best_fom_ratio": 0.111725,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 437,
+      "instance_id": "tof_chopper-heldout-000437",
+      "best_level": 4,
+      "best_reward": 1.066577,
+      "best_fom_ratio": 1.266308,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 83.0,
+       "theta2": 2.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 438,
+      "instance_id": "tof_chopper-heldout-000438",
+      "best_level": 3,
+      "best_reward": 0.763299,
+      "best_fom_ratio": 0.053194,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 439,
+      "instance_id": "tof_chopper-heldout-000439",
+      "best_level": 4,
+      "best_reward": 1.152079,
+      "best_fom_ratio": 1.608315,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 125.0,
+       "theta2": 3.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 440,
+      "instance_id": "tof_chopper-heldout-000440",
+      "best_level": 4,
+      "best_reward": 1.150287,
+      "best_fom_ratio": 1.601149,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 150.0,
+       "theta2": 8.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 441,
+      "instance_id": "tof_chopper-heldout-000441",
+      "best_level": 3,
+      "best_reward": 0.821092,
+      "best_fom_ratio": 0.284368,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 442,
+      "instance_id": "tof_chopper-heldout-000442",
+      "best_level": 3,
+      "best_reward": 0.763371,
+      "best_fom_ratio": 0.053485,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 443,
+      "instance_id": "tof_chopper-heldout-000443",
+      "best_level": 4,
+      "best_reward": 1.147355,
+      "best_fom_ratio": 1.589419,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 205.0,
+       "theta2": 13.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 444,
+      "instance_id": "tof_chopper-heldout-000444",
+      "best_level": 4,
+      "best_reward": 1.017793,
+      "best_fom_ratio": 1.071173,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 70.0,
+       "theta2": 9.5
+      },
+      "steps": 4
+     },
+     {
+      "instance": 445,
+      "instance_id": "tof_chopper-heldout-000445",
+      "best_level": 4,
+      "best_reward": 1.003533,
+      "best_fom_ratio": 1.014133,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 145.0,
+       "theta2": 2.5
+      },
+      "steps": 5
+     },
+     {
+      "instance": 446,
+      "instance_id": "tof_chopper-heldout-000446",
+      "best_level": 4,
+      "best_reward": 1.091961,
+      "best_fom_ratio": 1.367842,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 145.0,
+       "theta2": 4.5
+      },
+      "steps": 8
+     },
+     {
+      "instance": 447,
+      "instance_id": "tof_chopper-heldout-000447",
+      "best_level": 3,
+      "best_reward": 0.778242,
+      "best_fom_ratio": 0.112967,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 448,
+      "instance_id": "tof_chopper-heldout-000448",
+      "best_level": 3,
+      "best_reward": 0.753184,
+      "best_fom_ratio": 0.012736,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 449,
+      "instance_id": "tof_chopper-heldout-000449",
+      "best_level": 3,
+      "best_reward": 0.763383,
+      "best_fom_ratio": 0.053534,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 450,
+      "instance_id": "tof_chopper-heldout-000450",
+      "best_level": 3,
+      "best_reward": 0.752493,
+      "best_fom_ratio": 0.009971,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 451,
+      "instance_id": "tof_chopper-heldout-000451",
+      "best_level": 3,
+      "best_reward": 0.852334,
+      "best_fom_ratio": 0.409337,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 452,
+      "instance_id": "tof_chopper-heldout-000452",
+      "best_level": 3,
+      "best_reward": 0.883371,
+      "best_fom_ratio": 0.533483,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 453,
+      "instance_id": "tof_chopper-heldout-000453",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.033837,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 170.0,
+       "theta2": 18.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 454,
+      "instance_id": "tof_chopper-heldout-000454",
+      "best_level": 4,
+      "best_reward": 1.129682,
+      "best_fom_ratio": 1.518726,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 165.0,
+       "theta2": 12.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 455,
+      "instance_id": "tof_chopper-heldout-000455",
+      "best_level": 4,
+      "best_reward": 1.074631,
+      "best_fom_ratio": 1.298524,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 80.0,
+       "theta2": 5.0
+      },
+      "steps": 5
+     },
+     {
+      "instance": 456,
+      "instance_id": "tof_chopper-heldout-000456",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.78644,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 102.0,
+       "theta2": 15.0
+      },
+      "steps": 6
+     },
+     {
+      "instance": 457,
+      "instance_id": "tof_chopper-heldout-000457",
+      "best_level": 3,
+      "best_reward": 0.763317,
+      "best_fom_ratio": 0.053269,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 458,
+      "instance_id": "tof_chopper-heldout-000458",
+      "best_level": 4,
+      "best_reward": 1.142612,
+      "best_fom_ratio": 1.570449,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 112.0,
+       "theta2": 7.5
+      },
+      "steps": 3
+     },
+     {
+      "instance": 459,
+      "instance_id": "tof_chopper-heldout-000459",
+      "best_level": 3,
+      "best_reward": 0.781309,
+      "best_fom_ratio": 0.125234,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 460,
+      "instance_id": "tof_chopper-heldout-000460",
+      "best_level": 4,
+      "best_reward": 1.118524,
+      "best_fom_ratio": 1.474098,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 97.5,
+       "theta2": 5.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 461,
+      "instance_id": "tof_chopper-heldout-000461",
+      "best_level": 4,
+      "best_reward": 1.129903,
+      "best_fom_ratio": 1.519613,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 160.0,
+       "theta2": 4.5
+      },
+      "steps": 3
+     },
+     {
+      "instance": 462,
+      "instance_id": "tof_chopper-heldout-000462",
+      "best_level": 3,
+      "best_reward": 0.753801,
+      "best_fom_ratio": 0.015202,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 463,
+      "instance_id": "tof_chopper-heldout-000463",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.596237,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 175.0,
+       "theta2": 12.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 464,
+      "instance_id": "tof_chopper-heldout-000464",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.100845,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 95.0,
+       "theta2": 11.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 465,
+      "instance_id": "tof_chopper-heldout-000465",
+      "best_level": 4,
+      "best_reward": 1.08175,
+      "best_fom_ratio": 1.326999,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 255.0,
+       "theta2": 10.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 466,
+      "instance_id": "tof_chopper-heldout-000466",
+      "best_level": 4,
+      "best_reward": 1.075572,
+      "best_fom_ratio": 1.302288,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 217.5,
+       "theta2": 10.5
+      },
+      "steps": 5
+     },
+     {
+      "instance": 467,
+      "instance_id": "tof_chopper-heldout-000467",
+      "best_level": 3,
+      "best_reward": 0.759893,
+      "best_fom_ratio": 0.039571,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 468,
+      "instance_id": "tof_chopper-heldout-000468",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.11867,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 170.0,
+       "theta2": 5.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 469,
+      "instance_id": "tof_chopper-heldout-000469",
+      "best_level": 3,
+      "best_reward": 0.828693,
+      "best_fom_ratio": 0.314774,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 470,
+      "instance_id": "tof_chopper-heldout-000470",
+      "best_level": 3,
+      "best_reward": 0.785287,
+      "best_fom_ratio": 0.141148,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 471,
+      "instance_id": "tof_chopper-heldout-000471",
+      "best_level": 4,
+      "best_reward": 1.124584,
+      "best_fom_ratio": 1.498337,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 95.0,
+       "theta2": 18.0
+      },
+      "steps": 5
+     },
+     {
+      "instance": 472,
+      "instance_id": "tof_chopper-heldout-000472",
+      "best_level": 4,
+      "best_reward": 1.213038,
+      "best_fom_ratio": 1.852151,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 255.0,
+       "theta2": 8.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 473,
+      "instance_id": "tof_chopper-heldout-000473",
+      "best_level": 3,
+      "best_reward": 0.76415,
+      "best_fom_ratio": 0.0566,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 474,
+      "instance_id": "tof_chopper-heldout-000474",
+      "best_level": 3,
+      "best_reward": 0.862368,
+      "best_fom_ratio": 0.449471,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 475,
+      "instance_id": "tof_chopper-heldout-000475",
+      "best_level": 3,
+      "best_reward": 0.763269,
+      "best_fom_ratio": 0.053078,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 476,
+      "instance_id": "tof_chopper-heldout-000476",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.864848,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 95.0,
+       "theta2": 4.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 477,
+      "instance_id": "tof_chopper-heldout-000477",
+      "best_level": 4,
+      "best_reward": 1.204819,
+      "best_fom_ratio": 1.819277,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 155.0,
+       "theta2": 12.5
+      },
+      "steps": 3
+     },
+     {
+      "instance": 478,
+      "instance_id": "tof_chopper-heldout-000478",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 4.797918,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 95.0,
+       "theta2": 8.3
+      },
+      "steps": 5
+     },
+     {
+      "instance": 479,
+      "instance_id": "tof_chopper-heldout-000479",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.503162,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 93.0,
+       "theta2": 5.0
+      },
+      "steps": 6
+     },
+     {
+      "instance": 480,
+      "instance_id": "tof_chopper-heldout-000480",
+      "best_level": 3,
+      "best_reward": 0.763311,
+      "best_fom_ratio": 0.053245,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 481,
+      "instance_id": "tof_chopper-heldout-000481",
+      "best_level": 3,
+      "best_reward": 0.924941,
+      "best_fom_ratio": 0.699765,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 482,
+      "instance_id": "tof_chopper-heldout-000482",
+      "best_level": 3,
+      "best_reward": 0.751974,
+      "best_fom_ratio": 0.007894,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 483,
+      "instance_id": "tof_chopper-heldout-000483",
+      "best_level": 3,
+      "best_reward": 0.779349,
+      "best_fom_ratio": 0.117397,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 484,
+      "instance_id": "tof_chopper-heldout-000484",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.287793,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 115.0,
+       "theta2": 18.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 485,
+      "instance_id": "tof_chopper-heldout-000485",
+      "best_level": 4,
+      "best_reward": 1.068041,
+      "best_fom_ratio": 1.272166,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 125.0,
+       "theta2": 8.0
+      },
+      "steps": 2
+     },
+     {
+      "instance": 486,
+      "instance_id": "tof_chopper-heldout-000486",
+      "best_level": 4,
+      "best_reward": 1.245222,
+      "best_fom_ratio": 1.980887,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 125.0,
+       "theta2": 12.0
+      },
+      "steps": 2
+     },
+     {
+      "instance": 487,
+      "instance_id": "tof_chopper-heldout-000487",
+      "best_level": 3,
+      "best_reward": 0.876676,
+      "best_fom_ratio": 0.506705,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 488,
+      "instance_id": "tof_chopper-heldout-000488",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 4.743962,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 215.0,
+       "theta2": 2.5
+      },
+      "steps": 4
+     },
+     {
+      "instance": 489,
+      "instance_id": "tof_chopper-heldout-000489",
+      "best_level": 4,
+      "best_reward": 1.167176,
+      "best_fom_ratio": 1.668702,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 240.0,
+       "theta2": 9.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 490,
+      "instance_id": "tof_chopper-heldout-000490",
+      "best_level": 3,
+      "best_reward": 0.804715,
+      "best_fom_ratio": 0.218859,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 491,
+      "instance_id": "tof_chopper-heldout-000491",
+      "best_level": 3,
+      "best_reward": 0.766046,
+      "best_fom_ratio": 0.064182,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 492,
+      "instance_id": "tof_chopper-heldout-000492",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.277586,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 65.0,
+       "theta2": 7.5
+      },
+      "steps": 6
+     },
+     {
+      "instance": 493,
+      "instance_id": "tof_chopper-heldout-000493",
+      "best_level": 4,
+      "best_reward": 1.040619,
+      "best_fom_ratio": 1.162477,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 220.0,
+       "theta2": 2.5
+      },
+      "steps": 6
+     },
+     {
+      "instance": 494,
+      "instance_id": "tof_chopper-heldout-000494",
+      "best_level": 4,
+      "best_reward": 1.146084,
+      "best_fom_ratio": 1.584334,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 75.0,
+       "theta2": 7.5
+      },
+      "steps": 6
+     },
+     {
+      "instance": 495,
+      "instance_id": "tof_chopper-heldout-000495",
+      "best_level": 4,
+      "best_reward": 1.024967,
+      "best_fom_ratio": 1.099869,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 245.0,
+       "theta2": 2.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 496,
+      "instance_id": "tof_chopper-heldout-000496",
+      "best_level": 4,
+      "best_reward": 1.020611,
+      "best_fom_ratio": 1.082446,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 122.0,
+       "theta2": 10.0
+      },
+      "steps": 2
+     },
+     {
+      "instance": 497,
+      "instance_id": "tof_chopper-heldout-000497",
+      "best_level": 4,
+      "best_reward": 1.045549,
+      "best_fom_ratio": 1.182197,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 130.0,
+       "theta2": 6.0
+      },
+      "steps": 2
+     },
+     {
+      "instance": 498,
+      "instance_id": "tof_chopper-heldout-000498",
+      "best_level": 3,
+      "best_reward": 0.858294,
+      "best_fom_ratio": 0.433176,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 499,
+      "instance_id": "tof_chopper-heldout-000499",
+      "best_level": 3,
+      "best_reward": 0.763432,
+      "best_fom_ratio": 0.053727,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 500,
+      "instance_id": "tof_chopper-heldout-000500",
+      "best_level": 3,
+      "best_reward": 0.978883,
+      "best_fom_ratio": 0.915533,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 501,
+      "instance_id": "tof_chopper-heldout-000501",
+      "best_level": 3,
+      "best_reward": 0.780525,
+      "best_fom_ratio": 0.122099,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 502,
+      "instance_id": "tof_chopper-heldout-000502",
+      "best_level": 4,
+      "best_reward": 1.152712,
+      "best_fom_ratio": 1.610847,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 63.0,
+       "theta2": 15.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 503,
+      "instance_id": "tof_chopper-heldout-000503",
+      "best_level": 4,
+      "best_reward": 1.072564,
+      "best_fom_ratio": 1.290258,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 250.0,
+       "theta2": 8.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 504,
+      "instance_id": "tof_chopper-heldout-000504",
+      "best_level": 3,
+      "best_reward": 0.78672,
+      "best_fom_ratio": 0.146882,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 505,
+      "instance_id": "tof_chopper-heldout-000505",
+      "best_level": 3,
+      "best_reward": 0.945887,
+      "best_fom_ratio": 0.783549,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 506,
+      "instance_id": "tof_chopper-heldout-000506",
+      "best_level": 3,
+      "best_reward": 0.77457,
+      "best_fom_ratio": 0.098279,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 507,
+      "instance_id": "tof_chopper-heldout-000507",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 9.05341,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 105.0,
+       "theta2": 20.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 508,
+      "instance_id": "tof_chopper-heldout-000508",
+      "best_level": 3,
+      "best_reward": 0.763328,
+      "best_fom_ratio": 0.053311,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 509,
+      "instance_id": "tof_chopper-heldout-000509",
+      "best_level": 3,
+      "best_reward": 0.764505,
+      "best_fom_ratio": 0.05802,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 510,
+      "instance_id": "tof_chopper-heldout-000510",
+      "best_level": 3,
+      "best_reward": 0.823014,
+      "best_fom_ratio": 0.292056,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 511,
+      "instance_id": "tof_chopper-heldout-000511",
+      "best_level": 4,
+      "best_reward": 1.074701,
+      "best_fom_ratio": 1.298803,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 52.5,
+       "theta2": 15.0
+      },
+      "steps": 6
+     },
+     {
+      "instance": 512,
+      "instance_id": "tof_chopper-heldout-000512",
+      "best_level": 4,
+      "best_reward": 1.094808,
+      "best_fom_ratio": 1.379233,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 145.0,
+       "theta2": 7.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 513,
+      "instance_id": "tof_chopper-heldout-000513",
+      "best_level": 3,
+      "best_reward": 0.77346,
+      "best_fom_ratio": 0.09384,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 514,
+      "instance_id": "tof_chopper-heldout-000514",
+      "best_level": 3,
+      "best_reward": 0.763452,
+      "best_fom_ratio": 0.053806,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 515,
+      "instance_id": "tof_chopper-heldout-000515",
+      "best_level": 3,
+      "best_reward": 0.801923,
+      "best_fom_ratio": 0.207693,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 516,
+      "instance_id": "tof_chopper-heldout-000516",
+      "best_level": 4,
+      "best_reward": 1.086256,
+      "best_fom_ratio": 1.345023,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 230.0,
+       "theta2": 14.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 517,
+      "instance_id": "tof_chopper-heldout-000517",
+      "best_level": 3,
+      "best_reward": 0.797314,
+      "best_fom_ratio": 0.189258,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 518,
+      "instance_id": "tof_chopper-heldout-000518",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 4.45644,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 140.0,
+       "theta2": 11.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 519,
+      "instance_id": "tof_chopper-heldout-000519",
+      "best_level": 3,
+      "best_reward": 0.802637,
+      "best_fom_ratio": 0.210548,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 520,
+      "instance_id": "tof_chopper-heldout-000520",
+      "best_level": 4,
+      "best_reward": 1.159396,
+      "best_fom_ratio": 1.637586,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 155.0,
+       "theta2": 14.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 521,
+      "instance_id": "tof_chopper-heldout-000521",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.363875,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 140.0,
+       "theta2": 14.5
+      },
+      "steps": 4
+     },
+     {
+      "instance": 522,
+      "instance_id": "tof_chopper-heldout-000522",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.122636,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 187.0,
+       "theta2": 2.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 523,
+      "instance_id": "tof_chopper-heldout-000523",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.192552,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 205.0,
+       "theta2": 20.0
+      },
+      "steps": 5
+     },
+     {
+      "instance": 524,
+      "instance_id": "tof_chopper-heldout-000524",
+      "best_level": 4,
+      "best_reward": 1.018734,
+      "best_fom_ratio": 1.074937,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 125.0,
+       "theta2": 8.0
+      },
+      "steps": 2
+     },
+     {
+      "instance": 525,
+      "instance_id": "tof_chopper-heldout-000525",
+      "best_level": 4,
+      "best_reward": 1.230025,
+      "best_fom_ratio": 1.920101,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 107.5,
+       "theta2": 16.0
+      },
+      "steps": 7
+     },
+     {
+      "instance": 526,
+      "instance_id": "tof_chopper-heldout-000526",
+      "best_level": 4,
+      "best_reward": 1.060321,
+      "best_fom_ratio": 1.241285,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 95.0,
+       "theta2": 10.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 527,
+      "instance_id": "tof_chopper-heldout-000527",
+      "best_level": 3,
+      "best_reward": 0.763356,
+      "best_fom_ratio": 0.053424,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 528,
+      "instance_id": "tof_chopper-heldout-000528",
+      "best_level": 4,
+      "best_reward": 1.197943,
+      "best_fom_ratio": 1.791773,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 195.0,
+       "theta2": 4.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 529,
+      "instance_id": "tof_chopper-heldout-000529",
+      "best_level": 3,
+      "best_reward": 0.914297,
+      "best_fom_ratio": 0.65719,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 530,
+      "instance_id": "tof_chopper-heldout-000530",
+      "best_level": 4,
+      "best_reward": 1.04599,
+      "best_fom_ratio": 1.183958,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 190.0,
+       "theta2": 9.0
+      },
+      "steps": 5
+     },
+     {
+      "instance": 531,
+      "instance_id": "tof_chopper-heldout-000531",
+      "best_level": 3,
+      "best_reward": 0.818744,
+      "best_fom_ratio": 0.274974,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 532,
+      "instance_id": "tof_chopper-heldout-000532",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 5.463171,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 235.0,
+       "theta2": 2.5
+      },
+      "steps": 7
+     },
+     {
+      "instance": 533,
+      "instance_id": "tof_chopper-heldout-000533",
+      "best_level": 3,
+      "best_reward": 0.794032,
+      "best_fom_ratio": 0.176129,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 534,
+      "instance_id": "tof_chopper-heldout-000534",
+      "best_level": 3,
+      "best_reward": 0.769097,
+      "best_fom_ratio": 0.076388,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 535,
+      "instance_id": "tof_chopper-heldout-000535",
+      "best_level": 3,
+      "best_reward": 0.752477,
+      "best_fom_ratio": 0.009907,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 536,
+      "instance_id": "tof_chopper-heldout-000536",
+      "best_level": 4,
+      "best_reward": 1.112542,
+      "best_fom_ratio": 1.450169,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 70.0,
+       "theta2": 6.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 537,
+      "instance_id": "tof_chopper-heldout-000537",
+      "best_level": 4,
+      "best_reward": 1.012818,
+      "best_fom_ratio": 1.051272,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 60.0,
+       "theta2": 7.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 538,
+      "instance_id": "tof_chopper-heldout-000538",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 4.550557,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 195.0,
+       "theta2": 18.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 539,
+      "instance_id": "tof_chopper-heldout-000539",
+      "best_level": 4,
+      "best_reward": 1.013869,
+      "best_fom_ratio": 1.055475,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 180.0,
+       "theta2": 10.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 540,
+      "instance_id": "tof_chopper-heldout-000540",
+      "best_level": 4,
+      "best_reward": 1.057371,
+      "best_fom_ratio": 1.229482,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 125.0,
+       "theta2": 14.0
+      },
+      "steps": 2
+     },
+     {
+      "instance": 541,
+      "instance_id": "tof_chopper-heldout-000541",
+      "best_level": 3,
+      "best_reward": 0.763373,
+      "best_fom_ratio": 0.053491,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 542,
+      "instance_id": "tof_chopper-heldout-000542",
+      "best_level": 4,
+      "best_reward": 1.095104,
+      "best_fom_ratio": 1.380415,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 230.0,
+       "theta2": 20.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 543,
+      "instance_id": "tof_chopper-heldout-000543",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.368734,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 107.0,
+       "theta2": 5.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 544,
+      "instance_id": "tof_chopper-heldout-000544",
+      "best_level": 3,
+      "best_reward": 0.763444,
+      "best_fom_ratio": 0.053777,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 545,
+      "instance_id": "tof_chopper-heldout-000545",
+      "best_level": 3,
+      "best_reward": 0.763519,
+      "best_fom_ratio": 0.054076,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 546,
+      "instance_id": "tof_chopper-heldout-000546",
+      "best_level": 3,
+      "best_reward": 0.852963,
+      "best_fom_ratio": 0.411852,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 547,
+      "instance_id": "tof_chopper-heldout-000547",
+      "best_level": 3,
+      "best_reward": 0.763263,
+      "best_fom_ratio": 0.053054,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 548,
+      "instance_id": "tof_chopper-heldout-000548",
+      "best_level": 4,
+      "best_reward": 1.061444,
+      "best_fom_ratio": 1.245776,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 185.0,
+       "theta2": 8.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 549,
+      "instance_id": "tof_chopper-heldout-000549",
+      "best_level": 4,
+      "best_reward": 1.246443,
+      "best_fom_ratio": 1.98577,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 72.0,
+       "theta2": 6.0
+      },
+      "steps": 6
+     },
+     {
+      "instance": 550,
+      "instance_id": "tof_chopper-heldout-000550",
+      "best_level": 3,
+      "best_reward": 0.811647,
+      "best_fom_ratio": 0.246587,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 551,
+      "instance_id": "tof_chopper-heldout-000551",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.012611,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 232.0,
+       "theta2": 2.5
+      },
+      "steps": 9
+     },
+     {
+      "instance": 552,
+      "instance_id": "tof_chopper-heldout-000552",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 4.571294,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 215.0,
+       "theta2": 18.0
+      },
+      "steps": 5
+     },
+     {
+      "instance": 553,
+      "instance_id": "tof_chopper-heldout-000553",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.33373,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 90.0,
+       "theta2": 7.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 554,
+      "instance_id": "tof_chopper-heldout-000554",
+      "best_level": 3,
+      "best_reward": 0.763409,
+      "best_fom_ratio": 0.053635,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 555,
+      "instance_id": "tof_chopper-heldout-000555",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.134614,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 93.0,
+       "theta2": 6.0
+      },
+      "steps": 6
+     },
+     {
+      "instance": 556,
+      "instance_id": "tof_chopper-heldout-000556",
+      "best_level": 4,
+      "best_reward": 1.121206,
+      "best_fom_ratio": 1.484825,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 135.0,
+       "theta2": 4.0
+      },
+      "steps": 5
+     },
+     {
+      "instance": 557,
+      "instance_id": "tof_chopper-heldout-000557",
+      "best_level": 3,
+      "best_reward": 0.788959,
+      "best_fom_ratio": 0.155835,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 558,
+      "instance_id": "tof_chopper-heldout-000558",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 4.019285,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 62.0,
+       "theta2": 7.2
+      },
+      "steps": 10
+     },
+     {
+      "instance": 559,
+      "instance_id": "tof_chopper-heldout-000559",
+      "best_level": 4,
+      "best_reward": 1.094069,
+      "best_fom_ratio": 1.376278,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 95.0,
+       "theta2": 5.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 560,
+      "instance_id": "tof_chopper-heldout-000560",
+      "best_level": 3,
+      "best_reward": 0.799367,
+      "best_fom_ratio": 0.197468,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 561,
+      "instance_id": "tof_chopper-heldout-000561",
+      "best_level": 3,
+      "best_reward": 0.870994,
+      "best_fom_ratio": 0.483974,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 562,
+      "instance_id": "tof_chopper-heldout-000562",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 22.848184,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 165.0,
+       "theta2": 12.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 563,
+      "instance_id": "tof_chopper-heldout-000563",
+      "best_level": 3,
+      "best_reward": 0.763463,
+      "best_fom_ratio": 0.053851,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 564,
+      "instance_id": "tof_chopper-heldout-000564",
+      "best_level": 4,
+      "best_reward": 1.023451,
+      "best_fom_ratio": 1.093802,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 220.0,
+       "theta2": 5.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 565,
+      "instance_id": "tof_chopper-heldout-000565",
+      "best_level": 3,
+      "best_reward": 0.763412,
+      "best_fom_ratio": 0.053649,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 566,
+      "instance_id": "tof_chopper-heldout-000566",
+      "best_level": 4,
+      "best_reward": 1.137316,
+      "best_fom_ratio": 1.549263,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 180.0,
+       "theta2": 6.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 567,
+      "instance_id": "tof_chopper-heldout-000567",
+      "best_level": 3,
+      "best_reward": 0.801656,
+      "best_fom_ratio": 0.206624,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 568,
+      "instance_id": "tof_chopper-heldout-000568",
+      "best_level": 3,
+      "best_reward": 0.763447,
+      "best_fom_ratio": 0.053787,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 569,
+      "instance_id": "tof_chopper-heldout-000569",
+      "best_level": 4,
+      "best_reward": 1.142716,
+      "best_fom_ratio": 1.570866,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 260.0,
+       "theta2": 16.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 570,
+      "instance_id": "tof_chopper-heldout-000570",
+      "best_level": 4,
+      "best_reward": 1.106398,
+      "best_fom_ratio": 1.425591,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 72.0,
+       "theta2": 5.5
+      },
+      "steps": 4
+     },
+     {
+      "instance": 571,
+      "instance_id": "tof_chopper-heldout-000571",
+      "best_level": 3,
+      "best_reward": 0.833069,
+      "best_fom_ratio": 0.332275,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 572,
+      "instance_id": "tof_chopper-heldout-000572",
+      "best_level": 4,
+      "best_reward": 1.080465,
+      "best_fom_ratio": 1.321858,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 115.0,
+       "theta2": 6.5
+      },
+      "steps": 4
+     },
+     {
+      "instance": 573,
+      "instance_id": "tof_chopper-heldout-000573",
+      "best_level": 3,
+      "best_reward": 0.76168,
+      "best_fom_ratio": 0.046722,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 574,
+      "instance_id": "tof_chopper-heldout-000574",
+      "best_level": 3,
+      "best_reward": 0.807011,
+      "best_fom_ratio": 0.228046,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 575,
+      "instance_id": "tof_chopper-heldout-000575",
+      "best_level": 3,
+      "best_reward": 0.7977,
+      "best_fom_ratio": 0.190801,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 576,
+      "instance_id": "tof_chopper-heldout-000576",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.413168,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 195.0,
+       "theta2": 12.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 577,
+      "instance_id": "tof_chopper-heldout-000577",
+      "best_level": 4,
+      "best_reward": 1.039587,
+      "best_fom_ratio": 1.158348,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 165.0,
+       "theta2": 18.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 578,
+      "instance_id": "tof_chopper-heldout-000578",
+      "best_level": 3,
+      "best_reward": 0.800581,
+      "best_fom_ratio": 0.202325,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 579,
+      "instance_id": "tof_chopper-heldout-000579",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 5.670076,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 265.0,
+       "theta2": 17.0
+      },
+      "steps": 5
+     },
+     {
+      "instance": 580,
+      "instance_id": "tof_chopper-heldout-000580",
+      "best_level": 4,
+      "best_reward": 1.191321,
+      "best_fom_ratio": 1.765282,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 190.0,
+       "theta2": 10.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 581,
+      "instance_id": "tof_chopper-heldout-000581",
+      "best_level": 4,
+      "best_reward": 1.066379,
+      "best_fom_ratio": 1.265516,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 135.0,
+       "theta2": 15.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 582,
+      "instance_id": "tof_chopper-heldout-000582",
+      "best_level": 4,
+      "best_reward": 1.198276,
+      "best_fom_ratio": 1.793102,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 138.0,
+       "theta2": 3.0
+      },
+      "steps": 5
+     },
+     {
+      "instance": 583,
+      "instance_id": "tof_chopper-heldout-000583",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 8.166452,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 190.0,
+       "theta2": 6.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 584,
+      "instance_id": "tof_chopper-heldout-000584",
+      "best_level": 4,
+      "best_reward": 1.096443,
+      "best_fom_ratio": 1.385771,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 150.0,
+       "theta2": 2.8
+      },
+      "steps": 10
+     },
+     {
+      "instance": 585,
+      "instance_id": "tof_chopper-heldout-000585",
+      "best_level": 4,
+      "best_reward": 1.048119,
+      "best_fom_ratio": 1.192475,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 230.0,
+       "theta2": 5.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 586,
+      "instance_id": "tof_chopper-heldout-000586",
+      "best_level": 3,
+      "best_reward": 0.79015,
+      "best_fom_ratio": 0.160601,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 587,
+      "instance_id": "tof_chopper-heldout-000587",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.123176,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 190.0,
+       "theta2": 9.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 588,
+      "instance_id": "tof_chopper-heldout-000588",
+      "best_level": 3,
+      "best_reward": 0.929982,
+      "best_fom_ratio": 0.719928,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 589,
+      "instance_id": "tof_chopper-heldout-000589",
+      "best_level": 3,
+      "best_reward": 0.763447,
+      "best_fom_ratio": 0.053787,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 590,
+      "instance_id": "tof_chopper-heldout-000590",
+      "best_level": 4,
+      "best_reward": 1.010587,
+      "best_fom_ratio": 1.042348,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 160.0,
+       "theta2": 8.0
+      },
+      "steps": 8
+     },
+     {
+      "instance": 591,
+      "instance_id": "tof_chopper-heldout-000591",
+      "best_level": 3,
+      "best_reward": 0.786284,
+      "best_fom_ratio": 0.145138,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 592,
+      "instance_id": "tof_chopper-heldout-000592",
+      "best_level": 4,
+      "best_reward": 1.169873,
+      "best_fom_ratio": 1.679491,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 165.0,
+       "theta2": 6.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 593,
+      "instance_id": "tof_chopper-heldout-000593",
+      "best_level": 3,
+      "best_reward": 0.774017,
+      "best_fom_ratio": 0.096068,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 594,
+      "instance_id": "tof_chopper-heldout-000594",
+      "best_level": 4,
+      "best_reward": 1.098168,
+      "best_fom_ratio": 1.392673,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 60.0,
+       "theta2": 16.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 595,
+      "instance_id": "tof_chopper-heldout-000595",
+      "best_level": 4,
+      "best_reward": 1.067049,
+      "best_fom_ratio": 1.268196,
+      "pass_action": {
+       "nu": 30.0,
+       "phase": 230.0,
+       "theta2": 13.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 596,
+      "instance_id": "tof_chopper-heldout-000596",
+      "best_level": 3,
+      "best_reward": 0.799424,
+      "best_fom_ratio": 0.197696,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 597,
+      "instance_id": "tof_chopper-heldout-000597",
+      "best_level": 3,
+      "best_reward": 0.792456,
+      "best_fom_ratio": 0.169823,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 598,
+      "instance_id": "tof_chopper-heldout-000598",
+      "best_level": 3,
+      "best_reward": 0.752294,
+      "best_fom_ratio": 0.009176,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 599,
+      "instance_id": "tof_chopper-heldout-000599",
+      "best_level": 3,
+      "best_reward": 0.756374,
+      "best_fom_ratio": 0.025497,
+      "pass_action": null,
+      "steps": 10
+     }
+    ]
+   }
+  }
+ }
+}

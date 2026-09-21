@@ -1,0 +1,8 @@
+bender: no copy-type readout rules apply -> CLEAN on this check
+   physics-model reference (reported, not gated): 'physics: bender cutoff inversion from mean w=0.035 m=3.375' passes 6.7% (upper95 11.1%)
+     10/150  physics: bender cutoff inversion from mean w=0.035 m=3.375
+      7/150  physics: bender cutoff inversion from mean w=0.02 m=2.125
+      7/150  physics: bender cutoff inversion from mean w=0.05 m=4.0
+      7/150  physics: bender cutoff inversion from mean w=0.065 m=4.0
+      7/150  physics: bender cutoff inversion from std w=0.02 m=3.375
+-> runs/m8/readout_probe_bender_0.85_n150.json

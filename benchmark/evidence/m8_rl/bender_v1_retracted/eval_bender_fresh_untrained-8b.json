@@ -1,0 +1,2949 @@
+{
+ "target_fraction": 0.85,
+ "n_per_family": 300,
+ "families": [
+  "bender"
+ ],
+ "trained_model": "qwen3-8b-m8raft",
+ "reused_arms": {},
+ "max_steps": 10,
+ "split": "heldout",
+ "start_index": 300,
+ "match_tolerance": null,
+ "temperature": 0.0,
+ "arms": {
+  "untrained-8b": {
+   "n_valid": 300,
+   "passes": 52,
+   "pass_rate": 0.1733,
+   "level_histogram": {
+    "0": 0,
+    "1": 0,
+    "2": 0,
+    "3": 248,
+    "4": 52
+   },
+   "mean_level": 3.173,
+   "steps_to_success_median": 6.0,
+   "steps_all_median": 10.0,
+   "fom_ratio_median": 0.22,
+   "fom_ratio_max": 25.921
+  }
+ },
+ "heldout": {
+  "untrained-8b": {
+   "bender": {
+    "rows": [
+     {
+      "instance": 300,
+      "instance_id": "bender-heldout-000300",
+      "best_level": 3,
+      "best_reward": 0.935328,
+      "best_fom_ratio": 0.741314,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 301,
+      "instance_id": "bender-heldout-000301",
+      "best_level": 3,
+      "best_reward": 0.839564,
+      "best_fom_ratio": 0.358255,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 302,
+      "instance_id": "bender-heldout-000302",
+      "best_level": 3,
+      "best_reward": 0.867282,
+      "best_fom_ratio": 0.469128,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 303,
+      "instance_id": "bender-heldout-000303",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 7.426933,
+      "pass_action": {
+       "r_curve": 220.0,
+       "w_ch": 0.025,
+       "m_coat": 3.5
+      },
+      "steps": 5
+     },
+     {
+      "instance": 304,
+      "instance_id": "bender-heldout-000304",
+      "best_level": 3,
+      "best_reward": 0.824035,
+      "best_fom_ratio": 0.296142,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 305,
+      "instance_id": "bender-heldout-000305",
+      "best_level": 3,
+      "best_reward": 0.922242,
+      "best_fom_ratio": 0.688969,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 306,
+      "instance_id": "bender-heldout-000306",
+      "best_level": 3,
+      "best_reward": 0.826694,
+      "best_fom_ratio": 0.306778,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 307,
+      "instance_id": "bender-heldout-000307",
+      "best_level": 3,
+      "best_reward": 0.898693,
+      "best_fom_ratio": 0.594772,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 308,
+      "instance_id": "bender-heldout-000308",
+      "best_level": 4,
+      "best_reward": 1.160125,
+      "best_fom_ratio": 1.640499,
+      "pass_action": {
+       "r_curve": 200.0,
+       "w_ch": 0.03,
+       "m_coat": 3.0
+      },
+      "steps": 2
+     },
+     {
+      "instance": 309,
+      "instance_id": "bender-heldout-000309",
+      "best_level": 3,
+      "best_reward": 0.995549,
+      "best_fom_ratio": 0.982194,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 310,
+      "instance_id": "bender-heldout-000310",
+      "best_level": 3,
+      "best_reward": 0.761166,
+      "best_fom_ratio": 0.044663,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 311,
+      "instance_id": "bender-heldout-000311",
+      "best_level": 3,
+      "best_reward": 0.758823,
+      "best_fom_ratio": 0.035293,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 312,
+      "instance_id": "bender-heldout-000312",
+      "best_level": 3,
+      "best_reward": 0.766097,
+      "best_fom_ratio": 0.064387,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 313,
+      "instance_id": "bender-heldout-000313",
+      "best_level": 3,
+      "best_reward": 0.773902,
+      "best_fom_ratio": 0.095608,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 314,
+      "instance_id": "bender-heldout-000314",
+      "best_level": 3,
+      "best_reward": 0.767958,
+      "best_fom_ratio": 0.071832,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 315,
+      "instance_id": "bender-heldout-000315",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 3.765822,
+      "pass_action": {
+       "r_curve": 250.0,
+       "w_ch": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 3
+     },
+     {
+      "instance": 316,
+      "instance_id": "bender-heldout-000316",
+      "best_level": 3,
+      "best_reward": 0.764138,
+      "best_fom_ratio": 0.056551,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 317,
+      "instance_id": "bender-heldout-000317",
+      "best_level": 3,
+      "best_reward": 0.765267,
+      "best_fom_ratio": 0.061067,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 318,
+      "instance_id": "bender-heldout-000318",
+      "best_level": 4,
+      "best_reward": 1.130835,
+      "best_fom_ratio": 1.523342,
+      "pass_action": {
+       "r_curve": 250.0,
+       "w_ch": 0.035,
+       "m_coat": 2.7
+      },
+      "steps": 6
+     },
+     {
+      "instance": 319,
+      "instance_id": "bender-heldout-000319",
+      "best_level": 3,
+      "best_reward": 0.790087,
+      "best_fom_ratio": 0.160347,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 320,
+      "instance_id": "bender-heldout-000320",
+      "best_level": 3,
+      "best_reward": 0.772136,
+      "best_fom_ratio": 0.088542,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 321,
+      "instance_id": "bender-heldout-000321",
+      "best_level": 3,
+      "best_reward": 0.764254,
+      "best_fom_ratio": 0.057015,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 322,
+      "instance_id": "bender-heldout-000322",
+      "best_level": 3,
+      "best_reward": 0.760858,
+      "best_fom_ratio": 0.043432,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 323,
+      "instance_id": "bender-heldout-000323",
+      "best_level": 3,
+      "best_reward": 0.801929,
+      "best_fom_ratio": 0.207714,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 324,
+      "instance_id": "bender-heldout-000324",
+      "best_level": 3,
+      "best_reward": 0.791284,
+      "best_fom_ratio": 0.165138,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 325,
+      "instance_id": "bender-heldout-000325",
+      "best_level": 3,
+      "best_reward": 0.919505,
+      "best_fom_ratio": 0.67802,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 326,
+      "instance_id": "bender-heldout-000326",
+      "best_level": 3,
+      "best_reward": 0.834045,
+      "best_fom_ratio": 0.33618,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 327,
+      "instance_id": "bender-heldout-000327",
+      "best_level": 4,
+      "best_reward": 1.023681,
+      "best_fom_ratio": 1.094724,
+      "pass_action": {
+       "r_curve": 250.0,
+       "w_ch": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 3
+     },
+     {
+      "instance": 328,
+      "instance_id": "bender-heldout-000328",
+      "best_level": 3,
+      "best_reward": 0.805112,
+      "best_fom_ratio": 0.22045,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 329,
+      "instance_id": "bender-heldout-000329",
+      "best_level": 3,
+      "best_reward": 0.834705,
+      "best_fom_ratio": 0.338821,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 330,
+      "instance_id": "bender-heldout-000330",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.786635,
+      "pass_action": {
+       "r_curve": 200.0,
+       "w_ch": 0.035,
+       "m_coat": 3.5
+      },
+      "steps": 4
+     },
+     {
+      "instance": 331,
+      "instance_id": "bender-heldout-000331",
+      "best_level": 3,
+      "best_reward": 0.814269,
+      "best_fom_ratio": 0.257075,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 332,
+      "instance_id": "bender-heldout-000332",
+      "best_level": 3,
+      "best_reward": 0.806183,
+      "best_fom_ratio": 0.224734,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 333,
+      "instance_id": "bender-heldout-000333",
+      "best_level": 3,
+      "best_reward": 0.799125,
+      "best_fom_ratio": 0.196499,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 334,
+      "instance_id": "bender-heldout-000334",
+      "best_level": 3,
+      "best_reward": 0.840891,
+      "best_fom_ratio": 0.363563,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 335,
+      "instance_id": "bender-heldout-000335",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.151378,
+      "pass_action": {
+       "r_curve": 250.0,
+       "w_ch": 0.04,
+       "m_coat": 3.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 336,
+      "instance_id": "bender-heldout-000336",
+      "best_level": 3,
+      "best_reward": 0.790862,
+      "best_fom_ratio": 0.163447,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 337,
+      "instance_id": "bender-heldout-000337",
+      "best_level": 3,
+      "best_reward": 0.783586,
+      "best_fom_ratio": 0.134344,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 338,
+      "instance_id": "bender-heldout-000338",
+      "best_level": 3,
+      "best_reward": 0.840586,
+      "best_fom_ratio": 0.362342,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 339,
+      "instance_id": "bender-heldout-000339",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.272549,
+      "pass_action": {
+       "r_curve": 150.0,
+       "w_ch": 0.03,
+       "m_coat": 3.5
+      },
+      "steps": 3
+     },
+     {
+      "instance": 340,
+      "instance_id": "bender-heldout-000340",
+      "best_level": 4,
+      "best_reward": 1.075068,
+      "best_fom_ratio": 1.300272,
+      "pass_action": {
+       "r_curve": 250.0,
+       "w_ch": 0.03,
+       "m_coat": 2.8
+      },
+      "steps": 4
+     },
+     {
+      "instance": 341,
+      "instance_id": "bender-heldout-000341",
+      "best_level": 3,
+      "best_reward": 0.838259,
+      "best_fom_ratio": 0.353035,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 342,
+      "instance_id": "bender-heldout-000342",
+      "best_level": 3,
+      "best_reward": 0.761418,
+      "best_fom_ratio": 0.045672,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 343,
+      "instance_id": "bender-heldout-000343",
+      "best_level": 4,
+      "best_reward": 1.048984,
+      "best_fom_ratio": 1.195937,
+      "pass_action": {
+       "r_curve": 120.0,
+       "w_ch": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 10
+     },
+     {
+      "instance": 344,
+      "instance_id": "bender-heldout-000344",
+      "best_level": 4,
+      "best_reward": 1.156074,
+      "best_fom_ratio": 1.624297,
+      "pass_action": {
+       "r_curve": 200.0,
+       "w_ch": 0.03,
+       "m_coat": 3.75
+      },
+      "steps": 4
+     },
+     {
+      "instance": 345,
+      "instance_id": "bender-heldout-000345",
+      "best_level": 3,
+      "best_reward": 0.758508,
+      "best_fom_ratio": 0.034032,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 346,
+      "instance_id": "bender-heldout-000346",
+      "best_level": 3,
+      "best_reward": 0.819547,
+      "best_fom_ratio": 0.278189,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 347,
+      "instance_id": "bender-heldout-000347",
+      "best_level": 3,
+      "best_reward": 0.954614,
+      "best_fom_ratio": 0.818455,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 348,
+      "instance_id": "bender-heldout-000348",
+      "best_level": 3,
+      "best_reward": 0.760583,
+      "best_fom_ratio": 0.042332,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 349,
+      "instance_id": "bender-heldout-000349",
+      "best_level": 3,
+      "best_reward": 0.764478,
+      "best_fom_ratio": 0.057913,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 350,
+      "instance_id": "bender-heldout-000350",
+      "best_level": 4,
+      "best_reward": 1.022507,
+      "best_fom_ratio": 1.090027,
+      "pass_action": {
+       "r_curve": 200.0,
+       "w_ch": 0.03,
+       "m_coat": 3.7
+      },
+      "steps": 4
+     },
+     {
+      "instance": 351,
+      "instance_id": "bender-heldout-000351",
+      "best_level": 3,
+      "best_reward": 0.760171,
+      "best_fom_ratio": 0.040683,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 352,
+      "instance_id": "bender-heldout-000352",
+      "best_level": 4,
+      "best_reward": 1.103293,
+      "best_fom_ratio": 1.413171,
+      "pass_action": {
+       "r_curve": 200.0,
+       "w_ch": 0.07,
+       "m_coat": 2.5
+      },
+      "steps": 9
+     },
+     {
+      "instance": 353,
+      "instance_id": "bender-heldout-000353",
+      "best_level": 4,
+      "best_reward": 1.020915,
+      "best_fom_ratio": 1.08366,
+      "pass_action": {
+       "r_curve": 150.0,
+       "w_ch": 0.035,
+       "m_coat": 2.5
+      },
+      "steps": 5
+     },
+     {
+      "instance": 354,
+      "instance_id": "bender-heldout-000354",
+      "best_level": 3,
+      "best_reward": 0.756392,
+      "best_fom_ratio": 0.025567,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 355,
+      "instance_id": "bender-heldout-000355",
+      "best_level": 3,
+      "best_reward": 0.819587,
+      "best_fom_ratio": 0.278348,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 356,
+      "instance_id": "bender-heldout-000356",
+      "best_level": 3,
+      "best_reward": 0.907775,
+      "best_fom_ratio": 0.6311,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 357,
+      "instance_id": "bender-heldout-000357",
+      "best_level": 3,
+      "best_reward": 0.775196,
+      "best_fom_ratio": 0.100784,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 358,
+      "instance_id": "bender-heldout-000358",
+      "best_level": 4,
+      "best_reward": 1.079735,
+      "best_fom_ratio": 1.318941,
+      "pass_action": {
+       "r_curve": 200.0,
+       "w_ch": 0.03,
+       "m_coat": 3.5
+      },
+      "steps": 3
+     },
+     {
+      "instance": 359,
+      "instance_id": "bender-heldout-000359",
+      "best_level": 3,
+      "best_reward": 0.758433,
+      "best_fom_ratio": 0.033733,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 360,
+      "instance_id": "bender-heldout-000360",
+      "best_level": 3,
+      "best_reward": 0.769647,
+      "best_fom_ratio": 0.078589,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 361,
+      "instance_id": "bender-heldout-000361",
+      "best_level": 4,
+      "best_reward": 1.01416,
+      "best_fom_ratio": 1.056641,
+      "pass_action": {
+       "r_curve": 200.0,
+       "w_ch": 0.035,
+       "m_coat": 3.0
+      },
+      "steps": 3
+     },
+     {
+      "instance": 362,
+      "instance_id": "bender-heldout-000362",
+      "best_level": 3,
+      "best_reward": 0.760428,
+      "best_fom_ratio": 0.041714,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 363,
+      "instance_id": "bender-heldout-000363",
+      "best_level": 3,
+      "best_reward": 0.998966,
+      "best_fom_ratio": 0.995866,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 364,
+      "instance_id": "bender-heldout-000364",
+      "best_level": 3,
+      "best_reward": 0.867031,
+      "best_fom_ratio": 0.468125,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 365,
+      "instance_id": "bender-heldout-000365",
+      "best_level": 3,
+      "best_reward": 0.91233,
+      "best_fom_ratio": 0.64932,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 366,
+      "instance_id": "bender-heldout-000366",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 25.920786,
+      "pass_action": {
+       "r_curve": 200.0,
+       "w_ch": 0.07,
+       "m_coat": 3.0
+      },
+      "steps": 9
+     },
+     {
+      "instance": 367,
+      "instance_id": "bender-heldout-000367",
+      "best_level": 4,
+      "best_reward": 1.148304,
+      "best_fom_ratio": 1.593215,
+      "pass_action": {
+       "r_curve": 200.0,
+       "w_ch": 0.035,
+       "m_coat": 3.5
+      },
+      "steps": 4
+     },
+     {
+      "instance": 368,
+      "instance_id": "bender-heldout-000368",
+      "best_level": 3,
+      "best_reward": 0.76132,
+      "best_fom_ratio": 0.045278,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 369,
+      "instance_id": "bender-heldout-000369",
+      "best_level": 3,
+      "best_reward": 0.953772,
+      "best_fom_ratio": 0.815086,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 370,
+      "instance_id": "bender-heldout-000370",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.631583,
+      "pass_action": {
+       "r_curve": 250.0,
+       "w_ch": 0.03,
+       "m_coat": 2.6
+      },
+      "steps": 8
+     },
+     {
+      "instance": 371,
+      "instance_id": "bender-heldout-000371",
+      "best_level": 4,
+      "best_reward": 1.047589,
+      "best_fom_ratio": 1.190357,
+      "pass_action": {
+       "r_curve": 250.0,
+       "w_ch": 0.035,
+       "m_coat": 3.0
+      },
+      "steps": 6
+     },
+     {
+      "instance": 372,
+      "instance_id": "bender-heldout-000372",
+      "best_level": 3,
+      "best_reward": 0.868243,
+      "best_fom_ratio": 0.472974,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 373,
+      "instance_id": "bender-heldout-000373",
+      "best_level": 3,
+      "best_reward": 0.867517,
+      "best_fom_ratio": 0.470069,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 374,
+      "instance_id": "bender-heldout-000374",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.304621,
+      "pass_action": {
+       "r_curve": 220.0,
+       "w_ch": 0.035,
+       "m_coat": 3.0
+      },
+      "steps": 7
+     },
+     {
+      "instance": 375,
+      "instance_id": "bender-heldout-000375",
+      "best_level": 3,
+      "best_reward": 0.872036,
+      "best_fom_ratio": 0.488142,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 376,
+      "instance_id": "bender-heldout-000376",
+      "best_level": 3,
+      "best_reward": 0.86498,
+      "best_fom_ratio": 0.459918,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 377,
+      "instance_id": "bender-heldout-000377",
+      "best_level": 3,
+      "best_reward": 0.801411,
+      "best_fom_ratio": 0.205644,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 378,
+      "instance_id": "bender-heldout-000378",
+      "best_level": 3,
+      "best_reward": 0.777283,
+      "best_fom_ratio": 0.109132,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 379,
+      "instance_id": "bender-heldout-000379",
+      "best_level": 3,
+      "best_reward": 0.891888,
+      "best_fom_ratio": 0.567553,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 380,
+      "instance_id": "bender-heldout-000380",
+      "best_level": 3,
+      "best_reward": 0.910988,
+      "best_fom_ratio": 0.643954,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 381,
+      "instance_id": "bender-heldout-000381",
+      "best_level": 3,
+      "best_reward": 0.846779,
+      "best_fom_ratio": 0.387116,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 382,
+      "instance_id": "bender-heldout-000382",
+      "best_level": 3,
+      "best_reward": 0.800723,
+      "best_fom_ratio": 0.202893,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 383,
+      "instance_id": "bender-heldout-000383",
+      "best_level": 3,
+      "best_reward": 0.783129,
+      "best_fom_ratio": 0.132516,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 384,
+      "instance_id": "bender-heldout-000384",
+      "best_level": 3,
+      "best_reward": 0.897645,
+      "best_fom_ratio": 0.590579,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 385,
+      "instance_id": "bender-heldout-000385",
+      "best_level": 3,
+      "best_reward": 0.775354,
+      "best_fom_ratio": 0.101415,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 386,
+      "instance_id": "bender-heldout-000386",
+      "best_level": 3,
+      "best_reward": 0.872631,
+      "best_fom_ratio": 0.490525,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 387,
+      "instance_id": "bender-heldout-000387",
+      "best_level": 3,
+      "best_reward": 0.76583,
+      "best_fom_ratio": 0.063319,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 388,
+      "instance_id": "bender-heldout-000388",
+      "best_level": 3,
+      "best_reward": 0.762956,
+      "best_fom_ratio": 0.051823,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 389,
+      "instance_id": "bender-heldout-000389",
+      "best_level": 3,
+      "best_reward": 0.793342,
+      "best_fom_ratio": 0.173366,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 390,
+      "instance_id": "bender-heldout-000390",
+      "best_level": 3,
+      "best_reward": 0.832362,
+      "best_fom_ratio": 0.329449,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 391,
+      "instance_id": "bender-heldout-000391",
+      "best_level": 3,
+      "best_reward": 0.865122,
+      "best_fom_ratio": 0.460486,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 392,
+      "instance_id": "bender-heldout-000392",
+      "best_level": 3,
+      "best_reward": 0.779307,
+      "best_fom_ratio": 0.11723,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 393,
+      "instance_id": "bender-heldout-000393",
+      "best_level": 3,
+      "best_reward": 0.784818,
+      "best_fom_ratio": 0.139272,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 394,
+      "instance_id": "bender-heldout-000394",
+      "best_level": 3,
+      "best_reward": 0.9065,
+      "best_fom_ratio": 0.625999,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 395,
+      "instance_id": "bender-heldout-000395",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 11.342946,
+      "pass_action": {
+       "r_curve": 200.0,
+       "w_ch": 0.025,
+       "m_coat": 2.7
+      },
+      "steps": 2
+     },
+     {
+      "instance": 396,
+      "instance_id": "bender-heldout-000396",
+      "best_level": 3,
+      "best_reward": 0.783075,
+      "best_fom_ratio": 0.1323,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 397,
+      "instance_id": "bender-heldout-000397",
+      "best_level": 3,
+      "best_reward": 0.816624,
+      "best_fom_ratio": 0.266498,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 398,
+      "instance_id": "bender-heldout-000398",
+      "best_level": 3,
+      "best_reward": 0.91075,
+      "best_fom_ratio": 0.642999,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 399,
+      "instance_id": "bender-heldout-000399",
+      "best_level": 3,
+      "best_reward": 0.954818,
+      "best_fom_ratio": 0.819273,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 400,
+      "instance_id": "bender-heldout-000400",
+      "best_level": 3,
+      "best_reward": 0.758676,
+      "best_fom_ratio": 0.034706,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 401,
+      "instance_id": "bender-heldout-000401",
+      "best_level": 3,
+      "best_reward": 0.77618,
+      "best_fom_ratio": 0.10472,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 402,
+      "instance_id": "bender-heldout-000402",
+      "best_level": 4,
+      "best_reward": 1.083253,
+      "best_fom_ratio": 1.333013,
+      "pass_action": {
+       "r_curve": 210.0,
+       "w_ch": 0.03,
+       "m_coat": 2.7
+      },
+      "steps": 9
+     },
+     {
+      "instance": 403,
+      "instance_id": "bender-heldout-000403",
+      "best_level": 3,
+      "best_reward": 0.797995,
+      "best_fom_ratio": 0.191979,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 404,
+      "instance_id": "bender-heldout-000404",
+      "best_level": 3,
+      "best_reward": 0.759633,
+      "best_fom_ratio": 0.038531,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 405,
+      "instance_id": "bender-heldout-000405",
+      "best_level": 4,
+      "best_reward": 1.088757,
+      "best_fom_ratio": 1.355028,
+      "pass_action": {
+       "r_curve": 250.0,
+       "w_ch": 0.03,
+       "m_coat": 3.5
+      },
+      "steps": 6
+     },
+     {
+      "instance": 406,
+      "instance_id": "bender-heldout-000406",
+      "best_level": 3,
+      "best_reward": 0.778944,
+      "best_fom_ratio": 0.115776,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 407,
+      "instance_id": "bender-heldout-000407",
+      "best_level": 3,
+      "best_reward": 0.884015,
+      "best_fom_ratio": 0.536059,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 408,
+      "instance_id": "bender-heldout-000408",
+      "best_level": 3,
+      "best_reward": 0.769694,
+      "best_fom_ratio": 0.078775,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 409,
+      "instance_id": "bender-heldout-000409",
+      "best_level": 3,
+      "best_reward": 0.796429,
+      "best_fom_ratio": 0.185715,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 410,
+      "instance_id": "bender-heldout-000410",
+      "best_level": 3,
+      "best_reward": 0.765613,
+      "best_fom_ratio": 0.062453,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 411,
+      "instance_id": "bender-heldout-000411",
+      "best_level": 3,
+      "best_reward": 0.758217,
+      "best_fom_ratio": 0.032866,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 412,
+      "instance_id": "bender-heldout-000412",
+      "best_level": 3,
+      "best_reward": 0.930228,
+      "best_fom_ratio": 0.720912,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 413,
+      "instance_id": "bender-heldout-000413",
+      "best_level": 3,
+      "best_reward": 0.758716,
+      "best_fom_ratio": 0.034865,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 414,
+      "instance_id": "bender-heldout-000414",
+      "best_level": 3,
+      "best_reward": 0.797136,
+      "best_fom_ratio": 0.188543,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 415,
+      "instance_id": "bender-heldout-000415",
+      "best_level": 3,
+      "best_reward": 0.801293,
+      "best_fom_ratio": 0.205174,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 416,
+      "instance_id": "bender-heldout-000416",
+      "best_level": 3,
+      "best_reward": 0.825275,
+      "best_fom_ratio": 0.301102,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 417,
+      "instance_id": "bender-heldout-000417",
+      "best_level": 3,
+      "best_reward": 0.766872,
+      "best_fom_ratio": 0.067489,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 418,
+      "instance_id": "bender-heldout-000418",
+      "best_level": 4,
+      "best_reward": 1.166842,
+      "best_fom_ratio": 1.667367,
+      "pass_action": {
+       "r_curve": 250.0,
+       "w_ch": 0.03,
+       "m_coat": 3.5
+      },
+      "steps": 6
+     },
+     {
+      "instance": 419,
+      "instance_id": "bender-heldout-000419",
+      "best_level": 3,
+      "best_reward": 0.762515,
+      "best_fom_ratio": 0.050061,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 420,
+      "instance_id": "bender-heldout-000420",
+      "best_level": 3,
+      "best_reward": 0.804068,
+      "best_fom_ratio": 0.216272,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 421,
+      "instance_id": "bender-heldout-000421",
+      "best_level": 3,
+      "best_reward": 0.755771,
+      "best_fom_ratio": 0.023083,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 422,
+      "instance_id": "bender-heldout-000422",
+      "best_level": 3,
+      "best_reward": 0.86818,
+      "best_fom_ratio": 0.472718,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 423,
+      "instance_id": "bender-heldout-000423",
+      "best_level": 4,
+      "best_reward": 1.020046,
+      "best_fom_ratio": 1.080183,
+      "pass_action": {
+       "r_curve": 200.0,
+       "w_ch": 0.04,
+       "m_coat": 2.5
+      },
+      "steps": 8
+     },
+     {
+      "instance": 424,
+      "instance_id": "bender-heldout-000424",
+      "best_level": 3,
+      "best_reward": 0.771847,
+      "best_fom_ratio": 0.087386,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 425,
+      "instance_id": "bender-heldout-000425",
+      "best_level": 3,
+      "best_reward": 0.944361,
+      "best_fom_ratio": 0.777446,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 426,
+      "instance_id": "bender-heldout-000426",
+      "best_level": 3,
+      "best_reward": 0.937007,
+      "best_fom_ratio": 0.748028,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 427,
+      "instance_id": "bender-heldout-000427",
+      "best_level": 3,
+      "best_reward": 0.839282,
+      "best_fom_ratio": 0.35713,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 428,
+      "instance_id": "bender-heldout-000428",
+      "best_level": 3,
+      "best_reward": 0.877354,
+      "best_fom_ratio": 0.509414,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 429,
+      "instance_id": "bender-heldout-000429",
+      "best_level": 3,
+      "best_reward": 0.793623,
+      "best_fom_ratio": 0.174493,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 430,
+      "instance_id": "bender-heldout-000430",
+      "best_level": 4,
+      "best_reward": 1.175876,
+      "best_fom_ratio": 1.703503,
+      "pass_action": {
+       "r_curve": 160.0,
+       "w_ch": 0.03,
+       "m_coat": 3.2
+      },
+      "steps": 4
+     },
+     {
+      "instance": 431,
+      "instance_id": "bender-heldout-000431",
+      "best_level": 4,
+      "best_reward": 1.245841,
+      "best_fom_ratio": 1.983363,
+      "pass_action": {
+       "r_curve": 200.0,
+       "w_ch": 0.03,
+       "m_coat": 3.5
+      },
+      "steps": 3
+     },
+     {
+      "instance": 432,
+      "instance_id": "bender-heldout-000432",
+      "best_level": 3,
+      "best_reward": 0.761254,
+      "best_fom_ratio": 0.045017,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 433,
+      "instance_id": "bender-heldout-000433",
+      "best_level": 3,
+      "best_reward": 0.900341,
+      "best_fom_ratio": 0.601363,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 434,
+      "instance_id": "bender-heldout-000434",
+      "best_level": 3,
+      "best_reward": 0.850837,
+      "best_fom_ratio": 0.403348,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 435,
+      "instance_id": "bender-heldout-000435",
+      "best_level": 3,
+      "best_reward": 0.922971,
+      "best_fom_ratio": 0.691884,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 436,
+      "instance_id": "bender-heldout-000436",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.191869,
+      "pass_action": {
+       "r_curve": 185.0,
+       "w_ch": 0.035,
+       "m_coat": 3.5
+      },
+      "steps": 9
+     },
+     {
+      "instance": 437,
+      "instance_id": "bender-heldout-000437",
+      "best_level": 4,
+      "best_reward": 1.160109,
+      "best_fom_ratio": 1.640438,
+      "pass_action": {
+       "r_curve": 250.0,
+       "w_ch": 0.025,
+       "m_coat": 2.6
+      },
+      "steps": 8
+     },
+     {
+      "instance": 438,
+      "instance_id": "bender-heldout-000438",
+      "best_level": 3,
+      "best_reward": 0.756238,
+      "best_fom_ratio": 0.02495,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 439,
+      "instance_id": "bender-heldout-000439",
+      "best_level": 3,
+      "best_reward": 0.757494,
+      "best_fom_ratio": 0.029975,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 440,
+      "instance_id": "bender-heldout-000440",
+      "best_level": 3,
+      "best_reward": 0.763229,
+      "best_fom_ratio": 0.052915,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 441,
+      "instance_id": "bender-heldout-000441",
+      "best_level": 3,
+      "best_reward": 0.7691,
+      "best_fom_ratio": 0.076401,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 442,
+      "instance_id": "bender-heldout-000442",
+      "best_level": 3,
+      "best_reward": 0.76892,
+      "best_fom_ratio": 0.075678,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 443,
+      "instance_id": "bender-heldout-000443",
+      "best_level": 3,
+      "best_reward": 0.874534,
+      "best_fom_ratio": 0.498135,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 444,
+      "instance_id": "bender-heldout-000444",
+      "best_level": 3,
+      "best_reward": 0.755973,
+      "best_fom_ratio": 0.02389,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 445,
+      "instance_id": "bender-heldout-000445",
+      "best_level": 3,
+      "best_reward": 0.827402,
+      "best_fom_ratio": 0.309609,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 446,
+      "instance_id": "bender-heldout-000446",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.396855,
+      "pass_action": {
+       "r_curve": 250.0,
+       "w_ch": 0.04,
+       "m_coat": 3.0
+      },
+      "steps": 6
+     },
+     {
+      "instance": 447,
+      "instance_id": "bender-heldout-000447",
+      "best_level": 3,
+      "best_reward": 0.760187,
+      "best_fom_ratio": 0.040747,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 448,
+      "instance_id": "bender-heldout-000448",
+      "best_level": 3,
+      "best_reward": 0.757946,
+      "best_fom_ratio": 0.031783,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 449,
+      "instance_id": "bender-heldout-000449",
+      "best_level": 4,
+      "best_reward": 1.219438,
+      "best_fom_ratio": 1.877753,
+      "pass_action": {
+       "r_curve": 250.0,
+       "w_ch": 0.03,
+       "m_coat": 3.0
+      },
+      "steps": 4
+     },
+     {
+      "instance": 450,
+      "instance_id": "bender-heldout-000450",
+      "best_level": 3,
+      "best_reward": 0.830751,
+      "best_fom_ratio": 0.323004,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 451,
+      "instance_id": "bender-heldout-000451",
+      "best_level": 3,
+      "best_reward": 0.876471,
+      "best_fom_ratio": 0.505882,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 452,
+      "instance_id": "bender-heldout-000452",
+      "best_level": 3,
+      "best_reward": 0.75869,
+      "best_fom_ratio": 0.034762,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 453,
+      "instance_id": "bender-heldout-000453",
+      "best_level": 3,
+      "best_reward": 0.976512,
+      "best_fom_ratio": 0.906048,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 454,
+      "instance_id": "bender-heldout-000454",
+      "best_level": 3,
+      "best_reward": 0.758199,
+      "best_fom_ratio": 0.032798,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 455,
+      "instance_id": "bender-heldout-000455",
+      "best_level": 3,
+      "best_reward": 0.820266,
+      "best_fom_ratio": 0.281065,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 456,
+      "instance_id": "bender-heldout-000456",
+      "best_level": 3,
+      "best_reward": 0.989429,
+      "best_fom_ratio": 0.957714,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 457,
+      "instance_id": "bender-heldout-000457",
+      "best_level": 3,
+      "best_reward": 0.780886,
+      "best_fom_ratio": 0.123543,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 458,
+      "instance_id": "bender-heldout-000458",
+      "best_level": 3,
+      "best_reward": 0.80847,
+      "best_fom_ratio": 0.233882,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 459,
+      "instance_id": "bender-heldout-000459",
+      "best_level": 4,
+      "best_reward": 1.014236,
+      "best_fom_ratio": 1.056945,
+      "pass_action": {
+       "r_curve": 200.0,
+       "w_ch": 0.07,
+       "m_coat": 2.5
+      },
+      "steps": 9
+     },
+     {
+      "instance": 460,
+      "instance_id": "bender-heldout-000460",
+      "best_level": 3,
+      "best_reward": 0.771245,
+      "best_fom_ratio": 0.084981,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 461,
+      "instance_id": "bender-heldout-000461",
+      "best_level": 3,
+      "best_reward": 0.766418,
+      "best_fom_ratio": 0.065672,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 462,
+      "instance_id": "bender-heldout-000462",
+      "best_level": 3,
+      "best_reward": 0.795891,
+      "best_fom_ratio": 0.183565,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 463,
+      "instance_id": "bender-heldout-000463",
+      "best_level": 3,
+      "best_reward": 0.765486,
+      "best_fom_ratio": 0.061944,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 464,
+      "instance_id": "bender-heldout-000464",
+      "best_level": 3,
+      "best_reward": 0.797181,
+      "best_fom_ratio": 0.188726,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 465,
+      "instance_id": "bender-heldout-000465",
+      "best_level": 4,
+      "best_reward": 1.078362,
+      "best_fom_ratio": 1.313449,
+      "pass_action": {
+       "r_curve": 220.0,
+       "w_ch": 0.03,
+       "m_coat": 3.0
+      },
+      "steps": 9
+     },
+     {
+      "instance": 466,
+      "instance_id": "bender-heldout-000466",
+      "best_level": 3,
+      "best_reward": 0.856896,
+      "best_fom_ratio": 0.427585,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 467,
+      "instance_id": "bender-heldout-000467",
+      "best_level": 3,
+      "best_reward": 0.769565,
+      "best_fom_ratio": 0.078258,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 468,
+      "instance_id": "bender-heldout-000468",
+      "best_level": 3,
+      "best_reward": 0.805067,
+      "best_fom_ratio": 0.220268,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 469,
+      "instance_id": "bender-heldout-000469",
+      "best_level": 3,
+      "best_reward": 0.805529,
+      "best_fom_ratio": 0.222115,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 470,
+      "instance_id": "bender-heldout-000470",
+      "best_level": 3,
+      "best_reward": 0.958014,
+      "best_fom_ratio": 0.832058,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 471,
+      "instance_id": "bender-heldout-000471",
+      "best_level": 3,
+      "best_reward": 0.800441,
+      "best_fom_ratio": 0.201765,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 472,
+      "instance_id": "bender-heldout-000472",
+      "best_level": 3,
+      "best_reward": 0.809239,
+      "best_fom_ratio": 0.236955,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 473,
+      "instance_id": "bender-heldout-000473",
+      "best_level": 3,
+      "best_reward": 0.762881,
+      "best_fom_ratio": 0.051522,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 474,
+      "instance_id": "bender-heldout-000474",
+      "best_level": 4,
+      "best_reward": 1.163341,
+      "best_fom_ratio": 1.653366,
+      "pass_action": {
+       "r_curve": 200.0,
+       "w_ch": 0.043,
+       "m_coat": 2.5
+      },
+      "steps": 6
+     },
+     {
+      "instance": 475,
+      "instance_id": "bender-heldout-000475",
+      "best_level": 3,
+      "best_reward": 0.791849,
+      "best_fom_ratio": 0.167395,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 476,
+      "instance_id": "bender-heldout-000476",
+      "best_level": 3,
+      "best_reward": 0.760975,
+      "best_fom_ratio": 0.0439,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 477,
+      "instance_id": "bender-heldout-000477",
+      "best_level": 4,
+      "best_reward": 1.01795,
+      "best_fom_ratio": 1.071801,
+      "pass_action": {
+       "r_curve": 200.0,
+       "w_ch": 0.03,
+       "m_coat": 3.0
+      },
+      "steps": 10
+     },
+     {
+      "instance": 478,
+      "instance_id": "bender-heldout-000478",
+      "best_level": 3,
+      "best_reward": 0.759809,
+      "best_fom_ratio": 0.039237,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 479,
+      "instance_id": "bender-heldout-000479",
+      "best_level": 3,
+      "best_reward": 0.782797,
+      "best_fom_ratio": 0.131188,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 480,
+      "instance_id": "bender-heldout-000480",
+      "best_level": 3,
+      "best_reward": 0.756549,
+      "best_fom_ratio": 0.026195,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 481,
+      "instance_id": "bender-heldout-000481",
+      "best_level": 4,
+      "best_reward": 1.087653,
+      "best_fom_ratio": 1.35061,
+      "pass_action": {
+       "r_curve": 250.0,
+       "w_ch": 0.03,
+       "m_coat": 2.6
+      },
+      "steps": 5
+     },
+     {
+      "instance": 482,
+      "instance_id": "bender-heldout-000482",
+      "best_level": 3,
+      "best_reward": 0.767169,
+      "best_fom_ratio": 0.068677,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 483,
+      "instance_id": "bender-heldout-000483",
+      "best_level": 3,
+      "best_reward": 0.774379,
+      "best_fom_ratio": 0.097514,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 484,
+      "instance_id": "bender-heldout-000484",
+      "best_level": 3,
+      "best_reward": 0.78279,
+      "best_fom_ratio": 0.13116,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 485,
+      "instance_id": "bender-heldout-000485",
+      "best_level": 3,
+      "best_reward": 0.79145,
+      "best_fom_ratio": 0.165801,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 486,
+      "instance_id": "bender-heldout-000486",
+      "best_level": 3,
+      "best_reward": 0.796647,
+      "best_fom_ratio": 0.186589,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 487,
+      "instance_id": "bender-heldout-000487",
+      "best_level": 3,
+      "best_reward": 0.760943,
+      "best_fom_ratio": 0.043771,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 488,
+      "instance_id": "bender-heldout-000488",
+      "best_level": 3,
+      "best_reward": 0.768441,
+      "best_fom_ratio": 0.073763,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 489,
+      "instance_id": "bender-heldout-000489",
+      "best_level": 3,
+      "best_reward": 0.758009,
+      "best_fom_ratio": 0.032034,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 490,
+      "instance_id": "bender-heldout-000490",
+      "best_level": 3,
+      "best_reward": 0.764185,
+      "best_fom_ratio": 0.056741,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 491,
+      "instance_id": "bender-heldout-000491",
+      "best_level": 3,
+      "best_reward": 0.76481,
+      "best_fom_ratio": 0.059241,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 492,
+      "instance_id": "bender-heldout-000492",
+      "best_level": 3,
+      "best_reward": 0.826849,
+      "best_fom_ratio": 0.307395,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 493,
+      "instance_id": "bender-heldout-000493",
+      "best_level": 3,
+      "best_reward": 0.776295,
+      "best_fom_ratio": 0.105179,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 494,
+      "instance_id": "bender-heldout-000494",
+      "best_level": 3,
+      "best_reward": 0.833286,
+      "best_fom_ratio": 0.333146,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 495,
+      "instance_id": "bender-heldout-000495",
+      "best_level": 3,
+      "best_reward": 0.818811,
+      "best_fom_ratio": 0.275243,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 496,
+      "instance_id": "bender-heldout-000496",
+      "best_level": 3,
+      "best_reward": 0.760321,
+      "best_fom_ratio": 0.041283,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 497,
+      "instance_id": "bender-heldout-000497",
+      "best_level": 3,
+      "best_reward": 0.761198,
+      "best_fom_ratio": 0.044793,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 498,
+      "instance_id": "bender-heldout-000498",
+      "best_level": 3,
+      "best_reward": 0.765039,
+      "best_fom_ratio": 0.060158,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 499,
+      "instance_id": "bender-heldout-000499",
+      "best_level": 3,
+      "best_reward": 0.778121,
+      "best_fom_ratio": 0.112484,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 500,
+      "instance_id": "bender-heldout-000500",
+      "best_level": 3,
+      "best_reward": 0.837118,
+      "best_fom_ratio": 0.348471,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 501,
+      "instance_id": "bender-heldout-000501",
+      "best_level": 3,
+      "best_reward": 0.773527,
+      "best_fom_ratio": 0.094108,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 502,
+      "instance_id": "bender-heldout-000502",
+      "best_level": 3,
+      "best_reward": 0.812804,
+      "best_fom_ratio": 0.251216,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 503,
+      "instance_id": "bender-heldout-000503",
+      "best_level": 3,
+      "best_reward": 0.785447,
+      "best_fom_ratio": 0.141789,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 504,
+      "instance_id": "bender-heldout-000504",
+      "best_level": 4,
+      "best_reward": 1.047981,
+      "best_fom_ratio": 1.191922,
+      "pass_action": {
+       "r_curve": 150.0,
+       "w_ch": 0.04,
+       "m_coat": 2.5
+      },
+      "steps": 5
+     },
+     {
+      "instance": 505,
+      "instance_id": "bender-heldout-000505",
+      "best_level": 3,
+      "best_reward": 0.767922,
+      "best_fom_ratio": 0.071687,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 506,
+      "instance_id": "bender-heldout-000506",
+      "best_level": 3,
+      "best_reward": 0.758467,
+      "best_fom_ratio": 0.033867,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 507,
+      "instance_id": "bender-heldout-000507",
+      "best_level": 3,
+      "best_reward": 0.761518,
+      "best_fom_ratio": 0.046072,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 508,
+      "instance_id": "bender-heldout-000508",
+      "best_level": 3,
+      "best_reward": 0.792573,
+      "best_fom_ratio": 0.170292,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 509,
+      "instance_id": "bender-heldout-000509",
+      "best_level": 3,
+      "best_reward": 0.757334,
+      "best_fom_ratio": 0.029337,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 510,
+      "instance_id": "bender-heldout-000510",
+      "best_level": 3,
+      "best_reward": 0.778809,
+      "best_fom_ratio": 0.115238,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 511,
+      "instance_id": "bender-heldout-000511",
+      "best_level": 3,
+      "best_reward": 0.759256,
+      "best_fom_ratio": 0.037022,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 512,
+      "instance_id": "bender-heldout-000512",
+      "best_level": 3,
+      "best_reward": 0.801338,
+      "best_fom_ratio": 0.205351,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 513,
+      "instance_id": "bender-heldout-000513",
+      "best_level": 3,
+      "best_reward": 0.827683,
+      "best_fom_ratio": 0.31073,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 514,
+      "instance_id": "bender-heldout-000514",
+      "best_level": 3,
+      "best_reward": 0.760849,
+      "best_fom_ratio": 0.043395,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 515,
+      "instance_id": "bender-heldout-000515",
+      "best_level": 3,
+      "best_reward": 0.884625,
+      "best_fom_ratio": 0.5385,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 516,
+      "instance_id": "bender-heldout-000516",
+      "best_level": 3,
+      "best_reward": 0.756057,
+      "best_fom_ratio": 0.024227,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 517,
+      "instance_id": "bender-heldout-000517",
+      "best_level": 3,
+      "best_reward": 0.779543,
+      "best_fom_ratio": 0.118173,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 518,
+      "instance_id": "bender-heldout-000518",
+      "best_level": 3,
+      "best_reward": 0.918437,
+      "best_fom_ratio": 0.673746,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 519,
+      "instance_id": "bender-heldout-000519",
+      "best_level": 3,
+      "best_reward": 0.840531,
+      "best_fom_ratio": 0.362124,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 520,
+      "instance_id": "bender-heldout-000520",
+      "best_level": 4,
+      "best_reward": 1.022114,
+      "best_fom_ratio": 1.088458,
+      "pass_action": {
+       "r_curve": 250.0,
+       "w_ch": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 3
+     },
+     {
+      "instance": 521,
+      "instance_id": "bender-heldout-000521",
+      "best_level": 4,
+      "best_reward": 1.060664,
+      "best_fom_ratio": 1.242655,
+      "pass_action": {
+       "r_curve": 220.0,
+       "w_ch": 0.035,
+       "m_coat": 3.5
+      },
+      "steps": 7
+     },
+     {
+      "instance": 522,
+      "instance_id": "bender-heldout-000522",
+      "best_level": 3,
+      "best_reward": 0.767488,
+      "best_fom_ratio": 0.069951,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 523,
+      "instance_id": "bender-heldout-000523",
+      "best_level": 3,
+      "best_reward": 0.850997,
+      "best_fom_ratio": 0.403988,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 524,
+      "instance_id": "bender-heldout-000524",
+      "best_level": 3,
+      "best_reward": 0.776693,
+      "best_fom_ratio": 0.10677,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 525,
+      "instance_id": "bender-heldout-000525",
+      "best_level": 3,
+      "best_reward": 0.792655,
+      "best_fom_ratio": 0.170621,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 526,
+      "instance_id": "bender-heldout-000526",
+      "best_level": 3,
+      "best_reward": 0.761986,
+      "best_fom_ratio": 0.047943,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 527,
+      "instance_id": "bender-heldout-000527",
+      "best_level": 3,
+      "best_reward": 0.762159,
+      "best_fom_ratio": 0.048636,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 528,
+      "instance_id": "bender-heldout-000528",
+      "best_level": 3,
+      "best_reward": 0.766035,
+      "best_fom_ratio": 0.064138,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 529,
+      "instance_id": "bender-heldout-000529",
+      "best_level": 3,
+      "best_reward": 0.82799,
+      "best_fom_ratio": 0.311959,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 530,
+      "instance_id": "bender-heldout-000530",
+      "best_level": 3,
+      "best_reward": 0.829309,
+      "best_fom_ratio": 0.317238,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 531,
+      "instance_id": "bender-heldout-000531",
+      "best_level": 3,
+      "best_reward": 0.977914,
+      "best_fom_ratio": 0.911655,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 532,
+      "instance_id": "bender-heldout-000532",
+      "best_level": 3,
+      "best_reward": 0.856996,
+      "best_fom_ratio": 0.427984,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 533,
+      "instance_id": "bender-heldout-000533",
+      "best_level": 4,
+      "best_reward": 1.007025,
+      "best_fom_ratio": 1.0281,
+      "pass_action": {
+       "r_curve": 200.0,
+       "w_ch": 0.03,
+       "m_coat": 3.0
+      },
+      "steps": 6
+     },
+     {
+      "instance": 534,
+      "instance_id": "bender-heldout-000534",
+      "best_level": 4,
+      "best_reward": 1.226525,
+      "best_fom_ratio": 1.906101,
+      "pass_action": {
+       "r_curve": 220.0,
+       "w_ch": 0.03,
+       "m_coat": 3.8
+      },
+      "steps": 10
+     },
+     {
+      "instance": 535,
+      "instance_id": "bender-heldout-000535",
+      "best_level": 4,
+      "best_reward": 1.153134,
+      "best_fom_ratio": 1.612537,
+      "pass_action": {
+       "r_curve": 250.0,
+       "w_ch": 0.04,
+       "m_coat": 3.5
+      },
+      "steps": 10
+     },
+     {
+      "instance": 536,
+      "instance_id": "bender-heldout-000536",
+      "best_level": 3,
+      "best_reward": 0.762215,
+      "best_fom_ratio": 0.048861,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 537,
+      "instance_id": "bender-heldout-000537",
+      "best_level": 3,
+      "best_reward": 0.822889,
+      "best_fom_ratio": 0.291558,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 538,
+      "instance_id": "bender-heldout-000538",
+      "best_level": 3,
+      "best_reward": 0.774394,
+      "best_fom_ratio": 0.097577,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 539,
+      "instance_id": "bender-heldout-000539",
+      "best_level": 3,
+      "best_reward": 0.826759,
+      "best_fom_ratio": 0.307038,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 540,
+      "instance_id": "bender-heldout-000540",
+      "best_level": 3,
+      "best_reward": 0.773794,
+      "best_fom_ratio": 0.095174,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 541,
+      "instance_id": "bender-heldout-000541",
+      "best_level": 3,
+      "best_reward": 0.822389,
+      "best_fom_ratio": 0.289556,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 542,
+      "instance_id": "bender-heldout-000542",
+      "best_level": 3,
+      "best_reward": 0.790117,
+      "best_fom_ratio": 0.160468,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 543,
+      "instance_id": "bender-heldout-000543",
+      "best_level": 3,
+      "best_reward": 0.762361,
+      "best_fom_ratio": 0.049444,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 544,
+      "instance_id": "bender-heldout-000544",
+      "best_level": 3,
+      "best_reward": 0.759076,
+      "best_fom_ratio": 0.036303,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 545,
+      "instance_id": "bender-heldout-000545",
+      "best_level": 3,
+      "best_reward": 0.774936,
+      "best_fom_ratio": 0.099743,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 546,
+      "instance_id": "bender-heldout-000546",
+      "best_level": 3,
+      "best_reward": 0.7676,
+      "best_fom_ratio": 0.0704,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 547,
+      "instance_id": "bender-heldout-000547",
+      "best_level": 3,
+      "best_reward": 0.784823,
+      "best_fom_ratio": 0.13929,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 548,
+      "instance_id": "bender-heldout-000548",
+      "best_level": 4,
+      "best_reward": 1.158565,
+      "best_fom_ratio": 1.63426,
+      "pass_action": {
+       "r_curve": 250.0,
+       "w_ch": 0.04,
+       "m_coat": 3.5
+      },
+      "steps": 7
+     },
+     {
+      "instance": 549,
+      "instance_id": "bender-heldout-000549",
+      "best_level": 3,
+      "best_reward": 0.792447,
+      "best_fom_ratio": 0.169787,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 550,
+      "instance_id": "bender-heldout-000550",
+      "best_level": 4,
+      "best_reward": 1.126054,
+      "best_fom_ratio": 1.504218,
+      "pass_action": {
+       "r_curve": 200.0,
+       "w_ch": 0.04,
+       "m_coat": 3.6
+      },
+      "steps": 7
+     },
+     {
+      "instance": 551,
+      "instance_id": "bender-heldout-000551",
+      "best_level": 3,
+      "best_reward": 0.897425,
+      "best_fom_ratio": 0.589699,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 552,
+      "instance_id": "bender-heldout-000552",
+      "best_level": 3,
+      "best_reward": 0.814434,
+      "best_fom_ratio": 0.257736,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 553,
+      "instance_id": "bender-heldout-000553",
+      "best_level": 3,
+      "best_reward": 0.846751,
+      "best_fom_ratio": 0.387004,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 554,
+      "instance_id": "bender-heldout-000554",
+      "best_level": 4,
+      "best_reward": 1.13536,
+      "best_fom_ratio": 1.54144,
+      "pass_action": {
+       "r_curve": 250.0,
+       "w_ch": 0.03,
+       "m_coat": 3.5
+      },
+      "steps": 7
+     },
+     {
+      "instance": 555,
+      "instance_id": "bender-heldout-000555",
+      "best_level": 3,
+      "best_reward": 0.834035,
+      "best_fom_ratio": 0.336142,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 556,
+      "instance_id": "bender-heldout-000556",
+      "best_level": 3,
+      "best_reward": 0.891657,
+      "best_fom_ratio": 0.566628,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 557,
+      "instance_id": "bender-heldout-000557",
+      "best_level": 3,
+      "best_reward": 0.867995,
+      "best_fom_ratio": 0.47198,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 558,
+      "instance_id": "bender-heldout-000558",
+      "best_level": 3,
+      "best_reward": 0.757215,
+      "best_fom_ratio": 0.028862,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 559,
+      "instance_id": "bender-heldout-000559",
+      "best_level": 3,
+      "best_reward": 0.991812,
+      "best_fom_ratio": 0.967247,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 560,
+      "instance_id": "bender-heldout-000560",
+      "best_level": 3,
+      "best_reward": 0.817228,
+      "best_fom_ratio": 0.268913,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 561,
+      "instance_id": "bender-heldout-000561",
+      "best_level": 3,
+      "best_reward": 0.756553,
+      "best_fom_ratio": 0.026214,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 562,
+      "instance_id": "bender-heldout-000562",
+      "best_level": 3,
+      "best_reward": 0.822763,
+      "best_fom_ratio": 0.291051,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 563,
+      "instance_id": "bender-heldout-000563",
+      "best_level": 3,
+      "best_reward": 0.771085,
+      "best_fom_ratio": 0.084339,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 564,
+      "instance_id": "bender-heldout-000564",
+      "best_level": 3,
+      "best_reward": 0.771918,
+      "best_fom_ratio": 0.08767,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 565,
+      "instance_id": "bender-heldout-000565",
+      "best_level": 3,
+      "best_reward": 0.792473,
+      "best_fom_ratio": 0.169894,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 566,
+      "instance_id": "bender-heldout-000566",
+      "best_level": 3,
+      "best_reward": 0.828393,
+      "best_fom_ratio": 0.31357,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 567,
+      "instance_id": "bender-heldout-000567",
+      "best_level": 3,
+      "best_reward": 0.781773,
+      "best_fom_ratio": 0.127092,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 568,
+      "instance_id": "bender-heldout-000568",
+      "best_level": 3,
+      "best_reward": 0.832583,
+      "best_fom_ratio": 0.330334,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 569,
+      "instance_id": "bender-heldout-000569",
+      "best_level": 3,
+      "best_reward": 0.775757,
+      "best_fom_ratio": 0.103029,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 570,
+      "instance_id": "bender-heldout-000570",
+      "best_level": 3,
+      "best_reward": 0.945266,
+      "best_fom_ratio": 0.781066,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 571,
+      "instance_id": "bender-heldout-000571",
+      "best_level": 4,
+      "best_reward": 1.091764,
+      "best_fom_ratio": 1.367054,
+      "pass_action": {
+       "r_curve": 200.0,
+       "w_ch": 0.04,
+       "m_coat": 3.0
+      },
+      "steps": 8
+     },
+     {
+      "instance": 572,
+      "instance_id": "bender-heldout-000572",
+      "best_level": 3,
+      "best_reward": 0.766361,
+      "best_fom_ratio": 0.065443,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 573,
+      "instance_id": "bender-heldout-000573",
+      "best_level": 3,
+      "best_reward": 0.758311,
+      "best_fom_ratio": 0.033243,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 574,
+      "instance_id": "bender-heldout-000574",
+      "best_level": 3,
+      "best_reward": 0.779967,
+      "best_fom_ratio": 0.119868,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 575,
+      "instance_id": "bender-heldout-000575",
+      "best_level": 3,
+      "best_reward": 0.991195,
+      "best_fom_ratio": 0.96478,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 576,
+      "instance_id": "bender-heldout-000576",
+      "best_level": 4,
+      "best_reward": 1.036862,
+      "best_fom_ratio": 1.147448,
+      "pass_action": {
+       "r_curve": 200.0,
+       "w_ch": 0.028,
+       "m_coat": 3.5
+      },
+      "steps": 8
+     },
+     {
+      "instance": 577,
+      "instance_id": "bender-heldout-000577",
+      "best_level": 3,
+      "best_reward": 0.998096,
+      "best_fom_ratio": 0.992383,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 578,
+      "instance_id": "bender-heldout-000578",
+      "best_level": 3,
+      "best_reward": 0.777339,
+      "best_fom_ratio": 0.109356,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 579,
+      "instance_id": "bender-heldout-000579",
+      "best_level": 3,
+      "best_reward": 0.763508,
+      "best_fom_ratio": 0.054031,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 580,
+      "instance_id": "bender-heldout-000580",
+      "best_level": 3,
+      "best_reward": 0.771628,
+      "best_fom_ratio": 0.086512,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 581,
+      "instance_id": "bender-heldout-000581",
+      "best_level": 3,
+      "best_reward": 0.842692,
+      "best_fom_ratio": 0.370768,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 582,
+      "instance_id": "bender-heldout-000582",
+      "best_level": 3,
+      "best_reward": 0.909337,
+      "best_fom_ratio": 0.637348,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 583,
+      "instance_id": "bender-heldout-000583",
+      "best_level": 3,
+      "best_reward": 0.763533,
+      "best_fom_ratio": 0.054133,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 584,
+      "instance_id": "bender-heldout-000584",
+      "best_level": 3,
+      "best_reward": 0.775131,
+      "best_fom_ratio": 0.100524,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 585,
+      "instance_id": "bender-heldout-000585",
+      "best_level": 3,
+      "best_reward": 0.78952,
+      "best_fom_ratio": 0.15808,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 586,
+      "instance_id": "bender-heldout-000586",
+      "best_level": 4,
+      "best_reward": 1.101261,
+      "best_fom_ratio": 1.405044,
+      "pass_action": {
+       "r_curve": 250.0,
+       "w_ch": 0.03,
+       "m_coat": 3.6
+      },
+      "steps": 10
+     },
+     {
+      "instance": 587,
+      "instance_id": "bender-heldout-000587",
+      "best_level": 3,
+      "best_reward": 0.80118,
+      "best_fom_ratio": 0.204721,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 588,
+      "instance_id": "bender-heldout-000588",
+      "best_level": 3,
+      "best_reward": 0.768395,
+      "best_fom_ratio": 0.073581,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 589,
+      "instance_id": "bender-heldout-000589",
+      "best_level": 3,
+      "best_reward": 0.909542,
+      "best_fom_ratio": 0.638169,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 590,
+      "instance_id": "bender-heldout-000590",
+      "best_level": 3,
+      "best_reward": 0.802923,
+      "best_fom_ratio": 0.211692,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 591,
+      "instance_id": "bender-heldout-000591",
+      "best_level": 3,
+      "best_reward": 0.762166,
+      "best_fom_ratio": 0.048666,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 592,
+      "instance_id": "bender-heldout-000592",
+      "best_level": 3,
+      "best_reward": 0.76285,
+      "best_fom_ratio": 0.051399,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 593,
+      "instance_id": "bender-heldout-000593",
+      "best_level": 4,
+      "best_reward": 1.25,
+      "best_fom_ratio": 2.248916,
+      "pass_action": {
+       "r_curve": 200.0,
+       "w_ch": 0.03,
+       "m_coat": 3.1
+      },
+      "steps": 10
+     },
+     {
+      "instance": 594,
+      "instance_id": "bender-heldout-000594",
+      "best_level": 4,
+      "best_reward": 1.037818,
+      "best_fom_ratio": 1.151273,
+      "pass_action": {
+       "r_curve": 150.0,
+       "w_ch": 0.04,
+       "m_coat": 2.5
+      },
+      "steps": 5
+     },
+     {
+      "instance": 595,
+      "instance_id": "bender-heldout-000595",
+      "best_level": 3,
+      "best_reward": 0.778174,
+      "best_fom_ratio": 0.112698,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 596,
+      "instance_id": "bender-heldout-000596",
+      "best_level": 4,
+      "best_reward": 1.003236,
+      "best_fom_ratio": 1.012945,
+      "pass_action": {
+       "r_curve": 150.0,
+       "w_ch": 0.03,
+       "m_coat": 2.5
+      },
+      "steps": 3
+     },
+     {
+      "instance": 597,
+      "instance_id": "bender-heldout-000597",
+      "best_level": 3,
+      "best_reward": 0.773139,
+      "best_fom_ratio": 0.092557,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 598,
+      "instance_id": "bender-heldout-000598",
+      "best_level": 3,
+      "best_reward": 0.920663,
+      "best_fom_ratio": 0.682651,
+      "pass_action": null,
+      "steps": 10
+     },
+     {
+      "instance": 599,
+      "instance_id": "bender-heldout-000599",
+      "best_level": 3,
+      "best_reward": 0.760559,
+      "best_fom_ratio": 0.042236,
+      "pass_action": null,
+      "steps": 10
+     }
+    ]
+   }
+  }
+ }
+}

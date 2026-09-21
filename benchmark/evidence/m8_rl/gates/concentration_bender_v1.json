@@ -1,0 +1,39 @@
+{
+ "family": "bender",
+ "split": "heldout",
+ "arms": {
+  "trained-8b": {
+   "passes": 141,
+   "distinct": 42,
+   "distinct_frac": 0.2979,
+   "top_n": 5,
+   "top_n_share": 0.4255,
+   "max_reuse": 17,
+   "max_reuse_design": {
+    "m_coat": 3.5,
+    "r_curve": 250.0,
+    "w_ch": 0.06
+   },
+   "max_reuse_instances": [
+    308,
+    334,
+    340,
+    356,
+    358,
+    365,
+    370,
+    384,
+    386,
+    426,
+    428,
+    437,
+    446,
+    477,
+    517,
+    533,
+    534
+   ],
+   "eval": "runs/m8/bender_v1/eval_bender_fresh_trained-8b.json"
+  }
+ }
+}
