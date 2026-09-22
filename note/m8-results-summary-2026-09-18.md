@@ -579,6 +579,31 @@ re-verification of any selected best; env-controlled protocol.
 
 ## Evidence index
 
+**Regenerate the whole four-family table from the frozen copies** — no
+access to the DGX required, which is how a reader checks the paper's
+numbers:
+
+    python benchmark/harness/m8_table.py --root benchmark/evidence/m8_rl/eval
+
+Every rate, exact Clopper–Pearson interval and paired McNemar p in §7 comes
+out of that command. It covers all four families and pairs each trained arm
+against **both** untrained arms.
+
+Added 2026-09-21:
+- `runs/m8/eval_bender_fresh_{untrained-8b,untrained-32b,trained-8b}.json` —
+  fourth family (69/131/227 of 300)
+- `runs/m8/match_gate_bender_n150.json` (fixed design 8.0%),
+  `readout_probe_bender_0.85_n150.json` (analytic inversion 12.7%)
+- `runs/m8/eval_sansmatch_unbiased_untrained-32b.json` — the last unpaired
+  cell (87/300 on the unbiased slice 600–899)
+- `runs/m8/eval_joint_{guide_match,sans_match,tof_chopper}.json`,
+  `grpo_jointgrpo_{a,b}.log` — joint multi-family training (three families;
+  **predates bender**)
+- `runs/m8/concentration_*.json` — design-concentration probe, all families
+- `benchmark/evidence/m8_rl/bender_v1_retracted/` — the retracted first
+  bender, kept so the §8 limitation is auditable. **No v1 number is a
+  result.**
+
 Pre-registered experiments (2026-09-18, `note/prereg-matched-compute-frontier-ablation-2026-09-18.md`):
 - `runs/m8/classical_guide_match_budget{10,30}_from300_n300.json` — matched-compute search
 - `runs/m8/frontier_guide_match_n100_from300.json` — frontier arm with per-model cost

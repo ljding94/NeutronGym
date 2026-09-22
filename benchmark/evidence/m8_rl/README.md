@@ -52,5 +52,12 @@ failure was caught by design concentration (42 distinct designs for 141
 passes), not by the gate, which is the point of the limitation stated in the
 paper. **No v1 number is a result.**
 
-Regenerate the headline table from these records with:
-  python benchmark/harness/m8_table.py
+Regenerate the headline table for **all four families** from these records,
+without access to the machine that produced them:
+
+  python benchmark/harness/m8_table.py --root benchmark/evidence/m8_rl/eval
+
+Every rate, exact Clopper-Pearson interval and paired McNemar p in the
+paper's main table comes out of that command. Each trained arm is paired
+against both untrained arms, and the slice is recorded per family --
+sans_match reports on 600-899 because 300-599 chose its checkpoint.

@@ -5,7 +5,17 @@ evaluation wrote, so the paper's table cannot drift from the evidence.
 Intervals are Clopper-Pearson (exact, one row at a time); paired comparisons
 use exact McNemar on discordant pairs.
 
-Usage: python benchmark/harness/m8_table.py [--out runs/m8/m8_table.json]
+Covers every gated family (2026-09-21). `sans_match`'s headline lives on the
+unbiased slice 600-899 and the others on 300-599, so the slice is recorded
+per family rather than assumed.
+
+Usage: python benchmark/harness/m8_table.py [--family all] [--root DIR]
+                                            [--out runs/m8/m8_table.json]
+
+`--root` points at the directory holding the eval records: `runs/m8` on the
+DGX, or `benchmark/evidence/m8_rl/eval` to regenerate the table from the
+frozen copies, which is how a reader verifies the paper's numbers without
+access to the machine that produced them.
 """
 
 import argparse
@@ -77,44 +87,101 @@ def paired(a_rows: list, b_rows: list) -> dict:
             "mcnemar_p": mcnemar_p(only_a, only_b)}
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--out", default=os.path.join(REPO, "runs", "m8", "m8_table.json"))
-    a = ap.parse_args()
-    R = os.path.join(REPO, "runs", "m8")
-    F = "guide_match"
-    spec = [
-        ("untrained 8B", f"{R}/eval_match_fresh_untrained-8b.json", "untrained-8b", F),
-        ("untrained 32B", f"{R}/eval_match_fresh_untrained-32b.json", "untrained-32b", F),
-        ("GRPO 8B (seed 1)", f"{R}/eval_match_fresh_trained-8b.json", "trained-8b", F),
-        ("GRPO 8B (seed 2)", f"{R}/eval_match_fresh_rep2.json", "trained-8b", F),
-        ("GRPO 8B (sparse reward)", f"{R}/eval_match_fresh_sparse.json", "trained-8b", F),
-    ]
+# Per family: the slice its headline is reported on, and each arm's record.
+# sans_match differs -- its 300-599 slice chose the checkpoint, so only
+# 600-899 is unbiased for the model that selection picked.
+SPECS = {
+    "guide_match": {"slice": "heldout 300-599", "arms": [
+        ("untrained 8B", "eval_match_fresh_untrained-8b.json", "untrained-8b"),
+        ("untrained 32B", "eval_match_fresh_untrained-32b.json", "untrained-32b"),
+        ("GRPO 8B (seed 1)", "eval_match_fresh_trained-8b.json", "trained-8b"),
+        ("GRPO 8B (seed 2)", "eval_match_fresh_rep2.json", "trained-8b"),
+        ("GRPO 8B (sparse reward)", "eval_match_fresh_sparse.json", "trained-8b"),
+    ]},
+    "sans_match": {"slice": "heldout 600-899 (unbiased)", "arms": [
+        ("untrained 8B", "eval_sansmatch_unbiased_untrained-8b.json", "untrained-8b"),
+        ("untrained 32B", "eval_sansmatch_unbiased_untrained-32b.json", "untrained-32b"),
+        ("GRPO 8B", "eval_sansmatch_unbiased_trained-8b.json", "trained-8b"),
+    ]},
+    "tof_chopper": {"slice": "heldout 300-599", "arms": [
+        ("untrained 8B", "eval_tof_fresh_untrained-8b.json", "untrained-8b"),
+        ("untrained 32B", "eval_tof_fresh_untrained-32b.json", "untrained-32b"),
+        ("GRPO 8B", "eval_tof_fresh_trained-8b.json", "trained-8b"),
+    ]},
+    "bender": {"slice": "heldout 300-599", "arms": [
+        ("untrained 8B", "eval_bender_fresh_untrained-8b.json", "untrained-8b"),
+        ("untrained 32B", "eval_bender_fresh_untrained-32b.json", "untrained-32b"),
+        ("GRPO 8B", "eval_bender_fresh_trained-8b.json", "trained-8b"),
+    ]},
+}
+TRAINED = "GRPO 8B"
+
+
+def build(family: str, root: str) -> dict | None:
+    """One family's table, or None when no record for it is present."""
+    spec = SPECS[family]
     table, rows_by_label = [], {}
-    for label, path, arm, fam in spec:
+    for label, fname, arm in spec["arms"]:
+        path = os.path.join(root, fname)
         if not os.path.exists(path):
             continue
-        rows = rows_of(path, arm, fam)
+        rows = rows_of(path, arm, family)
         rows_by_label[label] = rows
-        table.append({"policy": label, **rate(rows), "source": os.path.basename(path)})
-    out = {"family": F, "slice": "heldout 300-599", "rows": table, "paired": {}}
-    base = rows_by_label.get("untrained 8B")
-    for label, rows in rows_by_label.items():
-        if base is not None and label != "untrained 8B":
-            out["paired"][f"{label} vs untrained 8B"] = paired(rows, base)
-    if "GRPO 8B (seed 1)" in rows_by_label and "GRPO 8B (seed 2)" in rows_by_label:
+        table.append({"policy": label, **rate(rows), "source": fname})
+    if not table:
+        return None
+    out = {"family": family, "slice": spec["slice"], "rows": table, "paired": {}}
+    # every trained arm against both untrained arms: the four-family claim is
+    # about beating the untrained 32B, not only the 8B it was trained from
+    for base_label in ("untrained 8B", "untrained 32B"):
+        base = rows_by_label.get(base_label)
+        if base is None:
+            continue
+        for label, rows in rows_by_label.items():
+            if label.startswith(TRAINED):
+                out["paired"][f"{label} vs {base_label}"] = paired(rows, base)
+    if {"GRPO 8B (seed 1)", "GRPO 8B (seed 2)"} <= rows_by_label.keys():
         out["paired"]["seed 1 vs seed 2"] = paired(rows_by_label["GRPO 8B (seed 1)"],
                                                    rows_by_label["GRPO 8B (seed 2)"])
+    return out
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--family", default="all",
+                    choices=["all", *SPECS], help="default: every gated family")
+    ap.add_argument("--root", default=None,
+                    help="directory holding the eval records; defaults to "
+                         "runs/m8, falling back to the frozen evidence copy")
+    ap.add_argument("--out", default=os.path.join(REPO, "runs", "m8", "m8_table.json"))
+    a = ap.parse_args()
+
+    root = a.root or os.path.join(REPO, "runs", "m8")
+    if a.root is None and not os.path.isdir(root):
+        root = os.path.join(REPO, "benchmark", "evidence", "m8_rl", "eval")
+    fams = list(SPECS) if a.family == "all" else [a.family]
+
+    report = {"root": os.path.relpath(root, REPO), "families": {}}
+    for fam in fams:
+        built = build(fam, root)
+        if built is None:
+            print(f"  (no records for {fam} under {root})")
+            continue
+        report["families"][fam] = built
+        print(f"\n### {fam} — {built['slice']}")
+        print("| policy | passed | rate | 95% CI |")
+        print("|---|---|---|---|")
+        for r in built["rows"]:
+            print(f"| {r['policy']} | {r['passes']}/{r['n']} | {r['rate']:.1%} | "
+                  f"[{r['ci95'][0]:.1%}, {r['ci95'][1]:.1%}] |")
+        for k, v in built["paired"].items():
+            print(f"  {k}: {v['only_a']} vs {v['only_b']} discordant, "
+                  f"McNemar p = {v['mcnemar_p']:.2g}")
+
+    os.makedirs(os.path.dirname(a.out), exist_ok=True)
     with open(a.out, "w") as f:
-        json.dump(out, f, indent=1)
-    print(f"| policy | passed | rate | 95% CI |")
-    print(f"|---|---|---|---|")
-    for r in table:
-        print(f"| {r['policy']} | {r['passes']}/{r['n']} | {r['rate']:.1%} | "
-              f"[{r['ci95'][0]:.1%}, {r['ci95'][1]:.1%}] |")
-    for k, v in out["paired"].items():
-        print(f"  {k}: {v['only_a']} vs {v['only_b']} discordant, McNemar p = {v['mcnemar_p']:.2g}")
-    print(f"-> {a.out}")
+        json.dump(report, f, indent=1)
+    print(f"\n-> {a.out}")
 
 
 if __name__ == "__main__":
