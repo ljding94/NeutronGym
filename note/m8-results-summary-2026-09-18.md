@@ -400,6 +400,55 @@ model scale does not help, against tof_chopper (6x) and bender (1.9x) where
 it does. Worth one sentence: the environment's families differ in whether
 they reward scale, and the two that do not are the two oldest formulations.
 
+## Joint training over four families — compression (2026-09-22)
+
+Supersedes the framing in the three-family section below. Same 220-step
+budget one specialist gets, now split four ways. Held-out 300–599:
+
+| family | untrained | specialist | joint3 | **joint4** | joint4 vs specialist |
+|---|---|---|---|---|---|
+| guide_match | 11.3% | 76.7% | 67.7% | **63.7%** | 31 v 70, p = 1.3e-4 |
+| sans_match | 22.3% | 38.3% | 24.0% | **43.3%** | 62 v 47, p = 0.18 (ns) |
+| tof_chopper | 2.0% | 46.7% | 55.0% | **56.3%** | 41 v 12, p = 8.2e-5 |
+| bender | 23.0% | 75.7% | — | **55.0%** | 26 v 88, p = 4.6e-9 |
+
+Ordered by specialist performance, the sign pattern is exact:
+
+| family | specialist | joint4 | Δ |
+|---|---|---|---|
+| sans_match | 38.3% | 43.3% | **+5.0** |
+| tof_chopper | 46.7% | 56.3% | **+9.6** |
+| bender | 75.7% | 55.0% | **−20.7** |
+| guide_match | 76.7% | 63.7% | **−13.0** |
+
+**The two families a specialist does worst on gain; the two it does best on
+lose.** Joint training lands every family in a 43–64% band regardless of
+where its specialist sits: the spread across families falls from **38.4
+points to 20.4, a 47% compression**, while the joint policy keeps **92% of
+mean specialist performance at a quarter of the compute** (220 steps against
+4 × 220). One policy converges toward a common competence level rather than
+specialising.
+
+This rests on four families with a clean sign ordering, so it replaces the
+sparsity-versus-weak-signal reading below, which rested on a contrast
+between two and on a cell that has not replicated. **Do not write "pooling
+erases learning on the weakest-signal family":** `sans_match` is the
+*lowest*-specialist family, so compression predicts a gain, and joint4 shows
+one (+5.0). Only joint3 showed a collapse.
+
+`tof_chopper`'s gain replicates across both configurations — 55.0% and
+56.3%, statistically indistinguishable (22 v 18, p = 0.64) — despite getting
+a quarter of the budget rather than a third.
+
+**Open at the time of writing:** a three-family replication at seed 20260922
+is running to establish whether joint3's `sans_match` collapse (24.0%, 83%
+instance agreement with the untrained model) is a property of three-family
+pooling or run-to-run variance. The two joint models' `sans_match` passing
+sets overlap at Jaccard 0.13 on near-identical data. Ruled out already: pool
+composition (identical 2,852 states), training anomaly (curves track within
+noise), and shortcut exploitation (joint4's most-reused design covers 13% of
+the target range and 3.3% of instances, under the gate's 12.7%).
+
 ## Joint multi-family training (2026-09-21)
 
 One policy, one LoRA, trained on the pooled states of all three gated

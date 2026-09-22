@@ -1,0 +1,20 @@
+== 1. targets, held-out 0-299 and train 0-299 10:56:45 ==
+{"family": "sans_match", "split": "heldout", "start": 0, "n": 300, "failed": [], "no_headroom": [], "wall_s": 21}
+{"family": "sans_match", "split": "train", "start": 0, "n": 300, "failed": [], "no_headroom": [], "wall_s": 20}
+== 2. constant + lookup gate (n=150) 10:57:27 ==
+sans_match constant gate, n=150, 184 candidates: best {'r_pin1': 0.013794, 'r_pin2': 0.019028} [hidden-of-other-instance] passes 12.7% (upper95 18.0%); baseline passes 0 -> CLEAN
+   best pass count by source: {'baseline': 0, 'grid': 11, 'hidden-of-other-instance': 19, 'refined': 17}
+-> runs/m8/match_gate_sans_match_n150.json
+== 3. physics-rule reference (n=150) 11:15:27 ==
+sans_match: no copy-type readout rules apply -> CLEAN on this check
+   physics-model reference (reported, not gated): 'physics: width inversion k=0.5' passes 3.3% (upper95 6.9%)
+      5/150  physics: width inversion k=0.5
+      0/150  physics: width inversion k=0.577
+      0/150  physics: width inversion k=0.45
+      0/150  physics: width inversion k=0.6
+-> runs/m8/readout_probe_sans_match_0.85_n150.json
+constant/lookup gate ok: True 0.1267 upper 0.1803
+== 4. untrained baselines, held-out 0-299 11:15:44 ==
+-> runs/m8/eval_sansmatch_untrained-8b.json
+-> runs/m8/eval_sansmatch_untrained-32b.json
+SANS_MATCH_GATE_DONE OK 11:56:22
