@@ -179,10 +179,21 @@ The tolerance was chosen by measurement, not after seeing a result: the
 untrained 8B passes 45.3% at ±3%, 24.7% at ±1.5% and 18.0% at ±1%, and ±1.5%
 keeps the ~5x margin over the 0.3% width noise that `guide_match` has.
 
-Gate at the graded bar (n=150): fixed designs, baseline and every other
-instance's solution as a lookup reach **6.7% (upper95 11.1%)**, the baseline
-never passes, no copy-type rules apply, and the physics width-inversion
-reaches 0.7%.
+Gate at the graded bar (n=150, 184 candidates): fixed designs, the baseline
+and every other instance's solution as a lookup reach **12.7% (upper95
+18.0%)** — best is another instance's hidden design, `{r_pin1: 0.013794,
+r_pin2: 0.019028}`, at 19/150. The baseline never passes, no copy-type rules
+apply, and the physics width-inversion reaches **3.3% (upper95 6.9%)**.
+Verdict CLEAN, but by the narrowest margin of any family: **18.0% upper
+against the 20% ceiling**.
+
+> **Corrected 2026-09-22.** This note previously said 6.7% (upper95 11.1%)
+> and 0.7% for the physics rule. Those values match no run on the DGX: the
+> only `sans_match` gate on record (`runs/m8/sans_match_gate_dgx.log`,
+> 2026-09-20 12:16) gives 12.7% / 18.0% / 3.3%, and the frozen evidence copy
+> agrees. The earlier figures appear to predate the family's final
+> tolerance. **Anything drafted from the old numbers understates
+> `sans_match`'s shortcut ceiling by roughly 2x and should be re-checked.**
 
 Held-out 300–599, ±1.5%, 10 turns, 0 errored:
 
@@ -214,7 +225,7 @@ and the model still uses most of its turn budget (median 10 on the unbiased
 slice, 7 on the selection slice, against 5 for `guide_match`). Passes remain
 instance-specific: 115 distinct designs among 133 passes, and on the selection
 slice the most-reused design solves 5 of 300 instances (1.7%, against the
-gate's 6.7% ceiling).
+gate's 12.7% ceiling).
 
 **What this supports:** the recipe transfers to a second, independently gated
 family — not that it transfers with the same magnitude. On both families the
