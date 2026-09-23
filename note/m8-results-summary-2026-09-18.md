@@ -440,14 +440,27 @@ one (+5.0). Only joint3 showed a collapse.
 56.3%, statistically indistinguishable (22 v 18, p = 0.64) — despite getting
 a quarter of the budget rather than a third.
 
-**Open at the time of writing:** a three-family replication at seed 20260922
-is running to establish whether joint3's `sans_match` collapse (24.0%, 83%
-instance agreement with the untrained model) is a property of three-family
-pooling or run-to-run variance. The two joint models' `sans_match` passing
-sets overlap at Jaccard 0.13 on near-identical data. Ruled out already: pool
-composition (identical 2,852 states), training anomaly (curves track within
-noise), and shortcut exploitation (joint4's most-reused design covers 13% of
-the target range and 3.3% of instances, under the gate's 12.7%).
+**RESOLVED 2026-09-23, and it overturns the framing above.** The
+three-family replication at seed 20260922 did not replicate — it *degraded*:
+guide_match 34.0%, sans_match 19.3%, **tof_chopper 2.3%** against an
+untrained rate of 2.0%. Same families, same 8,592 states, same budget and
+hyperparameters; only the seed differed.
+
+So the recipe is **bimodal across seeds**: the identical configuration gave
+55.0% and 2.3% on `tof_chopper`. Cause, from the step logs: through stage B
+the replication ran at 2.1–2.5 of 8 groups carrying gradient signal (joint3:
+4.5–4.9), so most groups had zero advantage and the policy drifted. It was
+behind already — its stage-A checkpoint scores 11.0% on `tof_chopper`.
+
+**Every per-family joint claim is therefore withdrawn, including the
+compression framing above**, which was drafted from `joint4` alone before
+this run landed. Only the 3-family configuration was run twice; `joint4` has
+one seed and is not known to be the stable configuration.
+
+What survives: a single pooled policy reached 63.7 / 43.3 / 56.3 / 55.0% on
+the four families at a quarter of a specialist's compute, in one run. See
+**`note/joint-training-summary-2026-09-23.md`** for the complete account and
+a suggested paragraph — that note is authoritative for anything joint.
 
 ## Joint multi-family training (2026-09-21)
 
