@@ -54,6 +54,15 @@ held-out 300–599 against that family's own 220-step specialist:
 | sans_match | 22.3% | 38.3% | **24.0%** | 21 vs 64, p = 3.3e-6 |
 | tof_chopper | 2.0% | 46.7% | **55.0%** | 40 vs 15, **p = 0.001 (joint wins)** |
 
+> **Corrected 2026-09-24 (caught by the revision session).** The `sans_match`
+> specialist cell in the table above is the **220-step** checkpoint
+> (`eval_sansmatch_fresh_trained-8b.json`, 38.3%), not the reported
+> specialist, which is the **340-step** continuation: **51.0%** on 300–599
+> (`eval_sansmatch_fresh_trained340.json`) and 44.3% on its unbiased slice
+> 600–899. So joint4's 43.3% is **below** its specialist, not above, and any
+> delta computed from 38.3% here is wrong. See
+> `note/joint-training-summary-2026-09-23.md`, which is authoritative.
+
 Joint vs untrained: guide_match 178-only vs 9 (p = 6.8e-42), tof_chopper
 159-only vs 0 (p = 2.7e-48), sans_match **28 vs 23 (p = 0.58 — no learning
 at all)**.

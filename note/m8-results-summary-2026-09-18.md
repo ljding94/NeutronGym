@@ -402,6 +402,16 @@ they reward scale, and the two that do not are the two oldest formulations.
 
 ## Joint training over four families — compression (2026-09-22)
 
+> **Corrected 2026-09-24 (caught by the revision session).** The `sans_match`
+> specialist cell in the table above is the **220-step** checkpoint
+> (`eval_sansmatch_fresh_trained-8b.json`, 38.3%), not the reported
+> specialist, which is the **340-step** continuation: **51.0%** on 300–599
+> (`eval_sansmatch_fresh_trained340.json`) and 44.3% on its unbiased slice
+> 600–899. So joint4's 43.3% is **below** its specialist, not above, and any
+> delta computed from 38.3% here is wrong. See
+> `note/joint-training-summary-2026-09-23.md`, which is authoritative.
+
+
 Supersedes the framing in the three-family section below. Same 220-step
 budget one specialist gets, now split four ways. Held-out 300–599:
 
