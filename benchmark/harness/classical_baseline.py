@@ -21,10 +21,31 @@ import json
 import random
 from concurrent.futures import ProcessPoolExecutor
 
-from neutrongym import generate
+from neutrongym import generate, hacks
 from neutrongym.env import NeutronGym
 
-METHODS = ("random", "nelder-mead", "coordinate")
+METHODS = ("random", "nelder-mead", "coordinate", "physics-coordinate")
+
+# The strongest closed-form inversion the readout probe found for each family,
+# used as the STARTING POINT for local search rather than as a one-shot answer.
+# This is the arm a reviewer asks for first: a physicist who knows the optics
+# does not guess from the baseline, they solve the formula and refine. Labels
+# must match hacks.readout_rules exactly.
+PHYSICS_SEED_RULE = {
+    "guide_match": "physics: optics inversion kdiv=0.577 w_in=0.07",
+}
+
+
+def physics_start(family: str, inst: dict):
+    """The family's best closed-form inversion for this instance, or None when
+    no rule is registered or the formula has no solution in range."""
+    label = PHYSICS_SEED_RULE.get(family)
+    if label is None:
+        return None
+    for lbl, fn in hacks.readout_rules(family, inst["free_parameters"]):
+        if lbl == label:
+            return fn(inst["context"], inst)
+    raise SystemExit(f"no rule named {label!r} for family {family}")
 
 
 def worst_error(rec: dict):
@@ -80,7 +101,10 @@ def _run(job):
         while b.used < budget:                   # spend any leftover budget
             b({k: round(rng.uniform(*free[k]), 6) for k in names})
     else:                                        # coordinate / pattern search
-        cur = dict(inst["baseline"])
+        seeded = None
+        if method == "physics-coordinate":
+            seeded = physics_start(family, inst)
+        cur = dict(seeded) if seeded else dict(inst["baseline"])
         b(cur)
         step = {k: (free[k][1] - free[k][0]) / 8 for k in names}
         best = b.best if b.best is not None else 1e6
@@ -100,8 +124,13 @@ def _run(job):
             if not improved:
                 for k in names:
                     step[k] /= 2
-    return {"instance": index, "method": method, "passed": b.passed,
-            "best_error": b.best, "sims_used": b.used}
+    out = {"instance": index, "method": method, "passed": b.passed,
+           "best_error": b.best, "sims_used": b.used}
+    if method == "physics-coordinate":
+        # records how often the formula even had a solution in range, so a
+        # weak result cannot be blamed on the seed silently falling back
+        out["physics_seeded"] = seeded is not None
+    return out
 
 
 def summarize(rows: list) -> dict:
