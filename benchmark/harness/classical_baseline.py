@@ -109,7 +109,7 @@ def _run(job):
         # with "anything beats that start". random-coordinate is the arm that
         # separates them (2026-09-24).
         seeded = None
-        if method in ("physics-coordinate", "random-coordinate"):
+        if method == "physics-coordinate":
             seeded = physics_start(family, inst)
         elif method == "random-coordinate":
             seeded = {k: round(rng.uniform(*free[k]), 6) for k in names}

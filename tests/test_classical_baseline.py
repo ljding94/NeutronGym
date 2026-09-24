@@ -59,3 +59,32 @@ def test_summarize_reports_per_method_pass_rates():
     s = cb.summarize(rows)
     assert s["random"]["pass_rate"] == 0.5 and s["coordinate"]["passes"] == 1
     assert s["random"]["median_sims"] == 10
+
+
+def test_each_seeded_method_uses_its_own_start():
+    """random-coordinate must NOT reuse the physics seed. A single
+    over-broad string edit once made it take the physics branch, and the
+    tell was that both arms passed byte-identical instance sets
+    (0 discordant, p=1) -- a bug signature, not a result (2026-09-24)."""
+    import inspect
+    lines = [ln.strip() for ln in inspect.getsource(cb._run).splitlines()]
+    call = next(i for i, ln in enumerate(lines) if "physics_start(family, inst)" in ln)
+    # the physics seed must be guarded by physics-coordinate ALONE; an
+    # over-broad guard silently hands the control arm the physics start
+    assert lines[call - 1] == 'if method == "physics-coordinate":', lines[call - 1]
+    assert 'elif method == "random-coordinate":' in lines[call + 1]
+
+
+def test_random_start_differs_from_the_physics_start():
+    """The control is only a control if its starting point is different."""
+    from neutrongym.env import NeutronGym
+    import random as _r
+    env = NeutronGym(family="guide_match", split="heldout", max_steps=10 ** 9)
+    obs, _ = env.reset(index=300)
+    inst = obs["instance"]
+    free = inst["free_parameters"]
+    phys = cb.physics_start("guide_match", inst)
+    rng = _r.Random("random-coordinate/300/20260918")
+    rand = {k: round(rng.uniform(*free[k]), 6) for k in free}
+    assert phys is not None and rand != phys
+    assert rand != inst["baseline"]
