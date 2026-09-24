@@ -1,0 +1,2416 @@
+{
+ "summary": {
+  "physics-coordinate": {
+   "n": 300,
+   "passes": 243,
+   "pass_rate": 0.81,
+   "median_best_error": 0.016,
+   "median_sims": 10
+  }
+ },
+ "budget": 10,
+ "start": 300,
+ "n": 300,
+ "rows": [
+  {
+   "instance": 300,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0112,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 301,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0079,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 302,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.026,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 303,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.1724,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 304,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0063,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 305,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0318,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 306,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0125,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 307,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0371,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 308,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0299,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 309,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0163,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 310,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0419,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 311,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0229,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 312,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0253,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 313,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0127,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 314,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0131,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 315,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.1747,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 316,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0094,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 317,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.014,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 318,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.4953,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 319,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0081,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 320,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.016,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 321,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0122,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 322,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0031,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 323,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0173,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 324,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0039,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 325,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0167,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 326,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0151,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 327,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.2052,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 328,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0357,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 329,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.0949,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 330,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0151,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 331,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0479,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 332,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0284,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 333,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0124,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 334,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0058,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 335,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0132,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 336,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.2748,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 337,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0261,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 338,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0034,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 339,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.01,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 340,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0138,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 341,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0197,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 342,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0211,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 343,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.1498,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 344,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0283,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 345,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0012,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 346,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.1066,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 347,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0203,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 348,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0145,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 349,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0008,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 350,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.3541,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 351,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0003,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 352,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.2051,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 353,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0007,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 354,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0168,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 355,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0326,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 356,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0199,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 357,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.013,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 358,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.01,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 359,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.056,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 360,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0056,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 361,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0085,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 362,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0072,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 363,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0038,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 364,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0076,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 365,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0048,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 366,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0212,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 367,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0093,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 368,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0195,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 369,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0213,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 370,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0082,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 371,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0008,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 372,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0149,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 373,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0045,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 374,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0062,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 375,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.3343,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 376,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0162,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 377,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.0572,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 378,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0301,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 379,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0463,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 380,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0107,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 381,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.6161,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 382,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0255,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 383,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0068,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 384,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0066,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 385,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0285,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 386,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0132,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 387,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0171,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 388,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0221,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 389,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0207,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 390,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0016,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 391,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0377,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 392,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0141,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 393,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0095,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 394,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0179,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 395,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.049,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 396,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0075,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 397,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.1627,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 398,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.4675,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 399,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0176,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 400,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0043,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 401,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0155,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 402,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0025,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 403,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0078,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 404,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0205,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 405,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0092,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 406,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0238,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 407,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.2247,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 408,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.016,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 409,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0143,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 410,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0133,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 411,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0099,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 412,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0089,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 413,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0191,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 414,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0254,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 415,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.016,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 416,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0072,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 417,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0082,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 418,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.2174,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 419,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0096,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 420,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.9464,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 421,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0358,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 422,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0255,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 423,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0181,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 424,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.1985,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 425,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.1615,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 426,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0163,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 427,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0255,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 428,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.008,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 429,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.2432,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 430,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.009,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 431,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0068,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 432,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0039,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 433,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0067,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 434,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0082,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 435,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0082,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 436,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0122,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 437,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.2027,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 438,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0092,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 439,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0326,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 440,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0163,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 441,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.0549,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 442,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0275,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 443,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.216,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 444,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0146,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 445,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0225,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 446,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.2494,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 447,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0034,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 448,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0091,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 449,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0135,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 450,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0026,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 451,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0426,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 452,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0489,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 453,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0272,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 454,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0066,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 455,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0037,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 456,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0062,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 457,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0265,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 458,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0371,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 459,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0057,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 460,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0081,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 461,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.013,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 462,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.004,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 463,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0082,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 464,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0087,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 465,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0039,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 466,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.1026,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 467,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0148,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 468,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0217,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 469,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.018,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 470,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0059,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 471,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0095,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 472,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0157,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 473,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0063,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 474,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.0633,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 475,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0289,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 476,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.5394,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 477,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0281,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 478,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0021,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 479,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0139,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 480,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.5071,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 481,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0259,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 482,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0396,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 483,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0131,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 484,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0104,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 485,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.043,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 486,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0112,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 487,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.003,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 488,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0233,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 489,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0422,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 490,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0164,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 491,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0074,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 492,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0144,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 493,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0163,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 494,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.4304,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 495,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0126,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 496,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0244,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 497,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0363,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 498,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0002,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 499,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0128,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 500,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0074,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 501,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0219,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 502,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0109,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 503,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 1.1221,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 504,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0108,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 505,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0119,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 506,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.1384,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 507,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0074,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 508,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0062,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 509,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.3517,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 510,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0314,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 511,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.161,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 512,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0201,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 513,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0111,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 514,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0463,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 515,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.011,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 516,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0069,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 517,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.004,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 518,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0068,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 519,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0093,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 520,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0354,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 521,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0075,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 522,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.1325,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 523,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0309,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 524,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0065,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 525,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0063,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 526,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0116,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 527,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0207,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 528,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0153,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 529,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0156,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 530,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0287,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 531,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0156,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 532,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.02,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 533,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0284,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 534,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0143,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 535,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.005,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 536,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0137,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 537,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.1825,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 538,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.3403,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 539,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0227,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 540,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0088,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 541,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0197,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 542,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0097,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 543,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.2308,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 544,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0082,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 545,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0077,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 546,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0207,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 547,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0058,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 548,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0129,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 549,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.0577,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 550,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0077,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 551,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.1477,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 552,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.6072,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 553,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.2177,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 554,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.1068,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 555,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.583,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 556,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0096,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 557,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0164,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 558,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0046,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 559,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0028,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 560,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0141,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 561,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0067,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 562,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.013,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 563,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0093,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 564,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0109,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 565,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0283,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 566,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0055,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 567,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.2452,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 568,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.0585,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 569,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.1803,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 570,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.25,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 571,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.6026,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 572,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0101,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 573,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0176,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 574,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0111,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 575,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.006,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 576,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.037,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 577,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0189,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 578,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 1.0511,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 579,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0171,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 580,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0082,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 581,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.003,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 582,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.0678,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 583,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.2879,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 584,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.3296,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 585,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0107,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 586,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0153,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 587,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0296,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 588,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0301,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 589,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 1.0338,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 590,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.4128,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 591,
+   "method": "physics-coordinate",
+   "passed": false,
+   "best_error": 0.0881,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 592,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0109,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 593,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0382,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 594,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0207,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 595,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0229,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 596,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0421,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 597,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0108,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 598,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0128,
+   "sims_used": 10,
+   "physics_seeded": true
+  },
+  {
+   "instance": 599,
+   "method": "physics-coordinate",
+   "passed": true,
+   "best_error": 0.0023,
+   "sims_used": 10,
+   "physics_seeded": true
+  }
+ ]
+}
