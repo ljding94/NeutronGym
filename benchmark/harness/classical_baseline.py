@@ -24,7 +24,8 @@ from concurrent.futures import ProcessPoolExecutor
 from neutrongym import generate, hacks
 from neutrongym.env import NeutronGym
 
-METHODS = ("random", "nelder-mead", "coordinate", "physics-coordinate")
+METHODS = ("random", "nelder-mead", "coordinate", "physics-coordinate",
+           "random-coordinate")
 
 # The strongest closed-form inversion the readout probe found for each family,
 # used as the STARTING POINT for local search rather than as a one-shot answer.
@@ -101,9 +102,17 @@ def _run(job):
         while b.used < budget:                   # spend any leftover budget
             b({k: round(rng.uniform(*free[k]), 6) for k in names})
     else:                                        # coordinate / pattern search
+        # Which START, not which optimizer, is what separates these arms. The
+        # baseline is deliberately undersized (the T2 calibration put it 3-4x
+        # below the FOM plateau on purpose), so a search begun there is a
+        # weak control: it conflates "the physics seed carries information"
+        # with "anything beats that start". random-coordinate is the arm that
+        # separates them (2026-09-24).
         seeded = None
-        if method == "physics-coordinate":
+        if method in ("physics-coordinate", "random-coordinate"):
             seeded = physics_start(family, inst)
+        elif method == "random-coordinate":
+            seeded = {k: round(rng.uniform(*free[k]), 6) for k in names}
         cur = dict(seeded) if seeded else dict(inst["baseline"])
         b(cur)
         step = {k: (free[k][1] - free[k][0]) / 8 for k in names}
@@ -126,10 +135,11 @@ def _run(job):
                     step[k] /= 2
     out = {"instance": index, "method": method, "passed": b.passed,
            "best_error": b.best, "sims_used": b.used}
-    if method == "physics-coordinate":
+    if method in ("physics-coordinate", "random-coordinate"):
         # records how often the formula even had a solution in range, so a
         # weak result cannot be blamed on the seed silently falling back
-        out["physics_seeded"] = seeded is not None
+        out["seeded"] = seeded is not None
+        out["start"] = seeded
     return out
 
 
