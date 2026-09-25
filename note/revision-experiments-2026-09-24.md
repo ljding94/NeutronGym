@@ -31,6 +31,43 @@ baseline), and **every** instance used its full 10 simulations.
 McNemar p = 0.24.** The 4.3-point gap is **not significant** — the two are
 statistically tied.
 
+### Control: does the *physics* matter, or just "not the baseline"? (added 2026-09-24)
+
+Every local-search arm started from the same baseline design, and that
+baseline is deliberately undersized (the T2 calibration placed it 3–4x below
+the FOM plateau). So the 13.3% → 81.0% jump was ambiguous between "the
+closed form carries information" and "anything beats that start". The
+control runs the identical optimizer and budget from a **random valid
+design**:
+
+| arm, guide match, 10 sims | pass rate |
+|---|---|
+| coordinate descent, **baseline** start | 40/300 (13.3%) |
+| coordinate descent, **random** start | **43/300 (14.3%)** |
+| coordinate descent, **physics** start | 243/300 (81.0%) |
+| GRPO-trained 8B | 230/300 (76.7%) |
+
+Paired: random vs baseline start **34 vs 31, p = 0.80** (indistinguishable —
+the baseline is not an unfairly weak start); physics vs random start
+**204 vs 4, p = 3.8e-55**; random start vs GRPO **8 vs 195, p = 1.0e-47**.
+
+**This settles it in the paper's favour.** The 13.3% row is a fair
+characterisation of unseeded local search at ten simulations, and the entire
+81.0% comes from the closed-form inversion rather than from the choice of
+start. So the matched-budget claim survives with one qualifier: RL beats
+classical search that is *not handed the physics*, decisively (76.7% vs
+14.3%), and is statistically indistinguishable from search that *is*
+(81.0%, p = 0.24).
+
+Evidence: `runs/m8/classical_guide_match_randomstart_budget10_from300_n300.json`.
+
+**A bug worth recording.** The control's first run reported 243/300 —
+byte-identical to the physics arm, 0 discordant, p = 1. That was a defect,
+not a result: the edit adding the control replaced both occurrences of the
+physics guard, so the control silently ran the physics seed. Two different
+starts agreeing on all 300 instances is a bug signature. Fixed, with
+regressions in `tests/test_classical_baseline.py`.
+
 ### What this does to the paper
 
 The pre-stated criterion was that landing near 76.7% leaves the paper intact
@@ -48,12 +85,16 @@ said any more:
 - ❌ Any wording implying the 13.3% row bounds what classical methods can do
   at 10 simulations.
 
-What is still true, and is a better sentence anyway:
+What is still true, and is a better sentence anyway (**the control above
+confirms the first clause is a real contrast, not an artefact of the
+starting point**):
 
-> The trained 8B matches, at the same simulation budget, a classical
-> optimizer that has been *handed the closed-form inversion* — while the
-> model was given only reward. What RL recovers from reward alone is what
-> the physicist supplies by hand.
+> At the same simulation budget the trained 8B beats classical search
+> decisively when that search is not handed the physics (76.7% vs 14.3%
+> from a random start, 13.3% from the baseline), and is statistically
+> indistinguishable from a search seeded with the closed-form inversion
+> (81.0%, p = 0.24). What RL recovers from reward alone is what the
+> physicist supplies by hand.
 
 That keeps the contribution (learning from execution feedback, no formula
 supplied) and drops a claim a reviewer would have broken. It also strengthens

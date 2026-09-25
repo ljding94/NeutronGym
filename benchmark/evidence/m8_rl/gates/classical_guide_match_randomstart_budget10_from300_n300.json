@@ -1,0 +1,3916 @@
+{
+ "summary": {
+  "random-coordinate": {
+   "n": 300,
+   "passes": 43,
+   "pass_rate": 0.1433,
+   "median_best_error": 0.2441,
+   "median_sims": 10
+  }
+ },
+ "budget": 10,
+ "start": 300,
+ "n": 300,
+ "rows": [
+  {
+   "instance": 300,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2476,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.025257,
+    "w_out": 0.074529,
+    "m_coat": 2.987167
+   }
+  },
+  {
+   "instance": 301,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2114,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.064365,
+    "w_out": 0.014038,
+    "m_coat": 1.802171
+   }
+  },
+  {
+   "instance": 302,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 1.2652,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.073206,
+    "w_out": 0.063971,
+    "m_coat": 2.541037
+   }
+  },
+  {
+   "instance": 303,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.5424,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.046206,
+    "w_out": 0.037916,
+    "m_coat": 2.781469
+   }
+  },
+  {
+   "instance": 304,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1195,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.057217,
+    "w_out": 0.041147,
+    "m_coat": 2.360335
+   }
+  },
+  {
+   "instance": 305,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1243,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.028394,
+    "w_out": 0.063206,
+    "m_coat": 2.607215
+   }
+  },
+  {
+   "instance": 306,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0073,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.046591,
+    "w_out": 0.056148,
+    "m_coat": 2.978002
+   }
+  },
+  {
+   "instance": 307,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0871,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.027164,
+    "w_out": 0.037985,
+    "m_coat": 2.914423
+   }
+  },
+  {
+   "instance": 308,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3184,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.06922,
+    "w_out": 0.055331,
+    "m_coat": 2.605159
+   }
+  },
+  {
+   "instance": 309,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2039,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.076973,
+    "w_out": 0.067467,
+    "m_coat": 1.884985
+   }
+  },
+  {
+   "instance": 310,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0795,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.057463,
+    "w_out": 0.063531,
+    "m_coat": 1.603097
+   }
+  },
+  {
+   "instance": 311,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3969,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.081734,
+    "w_out": 0.06838,
+    "m_coat": 1.718915
+   }
+  },
+  {
+   "instance": 312,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0758,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.037111,
+    "w_out": 0.073802,
+    "m_coat": 2.956596
+   }
+  },
+  {
+   "instance": 313,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 1.3306,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.026082,
+    "w_out": 0.060586,
+    "m_coat": 2.981551
+   }
+  },
+  {
+   "instance": 314,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0433,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.057953,
+    "w_out": 0.062431,
+    "m_coat": 2.414833
+   }
+  },
+  {
+   "instance": 315,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 1.2914,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.017894,
+    "w_out": 0.062177,
+    "m_coat": 1.838708
+   }
+  },
+  {
+   "instance": 316,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0426,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.0441,
+    "w_out": 0.060569,
+    "m_coat": 1.85407
+   }
+  },
+  {
+   "instance": 317,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1222,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.043442,
+    "w_out": 0.01095,
+    "m_coat": 2.92569
+   }
+  },
+  {
+   "instance": 318,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 1.6325,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.078963,
+    "w_out": 0.021642,
+    "m_coat": 2.104438
+   }
+  },
+  {
+   "instance": 319,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2089,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.01256,
+    "w_out": 0.065995,
+    "m_coat": 1.751267
+   }
+  },
+  {
+   "instance": 320,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0798,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.039203,
+    "w_out": 0.037498,
+    "m_coat": 1.318243
+   }
+  },
+  {
+   "instance": 321,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2061,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.058634,
+    "w_out": 0.088223,
+    "m_coat": 2.801086
+   }
+  },
+  {
+   "instance": 322,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0748,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.053314,
+    "w_out": 0.07351,
+    "m_coat": 2.33966
+   }
+  },
+  {
+   "instance": 323,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3461,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.088385,
+    "w_out": 0.018689,
+    "m_coat": 1.676943
+   }
+  },
+  {
+   "instance": 324,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2102,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.035012,
+    "w_out": 0.039312,
+    "m_coat": 1.607316
+   }
+  },
+  {
+   "instance": 325,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2946,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.024632,
+    "w_out": 0.0631,
+    "m_coat": 2.445923
+   }
+  },
+  {
+   "instance": 326,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3336,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.036537,
+    "w_out": 0.028327,
+    "m_coat": 1.89294
+   }
+  },
+  {
+   "instance": 327,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.6628,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.067067,
+    "w_out": 0.037693,
+    "m_coat": 2.252554
+   }
+  },
+  {
+   "instance": 328,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0038,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.08778,
+    "w_out": 0.062888,
+    "m_coat": 2.257478
+   }
+  },
+  {
+   "instance": 329,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.6172,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.069034,
+    "w_out": 0.070425,
+    "m_coat": 1.901966
+   }
+  },
+  {
+   "instance": 330,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.391,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.083356,
+    "w_out": 0.014549,
+    "m_coat": 2.999529
+   }
+  },
+  {
+   "instance": 331,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 3.1212,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.063906,
+    "w_out": 0.089321,
+    "m_coat": 1.666006
+   }
+  },
+  {
+   "instance": 332,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 1.4644,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.059403,
+    "w_out": 0.011755,
+    "m_coat": 2.326128
+   }
+  },
+  {
+   "instance": 333,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0882,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.082859,
+    "w_out": 0.054723,
+    "m_coat": 1.787116
+   }
+  },
+  {
+   "instance": 334,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3367,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.041892,
+    "w_out": 0.057635,
+    "m_coat": 1.055606
+   }
+  },
+  {
+   "instance": 335,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.025,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.048815,
+    "w_out": 0.072101,
+    "m_coat": 2.177408
+   }
+  },
+  {
+   "instance": 336,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1142,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.032238,
+    "w_out": 0.081595,
+    "m_coat": 2.105895
+   }
+  },
+  {
+   "instance": 337,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3321,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.061739,
+    "w_out": 0.017798,
+    "m_coat": 2.530367
+   }
+  },
+  {
+   "instance": 338,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2964,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.037251,
+    "w_out": 0.040846,
+    "m_coat": 1.042015
+   }
+  },
+  {
+   "instance": 339,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 2.1164,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.022466,
+    "w_out": 0.062856,
+    "m_coat": 1.272321
+   }
+  },
+  {
+   "instance": 340,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0234,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.061104,
+    "w_out": 0.022132,
+    "m_coat": 2.314587
+   }
+  },
+  {
+   "instance": 341,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 2.4479,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.053003,
+    "w_out": 0.069928,
+    "m_coat": 2.368522
+   }
+  },
+  {
+   "instance": 342,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0292,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.010137,
+    "w_out": 0.05405,
+    "m_coat": 2.430114
+   }
+  },
+  {
+   "instance": 343,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 1.2487,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.081568,
+    "w_out": 0.084147,
+    "m_coat": 2.544183
+   }
+  },
+  {
+   "instance": 344,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1685,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.035478,
+    "w_out": 0.044966,
+    "m_coat": 2.781325
+   }
+  },
+  {
+   "instance": 345,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.023,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.073607,
+    "w_out": 0.049541,
+    "m_coat": 2.027367
+   }
+  },
+  {
+   "instance": 346,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3848,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.019082,
+    "w_out": 0.053203,
+    "m_coat": 2.413428
+   }
+  },
+  {
+   "instance": 347,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1808,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.073104,
+    "w_out": 0.038569,
+    "m_coat": 1.221603
+   }
+  },
+  {
+   "instance": 348,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0793,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.050519,
+    "w_out": 0.055361,
+    "m_coat": 2.822579
+   }
+  },
+  {
+   "instance": 349,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1557,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.088751,
+    "w_out": 0.042845,
+    "m_coat": 1.773693
+   }
+  },
+  {
+   "instance": 350,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 1.9903,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.06902,
+    "w_out": 0.022951,
+    "m_coat": 1.860078
+   }
+  },
+  {
+   "instance": 351,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0033,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.058288,
+    "w_out": 0.013757,
+    "m_coat": 2.188801
+   }
+  },
+  {
+   "instance": 352,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.4649,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.04722,
+    "w_out": 0.056954,
+    "m_coat": 2.743121
+   }
+  },
+  {
+   "instance": 353,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.441,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.076191,
+    "w_out": 0.02858,
+    "m_coat": 2.006317
+   }
+  },
+  {
+   "instance": 354,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.5989,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.024585,
+    "w_out": 0.073204,
+    "m_coat": 1.896328
+   }
+  },
+  {
+   "instance": 355,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0436,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.065265,
+    "w_out": 0.01952,
+    "m_coat": 2.390991
+   }
+  },
+  {
+   "instance": 356,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0756,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.075731,
+    "w_out": 0.027291,
+    "m_coat": 1.882182
+   }
+  },
+  {
+   "instance": 357,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3717,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.079309,
+    "w_out": 0.01309,
+    "m_coat": 2.154376
+   }
+  },
+  {
+   "instance": 358,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3377,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.046346,
+    "w_out": 0.019435,
+    "m_coat": 1.37117
+   }
+  },
+  {
+   "instance": 359,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.8261,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.087843,
+    "w_out": 0.084395,
+    "m_coat": 2.755389
+   }
+  },
+  {
+   "instance": 360,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2602,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.031458,
+    "w_out": 0.038517,
+    "m_coat": 1.000126
+   }
+  },
+  {
+   "instance": 361,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.4353,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.042516,
+    "w_out": 0.07459,
+    "m_coat": 1.19644
+   }
+  },
+  {
+   "instance": 362,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 2.0577,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.089303,
+    "w_out": 0.078543,
+    "m_coat": 1.954312
+   }
+  },
+  {
+   "instance": 363,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2906,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.036178,
+    "w_out": 0.024688,
+    "m_coat": 2.519476
+   }
+  },
+  {
+   "instance": 364,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.285,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.066406,
+    "w_out": 0.081058,
+    "m_coat": 1.142878
+   }
+  },
+  {
+   "instance": 365,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0357,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.08368,
+    "w_out": 0.042247,
+    "m_coat": 2.281808
+   }
+  },
+  {
+   "instance": 366,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.6724,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.020835,
+    "w_out": 0.08524,
+    "m_coat": 2.562178
+   }
+  },
+  {
+   "instance": 367,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.4934,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.077385,
+    "w_out": 0.048511,
+    "m_coat": 2.556949
+   }
+  },
+  {
+   "instance": 368,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1286,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.037855,
+    "w_out": 0.054857,
+    "m_coat": 2.907235
+   }
+  },
+  {
+   "instance": 369,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0158,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.043163,
+    "w_out": 0.036713,
+    "m_coat": 2.5556
+   }
+  },
+  {
+   "instance": 370,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.4682,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.013218,
+    "w_out": 0.060024,
+    "m_coat": 1.314371
+   }
+  },
+  {
+   "instance": 371,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1353,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.054166,
+    "w_out": 0.053957,
+    "m_coat": 1.377377
+   }
+  },
+  {
+   "instance": 372,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.185,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.024024,
+    "w_out": 0.058981,
+    "m_coat": 2.770557
+   }
+  },
+  {
+   "instance": 373,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.166,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.066626,
+    "w_out": 0.038439,
+    "m_coat": 1.755441
+   }
+  },
+  {
+   "instance": 374,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1874,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.019576,
+    "w_out": 0.061319,
+    "m_coat": 1.445718
+   }
+  },
+  {
+   "instance": 375,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.9386,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.048927,
+    "w_out": 0.050664,
+    "m_coat": 2.662811
+   }
+  },
+  {
+   "instance": 376,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.057,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.060895,
+    "w_out": 0.080371,
+    "m_coat": 2.388195
+   }
+  },
+  {
+   "instance": 377,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.6394,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.081662,
+    "w_out": 0.040521,
+    "m_coat": 1.822166
+   }
+  },
+  {
+   "instance": 378,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 1.0865,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.025434,
+    "w_out": 0.064554,
+    "m_coat": 2.733092
+   }
+  },
+  {
+   "instance": 379,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1894,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.084995,
+    "w_out": 0.039469,
+    "m_coat": 1.407989
+   }
+  },
+  {
+   "instance": 380,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.6191,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.048588,
+    "w_out": 0.063084,
+    "m_coat": 2.746016
+   }
+  },
+  {
+   "instance": 381,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 1.9198,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.075348,
+    "w_out": 0.081811,
+    "m_coat": 2.865854
+   }
+  },
+  {
+   "instance": 382,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.446,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.086628,
+    "w_out": 0.012454,
+    "m_coat": 1.466218
+   }
+  },
+  {
+   "instance": 383,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3058,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.067897,
+    "w_out": 0.088334,
+    "m_coat": 2.095883
+   }
+  },
+  {
+   "instance": 384,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0221,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.086002,
+    "w_out": 0.067673,
+    "m_coat": 1.210607
+   }
+  },
+  {
+   "instance": 385,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1206,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.067336,
+    "w_out": 0.057475,
+    "m_coat": 1.928831
+   }
+  },
+  {
+   "instance": 386,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0597,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.048891,
+    "w_out": 0.058176,
+    "m_coat": 2.540233
+   }
+  },
+  {
+   "instance": 387,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1393,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.060104,
+    "w_out": 0.084524,
+    "m_coat": 2.378307
+   }
+  },
+  {
+   "instance": 388,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0464,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.074261,
+    "w_out": 0.010222,
+    "m_coat": 1.805014
+   }
+  },
+  {
+   "instance": 389,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0087,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.072506,
+    "w_out": 0.080643,
+    "m_coat": 2.236891
+   }
+  },
+  {
+   "instance": 390,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0339,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.022756,
+    "w_out": 0.073778,
+    "m_coat": 2.879484
+   }
+  },
+  {
+   "instance": 391,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.401,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.027056,
+    "w_out": 0.027803,
+    "m_coat": 2.645737
+   }
+  },
+  {
+   "instance": 392,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2078,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.045106,
+    "w_out": 0.01035,
+    "m_coat": 2.781189
+   }
+  },
+  {
+   "instance": 393,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.5081,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.086701,
+    "w_out": 0.074155,
+    "m_coat": 1.747416
+   }
+  },
+  {
+   "instance": 394,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1867,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.036701,
+    "w_out": 0.028915,
+    "m_coat": 2.628684
+   }
+  },
+  {
+   "instance": 395,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3164,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.048214,
+    "w_out": 0.064316,
+    "m_coat": 1.649903
+   }
+  },
+  {
+   "instance": 396,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1422,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.011173,
+    "w_out": 0.020332,
+    "m_coat": 2.302967
+   }
+  },
+  {
+   "instance": 397,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1024,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.040384,
+    "w_out": 0.067322,
+    "m_coat": 1.878034
+   }
+  },
+  {
+   "instance": 398,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2134,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.031835,
+    "w_out": 0.062624,
+    "m_coat": 1.495399
+   }
+  },
+  {
+   "instance": 399,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 1.1235,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.05461,
+    "w_out": 0.087632,
+    "m_coat": 1.658113
+   }
+  },
+  {
+   "instance": 400,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.346,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.023786,
+    "w_out": 0.049638,
+    "m_coat": 2.386336
+   }
+  },
+  {
+   "instance": 401,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.4812,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.015283,
+    "w_out": 0.078601,
+    "m_coat": 2.086771
+   }
+  },
+  {
+   "instance": 402,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0909,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.022193,
+    "w_out": 0.018626,
+    "m_coat": 2.78721
+   }
+  },
+  {
+   "instance": 403,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.056,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.084107,
+    "w_out": 0.049663,
+    "m_coat": 1.655409
+   }
+  },
+  {
+   "instance": 404,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2016,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.023107,
+    "w_out": 0.055868,
+    "m_coat": 2.391141
+   }
+  },
+  {
+   "instance": 405,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0467,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.057155,
+    "w_out": 0.082875,
+    "m_coat": 2.095306
+   }
+  },
+  {
+   "instance": 406,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.277,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.061214,
+    "w_out": 0.072866,
+    "m_coat": 2.715581
+   }
+  },
+  {
+   "instance": 407,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1341,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.011136,
+    "w_out": 0.05804,
+    "m_coat": 1.755371
+   }
+  },
+  {
+   "instance": 408,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1157,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.084808,
+    "w_out": 0.04242,
+    "m_coat": 1.067064
+   }
+  },
+  {
+   "instance": 409,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3923,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.067525,
+    "w_out": 0.074085,
+    "m_coat": 2.682642
+   }
+  },
+  {
+   "instance": 410,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1927,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.075978,
+    "w_out": 0.054211,
+    "m_coat": 2.341225
+   }
+  },
+  {
+   "instance": 411,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1606,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.038357,
+    "w_out": 0.041968,
+    "m_coat": 1.215443
+   }
+  },
+  {
+   "instance": 412,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2516,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.02246,
+    "w_out": 0.035999,
+    "m_coat": 1.393642
+   }
+  },
+  {
+   "instance": 413,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.9617,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.084554,
+    "w_out": 0.08625,
+    "m_coat": 2.06883
+   }
+  },
+  {
+   "instance": 414,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.263,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.035971,
+    "w_out": 0.056244,
+    "m_coat": 1.546243
+   }
+  },
+  {
+   "instance": 415,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0607,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.042927,
+    "w_out": 0.070437,
+    "m_coat": 2.447621
+   }
+  },
+  {
+   "instance": 416,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0677,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.017645,
+    "w_out": 0.056565,
+    "m_coat": 2.869537
+   }
+  },
+  {
+   "instance": 417,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3679,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.067425,
+    "w_out": 0.026558,
+    "m_coat": 2.815879
+   }
+  },
+  {
+   "instance": 418,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2995,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.027817,
+    "w_out": 0.025908,
+    "m_coat": 2.155768
+   }
+  },
+  {
+   "instance": 419,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2764,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.033854,
+    "w_out": 0.052307,
+    "m_coat": 2.388471
+   }
+  },
+  {
+   "instance": 420,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.6988,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.037737,
+    "w_out": 0.080463,
+    "m_coat": 2.508236
+   }
+  },
+  {
+   "instance": 421,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1822,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.024779,
+    "w_out": 0.069451,
+    "m_coat": 1.182434
+   }
+  },
+  {
+   "instance": 422,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.4466,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.056324,
+    "w_out": 0.012937,
+    "m_coat": 2.957321
+   }
+  },
+  {
+   "instance": 423,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2986,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.023198,
+    "w_out": 0.035831,
+    "m_coat": 1.432162
+   }
+  },
+  {
+   "instance": 424,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0366,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.026297,
+    "w_out": 0.06683,
+    "m_coat": 2.603788
+   }
+  },
+  {
+   "instance": 425,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3817,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.065171,
+    "w_out": 0.073563,
+    "m_coat": 1.476408
+   }
+  },
+  {
+   "instance": 426,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3736,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.076825,
+    "w_out": 0.019599,
+    "m_coat": 1.14945
+   }
+  },
+  {
+   "instance": 427,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0279,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.057879,
+    "w_out": 0.041036,
+    "m_coat": 1.881433
+   }
+  },
+  {
+   "instance": 428,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3562,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.080377,
+    "w_out": 0.089632,
+    "m_coat": 1.29076
+   }
+  },
+  {
+   "instance": 429,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 1.6743,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.070588,
+    "w_out": 0.024004,
+    "m_coat": 2.70489
+   }
+  },
+  {
+   "instance": 430,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0238,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.056855,
+    "w_out": 0.062813,
+    "m_coat": 1.405881
+   }
+  },
+  {
+   "instance": 431,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0768,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.058762,
+    "w_out": 0.049448,
+    "m_coat": 2.949606
+   }
+  },
+  {
+   "instance": 432,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.6026,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.074686,
+    "w_out": 0.047485,
+    "m_coat": 2.585835
+   }
+  },
+  {
+   "instance": 433,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2383,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.080094,
+    "w_out": 0.081991,
+    "m_coat": 1.491056
+   }
+  },
+  {
+   "instance": 434,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2322,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.064675,
+    "w_out": 0.015073,
+    "m_coat": 1.363862
+   }
+  },
+  {
+   "instance": 435,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1734,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.048859,
+    "w_out": 0.046328,
+    "m_coat": 1.083599
+   }
+  },
+  {
+   "instance": 436,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.5401,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.034469,
+    "w_out": 0.011163,
+    "m_coat": 2.606748
+   }
+  },
+  {
+   "instance": 437,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.476,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.051823,
+    "w_out": 0.05127,
+    "m_coat": 2.232355
+   }
+  },
+  {
+   "instance": 438,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1311,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.025729,
+    "w_out": 0.01934,
+    "m_coat": 1.031259
+   }
+  },
+  {
+   "instance": 439,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2664,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.021716,
+    "w_out": 0.046307,
+    "m_coat": 2.321756
+   }
+  },
+  {
+   "instance": 440,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1048,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.015754,
+    "w_out": 0.067647,
+    "m_coat": 1.272312
+   }
+  },
+  {
+   "instance": 441,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0324,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.021942,
+    "w_out": 0.055889,
+    "m_coat": 1.023711
+   }
+  },
+  {
+   "instance": 442,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2666,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.08102,
+    "w_out": 0.03645,
+    "m_coat": 1.094491
+   }
+  },
+  {
+   "instance": 443,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1698,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.010301,
+    "w_out": 0.077931,
+    "m_coat": 2.595995
+   }
+  },
+  {
+   "instance": 444,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0675,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.05198,
+    "w_out": 0.042933,
+    "m_coat": 2.03123
+   }
+  },
+  {
+   "instance": 445,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.7701,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.078408,
+    "w_out": 0.049135,
+    "m_coat": 2.620271
+   }
+  },
+  {
+   "instance": 446,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 1.6149,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.066813,
+    "w_out": 0.038776,
+    "m_coat": 2.225249
+   }
+  },
+  {
+   "instance": 447,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2225,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.077427,
+    "w_out": 0.086784,
+    "m_coat": 2.533466
+   }
+  },
+  {
+   "instance": 448,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0641,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.049413,
+    "w_out": 0.03709,
+    "m_coat": 2.755676
+   }
+  },
+  {
+   "instance": 449,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3269,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.047492,
+    "w_out": 0.025756,
+    "m_coat": 1.129575
+   }
+  },
+  {
+   "instance": 450,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1302,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.07074,
+    "w_out": 0.010263,
+    "m_coat": 2.545152
+   }
+  },
+  {
+   "instance": 451,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2595,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.034583,
+    "w_out": 0.018018,
+    "m_coat": 2.104413
+   }
+  },
+  {
+   "instance": 452,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.475,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.034397,
+    "w_out": 0.057628,
+    "m_coat": 1.370155
+   }
+  },
+  {
+   "instance": 453,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2441,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.044347,
+    "w_out": 0.02294,
+    "m_coat": 2.567777
+   }
+  },
+  {
+   "instance": 454,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1116,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.077405,
+    "w_out": 0.02171,
+    "m_coat": 1.868466
+   }
+  },
+  {
+   "instance": 455,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2976,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.055454,
+    "w_out": 0.039648,
+    "m_coat": 1.132541
+   }
+  },
+  {
+   "instance": 456,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0682,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.02496,
+    "w_out": 0.043536,
+    "m_coat": 1.973008
+   }
+  },
+  {
+   "instance": 457,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2616,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.031212,
+    "w_out": 0.026097,
+    "m_coat": 2.888097
+   }
+  },
+  {
+   "instance": 458,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1737,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.023795,
+    "w_out": 0.06196,
+    "m_coat": 2.518082
+   }
+  },
+  {
+   "instance": 459,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2663,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.08391,
+    "w_out": 0.068176,
+    "m_coat": 1.953358
+   }
+  },
+  {
+   "instance": 460,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.4509,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.044121,
+    "w_out": 0.023336,
+    "m_coat": 1.140797
+   }
+  },
+  {
+   "instance": 461,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3023,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.029726,
+    "w_out": 0.017974,
+    "m_coat": 2.761409
+   }
+  },
+  {
+   "instance": 462,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1697,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.084485,
+    "w_out": 0.041182,
+    "m_coat": 2.530701
+   }
+  },
+  {
+   "instance": 463,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1088,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.089586,
+    "w_out": 0.083225,
+    "m_coat": 1.885725
+   }
+  },
+  {
+   "instance": 464,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3039,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.063623,
+    "w_out": 0.033741,
+    "m_coat": 2.656371
+   }
+  },
+  {
+   "instance": 465,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0466,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.05026,
+    "w_out": 0.081112,
+    "m_coat": 1.634457
+   }
+  },
+  {
+   "instance": 466,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0476,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.064142,
+    "w_out": 0.060267,
+    "m_coat": 1.360322
+   }
+  },
+  {
+   "instance": 467,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.7059,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.062148,
+    "w_out": 0.025888,
+    "m_coat": 2.595167
+   }
+  },
+  {
+   "instance": 468,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 1.3072,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.015614,
+    "w_out": 0.077629,
+    "m_coat": 2.451595
+   }
+  },
+  {
+   "instance": 469,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0818,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.060001,
+    "w_out": 0.011873,
+    "m_coat": 2.901613
+   }
+  },
+  {
+   "instance": 470,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0753,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.032497,
+    "w_out": 0.067504,
+    "m_coat": 1.394456
+   }
+  },
+  {
+   "instance": 471,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.5781,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.025747,
+    "w_out": 0.07234,
+    "m_coat": 2.411075
+   }
+  },
+  {
+   "instance": 472,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3327,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.014923,
+    "w_out": 0.056806,
+    "m_coat": 1.616732
+   }
+  },
+  {
+   "instance": 473,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3015,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.078146,
+    "w_out": 0.081254,
+    "m_coat": 2.475757
+   }
+  },
+  {
+   "instance": 474,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0919,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.013032,
+    "w_out": 0.052268,
+    "m_coat": 1.951216
+   }
+  },
+  {
+   "instance": 475,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1893,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.067666,
+    "w_out": 0.052141,
+    "m_coat": 2.51223
+   }
+  },
+  {
+   "instance": 476,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 1.413,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.062994,
+    "w_out": 0.022593,
+    "m_coat": 1.408383
+   }
+  },
+  {
+   "instance": 477,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0824,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.028733,
+    "w_out": 0.024213,
+    "m_coat": 2.969492
+   }
+  },
+  {
+   "instance": 478,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.4008,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.035837,
+    "w_out": 0.08689,
+    "m_coat": 2.830619
+   }
+  },
+  {
+   "instance": 479,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0146,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.033684,
+    "w_out": 0.053078,
+    "m_coat": 1.973712
+   }
+  },
+  {
+   "instance": 480,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2225,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.049514,
+    "w_out": 0.060427,
+    "m_coat": 1.238136
+   }
+  },
+  {
+   "instance": 481,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1619,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.089805,
+    "w_out": 0.047148,
+    "m_coat": 1.855887
+   }
+  },
+  {
+   "instance": 482,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3445,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.016452,
+    "w_out": 0.034131,
+    "m_coat": 2.720838
+   }
+  },
+  {
+   "instance": 483,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2846,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.055312,
+    "w_out": 0.033925,
+    "m_coat": 2.117411
+   }
+  },
+  {
+   "instance": 484,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2088,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.019218,
+    "w_out": 0.031229,
+    "m_coat": 1.028459
+   }
+  },
+  {
+   "instance": 485,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.9998,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.052143,
+    "w_out": 0.037999,
+    "m_coat": 2.825108
+   }
+  },
+  {
+   "instance": 486,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0578,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.043471,
+    "w_out": 0.027304,
+    "m_coat": 2.445339
+   }
+  },
+  {
+   "instance": 487,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2803,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.033494,
+    "w_out": 0.075863,
+    "m_coat": 2.601768
+   }
+  },
+  {
+   "instance": 488,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.225,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.027812,
+    "w_out": 0.038296,
+    "m_coat": 2.74527
+   }
+  },
+  {
+   "instance": 489,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0367,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.031877,
+    "w_out": 0.013243,
+    "m_coat": 1.125496
+   }
+  },
+  {
+   "instance": 490,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3035,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.034444,
+    "w_out": 0.03684,
+    "m_coat": 2.717176
+   }
+  },
+  {
+   "instance": 491,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.075,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.04661,
+    "w_out": 0.05658,
+    "m_coat": 2.373391
+   }
+  },
+  {
+   "instance": 492,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1056,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.015637,
+    "w_out": 0.013004,
+    "m_coat": 1.93459
+   }
+  },
+  {
+   "instance": 493,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0297,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.051527,
+    "w_out": 0.042293,
+    "m_coat": 2.749753
+   }
+  },
+  {
+   "instance": 494,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3008,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.02761,
+    "w_out": 0.032657,
+    "m_coat": 1.912977
+   }
+  },
+  {
+   "instance": 495,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0644,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.060291,
+    "w_out": 0.016084,
+    "m_coat": 1.677636
+   }
+  },
+  {
+   "instance": 496,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.8366,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.048272,
+    "w_out": 0.015034,
+    "m_coat": 2.904677
+   }
+  },
+  {
+   "instance": 497,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 1.2313,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.023627,
+    "w_out": 0.076409,
+    "m_coat": 1.884803
+   }
+  },
+  {
+   "instance": 498,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0435,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.034498,
+    "w_out": 0.046068,
+    "m_coat": 2.349287
+   }
+  },
+  {
+   "instance": 499,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3743,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.082933,
+    "w_out": 0.051438,
+    "m_coat": 2.029518
+   }
+  },
+  {
+   "instance": 500,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1957,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.02408,
+    "w_out": 0.056683,
+    "m_coat": 2.874283
+   }
+  },
+  {
+   "instance": 501,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0628,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.054729,
+    "w_out": 0.042303,
+    "m_coat": 2.589751
+   }
+  },
+  {
+   "instance": 502,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2997,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.017937,
+    "w_out": 0.013969,
+    "m_coat": 2.070991
+   }
+  },
+  {
+   "instance": 503,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 2.9418,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.062427,
+    "w_out": 0.03282,
+    "m_coat": 2.06941
+   }
+  },
+  {
+   "instance": 504,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.5098,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.086977,
+    "w_out": 0.079407,
+    "m_coat": 2.652625
+   }
+  },
+  {
+   "instance": 505,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.5186,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.024668,
+    "w_out": 0.084787,
+    "m_coat": 2.153288
+   }
+  },
+  {
+   "instance": 506,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3835,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.019137,
+    "w_out": 0.025189,
+    "m_coat": 2.253354
+   }
+  },
+  {
+   "instance": 507,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.279,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.053561,
+    "w_out": 0.043072,
+    "m_coat": 1.926259
+   }
+  },
+  {
+   "instance": 508,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1673,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.037461,
+    "w_out": 0.056036,
+    "m_coat": 1.935272
+   }
+  },
+  {
+   "instance": 509,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 1.875,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.053994,
+    "w_out": 0.018945,
+    "m_coat": 2.335642
+   }
+  },
+  {
+   "instance": 510,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2205,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.071795,
+    "w_out": 0.059537,
+    "m_coat": 1.510113
+   }
+  },
+  {
+   "instance": 511,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.6932,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.06617,
+    "w_out": 0.084825,
+    "m_coat": 2.298348
+   }
+  },
+  {
+   "instance": 512,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0229,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.072542,
+    "w_out": 0.026007,
+    "m_coat": 1.432618
+   }
+  },
+  {
+   "instance": 513,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.34,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.018787,
+    "w_out": 0.078508,
+    "m_coat": 1.300026
+   }
+  },
+  {
+   "instance": 514,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0739,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.054223,
+    "w_out": 0.029099,
+    "m_coat": 1.446809
+   }
+  },
+  {
+   "instance": 515,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2507,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.023032,
+    "w_out": 0.044254,
+    "m_coat": 2.451238
+   }
+  },
+  {
+   "instance": 516,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0442,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.066646,
+    "w_out": 0.022817,
+    "m_coat": 1.266094
+   }
+  },
+  {
+   "instance": 517,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.4712,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.08305,
+    "w_out": 0.083457,
+    "m_coat": 2.431215
+   }
+  },
+  {
+   "instance": 518,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3724,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.017076,
+    "w_out": 0.063826,
+    "m_coat": 2.489671
+   }
+  },
+  {
+   "instance": 519,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1358,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.010002,
+    "w_out": 0.051542,
+    "m_coat": 1.817393
+   }
+  },
+  {
+   "instance": 520,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0501,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.027054,
+    "w_out": 0.022241,
+    "m_coat": 2.55879
+   }
+  },
+  {
+   "instance": 521,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.8337,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.082245,
+    "w_out": 0.046808,
+    "m_coat": 2.197405
+   }
+  },
+  {
+   "instance": 522,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.552,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.02587,
+    "w_out": 0.083681,
+    "m_coat": 1.444616
+   }
+  },
+  {
+   "instance": 523,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2153,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.067466,
+    "w_out": 0.04514,
+    "m_coat": 2.607352
+   }
+  },
+  {
+   "instance": 524,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1372,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.053344,
+    "w_out": 0.035478,
+    "m_coat": 1.275143
+   }
+  },
+  {
+   "instance": 525,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 2.1206,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.041319,
+    "w_out": 0.077608,
+    "m_coat": 1.406951
+   }
+  },
+  {
+   "instance": 526,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0985,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.067994,
+    "w_out": 0.048816,
+    "m_coat": 1.784465
+   }
+  },
+  {
+   "instance": 527,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.44,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.074453,
+    "w_out": 0.056093,
+    "m_coat": 1.446178
+   }
+  },
+  {
+   "instance": 528,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1681,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.050127,
+    "w_out": 0.031807,
+    "m_coat": 1.048894
+   }
+  },
+  {
+   "instance": 529,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0867,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.052998,
+    "w_out": 0.031473,
+    "m_coat": 1.969736
+   }
+  },
+  {
+   "instance": 530,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1212,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.049008,
+    "w_out": 0.081702,
+    "m_coat": 2.177959
+   }
+  },
+  {
+   "instance": 531,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0887,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.062168,
+    "w_out": 0.066678,
+    "m_coat": 1.981643
+   }
+  },
+  {
+   "instance": 532,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3765,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.017602,
+    "w_out": 0.014255,
+    "m_coat": 1.532979
+   }
+  },
+  {
+   "instance": 533,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.018,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.037345,
+    "w_out": 0.025356,
+    "m_coat": 2.429213
+   }
+  },
+  {
+   "instance": 534,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.108,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.084246,
+    "w_out": 0.057131,
+    "m_coat": 1.552406
+   }
+  },
+  {
+   "instance": 535,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0227,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.040886,
+    "w_out": 0.014967,
+    "m_coat": 1.685956
+   }
+  },
+  {
+   "instance": 536,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.4733,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.074873,
+    "w_out": 0.086417,
+    "m_coat": 2.900068
+   }
+  },
+  {
+   "instance": 537,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2581,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.03579,
+    "w_out": 0.020596,
+    "m_coat": 1.56369
+   }
+  },
+  {
+   "instance": 538,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 1.2789,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.075249,
+    "w_out": 0.062238,
+    "m_coat": 2.218908
+   }
+  },
+  {
+   "instance": 539,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0381,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.087378,
+    "w_out": 0.02998,
+    "m_coat": 1.187272
+   }
+  },
+  {
+   "instance": 540,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2373,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.05424,
+    "w_out": 0.053944,
+    "m_coat": 1.025424
+   }
+  },
+  {
+   "instance": 541,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0329,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.06052,
+    "w_out": 0.083986,
+    "m_coat": 2.398042
+   }
+  },
+  {
+   "instance": 542,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0078,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.046182,
+    "w_out": 0.059822,
+    "m_coat": 2.577354
+   }
+  },
+  {
+   "instance": 543,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 2.2755,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.072912,
+    "w_out": 0.01427,
+    "m_coat": 2.209432
+   }
+  },
+  {
+   "instance": 544,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2663,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.037344,
+    "w_out": 0.03953,
+    "m_coat": 2.984552
+   }
+  },
+  {
+   "instance": 545,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.261,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.041748,
+    "w_out": 0.036917,
+    "m_coat": 1.000926
+   }
+  },
+  {
+   "instance": 546,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.159,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.049209,
+    "w_out": 0.049854,
+    "m_coat": 1.405825
+   }
+  },
+  {
+   "instance": 547,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.462,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.075332,
+    "w_out": 0.037071,
+    "m_coat": 2.400939
+   }
+  },
+  {
+   "instance": 548,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2972,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.089794,
+    "w_out": 0.08185,
+    "m_coat": 2.40593
+   }
+  },
+  {
+   "instance": 549,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3427,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.04453,
+    "w_out": 0.034918,
+    "m_coat": 1.606239
+   }
+  },
+  {
+   "instance": 550,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.4243,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.019233,
+    "w_out": 0.059644,
+    "m_coat": 1.836685
+   }
+  },
+  {
+   "instance": 551,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1088,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.04481,
+    "w_out": 0.083627,
+    "m_coat": 1.885067
+   }
+  },
+  {
+   "instance": 552,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 2.4167,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.071925,
+    "w_out": 0.064449,
+    "m_coat": 2.726397
+   }
+  },
+  {
+   "instance": 553,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0788,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.032769,
+    "w_out": 0.057334,
+    "m_coat": 1.321385
+   }
+  },
+  {
+   "instance": 554,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0237,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.057941,
+    "w_out": 0.064421,
+    "m_coat": 2.682959
+   }
+  },
+  {
+   "instance": 555,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 2.181,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.069008,
+    "w_out": 0.033074,
+    "m_coat": 1.886039
+   }
+  },
+  {
+   "instance": 556,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1151,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.028864,
+    "w_out": 0.047314,
+    "m_coat": 1.656708
+   }
+  },
+  {
+   "instance": 557,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0486,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.058433,
+    "w_out": 0.061946,
+    "m_coat": 2.808005
+   }
+  },
+  {
+   "instance": 558,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2661,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.030108,
+    "w_out": 0.024289,
+    "m_coat": 2.512651
+   }
+  },
+  {
+   "instance": 559,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.318,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.039811,
+    "w_out": 0.081375,
+    "m_coat": 2.13376
+   }
+  },
+  {
+   "instance": 560,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 1.0085,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.058353,
+    "w_out": 0.013003,
+    "m_coat": 2.997617
+   }
+  },
+  {
+   "instance": 561,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.031,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.083851,
+    "w_out": 0.016502,
+    "m_coat": 1.837125
+   }
+  },
+  {
+   "instance": 562,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0502,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.05518,
+    "w_out": 0.022739,
+    "m_coat": 1.885182
+   }
+  },
+  {
+   "instance": 563,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2238,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.025726,
+    "w_out": 0.07141,
+    "m_coat": 1.247666
+   }
+  },
+  {
+   "instance": 564,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2145,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.077302,
+    "w_out": 0.052787,
+    "m_coat": 1.714157
+   }
+  },
+  {
+   "instance": 565,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0265,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.043706,
+    "w_out": 0.037232,
+    "m_coat": 1.549687
+   }
+  },
+  {
+   "instance": 566,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3093,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.018851,
+    "w_out": 0.042731,
+    "m_coat": 2.837516
+   }
+  },
+  {
+   "instance": 567,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2723,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.029559,
+    "w_out": 0.013226,
+    "m_coat": 2.531164
+   }
+  },
+  {
+   "instance": 568,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 1.2898,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.012345,
+    "w_out": 0.073876,
+    "m_coat": 1.668899
+   }
+  },
+  {
+   "instance": 569,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0748,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.021591,
+    "w_out": 0.07547,
+    "m_coat": 1.064222
+   }
+  },
+  {
+   "instance": 570,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 2.1214,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.075029,
+    "w_out": 0.038994,
+    "m_coat": 2.616324
+   }
+  },
+  {
+   "instance": 571,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1295,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.037359,
+    "w_out": 0.071999,
+    "m_coat": 1.333316
+   }
+  },
+  {
+   "instance": 572,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.424,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.053217,
+    "w_out": 0.013214,
+    "m_coat": 1.967899
+   }
+  },
+  {
+   "instance": 573,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1459,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.063038,
+    "w_out": 0.077965,
+    "m_coat": 1.633751
+   }
+  },
+  {
+   "instance": 574,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2617,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.047828,
+    "w_out": 0.063926,
+    "m_coat": 2.9064
+   }
+  },
+  {
+   "instance": 575,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2346,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.013871,
+    "w_out": 0.072534,
+    "m_coat": 1.399716
+   }
+  },
+  {
+   "instance": 576,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.7204,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.062358,
+    "w_out": 0.066691,
+    "m_coat": 2.174168
+   }
+  },
+  {
+   "instance": 577,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0348,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.059165,
+    "w_out": 0.026658,
+    "m_coat": 2.238009
+   }
+  },
+  {
+   "instance": 578,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1069,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.02282,
+    "w_out": 0.083367,
+    "m_coat": 2.504625
+   }
+  },
+  {
+   "instance": 579,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1026,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.04347,
+    "w_out": 0.025618,
+    "m_coat": 2.974409
+   }
+  },
+  {
+   "instance": 580,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.4823,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.05339,
+    "w_out": 0.064845,
+    "m_coat": 1.532778
+   }
+  },
+  {
+   "instance": 581,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 2.1659,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.078562,
+    "w_out": 0.089614,
+    "m_coat": 1.566983
+   }
+  },
+  {
+   "instance": 582,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.6161,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.064276,
+    "w_out": 0.058564,
+    "m_coat": 2.585879
+   }
+  },
+  {
+   "instance": 583,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.5727,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.066521,
+    "w_out": 0.075678,
+    "m_coat": 2.577845
+   }
+  },
+  {
+   "instance": 584,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.5577,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.07828,
+    "w_out": 0.085021,
+    "m_coat": 1.059028
+   }
+  },
+  {
+   "instance": 585,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3119,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.012461,
+    "w_out": 0.052775,
+    "m_coat": 2.921945
+   }
+  },
+  {
+   "instance": 586,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0638,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.054263,
+    "w_out": 0.048266,
+    "m_coat": 1.936499
+   }
+  },
+  {
+   "instance": 587,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.0564,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.060734,
+    "w_out": 0.043006,
+    "m_coat": 1.551836
+   }
+  },
+  {
+   "instance": 588,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.057,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.085306,
+    "w_out": 0.083268,
+    "m_coat": 1.814042
+   }
+  },
+  {
+   "instance": 589,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 1.3735,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.067856,
+    "w_out": 0.062593,
+    "m_coat": 1.459361
+   }
+  },
+  {
+   "instance": 590,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 2.447,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.058737,
+    "w_out": 0.022074,
+    "m_coat": 2.646046
+   }
+  },
+  {
+   "instance": 591,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2959,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.044728,
+    "w_out": 0.027843,
+    "m_coat": 1.903401
+   }
+  },
+  {
+   "instance": 592,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.8578,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.08317,
+    "w_out": 0.018004,
+    "m_coat": 2.738398
+   }
+  },
+  {
+   "instance": 593,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0492,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.02324,
+    "w_out": 0.072907,
+    "m_coat": 2.838323
+   }
+  },
+  {
+   "instance": 594,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0405,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.072139,
+    "w_out": 0.052516,
+    "m_coat": 1.284313
+   }
+  },
+  {
+   "instance": 595,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.1165,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.041897,
+    "w_out": 0.027343,
+    "m_coat": 1.713124
+   }
+  },
+  {
+   "instance": 596,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.2559,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.088292,
+    "w_out": 0.048133,
+    "m_coat": 1.011966
+   }
+  },
+  {
+   "instance": 597,
+   "method": "random-coordinate",
+   "passed": false,
+   "best_error": 0.3689,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.032685,
+    "w_out": 0.075542,
+    "m_coat": 2.237649
+   }
+  },
+  {
+   "instance": 598,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0314,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.038714,
+    "w_out": 0.061724,
+    "m_coat": 1.543213
+   }
+  },
+  {
+   "instance": 599,
+   "method": "random-coordinate",
+   "passed": true,
+   "best_error": 0.0211,
+   "sims_used": 10,
+   "seeded": true,
+   "start": {
+    "w_in": 0.029779,
+    "w_out": 0.011934,
+    "m_coat": 2.79116
+   }
+  }
+ ]
+}
